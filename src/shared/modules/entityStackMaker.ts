@@ -50,9 +50,7 @@ export function makeEntityStack({
   for (let i = 0; i < sortedData.size(); i++) {
     const e = sortedData[i];
     print(
-      `  ${i}: ${e.name} - hasConnection: ${
-        e.hasConnection ? "true" : "false"
-      }`
+      `  ${i}: ${e.name} - hasConnection: ${e.hasConnection ? "true" : "false"}`
     );
   }
 

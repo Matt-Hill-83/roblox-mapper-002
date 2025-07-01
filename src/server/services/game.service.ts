@@ -164,6 +164,8 @@ export class GameService {
 
     // Print summary of entities with connections
     const connectedEntities = getEntitiesWithConnections();
-    print(`🔗 Applied connection properties to ${connectedEntities.size()} entities with connections`);
+    print(
+      `🔗 Applied connection properties to ${connectedEntities.size()} entities with connections`
+    );
   }
 }

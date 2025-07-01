@@ -13,20 +13,28 @@ export function createRowOfStacks({
   spacing = 12,
 }: CreateRowOfStacksConfig): Model[] {
   const stacks: Model[] = [];
-  
+
   // Take the first maxStacks from available entity data
   const selectedData: typeof allEntityData = [];
   for (let i = 0; i < math.min(maxStacks, allEntityData.size()); i++) {
     selectedData.push(allEntityData[i]);
   }
-  
-  print(`🟦 Row: Using entities 0 to ${selectedData.size() - 1} (${selectedData.size()} total)`);
-  
+
+  print(
+    `🟦 Row: Using entities 0 to ${
+      selectedData.size() - 1
+    } (${selectedData.size()} total)`
+  );
+
   // Debug: Print first few entity names
   for (let i = 0; i < math.min(5, selectedData.size()); i++) {
-    print(`  Row entity ${i}: ${selectedData[i].name} (${selectedData[i].data.size()} items)`);
+    print(
+      `  Row entity ${i}: ${selectedData[i].name} (${selectedData[
+        i
+      ].data.size()} items)`
+    );
   }
-  
+
   for (let i = 0; i < selectedData.size(); i++) {
     const entityInfo = selectedData[i];
     const pos: [number, number, number] = [
@@ -45,4 +53,4 @@ export function createRowOfStacks({
     stacks.push(stack);
   }
   return stacks;
-} 
+}
