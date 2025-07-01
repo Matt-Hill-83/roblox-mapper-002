@@ -17,7 +17,7 @@ export class GameService {
             barProps: {
                 Color: [0.9, 0.7, 0.3], // Golden color
             },
-            labels: ["Front", "Left", "Right"]
+            labels: ["North", "East", "West"]
         });
         print("Hexagon created at (5, 5, 5)!");
     }

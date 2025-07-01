@@ -2,6 +2,16 @@ import { Workspace } from "@rbxts/services";
 import { makeHexagon } from "../../shared/modules/hexagonMaker";
 
 export class HexagonService {
+  private getMyStuffFolder(): Folder {
+    let myStuff = Workspace.FindFirstChild("MyStuff") as Folder;
+    if (!myStuff) {
+      myStuff = new Instance("Folder");
+      myStuff.Name = "MyStuff";
+      myStuff.Parent = Workspace;
+    }
+    return myStuff;
+  }
+
   public createHexagon({ id, centerPosition, width, height, barProps, labels }: {
     id?: number;
     centerPosition?: [number, number, number];
@@ -11,7 +21,7 @@ export class HexagonService {
     labels?: string[];
   }): Model {
     const hexagon = makeHexagon({ id, centerPosition, width, height, barProps, labels });
-    hexagon.Parent = Workspace;
+    hexagon.Parent = this.getMyStuffFolder();
     return hexagon;
   }
 } 
