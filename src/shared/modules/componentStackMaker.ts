@@ -12,6 +12,7 @@ interface ComponentStackConfig {
 interface StackItem {
   name: string;
   labels: string[];
+  guid?: string;
 }
 
 export function makeComponentStack({
@@ -36,6 +37,7 @@ export function makeComponentStack({
     stackItemsComponents.push({
       name: item.name,
       labels,
+      guid: item.guid,
     });
   }
 

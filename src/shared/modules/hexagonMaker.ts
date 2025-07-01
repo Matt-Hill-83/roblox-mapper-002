@@ -9,6 +9,7 @@ interface HexagonConfig {
   labels?: string[];
   stackIndex?: number;
   hexIndex?: number;
+  guid?: string;
 }
 
 function padNumber(num: number, length: number): string {
@@ -35,6 +36,7 @@ export function makeHexagon({
   labels = ["Front", "Left", "Right"],
   stackIndex = 1,
   hexIndex = 1,
+  guid,
 }: HexagonConfig): Model {
   print("⬡ Generating hexagon with 3 bars...");
 
@@ -51,6 +53,17 @@ export function makeHexagon({
   const hexModel = new Instance("Model");
   const hexagonName = generateHexagonName(stackIndex, hexIndex);
   hexModel.Name = hexagonName;
+
+  // Set GUID as attribute if provided
+  if (guid) {
+    hexModel.SetAttribute("guid", guid);
+  }
+
+  // Create center attachment
+  const centerAttachment = new Instance("Attachment");
+  centerAttachment.Name = `att000-h${padNumber(hexIndex, 3)}-st${padNumber(stackIndex, 3)}`;
+  centerAttachment.Position = new Vector3(0, 0, 0);
+  centerAttachment.Parent = hexModel;
 
   // Create 3 bars rotated 60 degrees apart
   for (let i = 0; i < 3; i++) {

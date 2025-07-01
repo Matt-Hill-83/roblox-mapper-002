@@ -3,6 +3,7 @@ import { makeHexagon } from "./hexagonMaker";
 interface StackItem {
   name: string;
   labels: string[];
+  guid?: string;
 }
 
 interface SmartHexStackConfig {
@@ -66,6 +67,7 @@ export function makeSmartHexStack({
       labels: item.labels,
       stackIndex: stackIndex,
       hexIndex: level + 1,
+      guid: item.guid,
     });
 
     hexModel.Parent = stackModel;

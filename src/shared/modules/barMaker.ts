@@ -130,8 +130,8 @@ export function makeBar({
   bar.BottomSurface = finalProps.BottomSurface as unknown as Enum.SurfaceType;
   bar.Transparency = finalProps.Transparency;
 
-  const frontAttachment = makeAttachment("FrontAttachment", frontFaceOffset, `${barName}_FrontAttachment`);
-  const backAttachment = makeAttachment("BackAttachment", backFaceOffset, `${barName}_BackAttachment`);
+  const frontAttachment = makeAttachment("FrontAttachment", frontFaceOffset, `att${padNumber((barIndex - 1) * 2 + 1, 3)}-h${padNumber(hexIndex, 3)}-st${padNumber(stackIndex, 3)}`);
+  const backAttachment = makeAttachment("BackAttachment", backFaceOffset, `att${padNumber((barIndex - 1) * 2 + 2, 3)}-h${padNumber(hexIndex, 3)}-st${padNumber(stackIndex, 3)}`);
   
   frontAttachment.Parent = bar;
   backAttachment.Parent = bar;
