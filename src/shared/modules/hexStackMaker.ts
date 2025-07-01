@@ -54,6 +54,7 @@ export function makeHexStack({
   const stackModel = new Instance("Model");
   const stackName = generateStackName(stackIndex);
   stackModel.Name = stackName;
+  print(`Created stack with name: ${stackName}`);
 
   // Create stacked hexagons
   for (let level = 0; level < count; level++) {

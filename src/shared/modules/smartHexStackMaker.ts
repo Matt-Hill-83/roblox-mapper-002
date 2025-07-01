@@ -44,6 +44,7 @@ export function makeSmartHexStack({
   const stackModel = new Instance("Model");
   const stackName = generateStackName(stackIndex);
   stackModel.Name = stackName;
+  print(`Created nations stack with name: ${stackName}`);
 
   // Create stacked hexagons for each item
   for (let level = 0; level < stackItems.size(); level++) {
