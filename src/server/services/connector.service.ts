@@ -2,22 +2,21 @@ import { addConnectors } from "../../shared/modules/connectorMaker";
 
 export class ConnectorService {
   constructor() {
-    print("🔗 ConnectorService initialized");
+    // Service initialized
   }
 
   createSecurityConnectors(): void {
-    print("🔗 Creating security connectors...");
     addConnectors({
       relationTypes: [
-        "relationSecures", 
-        "relationDependsOn", 
-        "relationUses", 
+        "relationSecures",
+        "relationDependsOn",
+        "relationUses",
         "relationContains",
         "relationCreates",
         "relationManages",
         "relationOwns",
-        "relationMaintains"
-      ]
+        "relationMaintains",
+      ],
     });
   }
-} 
+}
