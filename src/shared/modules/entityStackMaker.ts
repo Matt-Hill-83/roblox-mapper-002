@@ -1,12 +1,19 @@
 import { makeSmartHexStack } from "./smartHexStackMaker";
 
+interface EntityWithConnection {
+  name: string;
+  guid?: string;
+  hasConnection?: boolean;
+  connectionCount?: number;
+}
+
 interface EntityStackConfig {
   id?: string;
   centerPosition?: [number, number, number];
   width?: number;
   height?: number;
   maxItems?: number;
-  data: { name: string; guid?: string }[];
+  data: EntityWithConnection[];
   color?: [number, number, number];
 }
 
@@ -25,15 +32,60 @@ export function makeEntityStack({
   data,
   color,
 }: EntityStackConfig): Model {
+  // Filter entities into two groups and concatenate them
+  // Isolated entities (no connections) go at the bottom of the stack (first in array)
+  // Connected entities go at the top of the stack (last in array)
+  const isolatedEntities = data.filter(
+    (entity) => !(entity.hasConnection || false)
+  );
+  const connectedEntities = data.filter(
+    (entity) => entity.hasConnection || false
+  );
+
+  // Concatenate: isolated first (bottom), then connected (top)
+  const sortedData = [...isolatedEntities, ...connectedEntities];
+
+  print(
+    `� ${id}: Sorted ${data.size()} entities: ${isolatedEntities.size()} isolated (bottom), ${connectedEntities.size()} connected (top)`
+  );
+
+  // Special debugging for entityDomain stack only (since it's the focus)
+  const isEntityDomain = id === "entityDomainStack";
+  if (isEntityDomain) {
+    print(
+      `� EntityDomain stack verification - Total: ${sortedData.size()} entities`
+    );
+    if (isolatedEntities.size() > 0) {
+      print(
+        `  🔴 Isolated (bottom): ${isolatedEntities[0].name}${
+          isolatedEntities.size() > 1
+            ? ` ... and ${isolatedEntities.size() - 1} more`
+            : ""
+        }`
+      );
+    }
+    if (connectedEntities.size() > 0) {
+      print(
+        `  🟢 Connected (top): ${connectedEntities[0].name}${
+          connectedEntities.size() > 1
+            ? ` ... and ${connectedEntities.size() - 1} more`
+            : ""
+        }`
+      );
+    }
+  }
+
   const stackItems: StackItem[] = [];
-  for (let i = 0; i < math.min(maxItems, data.size()); i++) {
-    const item = data[i];
-    // Create 6 labels all showing the entity name
+  for (let i = 0; i < math.min(maxItems, sortedData.size()); i++) {
+    const item = sortedData[i];
+    const hasConnection = item.hasConnection || false;
+
+    // Create 6 labels showing entity info
     const labels = [
       item.name,
+      hasConnection ? "🔗 Connected" : "❌ Isolated",
       item.name,
-      item.name,
-      item.name,
+      hasConnection ? "Has Relations" : "No Relations",
       item.name,
       item.name,
     ];
@@ -55,4 +107,4 @@ export function makeEntityStack({
   });
 
   return stackModel;
-} 
+}

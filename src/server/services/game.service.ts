@@ -2,15 +2,14 @@ import { ComponentStackService } from "./componentStack.service";
 // import { HexStackService } from "./hexStack.service";
 // import { NationsStackService } from "./nationsStack.service";
 import { ToolStackService } from "./toolStack.service";
-import { createRowOfStacks } from "../../shared/modules/createRowOfStacks";
 import { createRingOfStacks } from "../../shared/modules/createRingOfStacks";
 import { ConnectorService } from "./connector.service";
 import { allEntityData } from "../../shared/data";
-import { 
-  analyzeEntityConnections, 
-  addConnectionPropertiesToEntities, 
+import {
+  analyzeEntityConnections,
+  addConnectionPropertiesToEntities,
   printConnectionSummary,
-  getEntitiesWithConnections
+  getEntitiesWithConnections,
 } from "../../shared/modules/connectionAnalyzer";
 
 export class GameService {
@@ -20,8 +19,19 @@ export class GameService {
   private toolStackService = new ToolStackService();
   private connectorService = new ConnectorService();
   private myStuffFolder!: Folder;
+  private gameStarted = false; // Flag to prevent duplicate initialization
 
   public startGame(): void {
+    if (this.gameStarted) {
+      print(
+        "⚠️ GameService.startGame() already called, skipping duplicate call"
+      );
+      return;
+    }
+
+    print("🎮 GameService.startGame() called");
+    this.gameStarted = true;
+
     // Create or find the myStuff folder at the start
     this.myStuffFolder = game.Workspace.FindFirstChild("myStuff") as Folder;
     if (!this.myStuffFolder) {
@@ -30,17 +40,22 @@ export class GameService {
       this.myStuffFolder.Parent = game.Workspace;
     }
 
-    // Analyze connections and add hasConnection properties
+    // STEP 1: Analyze connections FIRST - before creating any stacks
+    print("📊 Step 1: Analyzing entity connections...");
     this.analyzeEntityConnections();
     this.addConnectionProperties();
 
+    // STEP 2: Create all stacks (now that connection data is available)
+    print("🏗️ Step 2: Creating stacks...");
     this.createComponentStack();
     this.createToolStack();
-    this.createEntityRow();
     this.createEntityRing();
 
-    // Create connectors after all stacks are created
+    // STEP 3: Create connectors after all stacks are created
+    print("🔗 Step 3: Creating connectors...");
     this.createConnectors();
+
+    print("✅ GameService.startGame() completed");
   }
 
   // private createHexagon(): void {
@@ -103,7 +118,7 @@ export class GameService {
     if (false) {
       this.toolStackService.createToolStack({
         id: "toolStack1",
-        centerPosition: [65, 1, 1], // Positioned next to the component stack
+        centerPosition: [65, 1, 9], // Positioned next to the component stack
         width: 8,
         height: 1, // Limited to height 1
         maxItems: 100, // Create all 8 tools
@@ -111,32 +126,15 @@ export class GameService {
     }
   }
 
-  private createEntityRow(): void {
-    if (false) {
-      const startPosition: [number, number, number] = [80, 1, 1]; // Move to the right of tool stack
-
-      const stacks = createRowOfStacks({
-        maxStacks: 10, // Reduce to make room for ring
-        startPosition: startPosition,
-      });
-
-      // Place each stack in the myStuff folder
-      for (let i = 0; i < stacks.size(); i++) {
-        const stack = stacks[i];
-        stack.Parent = this.myStuffFolder;
-      }
-    }
-  }
-
   private createEntityRing(): void {
-    const centerPosition: [number, number, number] = [0, 1, -50]; // Position in front of the row, more visible
+    const centerPosition: [number, number, number] = [0, 20, -50]; // Position in front of the row, more visible
 
     const stacks = createRingOfStacks({
       maxStacks: math.min(15, allEntityData.size()), // Use actual number of entity types, max 15
       centerPosition: centerPosition,
-      radius: 25, // Smaller radius
+      radius: 40, // Smaller radius
       startIndex: 0, // Start from entity 0
-      color: [0.5, 0.9, 0.5], // Light green color
+      // Removed color parameter - each stack will get a unique color automatically
     });
 
     if (stacks.size() === 0) {
@@ -164,17 +162,21 @@ export class GameService {
   private addConnectionProperties(): void {
     print("🔗 Adding hasConnection properties to entity data...");
     addConnectionPropertiesToEntities();
-    
+
     // Print summary of entities with connections
     const connectedEntities = getEntitiesWithConnections();
     print(`✅ Found ${connectedEntities.size()} entities with connections`);
-    
+
     // Print examples of connected entities (first 5)
     if (connectedEntities.size() > 0) {
       print("📋 Examples of entities with connections:");
       for (let i = 0; i < math.min(5, connectedEntities.size()); i++) {
         const entity = connectedEntities[i];
-        print(`  - ${entity.name} (${entity.connectionCount} connections: ${entity.connectionTypes.join(", ")})`);
+        print(
+          `  - ${entity.name} (${
+            entity.connectionCount
+          } connections: ${entity.connectionTypes.join(", ")})`
+        );
       }
       if (connectedEntities.size() > 5) {
         print(`  ... and ${connectedEntities.size() - 5} more`);
