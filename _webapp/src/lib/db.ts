@@ -51,11 +51,14 @@ export interface Person {
   salary: number;
   active: boolean;
   created_at: string;
+  recordType: string;
   // Additional fields from database
   gender?: string;
   position?: string;
   skill_level?: number;
   jersey_number?: number;
+  birthCountry?: string;
+  residenceCountry?: string;
 }
 
 export function getPersons(): Person[] {
@@ -87,11 +90,14 @@ export function getPersons(): Person[] {
         salary: parsedData.salary || 50000,
         active: true,
         created_at: row.created_at || new Date().toISOString(),
+        recordType: 'person',
         // Additional fields
         gender: parsedData.gender,
         position: parsedData.position,
         skill_level: parsedData.skill_level,
-        jersey_number: parsedData.jersey_number
+        jersey_number: parsedData.jersey_number,
+        birthCountry: parsedData.birthCountry,
+        residenceCountry: parsedData.residenceCountry
       };
     });
     

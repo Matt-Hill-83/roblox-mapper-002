@@ -1,35 +1,38 @@
-interface Person {
+interface Team {
   id: string;
   name: string;
-  email: string;
-  age: number;
-  department: string;
-  salary: number;
+  city: string;
+  country: string;
+  league: string;
+  founded: number;
+  stadium: string;
+  capacity: number;
+  coach: string;
   active: boolean;
   created_at: string;
   recordType: string;
 }
 
-interface PersonsResponse {
+interface TeamsResponse {
   success: boolean;
-  data: Person[];
+  data: Team[];
   count: number;
   error?: string;
 }
 
-export const personService = {
-  async getPersons(): Promise<PersonsResponse> {
+export const teamService = {
+  async getTeams(): Promise<TeamsResponse> {
     try {
-      const response = await fetch('/api/persons');
+      const response = await fetch('/api/teams');
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       
-      const data: PersonsResponse = await response.json();
+      const data: TeamsResponse = await response.json();
       return data;
     } catch (error) {
-      console.error('Failed to fetch persons:', error);
+      console.error('Failed to fetch teams:', error);
       return {
         success: false,
         data: [],
@@ -40,4 +43,4 @@ export const personService = {
   }
 };
 
-export type { Person, PersonsResponse }; 
+export type { Team, TeamsResponse }; 

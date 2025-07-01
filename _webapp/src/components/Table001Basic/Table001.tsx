@@ -47,6 +47,8 @@ export default function Table001() {
       if (response.success) {
         setPersons(response.data);
         console.log('Persons data loaded:', response.data);
+        console.log('First person recordType:', response.data[0]?.recordType);
+        console.log('All recordTypes:', response.data.map(p => p.recordType));
       } else {
         console.error('Failed to fetch persons:', response.error);
       }
@@ -61,21 +63,12 @@ export default function Table001() {
   const columns = buildColumns({ rows: data as Record<string, unknown>[] });
 
   console.log('Current data being displayed:', data);
+  console.log('Generated columns:', columns.map(c => c.field));
 
-  if (loading) {
-    return (
-      <div style={pageWrapper}>
-        <h1 style={pageHeader}>Data Grid</h1>
-        <div style={dataGridContainer}>
-          <p>Loading...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div style={pageWrapper}>
-      <h1 style={pageHeader}>Data Grid</h1>
+      <h1 style={pageHeader}>Persons</h1>
       <div style={dataGridContainer}>
         <DataGrid
           rows={data}
