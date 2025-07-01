@@ -6,6 +6,7 @@ interface CreateRingOfStacksConfig {
   centerPosition?: [number, number, number];
   radius?: number;
   startIndex?: number; // New parameter to specify which entities to use
+  color?: [number, number, number]; // Color parameter for the stacks
 }
 
 export function createRingOfStacks({
@@ -13,6 +14,7 @@ export function createRingOfStacks({
   centerPosition = [0, 2, 0],
   radius = 20,
   startIndex = 0,
+  color,
 }: CreateRingOfStacksConfig): Model[] {
   const stacks: Model[] = [];
   
@@ -60,6 +62,7 @@ export function createRingOfStacks({
       height: 2,
       maxItems: 16,
       data: entityInfo.data,
+      color: color,
     });
     stacks.push(stack);
   }

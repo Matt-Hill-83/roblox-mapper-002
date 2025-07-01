@@ -7,6 +7,7 @@ interface EntityStackConfig {
   height?: number;
   maxItems?: number;
   data: { name: string; guid?: string }[];
+  color?: [number, number, number];
 }
 
 interface StackItem {
@@ -22,6 +23,7 @@ export function makeEntityStack({
   height = 2,
   maxItems = 1,
   data,
+  color,
 }: EntityStackConfig): Model {
   const stackItems: StackItem[] = [];
   for (let i = 0; i < math.min(maxItems, data.size()); i++) {
@@ -49,6 +51,7 @@ export function makeEntityStack({
     height,
     stackItems,
     stackIndex: 99, // Use a default or pass as needed
+    color: color,
   });
 
   return stackModel;

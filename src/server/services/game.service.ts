@@ -12,8 +12,19 @@ export class GameService {
     private componentStackService = new ComponentStackService();
     private toolStackService = new ToolStackService();
     private connectorService = new ConnectorService();
+    private myStuffFolder!: Folder;
 
     public startGame(): void {
+        // Create or find the myStuff folder at the start
+        this.myStuffFolder = game.Workspace.FindFirstChild("myStuff") as Folder;
+        if (!this.myStuffFolder) {
+            this.myStuffFolder = new Instance("Folder");
+            this.myStuffFolder.Name = "myStuff";
+            this.myStuffFolder.Parent = game.Workspace;
+            print("Created myStuff folder in workspace");
+        } else {
+            print("Found existing myStuff folder");
+        }
         print("Game started!");
         // this.createHexagon();
         // this.createHexStack();
@@ -108,21 +119,10 @@ export class GameService {
             
             print("Created", stacks.size(), "stacks in entity row");
             
-            // Create or find the myStuff folder
-            let myStuffFolder = game.Workspace.FindFirstChild("myStuff") as Folder;
-            if (!myStuffFolder) {
-                myStuffFolder = new Instance("Folder");
-                myStuffFolder.Name = "myStuff";
-                myStuffFolder.Parent = game.Workspace;
-                print("Created myStuff folder in workspace");
-            } else {
-                print("Found existing myStuff folder");
-            }
-            
             // Place each stack in the myStuff folder
             for (let i = 0; i < stacks.size(); i++) {
                 const stack = stacks[i];
-                stack.Parent = myStuffFolder;
+                stack.Parent = this.myStuffFolder;
                 print("Placed stack", stack.Name, "in myStuff folder at position", stack.GetBoundingBox()[0]);
             }
             
@@ -141,6 +141,7 @@ export class GameService {
             centerPosition: centerPosition,
             radius: 25, // Smaller radius
             startIndex: 10, // Start from entity 10 (we only have 15 total entities)
+            color: [0.5, 0.9, 0.5], // Light green color
         });
         
         if (stacks.size() === 0) {
@@ -150,21 +151,10 @@ export class GameService {
         
         print("Created", stacks.size(), "stacks in entity ring");
         
-        // Create or find the myStuff folder
-        let myStuffFolder = game.Workspace.FindFirstChild("myStuff") as Folder;
-        if (!myStuffFolder) {
-            myStuffFolder = new Instance("Folder");
-            myStuffFolder.Name = "myStuff";
-            myStuffFolder.Parent = game.Workspace;
-            print("Created myStuff folder in workspace");
-        } else {
-            print("Found existing myStuff folder");
-        }
-        
         // Place each stack in the myStuff folder
         for (let i = 0; i < stacks.size(); i++) {
             const stack = stacks[i];
-            stack.Parent = myStuffFolder;
+            stack.Parent = this.myStuffFolder;
             print("Placed stack", stack.Name, "in myStuff folder at position", stack.GetBoundingBox()[0]);
         }
         
