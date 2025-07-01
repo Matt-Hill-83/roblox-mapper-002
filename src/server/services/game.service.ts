@@ -3,10 +3,6 @@ import { ComponentStackService } from "./componentStack.service";
 // import { NationsStackService } from "./nationsStack.service";
 import { ToolStackService } from "./toolStack.service";
 import { createRowOfStacks } from "../../shared/modules/createRowOfStacks";
-import { entityComponentData } from "../../shared/data/entityComponentData";
-import { entityToolData } from "../../shared/data/entityToolData";
-import { entityModuleData } from "../../shared/data/entityModuleData";
-import { entityResourceData } from "../../shared/data/entityResourceData";
 
 export class GameService {
     // private hexStackService = new HexStackService();
@@ -92,27 +88,11 @@ export class GameService {
 
     private createEntityRow(): void {
         print("Starting createEntityRow...");
-        print("Entity component data size:", entityComponentData.size());
-        print("Entity tool data size:", entityToolData.size());
-        print("Entity module data size:", entityModuleData.size());
-        print("Entity resource data size:", entityResourceData.size());
         
         const startPosition: [number, number, number] = [80, 1, 1]; // Move to the right of tool stack
         print("Creating entity row at position:", startPosition);
         
         const stacks = createRowOfStacks({
-            files: [
-                "entityComponentData",
-                "entityToolData",
-                "entityModuleData",
-                "entityResourceData",
-            ],
-            dataModules: {
-                entityComponentData,
-                entityToolData,
-                entityModuleData,
-                entityResourceData,
-            },
             maxStacks: 4,
             startPosition: startPosition,
         });
