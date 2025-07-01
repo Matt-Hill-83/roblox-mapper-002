@@ -62,7 +62,7 @@ export function makeHexagon({
   // Create a cube at the center of the hexagon
   const centerCube = new Instance("Part");
   centerCube.Name = `centerCube-h${padNumber(hexIndex, 3)}-st${padNumber(stackIndex, 3)}`;
-  centerCube.Size = new Vector3(width, width, width);
+  centerCube.Size = new Vector3(0.1, 0.1, 0.1);
   centerCube.Position = new Vector3(centerPosition[0], centerPosition[1], centerPosition[2]);
   centerCube.Anchored = true;
   centerCube.Transparency = 0.4;
