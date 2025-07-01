@@ -5,6 +5,33 @@ interface ConnectorConfig {
   relationTypes?: string[]; // Which types of relations to create connectors for
 }
 
+// Color mapping for different relation types
+const relationColors: Record<string, BrickColor> = {
+  relationSecures: new BrickColor("Bright red"), // Red for security
+  relationDependsOn: new BrickColor("Bright blue"), // Blue for dependencies
+  relationUses: new BrickColor("Bright green"), // Green for usage
+  relationContains: new BrickColor("Bright yellow"), // Yellow for containment
+  relationCreates: new BrickColor("Bright orange"), // Orange for creation
+  relationManages: new BrickColor("Bright violet"), // Violet for management
+  relationOwns: new BrickColor("Brown"), // Brown for ownership
+  relationMaintains: new BrickColor("Dark green"), // Dark green for maintenance
+  relationControls: new BrickColor("Light blue"), // Light blue for control
+  relationConsumes: new BrickColor("Pink"), // Pink for consumption
+  relationExposes: new BrickColor("Cyan"), // Cyan for exposure
+  relationMonitors: new BrickColor("White"), // White for monitoring
+  relationTests: new BrickColor("Lime green"), // Lime green for testing
+  relationDeployedIn: new BrickColor("Nougat"), // Nougat for deployment
+  relationDeployedTo: new BrickColor("Light blue"), // Light blue for deployment target
+  relationProvidedBy: new BrickColor("Lavender"), // Lavender for provision
+  relationUsedBy: new BrickColor("Teal"), // Teal for reverse usage
+  relationBelongsTo: new BrickColor("Light orange"), // Light orange for belonging
+  relationMemberOf: new BrickColor("Lavender"), // Lavender for membership
+  relationPartOf: new BrickColor("Light orange"), // Light orange for parts
+  relationDefinedIn: new BrickColor("Mint"), // Mint for definitions
+  relationPackagedAs: new BrickColor("Bright orange"), // Bright orange for packaging
+  relationTracksErrors: new BrickColor("Magenta"), // Magenta for error tracking
+};
+
 function padNumber(num: number, length: number): string {
   const str = tostring(num);
   let result = str;
@@ -66,8 +93,10 @@ export function addConnectors({
       availableGUIDs.add(guid);
     }
   }
-  
-  print(`🔍 DIAGNOSTIC: Found ${availableGUIDs.size()} models with GUIDs in workspace`);
+
+  print(
+    `🔍 DIAGNOSTIC: Found ${availableGUIDs.size()} models with GUIDs in workspace`
+  );
 
   // Create a folder for all connectors
   const connectorsFolder = new Instance("Folder");
@@ -97,8 +126,14 @@ export function addConnectors({
         availableGUIDs.has(relation.source_guid) &&
         availableGUIDs.has(relation.target_guid)
     );
-    
-    print(`🔍 ${relationType}: ${relationData.size()} total, ${validRelations.size()} valid for workspace`);
+
+    const relationColor =
+      relationColors[relationType] || new BrickColor("Bright red");
+    print(
+      `🔍 ${relationType}: ${relationData.size()} total, ${validRelations.size()} valid for workspace (Color: ${
+        relationColor.Name
+      })`
+    );
 
     for (const relation of validRelations) {
       const sourceHexagon = findHexagonByGuid(relation.source_guid);
@@ -129,7 +164,9 @@ export function addConnectors({
             sourceAttachment.WorldPosition.sub(targetAttachment.WorldPosition)
               .Magnitude * 1.0001;
           rope.Visible = true;
-          rope.Color = new BrickColor("Bright red"); // Red color for connections
+          // Use color from mapping, fallback to red if type not found
+          rope.Color =
+            relationColors[relationType] || new BrickColor("Bright red");
           rope.Thickness = 0.4; // Thickness of the rope
           rope.Parent = connectorsFolder;
 
@@ -139,6 +176,16 @@ export function addConnectors({
       }
     }
   }
-  
-  print(`🔍 FINAL RESULTS: Created ${totalConnectors} connectors out of ${totalPossibleConnections} total possible relations`);
+
+  print(
+    `🔍 FINAL RESULTS: Created ${totalConnectors} connectors out of ${totalPossibleConnections} total possible relations`
+  );
+}
+
+export function printConnectionColorLegend(): void {
+  print("🎨 CONNECTION COLOR LEGEND:");
+  for (const [relationType, color] of pairs(relationColors)) {
+    const displayName = relationType.sub(9); // Remove "relation" prefix
+    print(`  ${displayName}: ${color.Name}`);
+  }
 }

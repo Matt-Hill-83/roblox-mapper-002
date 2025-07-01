@@ -1,4 +1,7 @@
-import { addConnectors } from "../../shared/modules/connectorMaker";
+import {
+  addConnectors,
+  printConnectionColorLegend,
+} from "../../shared/modules/connectorMaker";
 
 export class ConnectorService {
   constructor() {
@@ -6,6 +9,9 @@ export class ConnectorService {
   }
 
   createSecurityConnectors(): void {
+    // Print color legend first
+    printConnectionColorLegend();
+
     addConnectors({
       relationTypes: [
         "relationSecures",
