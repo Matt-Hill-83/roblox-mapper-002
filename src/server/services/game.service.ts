@@ -93,7 +93,7 @@ export class GameService {
         print("Creating entity row at position:", startPosition);
         
         const stacks = createRowOfStacks({
-            maxStacks: 4,
+            maxStacks: 100,
             startPosition: startPosition,
         });
         
