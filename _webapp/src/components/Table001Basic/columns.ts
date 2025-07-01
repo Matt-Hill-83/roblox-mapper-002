@@ -13,6 +13,11 @@ const detectColumnType = ({ values }: { values: unknown[] }) => {
 };
 
 export const buildColumns = ({ rows }: { rows: Record<string, unknown>[] }): GridColDef[] => {
+  // Guard against empty or invalid rows
+  if (!rows || !Array.isArray(rows) || rows.length === 0) {
+    return [];
+  }
+  
   const keys = Array.from(new Set(rows.flatMap((r) => Object.keys(r))));
 
   return keys.map<GridColDef>((key) => {

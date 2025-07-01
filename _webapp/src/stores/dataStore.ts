@@ -23,7 +23,10 @@ export const useDataStore = create<DataState>((set, get) => ({
       set({ isLoading: true, error: null });
       const response = await fetch('/api/persons');
       if (!response.ok) throw new Error('Failed to fetch persons');
-      const persons = await response.json();
+      const responseData = await response.json();
+      
+      // Extract the data array from the API response
+      const persons = responseData.success ? responseData.data : [];
       set({ persons });
     } catch (error) {
       set({ error: error instanceof Error ? error.message : 'Unknown error' });
@@ -37,7 +40,10 @@ export const useDataStore = create<DataState>((set, get) => ({
       set({ isLoading: true, error: null });
       const response = await fetch('/api/teams');
       if (!response.ok) throw new Error('Failed to fetch teams');
-      const teams = await response.json();
+      const responseData = await response.json();
+      
+      // Extract the data array from the API response
+      const teams = responseData.success ? responseData.data : [];
       set({ teams });
     } catch (error) {
       set({ error: error instanceof Error ? error.message : 'Unknown error' });
