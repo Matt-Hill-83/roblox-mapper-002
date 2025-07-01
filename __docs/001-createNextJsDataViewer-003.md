@@ -47,11 +47,16 @@ A Next.js 14 application that renders database records in a unified MUI Data Gri
    4. ✅ **T4** – Implement `/app/layout.tsx` with navbar links to pages.
    5. ✅ **T5** – Implement `pages/index.tsx` (DataGridPage) fetching records via server action.
    6. ✅ **T6** – Create `src/datagrid/columns.ts` to build dynamic column definitions with type detection.
-   7. ⬜ **T7** – Create `src/datagrid/config.ts` for grid options (pagination, density, filter).
-   8. ⬜ **T8** – Create `src/datagrid/styles.ts` exporting Tailwind‑based style object.
-   9. ⬜ **T9** – Implement `pages/pivot.tsx` with `<PivotTableUI>` bound to the same data.
-   10. ⬜ **T10** – Add simple PostgreSQL query helper in `src/lib/db.ts`.
-   11. ⬜ **T11** – Validate runtime column generation logic with live DB data.
+   7. ✅ **T7** – Create `src/datagrid/config.ts` for grid options (pagination, density, filter).
+   8. ✅ **T8** – Create `src/datagrid/styles.ts` exporting Tailwind‑based style object.
+   9. ⬜ **T9** – Fetch Persons data from db
+      1. ⬜ Create route
+      2. ⬜ Create front end data service
+      3. ⬜ Create useState in datagrid page
+      4. ⬜ Console log data
+   10. ⬜ **T14** – Implement `pages/pivot.tsx` with `<PivotTableUI>` bound to the same data.
+   11. ⬜ **T15** – Add simple PostgreSQL query helper in `src/lib/db.ts`.
+   12. ⬜ **T16** – Validate runtime column generation logic with live DB data.
 
 ## Risks
 
