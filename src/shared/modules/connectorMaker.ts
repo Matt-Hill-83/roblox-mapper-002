@@ -15,12 +15,33 @@ function padNumber(num: number, length: number): string {
 }
 
 function findHexagonByGuid(guid: string): Model | undefined {
-  const hexagons = game.Workspace.GetDescendants().filter((desc: Instance) => 
+  // Search for any hexagon model with the matching GUID
+  const allModels = game.Workspace.GetDescendants().filter((desc: Instance) => 
     desc.IsA("Model") && 
-    desc.Name.sub(1, 1) === "h" && 
     desc.GetAttribute("guid") === guid
   );
-  return hexagons[0] as Model;
+  
+  if (allModels.size() > 0) {
+    print(`Found hexagon with GUID ${guid}: ${allModels[0].Name}`);
+    return allModels[0] as Model;
+  }
+  
+  // If not found by GUID, also search for hexagon patterns in the names
+  const hexagons = game.Workspace.GetDescendants().filter((desc: Instance) => 
+    desc.IsA("Model") && 
+    (desc.Name.sub(1, 1) === "h" || desc.Name.find("hex") !== undefined)
+  );
+  
+  print(`Searching ${hexagons.size()} hexagon models for GUID ${guid}`);
+  for (const hexagon of hexagons) {
+    if (hexagon.GetAttribute("guid") === guid) {
+      print(`Found hexagon with GUID ${guid} in secondary search: ${hexagon.Name}`);
+      return hexagon as Model;
+    }
+  }
+  
+  print(`Warning: Could not find hexagon with GUID: ${guid}`);
+  return undefined;
 }
 
 function findAttachmentRecursive(model: Instance, attachmentName: string): Attachment | undefined {
@@ -35,6 +56,8 @@ export function addConnectors({
   relationTypes = ["relationSecures"] 
 }: ConnectorConfig = {}): void {
   print("🔗 Creating connectors...");
+  print(`🔗 Requested relation types: ${relationTypes.join(", ")}`);
+  print(`🔗 Total available relation types: ${allRelationData.size()}`);
 
   // Create a folder for all connectors
   const connectorsFolder = new Instance("Folder");
@@ -50,11 +73,13 @@ export function addConnectors({
     const relationInfo = allRelationData.find(rel => rel.name === relationType);
     if (!relationInfo) {
       print(`Warning: Relation type '${relationType}' not found`);
+      print(`Available types: ${allRelationData.map(rel => rel.name).join(", ")}`);
       continue;
     }
 
     print(`🔗 Creating ${relationType} connectors...`);
     const relationData = relationInfo.data;
+    print(`🔗 Found ${relationData.size()} relations for type ${relationType}`);
 
     for (const relation of relationData) {
       const sourceHexagon = findHexagonByGuid(relation.source_guid);
@@ -84,9 +109,13 @@ export function addConnectors({
           totalConnectors++;
         } else {
           print(`Warning: Could not find center attachments for ${sourceHexagon.Name} or ${targetHexagon.Name}`);
+          if (!sourceAttachment) print(`  Missing source attachment: att000-${sourceHexagon.Name}`);
+          if (!targetAttachment) print(`  Missing target attachment: att000-${targetHexagon.Name}`);
         }
       } else {
         print(`Warning: Could not find hexagons for GUIDs ${relation.source_guid} or ${relation.target_guid}`);
+        if (!sourceHexagon) print(`  Missing source hexagon with GUID: ${relation.source_guid}`);
+        if (!targetHexagon) print(`  Missing target hexagon with GUID: ${relation.target_guid}`);
       }
     }
   }

@@ -3,12 +3,15 @@ import { ComponentStackService } from "./componentStack.service";
 // import { NationsStackService } from "./nationsStack.service";
 import { ToolStackService } from "./toolStack.service";
 import { createRowOfStacks } from "../../shared/modules/createRowOfStacks";
+import { createRingOfStacks } from "../../shared/modules/createRingOfStacks";
+import { ConnectorService } from "./connector.service";
 
 export class GameService {
     // private hexStackService = new HexStackService();
     // private nationsStackService = new NationsStackService();
     private componentStackService = new ComponentStackService();
     private toolStackService = new ToolStackService();
+    private connectorService = new ConnectorService();
 
     public startGame(): void {
         print("Game started!");
@@ -18,6 +21,10 @@ export class GameService {
         this.createComponentStack();
         this.createToolStack();
         this.createEntityRow();
+        this.createEntityRing();
+        
+        // Create connectors after all stacks are created
+        this.createConnectors();
     }
 
     // private createHexagon(): void {
@@ -86,18 +93,62 @@ export class GameService {
         
     }
 
+    
     private createEntityRow(): void {
-        print("Starting createEntityRow...");
+        if (true) {  // Enable this
+            print("Starting createEntityRow...");
+            
+            const startPosition: [number, number, number] = [80, 1, 1]; // Move to the right of tool stack
+            print("Creating entity row at position:", startPosition);
+            
+            const stacks = createRowOfStacks({
+                maxStacks: 10, // Reduce to make room for ring
+                startPosition: startPosition,
+            });
+            
+            print("Created", stacks.size(), "stacks in entity row");
+            
+            // Create or find the myStuff folder
+            let myStuffFolder = game.Workspace.FindFirstChild("myStuff") as Folder;
+            if (!myStuffFolder) {
+                myStuffFolder = new Instance("Folder");
+                myStuffFolder.Name = "myStuff";
+                myStuffFolder.Parent = game.Workspace;
+                print("Created myStuff folder in workspace");
+            } else {
+                print("Found existing myStuff folder");
+            }
+            
+            // Place each stack in the myStuff folder
+            for (let i = 0; i < stacks.size(); i++) {
+                const stack = stacks[i];
+                stack.Parent = myStuffFolder;
+                print("Placed stack", stack.Name, "in myStuff folder at position", stack.GetBoundingBox()[0]);
+            }
+            
+            print("Entity row creation completed!");
+        }
+    }
+
+    private createEntityRing(): void {
+        print("Starting createEntityRing...");
         
-        const startPosition: [number, number, number] = [80, 1, 1]; // Move to the right of tool stack
-        print("Creating entity row at position:", startPosition);
+        const centerPosition: [number, number, number] = [0, 1, -50]; // Position in front of the row, more visible
+        print("Creating entity ring at center position:", centerPosition);
         
-        const stacks = createRowOfStacks({
-            maxStacks: 100,
-            startPosition: startPosition,
+        const stacks = createRingOfStacks({
+            maxStacks: 10, // Smaller ring for testing
+            centerPosition: centerPosition,
+            radius: 25, // Smaller radius
+            startIndex: 10, // Start from entity 10 (we only have 15 total entities)
         });
         
-        print("Created", stacks.size(), "stacks in entity row");
+        if (stacks.size() === 0) {
+            print("ERROR: No stacks were created for the ring!");
+            return;
+        }
+        
+        print("Created", stacks.size(), "stacks in entity ring");
         
         // Create or find the myStuff folder
         let myStuffFolder = game.Workspace.FindFirstChild("myStuff") as Folder;
@@ -117,8 +168,12 @@ export class GameService {
             print("Placed stack", stack.Name, "in myStuff folder at position", stack.GetBoundingBox()[0]);
         }
         
-        print("Entity row creation completed!");
+        print("Entity ring creation completed!");
     }
 
- 
+    private createConnectors(): void {
+        print("🔗 Creating all connectors...");
+        this.connectorService.createSecurityConnectors();
+    }
+
 }

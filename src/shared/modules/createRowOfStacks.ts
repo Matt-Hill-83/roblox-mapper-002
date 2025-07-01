@@ -20,6 +20,13 @@ export function createRowOfStacks({
     selectedData.push(allEntityData[i]);
   }
   
+  print(`🟦 Row: Using entities 0 to ${selectedData.size() - 1} (${selectedData.size()} total)`);
+  
+  // Debug: Print first few entity names
+  for (let i = 0; i < math.min(5, selectedData.size()); i++) {
+    print(`  Row entity ${i}: ${selectedData[i].name} (${selectedData[i].data.size()} items)`);
+  }
+  
   for (let i = 0; i < selectedData.size(); i++) {
     const entityInfo = selectedData[i];
     const pos: [number, number, number] = [
