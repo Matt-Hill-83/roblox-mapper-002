@@ -6,6 +6,12 @@ import { createRowOfStacks } from "../../shared/modules/createRowOfStacks";
 import { createRingOfStacks } from "../../shared/modules/createRingOfStacks";
 import { ConnectorService } from "./connector.service";
 import { allEntityData } from "../../shared/data";
+import { 
+  analyzeEntityConnections, 
+  addConnectionPropertiesToEntities, 
+  printConnectionSummary,
+  getEntitiesWithConnections
+} from "../../shared/modules/connectionAnalyzer";
 
 export class GameService {
   // private hexStackService = new HexStackService();
@@ -23,6 +29,10 @@ export class GameService {
       this.myStuffFolder.Name = "myStuff";
       this.myStuffFolder.Parent = game.Workspace;
     }
+
+    // Analyze connections and add hasConnection properties
+    this.analyzeEntityConnections();
+    this.addConnectionProperties();
 
     this.createComponentStack();
     this.createToolStack();
@@ -143,5 +153,32 @@ export class GameService {
 
   private createConnectors(): void {
     this.connectorService.createSecurityConnectors();
+  }
+
+  private analyzeEntityConnections(): void {
+    print("🔍 Starting entity connection analysis...");
+    analyzeEntityConnections();
+    printConnectionSummary();
+  }
+
+  private addConnectionProperties(): void {
+    print("🔗 Adding hasConnection properties to entity data...");
+    addConnectionPropertiesToEntities();
+    
+    // Print summary of entities with connections
+    const connectedEntities = getEntitiesWithConnections();
+    print(`✅ Found ${connectedEntities.size()} entities with connections`);
+    
+    // Print examples of connected entities (first 5)
+    if (connectedEntities.size() > 0) {
+      print("📋 Examples of entities with connections:");
+      for (let i = 0; i < math.min(5, connectedEntities.size()); i++) {
+        const entity = connectedEntities[i];
+        print(`  - ${entity.name} (${entity.connectionCount} connections: ${entity.connectionTypes.join(", ")})`);
+      }
+      if (connectedEntities.size() > 5) {
+        print(`  ... and ${connectedEntities.size() - 5} more`);
+      }
+    }
   }
 }
