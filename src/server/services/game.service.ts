@@ -16,7 +16,6 @@ export class GameService {
         // this.createNationsStack();
         this.createComponentStack();
         this.createToolStack();
-        this.createTestRopes();
     }
 
     // private createHexagon(): void {
@@ -85,7 +84,24 @@ export class GameService {
         
     }
 
-    private createTestRopes(): void {
-        // Test cubes removed as requested.
-    }
+    // private createEntityRow(): void {
+    //     createRowOfStacks({
+    //         files: [
+    //             "entityComponentData",
+    //             "entityToolData",
+    //             "entityModuleData",
+    //             "entityResourceData",
+    //         ],
+    //         dataModules: {
+    //             entityComponentData,
+    //             entityToolData,
+    //             entityModuleData,
+    //             entityResourceData,
+    //         },
+    //         maxStacks: 4,
+    //         startPosition: [20, 20, 1],
+    //     });
+    // }
+
+ 
 }
