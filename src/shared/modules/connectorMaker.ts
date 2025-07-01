@@ -74,6 +74,13 @@ function findHexagonByGuid(guid: string): Model | undefined {
   return hexagons[0] as Model;
 }
 
+function findAttachmentRecursive(model: Instance, attachmentName: string): Attachment | undefined {
+  for (const desc of model.GetDescendants()) {
+    if (desc.IsA("Attachment") && desc.Name === attachmentName) return desc as Attachment;
+  }
+  return undefined;
+}
+
 export function addConnectors({ parent = game.Workspace }: ConnectorConfig = {}): void {
   print("🔗 Creating security connectors...");
 
@@ -90,22 +97,23 @@ export function addConnectors({ parent = game.Workspace }: ConnectorConfig = {})
 
     if (sourceHexagon && targetHexagon) {
       // Find center attachments (att000)
-      const sourceAttachment = sourceHexagon.FindFirstChild("att000-" + sourceHexagon.Name) as Attachment;
-      const targetAttachment = targetHexagon.FindFirstChild("att000-" + targetHexagon.Name) as Attachment;
+      const sourceAttachment = findAttachmentRecursive(sourceHexagon, "att000-" + sourceHexagon.Name);
+      const targetAttachment = findAttachmentRecursive(targetHexagon, "att000-" + targetHexagon.Name);
 
       if (sourceAttachment && targetAttachment) {
-        // Create beam instead of rope for better TypeScript support
-        const beam = new Instance("Beam");
-        beam.Name = `beam${padNumber(ropeIndex, 3)}-secures-${sourceHexagon.Name}-to-${targetHexagon.Name}`;
-        beam.Attachment0 = sourceAttachment;
-        beam.Attachment1 = targetAttachment;
-        beam.Width0 = 0.1;
-        beam.Width1 = 0.1;
-        beam.FaceCamera = true;
-        beam.Color = new ColorSequence(new Color3(1, 0, 0)); // Red color for security connections
-        beam.Parent = connectorsFolder;
+        // Create rope constraint for security connections
+        const rope = new Instance("RopeConstraint");
+        rope.Name = `rope${padNumber(ropeIndex, 3)}-secures-${sourceHexagon.Name}-to-${targetHexagon.Name}`;
+        rope.Attachment0 = sourceAttachment;
+        rope.Attachment1 = targetAttachment;
+        // Make the rope a bit longer for sag
+        rope.Length = (sourceAttachment.WorldPosition.sub(targetAttachment.WorldPosition)).Magnitude * 1.0001;
+        rope.Visible = true;
+        rope.Color = new BrickColor("Bright red"); // Red color for security connections
+        rope.Thickness = 0.4; // Thickness of the rope
+        rope.Parent = connectorsFolder;
 
-        print(`Created beam ${beam.Name} from ${sourceHexagon.Name} to ${targetHexagon.Name}`);
+        print(`Created rope ${rope.Name} from ${sourceHexagon.Name} to ${targetHexagon.Name}`);
         ropeIndex++;
       } else {
         print(`Warning: Could not find center attachments for ${sourceHexagon.Name} or ${targetHexagon.Name}`);

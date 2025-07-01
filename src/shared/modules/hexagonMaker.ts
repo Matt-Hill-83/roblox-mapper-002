@@ -59,11 +59,21 @@ export function makeHexagon({
     hexModel.SetAttribute("guid", guid);
   }
 
-  // Create center attachment
+  // Create a cube at the center of the hexagon
+  const centerCube = new Instance("Part");
+  centerCube.Name = `centerCube-h${padNumber(hexIndex, 3)}-st${padNumber(stackIndex, 3)}`;
+  centerCube.Size = new Vector3(width, width, width);
+  centerCube.Position = new Vector3(centerPosition[0], centerPosition[1], centerPosition[2]);
+  centerCube.Anchored = true;
+  centerCube.Transparency = 0.4;
+  centerCube.Color = Color3.fromRGB(255, 255, 0); // yellow for visibility
+  centerCube.Parent = hexModel;
+
+  // Create center attachment and parent to center cube
   const centerAttachment = new Instance("Attachment");
   centerAttachment.Name = `att000-h${padNumber(hexIndex, 3)}-st${padNumber(stackIndex, 3)}`;
   centerAttachment.Position = new Vector3(0, 0, 0);
-  centerAttachment.Parent = hexModel;
+  centerAttachment.Parent = centerCube;
 
   // Create 3 bars rotated 60 degrees apart
   for (let i = 0; i < 3; i++) {
