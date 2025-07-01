@@ -1,0 +1,31 @@
+guid,name,creation_timestamp,creation_source,spec_description,spec_type
+9e5f6f41-0661-1b23-ec11-ec216965e609,api_analytics,2025-04-23T20:14:17.941703,posthog/posthog_fork/posthog/api,Analytics API for fetching analytics data,api
+94d84bc3-26d5-3f9f-54df-9f08c7077b60,api_cohorts,2025-04-23T20:14:17.941707,posthog/posthog_fork/posthog/api,Cohorts API for managing user cohorts,api
+88dc4419-a21e-691f-cfcb-f7cd95c6572e,api_annotations,2025-04-23T20:14:17.941711,posthog/posthog_fork/posthog/api,Annotations API for managing dashboard annotations,api
+1e7b0864-f6d3-8855-c784-037b3fc20b70,api_dashboards,2025-04-23T20:14:17.941714,posthog/posthog_fork/posthog/api,Dashboards API for managing dashboards,api
+10e42902-fcf3-fb5b-b04f-59c2f49f4270,api_actions,2025-04-23T20:14:17.941718,posthog/posthog_fork/posthog/api,Actions API for managing user actions,api
+9f8261ef-532d-b33c-f3a9-19d1b0f0e447,api_organizations,2025-04-23T20:14:17.941721,posthog/posthog_fork/posthog/api,Organizations API for managing organizations,api
+b370c96f-1eeb-9676-9e62-f5964ab3f3ca,api_projects,2025-04-23T20:14:17.941724,posthog/posthog_fork/posthog/api,Projects API for managing projects,api
+94ceeb14-71fc-eb20-e5ea-efa270e0aa05,api_plugins,2025-04-23T20:14:17.941728,posthog/posthog_fork/posthog/api,Plugins API for managing plugins,api
+9f14b7c5-7185-9788-f57a-1611b2820e55,api_plugin_configs,2025-04-23T20:14:17.941733,posthog/posthog_fork/posthog/api,Plugin Configs API for managing plugin configurations,api
+efcece44-191c-392b-e114-a82eea636144,api_exports,2025-04-23T20:14:17.941737,posthog/posthog_fork/posthog/api,Exports API for exporting data,api
+f859178b-55c1-1d9d-02db-d17faf12c658,api_performance,2025-04-23T20:14:17.941740,posthog/posthog_fork/posthog/api,Performance API for web performance metrics,api
+b53d7bda-05d1-7fbf-4297-c69bcd54d06f,api_property_definitions,2025-04-23T20:14:17.941743,posthog/posthog_fork/posthog/api,Property Definitions API for managing property definitions,api
+84ae920b-2371-7243-ee53-0e4fa37b0981,api_event_definitions,2025-04-23T20:14:17.941747,posthog/posthog_fork/posthog/api,Event Definitions API for managing event definitions,api
+1f951b41-55c6-5f40-3946-d06ffe28e63c,api_sharing,2025-04-23T20:14:17.941750,posthog/posthog_fork/posthog/api,Sharing API for dashboard sharing,api
+ea3ae98a-b9c0-128d-9c85-6848d8ae7fb6,api_integration,2025-04-23T20:14:17.941754,posthog/posthog_fork/posthog/api,Integration API for external integrations,api
+3ccea60b-3542-9a4e-6c14-464c95381db1,ux_dashboard_creation,2025-04-23T20:14:17.941757,posthog/posthog_fork/frontend/src/scenes,Dashboard creation experience,ux
+c9e85e00-4c81-a911-582a-6dd4a5605870,ux_dashboard_sharing,2025-04-23T20:14:17.941761,posthog/posthog_fork/frontend/src/scenes,Dashboard sharing experience,ux
+c3b4af3d-db3d-6670-c6c0-60a616ddec21,ux_dashboard_filtering,2025-04-23T20:14:17.941764,posthog/posthog_fork/frontend/src/scenes,Dashboard filtering experience,ux
+8144ffd1-b9ad-1cbf-14a7-2c987d846469,ux_insights_creation,2025-04-23T20:14:17.941769,posthog/posthog_fork/frontend/src/scenes,Insights creation experience,ux
+3a44be44-3578-d6cf-cc9d-06770d2ff36e,ux_cohort_builder,2025-04-23T20:14:17.941773,posthog/posthog_fork/frontend/src/scenes,Cohort builder experience,ux
+1fc84803-2171-983f-b451-092db69c0435,ux_user_settings,2025-04-23T20:14:17.941776,posthog/posthog_fork/frontend/src/scenes,User settings experience,ux
+2025ad75-f3fb-7465-a0b0-7d2b1b72e0cc,ux_project_settings,2025-04-23T20:14:17.941780,posthog/posthog_fork/frontend/src/scenes,Project settings experience,ux
+8950d45c-f362-eefe-8868-6b605c3b779e,ux_organization_settings,2025-04-23T20:14:17.941783,posthog/posthog_fork/frontend/src/scenes,Organization settings experience,ux
+a4bf0a65-3b19-087d-f562-c25a1c354314,ux_billing,2025-04-23T20:14:17.941786,posthog/posthog_fork/frontend/src/scenes,Billing experience,ux
+035b454f-a9cc-79c4-a5a1-ee8f44db5497,ux_plugin_management,2025-04-23T20:14:17.941790,posthog/posthog_fork/frontend/src/scenes,Plugin management experience,ux
+9cd3ec17-8088-64aa-37f5-927eb92b23f8,ux_session_player,2025-04-23T20:14:17.941793,posthog/posthog_fork/frontend/src/scenes,Session recording player experience,ux
+9f93083d-ca12-ab3b-993e-47574c08caf7,ux_feature_flag_builder,2025-04-23T20:14:17.941797,posthog/posthog_fork/frontend/src/scenes,Feature flag builder experience,ux
+ba4d2ec3-890f-2cdf-53cb-1dc6f8175150,ux_experiment_setup,2025-04-23T20:14:17.941800,posthog/posthog_fork/frontend/src/scenes,Experiment setup experience,ux
+de721306-ecf5-cc98-09c8-186f111ebc95,ux_survey_builder,2025-04-23T20:14:17.941806,posthog/posthog_fork/frontend/src/scenes,Survey builder experience,ux
+52773a67-1218-6281-751c-75f2b790b3ca,ux_query_editor,2025-04-23T20:14:17.941810,posthog/posthog_fork/frontend/src/scenes,Query editor experience,ux

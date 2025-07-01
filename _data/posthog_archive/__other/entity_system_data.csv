@@ -1,0 +1,14 @@
+guid,name,creation_timestamp,creation_source,spec_description
+35836f30-7fd4-ed81-d7e4-ce319f13e50b,events_system,2025-04-23T18:42:31.091907,posthog/posthog_fork/README.md,Core event collection and processing system
+69baab2d-80ea-fba3-58c5-26baecc577e5,insights_system,2025-04-23T18:42:31.091911,posthog/posthog_fork/README.md,Analytics visualization and insights generation
+05ec9cb7-8423-808f-4346-8009d1ab2c72,feature_flags_system,2025-04-23T18:42:31.091915,posthog/posthog_fork/README.md,Feature flag management and delivery
+f74eff3d-010a-9b26-577b-cfbcd5f5909a,experimentation_system,2025-04-23T18:42:31.091919,posthog/posthog_fork/README.md,A/B testing and experimentation
+92325ce2-5758-9d91-12a3-0f9383484233,session_replay_system,2025-04-23T18:42:31.091923,posthog/posthog_fork/README.md,Session recording and replay functionality
+5003cbeb-9895-cd79-99f2-1f8f58a148d2,surveys_system,2025-04-23T18:42:31.091926,posthog/posthog_fork/README.md,User feedback and survey system
+f999dde8-9efd-2195-9e08-195e7a990c46,data_pipeline_system,2025-04-23T18:42:31.091930,posthog/posthog_fork/README.md,Data ingestion and processing pipeline
+933e2950-35cd-3d8a-87ee-817e098e57cc,data_warehouse_system,2025-04-23T18:42:31.091936,posthog/posthog_fork/README.md,Data warehouse and storage system
+0ab65ec7-3cb5-94d3-5260-1dad12b351c0,web_analytics_system,2025-04-23T18:42:31.091940,posthog/posthog_fork/README.md,Web analytics tracking and reporting
+9854f63a-72b7-16e6-a00b-0414fa16fce0,messaging_system,2025-04-23T18:42:31.091943,posthog/posthog_fork/README.md,Customer messaging and communication
+7e30c510-f2d3-54f3-2178-236e15ed7f0c,llm_observability_system,2025-04-23T18:42:31.091947,posthog/posthog_fork/README.md,LLM monitoring and observability
+f02f522c-d786-b1a5-06c9-8288181c73e6,infrastructure_system,2025-04-23T18:42:31.091950,posthog/posthog_fork/README.md,Core infrastructure and deployment system
+3cc6633e-0626-222a-9ce6-fab5812c6f1e,authentication_system,2025-04-23T18:42:31.091954,posthog/posthog_fork/README.md,User authentication and authorization

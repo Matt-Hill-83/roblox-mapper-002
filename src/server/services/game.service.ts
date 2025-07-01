@@ -1,17 +1,23 @@
+import { ComponentStackService } from "./componentStack.service";
 import { HexStackService } from "./hexStack.service";
 import { HexagonService } from "./hexagon.service";
 import { NationsStackService } from "./nationsStack.service";
+import { ToolStackService } from "./toolStack.service";
 
 export class GameService {
     private hexagonService = new HexagonService();
     private hexStackService = new HexStackService();
     private nationsStackService = new NationsStackService();
+    private componentStackService = new ComponentStackService();
+    private toolStackService = new ToolStackService();
 
     public startGame(): void {
         print("Game started!");
         this.createHexagon();
         this.createHexStack();
         this.createNationsStack();
+        this.createComponentStack();
+        this.createToolStack();
     }
 
     private createHexagon(): void {
@@ -56,5 +62,27 @@ export class GameService {
             maxItems: 3, // Create 3 nations
         });
         print("Nations stack created at (35, 5, 5)!");
+    }
+
+    private createComponentStack(): void {
+        this.componentStackService.createComponentStack({
+            id: "componentStack1",
+            centerPosition: [50, 5, 5], // Positioned next to the nations stack
+            width: 8,
+            height: 2,
+            maxItems: 16, // Create 16 components (can be increased up to 64)
+        });
+        print("Component stack created at (50, 5, 5)!");
+    }
+
+    private createToolStack(): void {
+        this.toolStackService.createToolStack({
+            id: "toolStack1",
+            centerPosition: [65, 5, 5], // Positioned next to the component stack
+            width: 8,
+            height: 2,
+            maxItems: 8, // Create all 8 tools
+        });
+        print("Tool stack created at (65, 5, 5)!");
     }
 }

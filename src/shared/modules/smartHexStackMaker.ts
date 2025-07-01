@@ -12,6 +12,7 @@ interface SmartHexStackConfig {
   height: number;
   stackItems: StackItem[];
   stackIndex?: number;
+  color?: [number, number, number];
 }
 
 function padNumber(num: number, length: number): string {
@@ -35,6 +36,7 @@ export function makeSmartHexStack({
   height,
   stackItems,
   stackIndex = 1,
+  color = [0.2, 0.6, 0.8], // Default blue color
 }: SmartHexStackConfig): Model {
   print(`⬢ Generating smart hex stack with ${stackItems.size()} items...`);
 
@@ -59,7 +61,7 @@ export function makeSmartHexStack({
       width: width,
       height: height,
       barProps: {
-        Color: [0.2, 0.6, 0.8], // Blue color for nations
+        Color: color,
       },
       labels: item.labels,
       stackIndex: stackIndex,

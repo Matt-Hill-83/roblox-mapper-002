@@ -1,0 +1,558 @@
+{
+  "overview": {
+    "total_entities": 1460,
+    "total_relations": 828,
+    "entity_types": 15,
+    "relation_types": 23
+  },
+  "entity_summary": [
+    {
+      "entity_type": "file",
+      "count": 600
+    },
+    {
+      "entity_type": "flag",
+      "count": 200
+    },
+    {
+      "entity_type": "class",
+      "count": 200
+    },
+    {
+      "entity_type": "method",
+      "count": 200
+    },
+    {
+      "entity_type": "artifact",
+      "count": 66
+    },
+    {
+      "entity_type": "user",
+      "count": 50
+    },
+    {
+      "entity_type": "tool",
+      "count": 34
+    },
+    {
+      "entity_type": "resource",
+      "count": 31
+    },
+    {
+      "entity_type": "module",
+      "count": 30
+    },
+    {
+      "entity_type": "component",
+      "count": 16
+    },
+    {
+      "entity_type": "system",
+      "count": 13
+    },
+    {
+      "entity_type": "group",
+      "count": 9
+    },
+    {
+      "entity_type": "domain",
+      "count": 7
+    },
+    {
+      "entity_type": "environment",
+      "count": 3
+    },
+    {
+      "entity_type": "infraProvider",
+      "count": 1
+    }
+  ],
+  "relation_summary": [
+    {
+      "relation_type": "defined_in",
+      "count": 200
+    },
+    {
+      "relation_type": "deployed_in",
+      "count": 137
+    },
+    {
+      "relation_type": "deployed_to",
+      "count": 113
+    },
+    {
+      "relation_type": "creates",
+      "count": 66
+    },
+    {
+      "relation_type": "controls",
+      "count": 43
+    },
+    {
+      "relation_type": "maintains",
+      "count": 40
+    },
+    {
+      "relation_type": "part_of",
+      "count": 30
+    },
+    {
+      "relation_type": "owns",
+      "count": 29
+    },
+    {
+      "relation_type": "contains",
+      "count": 29
+    },
+    {
+      "relation_type": "depends_on",
+      "count": 29
+    },
+    {
+      "relation_type": "monitors",
+      "count": 22
+    },
+    {
+      "relation_type": "belongs_to",
+      "count": 22
+    },
+    {
+      "relation_type": "exposes",
+      "count": 15
+    },
+    {
+      "relation_type": "used_by",
+      "count": 10
+    },
+    {
+      "relation_type": "packaged_as",
+      "count": 9
+    },
+    {
+      "relation_type": "consumes",
+      "count": 7
+    },
+    {
+      "relation_type": "manages",
+      "count": 6
+    },
+    {
+      "relation_type": "tests",
+      "count": 5
+    },
+    {
+      "relation_type": "secures",
+      "count": 5
+    },
+    {
+      "relation_type": "provided_by",
+      "count": 3
+    },
+    {
+      "relation_type": "member_of",
+      "count": 3
+    },
+    {
+      "relation_type": "uses",
+      "count": 3
+    },
+    {
+      "relation_type": "tracks_errors",
+      "count": 2
+    }
+  ],
+  "entity_property_coverage": {
+    "flag": {
+      "total_entities": 200,
+      "properties": {
+        "default": {
+          "count": 200,
+          "coverage_percentage": 100.0
+        },
+        "description": {
+          "count": 200,
+          "coverage_percentage": 100.0
+        }
+      }
+    },
+    "user": {
+      "total_entities": 50,
+      "properties": {
+        "description": {
+          "count": 50,
+          "coverage_percentage": 100.0
+        },
+        "email": {
+          "count": 50,
+          "coverage_percentage": 100.0
+        },
+        "role": {
+          "count": 50,
+          "coverage_percentage": 100.0
+        },
+        "team": {
+          "count": 50,
+          "coverage_percentage": 100.0
+        }
+      }
+    },
+    "domain": {
+      "total_entities": 7,
+      "properties": {
+        "description": {
+          "count": 7,
+          "coverage_percentage": 100.0
+        }
+      }
+    },
+    "class": {
+      "total_entities": 200,
+      "properties": {
+        "description": {
+          "count": 200,
+          "coverage_percentage": 100.0
+        },
+        "file_path": {
+          "count": 200,
+          "coverage_percentage": 100.0
+        },
+        "language": {
+          "count": 200,
+          "coverage_percentage": 100.0
+        }
+      }
+    },
+    "group": {
+      "total_entities": 9,
+      "properties": {
+        "description": {
+          "count": 9,
+          "coverage_percentage": 100.0
+        }
+      }
+    },
+    "environment": {
+      "total_entities": 3,
+      "properties": {
+        "description": {
+          "count": 3,
+          "coverage_percentage": 100.0
+        },
+        "region": {
+          "count": 3,
+          "coverage_percentage": 100.0
+        }
+      }
+    },
+    "artifact": {
+      "total_entities": 66,
+      "properties": {
+        "description": {
+          "count": 66,
+          "coverage_percentage": 100.0
+        },
+        "sdk_type": {
+          "count": 50,
+          "coverage_percentage": 75.76
+        },
+        "type": {
+          "count": 66,
+          "coverage_percentage": 100.0
+        },
+        "version": {
+          "count": 66,
+          "coverage_percentage": 100.0
+        }
+      }
+    },
+    "system": {
+      "total_entities": 13,
+      "properties": {
+        "description": {
+          "count": 13,
+          "coverage_percentage": 100.0
+        }
+      }
+    },
+    "module": {
+      "total_entities": 30,
+      "properties": {
+        "description": {
+          "count": 30,
+          "coverage_percentage": 100.0
+        },
+        "type": {
+          "count": 30,
+          "coverage_percentage": 100.0
+        }
+      }
+    },
+    "infraProvider": {
+      "total_entities": 1,
+      "properties": {
+        "description": {
+          "count": 1,
+          "coverage_percentage": 100.0
+        }
+      }
+    },
+    "method": {
+      "total_entities": 200,
+      "properties": {
+        "class": {
+          "count": 200,
+          "coverage_percentage": 100.0
+        },
+        "description": {
+          "count": 200,
+          "coverage_percentage": 100.0
+        },
+        "language": {
+          "count": 200,
+          "coverage_percentage": 100.0
+        }
+      }
+    },
+    "resource": {
+      "total_entities": 31,
+      "properties": {
+        "description": {
+          "count": 31,
+          "coverage_percentage": 100.0
+        },
+        "technology": {
+          "count": 31,
+          "coverage_percentage": 100.0
+        },
+        "type": {
+          "count": 31,
+          "coverage_percentage": 100.0
+        }
+      }
+    },
+    "file": {
+      "total_entities": 600,
+      "properties": {
+        "description": {
+          "count": 600,
+          "coverage_percentage": 100.0
+        },
+        "language": {
+          "count": 600,
+          "coverage_percentage": 100.0
+        },
+        "type": {
+          "count": 600,
+          "coverage_percentage": 100.0
+        }
+      }
+    },
+    "tool": {
+      "total_entities": 34,
+      "properties": {
+        "description": {
+          "count": 34,
+          "coverage_percentage": 100.0
+        },
+        "purpose": {
+          "count": 34,
+          "coverage_percentage": 100.0
+        }
+      }
+    },
+    "component": {
+      "total_entities": 16,
+      "properties": {
+        "description": {
+          "count": 16,
+          "coverage_percentage": 100.0
+        },
+        "language": {
+          "count": 16,
+          "coverage_percentage": 100.0
+        },
+        "type": {
+          "count": 16,
+          "coverage_percentage": 100.0
+        },
+        "x_end": {
+          "count": 16,
+          "coverage_percentage": 100.0
+        }
+      }
+    }
+  },
+  "relation_patterns": {
+    "secures": {
+      "tool_to_component": {
+        "source_type": "tool",
+        "target_type": "component",
+        "count": 5
+      }
+    },
+    "maintains": {
+      "user_to_artifact": {
+        "source_type": "user",
+        "target_type": "artifact",
+        "count": 40
+      }
+    },
+    "uses": {
+      "component_to_tool": {
+        "source_type": "component",
+        "target_type": "tool",
+        "count": 3
+      }
+    },
+    "monitors": {
+      "tool_to_component": {
+        "source_type": "tool",
+        "target_type": "component",
+        "count": 22
+      }
+    },
+    "creates": {
+      "tool_to_artifact": {
+        "source_type": "tool",
+        "target_type": "artifact",
+        "count": 66
+      }
+    },
+    "part_of": {
+      "module_to_system": {
+        "source_type": "module",
+        "target_type": "system",
+        "count": 30
+      }
+    },
+    "tracks_errors": {
+      "tool_to_component": {
+        "source_type": "tool",
+        "target_type": "component",
+        "count": 2
+      }
+    },
+    "provided_by": {
+      "environment_to_infraProvider": {
+        "source_type": "environment",
+        "target_type": "infraProvider",
+        "count": 3
+      }
+    },
+    "deployed_to": {
+      "artifact_to_resource": {
+        "source_type": "artifact",
+        "target_type": "resource",
+        "count": 113
+      }
+    },
+    "deployed_in": {
+      "artifact_to_environment": {
+        "source_type": "artifact",
+        "target_type": "environment",
+        "count": 137
+      }
+    },
+    "packaged_as": {
+      "component_to_artifact": {
+        "source_type": "component",
+        "target_type": "artifact",
+        "count": 9
+      }
+    },
+    "defined_in": {
+      "method_to_class": {
+        "source_type": "method",
+        "target_type": "class",
+        "count": 200
+      }
+    },
+    "belongs_to": {
+      "system_to_domain": {
+        "source_type": "system",
+        "target_type": "domain",
+        "count": 22
+      }
+    },
+    "owns": {
+      "group_to_component": {
+        "source_type": "group",
+        "target_type": "component",
+        "count": 16
+      },
+      "group_to_system": {
+        "source_type": "group",
+        "target_type": "system",
+        "count": 13
+      }
+    },
+    "controls": {
+      "flag_to_artifact": {
+        "source_type": "flag",
+        "target_type": "artifact",
+        "count": 43
+      }
+    },
+    "consumes": {
+      "component_to_module": {
+        "source_type": "component",
+        "target_type": "module",
+        "count": 7
+      }
+    },
+    "depends_on": {
+      "component_to_component": {
+        "source_type": "component",
+        "target_type": "component",
+        "count": 29
+      }
+    },
+    "contains": {
+      "domain_to_system": {
+        "source_type": "domain",
+        "target_type": "system",
+        "count": 11
+      },
+      "system_to_component": {
+        "source_type": "system",
+        "target_type": "component",
+        "count": 18
+      }
+    },
+    "member_of": {
+      "user_to_group": {
+        "source_type": "user",
+        "target_type": "group",
+        "count": 3
+      }
+    },
+    "exposes": {
+      "component_to_module": {
+        "source_type": "component",
+        "target_type": "module",
+        "count": 15
+      }
+    },
+    "manages": {
+      "tool_to_resource": {
+        "source_type": "tool",
+        "target_type": "resource",
+        "count": 6
+      }
+    },
+    "tests": {
+      "tool_to_component": {
+        "source_type": "tool",
+        "target_type": "component",
+        "count": 5
+      }
+    },
+    "used_by": {
+      "tool_to_component": {
+        "source_type": "tool",
+        "target_type": "component",
+        "count": 10
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+guid,name,creation_timestamp,creation_source,spec_description
+53e8907f-cd6b-f099-36be-bf43935fb110,product_analytics,2025-04-23T18:42:31.091868,posthog/posthog_fork/README.md,Core product analytics functionality for tracking user behavior and metrics
+61b7d958-ea84-6ff1-1e2d-35bfcf551e57,feature_management,2025-04-23T18:42:31.091880,posthog/posthog_fork/README.md,Feature flag and experimentation capabilities
+333d65da-2c3d-1ee7-cf87-599b51082d10,user_research,2025-04-23T18:42:31.091885,posthog/posthog_fork/README.md,User research tools including session replay and surveys
+03d10e69-4ecf-af53-15d9-f37e6a7d0e0a,data_platform,2025-04-23T18:42:31.091890,posthog/posthog_fork/README.md,Data infrastructure and warehouse capabilities
+e12111e7-5486-4a9c-dfff-ddfdc9bb1154,web_analytics,2025-04-23T18:42:31.091894,posthog/posthog_fork/README.md,Website performance tracking and analysis
+79514847-09b8-2912-2423-6c03517954b9,customer_messaging,2025-04-23T18:42:31.091898,posthog/posthog_fork/README.md,Customer communication and messaging capabilities
+0ae91c6c-c86a-192b-dc19-87168c6398d4,llm_observability,2025-04-23T18:42:31.091903,posthog/posthog_fork/README.md,AI and LLM monitoring and observability

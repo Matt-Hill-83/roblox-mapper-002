@@ -1,0 +1,17 @@
+guid,name,creation_timestamp,creation_source,spec_description,spec_language,spec_type,spec_x_end
+2d975ee6-a46d-00a4-6aef-61f4b4e4a11a,async_migration_service,2025-04-23T18:42:44.391355,posthog/posthog_fork/posthog/async_migrations,Service for handling asynchronous database migrations,python,service,backend
+e1bdfb22-f0a8-fa9c-ea85-644aacf025d3,materialized_columns_service,2025-04-23T18:42:44.391369,posthog/posthog_fork/posthog/models/property/materialized_property,Service for managing materialized columns in ClickHouse,python,service,backend
+1f7987d0-b56e-7b30-81df-7e421e2d2be2,query_builder_service,2025-04-23T18:42:44.391376,posthog/posthog_fork/posthog/queries,Service for building and executing analytics queries,python,service,backend
+6a2a617c-026c-7041-f405-2dd216dff2f5,batch_exports_service,2025-04-23T18:42:44.391381,posthog/posthog_fork/posthog/batch_exports,Service for exporting data in batches to external systems,python,service,backend
+b2b7a571-6084-c563-ba64-cb3d22c1dd6f,hogql_service,2025-04-23T18:42:44.391386,posthog/posthog_fork/posthog/hogql,Service for parsing and executing HogQL queries,python,service,backend
+f5b2caae-6ba2-8ac0-6d0b-25a3e114d417,prometheus_metrics_service,2025-04-23T18:42:44.391460,posthog/posthog_fork/posthog/metrics,Service for collecting and exposing Prometheus metrics,python,service,backend
+090a9ce6-ee1b-a49e-293b-1795dd6ca1c7,data_warehouse_service,2025-04-23T18:42:44.391465,posthog/posthog_fork/posthog/warehouse,Service for managing data warehouse tables and connections,python,service,backend
+b3d3d1a2-5bff-4e5e-1fd2-42226383c5d0,kea_store,2025-04-23T18:42:44.391514,posthog/posthog_fork/frontend/src/lib/logic,Kea state management library,typescript,library,frontend
+dbbe55b7-b7f2-a442-fea3-c1c22026a855,chart_library,2025-04-23T18:42:44.391518,posthog/posthog_fork/frontend/src/lib/components/Charts,Chart visualization components,typescript,library,frontend
+e0031b98-6d84-b242-5741-cfcdf8a33e97,hedgehog_library,2025-04-23T18:42:44.391522,posthog/posthog_fork/frontend/src/lib/components/Hedgehog,Hedgehog AI Assistant components,typescript,library,frontend
+9fa09542-12cc-cd21-a475-811c74c89038,notebook_components,2025-04-23T18:42:44.391527,posthog/posthog_fork/frontend/src/scenes/notebooks/Nodes,Notebook node components,typescript,library,frontend
+0531b44a-d3e8-f5c3-9b31-f2c89e4d05bb,query_editor,2025-04-23T18:42:44.391531,posthog/posthog_fork/frontend/src/lib/components/JSEditor,Code and query editor components,typescript,library,frontend
+20d89e4a-bbaf-1443-3b6e-d25c4542b459,plugin_server_public_api,2025-04-23T18:42:44.391535,posthog/posthog_fork/plugin-server/src/public,Public API for PostHog plugins,typescript,library,backend
+2f890722-8a97-b54c-0a99-d9740869b2f3,plugin_vm,2025-04-23T18:42:44.391539,posthog/posthog_fork/plugin-server/src/worker/vm,VM for running PostHog plugins,typescript,library,backend
+601fe84b-df42-86f0-ed9c-a76a71ea4b4a,plugin_scheduler,2025-04-23T18:42:44.391543,posthog/posthog_fork/plugin-server/src/worker/plugins/schedule,Scheduler for plugin tasks,typescript,library,backend
+03ed05f4-ea70-60cf-04b6-1e444557b6b3,event_pipeline,2025-04-23T18:42:44.391547,posthog/posthog_fork/plugin-server/src/worker/ingestion/event-pipeline,Event processing pipeline,typescript,library,backend

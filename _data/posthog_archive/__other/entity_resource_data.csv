@@ -1,0 +1,32 @@
+guid,name,creation_timestamp,creation_source,spec_description,spec_technology,spec_type
+0541c991-9b46-266b-7ec3-aa1900ca60ba,postgres_staging,2025-04-23T20:14:17.941567,posthog/posthog_fork/terraform,Staging PostgreSQL database,postgresql,database
+576bdcb0-aba3-5042-1b9e-d8c34d3f65a9,clickhouse_staging,2025-04-23T20:14:17.941572,posthog/posthog_fork/terraform,Staging ClickHouse database,clickhouse,database
+7633fd79-fc9b-14ab-e3c5-6a5baa85817f,redis_staging,2025-04-23T20:14:17.941576,posthog/posthog_fork/terraform,Staging Redis database,redis,database
+308909c5-d7b8-bc81-c9b2-f7156a567ec1,kafka_staging,2025-04-23T20:14:17.941580,posthog/posthog_fork/terraform,Staging Kafka cluster,kafka,message_broker
+a6bad1d6-11f8-0dcf-327b-958fac1f8709,zookeeper_staging,2025-04-23T20:14:17.941583,posthog/posthog_fork/terraform,Staging ZooKeeper cluster,zookeeper,message_broker
+2d88d231-8419-d9f6-0a89-bb6672149f20,s3_staging,2025-04-23T20:14:17.941587,posthog/posthog_fork/terraform,Staging S3 bucket,s3,storage
+50f367e8-3637-314a-3ee8-3420f583a321,k8s_staging,2025-04-23T20:14:17.941591,posthog/posthog_fork/terraform,Staging Kubernetes cluster,kubernetes,compute
+7c1bc870-01ed-11bd-c93b-bbfa728911e2,postgres_production_us,2025-04-23T20:14:17.941596,posthog/posthog_fork/terraform,Production PostgreSQL database (US),postgresql,database
+ea689d2a-bfd0-dbb7-321a-bccc07db1292,postgres_production_eu,2025-04-23T20:14:17.941600,posthog/posthog_fork/terraform,Production PostgreSQL database (EU),postgresql,database
+b6769427-7d4e-0324-bcd8-60169fca30bb,clickhouse_production_us,2025-04-23T20:14:17.941604,posthog/posthog_fork/terraform,Production ClickHouse database (US),clickhouse,database
+2d8cb4a0-b69f-df4f-8bc2-ada08ce8b704,clickhouse_production_eu,2025-04-23T20:14:17.941608,posthog/posthog_fork/terraform,Production ClickHouse database (EU),clickhouse,database
+160cbdf6-817d-c27f-9e5b-04d1e974deff,redis_production_us,2025-04-23T20:14:17.941611,posthog/posthog_fork/terraform,Production Redis database (US),redis,database
+d6e4bd5c-5994-9c25-5eeb-8fc2189384a3,redis_production_eu,2025-04-23T20:14:17.941615,posthog/posthog_fork/terraform,Production Redis database (EU),redis,database
+b049a923-f3b6-07bb-6531-911ff817fe92,kafka_production_us,2025-04-23T20:14:17.941619,posthog/posthog_fork/terraform,Production Kafka cluster (US),kafka,message_broker
+364bede3-35cc-7067-def0-6950208e0bd3,kafka_production_eu,2025-04-23T20:14:17.941622,posthog/posthog_fork/terraform,Production Kafka cluster (EU),kafka,message_broker
+f458d0b9-1976-fbdf-d6d8-f1f811c7b16e,zookeeper_production_us,2025-04-23T20:14:17.941626,posthog/posthog_fork/terraform,Production ZooKeeper cluster (US),zookeeper,message_broker
+74eb9f2f-d4d9-5078-5c4d-16e7f6a4c130,zookeeper_production_eu,2025-04-23T20:14:17.941630,posthog/posthog_fork/terraform,Production ZooKeeper cluster (EU),zookeeper,message_broker
+732fe334-468f-25ca-01f0-fc0dcd3ca0f4,s3_production_us,2025-04-23T20:14:17.941634,posthog/posthog_fork/terraform,Production S3 bucket (US),s3,storage
+5f007473-69cc-5f87-7eff-16130d903199,s3_production_eu,2025-04-23T20:14:17.941639,posthog/posthog_fork/terraform,Production S3 bucket (EU),s3,storage
+acb4b137-2886-0dbc-24cd-53278778bd2f,k8s_production_us,2025-04-23T20:14:17.941643,posthog/posthog_fork/terraform,Production Kubernetes cluster (US),kubernetes,compute
+a33563bc-156c-573d-8a6f-c99da386ae11,k8s_production_eu,2025-04-23T20:14:17.941646,posthog/posthog_fork/terraform,Production Kubernetes cluster (EU),kubernetes,compute
+7a6ce42f-6891-6256-aac2-9c45c3beafb9,aws_rds_production,2025-04-23T20:14:17.941650,posthog/posthog_fork/terraform,AWS RDS Production Database,rds,database
+2635d9cf-3b2f-c33f-d163-bd11af094fa5,aws_elasticache_production,2025-04-23T20:14:17.941656,posthog/posthog_fork/terraform,AWS ElastiCache Production,elasticache,database
+e93330b2-71e6-434d-f44a-926250a98556,aws_msk_production,2025-04-23T20:14:17.941660,posthog/posthog_fork/terraform,AWS MSK Production,msk,message_broker
+c03d7215-05d3-efb5-2074-8b292c0f6fca,aws_eks_production,2025-04-23T20:14:17.941663,posthog/posthog_fork/terraform,AWS EKS Production,eks,compute
+5fdf52f5-d4f9-4991-0dcc-c1d44bc5d1be,aws_ec2_production,2025-04-23T20:14:17.941667,posthog/posthog_fork/terraform,AWS EC2 Production Instances,ec2,compute
+e6993710-c8b6-76da-f5ce-3ba07faca265,aws_elb_production,2025-04-23T20:14:17.941671,posthog/posthog_fork/terraform,AWS ELB Production Load Balancers,elb,compute
+17c2e331-c2b6-76e0-c799-d8e7ab0021e2,aws_cloudfront_production,2025-04-23T20:14:17.941674,posthog/posthog_fork/terraform,AWS CloudFront Production CDN,cloudfront,cdn
+90ba58cc-9cda-8f79-aaf1-c051bfcf3092,snowflake_analytics,2025-04-23T20:14:17.941678,posthog/posthog_fork/terraform,Snowflake Analytics Database,snowflake,database
+60175105-19c1-61ef-9e7b-adb0760c2a4b,bigquery_analytics,2025-04-23T20:14:17.941681,posthog/posthog_fork/terraform,BigQuery Analytics Database,bigquery,database
+3a09d485-501b-047d-bdda-023fd76a20e8,redshift_analytics,2025-04-23T20:14:17.941686,posthog/posthog_fork/terraform,Redshift Analytics Database,redshift,database

@@ -1,0 +1,4 @@
+guid,name,creation_timestamp,creation_source,spec_description,spec_region
+1e391f7b-8eea-42a6-01b8-21ff374a07da,production,2025-04-23T18:42:31.092434,posthog/posthog_fork/README.md,Production environment,us-west-1
+0513f0ab-c520-9e1c-c071-0311fca5341a,staging,2025-04-23T18:42:31.092438,posthog/posthog_fork/README.md,Staging environment,us-west-1
+fd2c5d42-8b3b-f58a-1608-4e61648e60c1,development,2025-04-23T18:42:31.092442,posthog/posthog_fork/README.md,Development environment,us-west-1

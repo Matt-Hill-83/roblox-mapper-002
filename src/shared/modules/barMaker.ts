@@ -41,12 +41,13 @@ function makeSurfaceGui(face: string, label: string, blockColor: [number, number
 
   const textBox = new Instance("TextBox");
   textBox.Text = label;
-  textBox.TextSize = 48;
+  textBox.TextSize = 24;
   textBox.Font = Enum.Font.SourceSans;
   textBox.Size = new UDim2(1, 0, 1, 0);
   textBox.BackgroundColor3 = Color3.fromRGB(blockColor[0] * 255, blockColor[1] * 255, blockColor[2] * 255);
   textBox.TextColor3 = Color3.fromRGB(0, 0, 0);
   textBox.BorderSizePixel = 10;
+  textBox.TextWrapped = true;
   textBox.Parent = surfaceGui;
 
   return surfaceGui;

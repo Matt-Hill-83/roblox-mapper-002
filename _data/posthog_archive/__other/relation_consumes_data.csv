@@ -1,0 +1,8 @@
+guid,name,source_guid,source_type,target_guid,target_type,creation_timestamp,creation_source
+18d7af7e-d9ef-7a65-7589-48fe2e177d57,frontend_app_consumes_events_api,25d87628-0832-bffb-0142-44fe39b6b033,component,4c97d452-5d94-a04c-7640-fdd9fc640315,module,2025-04-23T18:42:31.092341,posthog/posthog_fork/README.md
+379f0cb1-f25c-b519-c9fd-1b8a7235f9dd,frontend_app_consumes_persons_api,25d87628-0832-bffb-0142-44fe39b6b033,component,2e4a9158-7100-a198-eace-1fb3ea1dd955,module,2025-04-23T18:42:31.092345,posthog/posthog_fork/README.md
+c30a888d-7eb8-4465-ae5f-21fdf38926a6,frontend_app_consumes_insights_api,25d87628-0832-bffb-0142-44fe39b6b033,component,930107a0-a9b6-cf6d-d619-dfe5737404b4,module,2025-04-23T18:42:31.092349,posthog/posthog_fork/README.md
+83ce1fae-6d92-8a87-348d-53b273b97860,frontend_app_consumes_feature_flags_api,25d87628-0832-bffb-0142-44fe39b6b033,component,6c6fc470-e388-5b87-e864-b088ffb6265c,module,2025-04-23T18:42:31.092352,posthog/posthog_fork/README.md
+255ba4ca-9e77-628f-1a59-d09a1dd69c6d,frontend_app_consumes_experiments_api,25d87628-0832-bffb-0142-44fe39b6b033,component,0e0d6a44-e837-0db9-74f7-f9aaf72084fb,module,2025-04-23T18:42:31.092356,posthog/posthog_fork/README.md
+60318b0d-7e11-f320-2005-ceefedcf007a,frontend_app_consumes_recordings_api,25d87628-0832-bffb-0142-44fe39b6b033,component,26e5bcb1-c8e6-03b6-1526-50596ce6a6a5,module,2025-04-23T18:42:31.092360,posthog/posthog_fork/README.md
+2c5132b4-ecbc-2de9-5a9b-1c58ddffec45,frontend_app_consumes_surveys_api,25d87628-0832-bffb-0142-44fe39b6b033,component,a7d4f0be-c5e4-3b93-755c-eace78547f3a,module,2025-04-23T18:42:31.092364,posthog/posthog_fork/README.md
