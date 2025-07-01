@@ -44,9 +44,9 @@ A Next.js 14 application that renders database records in a unified MUI Data Gri
    1. ✅ **T1** – Initialise `next-app` with TypeScript template.
    2. ✅ **T2** – Install dependencies: Tailwind, @mui/x-data-grid-pro, react‑pivottable, clsx, PostgreSQL client.
    3. ✅ **T3** – Configure Tailwind and create `styles/theme.ts` exporting JS style objects.
-   4. ⬜ **T4** – Implement `/app/layout.tsx` with navbar links to pages.
-   5. ⬜ **T5** – Implement `pages/index.tsx` (DataGridPage) fetching records via server action.
-   6. ⬜ **T6** – Create `src/datagrid/columns.ts` to build dynamic column definitions with type detection.
+   4. ✅ **T4** – Implement `/app/layout.tsx` with navbar links to pages.
+   5. ✅ **T5** – Implement `pages/index.tsx` (DataGridPage) fetching records via server action.
+   6. ✅ **T6** – Create `src/datagrid/columns.ts` to build dynamic column definitions with type detection.
    7. ⬜ **T7** – Create `src/datagrid/config.ts` for grid options (pagination, density, filter).
    8. ⬜ **T8** – Create `src/datagrid/styles.ts` exporting Tailwind‑based style object.
    9. ⬜ **T9** – Implement `pages/pivot.tsx` with `<PivotTableUI>` bound to the same data.

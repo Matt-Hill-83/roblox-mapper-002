@@ -23,6 +23,7 @@
     "@mui/x-data-grid-pro": "^8.6.0",
     "@rbxts/compiler-types": "^3.0.0-types.0",
     "@vercel/postgres": "^0.10.0",
+    "anthropic": "^0.0.0",
     "better-sqlite3": "^12.2.0",
     "clsx": "^2.1.1",
     "plotly.js": "^3.0.1",
