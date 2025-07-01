@@ -11,6 +11,7 @@ interface SmartHexStackConfig {
   width: number;
   height: number;
   stackItems: StackItem[];
+  stackIndex?: number;
 }
 
 export function makeSmartHexStack({
@@ -19,6 +20,7 @@ export function makeSmartHexStack({
   width,
   height,
   stackItems,
+  stackIndex = 1,
 }: SmartHexStackConfig): Model[] {
   print(`⬢ Generating smart hex stack with ${stackItems.size()} items...`);
 
@@ -40,6 +42,8 @@ export function makeSmartHexStack({
         Color: [0.2, 0.6, 0.8], // Blue color for nations
       },
       labels: item.labels,
+      stackIndex: stackIndex,
+      hexIndex: level + 1,
     });
 
     hexagons.push(hexModel);

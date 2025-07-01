@@ -7,6 +7,22 @@ interface HexagonConfig {
   height?: number;
   barProps?: any;
   labels?: string[];
+  stackIndex?: number;
+  hexIndex?: number;
+}
+
+function padNumber(num: number, length: number): string {
+  const str = tostring(num);
+  while (str.size() < length) {
+    return "0" + str;
+  }
+  return str;
+}
+
+function generateHexagonName(stackIndex: number, hexIndex: number): string {
+  const hexStr = padNumber(hexIndex, 2);
+  const stackStr = padNumber(stackIndex, 2);
+  return `h${hexStr}-st${stackStr}`;
 }
 
 export function makeHexagon({
@@ -16,6 +32,8 @@ export function makeHexagon({
   height = 0.5,
   barProps = {},
   labels = ["Front", "Left", "Right"],
+  stackIndex = 1,
+  hexIndex = 1,
 }: HexagonConfig): Model {
   print("⬡ Generating hexagon with 3 bars...");
 
@@ -30,7 +48,8 @@ export function makeHexagon({
 
   // Create the hexagon model
   const hexModel = new Instance("Model");
-  hexModel.Name = `${id}_Hexagon`;
+  const hexagonName = generateHexagonName(stackIndex, hexIndex);
+  hexModel.Name = hexagonName;
 
   // Create 3 bars rotated 60 degrees apart
   for (let i = 0; i < 3; i++) {
@@ -52,6 +71,9 @@ export function makeHexagon({
       rotation: { x: 0, y: rotation, z: 0 },
       props: defaultBarProps,
       label: labels[i] || `Bar${i + 1}`,
+      stackIndex: stackIndex,
+      hexIndex: hexIndex,
+      barIndex: i + 1,
     });
 
     bar.Parent = hexModel;

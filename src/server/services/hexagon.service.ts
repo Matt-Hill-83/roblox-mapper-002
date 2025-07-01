@@ -20,7 +20,7 @@ export class HexagonService {
     barProps?: any;
     labels?: string[];
   }): Model {
-    const hexagon = makeHexagon({ id, centerPosition, width, height, barProps, labels });
+    const hexagon = makeHexagon({ id, centerPosition, width, height, barProps, labels, stackIndex: id || 1, hexIndex: 1 });
     hexagon.Parent = this.getMyStuffFolder();
     return hexagon;
   }

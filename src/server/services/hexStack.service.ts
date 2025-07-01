@@ -20,7 +20,7 @@ export class HexStackService {
     count?: number;
     colors?: [number, number, number][];
   }): Model[] {
-    const hexagons = makeHexStack({ id, centerPosition, width, height, count, colors });
+    const hexagons = makeHexStack({ id, centerPosition, width, height, count, colors, stackIndex: id || 1 });
     
     // Parent all hexagons to MyStuff folder
     const myStuffFolder = this.getMyStuffFolder();

@@ -7,6 +7,7 @@ interface HexStackConfig {
   height?: number;
   count?: number;
   colors?: [number, number, number][];
+  stackIndex?: number;
 }
 
 export function makeHexStack({
@@ -16,6 +17,7 @@ export function makeHexStack({
   height = 0.5,
   count = 4,
   colors = [],
+  stackIndex = 1,
 }: HexStackConfig): Model[] {
   print(`⬢ Generating hex stack with ${count} hexagons...`);
 
@@ -49,6 +51,8 @@ export function makeHexStack({
       barProps: {
         Color: levelColor,
       },
+      stackIndex: stackIndex,
+      hexIndex: level + 1,
     });
 
     hexagons.push(hexModel);

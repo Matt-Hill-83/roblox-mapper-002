@@ -15,6 +15,9 @@ interface BarConfig {
   rotation?: { x: number; y: number; z: number };
   props?: Partial<BarProps>;
   label?: string;
+  stackIndex?: number;
+  hexIndex?: number;
+  barIndex?: number;
 }
 
 const defaultProps: BarProps = {
@@ -67,12 +70,30 @@ function makeCircle(name: string, x: number, y: number, z: number, color: [numbe
   return circle;
 }
 
+function padNumber(num: number, length: number): string {
+  const str = tostring(num);
+  while (str.size() < length) {
+    return "0" + str;
+  }
+  return str;
+}
+
+function generateBarName(stackIndex: number, hexIndex: number, barIndex: number): string {
+  const stackStr = padNumber(stackIndex, 3);
+  const hexStr = padNumber(hexIndex, 3);
+  const barStr = padNumber(barIndex, 3);
+  return `bar${barStr}-h${hexStr}-st${stackStr}`;
+}
+
 export function makeBar({ 
   id, 
   position = { x: 0, y: 0, z: 0 }, 
   rotation = { x: 0, y: -30, z: 0 }, 
   props = {}, 
-  label = "Bar" 
+  label = "Bar",
+  stackIndex = 1,
+  hexIndex = 1,
+  barIndex = 1
 }: BarConfig): Part {
   const finalProps = {
     ...defaultProps,
@@ -94,8 +115,9 @@ export function makeBar({
 
   const blockColor = finalProps.Color;
 
+  const barName = generateBarName(stackIndex, hexIndex, barIndex);
   const bar = new Instance("Part");
-  bar.Name = `Rectangle${id}`;
+  bar.Name = barName;
   bar.Size = new Vector3(finalProps.Size[0], finalProps.Size[1], finalProps.Size[2]);
   bar.Position = new Vector3(position.x, position.y, position.z);
   bar.Orientation = new Vector3(rotation.x, rotation.y, rotation.z);
@@ -106,8 +128,8 @@ export function makeBar({
   bar.BottomSurface = finalProps.BottomSurface as unknown as Enum.SurfaceType;
   bar.Transparency = finalProps.Transparency;
 
-  const frontAttachment = makeAttachment("FrontAttachment", frontFaceOffset, `Rectangle${id}_FrontAttachment`);
-  const backAttachment = makeAttachment("BackAttachment", backFaceOffset, `Rectangle${id}_BackAttachment`);
+  const frontAttachment = makeAttachment("FrontAttachment", frontFaceOffset, `${barName}_FrontAttachment`);
+  const backAttachment = makeAttachment("BackAttachment", backFaceOffset, `${barName}_BackAttachment`);
   
   frontAttachment.Parent = bar;
   backAttachment.Parent = bar;

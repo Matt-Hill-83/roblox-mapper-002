@@ -44,6 +44,7 @@ export function makeNationsStack({
     width,
     height,
     stackItems: stackItemsNations,
+    stackIndex: 3,
   });
 
   return smartHexStackModels;
