@@ -7,36 +7,10 @@ import { dataGridConfig } from '@/components/Table001Basic/config';
 import { dataGridContainer, pageHeader, pageWrapper } from '@/components/Table001Basic/styles';
 import { personService, type Person } from '@/services/personService';
 
-const mockData = [
-  {
-    id: '1',
-    type: 'invoice',
-    customer: 'ACME Corp',
-    amount: 1234.56,
-    status: 'paid',
-    created_at: '2025-01-01T08:00:00Z'
-  },
-  {
-    id: '2', 
-    type: 'user',
-    name: 'John Doe',
-    email: 'john@example.com',
-    active: true,
-    created_at: '2025-01-02T10:30:00Z'
-  },
-  {
-    id: '3',
-    type: 'product',
-    name: 'Widget Pro',
-    price: 99.99,
-    category: 'Tools',
-    in_stock: true
-  }
-];
+
 
 export default function Table001() {
   const [persons, setPersons] = useState<Person[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPersons = async () => {
@@ -52,15 +26,14 @@ export default function Table001() {
       } else {
         console.error('Failed to fetch persons:', response.error);
       }
-      setLoading(false);
     };
 
     fetchPersons();
   }, []);
 
   // Use persons data if available, otherwise fall back to mock data
-  const data = persons.length > 0 ? persons : mockData;
-  const columns = buildColumns({ rows: data as Record<string, unknown>[] });
+  const data = persons.length > 0 ? persons : []
+  const columns = buildColumns({ rows: data as unknown as Record<string, unknown>[] });
 
   console.log('Current data being displayed:', data);
   console.log('Generated columns:', columns.map(c => c.field));
