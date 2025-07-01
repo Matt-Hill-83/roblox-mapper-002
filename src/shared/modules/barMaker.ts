@@ -72,10 +72,11 @@ function makeCircle(name: string, x: number, y: number, z: number, color: [numbe
 
 function padNumber(num: number, length: number): string {
   const str = tostring(num);
-  while (str.size() < length) {
-    return "0" + str;
+  let result = str;
+  while (result.size() < length) {
+    result = "0" + result;
   }
-  return str;
+  return result;
 }
 
 function generateBarName(stackIndex: number, hexIndex: number, barIndex: number): string {
