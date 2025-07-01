@@ -1,21 +1,27 @@
-import { ComponentStackService } from "./componentStack.service";
+// import { ComponentStackService } from "./componentStack.service";
 // import { HexStackService } from "./hexStack.service";
 // import { NationsStackService } from "./nationsStack.service";
-import { ToolStackService } from "./toolStack.service";
+// import { ToolStackService } from "./toolStack.service";
+import { createRowOfStacks } from "../../shared/modules/createRowOfStacks";
+import { entityComponentData } from "../../shared/data/entityComponentData";
+import { entityToolData } from "../../shared/data/entityToolData";
+import { entityModuleData } from "../../shared/data/entityModuleData";
+import { entityResourceData } from "../../shared/data/entityResourceData";
 
 export class GameService {
     // private hexStackService = new HexStackService();
     // private nationsStackService = new NationsStackService();
-    private componentStackService = new ComponentStackService();
-    private toolStackService = new ToolStackService();
+    // private componentStackService = new ComponentStackService();
+    // private toolStackService = new ToolStackService();
 
     public startGame(): void {
         print("Game started!");
         // this.createHexagon();
         // this.createHexStack();
         // this.createNationsStack();
-        this.createComponentStack();
-        this.createToolStack();
+        // this.createComponentStack();
+        // this.createToolStack();
+        this.createEntityRow();
     }
 
     // private createHexagon(): void {
@@ -62,46 +68,77 @@ export class GameService {
     //     print("Nations stack created at (35, 5, 5)!");
     // }
 
-    private createComponentStack(): void {
-        this.componentStackService.createComponentStack({
-            id: "componentStack1",
-            centerPosition: [50, 1, 1], // Positioned next to the nations stack
-            width: 8,
-            height: 1, // Limited to height 1
-            maxItems: 100, // Create 16 components (can be increased up to 64)
-        });
-        
-    }
-
-    private createToolStack(): void {
-        this.toolStackService.createToolStack({
-            id: "toolStack1",
-            centerPosition: [65, 1, 1], // Positioned next to the component stack
-            width: 8,
-            height: 1, // Limited to height 1
-            maxItems: 100, // Create all 8 tools
-        });
-        
-    }
-
-    // private createEntityRow(): void {
-    //     createRowOfStacks({
-    //         files: [
-    //             "entityComponentData",
-    //             "entityToolData",
-    //             "entityModuleData",
-    //             "entityResourceData",
-    //         ],
-    //         dataModules: {
-    //             entityComponentData,
-    //             entityToolData,
-    //             entityModuleData,
-    //             entityResourceData,
-    //         },
-    //         maxStacks: 4,
-    //         startPosition: [20, 20, 1],
+    // private createComponentStack(): void {
+    //     this.componentStackService.createComponentStack({
+    //         id: "componentStack1",
+    //         centerPosition: [50, 1, 1], // Positioned next to the nations stack
+    //         width: 8,
+    //         height: 1, // Limited to height 1
+    //         maxItems: 100, // Create 16 components (can be increased up to 64)
     //     });
+        
     // }
+
+    // private createToolStack(): void {
+    //     this.toolStackService.createToolStack({
+    //         id: "toolStack1",
+    //         centerPosition: [65, 1, 1], // Positioned next to the component stack
+    //         width: 8,
+    //         height: 1, // Limited to height 1
+    //         maxItems: 100, // Create all 8 tools
+    //     });
+        
+    // }
+
+    private createEntityRow(): void {
+        print("Starting createEntityRow...");
+        print("Entity component data size:", entityComponentData.size());
+        print("Entity tool data size:", entityToolData.size());
+        print("Entity module data size:", entityModuleData.size());
+        print("Entity resource data size:", entityResourceData.size());
+        
+        const startPosition: [number, number, number] = [80, 1, 1]; // Move to the right of tool stack
+        print("Creating entity row at position:", startPosition);
+        
+        const stacks = createRowOfStacks({
+            files: [
+                "entityComponentData",
+                "entityToolData",
+                "entityModuleData",
+                "entityResourceData",
+            ],
+            dataModules: {
+                entityComponentData,
+                entityToolData,
+                entityModuleData,
+                entityResourceData,
+            },
+            maxStacks: 4,
+            startPosition: startPosition,
+        });
+        
+        print("Created", stacks.size(), "stacks in entity row");
+        
+        // Create or find the myStuff folder
+        let myStuffFolder = game.Workspace.FindFirstChild("myStuff") as Folder;
+        if (!myStuffFolder) {
+            myStuffFolder = new Instance("Folder");
+            myStuffFolder.Name = "myStuff";
+            myStuffFolder.Parent = game.Workspace;
+            print("Created myStuff folder in workspace");
+        } else {
+            print("Found existing myStuff folder");
+        }
+        
+        // Place each stack in the myStuff folder
+        for (let i = 0; i < stacks.size(); i++) {
+            const stack = stacks[i];
+            stack.Parent = myStuffFolder;
+            print("Placed stack", stack.Name, "in myStuff folder at position", stack.GetBoundingBox()[0]);
+        }
+        
+        print("Entity row creation completed!");
+    }
 
  
 }
