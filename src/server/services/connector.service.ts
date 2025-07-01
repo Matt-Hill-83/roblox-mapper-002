@@ -7,6 +7,8 @@ export class ConnectorService {
 
   createSecurityConnectors(): void {
     print("🔗 Creating security connectors...");
-    addConnectors();
+    addConnectors({
+      relationTypes: ["relationSecures", "relationDependsOn", "relationUses", "relationContains"]
+    });
   }
 } 
