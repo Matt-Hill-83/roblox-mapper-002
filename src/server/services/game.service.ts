@@ -1,24 +1,24 @@
-import { BarService } from "./bar.service";
+import { HexagonService } from "./hexagon.service";
 
 export class GameService {
-    private barService = new BarService();
+    private hexagonService = new HexagonService();
 
     public startGame(): void {
         print("Game started!");
-        this.createBar();
+        this.createHexagon();
     }
 
-    private createBar(): void {
-        this.barService.createBar({
-            id: "TestBar",
-            position: { x: 0, y: 5, z: 0 },
-            rotation: { x: 0, y: -30, z: 0 },
-            props: {
-                Size: [4, 2, 8],
-                Color: [0.2, 0.4, 0.8],
+    private createHexagon(): void {
+        this.hexagonService.createHexagon({
+            id: 1,
+            centerPosition: [5, 5, 5],
+            width: 10,
+            height: 0.5,
+            barProps: {
+                Color: [0.9, 0.7, 0.3], // Golden color
             },
-            label: "Test Bar"
+            labels: ["Front", "Left", "Right"]
         });
-        print("Bar created!");
+        print("Hexagon created at (5, 5, 5)!");
     }
 }
