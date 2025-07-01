@@ -50,8 +50,8 @@ A Next.js 14 application that renders database records in a unified MUI Data Gri
    7. ✅ **T7** – Create `src/datagrid/config.ts` for grid options (pagination, density, filter).
    8. ✅ **T8** – Create `src/datagrid/styles.ts` exporting Tailwind‑based style object.
    9. ⬜ **T9** – Fetch Persons data from db
-      1. ⬜ Create route
-      2. ⬜ Create front end data service
+      1. ✅ Create route
+      2. ✅ Create front end data service
       3. ⬜ Create useState in datagrid page
       4. ⬜ Console log data
    10. ⬜ **T14** – Implement `pages/pivot.tsx` with `<PivotTableUI>` bound to the same data.
