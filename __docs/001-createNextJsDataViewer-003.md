@@ -53,7 +53,8 @@ A Next.js 14 application that renders database records in a unified MUI Data Gri
       1. ✅ Create route
       2. ✅ Create front end data service
       3. ⬜ Create useState in datagrid page
-      4. ⬜ Console log data
+         3.1 implement database query and pass real data in response to Persons call
+      4. ⬜ Console log real data
    10. ⬜ **T14** – Implement `pages/pivot.tsx` with `<PivotTableUI>` bound to the same data.
    11. ⬜ **T15** – Add simple PostgreSQL query helper in `src/lib/db.ts`.
    12. ⬜ **T16** – Validate runtime column generation logic with live DB data.
