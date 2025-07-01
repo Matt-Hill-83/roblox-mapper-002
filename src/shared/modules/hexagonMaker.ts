@@ -20,8 +20,8 @@ function padNumber(num: number, length: number): string {
 }
 
 function generateHexagonName(stackIndex: number, hexIndex: number): string {
-  const hexStr = padNumber(hexIndex, 2);
-  const stackStr = padNumber(stackIndex, 2);
+  const hexStr = padNumber(hexIndex, 3);
+  const stackStr = padNumber(stackIndex, 3);
   return `h${hexStr}-st${stackStr}`;
 }
 

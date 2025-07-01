@@ -18,15 +18,12 @@ export class NationsStackService {
     width?: number;
     height?: number;
     maxItems?: number;
-  }): Model[] {
-    const nations = makeNationsStack({ id, centerPosition, width, height, maxItems });
+  }): Model {
+    const stackModel = makeNationsStack({ id, centerPosition, width, height, maxItems });
     
-    // Parent all nations to MyStuff folder
-    const myStuffFolder = this.getMyStuffFolder();
-    nations.forEach(nation => {
-      nation.Parent = myStuffFolder;
-    });
+    // Parent the stack model to MyStuff folder
+    stackModel.Parent = this.getMyStuffFolder();
     
-    return nations;
+    return stackModel;
   }
 } 

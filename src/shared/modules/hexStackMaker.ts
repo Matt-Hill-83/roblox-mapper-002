@@ -10,6 +10,19 @@ interface HexStackConfig {
   stackIndex?: number;
 }
 
+function padNumber(num: number, length: number): string {
+  const str = tostring(num);
+  while (str.size() < length) {
+    return "0" + str;
+  }
+  return str;
+}
+
+function generateStackName(stackIndex: number): string {
+  const stackStr = padNumber(stackIndex, 3);
+  return `st${stackStr}`;
+}
+
 export function makeHexStack({
   id = 1,
   centerPosition = [0, 2, 0],
@@ -18,7 +31,7 @@ export function makeHexStack({
   count = 4,
   colors = [],
   stackIndex = 1,
-}: HexStackConfig): Model[] {
+}: HexStackConfig): Model {
   print(`⬢ Generating hex stack with ${count} hexagons...`);
 
   // Default color palette if none provided
@@ -35,6 +48,11 @@ export function makeHexStack({
 
   const colorPalette = colors.size() > 0 ? colors : defaultColors;
   const hexagons: Model[] = [];
+
+  // Create the stack model
+  const stackModel = new Instance("Model");
+  const stackName = generateStackName(stackIndex);
+  stackModel.Name = stackName;
 
   // Create stacked hexagons
   for (let level = 0; level < count; level++) {
@@ -55,8 +73,9 @@ export function makeHexStack({
       hexIndex: level + 1,
     });
 
+    hexModel.Parent = stackModel;
     hexagons.push(hexModel);
   }
 
-  return hexagons;
+  return stackModel;
 } 

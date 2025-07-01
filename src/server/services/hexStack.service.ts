@@ -19,15 +19,12 @@ export class HexStackService {
     height?: number;
     count?: number;
     colors?: [number, number, number][];
-  }): Model[] {
-    const hexagons = makeHexStack({ id, centerPosition, width, height, count, colors, stackIndex: id || 1 });
+  }): Model {
+    const stackModel = makeHexStack({ id, centerPosition, width, height, count, colors, stackIndex: id || 1 });
     
-    // Parent all hexagons to MyStuff folder
-    const myStuffFolder = this.getMyStuffFolder();
-    hexagons.forEach(hexagon => {
-      hexagon.Parent = myStuffFolder;
-    });
+    // Parent the stack model to MyStuff folder
+    stackModel.Parent = this.getMyStuffFolder();
     
-    return hexagons;
+    return stackModel;
   }
 } 

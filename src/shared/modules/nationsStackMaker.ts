@@ -20,7 +20,7 @@ export function makeNationsStack({
   width = 8,
   height = 2,
   maxItems = 1,
-}: NationsStackConfig): Model[] {
+}: NationsStackConfig): Model {
   const stackItemsNations: StackItem[] = [];
   for (let i = 0; i < math.min(maxItems, newNations.size()); i++) {
     const item = newNations[i];
@@ -38,7 +38,7 @@ export function makeNationsStack({
     });
   }
 
-  const smartHexStackModels = makeSmartHexStack({
+  const stackModel = makeSmartHexStack({
     id,
     centerPosition,
     width,
@@ -47,5 +47,5 @@ export function makeNationsStack({
     stackIndex: 3,
   });
 
-  return smartHexStackModels;
+  return stackModel;
 } 

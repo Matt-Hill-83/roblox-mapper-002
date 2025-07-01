@@ -14,6 +14,19 @@ interface SmartHexStackConfig {
   stackIndex?: number;
 }
 
+function padNumber(num: number, length: number): string {
+  const str = tostring(num);
+  while (str.size() < length) {
+    return "0" + str;
+  }
+  return str;
+}
+
+function generateStackName(stackIndex: number): string {
+  const stackStr = padNumber(stackIndex, 3);
+  return `st${stackStr}`;
+}
+
 export function makeSmartHexStack({
   id,
   centerPosition,
@@ -21,10 +34,15 @@ export function makeSmartHexStack({
   height,
   stackItems,
   stackIndex = 1,
-}: SmartHexStackConfig): Model[] {
+}: SmartHexStackConfig): Model {
   print(`⬢ Generating smart hex stack with ${stackItems.size()} items...`);
 
   const hexagons: Model[] = [];
+
+  // Create the stack model
+  const stackModel = new Instance("Model");
+  const stackName = generateStackName(stackIndex);
+  stackModel.Name = stackName;
 
   // Create stacked hexagons for each item
   for (let level = 0; level < stackItems.size(); level++) {
@@ -46,8 +64,9 @@ export function makeSmartHexStack({
       hexIndex: level + 1,
     });
 
+    hexModel.Parent = stackModel;
     hexagons.push(hexModel);
   }
 
-  return hexagons;
+  return stackModel;
 } 
