@@ -5,7 +5,10 @@
     "ReplicatedStorage": {
       "$path": "out/shared",
       "include": {
-        "$path": "include"
+        "$path": "include",
+        "node_modules": {
+          "$path": "node_modules"
+        }
       }
     },
     "ServerScriptService": {
