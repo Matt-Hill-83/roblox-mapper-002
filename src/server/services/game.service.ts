@@ -1,7 +1,7 @@
-// import { ComponentStackService } from "./componentStack.service";
+import { ComponentStackService } from "./componentStack.service";
 // import { HexStackService } from "./hexStack.service";
 // import { NationsStackService } from "./nationsStack.service";
-// import { ToolStackService } from "./toolStack.service";
+import { ToolStackService } from "./toolStack.service";
 import { createRowOfStacks } from "../../shared/modules/createRowOfStacks";
 import { entityComponentData } from "../../shared/data/entityComponentData";
 import { entityToolData } from "../../shared/data/entityToolData";
@@ -11,16 +11,16 @@ import { entityResourceData } from "../../shared/data/entityResourceData";
 export class GameService {
     // private hexStackService = new HexStackService();
     // private nationsStackService = new NationsStackService();
-    // private componentStackService = new ComponentStackService();
-    // private toolStackService = new ToolStackService();
+    private componentStackService = new ComponentStackService();
+    private toolStackService = new ToolStackService();
 
     public startGame(): void {
         print("Game started!");
         // this.createHexagon();
         // this.createHexStack();
         // this.createNationsStack();
-        // this.createComponentStack();
-        // this.createToolStack();
+        this.createComponentStack();
+        this.createToolStack();
         this.createEntityRow();
     }
 
@@ -68,27 +68,27 @@ export class GameService {
     //     print("Nations stack created at (35, 5, 5)!");
     // }
 
-    // private createComponentStack(): void {
-    //     this.componentStackService.createComponentStack({
-    //         id: "componentStack1",
-    //         centerPosition: [50, 1, 1], // Positioned next to the nations stack
-    //         width: 8,
-    //         height: 1, // Limited to height 1
-    //         maxItems: 100, // Create 16 components (can be increased up to 64)
-    //     });
+    private createComponentStack(): void {
+        this.componentStackService.createComponentStack({
+            id: "componentStack1",
+            centerPosition: [50, 1, 1], // Positioned next to the nations stack
+            width: 8,
+            height: 1, // Limited to height 1
+            maxItems: 100, // Create 16 components (can be increased up to 64)
+        });
         
-    // }
+    }
 
-    // private createToolStack(): void {
-    //     this.toolStackService.createToolStack({
-    //         id: "toolStack1",
-    //         centerPosition: [65, 1, 1], // Positioned next to the component stack
-    //         width: 8,
-    //         height: 1, // Limited to height 1
-    //         maxItems: 100, // Create all 8 tools
-    //     });
+    private createToolStack(): void {
+        this.toolStackService.createToolStack({
+            id: "toolStack1",
+            centerPosition: [65, 1, 1], // Positioned next to the component stack
+            width: 8,
+            height: 1, // Limited to height 1
+            maxItems: 100, // Create all 8 tools
+        });
         
-    // }
+    }
 
     private createEntityRow(): void {
         print("Starting createEntityRow...");
