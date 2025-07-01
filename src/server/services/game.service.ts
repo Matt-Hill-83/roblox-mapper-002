@@ -160,27 +160,10 @@ export class GameService {
   }
 
   private addConnectionProperties(): void {
-    print("🔗 Adding hasConnection properties to entity data...");
     addConnectionPropertiesToEntities();
 
     // Print summary of entities with connections
     const connectedEntities = getEntitiesWithConnections();
-    print(`✅ Found ${connectedEntities.size()} entities with connections`);
-
-    // Print examples of connected entities (first 5)
-    if (connectedEntities.size() > 0) {
-      print("📋 Examples of entities with connections:");
-      for (let i = 0; i < math.min(5, connectedEntities.size()); i++) {
-        const entity = connectedEntities[i];
-        print(
-          `  - ${entity.name} (${
-            entity.connectionCount
-          } connections: ${entity.connectionTypes.join(", ")})`
-        );
-      }
-      if (connectedEntities.size() > 5) {
-        print(`  ... and ${connectedEntities.size() - 5} more`);
-      }
-    }
+    print(`🔗 Applied connection properties to ${connectedEntities.size()} entities with connections`);
   }
 }

@@ -17,6 +17,8 @@
     "roblox-ts": "^3.0.0"
   },
   "dependencies": {
-    "@rbxts/compiler-types": "^3.0.0-types.0"
+    "@rbxts/compiler-types": "^3.0.0-types.0",
+    "better-sqlite3": "^12.2.0",
+    "uuid": "^11.1.0"
   }
 }

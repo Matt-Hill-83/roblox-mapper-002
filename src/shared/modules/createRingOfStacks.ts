@@ -108,10 +108,3 @@ export function createRingOfStacks({
   }
   return stacks;
 }
-
-// Example usage:
-createRingOfStacks({
-  maxStacks: 7,
-  centerPosition: [0, 1, 0],
-  radius: 25,
-});

@@ -45,11 +45,4 @@ export function createRowOfStacks({
     stacks.push(stack);
   }
   return stacks;
-}
-
-// Example usage:
-createRowOfStacks({
-  maxStacks: 4,
-  startPosition: [80, 1, 1],
-  spacing: 12,
-}); 
+} 

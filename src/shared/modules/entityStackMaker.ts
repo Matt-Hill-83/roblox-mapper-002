@@ -33,20 +33,31 @@ export function makeEntityStack({
   color,
 }: EntityStackConfig): Model {
   // Filter entities into two groups and concatenate them
-  // Isolated entities (no connections) go at the bottom of the stack (first in array)
-  // Connected entities go at the top of the stack (last in array)
-  const isolatedEntities = data.filter(
-    (entity) => !(entity.hasConnection || false)
-  );
+  // Connected entities go at the top of the stack (first in array)
+  // Isolated entities (no connections) go at the bottom of the stack (last in array)
   const connectedEntities = data.filter(
     (entity) => entity.hasConnection || false
   );
+  const isolatedEntities = data.filter(
+    (entity) => !(entity.hasConnection || false)
+  );
 
-  // Concatenate: isolated first (bottom), then connected (top)
-  const sortedData = [...isolatedEntities, ...connectedEntities];
+  // Concatenate: connected first (top), then isolated (bottom)
+  const sortedData = [...connectedEntities, ...isolatedEntities];
+
+  // Console log the sorted array for debugging
+  print(`\n[DEBUG] Sorted array for stack '${id}':`);
+  for (let i = 0; i < sortedData.size(); i++) {
+    const e = sortedData[i];
+    print(
+      `  ${i}: ${e.name} - hasConnection: ${
+        e.hasConnection ? "true" : "false"
+      }`
+    );
+  }
 
   print(
-    `� ${id}: Sorted ${data.size()} entities: ${isolatedEntities.size()} isolated (bottom), ${connectedEntities.size()} connected (top)`
+    `� ${id}: Sorted ${data.size()} entities: ${connectedEntities.size()} connected (top), ${isolatedEntities.size()} isolated (bottom)`
   );
 
   // Special debugging for entityDomain stack only (since it's the focus)

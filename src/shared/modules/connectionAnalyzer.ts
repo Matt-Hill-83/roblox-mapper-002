@@ -115,8 +115,6 @@ export function analyzeEntityConnections(): ConnectionAnalysisResult {
 }
 
 export function addConnectionPropertiesToEntities(): void {
-  print("🔗 Adding hasConnection properties to all entity data...");
-
   // Get connection analysis first
   const connectedGUIDs = new Set<string>();
   const guidConnectionCounts = new Map<string, number>();
@@ -151,13 +149,8 @@ export function addConnectionPropertiesToEntities(): void {
 
   // Add hasConnection property to all entities
   for (const entityInfo of allEntityData) {
-    // Special debugging for entityDomain
-    const isEntityDomain = entityInfo.name === "entityDomain";
-    if (isEntityDomain) {
-      print(
-        `🟨 YELLOW STACK CONNECTION DEBUG: Processing ${entityInfo.data.size()} entityDomain entities`
-      );
-    }
+    let connectedCount = 0;
+    let isolatedCount = 0;
 
     for (const entity of entityInfo.data) {
       const hasConnection = connectedGUIDs.has(entity.guid);
@@ -171,49 +164,18 @@ export function addConnectionPropertiesToEntities(): void {
       (entity as any).connectionCount = connectionCount;
       (entity as any).connectionTypes = connectionTypes;
 
-      if (isEntityDomain) {
-        print(
-          `  🟨 ${entity.name} (${
-            entity.guid
-          }): hasConnection=${hasConnection}, count=${connectionCount}, types=[${connectionTypes.join(
-            ", "
-          )}]`
-        );
-
-        // Extra verification - check if this entity's GUID appears in any relations
-        let foundInRelations = false;
-        for (const relationInfo of allRelationData) {
-          for (const relation of relationInfo.data) {
-            if (
-              relation.source_guid === entity.guid ||
-              relation.target_guid === entity.guid
-            ) {
-              foundInRelations = true;
-              break;
-            }
-          }
-          if (foundInRelations) break;
-        }
-        print(
-          `    📊 GUID found in relations: ${foundInRelations}, hasConnection set to: ${hasConnection}`
-        );
+      if (hasConnection) {
+        connectedCount++;
+      } else {
+        isolatedCount++;
       }
     }
 
-    if (isEntityDomain) {
-      const connectedCount = entityInfo.data
-        .filter((e) => {
-          return (e as unknown as { hasConnection: boolean }).hasConnection;
-        })
-        .size();
-      const isolatedCount = entityInfo.data.size() - connectedCount;
-      print(
-        `  🟨 TOTAL: ${connectedCount} connected, ${isolatedCount} isolated`
-      );
-    }
+    // Summary for each entity type
+    print(
+      `  ✅ ${entityInfo.name}: ${connectedCount} connected, ${isolatedCount} isolated`
+    );
   }
-
-  print("✅ Added hasConnection properties to all entities");
 }
 
 export function getEntitiesWithConnections(): EntityWithConnection[] {
