@@ -2,6 +2,7 @@ import "./globals.css";
 
 import { Geist, Geist_Mono } from "next/font/google";
 
+import DataProvider from "../components/DataProvider";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -34,14 +35,14 @@ export default function RootLayout({
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <h1 className="text-xl font-bold">Data Viewer</h1>
             <div className="flex space-x-4">
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 transition-colors"
               >
                 Data Grid
               </Link>
-              <Link 
-                href="/pivot" 
+              <Link
+                href="/pivot"
                 className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 transition-colors"
               >
                 Pivot Table
@@ -49,9 +50,9 @@ export default function RootLayout({
             </div>
           </div>
         </nav>
-        <main className="min-h-screen bg-gray-50">
-          {children}
-        </main>
+        <DataProvider>
+          <main className="min-h-screen bg-gray-50">{children}</main>
+        </DataProvider>
       </body>
     </html>
   );
