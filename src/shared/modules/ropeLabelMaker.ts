@@ -6,6 +6,7 @@ interface RopeLabelConfig {
   sourceAttachment: Attachment;
   targetAttachment: Attachment;
   parent: Instance;
+  props?: { [key: string]: any };
 }
 
 export function createRopeLabel({
@@ -14,7 +15,22 @@ export function createRopeLabel({
   sourceAttachment,
   targetAttachment,
   parent,
+  props = {},
 }: RopeLabelConfig): Part {
+  // Default properties for the rope label
+  const defaultProps = {
+    size: new Vector3(1, 1, 3),
+    brickColor: new BrickColor("Institutional white"),
+    material: Enum.Material.Concrete,
+    textBoxText: "TEST",
+    transparency: 0,
+  };
+
+  // Merge default props with passed props
+  const finalProps = {
+    ...defaultProps,
+    ...props,
+  };
   // Calculate midpoint between attachments
   const midpoint = sourceAttachment.WorldPosition.add(
     targetAttachment.WorldPosition
@@ -29,10 +45,11 @@ export function createRopeLabel({
   const cube = new Instance("Part");
   cube.Name = `cube${padNumber(ropeIndex, 3)}-${relationTypeName}-midpoint`;
 
-  // Set size back to original - long in Z direction
-  cube.Size = new Vector3(1, 1, 3); // 3x longer in Z direction (forward)
-  cube.BrickColor = new BrickColor("Institutional white"); // Near white brick color
-  cube.Material = Enum.Material.Concrete; // Concrete material
+  // Set properties using finalProps
+  cube.Size = finalProps.size; // Use configurable size
+  cube.BrickColor = finalProps.brickColor; // Use configurable brick color
+  cube.Material = finalProps.material; // Use configurable material
+  cube.Transparency = finalProps.transparency; // Use configurable transparency
   cube.Shape = Enum.PartType.Block;
   cube.Anchored = true; // Anchor it to prevent physics interference
   cube.CanCollide = false;
@@ -56,7 +73,7 @@ export function createRopeLabel({
     createTextBox({
       part: cube,
       face: face,
-      text: "TEST",
+      text: finalProps.textBoxText, // Use configurable text
     });
   });
 

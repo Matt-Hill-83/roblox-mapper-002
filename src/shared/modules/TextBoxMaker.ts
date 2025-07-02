@@ -15,20 +15,28 @@ export function createTextBox({
   const surfaceGui = new Instance("SurfaceGui");
   surfaceGui.Name = `SurfaceGui_${face.Name}`;
   surfaceGui.Face = face;
+  surfaceGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud;
+  surfaceGui.PixelsPerStud = 50;
   surfaceGui.Parent = part;
 
-  // Create the TextBox
+  // Get block color from part for background matching
+  const blockColor = [part.Color.R, part.Color.G, part.Color.B];
+
+  // Create the TextBox with barMaker styling
   const textBox = new Instance("TextBox");
   textBox.Name = "TextBox";
   textBox.Text = text;
-  textBox.Size = new UDim2(1, 0, 1, 0); // Fill the entire surface
-  textBox.Position = new UDim2(0, 0, 0, 0);
-  textBox.BackgroundColor3 = new Color3(1, 1, 1); // White background
-  textBox.TextColor3 = new Color3(0, 0, 0); // Black text
-  textBox.TextScaled = true; // Scale text to fit
+  textBox.TextSize = 24;
   textBox.Font = Enum.Font.SourceSans;
-  textBox.BorderSizePixel = 1;
-  textBox.BorderColor3 = new Color3(0, 0, 0); // Black border
+  textBox.Size = new UDim2(1, 0, 1, 0);
+  textBox.BackgroundColor3 = Color3.fromRGB(
+    blockColor[0] * 255,
+    blockColor[1] * 255,
+    blockColor[2] * 255
+  );
+  textBox.TextColor3 = Color3.fromRGB(0, 0, 0);
+  textBox.BorderSizePixel = 10;
+  textBox.TextWrapped = true;
   textBox.Parent = surfaceGui;
 
   print(
@@ -42,34 +50,44 @@ export function createTextBoxWithCustomStyling({
   part,
   face,
   text,
-  backgroundColor = new Color3(1, 1, 1),
+  textSize = 24,
+  backgroundColor,
   textColor = new Color3(0, 0, 0),
   font = Enum.Font.SourceSans,
-  textScaled = true,
+  borderSizePixel = 10,
+  textWrapped = true,
 }: TextBoxConfig & {
+  textSize?: number;
   backgroundColor?: Color3;
   textColor?: Color3;
   font?: Enum.Font;
-  textScaled?: boolean;
+  borderSizePixel?: number;
+  textWrapped?: boolean;
 }): TextBox {
   // Create the SurfaceGui
   const surfaceGui = new Instance("SurfaceGui");
   surfaceGui.Name = `SurfaceGui_${face.Name}`;
   surfaceGui.Face = face;
+  surfaceGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud;
+  surfaceGui.PixelsPerStud = 50;
   surfaceGui.Parent = part;
+
+  // Use part color as default background if not specified
+  const defaultBackgroundColor =
+    backgroundColor ||
+    Color3.fromRGB(part.Color.R * 255, part.Color.G * 255, part.Color.B * 255);
 
   // Create the TextBox with custom styling
   const textBox = new Instance("TextBox");
   textBox.Name = "TextBox";
   textBox.Text = text;
-  textBox.Size = new UDim2(1, 0, 1, 0); // Fill the entire surface
-  textBox.Position = new UDim2(0, 0, 0, 0);
-  textBox.BackgroundColor3 = backgroundColor;
-  textBox.TextColor3 = textColor;
-  textBox.TextScaled = textScaled;
+  textBox.TextSize = textSize;
   textBox.Font = font;
-  textBox.BorderSizePixel = 1;
-  textBox.BorderColor3 = new Color3(0, 0, 0); // Black border
+  textBox.Size = new UDim2(1, 0, 1, 0);
+  textBox.BackgroundColor3 = defaultBackgroundColor;
+  textBox.TextColor3 = textColor;
+  textBox.BorderSizePixel = borderSizePixel;
+  textBox.TextWrapped = textWrapped;
   textBox.Parent = surfaceGui;
 
   print(
