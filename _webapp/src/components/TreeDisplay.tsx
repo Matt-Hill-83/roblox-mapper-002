@@ -387,11 +387,18 @@ function GraphsPanel({ result }: { result: HierarchyResult | null }) {
   const graphWidth = 380;
   const graphHeight = 280;
 
+  const col2Styles = {
+    border: "10px solid green",
+    display: "flex",
+    flexDirection: "column",
+    flex: 1,
+  };
+
   return (
     <Box>
       <Grid container spacing={3}>
         <Grid item xs={12} lg={4}>
-          <Card variant="outlined">
+          <Card variant="outlined" sx={col2Styles}>
             <CardContent sx={{ p: 1 }}>
               <ReactFlowGraph 
                 data={result} 
@@ -403,7 +410,7 @@ function GraphsPanel({ result }: { result: HierarchyResult | null }) {
         </Grid>
 
         <Grid item xs={12} lg={4}>
-          <Card variant="outlined">
+          <Card variant="outlined" sx={col2Styles}>
             <CardContent sx={{ p: 1 }}>
               <CytoscapeGraph 
                 data={result} 
@@ -415,7 +422,7 @@ function GraphsPanel({ result }: { result: HierarchyResult | null }) {
         </Grid>
 
         <Grid item xs={12} lg={4}>
-          <Card variant="outlined">
+          <Card variant="outlined" sx={col2Styles}>
             <CardContent sx={{ p: 1 }}>
               <D3Graph 
                 data={result} 
@@ -442,7 +449,7 @@ function LargeGraphDisplay({
   }
 
   // Large graph dimensions - expanded for wider layout
-  const graphWidth = 700;
+  const graphWidth = "100%";
   const graphHeight = 500;
 
   const renderGraph = () => {
@@ -457,6 +464,7 @@ function LargeGraphDisplay({
         return <ReactFlowGraph data={result} width={graphWidth} height={graphHeight} />;
     }
   };
+
 
   return (
     <Box>

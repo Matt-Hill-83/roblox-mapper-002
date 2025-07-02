@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, Grid, Paper, Typography } from "@mui/material";
+import { Container, Grid, Paper, Typography, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import TestDataConfigComponent from "../../../components/TestDataConfigComponent";
@@ -54,14 +54,16 @@ export default function HierarchyTesterPage() {
 
   const [result, setResult] = useState<HierarchyResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedGraph, setSelectedGraph] = useState<'reactflow' | 'cytoscape' | 'd3'>('reactflow');
+  const [selectedGraph, setSelectedGraph] = useState<
+    "reactflow" | "cytoscape" | "d3"
+  >("reactflow");
 
-  const handleGraphSelect = (graph: 'reactflow' | 'cytoscape' | 'd3') => {
+  const handleGraphSelect = (graph: "reactflow" | "cytoscape" | "d3") => {
     setSelectedGraph(graph);
   };
 
   const handleConfigurationSelect = (newConfig: TestDataConfig) => {
-    console.log('Loading preset configuration:', newConfig);
+    console.log("Loading preset configuration:", newConfig);
     setConfig(newConfig);
     handleConfigSubmit(newConfig);
   };
@@ -135,58 +137,83 @@ export default function HierarchyTesterPage() {
     }
   };
 
+  const boxStyles = {
+    // width: '100%',
+    // minHeight: '100vh',
+    margin: 0,
+    border: "10px solid red",
+    padding: 0,
+  };
+
+  const col2Styles = {
+    border: "10px solid green",
+    display: "flex",
+    flexDirection: "column",
+    flex: 1,
+  };
+
   return (
-    <Container 
-      maxWidth={false} 
-      sx={{ 
-        py: 4, 
-        px: 2,
-        width: '100vw', 
-        maxWidth: '100vw',
-        margin: 0
+    <Box
+      sx={{
+        width: "100vw",
+        minHeight: "100vh",
+        margin: 0,
+        padding: 0,
+        position: "relative",
+        marginLeft: "calc(-50vw + 50%)",
+        marginRight: "calc(-50vw + 50%)",
+        left: 0,
+        right: 0,
+        border: "10px solid blue",
       }}
     >
-      <Grid container spacing={3} sx={{ width: '100%', margin: 0 }}>
-        {/* Column 1: Configuration Panel */}
-        <Grid item xs={12} lg={3}>
-          <Paper elevation={1} sx={{ p: 2, position: "sticky", top: 16 }}>
-            <TestDataConfigComponent
-              initialConfig={config}
-              onSubmit={handleConfigSubmit}
-              isLoading={isLoading}
+      <Box>
+        <Grid
+          container
+          spacing={3}
+          // sx={{ width: "100%", margin: 0 }}
+          style={boxStyles}
+        >
+          {/* Column 1: Configuration Panel */}
+          <Grid item xs={12} lg={3}>
+            <Paper elevation={1} sx={{ p: 2, position: "sticky", top: 16 }}>
+              <TestDataConfigComponent
+                initialConfig={config}
+                onSubmit={handleConfigSubmit}
+                isLoading={isLoading}
+              />
+            </Paper>
+
+            {/* Metrics Box */}
+            <MetricsBox result={result} isLoading={isLoading} />
+          </Grid>
+
+          {/* Column 2: Main Output Area with Suggestions Table and Large Graph */}
+          <Grid item xs={12} lg={6} style={col2Styles}>
+            <SuggestionsTable
+              onConfigurationSelect={handleConfigurationSelect}
             />
-          </Paper>
-          
-          {/* Metrics Box */}
-          <MetricsBox 
-            result={result}
-            isLoading={isLoading}
-          />
-        </Grid>
+            <TreeDisplay
+              result={result}
+              isLoading={isLoading}
+              layoutMode="three-column"
+              selectedGraph={selectedGraph}
+              onGraphSelect={handleGraphSelect}
+            />
+          </Grid>
 
-        {/* Column 2: Main Output Area with Suggestions Table and Large Graph */}
-        <Grid item xs={12} lg={6}>
-          <SuggestionsTable onConfigurationSelect={handleConfigurationSelect} />
-          <TreeDisplay 
-            result={result} 
-            isLoading={isLoading} 
-            layoutMode="three-column"
-            selectedGraph={selectedGraph}
-            onGraphSelect={handleGraphSelect}
-          />
+          {/* Column 3: Three Small Graphs Stacked */}
+          <Grid item xs={12} lg={3}>
+            <TreeDisplay
+              result={result}
+              isLoading={isLoading}
+              layoutMode="sidebar-graphs"
+              selectedGraph={selectedGraph}
+              onGraphSelect={handleGraphSelect}
+            />
+          </Grid>
         </Grid>
-
-        {/* Column 3: Three Small Graphs Stacked */}
-        <Grid item xs={12} lg={3}>
-          <TreeDisplay 
-            result={result} 
-            isLoading={isLoading} 
-            layoutMode="sidebar-graphs"
-            selectedGraph={selectedGraph}
-            onGraphSelect={handleGraphSelect}
-          />
-        </Grid>
-      </Grid>
-    </Container>
+      </Box>
+    </Box>
   );
 }
