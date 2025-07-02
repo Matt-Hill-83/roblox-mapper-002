@@ -11,6 +11,7 @@ export default function DataProvider({
   const fetchAllData = useDataStore((state) => state.fetchAllData);
 
   useEffect(() => {
+    console.log("DataProvider: useEffect called, calling fetchAllData...");
     fetchAllData();
   }, [fetchAllData]);
 

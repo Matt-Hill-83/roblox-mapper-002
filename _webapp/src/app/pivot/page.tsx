@@ -1,115 +1,112 @@
 "use client";
 
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+// Import WebDataRocks styles and component
+import "@webdatarocks/webdatarocks/webdatarocks.min.css";
+
+import React, { useEffect, useRef } from "react";
 
 import { useDataStore } from "@/stores/dataStore";
-import { useMemo } from "react";
-
-interface PivotData {
-  id: number;
-  department: string;
-  count: number;
-  avgAge: number;
-  avgSalary: number;
-  activeCount: number;
-}
 
 export default function PivotPage() {
   const persons = useDataStore((state) => state.persons);
   const isLoading = useDataStore((state) => state.isLoading);
   const error = useDataStore((state) => state.error);
+  const fetchAllData = useDataStore((state) => state.fetchAllData);
 
-  console.log("PivotPage - persons from zustand:", persons);
-  console.log("PivotPage - isLoading:", isLoading);
-  console.log("PivotPage - error:", error);
+  const pivotRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const webDataRocksInstance = useRef<any>(null);
 
-  const pivotData: PivotData[] = useMemo(() => {
-    if (!persons.length) return [];
+  useEffect(() => {
+    const loadWebDataRocks = async () => {
+      try {
+        console.log("Pivot - Loading WebDataRocks...");
+        // Dynamic import to avoid SSR issues
+        const WebDataRocks = (await import("@webdatarocks/webdatarocks"))
+          .default;
 
-    // Group by department and calculate aggregated data
-    const grouped = persons.reduce(
-      (acc, person) => {
-        const department = person.department || "Unknown";
+        if (pivotRef.current && !webDataRocksInstance.current) {
+          console.log("Pivot - Creating WebDataRocks instance");
 
-        if (!acc[department]) {
-          acc[department] = {
-            department,
-            count: 0,
-            totalAge: 0,
-            totalSalary: 0,
-            activeCount: 0,
-          };
+          // Transform current data for initial load
+          const transformedData =
+            persons.length > 0
+              ? persons.map((person) => ({
+                  id: person.id,
+                  name: person.name,
+                  department: person.department || "Unknown",
+                  age: person.age || 0,
+                  salary: person.salary || 0,
+                  active: person.active ? "Active" : "Inactive",
+                  ageRange: getAgeRange(person.age || 0),
+                  salaryRange: getSalaryRange(person.salary || 0),
+                }))
+              : [];
+
+          webDataRocksInstance.current = new WebDataRocks({
+            container: pivotRef.current,
+            toolbar: true,
+            height: 600,
+            report: {
+              dataSource: {
+                data: transformedData,
+              },
+              slice:
+                transformedData.length > 0
+                  ? {
+                      rows: [{ uniqueName: "department" }],
+                      columns: [{ uniqueName: "[Measures]" }],
+                      measures: [
+                        { uniqueName: "salary", aggregation: "average" },
+                        { uniqueName: "age", aggregation: "average" },
+                        { uniqueName: "id", aggregation: "count" },
+                      ],
+                    }
+                  : {},
+            },
+          });
+          console.log(
+            "Pivot - WebDataRocks instance created successfully with",
+            transformedData.length,
+            "records"
+          );
         }
+      } catch (error) {
+        console.error("Error loading WebDataRocks:", error);
+      }
+    };
 
-        acc[department].count += 1;
-        acc[department].totalAge += person.age || 0;
-        acc[department].totalSalary += person.salary || 0;
-        if (person.active) {
-          acc[department].activeCount += 1;
-        }
+    loadWebDataRocks();
 
-        return acc;
-      },
-      {} as Record<
-        string,
-        {
-          department: string;
-          count: number;
-          totalAge: number;
-          totalSalary: number;
-          activeCount: number;
-        }
-      >
-    );
+    // Fetch data when component mounts
+    if (persons.length === 0) {
+      console.log("Pivot - No persons data, triggering fetchAllData");
+      fetchAllData();
+    }
 
-    // Convert to array with calculated averages
-    return Object.values(grouped).map((group, index) => ({
-      id: index + 1,
-      department: group.department,
-      count: group.count,
-      avgAge: Math.round(group.totalAge / group.count),
-      avgSalary: Math.round(group.totalSalary / group.count),
-      activeCount: group.activeCount,
-    }));
+    return () => {
+      if (webDataRocksInstance.current) {
+        webDataRocksInstance.current.dispose();
+        webDataRocksInstance.current = null;
+      }
+    };
   }, [persons]);
 
-  const columns: GridColDef[] = [
-    {
-      field: "department",
-      headerName: "Department",
-      width: 150,
-      sortable: true,
-    },
-    {
-      field: "count",
-      headerName: "Count",
-      width: 100,
-      type: "number",
-      sortable: true,
-    },
-    {
-      field: "avgAge",
-      headerName: "Avg Age",
-      width: 100,
-      type: "number",
-      sortable: true,
-    },
-    {
-      field: "avgSalary",
-      headerName: "Avg Salary",
-      width: 120,
-      type: "number",
-      sortable: true,
-      valueFormatter: (value: number) => `$${value?.toLocaleString() || 0}`,
-    },
-    {
-      field: "activeCount",
-      headerName: "Active Employees",
-      width: 150,
-      type: "number",
-      sortable: true,
-    },
-  ];
+  const getAgeRange = (age: number) => {
+    if (age < 25) return "Under 25";
+    if (age < 30) return "25-29";
+    if (age < 35) return "30-34";
+    if (age < 40) return "35-39";
+    return "40+";
+  };
+
+  const getSalaryRange = (salary: number) => {
+    if (salary < 1000000) return "Under $1M";
+    if (salary < 2000000) return "$1M-$2M";
+    if (salary < 3000000) return "$2M-$3M";
+    if (salary < 4000000) return "$3M-$4M";
+    return "$4M+";
+  };
 
   if (isLoading) {
     return (
@@ -135,31 +132,22 @@ export default function PivotPage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">
-        Pivot Table - Persons Data Analysis
-      </h1>
-      <div className="bg-white p-4 rounded-lg shadow">
-        <p className="text-gray-600 mb-4">
-          Data aggregated by department showing count, average age, average
-          salary, and active employee count.
+      <h1 className="text-2xl font-bold mb-6">Pivot Table - WebDataRocks</h1>
+
+      <div className="bg-white p-4 rounded-lg shadow mb-4">
+        <p className="text-gray-600 mb-2">
+          Interactive pivot analysis with {persons.length} records
         </p>
-        {pivotData.length > 0 ? (
-          <div style={{ height: 400, width: "100%" }}>
-            <DataGrid
-              rows={pivotData}
-              columns={columns}
-              pageSizeOptions={[5, 10, 25]}
-              initialState={{
-                pagination: { paginationModel: { pageSize: 10 } },
-              }}
-              disableRowSelectionOnClick
-            />
-          </div>
-        ) : (
-          <p className="text-gray-600">
-            No persons data available for pivot analysis
-          </p>
-        )}
+        <button
+          onClick={fetchAllData}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          Refresh Data
+        </button>
+      </div>
+
+      <div className="bg-white rounded-lg shadow">
+        <div ref={pivotRef} style={{ width: "100%", height: "600px" }} />
       </div>
     </div>
   );
