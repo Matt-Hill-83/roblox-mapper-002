@@ -1,0 +1,23 @@
+{
+  "name": "hierarchical-graph-2d-demo",
+  "version": "1.0.0",
+  "description": "Simple 2D hierarchical graph visualization demo for console",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "demo": "node index.js"
+  },
+  "keywords": [
+    "hierarchy",
+    "graph",
+    "2d",
+    "visualization",
+    "console",
+    "demo"
+  ],
+  "author": "Claude",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}

@@ -47,6 +47,12 @@ export default function RootLayout({
               >
                 Pivot Table
               </Link>
+              <Link
+                href="/hierarchy-tester"
+                className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 transition-colors"
+              >
+                Hierarchy Tester
+              </Link>
             </div>
           </div>
         </nav>

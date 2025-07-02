@@ -238,7 +238,7 @@ export class HierarchicalLayoutCalculator {
     // Private helper methods
 
     private calculateTreeBasePosition(treeIndex: number): [number, number, number] {
-        const x = 10 + (treeIndex * TREE_SPACING);
+        const x = treeIndex * TREE_SPACING;
         const y = 0;
         const z = 0;
         return [x, y, z];

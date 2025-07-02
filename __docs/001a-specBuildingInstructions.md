@@ -1,7 +1,7 @@
 # Feature Specification Building Instructions
 
 When told to do so:
-execute tasks, starting with task 12.
+execute tasks, starting with task 1.
 mark each task complete before starting the next task.
 if a task fails or cannot be done, stop and wait for instructions.
 
