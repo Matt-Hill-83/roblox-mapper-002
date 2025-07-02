@@ -1,5 +1,5 @@
 import { allRelationData } from "../data";
-import { RopeLabelService } from "../../server/services/ropeLabel.service";
+import { RopeLabelService } from "./ropeLabelService";
 
 interface ConnectorConfig {
   parent?: Instance;

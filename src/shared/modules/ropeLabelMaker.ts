@@ -1,3 +1,5 @@
+import { createTextBox } from "./TextBoxMaker";
+
 interface RopeLabelConfig {
   ropeIndex: number;
   relationTypeName: string;
@@ -18,17 +20,45 @@ export function createRopeLabel({
     targetAttachment.WorldPosition
   ).div(2);
 
-  // Create the green cube
+  // Calculate direction vector for rope alignment
+  const direction = targetAttachment.WorldPosition.sub(
+    sourceAttachment.WorldPosition
+  ).Unit;
+
+  // Create the elongated block aligned with rope
   const cube = new Instance("Part");
   cube.Name = `cube${padNumber(ropeIndex, 3)}-${relationTypeName}-midpoint`;
-  cube.Size = new Vector3(1, 1, 1);
-  cube.BrickColor = new BrickColor("Bright green");
-  cube.Material = Enum.Material.Neon;
+
+  // Set size back to original - long in Z direction
+  cube.Size = new Vector3(1, 1, 3); // 3x longer in Z direction (forward)
+  cube.BrickColor = new BrickColor("Institutional white"); // Near white brick color
+  cube.Material = Enum.Material.Concrete; // Concrete material
   cube.Shape = Enum.PartType.Block;
-  cube.Anchored = false;
+  cube.Anchored = true; // Anchor it to prevent physics interference
   cube.CanCollide = false;
-  cube.Position = midpoint;
+
+  // Use CFrame.lookAt to align the Z-axis (long dimension) with rope direction
+  cube.CFrame = CFrame.lookAt(midpoint, midpoint.add(direction));
+
   cube.Parent = parent;
+
+  // Add text boxes to all faces of the cube
+  const faces = [
+    Enum.NormalId.Front,
+    Enum.NormalId.Back,
+    Enum.NormalId.Left,
+    Enum.NormalId.Right,
+    Enum.NormalId.Top,
+    Enum.NormalId.Bottom,
+  ];
+
+  faces.forEach((face) => {
+    createTextBox({
+      part: cube,
+      face: face,
+      text: "TEST",
+    });
+  });
 
   // Create attachment on the cube
   const cubeAttachment = new Instance("Attachment");
@@ -51,14 +81,12 @@ export function createRopeLabel({
   ropeAttachment.Position = new Vector3(0, 0, 0);
   ropeAttachment.Parent = midpointPart;
 
-  // Create weld between cube and rope anchor
-  const weld = new Instance("WeldConstraint");
-  weld.Name = `weld${padNumber(ropeIndex, 3)}-cube-to-rope`;
-  weld.Part0 = cube;
-  weld.Part1 = midpointPart;
-  weld.Parent = cube;
+  // Since both parts are anchored, we don't need a weld constraint
+  // The cube will stay in position relative to the rope
 
-  print(`✅ Created green cube and weld for rope ${ropeIndex}: ${cube.Name}`);
+  print(
+    `✅ Created concrete block aligned with rope ${ropeIndex}: ${cube.Name}`
+  );
 
   return cube;
 }

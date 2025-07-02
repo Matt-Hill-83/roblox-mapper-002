@@ -1,4 +1,4 @@
-import { createRopeLabel } from "../../shared/modules/ropeLabelMaker";
+import { createRopeLabel } from "./ropeLabelMaker";
 
 export class RopeLabelService {
   private static instance: RopeLabelService;
