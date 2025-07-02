@@ -21,8 +21,10 @@ import {
 } from "@mui/material";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import InfoIcon from "@mui/icons-material/Info";
 import { TestDataConfig } from "../app/(pages)/hierarchy-tester/page";
 import { useState, useEffect } from "react";
+import { Tooltip, IconButton } from "@mui/material";
 
 interface TestDataConfigComponentProps {
   initialConfig: TestDataConfig;
@@ -130,30 +132,44 @@ export default function TestDataConfigComponent({
           </Typography>
 
           <Stack spacing={2}>
-            <TextField
-              label="Total Nodes"
-              type="number"
-              size="small"
-              value={config.totalNodes}
-              onChange={handleInputChange("totalNodes")}
-              error={!!errors.totalNodes}
-              helperText={errors.totalNodes ? "Must be 1-1000" : ""}
-              slotProps={{ htmlInput: { min: 1, max: 1000 } }}
-              fullWidth
-              disabled={isLoading}
-            />
-            <TextField
-              label="Max Depth"
-              type="number"
-              size="small"
-              value={config.maxDepth}
-              onChange={handleInputChange("maxDepth")}
-              error={!!errors.maxDepth}
-              helperText={errors.maxDepth ? "Must be 1-15" : ""}
-              slotProps={{ htmlInput: { min: 1, max: 15 } }}
-              fullWidth
-              disabled={isLoading}
-            />
+            <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+              <TextField
+                label="Total Nodes"
+                type="number"
+                size="small"
+                value={config.totalNodes}
+                onChange={handleInputChange("totalNodes")}
+                error={!!errors.totalNodes}
+                helperText={errors.totalNodes ? "Must be 1-1000" : ""}
+                slotProps={{ htmlInput: { min: 1, max: 1000 } }}
+                fullWidth
+                disabled={isLoading}
+              />
+              <Tooltip title="Total number of nodes to generate in the graph (1-1000). Larger values create more complex visualizations but may impact performance.">
+                <IconButton size="small" sx={{ mt: 1 }}>
+                  <InfoIcon fontSize="small" color="action" />
+                </IconButton>
+              </Tooltip>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+              <TextField
+                label="Max Depth"
+                type="number"
+                size="small"
+                value={config.maxDepth}
+                onChange={handleInputChange("maxDepth")}
+                error={!!errors.maxDepth}
+                helperText={errors.maxDepth ? "Must be 1-15" : ""}
+                slotProps={{ htmlInput: { min: 1, max: 15 } }}
+                fullWidth
+                disabled={isLoading}
+              />
+              <Tooltip title="Maximum depth of the hierarchical tree (1-15). Higher values create deeper, more vertical structures.">
+                <IconButton size="small" sx={{ mt: 1 }}>
+                  <InfoIcon fontSize="small" color="action" />
+                </IconButton>
+              </Tooltip>
+            </Box>
           </Stack>
         </Box>
 
@@ -166,33 +182,52 @@ export default function TestDataConfigComponent({
           </AccordionSummary>
           <AccordionDetails>
             <Stack spacing={2}>
-              <TextField
-                label="Branching Min"
-                type="number"
-                size="small"
-                value={config.branchingMin}
-                onChange={handleInputChange("branchingMin")}
-                error={!!errors.branchingMin}
-                slotProps={{ htmlInput: { min: 1, max: 20 } }}
-                fullWidth
-                disabled={isLoading}
-              />
-              <TextField
-                label="Branching Max"
-                type="number"
-                size="small"
-                value={config.branchingMax}
-                onChange={handleInputChange("branchingMax")}
-                error={!!errors.branchingMax}
-                slotProps={{ htmlInput: { min: 1, max: 20 } }}
-                fullWidth
-                disabled={isLoading}
-              />
+              <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <TextField
+                  label="Branching Min"
+                  type="number"
+                  size="small"
+                  value={config.branchingMin}
+                  onChange={handleInputChange("branchingMin")}
+                  error={!!errors.branchingMin}
+                  slotProps={{ htmlInput: { min: 1, max: 20 } }}
+                  fullWidth
+                  disabled={isLoading}
+                />
+                <Tooltip title="Minimum number of child nodes each parent can have (1-20). Controls the narrowest branching in your hierarchy.">
+                  <IconButton size="small" sx={{ mt: 1 }}>
+                    <InfoIcon fontSize="small" color="action" />
+                  </IconButton>
+                </Tooltip>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <TextField
+                  label="Branching Max"
+                  type="number"
+                  size="small"
+                  value={config.branchingMax}
+                  onChange={handleInputChange("branchingMax")}
+                  error={!!errors.branchingMax}
+                  slotProps={{ htmlInput: { min: 1, max: 20 } }}
+                  fullWidth
+                  disabled={isLoading}
+                />
+                <Tooltip title="Maximum number of child nodes each parent can have (1-20). Controls the widest branching in your hierarchy.">
+                  <IconButton size="small" sx={{ mt: 1 }}>
+                    <InfoIcon fontSize="small" color="action" />
+                  </IconButton>
+                </Tooltip>
+              </Box>
 
               <Box>
-                <Typography variant="caption" gutterBottom>
-                  Cross-Tree Connections: {config.crossTreeConnections}%
-                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                  <Typography variant="caption">
+                    Cross-Tree Connections: {config.crossTreeConnections}%
+                  </Typography>
+                  <Tooltip title="Percentage of additional connections between different hierarchy trees (0-100%). Higher values create more interconnected networks.">
+                    <InfoIcon fontSize="small" color="action" />
+                  </Tooltip>
+                </Box>
                 <Slider
                   value={config.crossTreeConnections}
                   onChange={handleSliderChange("crossTreeConnections")}
@@ -205,9 +240,14 @@ export default function TestDataConfigComponent({
               </Box>
 
               <Box>
-                <Typography variant="caption" gutterBottom>
-                  Clustering Coefficient: {config.clusteringCoeff}%
-                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                  <Typography variant="caption">
+                    Clustering Coefficient: {config.clusteringCoeff}%
+                  </Typography>
+                  <Tooltip title="How tightly clustered the nodes are (0-100%). Higher values create more dense local connections and groups.">
+                    <InfoIcon fontSize="small" color="action" />
+                  </Tooltip>
+                </Box>
                 <Slider
                   value={config.clusteringCoeff}
                   onChange={handleSliderChange("clusteringCoeff")}
@@ -219,27 +259,34 @@ export default function TestDataConfigComponent({
                 />
               </Box>
 
-              <FormControl size="small" fullWidth>
-                <InputLabel>Network Density</InputLabel>
-                <Select
-                  value={config.networkDensity}
-                  label="Network Density"
-                  onChange={(e) =>
-                    setConfig({
-                      ...config,
-                      networkDensity: e.target.value as
-                        | "sparse"
-                        | "medium"
-                        | "dense",
-                    })
-                  }
-                  disabled={isLoading}
-                >
-                  <MenuItem value="sparse">Sparse</MenuItem>
-                  <MenuItem value="medium">Medium</MenuItem>
-                  <MenuItem value="dense">Dense</MenuItem>
-                </Select>
-              </FormControl>
+              <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <FormControl size="small" fullWidth>
+                  <InputLabel>Network Density</InputLabel>
+                  <Select
+                    value={config.networkDensity}
+                    label="Network Density"
+                    onChange={(e) =>
+                      setConfig({
+                        ...config,
+                        networkDensity: e.target.value as
+                          | "sparse"
+                          | "medium"
+                          | "dense",
+                      })
+                    }
+                    disabled={isLoading}
+                  >
+                    <MenuItem value="sparse">Sparse</MenuItem>
+                    <MenuItem value="medium">Medium</MenuItem>
+                    <MenuItem value="dense">Dense</MenuItem>
+                  </Select>
+                </FormControl>
+                <Tooltip title="Overall density of connections in the network. Sparse = few connections, Medium = moderate connections, Dense = many connections.">
+                  <IconButton size="small" sx={{ mt: 1 }}>
+                    <InfoIcon fontSize="small" color="action" />
+                  </IconButton>
+                </Tooltip>
+              </Box>
             </Stack>
           </AccordionDetails>
         </Accordion>
@@ -251,30 +298,44 @@ export default function TestDataConfigComponent({
           </AccordionSummary>
           <AccordionDetails>
             <Stack spacing={2}>
-              <TextField
-                label="Entity Types"
-                type="number"
-                size="small"
-                value={config.entityTypes}
-                onChange={handleInputChange("entityTypes")}
-                error={!!errors.entityTypes}
-                helperText={errors.entityTypes ? "Must be 2-10" : ""}
-                slotProps={{ htmlInput: { min: 2, max: 10 } }}
-                fullWidth
-                disabled={isLoading}
-              />
-              <TextField
-                label="Hub Nodes"
-                type="number"
-                size="small"
-                value={config.hubNodes}
-                onChange={handleInputChange("hubNodes")}
-                error={!!errors.hubNodes}
-                helperText={errors.hubNodes ? "Must be 0-10" : ""}
-                slotProps={{ htmlInput: { min: 0, max: 10 } }}
-                fullWidth
-                disabled={isLoading}
-              />
+              <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <TextField
+                  label="Entity Types"
+                  type="number"
+                  size="small"
+                  value={config.entityTypes}
+                  onChange={handleInputChange("entityTypes")}
+                  error={!!errors.entityTypes}
+                  helperText={errors.entityTypes ? "Must be 2-10" : ""}
+                  slotProps={{ htmlInput: { min: 2, max: 10 } }}
+                  fullWidth
+                  disabled={isLoading}
+                />
+                <Tooltip title="Number of different entity types to generate (2-10). More types create visual variety with different colors and shapes.">
+                  <IconButton size="small" sx={{ mt: 1 }}>
+                    <InfoIcon fontSize="small" color="action" />
+                  </IconButton>
+                </Tooltip>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <TextField
+                  label="Hub Nodes"
+                  type="number"
+                  size="small"
+                  value={config.hubNodes}
+                  onChange={handleInputChange("hubNodes")}
+                  error={!!errors.hubNodes}
+                  helperText={errors.hubNodes ? "Must be 0-10" : ""}
+                  slotProps={{ htmlInput: { min: 0, max: 10 } }}
+                  fullWidth
+                  disabled={isLoading}
+                />
+                <Tooltip title="Number of highly-connected hub nodes (0-10). Hub nodes have many connections and act as central points in the network.">
+                  <IconButton size="small" sx={{ mt: 1 }}>
+                    <InfoIcon fontSize="small" color="action" />
+                  </IconButton>
+                </Tooltip>
+              </Box>
             </Stack>
           </AccordionDetails>
         </Accordion>

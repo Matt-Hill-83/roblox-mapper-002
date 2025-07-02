@@ -58,6 +58,7 @@ export interface ReactFlowData {
 
 export class ReactFlowAdapter {
   static transform(data: HierarchyData): ReactFlowData {
+    // First pass: create nodes with initial positions
     const nodes: ReactFlowNode[] = data.entities.map(entity => ({
       id: entity.entityId,
       type: 'default',
@@ -83,6 +84,9 @@ export class ReactFlowAdapter {
       }
     }));
 
+    // Second pass: ensure 2px minimum spacing between all nodes
+    const adjustedNodes = this.ensureMinimumSpacing(nodes, 2);
+
     const edges: ReactFlowEdge[] = data.connections.map((conn, index) => ({
       id: `edge-${index}`,
       source: conn.fromId,
@@ -95,7 +99,45 @@ export class ReactFlowAdapter {
       }
     }));
 
-    return { nodes, edges };
+    return { nodes: adjustedNodes, edges };
+  }
+
+  private static ensureMinimumSpacing(nodes: ReactFlowNode[], minSpacing: number): ReactFlowNode[] {
+    const nodeSize = 60; // Node width/height from style
+    const requiredDistance = nodeSize + minSpacing;
+    const adjustedNodes = [...nodes]; // Create a copy to avoid mutation
+    
+    // Multiple passes to handle cascading adjustments
+    for (let pass = 0; pass < 3; pass++) {
+      for (let i = 0; i < adjustedNodes.length; i++) {
+        for (let j = i + 1; j < adjustedNodes.length; j++) {
+          const nodeA = adjustedNodes[i];
+          const nodeB = adjustedNodes[j];
+          
+          const dx = nodeB.position.x - nodeA.position.x;
+          const dy = nodeB.position.y - nodeA.position.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < requiredDistance && distance > 0) {
+            // Calculate how much to move each node
+            const overlap = requiredDistance - distance;
+            const moveDistance = overlap / 2;
+            
+            // Calculate unit vector for separation direction
+            const unitX = dx / distance;
+            const unitY = dy / distance;
+            
+            // Move nodes apart
+            nodeA.position.x -= unitX * moveDistance;
+            nodeA.position.y -= unitY * moveDistance;
+            nodeB.position.x += unitX * moveDistance;
+            nodeB.position.y += unitY * moveDistance;
+          }
+        }
+      }
+    }
+    
+    return adjustedNodes;
   }
 
   private static getNodeColor(type: string, level: number): string {

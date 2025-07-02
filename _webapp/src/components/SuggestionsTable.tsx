@@ -1,16 +1,139 @@
 'use client';
 
 import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Paper, Typography, IconButton, Divider } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { presetConfigurations, PresetConfiguration } from '../data/presetConfigurations';
 import { TestDataConfig } from '../app/(pages)/hierarchy-tester/page';
+import { useState, useEffect } from 'react';
 
 interface SuggestionsTableProps {
   onConfigurationSelect: (config: TestDataConfig) => void;
 }
 
+interface ExtendedPresetConfiguration extends PresetConfiguration {
+  is_favorite: boolean;
+}
+
 export default function SuggestionsTable({ onConfigurationSelect }: SuggestionsTableProps) {
+  const [configurations, setConfigurations] = useState<ExtendedPresetConfiguration[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Load configurations from database and merge with presets
+  useEffect(() => {
+    loadConfigurations();
+  }, []);
+
+  const loadConfigurations = async () => {
+    try {
+      const response = await fetch('/api/graph-configs');
+      const result = await response.json();
+      
+      if (result.success) {
+        // Parse database configs
+        const dbConfigs = result.data.map((config: any) => ({
+          id: parseInt(config.uuid.split('-').pop() || '0'),
+          uuid: config.uuid,
+          name: config.name,
+          description: config.description,
+          is_favorite: config.is_favorite,
+          is_system: config.is_system,
+          ...JSON.parse(config.config_data)
+        }));
+        
+        // Merge with preset configurations
+        const presetUuids = new Set(dbConfigs.map((c: any) => c.uuid));
+        const presetsToAdd = presetConfigurations.filter(p => !presetUuids.has(p.uuid));
+        
+        // Add missing presets to database
+        for (const preset of presetsToAdd) {
+          await fetch('/api/graph-configs', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'save',
+              uuid: preset.uuid,
+              name: preset.name,
+              description: preset.description,
+              config: preset,
+              is_system: true,
+              is_favorite: false
+            })
+          });
+        }
+        
+        // Reload to get the complete list
+        const updatedResponse = await fetch('/api/graph-configs');
+        const updatedResult = await updatedResponse.json();
+        
+        if (updatedResult.success) {
+          const allConfigs = updatedResult.data.map((config: any) => ({
+            id: parseInt(config.uuid.split('-').pop() || '0'),
+            uuid: config.uuid,
+            name: config.name,
+            description: config.description,
+            is_favorite: config.is_favorite,
+            is_system: config.is_system,
+            ...JSON.parse(config.config_data)
+          }));
+          
+          setConfigurations(allConfigs);
+        }
+      }
+    } catch (error) {
+      console.error('Error loading configurations:', error);
+      // Fallback to preset configurations
+      setConfigurations(presetConfigurations.map(p => ({ ...p, is_favorite: false })));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleToggleFavorite = async (uuid: string, event: React.MouseEvent) => {
+    event.stopPropagation();
+    
+    try {
+      const response = await fetch('/api/graph-configs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'toggle_favorite',
+          uuid
+        })
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        setConfigurations(prev => 
+          prev.map(config => 
+            config.uuid === uuid 
+              ? { ...config, is_favorite: result.data.is_favorite }
+              : config
+          )
+        );
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+    }
+  };
+
   const columns: GridColDef[] = [
+    {
+      field: 'is_favorite',
+      headerName: '⭐',
+      width: 60,
+      renderCell: (params) => (
+        <IconButton
+          size="small"
+          onClick={(e) => handleToggleFavorite(params.row.uuid, e)}
+          sx={{ color: params.value ? 'gold' : 'lightgray' }}
+        >
+          {params.value ? <StarIcon /> : <StarBorderIcon />}
+        </IconButton>
+      )
+    },
     {
       field: 'id',
       headerName: '#',
@@ -62,7 +185,7 @@ export default function SuggestionsTable({ onConfigurationSelect }: SuggestionsT
     { field: 'networkDensity', headerName: 'Density', width: 90 }
   ];
 
-  const handleConfigurationClick = (config: PresetConfiguration) => {
+  const handleConfigurationClick = (config: ExtendedPresetConfiguration) => {
     // Extract only the TestDataConfig properties, excluding the preset-specific ones
     const testConfig: TestDataConfig = {
       numberOfNodes: config.numberOfNodes,
@@ -89,17 +212,22 @@ export default function SuggestionsTable({ onConfigurationSelect }: SuggestionsT
           Suggested Configurations
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Click any # to load that configuration
+          ⭐ Click star to favorite • # Click number to load configuration
         </Typography>
       </Box>
       <Box sx={{ height: 400, width: '100%' }}>
         <DataGrid
-          rows={presetConfigurations}
+          rows={configurations}
           columns={columns}
           density="compact"
+          loading={loading}
+          getRowId={(row) => row.uuid}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 10 }
+            },
+            sorting: {
+              sortModel: [{ field: 'is_favorite', sort: 'desc' }]
             }
           }}
           pageSizeOptions={[10]}
@@ -111,6 +239,10 @@ export default function SuggestionsTable({ onConfigurationSelect }: SuggestionsT
             },
             '& .MuiDataGrid-row:hover': {
               backgroundColor: 'action.hover'
+            },
+            '& .MuiDataGrid-row[data-rowselected="true"]': {
+              backgroundColor: 'primary.light',
+              opacity: 0.1
             }
           }}
         />

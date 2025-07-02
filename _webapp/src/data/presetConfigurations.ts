@@ -2,15 +2,20 @@ import { TestDataConfig } from '../app/(pages)/hierarchy-tester/page';
 
 export interface PresetConfiguration extends TestDataConfig {
   id: number;
+  uuid: string;
   name: string;
   description: string;
+  is_favorite?: boolean;
+  is_system: boolean;
 }
 
 export const presetConfigurations: PresetConfiguration[] = [
   {
     id: 1,
+    uuid: "preset-minimal-tree-001",
     name: "Minimal Tree",
     description: "Small, simple hierarchy for testing",
+    is_system: true,
     numberOfNodes: 10,
     numberOfConnectedChains: 2,
     depthOfLongestChain: 2,
@@ -26,8 +31,10 @@ export const presetConfigurations: PresetConfiguration[] = [
   },
   {
     id: 2,
+    uuid: "preset-corporate-hierarchy-002",
     name: "Corporate Hierarchy",
     description: "Deep organizational structure",
+    is_system: true,
     numberOfNodes: 25,
     numberOfConnectedChains: 3,
     depthOfLongestChain: 6,
@@ -43,8 +50,10 @@ export const presetConfigurations: PresetConfiguration[] = [
   },
   {
     id: 3,
+    uuid: "preset-social-network-003",
     name: "Social Network",
     description: "Highly interconnected community",
+    is_system: true,
     numberOfNodes: 30,
     numberOfConnectedChains: 4,
     depthOfLongestChain: 4,
@@ -60,8 +69,10 @@ export const presetConfigurations: PresetConfiguration[] = [
   },
   {
     id: 4,
+    uuid: "preset-binary-tree-004",
     name: "Binary Tree",
     description: "Perfect binary tree structure",
+    is_system: true,
     numberOfNodes: 20,
     numberOfConnectedChains: 1,
     depthOfLongestChain: 5,
@@ -77,8 +88,10 @@ export const presetConfigurations: PresetConfiguration[] = [
   },
   {
     id: 5,
+    uuid: "preset-star-network-005",
     name: "Star Network",
     description: "Central hub with many connections",
+    is_system: true,
     numberOfNodes: 15,
     numberOfConnectedChains: 8,
     depthOfLongestChain: 2,
@@ -94,8 +107,10 @@ export const presetConfigurations: PresetConfiguration[] = [
   },
   {
     id: 6,
+    uuid: "preset-mesh-network-006",
     name: "Mesh Network",
     description: "Highly redundant connections",
+    is_system: true,
     numberOfNodes: 25,
     numberOfConnectedChains: 5,
     depthOfLongestChain: 3,
@@ -111,8 +126,10 @@ export const presetConfigurations: PresetConfiguration[] = [
   },
   {
     id: 7,
+    uuid: "preset-layered-architecture-007",
     name: "Layered Architecture",
     description: "Multi-tier system design",
+    is_system: true,
     numberOfNodes: 35,
     numberOfConnectedChains: 6,
     depthOfLongestChain: 7,
@@ -128,8 +145,10 @@ export const presetConfigurations: PresetConfiguration[] = [
   },
   {
     id: 8,
+    uuid: "preset-scale-free-network-008",
     name: "Scale-Free Network",
     description: "Power-law degree distribution",
+    is_system: true,
     numberOfNodes: 40,
     numberOfConnectedChains: 7,
     depthOfLongestChain: 5,
@@ -145,8 +164,10 @@ export const presetConfigurations: PresetConfiguration[] = [
   },
   {
     id: 9,
+    uuid: "preset-stress-test-009",
     name: "Stress Test",
     description: "Maximum complexity configuration",
+    is_system: true,
     numberOfNodes: 50,
     numberOfConnectedChains: 10,
     depthOfLongestChain: 10,
@@ -162,8 +183,10 @@ export const presetConfigurations: PresetConfiguration[] = [
   },
   {
     id: 10,
+    uuid: "preset-balanced-tree-010",
     name: "Balanced Tree",
     description: "Optimized for visualization",
+    is_system: true,
     numberOfNodes: 30,
     numberOfConnectedChains: 4,
     depthOfLongestChain: 4,

@@ -99,16 +99,30 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
        5. ✅ Clicking index shall update graph config and display
        6. ✅ Include 10 rows of interesting preset configurations
 
-   16. ⬛ R50: The system shall implement table display refinements:
+   16. ✅ R50: The system shall implement table display refinements:
 
-       1. ⬛ Split configuration column into separate title and description columns
-       2. ⬛ Use compact density mode for MUI Data Grid
-       3. ⬛ Optimize column widths for maximum data visibility
+       1. ✅ Split configuration column into separate title and description columns
+       2. ✅ Use compact density mode for MUI Data Grid
+       3. ✅ Optimize column widths for maximum data visibility
 
-   17. ⬛ R51: The system shall implement configuration form refinements:
-       1. ⬛ Display each input field on a new row
-       2. ⬛ Remove all side-by-side input layouts
-       3. ⬛ Maintain consistent vertical spacing between inputs
+   17. ✅ R51: The system shall implement configuration form refinements:
+       1. ✅ Display each input field on a new row
+       2. ✅ Remove all side-by-side input layouts
+       3. ✅ Maintain consistent vertical spacing between inputs
+
+   18. ✅ R52: The system shall implement UI enhancements:
+       1. ✅ Enforce 2px minimum separation between nodes in React Flow chart
+       2. ✅ Add info icons with tooltips to all configuration input fields
+       3. ✅ Display explanatory text for each configuration option
+
+   19. ⬛ R53: The system shall implement configuration persistence:
+       1. ⬛ Create GraphConfig table in existing database
+       2. ⬛ Add UUID field for each configuration
+       3. ⬛ Add favorite/star button to each configuration row
+       4. ⬛ Save starred configurations to database
+       5. ⬛ Load and display favorite configurations at top of suggestions table
+       6. ⬛ Display system-generated configurations below favorites
+       7. ⬛ Auto-generate UUID for each system configuration
 
 ## Task List
 
@@ -146,8 +160,19 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    31. ✅ T31: Create suggestions table with MUI Advanced Data Grid (R49)
    32. ✅ T32: Generate 10 interesting preset configurations (R49)
    33. ✅ T33: Implement configuration index click handling (R49)
-   34. ⬛ T34: Split configuration table columns and optimize display (R50)
-   35. ⬛ T35: Refactor configuration form layout for vertical inputs (R51)
+   34. ✅ T34: Split configuration table columns and optimize display (R50)
+   35. ✅ T35: Refactor configuration form layout for vertical inputs (R51)
+   36. ✅ T36: Configure React Flow node spacing to 2px minimum (R52)
+   37. ✅ T37: Add info icons to configuration input fields (R52)
+   38. ✅ T38: Create and style tooltips for configuration fields (R52)
+   39. ⬛ T39: Define GraphConfig database schema with UUID and favorite fields (R53)
+   40. ⬛ T40: Create GraphConfig model and database migration (R53)
+   41. ⬛ T41: Add star button component to configuration rows (R53)
+   42. ⬛ T42: Implement save/unsave favorite configuration functionality (R53)
+   43. ⬛ T43: Create API endpoint for favorite configurations (R53)
+   44. ⬛ T44: Update table to display favorites section with star status (R53)
+   45. ⬛ T45: Implement UUID generation for system configurations (R53)
+   46. ⬛ T46: Add configuration sorting (favorites first, then system configs) (R53)
 
 ## Risks
 
