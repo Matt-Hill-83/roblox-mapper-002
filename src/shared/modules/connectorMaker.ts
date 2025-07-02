@@ -178,7 +178,8 @@ export function addConnectors({
             relationTypeName,
             sourceAttachment,
             targetAttachment,
-            connectorsFolder
+            connectorsFolder,
+            relation.name
           );
 
           ropeIndex++;

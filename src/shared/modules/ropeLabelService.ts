@@ -18,14 +18,18 @@ export class RopeLabelService {
     relationTypeName: string,
     sourceAttachment: Attachment,
     targetAttachment: Attachment,
-    parent: Instance
-  ): Part {
+    parent: Instance,
+    relationName?: string
+  ): Model {
     const label = createRopeLabel({
       ropeIndex,
       relationTypeName,
       sourceAttachment,
       targetAttachment,
       parent,
+      props: {
+        relationName: relationName,
+      },
     });
 
     this.labelCount++;

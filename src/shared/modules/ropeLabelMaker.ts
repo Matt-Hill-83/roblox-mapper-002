@@ -1,4 +1,38 @@
-import { createTextBox } from "./TextBoxMaker";
+import { createLabelGroup } from "./labelGroupMaker";
+
+function parseRelationName(
+  relationName: string,
+  relationTypeName: string
+): { source: string; relation: string; target: string } {
+  if (!relationName) {
+    return { source: "source", relation: relationTypeName, target: "target" };
+  }
+
+  // Pattern: "source_RELATION_target" -> { source, relation, target }
+  const splitPattern = `_${relationTypeName}_`;
+  const splitIndex = relationName.find(splitPattern);
+
+  if (splitIndex && splitIndex[0] !== undefined) {
+    const beforeIndex = splitIndex[0];
+    const afterIndex = beforeIndex + splitPattern.size();
+
+    const source = relationName.sub(1, beforeIndex - 1);
+    const target = relationName.sub(afterIndex);
+
+    // Replace underscores with spaces using gsub
+    const sourceFormatted = source.gsub("_", " ")[0];
+    const targetFormatted = target.gsub("_", " ")[0];
+
+    return {
+      source: sourceFormatted,
+      relation: relationTypeName,
+      target: targetFormatted,
+    };
+  }
+
+  // Fallback
+  return { source: "source", relation: relationTypeName, target: "target" };
+}
 
 interface RopeLabelConfig {
   ropeIndex: number;
@@ -16,103 +50,22 @@ export function createRopeLabel({
   targetAttachment,
   parent,
   props = {},
-}: RopeLabelConfig): Part {
-  // Default properties for the rope label
-  const defaultProps = {
-    size: new Vector3(1, 1, 3),
-    brickColor: new BrickColor("Institutional white"),
-    material: Enum.Material.Concrete,
-    textBoxText: "TEST",
-    transparency: 0,
-  };
+}: RopeLabelConfig): Model {
+  // Parse the relation name into components
+  const relationName = (props.relationName as string) || "";
+  const parsedRelation = parseRelationName(relationName, relationTypeName);
 
-  // Merge default props with passed props
-  const finalProps = {
-    ...defaultProps,
-    ...props,
-  };
-  // Calculate midpoint between attachments
-  const midpoint = sourceAttachment.WorldPosition.add(
-    targetAttachment.WorldPosition
-  ).div(2);
-
-  // Calculate direction vector for rope alignment
-  const direction = targetAttachment.WorldPosition.sub(
-    sourceAttachment.WorldPosition
-  ).Unit;
-
-  // Create the elongated block aligned with rope
-  const cube = new Instance("Part");
-  cube.Name = `cube${padNumber(ropeIndex, 3)}-${relationTypeName}-midpoint`;
-
-  // Set properties using finalProps
-  cube.Size = finalProps.size; // Use configurable size
-  cube.BrickColor = finalProps.brickColor; // Use configurable brick color
-  cube.Material = finalProps.material; // Use configurable material
-  cube.Transparency = finalProps.transparency; // Use configurable transparency
-  cube.Shape = Enum.PartType.Block;
-  cube.Anchored = true; // Anchor it to prevent physics interference
-  cube.CanCollide = false;
-
-  // Use CFrame.lookAt to align the Z-axis (long dimension) with rope direction
-  cube.CFrame = CFrame.lookAt(midpoint, midpoint.add(direction));
-
-  cube.Parent = parent;
-
-  // Add text boxes to all faces of the cube
-  const faces = [
-    Enum.NormalId.Front,
-    Enum.NormalId.Back,
-    Enum.NormalId.Left,
-    Enum.NormalId.Right,
-    Enum.NormalId.Top,
-    Enum.NormalId.Bottom,
-  ];
-
-  faces.forEach((face) => {
-    createTextBox({
-      part: cube,
-      face: face,
-      text: finalProps.textBoxText, // Use configurable text
-    });
+  // Use the new labelGroupMaker to create 3 separate blocks
+  const labelGroup = createLabelGroup({
+    ropeIndex,
+    sourceText: parsedRelation.source,
+    relationText: parsedRelation.relation,
+    targetText: parsedRelation.target,
+    sourceAttachment,
+    targetAttachment,
+    parent,
+    props,
   });
 
-  // Create attachment on the cube
-  const cubeAttachment = new Instance("Attachment");
-  cubeAttachment.Name = `cubeAtt${padNumber(ropeIndex, 3)}`;
-  cubeAttachment.Position = new Vector3(0, 0, 0); // Center of cube
-  cubeAttachment.Parent = cube;
-
-  // Create attachment at rope midpoint (invisible part for positioning)
-  const midpointPart = new Instance("Part");
-  midpointPart.Name = `ropeAnchor${padNumber(ropeIndex, 3)}`;
-  midpointPart.Size = new Vector3(0.1, 0.1, 0.1);
-  midpointPart.Transparency = 1; // Invisible
-  midpointPart.Anchored = true;
-  midpointPart.CanCollide = false;
-  midpointPart.Position = midpoint;
-  midpointPart.Parent = parent;
-
-  const ropeAttachment = new Instance("Attachment");
-  ropeAttachment.Name = `ropeAtt${padNumber(ropeIndex, 3)}`;
-  ropeAttachment.Position = new Vector3(0, 0, 0);
-  ropeAttachment.Parent = midpointPart;
-
-  // Since both parts are anchored, we don't need a weld constraint
-  // The cube will stay in position relative to the rope
-
-  print(
-    `✅ Created concrete block aligned with rope ${ropeIndex}: ${cube.Name}`
-  );
-
-  return cube;
-}
-
-function padNumber(num: number, length: number): string {
-  const str = tostring(num);
-  let result = str;
-  while (result.size() < length) {
-    result = "0" + result;
-  }
-  return result;
+  return labelGroup;
 }
