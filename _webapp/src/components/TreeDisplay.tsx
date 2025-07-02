@@ -22,6 +22,9 @@ import {
   Grid
 } from '@mui/material';
 import { HierarchyResult } from '../app/(pages)/hierarchy-tester/page';
+import ReactFlowGraph from './graphs/ReactFlowGraph';
+import CytoscapeGraph from './graphs/CytoscapeGraph';
+import D3Graph from './graphs/D3Graph';
 
 interface TreeDisplayProps {
   result: HierarchyResult | null;
@@ -51,7 +54,7 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export default function TreeDisplay({ result, isLoading }: TreeDisplayProps) {
-  const [tabValue, setTabValue] = useState(0);
+  const [tabValue, setTabValue] = useState(4); // Default to Graphs tab (index 4)
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -144,6 +147,7 @@ export default function TreeDisplay({ result, isLoading }: TreeDisplayProps) {
           <Tab label="Entity Table" />
           <Tab label="Group Details" />
           <Tab label="ASCII Output" />
+          <Tab label="Graphs" />
         </Tabs>
       </Box>
 
@@ -161,6 +165,10 @@ export default function TreeDisplay({ result, isLoading }: TreeDisplayProps) {
 
       <TabPanel value={tabValue} index={3}>
         <ASCIIOutput asciiMap={result.asciiMap} />
+      </TabPanel>
+
+      <TabPanel value={tabValue} index={4}>
+        <GraphsPanel result={result} />
       </TabPanel>
     </Box>
   );
@@ -353,6 +361,58 @@ function ASCIIOutput({ asciiMap }: { asciiMap?: string }) {
           {asciiMap}
         </Typography>
       </Paper>
+    </Box>
+  );
+}
+
+function GraphsPanel({ result }: { result: HierarchyResult | null }) {
+  if (!result) {
+    return <Alert severity="info">No data available for graph visualization</Alert>;
+  }
+
+  // Calculate responsive dimensions
+  const graphWidth = 380;
+  const graphHeight = 280;
+
+  return (
+    <Box>
+      <Grid container spacing={3}>
+        <Grid item xs={12} lg={4}>
+          <Card variant="outlined">
+            <CardContent sx={{ p: 1 }}>
+              <ReactFlowGraph 
+                data={result} 
+                width={graphWidth} 
+                height={graphHeight} 
+              />
+            </CardContent>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12} lg={4}>
+          <Card variant="outlined">
+            <CardContent sx={{ p: 1 }}>
+              <CytoscapeGraph 
+                data={result} 
+                width={graphWidth} 
+                height={graphHeight} 
+              />
+            </CardContent>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12} lg={4}>
+          <Card variant="outlined">
+            <CardContent sx={{ p: 1 }}>
+              <D3Graph 
+                data={result} 
+                width={graphWidth} 
+                height={graphHeight} 
+              />
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </Box>
   );
 }

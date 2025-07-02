@@ -4,16 +4,31 @@ import { NextRequest, NextResponse } from 'next/server';
 // For now, we'll create simplified versions of the core functions
 
 interface TestDataConfig {
+  // Basic parameters
   numberOfNodes: number;
   numberOfConnectedChains: number;
   depthOfLongestChain: number;
+  
+  // Advanced parameters
+  totalNodes: number;
+  maxDepth: number;
+  branchingMin: number;
+  branchingMax: number;
+  crossTreeConnections: number; // percentage 0-100
+  entityTypes: number;
+  clusteringCoeff: number; // percentage 0-100
+  hubNodes: number;
+  networkDensity: 'sparse' | 'medium' | 'dense';
 }
 
 interface SimpleEntity {
   id: string;
-  type: 'Parent' | 'Child';
+  type: string; // Now supports multiple entity types
   parentId?: string;
   children: string[];
+  connections: string[]; // Cross-tree connections
+  weight: number; // For weighted relationships
+  isHub: boolean; // Hub node indicator
 }
 
 interface ConnectedGroup {
@@ -38,56 +53,75 @@ interface EntityPosition {
   groupId: string;
 }
 
-// Simplified data generator based on our Node.js version
+// Advanced data generator with complex network properties
 function generateConfigurableData(config: TestDataConfig): SimpleEntity[] {
   const entities: SimpleEntity[] = [];
   let entityCounter = 0;
   
-  const createEntity = (type: 'Parent' | 'Child', parentId?: string): SimpleEntity => {
+  // Generate entity type names
+  const entityTypeNames = generateEntityTypeNames(config.entityTypes);
+  
+  const createEntity = (type: string, parentId?: string, isHub = false): SimpleEntity => {
     entityCounter++;
     return {
       id: `entity_${entityCounter}`,
       type,
       parentId,
-      children: []
+      children: [],
+      connections: [],
+      weight: Math.random() * 10 + 1, // Random weight 1-11
+      isHub
     };
   };
 
-  // Distribute nodes across chains
-  const nodesPerChain = Math.floor(config.numberOfNodes / config.numberOfConnectedChains);
-  const remainingNodes = config.numberOfNodes % config.numberOfConnectedChains;
+  // Use advanced parameters for generation
+  const totalNodes = config.totalNodes || config.numberOfNodes;
+  const maxDepth = config.maxDepth || config.depthOfLongestChain;
+  const numChains = config.numberOfConnectedChains;
+  
+  // Generate base hierarchical structure
+  const nodesPerChain = Math.floor(totalNodes / numChains);
+  const remainingNodes = totalNodes % numChains;
+  const allNodes: SimpleEntity[] = [];
 
-  for (let chainIndex = 0; chainIndex < config.numberOfConnectedChains; chainIndex++) {
+  for (let chainIndex = 0; chainIndex < numChains; chainIndex++) {
     let chainNodes = nodesPerChain;
-    if (chainIndex < remainingNodes) chainNodes++; // Distribute remaining nodes
+    if (chainIndex < remainingNodes) chainNodes++;
     
     if (chainNodes < 1) continue;
 
     // Create root for this chain
-    const root = createEntity('Parent');
-    entities.push(root);
+    const rootType = entityTypeNames[0]; // Use first type for roots
+    const root = createEntity(rootType);
+    allNodes.push(root);
     
     let remainingChainNodes = chainNodes - 1;
     let currentLevel = [root];
     let currentDepth = 1;
     
-    // Build chain to specified depth or until nodes run out
-    while (remainingChainNodes > 0 && currentDepth < config.depthOfLongestChain) {
+    // Build hierarchy with variable branching
+    while (remainingChainNodes > 0 && currentDepth < maxDepth) {
       const nextLevel: SimpleEntity[] = [];
       
       for (const parent of currentLevel) {
         if (remainingChainNodes <= 0) break;
         
-        // Create 1-3 children per parent
-        const childrenCount = Math.min(
-          Math.floor(Math.random() * 3) + 1,
-          remainingChainNodes
-        );
+        // Use branching factor range
+        const branchingFactor = Math.floor(
+          Math.random() * (config.branchingMax - config.branchingMin + 1)
+        ) + config.branchingMin;
+        
+        const childrenCount = Math.min(branchingFactor, remainingChainNodes);
         
         for (let i = 0; i < childrenCount && remainingChainNodes > 0; i++) {
-          const child = createEntity('Child', parent.id);
+          // Randomly select entity type
+          const childType = entityTypeNames[
+            Math.floor(Math.random() * entityTypeNames.length)
+          ];
+          
+          const child = createEntity(childType, parent.id);
           parent.children.push(child.id);
-          entities.push(child);
+          allNodes.push(child);
           nextLevel.push(child);
           remainingChainNodes--;
         }
@@ -97,8 +131,128 @@ function generateConfigurableData(config: TestDataConfig): SimpleEntity[] {
       currentDepth++;
     }
   }
+
+  // Add hub nodes
+  const hubIndices = selectRandomIndices(allNodes.length, config.hubNodes);
+  hubIndices.forEach(index => {
+    allNodes[index].isHub = true;
+  });
+
+  // Add cross-tree connections
+  addCrossTreeConnections(allNodes, config.crossTreeConnections);
   
-  return entities;
+  // Apply clustering coefficient
+  applyClustering(allNodes, config.clusteringCoeff);
+  
+  // Apply network density adjustments
+  applyNetworkDensity(allNodes, config.networkDensity);
+  
+  return allNodes;
+}
+
+function generateEntityTypeNames(count: number): string[] {
+  const baseTypes = [
+    'Service', 'Component', 'Module', 'Interface', 'Controller', 
+    'Repository', 'Entity', 'Utility', 'Factory', 'Manager'
+  ];
+  return baseTypes.slice(0, Math.min(count, baseTypes.length));
+}
+
+function selectRandomIndices(totalCount: number, selectCount: number): number[] {
+  const indices: number[] = [];
+  const maxSelect = Math.min(selectCount, totalCount);
+  
+  while (indices.length < maxSelect) {
+    const randomIndex = Math.floor(Math.random() * totalCount);
+    if (!indices.includes(randomIndex)) {
+      indices.push(randomIndex);
+    }
+  }
+  
+  return indices;
+}
+
+function addCrossTreeConnections(entities: SimpleEntity[], percentage: number) {
+  const connectionCount = Math.floor((entities.length * percentage) / 100);
+  
+  for (let i = 0; i < connectionCount; i++) {
+    const sourceIndex = Math.floor(Math.random() * entities.length);
+    const targetIndex = Math.floor(Math.random() * entities.length);
+    
+    if (sourceIndex !== targetIndex) {
+      const source = entities[sourceIndex];
+      const target = entities[targetIndex];
+      
+      // Avoid connecting within same tree
+      if (!isInSameTree(source, target, entities)) {
+        if (!source.connections.includes(target.id)) {
+          source.connections.push(target.id);
+        }
+      }
+    }
+  }
+}
+
+function applyClustering(entities: SimpleEntity[], coefficient: number) {
+  // Simple clustering: increase connections between nodes that share connections
+  const targetConnections = Math.floor((entities.length * coefficient) / 100);
+  let addedConnections = 0;
+  
+  for (const entity of entities) {
+    if (addedConnections >= targetConnections) break;
+    
+    // Find entities connected to this entity's connections
+    for (const connectedId of entity.connections) {
+      const connectedEntity = entities.find(e => e.id === connectedId);
+      if (connectedEntity) {
+        for (const secondaryId of connectedEntity.connections) {
+          if (secondaryId !== entity.id && !entity.connections.includes(secondaryId)) {
+            entity.connections.push(secondaryId);
+            addedConnections++;
+            if (addedConnections >= targetConnections) break;
+          }
+        }
+      }
+      if (addedConnections >= targetConnections) break;
+    }
+  }
+}
+
+function applyNetworkDensity(entities: SimpleEntity[], density: 'sparse' | 'medium' | 'dense') {
+  const densityMultipliers = { sparse: 0.5, medium: 1.0, dense: 2.0 };
+  const multiplier = densityMultipliers[density];
+  
+  const additionalConnections = Math.floor(entities.length * 0.1 * multiplier);
+  
+  for (let i = 0; i < additionalConnections; i++) {
+    const sourceIndex = Math.floor(Math.random() * entities.length);
+    const targetIndex = Math.floor(Math.random() * entities.length);
+    
+    if (sourceIndex !== targetIndex) {
+      const source = entities[sourceIndex];
+      const target = entities[targetIndex];
+      
+      if (!source.connections.includes(target.id)) {
+        source.connections.push(target.id);
+      }
+    }
+  }
+}
+
+function isInSameTree(entity1: SimpleEntity, entity2: SimpleEntity, entities: SimpleEntity[]): boolean {
+  // Simple check: if they share a common root ancestor
+  const root1 = findRoot(entity1, entities);
+  const root2 = findRoot(entity2, entities);
+  return root1?.id === root2?.id;
+}
+
+function findRoot(entity: SimpleEntity, entities: SimpleEntity[]): SimpleEntity | null {
+  if (!entity.parentId) return entity;
+  
+  const parent = entities.find(e => e.id === entity.parentId);
+  if (!parent) return entity;
+  
+  return findRoot(parent, entities);
 }
 
 // Simplified analyzer based on our Node.js version
@@ -181,8 +335,6 @@ function calculateDepth(entityId: string, entityMap: Map<string, SimpleEntity>, 
 // Simplified positioner based on our Node.js version
 function position2D(groups: ConnectedGroup[]): EntityPosition[] {
   const TREE_SPACING = 200;
-  const LEVEL_HEIGHT = 50;
-  const ENTITY_SPACING = 30;
   
   const positionedEntities: EntityPosition[] = [];
   

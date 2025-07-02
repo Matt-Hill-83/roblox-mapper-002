@@ -1,19 +1,27 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { 
-  Container, 
-  Paper, 
-  Typography, 
-  Grid 
-} from '@mui/material';
-import TestDataConfigComponent from '../../../components/TestDataConfigComponent';
-import TreeDisplay from '../../../components/TreeDisplay';
+import { Container, Grid, Paper, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+
+import TestDataConfigComponent from "../../../components/TestDataConfigComponent";
+import TreeDisplay from "../../../components/TreeDisplay";
 
 export interface TestDataConfig {
+  // Basic parameters
   numberOfNodes: number;
   numberOfConnectedChains: number;
   depthOfLongestChain: number;
+
+  // Advanced parameters
+  totalNodes: number;
+  maxDepth: number;
+  branchingMin: number;
+  branchingMax: number;
+  crossTreeConnections: number; // percentage 0-100
+  entityTypes: number;
+  clusteringCoeff: number; // percentage 0-100
+  hubNodes: number;
+  networkDensity: "sparse" | "medium" | "dense";
 }
 
 export interface HierarchyResult {
@@ -25,36 +33,84 @@ export interface HierarchyResult {
 
 export default function HierarchyTesterPage() {
   const [config, setConfig] = useState<TestDataConfig>({
-    numberOfNodes: 10,
-    numberOfConnectedChains: 2,
-    depthOfLongestChain: 3
+    // Basic parameters (legacy)
+    numberOfNodes: 15,
+    numberOfConnectedChains: 3,
+    depthOfLongestChain: 3,
+
+    // Advanced parameters
+    totalNodes: 50,
+    maxDepth: 4,
+    branchingMin: 2,
+    branchingMax: 5,
+    crossTreeConnections: 15, // 15%
+    entityTypes: 4,
+    clusteringCoeff: 30, // 30%
+    hubNodes: 2,
+    networkDensity: "medium",
   });
-  
+
   const [result, setResult] = useState<HierarchyResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Generate default hierarchy on page load
+  useEffect(() => {
+    const generateDefaultHierarchy = async () => {
+      setIsLoading(true);
+
+      try {
+        const response = await fetch("/api/hierarchy-test", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(config),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to generate default hierarchy data");
+        }
+
+        const hierarchyResult = await response.json();
+        setResult(hierarchyResult);
+      } catch (error) {
+        console.error("Error generating default hierarchy:", error);
+        // Set empty result on error so component still renders
+        setResult({
+          entities: [],
+          groups: [],
+          positioned: [],
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    generateDefaultHierarchy();
+  }, []); // Empty dependency array - only run on mount
 
   const handleConfigSubmit = async (newConfig: TestDataConfig) => {
     setIsLoading(true);
     setConfig(newConfig);
-    
+
     try {
       // Call API to generate hierarchy data
-      const response = await fetch('/api/hierarchy-test', {
-        method: 'POST',
+      const response = await fetch("/api/hierarchy-test", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(newConfig),
       });
-      
+
       if (!response.ok) {
-        throw new Error('Failed to generate hierarchy data');
+        throw new Error("Failed to generate hierarchy data");
       }
-      
+
       const hierarchyResult = await response.json();
       setResult(hierarchyResult);
     } catch (error) {
-      console.error('Error generating hierarchy:', error);
+      console.error("Error generating hierarchy:", error);
       // For now, generate mock data if API fails
       setResult({
         entities: [],
@@ -68,22 +124,11 @@ export default function HierarchyTesterPage() {
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
-      <Typography variant="h3" component="h1" gutterBottom>
-        Hierarchical Data Tester
-      </Typography>
-      
-      <Typography variant="body1" color="text.secondary" paragraph>
-        Configure test parameters and visualize hierarchical graph structures
-      </Typography>
-
-      <Grid container spacing={4}>
-        {/* Configuration Panel */}
-        <Grid item xs={12} md={4}>
-          <Paper elevation={2} sx={{ p: 3 }}>
-            <Typography variant="h5" gutterBottom>
-              Test Configuration
-            </Typography>
-            <TestDataConfigComponent 
+      <Grid container spacing={3}>
+        {/* Configuration Panel - Left Side */}
+        <Grid item xs={12} lg={3}>
+          <Paper elevation={1} sx={{ p: 2, position: "sticky", top: 16 }}>
+            <TestDataConfigComponent
               initialConfig={config}
               onSubmit={handleConfigSubmit}
               isLoading={isLoading}
@@ -91,17 +136,9 @@ export default function HierarchyTesterPage() {
           </Paper>
         </Grid>
 
-        {/* Results Panel */}
-        <Grid item xs={12} md={8}>
-          <Paper elevation={2} sx={{ p: 3, minHeight: 400 }}>
-            <Typography variant="h5" gutterBottom>
-              Hierarchy Visualization
-            </Typography>
-            <TreeDisplay 
-              result={result}
-              isLoading={isLoading}
-            />
-          </Paper>
+        {/* Results Panel - Right Side */}
+        <Grid item xs={12} lg={9}>
+          <TreeDisplay result={result} isLoading={isLoading} />
         </Grid>
       </Grid>
     </Container>

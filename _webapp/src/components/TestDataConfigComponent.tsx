@@ -1,17 +1,28 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
-  TextField,
   Button,
-  Stack,
-  Typography,
   CircularProgress,
+  Divider,
+  FormControl,
   FormHelperText,
-  InputAdornment
-} from '@mui/material';
-import { TestDataConfig } from '../app/(pages)/hierarchy-tester/page';
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Slider,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { TestDataConfig } from "../app/(pages)/hierarchy-tester/page";
+import { useState } from "react";
 
 interface TestDataConfigComponentProps {
   initialConfig: TestDataConfig;
@@ -22,7 +33,7 @@ interface TestDataConfigComponentProps {
 export default function TestDataConfigComponent({
   initialConfig,
   onSubmit,
-  isLoading = false
+  isLoading = false,
 }: TestDataConfigComponentProps) {
   const [config, setConfig] = useState<TestDataConfig>(initialConfig);
   const [errors, setErrors] = useState<Partial<TestDataConfig>>({});
@@ -30,133 +41,263 @@ export default function TestDataConfigComponent({
   const validateConfig = (newConfig: TestDataConfig): boolean => {
     const newErrors: Partial<TestDataConfig> = {};
 
-    // Validate number of nodes
-    if (newConfig.numberOfNodes < 1 || newConfig.numberOfNodes > 100) {
-      newErrors.numberOfNodes = 1; // Using number as error flag
+    // Validate total nodes
+    if (newConfig.totalNodes < 1 || newConfig.totalNodes > 1000) {
+      newErrors.totalNodes = 1;
     }
 
-    // Validate number of connected chains
-    if (newConfig.numberOfConnectedChains < 1 || newConfig.numberOfConnectedChains > 10) {
-      newErrors.numberOfConnectedChains = 1;
+    // Validate max depth
+    if (newConfig.maxDepth < 1 || newConfig.maxDepth > 15) {
+      newErrors.maxDepth = 1;
     }
 
-    // Validate depth of longest chain
-    if (newConfig.depthOfLongestChain < 1 || newConfig.depthOfLongestChain > 10) {
-      newErrors.depthOfLongestChain = 1;
+    // Validate branching factors
+    if (newConfig.branchingMin < 1 || newConfig.branchingMin > 20) {
+      newErrors.branchingMin = 1;
+    }
+    if (
+      newConfig.branchingMax < 1 ||
+      newConfig.branchingMax > 20 ||
+      newConfig.branchingMax < newConfig.branchingMin
+    ) {
+      newErrors.branchingMax = 1;
     }
 
-    // Validate that chains can fit within total nodes
-    if (newConfig.numberOfConnectedChains > newConfig.numberOfNodes) {
-      newErrors.numberOfConnectedChains = 1;
+    // Validate entity types
+    if (newConfig.entityTypes < 2 || newConfig.entityTypes > 10) {
+      newErrors.entityTypes = 1;
+    }
+
+    // Validate hub nodes
+    if (newConfig.hubNodes < 0 || newConfig.hubNodes > 10) {
+      newErrors.hubNodes = 1;
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleInputChange = (field: keyof TestDataConfig) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = parseInt(event.target.value) || 0;
-    const newConfig = { ...config, [field]: value };
-    setConfig(newConfig);
-    
-    // Clear error for this field if it becomes valid
-    if (errors[field]) {
-      const newErrors = { ...errors };
-      delete newErrors[field];
-      setErrors(newErrors);
-    }
-  };
+  const handleInputChange =
+    (field: keyof TestDataConfig) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value =
+        field === "networkDensity"
+          ? event.target.value
+          : parseInt(event.target.value) || 0;
+      const newConfig = { ...config, [field]: value };
+      setConfig(newConfig);
+
+      // Clear error for this field if it becomes valid
+      if (errors[field]) {
+        const newErrors = { ...errors };
+        delete newErrors[field];
+        setErrors(newErrors);
+      }
+    };
+
+  const handleSliderChange =
+    (field: keyof TestDataConfig) =>
+    (event: Event, value: number | number[]) => {
+      const newConfig = { ...config, [field]: value as number };
+      setConfig(newConfig);
+    };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    
+
     if (validateConfig(config)) {
       onSubmit(config);
     }
   };
 
-  const getHelperText = (field: keyof TestDataConfig): string => {
-    switch (field) {
-      case 'numberOfNodes':
-        return errors[field] 
-          ? 'Must be between 1 and 100' 
-          : 'Total number of entities to generate';
-      case 'numberOfConnectedChains':
-        return errors[field] 
-          ? 'Must be between 1 and 10, and ≤ number of nodes' 
-          : 'Number of separate hierarchy trees';
-      case 'depthOfLongestChain':
-        return errors[field] 
-          ? 'Must be between 1 and 10' 
-          : 'Maximum levels in the deepest tree';
-      default:
-        return '';
-    }
-  };
-
   return (
-    <Box component="form" onSubmit={handleSubmit}>
-      <Stack spacing={3}>
-        <Typography variant="body2" color="text.secondary">
-          Configure the parameters for generating test hierarchical data
+    <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%" }}>
+      <Stack spacing={2}>
+        <Typography variant="h6" gutterBottom>
+          Graph Configuration
         </Typography>
 
-        <TextField
-          label="Number of Nodes"
-          type="number"
-          value={config.numberOfNodes}
-          onChange={handleInputChange('numberOfNodes')}
-          error={!!errors.numberOfNodes}
-          helperText={getHelperText('numberOfNodes')}
-          InputProps={{
-            inputProps: { min: 1, max: 100 },
-            startAdornment: <InputAdornment position="start">📊</InputAdornment>
-          }}
-          fullWidth
-          disabled={isLoading}
-        />
+        {/* Core Parameters */}
+        <Box>
+          <Typography variant="subtitle2" color="primary" gutterBottom>
+            Core Parameters
+          </Typography>
 
-        <TextField
-          label="Number of Connected Chains"
-          type="number"
-          value={config.numberOfConnectedChains}
-          onChange={handleInputChange('numberOfConnectedChains')}
-          error={!!errors.numberOfConnectedChains}
-          helperText={getHelperText('numberOfConnectedChains')}
-          InputProps={{
-            inputProps: { min: 1, max: 10 },
-            startAdornment: <InputAdornment position="start">🔗</InputAdornment>
-          }}
-          fullWidth
-          disabled={isLoading}
-        />
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <TextField
+                label="Total Nodes"
+                type="number"
+                size="small"
+                value={config.totalNodes}
+                onChange={handleInputChange("totalNodes")}
+                error={!!errors.totalNodes}
+                helperText={errors.totalNodes ? "Must be 1-1000" : ""}
+                InputProps={{ inputProps: { min: 1, max: 1000 } }}
+                fullWidth
+                disabled={isLoading}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Max Depth"
+                type="number"
+                size="small"
+                value={config.maxDepth}
+                onChange={handleInputChange("maxDepth")}
+                error={!!errors.maxDepth}
+                helperText={errors.maxDepth ? "Must be 1-15" : ""}
+                InputProps={{ inputProps: { min: 1, max: 15 } }}
+                fullWidth
+                disabled={isLoading}
+              />
+            </Grid>
+          </Grid>
+        </Box>
 
-        <TextField
-          label="Depth of Longest Chain"
-          type="number"
-          value={config.depthOfLongestChain}
-          onChange={handleInputChange('depthOfLongestChain')}
-          error={!!errors.depthOfLongestChain}
-          helperText={getHelperText('depthOfLongestChain')}
-          InputProps={{
-            inputProps: { min: 1, max: 10 },
-            startAdornment: <InputAdornment position="start">📏</InputAdornment>
-          }}
-          fullWidth
-          disabled={isLoading}
-        />
+        <Divider />
+
+        {/* Network Structure */}
+        <Accordion defaultExpanded>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="subtitle2">Network Structure</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Stack spacing={2}>
+              <Grid container spacing={2}>
+                <Grid item xs={6}>
+                  <TextField
+                    label="Branching Min"
+                    type="number"
+                    size="small"
+                    value={config.branchingMin}
+                    onChange={handleInputChange("branchingMin")}
+                    error={!!errors.branchingMin}
+                    InputProps={{ inputProps: { min: 1, max: 20 } }}
+                    fullWidth
+                    disabled={isLoading}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    label="Branching Max"
+                    type="number"
+                    size="small"
+                    value={config.branchingMax}
+                    onChange={handleInputChange("branchingMax")}
+                    error={!!errors.branchingMax}
+                    InputProps={{ inputProps: { min: 1, max: 20 } }}
+                    fullWidth
+                    disabled={isLoading}
+                  />
+                </Grid>
+              </Grid>
+
+              <Box>
+                <Typography variant="caption" gutterBottom>
+                  Cross-Tree Connections: {config.crossTreeConnections}%
+                </Typography>
+                <Slider
+                  value={config.crossTreeConnections}
+                  onChange={handleSliderChange("crossTreeConnections")}
+                  min={0}
+                  max={100}
+                  step={5}
+                  size="small"
+                  disabled={isLoading}
+                />
+              </Box>
+
+              <Box>
+                <Typography variant="caption" gutterBottom>
+                  Clustering Coefficient: {config.clusteringCoeff}%
+                </Typography>
+                <Slider
+                  value={config.clusteringCoeff}
+                  onChange={handleSliderChange("clusteringCoeff")}
+                  min={0}
+                  max={100}
+                  step={10}
+                  size="small"
+                  disabled={isLoading}
+                />
+              </Box>
+
+              <FormControl size="small" fullWidth>
+                <InputLabel>Network Density</InputLabel>
+                <Select
+                  value={config.networkDensity}
+                  label="Network Density"
+                  onChange={(e) =>
+                    setConfig({
+                      ...config,
+                      networkDensity: e.target.value as
+                        | "sparse"
+                        | "medium"
+                        | "dense",
+                    })
+                  }
+                  disabled={isLoading}
+                >
+                  <MenuItem value="sparse">Sparse</MenuItem>
+                  <MenuItem value="medium">Medium</MenuItem>
+                  <MenuItem value="dense">Dense</MenuItem>
+                </Select>
+              </FormControl>
+            </Stack>
+          </AccordionDetails>
+        </Accordion>
+
+        {/* Advanced Features */}
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="subtitle2">Advanced Features</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Stack spacing={2}>
+              <Grid container spacing={2}>
+                <Grid item xs={6}>
+                  <TextField
+                    label="Entity Types"
+                    type="number"
+                    size="small"
+                    value={config.entityTypes}
+                    onChange={handleInputChange("entityTypes")}
+                    error={!!errors.entityTypes}
+                    helperText={errors.entityTypes ? "Must be 2-10" : ""}
+                    InputProps={{ inputProps: { min: 2, max: 10 } }}
+                    fullWidth
+                    disabled={isLoading}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    label="Hub Nodes"
+                    type="number"
+                    size="small"
+                    value={config.hubNodes}
+                    onChange={handleInputChange("hubNodes")}
+                    error={!!errors.hubNodes}
+                    helperText={errors.hubNodes ? "Must be 0-10" : ""}
+                    InputProps={{ inputProps: { min: 0, max: 10 } }}
+                    fullWidth
+                    disabled={isLoading}
+                  />
+                </Grid>
+              </Grid>
+            </Stack>
+          </AccordionDetails>
+        </Accordion>
 
         <Button
           type="submit"
           variant="contained"
-          size="large"
+          size="medium"
           disabled={isLoading || Object.keys(errors).length > 0}
-          startIcon={isLoading ? <CircularProgress size={20} /> : '🚀'}
+          startIcon={isLoading ? <CircularProgress size={20} /> : "🚀"}
           fullWidth
         >
-          {isLoading ? 'Generating...' : 'Generate Hierarchy'}
+          {isLoading ? "Generating..." : "Generate Graph"}
         </Button>
 
         {Object.keys(errors).length > 0 && (
