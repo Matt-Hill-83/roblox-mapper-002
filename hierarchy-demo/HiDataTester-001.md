@@ -106,6 +106,7 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
        3. ✅ Optimize column widths for maximum data visibility
 
    17. ✅ R51: The system shall implement configuration form refinements:
+
        1. ✅ Display each input field on a new row
        2. ✅ Remove all side-by-side input layouts
        3. ✅ Maintain consistent vertical spacing between inputs
@@ -114,15 +115,23 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
        1. ✅ Enforce 2px minimum separation between nodes in React Flow chart
        2. ✅ Add info icons with tooltips to all configuration input fields
        3. ✅ Display explanatory text for each configuration option
+       4. ⬛ Relocate metrics display:
+          1. ⬛ Move total entities count to metrics box
+          2. ⬛ Move two additional output metrics to metrics box
+          3. ⬛ Position metrics box in column 1 below config box
+       5. ⬛ Implement layout adjustments:
+          1. ⬛ Increase table height by 10%
+          2. ⬛ Expand page content width to 90vw
+          3. ⬛ Set column 2 to fill available space
 
-   19. ⬛ R53: The system shall implement configuration persistence:
-       1. ⬛ Create GraphConfig table in existing database
-       2. ⬛ Add UUID field for each configuration
-       3. ⬛ Add favorite/star button to each configuration row
-       4. ⬛ Save starred configurations to database
-       5. ⬛ Load and display favorite configurations at top of suggestions table
-       6. ⬛ Display system-generated configurations below favorites
-       7. ⬛ Auto-generate UUID for each system configuration
+   19. ✅ R53: The system shall implement configuration persistence:
+       1. ✅ Create GraphConfig table in existing database
+       2. ✅ Add UUID field for each configuration
+       3. ✅ Add favorite/star button to each configuration row
+       4. ✅ Save starred configurations to database
+       5. ✅ Load and display favorite configurations at top of suggestions table
+       6. ✅ Display system-generated configurations below favorites
+       7. ✅ Auto-generate UUID for each system configuration
 
 ## Task List
 
@@ -165,14 +174,20 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    36. ✅ T36: Configure React Flow node spacing to 2px minimum (R52)
    37. ✅ T37: Add info icons to configuration input fields (R52)
    38. ✅ T38: Create and style tooltips for configuration fields (R52)
-   39. ⬛ T39: Define GraphConfig database schema with UUID and favorite fields (R53)
-   40. ⬛ T40: Create GraphConfig model and database migration (R53)
-   41. ⬛ T41: Add star button component to configuration rows (R53)
-   42. ⬛ T42: Implement save/unsave favorite configuration functionality (R53)
-   43. ⬛ T43: Create API endpoint for favorite configurations (R53)
-   44. ⬛ T44: Update table to display favorites section with star status (R53)
-   45. ⬛ T45: Implement UUID generation for system configurations (R53)
-   46. ⬛ T46: Add configuration sorting (favorites first, then system configs) (R53)
+   39. ✅ T39: Define GraphConfig database schema with UUID and favorite fields (R53)
+   40. ✅ T40: Create GraphConfig model and database migration (R53)
+   41. ✅ T41: Add star button component to configuration rows (R53)
+   42. ✅ T42: Implement save/unsave favorite configuration functionality (R53)
+   43. ✅ T43: Create API endpoint for favorite configurations (R53)
+   44. ✅ T44: Update table to display favorites section with star status (R53)
+   45. ✅ T45: Implement UUID generation for system configurations (R53)
+   46. ✅ T46: Add configuration sorting (favorites first, then system configs) (R53)
+   47. ⬛ T47: Move total entities count to metrics box in column 1 (R52.4)
+   48. ⬛ T48: Move two additional output metrics to metrics box (R52.4)
+   49. ⬛ T49: Position metrics box below config box in column 1 (R52.4)
+   50. ⬛ T50: Increase table height by 10% (R52.5)
+   51. ⬛ T51: Expand page content width to 90vw (R52.5)
+   52. ⬛ T52: Set column 2 to fill available space (R52.5)
 
 ## Risks
 

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import TestDataConfigComponent from "../../../components/TestDataConfigComponent";
 import TreeDisplay from "../../../components/TreeDisplay";
 import SuggestionsTable from "../../../components/SuggestionsTable";
+import MetricsBox from "../../../components/MetricsBox";
 
 export interface TestDataConfig {
   // Basic parameters
@@ -139,13 +140,15 @@ export default function HierarchyTesterPage() {
       maxWidth={false} 
       sx={{ 
         py: 4, 
-        width: '80vw', 
-        maxWidth: '80vw'
+        px: 2,
+        width: '100vw', 
+        maxWidth: '100vw',
+        margin: 0
       }}
     >
-      <Grid container spacing={3}>
+      <Grid container spacing={3} sx={{ width: '100%', margin: 0 }}>
         {/* Column 1: Configuration Panel */}
-        <Grid item xs={12} lg={2}>
+        <Grid item xs={12} lg={3}>
           <Paper elevation={1} sx={{ p: 2, position: "sticky", top: 16 }}>
             <TestDataConfigComponent
               initialConfig={config}
@@ -153,10 +156,16 @@ export default function HierarchyTesterPage() {
               isLoading={isLoading}
             />
           </Paper>
+          
+          {/* Metrics Box */}
+          <MetricsBox 
+            result={result}
+            isLoading={isLoading}
+          />
         </Grid>
 
         {/* Column 2: Main Output Area with Suggestions Table and Large Graph */}
-        <Grid item xs={12} lg={8}>
+        <Grid item xs={12} lg={6}>
           <SuggestionsTable onConfigurationSelect={handleConfigurationSelect} />
           <TreeDisplay 
             result={result} 
@@ -168,7 +177,7 @@ export default function HierarchyTesterPage() {
         </Grid>
 
         {/* Column 3: Three Small Graphs Stacked */}
-        <Grid item xs={12} lg={2}>
+        <Grid item xs={12} lg={3}>
           <TreeDisplay 
             result={result} 
             isLoading={isLoading} 

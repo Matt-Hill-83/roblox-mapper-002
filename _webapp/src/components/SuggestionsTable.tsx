@@ -215,7 +215,7 @@ export default function SuggestionsTable({ onConfigurationSelect }: SuggestionsT
           ⭐ Click star to favorite • # Click number to load configuration
         </Typography>
       </Box>
-      <Box sx={{ height: 400, width: '100%' }}>
+      <Box sx={{ height: 440, width: '100%' }}>
         <DataGrid
           rows={configurations}
           columns={columns}

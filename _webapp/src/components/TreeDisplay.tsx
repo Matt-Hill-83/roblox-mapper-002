@@ -110,45 +110,7 @@ export default function TreeDisplay({
   if (layoutMode === 'three-column') {
     return (
       <Box>
-        {/* Summary Data */}
-        <Grid container spacing={2} sx={{ mb: 3 }}>
-          <Grid item xs={12} sm={4}>
-            <Card variant="outlined">
-              <CardContent sx={{ py: 2 }}>
-                <Typography color="text.secondary" gutterBottom>
-                  Total Entities
-                </Typography>
-                <Typography variant="h4" component="div">
-                  {totalEntities}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Card variant="outlined">
-              <CardContent sx={{ py: 2 }}>
-                <Typography color="text.secondary" gutterBottom>
-                  Connected Groups
-                </Typography>
-                <Typography variant="h4" component="div">
-                  {totalGroups}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Card variant="outlined">
-              <CardContent sx={{ py: 2 }}>
-                <Typography color="text.secondary" gutterBottom>
-                  Entity Types
-                </Typography>
-                <Typography variant="h6" component="div">
-                  {Object.keys(entityTypes).length}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
+
 
         {/* Large Graph */}
         <Paper variant="outlined" sx={{ p: 2 }}>
@@ -189,52 +151,7 @@ export default function TreeDisplay({
   // Default layout mode - original tabbed interface
   return (
     <Box>
-      {/* Summary Cards */}
-      <Grid container spacing={2} sx={{ mb: 3 }}>
-        <Grid item xs={12} sm={4}>
-          <Card variant="outlined">
-            <CardContent>
-              <Typography color="text.secondary" gutterBottom>
-                Total Entities
-              </Typography>
-              <Typography variant="h4" component="div">
-                {totalEntities}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Card variant="outlined">
-            <CardContent>
-              <Typography color="text.secondary" gutterBottom>
-                Connected Groups
-              </Typography>
-              <Typography variant="h4" component="div">
-                {totalGroups}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Card variant="outlined">
-            <CardContent>
-              <Typography color="text.secondary" gutterBottom>
-                Entity Types
-              </Typography>
-              <Stack direction="row" spacing={1} flexWrap="wrap">
-                {Object.entries(entityTypes).map(([type, count]) => (
-                  <Chip 
-                    key={type} 
-                    label={`${type}: ${count}`} 
-                    size="small" 
-                    variant="outlined"
-                  />
-                ))}
-              </Stack>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+
 
       {/* Tabbed Content */}
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
