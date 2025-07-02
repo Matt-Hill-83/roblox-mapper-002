@@ -17,5 +17,7 @@
     "target": "es2017",
     "typeRoots": ["node_modules/@rbxts"],
     "baseUrl": "src"
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["_webapp/**/*", "node_modules/**/*", "out/**/*", "*.js"]
 }

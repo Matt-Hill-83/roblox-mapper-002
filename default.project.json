@@ -5,9 +5,12 @@
     "ReplicatedStorage": {
       "$path": "out/shared",
       "include": {
-        "$path": "include",
-        "node_modules": {
-          "$path": "node_modules"
+        "$path": "include"
+      },
+      "node_modules": {
+        "$className": "Folder",
+        "@rbxts": {
+          "$path": "node_modules/@rbxts"
         }
       }
     },

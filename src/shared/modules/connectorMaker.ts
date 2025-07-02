@@ -1,4 +1,5 @@
 import { allRelationData } from "../data";
+import { RopeLabelService } from "../../server/services/ropeLabel.service";
 
 interface ConnectorConfig {
   parent?: Instance;
@@ -169,6 +170,16 @@ export function addConnectors({
             relationColors[relationType] || new BrickColor("Bright red");
           rope.Thickness = 0.4; // Thickness of the rope
           rope.Parent = connectorsFolder;
+
+          // Create green cube at rope midpoint using the service
+          const ropeLabelService = RopeLabelService.getInstance();
+          ropeLabelService.createLabel(
+            ropeIndex,
+            relationTypeName,
+            sourceAttachment,
+            targetAttachment,
+            connectorsFolder
+          );
 
           ropeIndex++;
           totalConnectors++;
