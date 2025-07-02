@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import TestDataConfigComponent from "../../../components/TestDataConfigComponent";
 import TreeDisplay from "../../../components/TreeDisplay";
+import SuggestionsTable from "../../../components/SuggestionsTable";
 
 export interface TestDataConfig {
   // Basic parameters
@@ -52,6 +53,17 @@ export default function HierarchyTesterPage() {
 
   const [result, setResult] = useState<HierarchyResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedGraph, setSelectedGraph] = useState<'reactflow' | 'cytoscape' | 'd3'>('reactflow');
+
+  const handleGraphSelect = (graph: 'reactflow' | 'cytoscape' | 'd3') => {
+    setSelectedGraph(graph);
+  };
+
+  const handleConfigurationSelect = (newConfig: TestDataConfig) => {
+    console.log('Loading preset configuration:', newConfig);
+    setConfig(newConfig);
+    handleConfigSubmit(newConfig);
+  };
 
   // Generate default hierarchy on page load
   useEffect(() => {
@@ -123,10 +135,17 @@ export default function HierarchyTesterPage() {
   };
 
   return (
-    <Container maxWidth="xl" sx={{ py: 4 }}>
+    <Container 
+      maxWidth={false} 
+      sx={{ 
+        py: 4, 
+        width: '80vw', 
+        maxWidth: '80vw'
+      }}
+    >
       <Grid container spacing={3}>
-        {/* Configuration Panel - Left Side */}
-        <Grid item xs={12} lg={3}>
+        {/* Column 1: Configuration Panel */}
+        <Grid item xs={12} lg={2}>
           <Paper elevation={1} sx={{ p: 2, position: "sticky", top: 16 }}>
             <TestDataConfigComponent
               initialConfig={config}
@@ -136,9 +155,27 @@ export default function HierarchyTesterPage() {
           </Paper>
         </Grid>
 
-        {/* Results Panel - Right Side */}
-        <Grid item xs={12} lg={9}>
-          <TreeDisplay result={result} isLoading={isLoading} />
+        {/* Column 2: Main Output Area with Suggestions Table and Large Graph */}
+        <Grid item xs={12} lg={8}>
+          <SuggestionsTable onConfigurationSelect={handleConfigurationSelect} />
+          <TreeDisplay 
+            result={result} 
+            isLoading={isLoading} 
+            layoutMode="three-column"
+            selectedGraph={selectedGraph}
+            onGraphSelect={handleGraphSelect}
+          />
+        </Grid>
+
+        {/* Column 3: Three Small Graphs Stacked */}
+        <Grid item xs={12} lg={2}>
+          <TreeDisplay 
+            result={result} 
+            isLoading={isLoading} 
+            layoutMode="sidebar-graphs"
+            selectedGraph={selectedGraph}
+            onGraphSelect={handleGraphSelect}
+          />
         </Grid>
       </Grid>
     </Container>

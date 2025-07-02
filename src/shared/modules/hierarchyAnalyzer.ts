@@ -180,7 +180,7 @@ function buildHierarchyTrees(
         connections.push({
           fromGuid: guid,
           toGuid: childGuid,
-          type: "hierarchical"
+          type: "hierarchical",
         });
         dfsTree(childGuid, depth + 1);
       });
@@ -191,7 +191,7 @@ function buildHierarchyTrees(
           connections.push({
             fromGuid: guid,
             toGuid: targetGuid,
-            type: "weak"
+            type: "weak",
           });
         }
       });
@@ -205,7 +205,7 @@ function buildHierarchyTrees(
       depth: maxDepth,
       totalNodes: treeNodes.size(),
       nodes: treeNodes,
-      connections
+      connections,
     });
   }
 
@@ -264,11 +264,13 @@ function printHierarchyAnalysis(result: HierarchyAnalysisResult): void {
     print(`   Root GUID: ${tree.rootGuid}`);
     print(`   Depth: ${tree.depth} levels`);
     print(`   Nodes: ${tree.totalNodes} entities`);
-    print(`   Connections: ${tree.connections.size()} (${
-      tree.connections.filter(c => c.type === "hierarchical").size()
-    } hierarchical, ${
-      tree.connections.filter(c => c.type === "weak").size()
-    } weak)`);
+    print(
+      `   Connections: ${tree.connections.size()} (${tree.connections
+        .filter((c) => c.type === "hierarchical")
+        .size()} hierarchical, ${tree.connections
+        .filter((c) => c.type === "weak")
+        .size()} weak)`
+    );
   });
 
   print("");

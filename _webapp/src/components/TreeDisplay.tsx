@@ -29,6 +29,9 @@ import D3Graph from './graphs/D3Graph';
 interface TreeDisplayProps {
   result: HierarchyResult | null;
   isLoading?: boolean;
+  layoutMode?: 'default' | 'three-column' | 'sidebar-graphs';
+  selectedGraph?: 'reactflow' | 'cytoscape' | 'd3';
+  onGraphSelect?: (graph: 'reactflow' | 'cytoscape' | 'd3') => void;
 }
 
 interface TabPanelProps {
@@ -53,11 +56,23 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-export default function TreeDisplay({ result, isLoading }: TreeDisplayProps) {
+export default function TreeDisplay({ 
+  result, 
+  isLoading, 
+  layoutMode = 'default',
+  selectedGraph = 'reactflow',
+  onGraphSelect 
+}: TreeDisplayProps) {
   const [tabValue, setTabValue] = useState(4); // Default to Graphs tab (index 4)
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
+  };
+
+  const handleGraphSwitch = (graph: 'reactflow' | 'cytoscape' | 'd3') => {
+    if (onGraphSelect) {
+      onGraphSelect(graph);
+    }
   };
 
   if (isLoading) {
@@ -91,6 +106,87 @@ export default function TreeDisplay({ result, isLoading }: TreeDisplayProps) {
     return acc;
   }, {});
 
+  // Three-column layout mode - main content area
+  if (layoutMode === 'three-column') {
+    return (
+      <Box>
+        {/* Summary Data */}
+        <Grid container spacing={2} sx={{ mb: 3 }}>
+          <Grid item xs={12} sm={4}>
+            <Card variant="outlined">
+              <CardContent sx={{ py: 2 }}>
+                <Typography color="text.secondary" gutterBottom>
+                  Total Entities
+                </Typography>
+                <Typography variant="h4" component="div">
+                  {totalEntities}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <Card variant="outlined">
+              <CardContent sx={{ py: 2 }}>
+                <Typography color="text.secondary" gutterBottom>
+                  Connected Groups
+                </Typography>
+                <Typography variant="h4" component="div">
+                  {totalGroups}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <Card variant="outlined">
+              <CardContent sx={{ py: 2 }}>
+                <Typography color="text.secondary" gutterBottom>
+                  Entity Types
+                </Typography>
+                <Typography variant="h6" component="div">
+                  {Object.keys(entityTypes).length}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+
+        {/* Large Graph */}
+        <Paper variant="outlined" sx={{ p: 2 }}>
+          <LargeGraphDisplay result={result} selectedGraph={selectedGraph} />
+        </Paper>
+      </Box>
+    );
+  }
+
+  // Sidebar graphs mode - small graphs stacked
+  if (layoutMode === 'sidebar-graphs') {
+    return (
+      <Box>
+        <Stack spacing={2}>
+          <SmallGraphCard 
+            result={result} 
+            graphType="reactflow" 
+            isActive={selectedGraph === 'reactflow'}
+            onClick={() => handleGraphSwitch('reactflow')}
+          />
+          <SmallGraphCard 
+            result={result} 
+            graphType="cytoscape" 
+            isActive={selectedGraph === 'cytoscape'}
+            onClick={() => handleGraphSwitch('cytoscape')}
+          />
+          <SmallGraphCard 
+            result={result} 
+            graphType="d3" 
+            isActive={selectedGraph === 'd3'}
+            onClick={() => handleGraphSwitch('d3')}
+          />
+        </Stack>
+      </Box>
+    );
+  }
+
+  // Default layout mode - original tabbed interface
   return (
     <Box>
       {/* Summary Cards */}
@@ -414,5 +510,113 @@ function GraphsPanel({ result }: { result: HierarchyResult | null }) {
         </Grid>
       </Grid>
     </Box>
+  );
+}
+
+function LargeGraphDisplay({ 
+  result, 
+  selectedGraph 
+}: { 
+  result: HierarchyResult | null; 
+  selectedGraph: 'reactflow' | 'cytoscape' | 'd3';
+}) {
+  if (!result) {
+    return <Alert severity="info">No data available for graph visualization</Alert>;
+  }
+
+  // Large graph dimensions - expanded for wider layout
+  const graphWidth = 700;
+  const graphHeight = 500;
+
+  const renderGraph = () => {
+    switch (selectedGraph) {
+      case 'reactflow':
+        return <ReactFlowGraph data={result} width={graphWidth} height={graphHeight} />;
+      case 'cytoscape':
+        return <CytoscapeGraph data={result} width={graphWidth} height={graphHeight} />;
+      case 'd3':
+        return <D3Graph data={result} width={graphWidth} height={graphHeight} />;
+      default:
+        return <ReactFlowGraph data={result} width={graphWidth} height={graphHeight} />;
+    }
+  };
+
+  return (
+    <Box>
+      <Typography variant="h6" gutterBottom sx={{ textTransform: 'capitalize' }}>
+        {selectedGraph === 'reactflow' ? 'React Flow' : selectedGraph === 'cytoscape' ? 'Cytoscape.js' : 'D3.js'} Visualization
+      </Typography>
+      {renderGraph()}
+    </Box>
+  );
+}
+
+function SmallGraphCard({ 
+  result, 
+  graphType, 
+  isActive, 
+  onClick 
+}: { 
+  result: HierarchyResult | null; 
+  graphType: 'reactflow' | 'cytoscape' | 'd3';
+  isActive: boolean;
+  onClick: () => void;
+}) {
+  if (!result) {
+    return null;
+  }
+
+  // Small graph dimensions
+  const graphWidth = 200;
+  const graphHeight = 150;
+
+  const renderGraph = () => {
+    switch (graphType) {
+      case 'reactflow':
+        return <ReactFlowGraph data={result} width={graphWidth} height={graphHeight} />;
+      case 'cytoscape':
+        return <CytoscapeGraph data={result} width={graphWidth} height={graphHeight} />;
+      case 'd3':
+        return <D3Graph data={result} width={graphWidth} height={graphHeight} />;
+      default:
+        return null;
+    }
+  };
+
+  const getTitle = () => {
+    switch (graphType) {
+      case 'reactflow':
+        return 'React Flow';
+      case 'cytoscape':
+        return 'Cytoscape.js';
+      case 'd3':
+        return 'D3.js';
+      default:
+        return graphType;
+    }
+  };
+
+  return (
+    <Card 
+      variant="outlined" 
+      sx={{ 
+        cursor: 'pointer',
+        border: isActive ? '2px solid #1976d2' : '1px solid #e0e0e0',
+        '&:hover': {
+          borderColor: '#1976d2',
+          boxShadow: 2
+        }
+      }}
+      onClick={onClick}
+    >
+      <CardContent sx={{ p: 1 }}>
+        <Typography variant="subtitle2" gutterBottom align="center">
+          {getTitle()}
+        </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          {renderGraph()}
+        </Box>
+      </CardContent>
+    </Card>
   );
 }

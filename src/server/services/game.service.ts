@@ -26,8 +26,6 @@ interface ToolStackConfig {
   width?: number;
 }
 
-
-
 // Connection types
 interface BaseConnection {
   fromGuid: string;
@@ -211,8 +209,6 @@ export class GameService {
     }
   }
 
-
-
   private createConnectors(): void {
     this.connectorService.createSecurityConnectors(this.myStuffFolder);
   }
@@ -253,17 +249,19 @@ export class GameService {
 
     const result = layoutResult as { trees: LayoutTree[] };
     print(`📊 Processing ${result.trees.size()} trees for entity creation`);
-    
+
     for (let i = 0; i < result.trees.size(); i++) {
       const treeLayout = result.trees[i];
       const tree = treeLayout.entityPositions;
       print(`🌳 Processing tree ${i} with ${tree.size()} entities`);
-      
+
       for (let j = 0; j < tree.size(); j++) {
         const entityPosition = tree[j];
         const { guid, position, entityType } = entityPosition;
-        print(`🔧 Creating entity ${guid} at position [${position[0]}, ${position[1]}, ${position[2]}]`);
-        
+        print(
+          `🔧 Creating entity ${guid} at position [${position[0]}, ${position[1]}, ${position[2]}]`
+        );
+
         try {
           // Create hex stack with proper entity type
           const config: ComponentStackConfig = {
@@ -272,7 +270,8 @@ export class GameService {
             entityType: entityType || "default",
           };
 
-          const hexStack = this.componentStackService.createComponentStack(config);
+          const hexStack =
+            this.componentStackService.createComponentStack(config);
 
           if (hexStack) {
             entityMap.set(guid, hexStack);
@@ -315,7 +314,6 @@ export class GameService {
 
       // Create security connectors
       this.connectorService.createSecurityConnectors(this.myStuffFolder);
-
     } catch (error) {
       print(`❌ Error creating ring layout: ${error}`);
     }
@@ -350,12 +348,13 @@ export class GameService {
       // Get hierarchy data optimized for layout
       const integrator = new HierarchyLayoutIntegrator();
       const hierarchyData = integrator.getFilteredHierarchyForLayout();
-      print(`📊 Hierarchy data retrieved - Trees: ${hierarchyData.trees.size()}`);
+      print(
+        `📊 Hierarchy data retrieved - Trees: ${hierarchyData.trees.size()}`
+      );
 
       // Create hierarchical layout
-      const layoutResult = this.hierarchicalLayoutService.createHierarchicalLayout(
-        hierarchyData
-      );
+      const layoutResult =
+        this.hierarchicalLayoutService.createHierarchicalLayout(hierarchyData);
       print(`🏗️ Layout result created - Trees: ${layoutResult.trees.size()}`);
 
       // Create entity instances for positioning
@@ -363,22 +362,23 @@ export class GameService {
       print(`📦 Entity instances created: ${entityMap.size()}`);
 
       // Position entities in 3D space
-      const positionedEntities = this.hierarchicalLayoutService.positionEntitiesInSpace(
-        layoutResult,
-        entityMap
-      );
+      const positionedEntities =
+        this.hierarchicalLayoutService.positionEntitiesInSpace(
+          layoutResult,
+          entityMap
+        );
       print(`📍 Entities positioned: ${positionedEntities.size()}`);
 
       // Create hierarchical connectors
-      const connectors = this.hierarchicalLayoutService.createHierarchicalConnectors(
-        layoutResult,
-        positionedEntities
-      );
+      const connectors =
+        this.hierarchicalLayoutService.createHierarchicalConnectors(
+          layoutResult,
+          positionedEntities
+        );
 
       print(
         `✅ Hierarchical layout created: ${positionedEntities.size()} entities positioned, ${connectors.size()} connectors created`
       );
-
     } catch (error) {
       print(`❌ Error creating hierarchical layout: ${error}`);
       print("🔄 Falling back to ring layout...");
@@ -391,12 +391,12 @@ export class GameService {
    */
   public validateHierarchicalLayout(): ValidationResult {
     print("🧪 Validating hierarchical layout...");
-    
+
     const result: ValidationResult = {
       isValid: true,
       warnings: [],
       errors: [],
-      metrics: this.metrics
+      metrics: this.metrics,
     };
 
     try {
@@ -405,19 +405,30 @@ export class GameService {
       // Step 1: Get hierarchy analysis results and convert to layout format
       const integrator = new HierarchyLayoutIntegrator();
       const hierarchyResult = integrator.convertToLayoutFormat();
-      
+
       this.metrics.totalTrees = hierarchyResult.trees.size();
-      print(`✓ Hierarchy analysis complete - ${this.metrics.totalTrees} trees found`);
+      print(
+        `✓ Hierarchy analysis complete - ${this.metrics.totalTrees} trees found`
+      );
 
       // Step 2: Create layout with real data
       const filteredResult = integrator.getFilteredHierarchyForLayout();
-      const layoutResult = this.hierarchicalLayoutService.createHierarchicalLayout(filteredResult);
-      
+      const layoutResult =
+        this.hierarchicalLayoutService.createHierarchicalLayout(filteredResult);
+
       // Update metrics
-      this.metrics.totalEntities = layoutResult.trees.reduce((sum, tree) => sum + tree.totalEntities, 0);
-      this.metrics.totalConnections = layoutResult.trees.reduce((sum, tree) => sum + tree.connections.size(), 0);
-      
-      print(`✓ Layout calculation complete - ${this.metrics.totalEntities} entities positioned`);
+      this.metrics.totalEntities = layoutResult.trees.reduce(
+        (sum, tree) => sum + tree.totalEntities,
+        0
+      );
+      this.metrics.totalConnections = layoutResult.trees.reduce(
+        (sum, tree) => sum + tree.connections.size(),
+        0
+      );
+
+      print(
+        `✓ Layout calculation complete - ${this.metrics.totalEntities} entities positioned`
+      );
 
       // Step 3: Validate tree positioning
       const resultData = layoutResult as { trees: unknown[] };
@@ -428,23 +439,34 @@ export class GameService {
           totalEntities?: number;
           entityPositions?: unknown[];
           connections?: unknown[];
-          boundingBox?: { min: [number, number, number]; max: [number, number, number] };
+          boundingBox?: {
+            min: [number, number, number];
+            max: [number, number, number];
+          };
         };
-        
+
         // Convert TreeLayout to LayoutTree format for validation
         const layoutTree: LayoutTree = {
           treeId: tree.treeId || tree.rootEntity || "unknown",
-          totalEntities: tree.totalEntities || (tree.entityPositions ? (tree.entityPositions as EntityPosition[]).size() : 0),
+          totalEntities:
+            tree.totalEntities ||
+            (tree.entityPositions
+              ? (tree.entityPositions as EntityPosition[]).size()
+              : 0),
           connections: [],
-          entityPositions: tree.entityPositions ? tree.entityPositions as EntityPosition[] : [],
+          entityPositions: tree.entityPositions
+            ? (tree.entityPositions as EntityPosition[])
+            : [],
           boundingBox: tree.boundingBox || {
             min: [0, 0, 0],
-            max: [0, 0, 0]
-          }
+            max: [0, 0, 0],
+          },
         };
         const treeWarnings = this.validateTreeLayout(layoutTree);
         if (treeWarnings > 0) {
-          result.warnings.push(`Tree ${layoutTree.treeId}: ${treeWarnings} positioning warnings`);
+          result.warnings.push(
+            `Tree ${layoutTree.treeId}: ${treeWarnings} positioning warnings`
+          );
         }
       }
 
@@ -465,14 +487,15 @@ export class GameService {
 
       // Calculate total time
       this.metrics.layoutTime = os.clock() - startTime;
-      print(`✓ Performance test complete - Layout created in ${this.metrics.layoutTime} seconds`);
+      print(
+        `✓ Performance test complete - Layout created in ${this.metrics.layoutTime} seconds`
+      );
 
       if (result.errors.size() > 0) {
         result.isValid = false;
       }
 
       return result;
-
     } catch (error) {
       result.isValid = false;
       result.errors.push(`Validation failed: ${error}`);
@@ -488,16 +511,18 @@ export class GameService {
     print(`Validating tree ${tree.treeId}`);
 
     // Check entity spacing
-    const positions = tree.entityPositions.map(p => p.position);
-    
+    const positions = tree.entityPositions.map((p) => p.position);
+
     for (let i = 0; i < positions.size(); i++) {
       for (let j = i + 1; j < positions.size(); j++) {
         const dist = [
           positions[i][0] - positions[j][0],
           positions[i][1] - positions[j][1],
-          positions[i][2] - positions[j][2]
+          positions[i][2] - positions[j][2],
         ];
-        const spacing = math.sqrt(dist[0] * dist[0] + dist[1] * dist[1] + dist[2] * dist[2]);
+        const spacing = math.sqrt(
+          dist[0] * dist[0] + dist[1] * dist[1] + dist[2] * dist[2]
+        );
         if (spacing < MIN_ENTITY_SPACING) {
           warnings++;
         }
@@ -508,11 +533,11 @@ export class GameService {
     const bounds = tree.boundingBox;
     const width = bounds.max[0] - bounds.min[0];
     const height = bounds.max[1] - bounds.min[1];
-    
+
     if (width > MAX_TREE_WIDTH) {
       warnings++;
     }
-    
+
     if (height > tree.totalEntities * MAX_ENTITY_SPACING) {
       warnings++;
     }
@@ -527,7 +552,7 @@ export class GameService {
     const result: ValidationResult = {
       isValid: true,
       warnings: [],
-      errors: []
+      errors: [],
     };
 
     if (!this.myStuffFolder) {
@@ -547,7 +572,7 @@ export class GameService {
     });
 
     let collisions = 0;
-    
+
     entityModels.forEach((model: Model, name: string) => {
       const position = model.PrimaryPart?.Position;
       if (position) {
@@ -563,13 +588,17 @@ export class GameService {
     });
 
     if (collisions > 0) {
-      result.warnings.push(`Found ${collisions} potential collisions between entities`);
+      result.warnings.push(
+        `Found ${collisions} potential collisions between entities`
+      );
     }
 
     // Validate hierarchy visualization
     const hierarchyErrors = this.validateHierarchyVisualization(positions);
     if (hierarchyErrors > 0) {
-      result.warnings.push(`Found ${hierarchyErrors} hierarchy visualization issues`);
+      result.warnings.push(
+        `Found ${hierarchyErrors} hierarchy visualization issues`
+      );
     }
 
     return result;
@@ -578,26 +607,28 @@ export class GameService {
   /**
    * Validate that the visual hierarchy matches the logical hierarchy
    */
-  private validateHierarchyVisualization(positions: Map<string, Vector3>): number {
+  private validateHierarchyVisualization(
+    positions: Map<string, Vector3>
+  ): number {
     let errors = 0;
-    
+
     // Get the current hierarchy
     const hierarchyResult = analyzeEntityHierarchy();
-    
+
     // Check each parent-child relationship
     for (const tree of hierarchyResult.trees) {
       for (const connection of tree.connections) {
         if (connection.type !== "hierarchical") continue;
-        
+
         const parentPos = positions.get(connection.fromGuid);
         const childPos = positions.get(connection.toGuid);
-        
+
         if (parentPos && childPos) {
           // Child should be below parent
           if (childPos.Y <= parentPos.Y) {
             errors++;
           }
-          
+
           // Child should be within reasonable distance of parent
           if (childPos.sub(parentPos).Magnitude > MAX_TREE_WIDTH / 2) {
             errors++;
@@ -605,7 +636,7 @@ export class GameService {
         }
       }
     }
-    
+
     return errors;
   }
 }

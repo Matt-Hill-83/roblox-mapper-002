@@ -185,25 +185,30 @@ export function addConnectors({
 
           // Parent the rope to the center cube of the target (second) hexagon
           let targetCenterCube = targetHexagon.FindFirstChild("center");
-          
+
           // If "center" not found, look for center cube with naming pattern "centerCube-"
           if (!targetCenterCube) {
             const children = targetHexagon.GetChildren();
             for (const child of children) {
-              if (child.IsA("Part") && child.Name.find("centerCube-") !== undefined) {
+              if (
+                child.IsA("Part") &&
+                child.Name.find("centerCube-") !== undefined
+              ) {
                 targetCenterCube = child;
                 break;
               }
             }
           }
-          
+
           if (targetCenterCube) {
             rope.Parent = targetCenterCube;
             print(`🔗 Rope parented to center cube: ${targetCenterCube.Name}`);
           } else {
             // Fallback to target hexagon if center cube not found
             rope.Parent = targetHexagon;
-            print(`⚠️ Center cube not found in ${targetHexagon.Name}, parenting rope to hexagon itself`);
+            print(
+              `⚠️ Center cube not found in ${targetHexagon.Name}, parenting rope to hexagon itself`
+            );
           }
 
           // Create green cube at rope midpoint using the service
