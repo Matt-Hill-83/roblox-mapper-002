@@ -33,17 +33,22 @@ export default function SuggestionsTable({ onConfigurationSelect }: SuggestionsT
     },
     {
       field: 'name',
-      headerName: 'Configuration',
-      width: 150,
+      headerName: 'Title',
+      width: 120,
       renderCell: (params) => (
-        <Box>
-          <Typography variant="body2" fontWeight="bold">
-            {params.value}
-          </Typography>
-          <Typography variant="caption" color="text.secondary">
-            {params.row.description}
-          </Typography>
-        </Box>
+        <Typography variant="body2" fontWeight="bold">
+          {params.value}
+        </Typography>
+      )
+    },
+    {
+      field: 'description',
+      headerName: 'Description',
+      width: 180,
+      renderCell: (params) => (
+        <Typography variant="caption" color="text.secondary">
+          {params.value}
+        </Typography>
       )
     },
     { field: 'totalNodes', headerName: 'Nodes', width: 80 },
@@ -91,6 +96,7 @@ export default function SuggestionsTable({ onConfigurationSelect }: SuggestionsT
         <DataGrid
           rows={presetConfigurations}
           columns={columns}
+          density="compact"
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 10 }

@@ -22,7 +22,7 @@ import {
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { TestDataConfig } from "../app/(pages)/hierarchy-tester/page";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface TestDataConfigComponentProps {
   initialConfig: TestDataConfig;
@@ -37,6 +37,12 @@ export default function TestDataConfigComponent({
 }: TestDataConfigComponentProps) {
   const [config, setConfig] = useState<TestDataConfig>(initialConfig);
   const [errors, setErrors] = useState<Partial<TestDataConfig>>({});
+
+  // Sync internal state with prop changes (e.g., when clicking suggestions table)
+  useEffect(() => {
+    setConfig(initialConfig);
+    setErrors({}); // Clear any validation errors when config changes externally
+  }, [initialConfig]);
 
   const validateConfig = (newConfig: TestDataConfig): boolean => {
     const newErrors: Partial<TestDataConfig> = {};
@@ -123,36 +129,32 @@ export default function TestDataConfigComponent({
             Core Parameters
           </Typography>
 
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <TextField
-                label="Total Nodes"
-                type="number"
-                size="small"
-                value={config.totalNodes}
-                onChange={handleInputChange("totalNodes")}
-                error={!!errors.totalNodes}
-                helperText={errors.totalNodes ? "Must be 1-1000" : ""}
-                InputProps={{ inputProps: { min: 1, max: 1000 } }}
-                fullWidth
-                disabled={isLoading}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Max Depth"
-                type="number"
-                size="small"
-                value={config.maxDepth}
-                onChange={handleInputChange("maxDepth")}
-                error={!!errors.maxDepth}
-                helperText={errors.maxDepth ? "Must be 1-15" : ""}
-                InputProps={{ inputProps: { min: 1, max: 15 } }}
-                fullWidth
-                disabled={isLoading}
-              />
-            </Grid>
-          </Grid>
+          <Stack spacing={2}>
+            <TextField
+              label="Total Nodes"
+              type="number"
+              size="small"
+              value={config.totalNodes}
+              onChange={handleInputChange("totalNodes")}
+              error={!!errors.totalNodes}
+              helperText={errors.totalNodes ? "Must be 1-1000" : ""}
+              slotProps={{ htmlInput: { min: 1, max: 1000 } }}
+              fullWidth
+              disabled={isLoading}
+            />
+            <TextField
+              label="Max Depth"
+              type="number"
+              size="small"
+              value={config.maxDepth}
+              onChange={handleInputChange("maxDepth")}
+              error={!!errors.maxDepth}
+              helperText={errors.maxDepth ? "Must be 1-15" : ""}
+              slotProps={{ htmlInput: { min: 1, max: 15 } }}
+              fullWidth
+              disabled={isLoading}
+            />
+          </Stack>
         </Box>
 
         <Divider />
@@ -164,34 +166,28 @@ export default function TestDataConfigComponent({
           </AccordionSummary>
           <AccordionDetails>
             <Stack spacing={2}>
-              <Grid container spacing={2}>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Branching Min"
-                    type="number"
-                    size="small"
-                    value={config.branchingMin}
-                    onChange={handleInputChange("branchingMin")}
-                    error={!!errors.branchingMin}
-                    InputProps={{ inputProps: { min: 1, max: 20 } }}
-                    fullWidth
-                    disabled={isLoading}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Branching Max"
-                    type="number"
-                    size="small"
-                    value={config.branchingMax}
-                    onChange={handleInputChange("branchingMax")}
-                    error={!!errors.branchingMax}
-                    InputProps={{ inputProps: { min: 1, max: 20 } }}
-                    fullWidth
-                    disabled={isLoading}
-                  />
-                </Grid>
-              </Grid>
+              <TextField
+                label="Branching Min"
+                type="number"
+                size="small"
+                value={config.branchingMin}
+                onChange={handleInputChange("branchingMin")}
+                error={!!errors.branchingMin}
+                slotProps={{ htmlInput: { min: 1, max: 20 } }}
+                fullWidth
+                disabled={isLoading}
+              />
+              <TextField
+                label="Branching Max"
+                type="number"
+                size="small"
+                value={config.branchingMax}
+                onChange={handleInputChange("branchingMax")}
+                error={!!errors.branchingMax}
+                slotProps={{ htmlInput: { min: 1, max: 20 } }}
+                fullWidth
+                disabled={isLoading}
+              />
 
               <Box>
                 <Typography variant="caption" gutterBottom>
@@ -255,36 +251,30 @@ export default function TestDataConfigComponent({
           </AccordionSummary>
           <AccordionDetails>
             <Stack spacing={2}>
-              <Grid container spacing={2}>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Entity Types"
-                    type="number"
-                    size="small"
-                    value={config.entityTypes}
-                    onChange={handleInputChange("entityTypes")}
-                    error={!!errors.entityTypes}
-                    helperText={errors.entityTypes ? "Must be 2-10" : ""}
-                    InputProps={{ inputProps: { min: 2, max: 10 } }}
-                    fullWidth
-                    disabled={isLoading}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    label="Hub Nodes"
-                    type="number"
-                    size="small"
-                    value={config.hubNodes}
-                    onChange={handleInputChange("hubNodes")}
-                    error={!!errors.hubNodes}
-                    helperText={errors.hubNodes ? "Must be 0-10" : ""}
-                    InputProps={{ inputProps: { min: 0, max: 10 } }}
-                    fullWidth
-                    disabled={isLoading}
-                  />
-                </Grid>
-              </Grid>
+              <TextField
+                label="Entity Types"
+                type="number"
+                size="small"
+                value={config.entityTypes}
+                onChange={handleInputChange("entityTypes")}
+                error={!!errors.entityTypes}
+                helperText={errors.entityTypes ? "Must be 2-10" : ""}
+                slotProps={{ htmlInput: { min: 2, max: 10 } }}
+                fullWidth
+                disabled={isLoading}
+              />
+              <TextField
+                label="Hub Nodes"
+                type="number"
+                size="small"
+                value={config.hubNodes}
+                onChange={handleInputChange("hubNodes")}
+                error={!!errors.hubNodes}
+                helperText={errors.hubNodes ? "Must be 0-10" : ""}
+                slotProps={{ htmlInput: { min: 0, max: 10 } }}
+                fullWidth
+                disabled={isLoading}
+              />
             </Stack>
           </AccordionDetails>
         </Accordion>

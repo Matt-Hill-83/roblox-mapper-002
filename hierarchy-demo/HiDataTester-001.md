@@ -82,19 +82,33 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
        2. ✅ Column 2: Main output area with summary data above large graph
        3. ✅ Column 3: Three small graphs stacked vertically
    13. ✅ R47: The system shall implement graph switching functionality:
+
        1. ✅ When user clicks a small graph, it becomes the large graph in column 2
 
    14. ✅ R48: The system shall implement responsive layout:
+
        1. ✅ The page width shall expand to 80vh
        2. ✅ Column 2 (main output area) shall occupy 80% of page width
 
    15. ✅ R49: The system shall implement a suggestions table:
+
        1. ✅ Add table row above main output area
        2. ✅ Use MUI Advanced Data Grid for table display
        3. ✅ Table columns shall match configuration properties
        4. ✅ First column shall be a clickable configuration index
        5. ✅ Clicking index shall update graph config and display
        6. ✅ Include 10 rows of interesting preset configurations
+
+   16. ⬛ R50: The system shall implement table display refinements:
+
+       1. ⬛ Split configuration column into separate title and description columns
+       2. ⬛ Use compact density mode for MUI Data Grid
+       3. ⬛ Optimize column widths for maximum data visibility
+
+   17. ⬛ R51: The system shall implement configuration form refinements:
+       1. ⬛ Display each input field on a new row
+       2. ⬛ Remove all side-by-side input layouts
+       3. ⬛ Maintain consistent vertical spacing between inputs
 
 ## Task List
 
@@ -132,6 +146,8 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    31. ✅ T31: Create suggestions table with MUI Advanced Data Grid (R49)
    32. ✅ T32: Generate 10 interesting preset configurations (R49)
    33. ✅ T33: Implement configuration index click handling (R49)
+   34. ⬛ T34: Split configuration table columns and optimize display (R50)
+   35. ⬛ T35: Refactor configuration form layout for vertical inputs (R51)
 
 ## Risks
 
