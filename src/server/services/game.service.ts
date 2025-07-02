@@ -11,6 +11,7 @@ import {
   printConnectionSummary,
   getEntitiesWithConnections,
 } from "../../shared/modules/connectionAnalyzer";
+import { analyzeEntityHierarchy } from "../../shared/modules/hierarchyAnalyzer";
 
 export class GameService {
   // private hexStackService = new HexStackService();
@@ -44,6 +45,10 @@ export class GameService {
     print("📊 Step 1: Analyzing entity connections...");
     this.analyzeEntityConnections();
     this.addConnectionProperties();
+
+    // STEP 1b: Analyze hierarchy relationships
+    print("🌳 Step 1b: Analyzing entity hierarchies...");
+    this.analyzeEntityHierarchies();
 
     // STEP 2: Create all stacks (now that connection data is available)
     print("🏗️ Step 2: Creating stacks...");
@@ -166,6 +171,17 @@ export class GameService {
     const connectedEntities = getEntitiesWithConnections();
     print(
       `🔗 Applied connection properties to ${connectedEntities.size()} entities with connections`
+    );
+  }
+
+  private analyzeEntityHierarchies(): void {
+    print("🌳 Starting entity hierarchy analysis...");
+    const hierarchyResult = analyzeEntityHierarchy();
+
+    // Store or process hierarchy results as needed
+    // For now, the analysis results are just printed to console
+    print(
+      `🌳 Hierarchy analysis completed: ${hierarchyResult.trees.size()} trees found`
     );
   }
 }

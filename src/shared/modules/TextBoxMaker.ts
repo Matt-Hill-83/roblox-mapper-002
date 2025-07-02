@@ -26,7 +26,7 @@ export function createTextBox({
   const textBox = new Instance("TextBox");
   textBox.Name = "TextBox";
   textBox.Text = text;
-  textBox.TextSize = 24;
+  textBox.TextScaled = true; // Scale text to fit within bounds
   textBox.Font = Enum.Font.SourceSans;
   textBox.Size = new UDim2(1, 0, 1, 0);
   textBox.BackgroundColor3 = Color3.fromRGB(
@@ -35,8 +35,9 @@ export function createTextBox({
     blockColor[2] * 255
   );
   textBox.TextColor3 = Color3.fromRGB(0, 0, 0);
-  textBox.BorderSizePixel = 10;
-  textBox.TextWrapped = true;
+  textBox.BorderSizePixel = 2; // Reduced from 10 to prevent overflow
+  textBox.BorderMode = Enum.BorderMode.Inset; // Keep border inside the TextBox bounds
+  textBox.TextWrapped = true; // Allow wrapping in addition to scaling
   textBox.Parent = surfaceGui;
 
   print(
@@ -54,7 +55,7 @@ export function createTextBoxWithCustomStyling({
   backgroundColor,
   textColor = new Color3(0, 0, 0),
   font = Enum.Font.SourceSans,
-  borderSizePixel = 10,
+  borderSizePixel = 2, // Reduced default from 10 to 2
   textWrapped = true,
 }: TextBoxConfig & {
   textSize?: number;
@@ -87,6 +88,7 @@ export function createTextBoxWithCustomStyling({
   textBox.BackgroundColor3 = defaultBackgroundColor;
   textBox.TextColor3 = textColor;
   textBox.BorderSizePixel = borderSizePixel;
+  textBox.BorderMode = Enum.BorderMode.Inset; // Keep border inside bounds
   textBox.TextWrapped = textWrapped;
   textBox.Parent = surfaceGui;
 
