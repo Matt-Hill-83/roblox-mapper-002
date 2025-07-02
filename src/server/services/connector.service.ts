@@ -8,11 +8,12 @@ export class ConnectorService {
     // Service initialized
   }
 
-  createSecurityConnectors(): void {
+  createSecurityConnectors(searchScope?: Instance): void {
     // Print color legend first
     printConnectionColorLegend();
 
     addConnectors({
+      searchScope: searchScope, // Pass the search scope to limit where to find entities
       relationTypes: [
         "relationSecures",
         "relationDependsOn",

@@ -155,7 +155,7 @@ export class GameService {
   }
 
   private createConnectors(): void {
-    this.connectorService.createSecurityConnectors();
+    this.connectorService.createSecurityConnectors(this.myStuffFolder);
   }
 
   private analyzeEntityConnections(): void {

@@ -7,12 +7,14 @@ Create a 3D spatial layout system in Roblox that organizes entities geometricall
 ## Requirements
 
 1. ⬛ Spatial Layout Requirements
+
    1. ⬛ R1: The system shall position parent entities above their children in 3D space
    2. ⬛ R2: The system shall cluster related entity types in close proximity
    3. ⬛ R3: The system shall maintain visual separation between different hierarchy trees
    4. ⬛ R4: The system shall exclude orphaned entities from the initial layout
 
 2. ⬛ Visual Component Integration
+
    1. ⬛ R5: The system shall use existing hex stack components for entity representation
    2. ⬛ R6: The system shall use existing rope components for relationship visualization
    3. ⬛ R7: The system shall maintain existing label rendering on relationship ropes
@@ -88,41 +90,41 @@ graph TD
     HierarchyResult["Hierarchy Analysis Result"]
     LayoutCalculator["Hierarchical Layout Calculator"]
     SpatialPositioning["Spatial Positioning"]
-    
+
     %% Layout Processing
     TreePositioning["Tree Positioning"]
     EntityClustering["Entity Type Clustering"]
     CollisionDetection["Collision Detection"]
-    
+
     %% Visual Components
     HexStackCreation["Hex Stack Creation"]
     RopeConnection["Rope Connections"]
     LabelRendering["Label Rendering"]
-    
+
     %% Final Layout
     VisualLayout["3D Visual Layout"]
-    
+
     %% Main Flow
     HierarchyResult -->|provides tree data| LayoutCalculator
     LayoutCalculator -->|calculates positions| TreePositioning
     LayoutCalculator -->|groups entities| EntityClustering
-    
+
     TreePositioning -->|initial positions| SpatialPositioning
     EntityClustering -->|cluster data| SpatialPositioning
     SpatialPositioning -->|checks overlaps| CollisionDetection
     CollisionDetection -->|adjusted positions| SpatialPositioning
-    
+
     SpatialPositioning -->|final positions| HexStackCreation
     SpatialPositioning -->|relationship data| RopeConnection
-    
+
     HexStackCreation -->|positioned entities| VisualLayout
     RopeConnection -->|creates| LabelRendering
     LabelRendering -->|labeled connections| VisualLayout
-    
+
     %% Layout Service Management
     LayoutService["Hierarchical Layout Service"]
     GameService["Game Service"]
-    
+
     GameService -->|initializes| LayoutService
     LayoutService -->|orchestrates| LayoutCalculator
     LayoutService -->|manages| VisualLayout
@@ -138,7 +140,7 @@ const treeLayoutConfig = {
   levelHeight: 15,
   branchSpread: 25,
   maxWidth: 100,
-  entitySpacing: 8
+  entitySpacing: 8,
 };
 
 // Entity position calculation result
@@ -151,8 +153,8 @@ const entityPosition = {
   visualProps: {
     color: [0.2, 0.7, 0.9],
     scale: 1.0,
-    highlighted: false
-  }
+    highlighted: false,
+  },
 };
 
 // Layout calculation result
@@ -164,17 +166,23 @@ const layoutResult = {
       totalEntities: 23,
       boundingBox: {
         min: [-50, 0, -30],
-        max: [50, 60, 30]
+        max: [50, 60, 30],
       },
-      entityPositions: [/* EntityPosition[] */],
-      connections: [/* ConnectionData[] */]
-    }
+      entityPositions: [
+        /* EntityPosition[] */
+      ],
+      connections: [
+        /* ConnectionData[] */
+      ],
+    },
   ],
   totalBounds: {
     min: [-150, 0, -100],
-    max: [150, 80, 100]
+    max: [150, 80, 100],
   },
-  orphanedEntities: [/* excluded for now */]
+  orphanedEntities: [
+    /* excluded for now */
+  ],
 };
 ```
 
@@ -182,11 +190,13 @@ const layoutResult = {
 
 ```typescript
 // Main layout calculation function
-function calculateHierarchicalLayout(hierarchyResult: HierarchyAnalysisResult): LayoutResult {
+function calculateHierarchicalLayout(
+  hierarchyResult: HierarchyAnalysisResult
+): LayoutResult {
   const layoutResult: LayoutResult = {
     trees: [],
     totalBounds: { min: [0, 0, 0], max: [0, 0, 0] },
-    orphanedEntities: []
+    orphanedEntities: [],
   };
 
   // Position each hierarchy tree
@@ -194,42 +204,51 @@ function calculateHierarchicalLayout(hierarchyResult: HierarchyAnalysisResult): 
     const treeLayout = calculateTreeLayout(tree, index);
     const clusteredLayout = clusterEntityTypes(treeLayout);
     const finalLayout = adjustForCollisions(clusteredLayout);
-    
+
     layoutResult.trees.push(finalLayout);
   });
 
   // Calculate overall bounds
   layoutResult.totalBounds = calculateOverallBounds(layoutResult.trees);
-  
+
   return layoutResult;
 }
 
 // Tree positioning algorithm
-function calculateTreeLayout(tree: HierarchyTree, treeIndex: number): TreeLayout {
+function calculateTreeLayout(
+  tree: HierarchyTree,
+  treeIndex: number
+): TreeLayout {
   const basePosition = calculateTreeBasePosition(treeIndex);
   const positions: EntityPosition[] = [];
-  
+
   // Traverse tree and assign positions
-  traverseTreeForPositioning(tree.rootGuid, tree.nodes, basePosition, 0, positions);
-  
+  traverseTreeForPositioning(
+    tree.rootGuid,
+    tree.nodes,
+    basePosition,
+    0,
+    positions
+  );
+
   return {
     treeId: tree.rootGuid,
     entityPositions: positions,
-    connections: extractConnections(tree.nodes)
+    connections: extractConnections(tree.nodes),
   };
 }
 
 // Entity positioning within tree
 function positionEntityInTree(
-  guid: string, 
-  level: number, 
-  branchIndex: number, 
+  guid: string,
+  level: number,
+  branchIndex: number,
   basePosition: [number, number, number]
 ): [number, number, number] {
-  const x = basePosition[0] + (branchIndex * ENTITY_SPACING);
-  const y = basePosition[1] - (level * LEVEL_HEIGHT);
-  const z = basePosition[2] + (Math.random() * CLUSTER_VARIATION);
-  
+  const x = basePosition[0] + branchIndex * ENTITY_SPACING;
+  const y = basePosition[1] - level * LEVEL_HEIGHT;
+  const z = basePosition[2] + Math.random() * CLUSTER_VARIATION;
+
   return [x, y, z];
 }
 ```

@@ -3,6 +3,7 @@ import { RopeLabelService } from "./ropeLabelService";
 
 interface ConnectorConfig {
   parent?: Instance;
+  searchScope?: Instance; // Where to search for entities (e.g., myStuff folder)
   relationTypes?: string[]; // Which types of relations to create connectors for
 }
 
@@ -42,22 +43,33 @@ function padNumber(num: number, length: number): string {
   return result;
 }
 
-function findHexagonByGuid(guid: string): Model | undefined {
-  // Search for any hexagon model with the matching GUID
-  const allModels = game.Workspace.GetDescendants().filter(
-    (desc: Instance) => desc.IsA("Model") && desc.GetAttribute("guid") === guid
-  );
+function findHexagonByGuid(
+  guid: string,
+  searchScope?: Instance
+): Model | undefined {
+  // Determine search scope - use provided scope or default to workspace
+  const scope = searchScope || game.Workspace;
+
+  // Search for any hexagon model with the matching GUID within the scope
+  const allModels = scope
+    .GetDescendants()
+    .filter(
+      (desc: Instance) =>
+        desc.IsA("Model") && desc.GetAttribute("guid") === guid
+    );
 
   if (allModels.size() > 0) {
     return allModels[0] as Model;
   }
 
-  // If not found by GUID, also search for hexagon patterns in the names
-  const hexagons = game.Workspace.GetDescendants().filter(
-    (desc: Instance) =>
-      desc.IsA("Model") &&
-      (desc.Name.sub(1, 1) === "h" || desc.Name.find("hex") !== undefined)
-  );
+  // If not found by GUID, also search for hexagon patterns in the names within scope
+  const hexagons = scope
+    .GetDescendants()
+    .filter(
+      (desc: Instance) =>
+        desc.IsA("Model") &&
+        (desc.Name.sub(1, 1) === "h" || desc.Name.find("hex") !== undefined)
+    );
 
   for (const hexagon of hexagons) {
     if (hexagon.GetAttribute("guid") === guid) {
@@ -81,13 +93,17 @@ function findAttachmentRecursive(
 
 export function addConnectors({
   parent = game.Workspace,
+  searchScope,
   relationTypes = ["relationSecures"],
 }: ConnectorConfig = {}): void {
-  // First, collect all available GUIDs in the workspace
+  // Determine search scope - use provided scope or default to workspace
+  const scope = searchScope || game.Workspace;
+
+  // First, collect all available GUIDs in the search scope
   const availableGUIDs = new Set<string>();
-  const allModels = game.Workspace.GetDescendants().filter((desc: Instance) =>
-    desc.IsA("Model")
-  );
+  const allModels = scope
+    .GetDescendants()
+    .filter((desc: Instance) => desc.IsA("Model"));
   for (const model of allModels) {
     const guid = model.GetAttribute("guid") as string;
     if (guid) {
@@ -96,13 +112,10 @@ export function addConnectors({
   }
 
   print(
-    `🔍 DIAGNOSTIC: Found ${availableGUIDs.size()} models with GUIDs in workspace`
+    `🔍 DIAGNOSTIC: Found ${availableGUIDs.size()} models with GUIDs in search scope (${
+      scope.Name
+    })`
   );
-
-  // Create a folder for all connectors
-  const connectorsFolder = new Instance("Folder");
-  connectorsFolder.Name = "Connectors";
-  connectorsFolder.Parent = parent;
 
   let ropeIndex = 1;
   let totalConnectors = 0;
@@ -137,8 +150,8 @@ export function addConnectors({
     );
 
     for (const relation of validRelations) {
-      const sourceHexagon = findHexagonByGuid(relation.source_guid);
-      const targetHexagon = findHexagonByGuid(relation.target_guid);
+      const sourceHexagon = findHexagonByGuid(relation.source_guid, scope);
+      const targetHexagon = findHexagonByGuid(relation.target_guid, scope);
 
       if (sourceHexagon && targetHexagon) {
         // Find center attachments (att000)
@@ -169,7 +182,29 @@ export function addConnectors({
           rope.Color =
             relationColors[relationType] || new BrickColor("Bright red");
           rope.Thickness = 0.4; // Thickness of the rope
-          rope.Parent = connectorsFolder;
+
+          // Parent the rope to the center cube of the target (second) hexagon
+          let targetCenterCube = targetHexagon.FindFirstChild("center");
+          
+          // If "center" not found, look for center cube with naming pattern "centerCube-"
+          if (!targetCenterCube) {
+            const children = targetHexagon.GetChildren();
+            for (const child of children) {
+              if (child.IsA("Part") && child.Name.find("centerCube-") !== undefined) {
+                targetCenterCube = child;
+                break;
+              }
+            }
+          }
+          
+          if (targetCenterCube) {
+            rope.Parent = targetCenterCube;
+            print(`🔗 Rope parented to center cube: ${targetCenterCube.Name}`);
+          } else {
+            // Fallback to target hexagon if center cube not found
+            rope.Parent = targetHexagon;
+            print(`⚠️ Center cube not found in ${targetHexagon.Name}, parenting rope to hexagon itself`);
+          }
 
           // Create green cube at rope midpoint using the service
           const ropeLabelService = RopeLabelService.getInstance();
@@ -178,7 +213,7 @@ export function addConnectors({
             relationTypeName,
             sourceAttachment,
             targetAttachment,
-            connectorsFolder,
+            rope, // Parent the label group to the rope itself
             relation.name
           );
 
