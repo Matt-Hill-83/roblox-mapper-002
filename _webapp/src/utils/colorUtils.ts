@@ -60,34 +60,10 @@ export function generateConnectorTypeStyles(numTypes: number): ConnectorStyle[] 
 
   for (let i = 0; i < numTypes; i++) {
     const colorIndex = i % baseColors.length;
-    const styleIndex = Math.floor(i / baseColors.length);
     
-    let strokeDasharray: string | undefined;
-    let strokeWidth = 2;
-    
-    // Vary line styles for different connector types
-    switch (styleIndex) {
-      case 0: // Solid line
-        strokeDasharray = undefined;
-        strokeWidth = 2;
-        break;
-      case 1: // Dashed line
-        strokeDasharray = '8,4';
-        strokeWidth = 2;
-        break;
-      case 2: // Dotted line
-        strokeDasharray = '2,3';
-        strokeWidth = 2;
-        break;
-      case 3: // Thick solid
-        strokeDasharray = undefined;
-        strokeWidth = 3;
-        break;
-      default: // Long dash
-        strokeDasharray = '12,6';
-        strokeWidth = 2;
-        break;
-    }
+    // Force solid lines for all connector types
+    const strokeDasharray: string | undefined = undefined;
+    const strokeWidth = 2;
 
     styles.push({
       color: baseColors[colorIndex],

@@ -247,10 +247,10 @@ class ReactFlowAdapter {
         source: conn.fromId,
         target: conn.toId,
         type: "smoothstep",
-        animated: true,
+        animated: false,
         style: {
           stroke: connectorStyle.color,
-          strokeWidth: 2, // T66: twice-as-thick
+          strokeWidth: connectorStyle.strokeWidth,
           opacity: connectorStyle.opacity,
         },
       };
