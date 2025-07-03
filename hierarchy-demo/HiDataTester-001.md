@@ -160,6 +160,17 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
        2. ✅ [GPT] Add intelligent node spacing with 120px gaps between levels
        3. ✅ [GPT] Integrate parent-position-based sorting to reduce edge crossings in React Flow graphs
 
+   23. ⬛ [GPT] R57: The system shall modify React Flow connector styles:
+       1. ⬛ Connectors shall be twice as thick.
+       2. ⬛ Connectors shall be solid lines, not dashed.
+
+   24. ⬛ R58: The system shall implement horizontal type-based node positioning:
+       1. ⬛ [GPT] Nodes shall be positioned horizontally based on their entity type
+       2. ⬛ [GPT] Each entity type shall occupy a distinct horizontal lane/zone with defined X-coordinate ranges
+       3. ⬛ [GPT] Node positioning shall maintain hierarchical relationships within each type zone
+       4. ⬛ [GPT] Cross-type connections shall be visually clear despite horizontal separation
+       5. ⬛ [GPT] Type zones shall be evenly distributed across the available horizontal space
+
 ## Task List
 
 1. ⬛ Implementation Tasks
@@ -228,3 +239,8 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    63. ✅ [G] T63: Implement panel collapse functionality - clicked panel collapses to 50px width (R55.3)
    64. ✅ [GPT] T64: Implement barycentric crossing minimization algorithm in ReactFlowAdapter (R56.1)
    65. ✅ [GPT] T65: Add intelligent node spacing and parent-position-based sorting (R56.2, R56.3)
+   66. ⬛ [GPT] T66: Modify React Flow connectors to be thicker and solid (R57)
+   67. ⬛ [GPT] T67: Create entity type to X-coordinate range mapping system (R58.1, R58.2)
+   68. ⬛ [GPT] T68: Implement horizontal type-based positioning algorithm in ReactFlowAdapter (R58.1, R58.3)
+   69. ⬛ [GPT] T69: Ensure cross-type connections remain visually clear and properly routed (R58.4)
+   70. ⬛ [GPT] T70: Implement dynamic type zone distribution across available horizontal space (R58.5)
