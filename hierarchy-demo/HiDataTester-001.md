@@ -191,6 +191,7 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    28. ✅ [GEM] R62: The system shall implement suggested configurations table tweaks:
        1. ✅ [GEM] Remove the page increment buttons from the bottom of the table.
        2. ✅ [GEM] Always show all rows.
+   29. ✅ [GEM] R63: The system shall refactor the layout to move column 6 into a collapsible tab as column 7.
 
 ## Task List
 
@@ -274,3 +275,11 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    77. ✅ [GEM] T77: Remove the mini versions of all 3 graphs (R61.2)
    78. ✅ [GEM] T78: Remove the page increment buttons from the bottom of the suggested configurations table (R62.1)
    79. ✅ [GEM] T79: Make the suggested configurations table always show all rows (R62.2)
+   80. ⬛ [GEM] T80: Refactor the layout to move column 6 into a collapsible tab as column 7 (R63)
+       80.1. ✅ [GEM] T80.1: Remove VisualMap's independent panel from `hierarchy-tester/page.tsx`.
+       80.2. ✅ [GEM] T80.2: Adjust width calculations for remaining collapsible sections in `hierarchy-tester/page.tsx`.
+       80.3. ✅ [GEM] T80.3: Add VisualMap import to `_webapp/src/components/TreeDisplay.tsx`.
+       80.4. ✅ [GEM] T80.4: Add a new 'Visual Map' tab to the `Tabs` component in `_webapp/src/components/TreeDisplay.tsx`.
+       80.5. ✅ [GEM] T80.5: Add a corresponding `TabPanel` for 'Visual Map' in `_webapp/src/components/TreeDisplay.tsx`.
+       80.6. ✅ [GEM] T80.6: Ensure `tabValue` state and `TabPanel` indices are correctly aligned in `_webapp/src/components/TreeDisplay.tsx`.
+       80.7. ✅ [GEM] T80.7: Wrap the entire tabbed interface in `_webapp/src/components/TreeDisplay.tsx` with the `GraphContainer` component.

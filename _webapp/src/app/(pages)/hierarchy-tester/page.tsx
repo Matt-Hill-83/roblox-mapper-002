@@ -72,7 +72,6 @@ export default function HierarchyTesterPage() {
   // Panel collapse state management
   const [isTableCollapsed, setIsTableCollapsed] = useState(false);
   const [isGraphCollapsed, setIsGraphCollapsed] = useState(false);
-  const [isVisualMapCollapsed, setIsVisualMapCollapsed] = useState(false);
 
   const handleGraphSelect = (graph: "reactflow" | "cytoscape" | "d3") => {
     setSelectedGraph(graph);
@@ -84,10 +83,6 @@ export default function HierarchyTesterPage() {
 
   const handleGraphToggle = () => {
     setIsGraphCollapsed(!isGraphCollapsed);
-  };
-
-  const handleVisualMapToggle = () => {
-    setIsVisualMapCollapsed(!isVisualMapCollapsed);
   };
 
   const handleConfigurationSelect = (newConfig: TestDataConfig) => {
@@ -223,9 +218,9 @@ export default function HierarchyTesterPage() {
               sx={{
                 width: isTableCollapsed
                   ? "50px"
-                  : isGraphCollapsed || isVisualMapCollapsed
+                  : isGraphCollapsed
                   ? "calc(100% - 50px)"
-                  : "33.33%",
+                  : "50%",
                 height: "100%",
                 overflow: "auto",
                 position: "relative",
@@ -257,9 +252,9 @@ export default function HierarchyTesterPage() {
               sx={{
                 width: isGraphCollapsed
                   ? "50px"
-                  : isTableCollapsed || isVisualMapCollapsed
+                  : isTableCollapsed
                   ? "calc(100% - 50px)"
-                  : "33.33%",
+                  : "50%",
                 height: "100%",
                 overflow: "auto",
                 position: "relative",
@@ -286,39 +281,9 @@ export default function HierarchyTesterPage() {
                   result={result}
                   isLoading={isLoading}
                   layoutMode="three-column"
+                  selectedGraph={selectedGraph}
+                  onGraphSelect={handleGraphSelect}
                 />
-              )}
-            </Box>
-            <Box
-              sx={{
-                width: isVisualMapCollapsed
-                  ? "50px"
-                  : isTableCollapsed || isGraphCollapsed
-                  ? "calc(100% - 50px)"
-                  : "33.33%",
-                height: "100%",
-                overflow: "auto",
-                position: "relative",
-                border: "1px solid #ddd",
-              }}
-            >
-              <IconButton
-                onClick={handleVisualMapToggle}
-                sx={{
-                  position: "absolute",
-                  top: 8,
-                  left: 8,
-                  zIndex: 1000,
-                  backgroundColor: "white",
-                  border: "1px solid #ccc",
-                  "&:hover": { backgroundColor: "#f5f5f5" },
-                }}
-                size="small"
-              >
-                {isVisualMapCollapsed ? <Maximize /> : <Minimize />}
-              </IconButton>
-              {!isVisualMapCollapsed && (
-                <VisualMap positioned={result?.positioned || []} />
               )}
             </Box>
           </Grid>
