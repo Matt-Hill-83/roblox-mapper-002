@@ -1,6 +1,13 @@
 "use client";
 
-import { Container, Grid, Paper, Typography, Box, IconButton } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Paper,
+  Typography,
+  Box,
+  IconButton,
+} from "@mui/material";
 import { Minimize, Maximize } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 
@@ -60,7 +67,7 @@ export default function HierarchyTesterPage() {
   const [selectedGraph, setSelectedGraph] = useState<
     "reactflow" | "cytoscape" | "d3"
   >("reactflow");
-  
+
   // Panel collapse state management
   const [isTableCollapsed, setIsTableCollapsed] = useState(false);
   const [isGraphCollapsed, setIsGraphCollapsed] = useState(false);
@@ -162,12 +169,12 @@ export default function HierarchyTesterPage() {
     // width: '100%',
     // minHeight: '100vh',
     margin: 0,
-    border: "10px solid red",
+    // border: "10px solid red",
     padding: 0,
   };
 
   const col2Styles = {
-    border: "10px solid green",
+    // border: "10px solid green",
     display: "flex",
     flexDirection: "row",
     flex: 1,
@@ -186,7 +193,7 @@ export default function HierarchyTesterPage() {
         marginRight: "calc(-50vw + 50%)",
         left: 0,
         right: 0,
-        border: "10px solid blue",
+        // border: "10px solid blue",
       }}
     >
       <Box>
@@ -212,13 +219,17 @@ export default function HierarchyTesterPage() {
 
           {/* Column 2: Main Output Area with Suggestions Table and Large Graph */}
           <Grid item xs={12} lg={6} style={col2Styles}>
-            <Box 
-              sx={{ 
-                width: isTableCollapsed ? "50px" : (isGraphCollapsed ? "calc(100% - 50px)" : "50%"), 
-                height: "100%", 
+            <Box
+              sx={{
+                width: isTableCollapsed
+                  ? "50px"
+                  : isGraphCollapsed
+                  ? "calc(100% - 50px)"
+                  : "50%",
+                height: "100%",
                 overflow: "auto",
                 position: "relative",
-                border: "1px solid #ddd"
+                border: "1px solid #ddd",
               }}
             >
               <IconButton
@@ -230,7 +241,7 @@ export default function HierarchyTesterPage() {
                   zIndex: 1000,
                   backgroundColor: "white",
                   border: "1px solid #ccc",
-                  "&:hover": { backgroundColor: "#f5f5f5" }
+                  "&:hover": { backgroundColor: "#f5f5f5" },
                 }}
                 size="small"
               >
@@ -242,13 +253,17 @@ export default function HierarchyTesterPage() {
                 />
               )}
             </Box>
-            <Box 
-              sx={{ 
-                width: isGraphCollapsed ? "50px" : (isTableCollapsed ? "calc(100% - 50px)" : "50%"), 
-                height: "100%", 
+            <Box
+              sx={{
+                width: isGraphCollapsed
+                  ? "50px"
+                  : isTableCollapsed
+                  ? "calc(100% - 50px)"
+                  : "50%",
+                height: "100%",
                 overflow: "auto",
                 position: "relative",
-                border: "1px solid #ddd"
+                border: "1px solid #ddd",
               }}
             >
               <IconButton
@@ -260,7 +275,7 @@ export default function HierarchyTesterPage() {
                   zIndex: 1000,
                   backgroundColor: "white",
                   border: "1px solid #ccc",
-                  "&:hover": { backgroundColor: "#f5f5f5" }
+                  "&:hover": { backgroundColor: "#f5f5f5" },
                 }}
                 size="small"
               >

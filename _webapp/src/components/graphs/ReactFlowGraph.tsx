@@ -90,6 +90,13 @@ export default function ReactFlowGraph({ data, width = 400, height = 300 }: Reac
     [setEdges]
   );
 
+  const onNodeClick = useCallback((event: React.MouseEvent, node: Node) => {
+    if (window.confirm(`Are you sure you want to delete node ${node.data.label}?`)) {
+      setNodes((nds) => nds.filter((n) => n.id !== node.id));
+      setEdges((eds) => eds.filter((e) => e.source !== node.id && e.target !== node.id));
+    }
+  }, [setNodes, setEdges]);
+
   if (error) {
     return (
       <Box 
@@ -130,6 +137,7 @@ export default function ReactFlowGraph({ data, width = 400, height = 300 }: Reac
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        onNodeClick={onNodeClick}
         connectionMode={ConnectionMode.Loose}
         fitView
         fitViewOptions={{

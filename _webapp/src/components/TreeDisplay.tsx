@@ -126,7 +126,15 @@ export default function TreeDisplay({
     return (
       <Box sx={{ height: "100%" }}>
         {/* Large Graph */}
-        <Paper variant="outlined" sx={{ p: 2, height: "100%", display: "flex", flexDirection: "column" }}>
+        <Paper
+          variant="outlined"
+          sx={{
+            p: 2,
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <LargeGraphDisplay result={result} selectedGraph={selectedGraph} />
         </Paper>
       </Box>
@@ -413,7 +421,7 @@ function GraphsPanel({ result }: { result: HierarchyResult | null }) {
   const graphHeight = 280;
 
   const col2Styles = {
-    border: "10px solid green",
+    // border: "10px solid green",
     display: "flex",
     flexDirection: "column",
     flex: 1,
@@ -529,13 +537,15 @@ function LargeGraphDisplay({
           : "D3.js"}{" "}
         Visualization
       </Typography>
-      <Box sx={{ 
-        flex: 1, 
-        minHeight: 100,
-        width: "100%",
-        height: "100%",
-        position: "relative"
-      }}>
+      <Box
+        sx={{
+          flex: 1,
+          minHeight: 100,
+          width: "100%",
+          height: "100%",
+          position: "relative",
+        }}
+      >
         {renderGraph()}
       </Box>
     </Box>
