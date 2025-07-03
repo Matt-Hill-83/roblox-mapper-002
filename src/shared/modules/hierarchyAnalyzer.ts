@@ -1,6 +1,6 @@
 import { allEntityData, allRelationData } from "../data";
 
-export interface EntityNode {
+interface EntityNode {
   guid: string;
   name: string;
   type: string;
@@ -9,22 +9,15 @@ export interface EntityNode {
   weakConnections: Set<string>; // uses/depends relationships
 }
 
-export interface ConnectionData {
-  fromGuid: string;
-  toGuid: string;
-  type: string;
-}
-
-export interface HierarchyTree {
+interface HierarchyTree {
   rootGuid: string;
   rootName: string;
   depth: number;
   totalNodes: number;
   nodes: Map<string, EntityNode>;
-  connections: ConnectionData[];
 }
 
-export interface HierarchyAnalysisResult {
+interface HierarchyAnalysisResult {
   trees: HierarchyTree[];
   orphanedEntities: string[];
   cyclicGroups: string[][];
@@ -160,7 +153,6 @@ function buildHierarchyTrees(
     if (!rootNode) continue;
 
     const treeNodes = new Map<string, EntityNode>();
-    const connections: ConnectionData[] = [];
     const visited = new Set<string>();
     let maxDepth = 0;
 
@@ -175,25 +167,9 @@ function buildHierarchyTrees(
       treeNodes.set(guid, node);
       maxDepth = math.max(maxDepth, depth);
 
-      // Add connections for each child
+      // Traverse children
       node.children.forEach((childGuid) => {
-        connections.push({
-          fromGuid: guid,
-          toGuid: childGuid,
-          type: "hierarchical",
-        });
         dfsTree(childGuid, depth + 1);
-      });
-
-      // Add weak connections within the tree
-      node.weakConnections.forEach((targetGuid) => {
-        if (treeNodes.has(targetGuid)) {
-          connections.push({
-            fromGuid: guid,
-            toGuid: targetGuid,
-            type: "weak",
-          });
-        }
       });
     }
 
@@ -205,7 +181,6 @@ function buildHierarchyTrees(
       depth: maxDepth,
       totalNodes: treeNodes.size(),
       nodes: treeNodes,
-      connections,
     });
   }
 
@@ -264,27 +239,69 @@ function printHierarchyAnalysis(result: HierarchyAnalysisResult): void {
     print(`   Root GUID: ${tree.rootGuid}`);
     print(`   Depth: ${tree.depth} levels`);
     print(`   Nodes: ${tree.totalNodes} entities`);
-    print(
-      `   Connections: ${tree.connections.size()} (${tree.connections
-        .filter((c) => c.type === "hierarchical")
-        .size()} hierarchical, ${tree.connections
-        .filter((c) => c.type === "weak")
-        .size()} weak)`
-    );
+
+    // Print tree structure (limited depth for readability)
+    printTreeStructure(tree, 2);
+    print("");
   });
 
-  print("");
-
+  // Print orphaned entities
   if (result.orphanedEntities.size() > 0) {
     print("🏝️ Orphaned entities:");
     result.orphanedEntities.forEach((guid) => {
-      const node = result.trees[0]?.nodes.get(guid);
-      if (node) {
-        print(`   ${node.name} (${node.type})`);
+      const entity = findEntityByGuid(guid);
+      if (entity) {
+        print(`   ${entity.name} (${entity.type})`);
       }
     });
     print("");
   }
 
   print("🌳 ======================================================");
+}
+
+function printTreeStructure(tree: HierarchyTree, maxDepth: number): void {
+  const rootNode = tree.nodes.get(tree.rootGuid);
+  if (!rootNode) return;
+
+  const visited = new Set<string>();
+
+  function printNode(guid: string, depth: number, prefix: string): void {
+    if (depth > maxDepth || visited.has(guid)) return;
+    visited.add(guid);
+
+    const node = tree.nodes.get(guid);
+    if (!node) return;
+
+    print(`${prefix}${node.name} (${node.type})`);
+
+    if (depth < maxDepth) {
+      // Convert Set to array manually since Array.from isn't available
+      const children: string[] = [];
+      node.children.forEach((childGuid: string) => {
+        children.push(childGuid);
+      });
+
+      children.forEach((childGuid: string, index: number) => {
+        const isLast = index === children.size() - 1;
+        const connector = isLast ? "└─ " : "├─ ";
+        printNode(childGuid, depth + 1, prefix + connector);
+      });
+    } else if (node.children.size() > 0) {
+      print(`${prefix}└─ ... (${node.children.size()} more children)`);
+    }
+  }
+
+  printNode(tree.rootGuid, 0, "   ");
+}
+
+function findEntityByGuid(guid: string) {
+  for (const entityType of allEntityData) {
+    for (const entity of entityType.data) {
+      if (entity.guid === guid) {
+        return { name: entity.name, type: entityType.name };
+      }
+    }
+  }
+  return undefined;
 }
