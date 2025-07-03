@@ -112,19 +112,21 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
        3. ✅ Maintain consistent vertical spacing between inputs
 
    18. ✅ R52: The system shall implement UI enhancements:
+
        1. ✅ Enforce 2px minimum separation between nodes in React Flow chart
        2. ✅ Add info icons with tooltips to all configuration input fields
        3. ✅ Display explanatory text for each configuration option
-       4. ⬛ Relocate metrics display:
-          1. ⬛ Move total entities count to metrics box
-          2. ⬛ Move two additional output metrics to metrics box
-          3. ⬛ Position metrics box in column 1 below config box
-       5. ⬛ Implement layout adjustments:
-          1. ⬛ Increase table height by 10%
-          2. ⬛ Expand page content width to 90vw
-          3. ⬛ Set column 2 to fill available space
+       4. ✅ Relocate metrics display:
+          1. ✅ Move total entities count to metrics box
+          2. ✅ Move two additional output metrics to metrics box
+          3. ✅ Position metrics box in column 1 below config box
+       5. ✅ Implement layout adjustments:
+          1. ✅ Increase table height by 10%
+          2. ✅ Expand page content width to 90vw
+          3. ✅ Set column 2 to fill available space
 
    19. ✅ R53: The system shall implement configuration persistence:
+
        1. ✅ Create GraphConfig table in existing database
        2. ✅ Add UUID field for each configuration
        3. ✅ Add favorite/star button to each configuration row
@@ -132,6 +134,21 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
        5. ✅ Load and display favorite configurations at top of suggestions table
        6. ✅ Display system-generated configurations below favorites
        7. ✅ Auto-generate UUID for each system configuration
+
+   20. ⬛ R54: The system shall implement enhanced graph type configuration:
+
+       1. ✅ Entity type configuration:
+          1. ✅ Add input field for number of entity types
+          2. ✅ Assign unique color to each entity type
+          3. ✅ Apply entity-specific colors to graph nodes
+       2. ⬛ Connector type configuration:
+          1. ⬛ Add input field for number of connector types
+          2. ⬛ Apply distinct visual styles per connector type
+          3. ⬛ Update graph edges to reflect connector types
+          4. ⬛ Update connector lines to have a different color for each connector type
+       3. ✅ Graph enhancements:
+          1. ✅ Update graph metrics to display connector types
+          2. ✅ Update graph metrics to use compact styling
 
 ## Task List
 
@@ -182,119 +199,15 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    44. ✅ T44: Update table to display favorites section with star status (R53)
    45. ✅ T45: Implement UUID generation for system configurations (R53)
    46. ✅ T46: Add configuration sorting (favorites first, then system configs) (R53)
-   47. ⬛ T47: Move total entities count to metrics box in column 1 (R52.4)
-   48. ⬛ T48: Move two additional output metrics to metrics box (R52.4)
-   49. ⬛ T49: Position metrics box below config box in column 1 (R52.4)
-   50. ⬛ T50: Increase table height by 10% (R52.5)
-   51. ⬛ T51: Expand page content width to 90vw (R52.5)
-   52. ⬛ T52: Set column 2 to fill available space (R52.5)
-
-## Risks
-
-- Risk 1: Console table formatting may not display clearly for complex hierarchies
-
-## Decision Points
-
-- Decision 1: Use Node.js instead of Roblox for fastest prototyping
-- Decision 2: Display in 2D instead of 3D to simplify positioning logic
-- Decision 3: Use console.table() for immediate visual feedback
-
-## File and Function Structure
-
-```
-hierarchy-demo/
-├── package.json
-├── index.js
-│   └── main()
-├── src/
-│   ├── dataGenerator.js
-│   │   └── generateFakeData()
-│   │   └── createEntity()
-│   ├── analyzer.js
-│   │   └── findConnectedGroups()
-│   │   └── calculateGroupMetrics()
-│   ├── positioner.js
-│   │   └── position2D()
-│   │   └── calculatePosition()
-│   └── visualizer.js
-│       └── displayResults()
-│       └── formatTable()
-└── README.md
-```
-
-## Flowchart
-
-```mermaid
-graph TD
-    %% Main Components
-    Main["index.js main()"]
-    DataGen["dataGenerator.js"]
-    Analyzer["analyzer.js"]
-    Positioner["positioner.js"]
-    Visualizer["visualizer.js"]
-    Console["Console Output"]
-
-    %% Main Flow
-    Main -->|imports & calls| DataGen
-    DataGen -->|returns entities| Main
-    Main -->|imports & calls| Analyzer
-    Analyzer -->|returns groups| Main
-    Main -->|imports & calls| Positioner
-    Positioner -->|returns positioned entities| Main
-    Main -->|imports & calls| Visualizer
-    Visualizer -->|outputs to| Console
-```
-
-## Sample Objects
-
-```javascript
-// Simple entity structure
-const entity = {
-  id: "entity_1",
-  type: "Parent", // or "Child"
-  parentId: null, // or parent ID
-  children: ["child_1", "child_2"],
-};
-
-// Positioned entity for display
-const positionedEntity = {
-  id: "entity_1",
-  type: "Parent",
-  parentId: null,
-  x: 0,
-  y: 0,
-  groupId: "group_1",
-};
-```
-
-## Example Code
-
-```javascript
-// index.js
-const { generateFakeData } = require("./src/dataGenerator");
-const { findConnectedGroups } = require("./src/analyzer");
-const { position2D } = require("./src/positioner");
-const { displayResults } = require("./src/visualizer");
-
-function main() {
-  console.log("=== Hierarchical Graph 2D Demo ===\n");
-
-  // Generate fake data
-  const entities = generateFakeData();
-  console.log("Generated entities:", entities.length);
-
-  // Find connected groups
-  const groups = findConnectedGroups(entities);
-  console.log("Found groups:", groups.length);
-
-  // Position in 2D
-  const positioned = position2D(groups);
-
-  // Display results
-  displayResults(positioned);
-}
-
-main();
-
-// Run: node index.js
-```
+   47. ✅ T47: Move total entities count to metrics box in column 1 (R52.4)
+   48. ✅ T48: Move two additional output metrics to metrics box (R52.4)
+   49. ✅ T49: Position metrics box below config box in column 1 (R52.4)
+   50. ✅ T50: Increase table height by 10% (R52.5)
+   51. ✅ T51: Expand page content width to 90vw (R52.5)
+   52. ✅ T52: Set column 2 to fill available space (R52.5)
+   53. ✅ T53: Add input field for number of entity types (R54.1.1)
+   54. ✅ T54: Assign unique color to each entity type (R54.1.2)
+   55. ✅ T55: Apply entity-specific colors to graph nodes (R54.1.3)
+   56. ✅ T56: Add input field for number of connector types (R54.2.1)
+   57. ✅ T57: Apply distinct visual styles per connector type (R54.2.2)
+   58. ✅ T58: Update graph edges to reflect connector types (R54.2.3)

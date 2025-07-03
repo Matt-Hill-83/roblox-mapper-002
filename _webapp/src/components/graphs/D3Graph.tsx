@@ -4,10 +4,11 @@ import { useEffect, useRef, useState } from 'react';
 import { Box, Typography, Chip } from '@mui/material';
 import * as d3 from 'd3';
 import { GraphDataFactory, D3Data, D3Adapter } from '../../lib/graphAdapters';
+import { generateEntityTypeColors } from '../../utils/colorUtils';
 
 interface D3GraphProps {
   data: unknown;
-  width?: number;
+  width?: number | string;
   height?: number;
 }
 
@@ -31,9 +32,18 @@ export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProp
       }
 
       // Transform data
-      const graphData: D3Data = GraphDataFactory.createD3Data(data);
+      // Extract config from data if available
+      const config = (data as any)?.config ? {
+        entityTypes: (data as any).config.entityTypes || 4,
+        connectorTypes: (data as any).config.connectorTypes || 3
+      } : undefined;
+      
+      const graphData: D3Data = GraphDataFactory.createD3Data(data, config);
       setNodeCount(graphData.nodes.length);
       setLinkCount(graphData.links.length);
+      
+      // Generate colors for use in rendering
+      const entityColors = config ? generateEntityTypeColors(config.entityTypes) : generateEntityTypeColors(4);
 
       if (graphData.nodes.length === 0) return;
 
@@ -106,7 +116,7 @@ export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProp
       // Add circles for nodes
       node.append('circle')
         .attr('r', (d: any) => D3Adapter.getNodeRadius(d))
-        .attr('fill', (d: any) => D3Adapter.getNodeColor(d))
+        .attr('fill', (d: any) => D3Adapter.getNodeColor(d, entityColors))
         .attr('stroke', '#fff')
         .attr('stroke-width', 2);
 

@@ -15,7 +15,7 @@ if (typeof cytoscape !== 'undefined') {
 
 interface CytoscapeGraphProps {
   data: unknown;
-  width?: number;
+  width?: number | string;
   height?: number;
 }
 
@@ -43,7 +43,13 @@ export default function CytoscapeGraph({ data, width = 400, height = 300 }: Cyto
       }
 
       // Transform data
-      const graphData: CytoscapeData = GraphDataFactory.createCytoscapeData(data);
+      // Extract config from data if available
+      const config = (data as any)?.config ? {
+        entityTypes: (data as any).config.entityTypes || 4,
+        connectorTypes: (data as any).config.connectorTypes || 3
+      } : undefined;
+      
+      const graphData: CytoscapeData = GraphDataFactory.createCytoscapeData(data, config);
       
       // Count nodes and edges
       const nodes = graphData.elements.filter(el => !el.data.source);

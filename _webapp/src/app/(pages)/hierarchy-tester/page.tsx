@@ -21,6 +21,7 @@ export interface TestDataConfig {
   branchingMax: number;
   crossTreeConnections: number; // percentage 0-100
   entityTypes: number;
+  connectorTypes: number;
   clusteringCoeff: number; // percentage 0-100
   hubNodes: number;
   networkDensity: "sparse" | "medium" | "dense";
@@ -47,6 +48,7 @@ export default function HierarchyTesterPage() {
     branchingMax: 5,
     crossTreeConnections: 15, // 15%
     entityTypes: 4,
+    connectorTypes: 3,
     clusteringCoeff: 30, // 30%
     hubNodes: 2,
     networkDensity: "medium",

@@ -21,7 +21,7 @@ import { GraphDataFactory, ReactFlowData } from '../../lib/graphAdapters';
 
 interface ReactFlowGraphProps {
   data: unknown;
-  width?: number;
+  width?: number | string;
   height?: number;
 }
 
@@ -39,7 +39,13 @@ export default function ReactFlowGraph({ data, width = 400, height = 300 }: Reac
         return;
       }
 
-      const graphData: ReactFlowData = GraphDataFactory.createReactFlowData(data);
+      // Extract config from data if available
+      const config = (data as any)?.config ? {
+        entityTypes: (data as any).config.entityTypes || 4,
+        connectorTypes: (data as any).config.connectorTypes || 3
+      } : undefined;
+      
+      const graphData: ReactFlowData = GraphDataFactory.createReactFlowData(data, config);
       setNodes(graphData.nodes as Node[]);
       setEdges(graphData.edges as Edge[]);
       setError(null);

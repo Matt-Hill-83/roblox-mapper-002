@@ -76,6 +76,11 @@ export default function TestDataConfigComponent({
       newErrors.entityTypes = 1;
     }
 
+    // Validate connector types
+    if (newConfig.connectorTypes < 1 || newConfig.connectorTypes > 8) {
+      newErrors.connectorTypes = 1;
+    }
+
     // Validate hub nodes
     if (newConfig.hubNodes < 0 || newConfig.hubNodes > 10) {
       newErrors.hubNodes = 1;
@@ -312,6 +317,25 @@ export default function TestDataConfigComponent({
                   disabled={isLoading}
                 />
                 <Tooltip title="Number of different entity types to generate (2-10). More types create visual variety with different colors and shapes.">
+                  <IconButton size="small" sx={{ mt: 1 }}>
+                    <InfoIcon fontSize="small" color="action" />
+                  </IconButton>
+                </Tooltip>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                <TextField
+                  label="Connector Types"
+                  type="number"
+                  size="small"
+                  value={config.connectorTypes}
+                  onChange={handleInputChange("connectorTypes")}
+                  error={!!errors.connectorTypes}
+                  helperText={errors.connectorTypes ? "Must be 1-8" : ""}
+                  slotProps={{ htmlInput: { min: 1, max: 8 } }}
+                  fullWidth
+                  disabled={isLoading}
+                />
+                <Tooltip title="Number of different connector types to generate (1-8). More types create visual variety with different line styles and colors.">
                   <IconButton size="small" sx={{ mt: 1 }}>
                     <InfoIcon fontSize="small" color="action" />
                   </IconButton>
