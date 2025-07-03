@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Container,
-  Grid,
-  Paper,
-  Typography,
-  Box,
-  IconButton,
-} from "@mui/material";
+import { Grid, Paper, Box, IconButton } from "@mui/material";
 import { Minimize, Maximize } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 
