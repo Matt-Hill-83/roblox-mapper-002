@@ -3,7 +3,13 @@
  * Provides adapters to transform hierarchical data into formats required by different graph libraries
  */
 
-import { generateEntityTypeColors, generateConnectorTypeStyles, getEntityTypeColor, getConnectorTypeStyle, ConnectorStyle } from '../utils/colorUtils';
+import {
+  generateEntityTypeColors,
+  generateConnectorTypeStyles,
+  getEntityTypeColor,
+  getConnectorTypeStyle,
+  ConnectorStyle,
+} from "../utils/colorUtils";
 
 // Configuration for graph visualization
 export interface GraphConfig {
@@ -39,182 +45,30 @@ export interface HierarchyData {
 
 export interface ReactFlowNode {
   id: string;
-  type?: string;
+  type: string;
   position: { x: number; y: number };
   data: {
     label: string;
     entityType: string;
     level: number;
-    groupId: string;
+    parentIds: string[];
+    [key: string]: unknown;
   };
-  style?: Record<string, unknown>;
+  style: Record<string, unknown>;
 }
 
 export interface ReactFlowEdge {
   id: string;
   source: string;
   target: string;
-  type?: string;
-  style?: Record<string, unknown>;
-  animated?: boolean;
+  type: string;
+  animated: boolean;
+  style: Record<string, unknown>;
 }
 
 export interface ReactFlowData {
   nodes: ReactFlowNode[];
   edges: ReactFlowEdge[];
-}
-
-export class ReactFlowAdapter {
-  static transform(data: HierarchyData, config?: GraphConfig): ReactFlowData {
-    // Generate color palette for entity types
-    const entityColors = config ? generateEntityTypeColors(config.entityTypes) : generateEntityTypeColors(4);
-    const connectorStyles = config ? generateConnectorTypeStyles(config.connectorTypes) : generateConnectorTypeStyles(3);
-    // First pass: create nodes with initial positions
-    const nodes: ReactFlowNode[] = data.entities.map(entity => ({
-      id: entity.entityId,
-      type: 'default',
-      position: { 
-        x: entity.x * 2, // Scale for better spacing in React Flow
-        y: entity.y * -2 // Invert Y and scale
-      },
-      data: {
-        label: entity.entityId.replace('entity_', ''),
-        entityType: entity.type,
-        level: entity.level,
-        groupId: entity.groupId
-      },
-      style: {
-        backgroundColor: this.getNodeColor(entity.type, entity.level, entityColors),
-        color: '#ffffff',
-        border: `2px solid ${this.getBorderColor(entity.groupId)}`,
-        borderRadius: entity.type === 'Parent' ? '50%' : '8px',
-        width: 60,
-        height: 60,
-        fontSize: '12px',
-        fontWeight: 'bold'
-      }
-    }));
-
-    // Second pass: ensure 2px minimum spacing between all nodes
-    const adjustedNodes = this.ensureMinimumSpacing(nodes, 2);
-
-    const edges: ReactFlowEdge[] = data.connections.map((conn, index) => {
-      // Map connection type to style index
-      const typeIndex = this.getConnectorTypeIndex(conn.type);
-      const connectorStyle = getConnectorTypeStyle(typeIndex, connectorStyles);
-      
-      return {
-        id: `edge-${index}`,
-        source: conn.fromId,
-        target: conn.toId,
-        type: 'smoothstep',
-        animated: true,
-        style: {
-          stroke: connectorStyle.color,
-          strokeWidth: connectorStyle.strokeWidth,
-          strokeDasharray: connectorStyle.strokeDasharray,
-          opacity: connectorStyle.opacity
-        }
-      };
-    });
-
-    return { nodes: adjustedNodes, edges };
-  }
-
-  private static ensureMinimumSpacing(nodes: ReactFlowNode[], minSpacing: number): ReactFlowNode[] {
-    const nodeSize = 60; // Node width/height from style
-    const requiredDistance = nodeSize + minSpacing;
-    const adjustedNodes = [...nodes]; // Create a copy to avoid mutation
-    
-    // Multiple passes to handle cascading adjustments
-    for (let pass = 0; pass < 3; pass++) {
-      for (let i = 0; i < adjustedNodes.length; i++) {
-        for (let j = i + 1; j < adjustedNodes.length; j++) {
-          const nodeA = adjustedNodes[i];
-          const nodeB = adjustedNodes[j];
-          
-          const dx = nodeB.position.x - nodeA.position.x;
-          const dy = nodeB.position.y - nodeA.position.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          
-          if (distance < requiredDistance && distance > 0) {
-            // Calculate how much to move each node
-            const overlap = requiredDistance - distance;
-            const moveDistance = overlap / 2;
-            
-            // Calculate unit vector for separation direction
-            const unitX = dx / distance;
-            const unitY = dy / distance;
-            
-            // Move nodes apart
-            nodeA.position.x -= unitX * moveDistance;
-            nodeA.position.y -= unitY * moveDistance;
-            nodeB.position.x += unitX * moveDistance;
-            nodeB.position.y += unitY * moveDistance;
-          }
-        }
-      }
-    }
-    
-    return adjustedNodes;
-  }
-
-  private static getNodeColor(type: string, level: number, entityColors: string[]): string {
-    // Map entity type to color index (for now, use simple hash of type name)
-    const typeIndex = this.getEntityTypeIndex(type);
-    const baseColor = getEntityTypeColor(typeIndex, entityColors);
-    
-    // Slightly adjust brightness based on level for visual hierarchy
-    if (level === 0) {
-      return baseColor; // Root nodes use full color
-    } else {
-      // Child nodes use a lighter version
-      return this.adjustColorBrightness(baseColor, 20);
-    }
-  }
-
-  private static getEntityTypeIndex(type: string): number {
-    // Simple hash function to map entity type names to indices
-    let hash = 0;
-    for (let i = 0; i < type.length; i++) {
-      const char = type.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
-      hash = hash & hash; // Convert to 32-bit integer
-    }
-    return Math.abs(hash) % 10; // Limit to reasonable range
-  }
-
-  private static getConnectorTypeIndex(type: string): number {
-    // Simple hash function to map connector type names to indices
-    let hash = 0;
-    for (let i = 0; i < type.length; i++) {
-      const char = type.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
-      hash = hash & hash; // Convert to 32-bit integer
-    }
-    return Math.abs(hash) % 8; // Limit to reasonable range for connectors
-  }
-
-  private static adjustColorBrightness(color: string, percent: number): string {
-    // Simple brightness adjustment for hex colors
-    if (color.startsWith('#')) {
-      const num = parseInt(color.slice(1), 16);
-      const amt = Math.round(2.55 * percent);
-      const R = (num >> 16) + amt;
-      const G = (num >> 8 & 0x00FF) + amt;
-      const B = (num & 0x0000FF) + amt;
-      return '#' + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
-        (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
-        (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
-    }
-    return color; // Return original if not hex
-  }
-
-  private static getBorderColor(groupId: string): string {
-    const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5'];
-    const index = parseInt(groupId.replace('group_', '')) - 1;
-    return colors[index % colors.length];
-  }
 }
 
 // ========================================
@@ -250,8 +104,7 @@ export interface CytoscapeData {
 
 export class CytoscapeAdapter {
   static transform(data: HierarchyData, config?: GraphConfig): CytoscapeData {
-    // Generate color palette for entity types
-    const entityColors = config ? generateEntityTypeColors(config.entityTypes) : generateEntityTypeColors(4);
+    // Generate color palette for connector types
     const connectorStyles = config ? generateConnectorTypeStyles(config.connectorTypes) : generateConnectorTypeStyles(3);
     // Create nodes
     const nodeElements: CytoscapeElement[] = data.entities.map(entity => ({
@@ -307,29 +160,6 @@ export class CytoscapeAdapter {
         }
       },
       {
-        selector: '.parent',
-        style: {
-          'background-color': '#1976d2',
-          'shape': 'ellipse'
-        }
-      },
-      {
-        selector: '.child',
-        style: {
-          'background-color': '#66bb6a',
-          'shape': 'rectangle'
-        }
-      },
-      {
-        selector: '.level-0',
-        style: {
-          'width': 50,
-          'height': 50,
-          'border-width': 3,
-          'border-color': '#0d47a1'
-        }
-      },
-      {
         selector: '.hierarchy-edge',
         style: {
           'width': 'data(width)',
@@ -338,75 +168,6 @@ export class CytoscapeAdapter {
           'target-arrow-shape': 'triangle',
           'curve-style': 'bezier',
           'opacity': 'data(opacity)'
-        }
-      },
-      // Connector type specific styles
-      {
-        selector: '.connector-0',
-        style: {
-          'line-style': 'solid'
-        }
-      },
-      {
-        selector: '.connector-1',
-        style: {
-          'line-style': 'dashed'
-        }
-      },
-      {
-        selector: '.connector-2',
-        style: {
-          'line-style': 'dotted'
-        }
-      },
-      {
-        selector: '.connector-3',
-        style: {
-          'line-style': 'solid',
-          'width': 3
-        }
-      },
-      {
-        selector: '.connector-4',
-        style: {
-          'line-style': 'dashed',
-          'line-dash-pattern': [12, 6]
-        }
-      },
-      {
-        selector: '.connector-5',
-        style: {
-          'line-style': 'solid'
-        }
-      },
-      {
-        selector: '.connector-6',
-        style: {
-          'line-style': 'dashed'
-        }
-      },
-      {
-        selector: '.connector-7',
-        style: {
-          'line-style': 'dotted'
-        }
-      },
-      {
-        selector: '.group_1',
-        style: {
-          'border-color': '#f44336'
-        }
-      },
-      {
-        selector: '.group_2',
-        style: {
-          'border-color': '#e91e63'
-        }
-      },
-      {
-        selector: '.group_3',
-        style: {
-          'border-color': '#9c27b0'
         }
       }
     ];
@@ -460,10 +221,8 @@ export interface D3Data {
 }
 
 export class D3Adapter {
-  static transform(data: HierarchyData, config?: GraphConfig): D3Data {
-    // Generate color palette for entity types
-    const entityColors = config ? generateEntityTypeColors(config.entityTypes) : generateEntityTypeColors(4);
-    const connectorStyles = config ? generateConnectorTypeStyles(config.connectorTypes) : generateConnectorTypeStyles(3);
+  static transform(data: HierarchyData): D3Data {
+    // Note: entityColors and connectorStyles are generated in the static helper methods when needed
     const nodes: D3Node[] = data.entities.map(entity => ({
       id: entity.entityId,
       label: entity.entityId.replace('entity_', ''),
@@ -593,6 +352,213 @@ export class HierarchyDataExtractor {
   }
 }
 
+class ReactFlowAdapter {
+  static transform(data: HierarchyData, config?: GraphConfig): ReactFlowData {
+    // Generate palettes
+    const entityColors = config
+      ? generateEntityTypeColors(config.entityTypes)
+      : generateEntityTypeColors(4);
+    const connectorStyles = config
+      ? generateConnectorTypeStyles(config.connectorTypes)
+      : generateConnectorTypeStyles(3);
+
+    // First pass: create nodes with initial positions
+    const nodes: ReactFlowNode[] = data.entities.map((entity) => ({
+      id: entity.entityId,
+      type: "default",
+      position: {
+        x: entity.x * 2, // Scale for spacing
+        y: entity.y * -2, // Invert Y for React Flow
+      },
+      data: {
+        label: entity.entityId.replace("entity_", ""),
+        entityType: entity.type,
+        level: entity.level,
+        parentIds: entity.parentId ? [entity.parentId] : [],
+      },
+      style: {
+        backgroundColor: this.getNodeColor(
+          entity.type,
+          entity.level,
+          entityColors
+        ),
+        color: "#ffffff",
+        border: `2px solid ${this.getBorderColor(entity.groupId)}`,
+        borderRadius: entity.type === "Parent" ? "50%" : "8px",
+        width: 60,
+        height: 60,
+        fontSize: "12px",
+        fontWeight: "bold",
+      },
+    }));
+
+    // 🔹 New step: reorder nodes horizontally to minimise crossings
+    const decrossedNodes = this.minimiseCrossings(nodes);
+
+    // Ensure minimum spacing between all nodes
+    const adjustedNodes = this.ensureMinimumSpacing(decrossedNodes, 2);
+
+    // Edges
+    const edges: ReactFlowEdge[] = data.connections.map((conn, index) => {
+      const typeIndex = this.getConnectorTypeIndex(conn.type);
+      const connectorStyle = getConnectorTypeStyle(typeIndex, connectorStyles);
+
+      return {
+        id: `edge-${index}`,
+        source: conn.fromId,
+        target: conn.toId,
+        type: "smoothstep",
+        animated: true,
+        style: {
+          stroke: connectorStyle.color,
+          strokeWidth: connectorStyle.strokeWidth,
+          strokeDasharray: connectorStyle.strokeDasharray,
+          opacity: connectorStyle.opacity,
+        },
+      };
+    });
+
+    return { nodes: adjustedNodes, edges };
+  }
+
+  /**
+   * Simple barycentric decrossing:
+   *   – group nodes by level
+   *   – sort each level by the average X-position of its parent nodes
+   *   – lay them out with uniform gaps
+   */
+  private static minimiseCrossings(nodes: ReactFlowNode[]): ReactFlowNode[] {
+    const idToNode: Record<string, ReactFlowNode> = Object.fromEntries(
+      nodes.map((n) => [n.id, n])
+    );
+    const levels: Record<number, ReactFlowNode[]> = {};
+    nodes.forEach((n) => {
+      const lvl = n.data.level ?? 0;
+      (levels[lvl] ||= []).push(n);
+    });
+
+    Object.entries(levels)
+      .filter(([lvl]) => Number(lvl) > 0)
+      .forEach(([, levelNodes]) => {
+        levelNodes.sort((a, b) => avgParentX(a) - avgParentX(b));
+
+        const gap = 120;
+        const startX = (-(levelNodes.length - 1) * gap) / 2;
+        levelNodes.forEach((n, i) => {
+          n.position.x = startX + i * gap;
+        });
+      });
+
+    return nodes;
+
+    function avgParentX(node: ReactFlowNode): number {
+      const parents: string[] = node.data.parentIds;
+      if (!parents || parents.length === 0) return node.position.x;
+      const sum = parents.reduce(
+        (acc, pid) => acc + (idToNode[pid]?.position.x ?? 0),
+        0
+      );
+      return sum / parents.length;
+    }
+  }
+
+  /** Keeps nodes at least `minSpacing` pixels apart */
+  private static ensureMinimumSpacing(
+    nodes: ReactFlowNode[],
+    minSpacing: number
+  ): ReactFlowNode[] {
+    const nodeSize = 60;
+    const distanceNeeded = nodeSize + minSpacing;
+    const result = [...nodes];
+
+    for (let pass = 0; pass < 3; pass++) {
+      for (let i = 0; i < result.length; i++) {
+        for (let j = i + 1; j < result.length; j++) {
+          const A = result[i];
+          const B = result[j];
+          const dx = B.position.x - A.position.x;
+          const dy = B.position.y - A.position.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < distanceNeeded) {
+            const overlap = distanceNeeded - dist;
+            const ux = dx / dist;
+            const uy = dy / dist;
+            A.position.x -= (ux * overlap) / 2;
+            A.position.y -= (uy * overlap) / 2;
+            B.position.x += (ux * overlap) / 2;
+            B.position.y += (uy * overlap) / 2;
+          }
+        }
+      }
+    }
+
+    return result;
+  }
+
+  // ===== helper utilities (unchanged) =====
+  private static getEntityTypeIndex(type: string): number {
+    let hash = 0;
+    for (let i = 0; i < type.length; i++) {
+      const char = type.charCodeAt(i);
+      hash = (hash << 5) - hash + char;
+      hash = hash & hash;
+    }
+    return Math.abs(hash) % 10;
+  }
+
+  private static getConnectorTypeIndex(type: string): number {
+    let hash = 0;
+    for (let i = 0; i < type.length; i++) {
+      const char = type.charCodeAt(i);
+      hash = (hash << 5) - hash + char;
+      hash = hash & hash;
+    }
+    return Math.abs(hash) % 10;
+  }
+
+  private static getNodeColor(
+    type: string,
+    level: number,
+    colors: string[]
+  ): string {
+    const typeIdx = this.getEntityTypeIndex(type);
+    const base = colors[typeIdx % colors.length];
+    return level === 0 ? base : this.adjustColorBrightness(base, -10 * level);
+  }
+
+  private static getBorderColor(groupId: string): string {
+    const palette = [
+      "#f44336",
+      "#2196f3",
+      "#4caf50",
+      "#ff9800",
+      "#9c27b0",
+      "#009688",
+    ];
+    const idx =
+      Math.abs(
+        groupId.split("").reduce((h, c) => (h << 5) - h + c.charCodeAt(0), 0)
+      ) % palette.length;
+    return palette[idx];
+  }
+
+  private static adjustColorBrightness(hex: string, percent: number): string {
+    const num = parseInt(hex.slice(1), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = (num >> 16) + amt;
+    const G = ((num >> 8) & 0x00ff) + amt;
+    const B = (num & 0x0000ff) + amt;
+    return `#${(
+      0x1000000 +
+      (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
+      (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
+      (B < 255 ? (B < 1 ? 0 : B) : 255)
+    )
+      .toString(16)
+      .slice(1)}`;
+  }
+}
+
 // ========================================
 // Main Graph Data Factory
 // ========================================
@@ -608,8 +574,8 @@ export class GraphDataFactory {
     return CytoscapeAdapter.transform(hierarchyData, config);
   }
 
-  static createD3Data(apiResponse: unknown, config?: GraphConfig): D3Data {
+  static createD3Data(apiResponse: unknown): D3Data {
     const hierarchyData = HierarchyDataExtractor.extractFromApiResponse(apiResponse);
-    return D3Adapter.transform(hierarchyData, config);
+    return D3Adapter.transform(hierarchyData);
   }
 }

@@ -148,14 +148,17 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
           1. ✅ Update graph metrics to display connector types
           2. ✅ Update graph metrics to use compact styling
 
-   21. ⬛ R55: The system shall restructure the UI:
+   21. ✅ R55: The system shall restructure the UI:
 
-       1. ⬛ [G] In column 2, change the table and graph from a vertical to a horizontal layout, where each component occupies 50% of the available width and fills the container's height.
-       2. ⬛ [G] Add a Maximize/Minimize button to the upper-left corner of each panel.
-       3. ⬛ [G] When the button is clicked, the corresponding panel shall collapse to a width of 50px, while the other panel expands to fill the remaining space.
+       1. ✅ [G] In column 2, change the table and graph from a vertical to a horizontal layout, where each component occupies 50% of the available width and fills the container's height.
+       2. ✅ [G] Add a Maximize/Minimize button to the upper-left corner of each panel.
+       3. ✅ [G] When the button is clicked, the corresponding panel shall collapse to a width of 50px, while the other panel expands to fill the remaining space.
 
-       4. modify react flow layout
-       5.
+   22. ✅ R56: The system shall implement graph layout optimization:
+
+       1. ✅ [GPT] Implement barycentric crossing minimization algorithm for hierarchical node positioning
+       2. ✅ [GPT] Add intelligent node spacing with 120px gaps between levels
+       3. ✅ [GPT] Integrate parent-position-based sorting to reduce edge crossings in React Flow graphs
 
 ## Task List
 
@@ -223,3 +226,5 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    61. ✅ [G] T61: Change table and graph from vertical to horizontal layout in column 2 (R55.1)
    62. ✅ [G] T62: Add Maximize/Minimize button to upper-left corner of each panel (R55.2)
    63. ✅ [G] T63: Implement panel collapse functionality - clicked panel collapses to 50px width (R55.3)
+   64. ✅ [GPT] T64: Implement barycentric crossing minimization algorithm in ReactFlowAdapter (R56.1)
+   65. ✅ [GPT] T65: Add intelligent node spacing and parent-position-based sorting (R56.2, R56.3)

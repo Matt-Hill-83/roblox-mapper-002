@@ -1,0 +1,72 @@
+diff --git a/_webapp/src/lib/graphAdapters.ts b/_webapp/src/lib/graphAdapters.ts
+index xxxx..zzzz 100644
+--- a/_webapp/src/lib/graphAdapters.ts
++++ b/_webapp/src/lib/graphAdapters.ts
+@@
+-    // Second pass: ensure 2px minimum spacing between all nodes
+-    const adjustedNodes = this.ensureMinimumSpacing(nodes, 2);
++    // Second pass: ensure 2px minimum spacing between all nodes
++    const spacedNodes = this.ensureMinimumSpacing(nodes, 2);
++
++    // Third pass (NEW – Task 61): heuristically minimise connector crossings
++    const adjustedNodes = this.minimiseCrossings(spacedNodes, edges);
+@@
+-    return { nodes: adjustedNodes, edges };
++    return { nodes: adjustedNodes, edges };
+   }
+
+   private static ensureMinimumSpacing(nodes: ReactFlowNode[], minSpacing: number): ReactFlowNode[] {
+@@
+     return adjustedNodes;
+   }
++
++  /**
++   * Heuristic crossing minimisation (barycentric ordering per level).
++   * 1. Group nodes by their `level` (root = 0).
++   * 2. For each level ≥ 1, compute the barycentre (average X) of every node’s
++   *    predecessors. Sort the nodes in that level by barycentre.
++   * 3. Re‑assign X coordinates with uniform spacing so edges flow mostly
++   *    straight down, reducing crossings for typical tree‑ish data.
++   */
++  private static minimiseCrossings(nodes: ReactFlowNode[], edges: ReactFlowEdge[]): ReactFlowNode[] {
++    // Build helper maps
++    const nodeMap = new Map(nodes.map(n => [n.id, n]));
++    const childrenByLevel: Map<number, ReactFlowNode[]> = new Map();
++
++    nodes.forEach(node => {
++      childrenByLevel.set(node.data.level, [
++        ...(childrenByLevel.get(node.data.level) ?? []),
++        node
++      ]);
++    });
++
++    const nodeSize = 60;
++    const minSpacing = 40;
++
++    // Process each level except root
++    Array.from(childrenByLevel.keys())
++      .sort((a, b) => a - b)
++      .forEach(level => {
++        if (level === 0) return;
++
++        const levelNodes = childrenByLevel.get(level)!;
++
++        const barycentres = levelNodes.map(n => {
++          // incoming edges (parent -> n)
++          const incoming = edges.filter(e => e.target === n.id);
++          if (incoming.length === 0) return { node: n, centre: n.position.x };
++          const avg = incoming.reduce((sum, e) => sum + (nodeMap.get(e.source)?.position.x ?? 0), 0) / incoming.length;
++          return { node: n, centre: avg };
++        });
++
++        // sort by barycentre
++        barycentres.sort((a, b) => a.centre - b.centre);
++
++        // assign new x with uniform spacing
++        barycentres.forEach(({ node }, idx) => {
++          node.position.x = idx * (nodeSize + minSpacing);
++        });
++      });
++
++    return nodes;
++  }
