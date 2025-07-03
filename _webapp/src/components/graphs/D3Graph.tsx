@@ -9,7 +9,7 @@ import { generateEntityTypeColors, generateConnectorTypeStyles } from '../../uti
 interface D3GraphProps {
   data: unknown;
   width?: number | string;
-  height?: number;
+  height?: number | string;
 }
 
 export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProps) {

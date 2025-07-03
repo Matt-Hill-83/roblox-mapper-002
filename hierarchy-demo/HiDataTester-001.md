@@ -149,9 +149,13 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
           2. ✅ Update graph metrics to use compact styling
 
    21. ⬛ R55: The system shall restructure the UI:
+
        1. ⬛ [G] In column 2, change the table and graph from a vertical to a horizontal layout, where each component occupies 50% of the available width and fills the container's height.
        2. ⬛ [G] Add a Maximize/Minimize button to the upper-left corner of each panel.
        3. ⬛ [G] When the button is clicked, the corresponding panel shall collapse to a width of 50px, while the other panel expands to fill the remaining space.
+
+       4. modify react flow layout
+       5.
 
 ## Task List
 
@@ -216,6 +220,6 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    58. ✅ T58: Update graph edges to reflect connector types (R54.2.3)
    59. ✅ [C] T59: Add input field for number of connector types (R54.2.1)
    60. ✅ [C] T60: Update connector lines to have a different color for each connector type (R54.2.4)
-   61. ⬛ [G] T61: Change table and graph from vertical to horizontal layout in column 2 (R55.1)
-   62. ⬛ [G] T62: Add Maximize/Minimize button to upper-left corner of each panel (R55.2)
-   63. ⬛ [G] T63: Implement panel collapse functionality - clicked panel collapses to 50px width (R55.3)
+   61. ✅ [G] T61: Change table and graph from vertical to horizontal layout in column 2 (R55.1)
+   62. ✅ [G] T62: Add Maximize/Minimize button to upper-left corner of each panel (R55.2)
+   63. ✅ [G] T63: Implement panel collapse functionality - clicked panel collapses to 50px width (R55.3)

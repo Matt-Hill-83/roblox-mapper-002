@@ -473,7 +473,7 @@ function LargeGraphDisplay({
 
   // Large graph dimensions - expanded for wider layout
   const graphWidth = "100%";
-  const graphHeight = 500;
+  const graphHeight = "100%";
 
   const renderGraph = () => {
     switch (selectedGraph) {

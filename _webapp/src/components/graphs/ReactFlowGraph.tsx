@@ -22,7 +22,7 @@ import { GraphDataFactory, ReactFlowData } from '../../lib/graphAdapters';
 interface ReactFlowGraphProps {
   data: unknown;
   width?: number | string;
-  height?: number;
+  height?: number | string;
 }
 
 export default function ReactFlowGraph({ data, width = 400, height = 300 }: ReactFlowGraphProps) {

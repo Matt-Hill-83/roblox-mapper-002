@@ -1,6 +1,7 @@
 "use client";
 
-import { Container, Grid, Paper, Typography, Box } from "@mui/material";
+import { Container, Grid, Paper, Typography, Box, IconButton } from "@mui/material";
+import { Minimize, Maximize } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 
 import TestDataConfigComponent from "../../../components/TestDataConfigComponent";
@@ -59,9 +60,27 @@ export default function HierarchyTesterPage() {
   const [selectedGraph, setSelectedGraph] = useState<
     "reactflow" | "cytoscape" | "d3"
   >("reactflow");
+  
+  // Panel collapse state management
+  const [isTableCollapsed, setIsTableCollapsed] = useState(false);
+  const [isGraphCollapsed, setIsGraphCollapsed] = useState(false);
 
   const handleGraphSelect = (graph: "reactflow" | "cytoscape" | "d3") => {
     setSelectedGraph(graph);
+  };
+
+  const handleTableToggle = () => {
+    setIsTableCollapsed(!isTableCollapsed);
+    if (!isTableCollapsed && isGraphCollapsed) {
+      setIsGraphCollapsed(false); // If table is being collapsed and graph is already collapsed, expand graph
+    }
+  };
+
+  const handleGraphToggle = () => {
+    setIsGraphCollapsed(!isGraphCollapsed);
+    if (!isGraphCollapsed && isTableCollapsed) {
+      setIsTableCollapsed(false); // If graph is being collapsed and table is already collapsed, expand table
+    }
   };
 
   const handleConfigurationSelect = (newConfig: TestDataConfig) => {
@@ -150,8 +169,9 @@ export default function HierarchyTesterPage() {
   const col2Styles = {
     border: "10px solid green",
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
     flex: 1,
+    height: "100vh",
   };
 
   return (
@@ -192,16 +212,70 @@ export default function HierarchyTesterPage() {
 
           {/* Column 2: Main Output Area with Suggestions Table and Large Graph */}
           <Grid item xs={12} lg={6} style={col2Styles}>
-            <SuggestionsTable
-              onConfigurationSelect={handleConfigurationSelect}
-            />
-            <TreeDisplay
-              result={result}
-              isLoading={isLoading}
-              layoutMode="three-column"
-              selectedGraph={selectedGraph}
-              onGraphSelect={handleGraphSelect}
-            />
+            <Box 
+              sx={{ 
+                width: isTableCollapsed ? "50px" : (isGraphCollapsed ? "calc(100% - 50px)" : "50%"), 
+                height: "100%", 
+                overflow: "auto",
+                position: "relative",
+                border: "1px solid #ddd"
+              }}
+            >
+              <IconButton
+                onClick={handleTableToggle}
+                sx={{
+                  position: "absolute",
+                  top: 8,
+                  left: 8,
+                  zIndex: 1000,
+                  backgroundColor: "white",
+                  border: "1px solid #ccc",
+                  "&:hover": { backgroundColor: "#f5f5f5" }
+                }}
+                size="small"
+              >
+                {isTableCollapsed ? <Maximize /> : <Minimize />}
+              </IconButton>
+              {!isTableCollapsed && (
+                <SuggestionsTable
+                  onConfigurationSelect={handleConfigurationSelect}
+                />
+              )}
+            </Box>
+            <Box 
+              sx={{ 
+                width: isGraphCollapsed ? "50px" : (isTableCollapsed ? "calc(100% - 50px)" : "50%"), 
+                height: "100%", 
+                overflow: "auto",
+                position: "relative",
+                border: "1px solid #ddd"
+              }}
+            >
+              <IconButton
+                onClick={handleGraphToggle}
+                sx={{
+                  position: "absolute",
+                  top: 8,
+                  left: 8,
+                  zIndex: 1000,
+                  backgroundColor: "white",
+                  border: "1px solid #ccc",
+                  "&:hover": { backgroundColor: "#f5f5f5" }
+                }}
+                size="small"
+              >
+                {isGraphCollapsed ? <Maximize /> : <Minimize />}
+              </IconButton>
+              {!isGraphCollapsed && (
+                <TreeDisplay
+                  result={result}
+                  isLoading={isLoading}
+                  layoutMode="three-column"
+                  selectedGraph={selectedGraph}
+                  onGraphSelect={handleGraphSelect}
+                />
+              )}
+            </Box>
           </Grid>
 
           {/* Column 3: Three Small Graphs Stacked */}

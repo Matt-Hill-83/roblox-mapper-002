@@ -16,7 +16,7 @@ if (typeof cytoscape !== 'undefined') {
 interface CytoscapeGraphProps {
   data: unknown;
   width?: number | string;
-  height?: number;
+  height?: number | string;
 }
 
 export default function CytoscapeGraph({ data, width = 400, height = 300 }: CytoscapeGraphProps) {
