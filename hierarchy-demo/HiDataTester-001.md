@@ -184,6 +184,7 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
        1. ✅ Make the suggested configurations table expand vertically to show all rows
 
    27. ✅ [GEM] R61: The system shall add 2 more columns to main layout:
+
        1. ✅ [GEM] Currently the react flow chart is in a large pane with a min/max button. Add the cyto and d3 graphs to similar panes, each with a min/max button.
        2. ✅ [GEM] Remove the mini versions of all 3 graphs.
 
