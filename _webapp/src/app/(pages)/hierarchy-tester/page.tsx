@@ -13,6 +13,7 @@ import CytoscapeGraph from "../../../components/graphs/CytoscapeGraph";
 import D3Graph from "../../../components/graphs/D3Graph";
 import GraphContainer from "../../../components/graphs/GraphContainer";
 import CollapsibleGraphPanel from "../../../components/CollapsibleGraphPanel";
+import { usePanelCollapse } from "../../../hooks/usePanelCollapse";
 
 export interface TestDataConfig {
   // Basic parameters
@@ -41,6 +42,7 @@ export interface HierarchyResult {
 }
 
 export default function HierarchyTesterPage() {
+  const { isCollapsed, handleToggle, getFlexValue } = usePanelCollapse();
   const [config, setConfig] = useState<TestDataConfig>({
     // Basic parameters (legacy)
     numberOfNodes: 15,
@@ -62,37 +64,6 @@ export default function HierarchyTesterPage() {
 
   const [result, setResult] = useState<HierarchyResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-
-  // Panel collapse state management
-  const [isTableCollapsed, setIsTableCollapsed] = useState(false);
-  const [isReactFlowCollapsed, setIsReactFlowCollapsed] = useState(false);
-  const [isCytoscapeCollapsed, setIsCytoscapeCollapsed] = useState(false);
-  const [isD3Collapsed, setIsD3Collapsed] = useState(false);
-  const [isTabbedInterfaceCollapsed, setIsTabbedInterfaceCollapsed] =
-    useState(false);
-  const [isConfigPanelCollapsed, setIsConfigPanelCollapsed] = useState(false);
-
-  const handleTableToggle = () => setIsTableCollapsed(!isTableCollapsed);
-  const handleReactFlowToggle = () =>
-    setIsReactFlowCollapsed(!isReactFlowCollapsed);
-  const handleCytoscapeToggle = () =>
-    setIsCytoscapeCollapsed(!isCytoscapeCollapsed);
-  const handleD3Toggle = () => setIsD3Collapsed(!isD3Collapsed);
-  const handleTabbedInterfaceToggle = () =>
-    setIsTabbedInterfaceCollapsed(!isTabbedInterfaceCollapsed);
-  const handleConfigPanelToggle = () =>
-    setIsConfigPanelCollapsed(!isConfigPanelCollapsed);
-
-  // Calculate flex values for each panel
-  const getFlexValue = (isCollapsed: boolean) =>
-    isCollapsed ? "0 0 50px" : "1";
-
-  const tableFlex = getFlexValue(isTableCollapsed);
-  const reactFlowFlex = getFlexValue(isReactFlowCollapsed);
-  const cytoscapeFlex = getFlexValue(isCytoscapeCollapsed);
-  const d3Flex = getFlexValue(isD3Collapsed);
-  const tabbedInterfaceFlex = getFlexValue(isTabbedInterfaceCollapsed);
-  const configPanelFlex = getFlexValue(isConfigPanelCollapsed);
 
   const handleConfigurationSelect = (newConfig: TestDataConfig) => {
     console.log("Loading preset configuration:", newConfig);
@@ -202,10 +173,10 @@ export default function HierarchyTesterPage() {
             >
               <CollapsibleGraphPanel
                 title="Configuration"
-                isCollapsed={isConfigPanelCollapsed}
-                onToggle={handleConfigPanelToggle}
+                isCollapsed={isCollapsed["config-panel"]}
+                onToggle={() => handleToggle("config-panel")}
                 result={result}
-                flex={configPanelFlex}
+                flex={getFlexValue("config-panel")}
                 initialConfig={config}
                 onSubmit={handleConfigSubmit}
                 isLoading={isLoading}
@@ -213,19 +184,19 @@ export default function HierarchyTesterPage() {
 
               <CollapsibleGraphPanel
                 title="Suggestions"
-                isCollapsed={isTableCollapsed}
-                onToggle={handleTableToggle}
+                isCollapsed={isCollapsed["table"]}
+                onToggle={() => handleToggle("table")}
                 result={result}
-                flex={tableFlex}
+                flex={getFlexValue("table")}
                 onConfigurationSelect={handleConfigurationSelect}
               />
 
               <CollapsibleGraphPanel
                 title="React Flow"
-                isCollapsed={isReactFlowCollapsed}
-                onToggle={handleReactFlowToggle}
+                isCollapsed={isCollapsed["react-flow"]}
+                onToggle={() => handleToggle("react-flow")}
                 result={result}
-                flex={reactFlowFlex}
+                flex={getFlexValue("react-flow")}
                 data={result}
                 width="100%"
                 height="100%"
@@ -233,10 +204,10 @@ export default function HierarchyTesterPage() {
 
               <CollapsibleGraphPanel
                 title="Cytoscape.js"
-                isCollapsed={isCytoscapeCollapsed}
-                onToggle={handleCytoscapeToggle}
+                isCollapsed={isCollapsed["cytoscape"]}
+                onToggle={() => handleToggle("cytoscape")}
                 result={result}
-                flex={cytoscapeFlex}
+                flex={getFlexValue("cytoscape")}
                 data={result}
                 width="100%"
                 height="100%"
@@ -244,10 +215,10 @@ export default function HierarchyTesterPage() {
 
               <CollapsibleGraphPanel
                 title="D3.js"
-                isCollapsed={isD3Collapsed}
-                onToggle={handleD3Toggle}
+                isCollapsed={isCollapsed["d3"]}
+                onToggle={() => handleToggle("d3")}
                 result={result}
-                flex={d3Flex}
+                flex={getFlexValue("d3")}
                 data={result}
                 width="100%"
                 height="100%"
@@ -256,7 +227,7 @@ export default function HierarchyTesterPage() {
               {/* Tabbed Interface (TreeDisplay) */}
               <Box
                 sx={{
-                  flex: tabbedInterfaceFlex,
+                  flex: getFlexValue("tabbed-interface"),
                   height: "100%",
                   overflow: "auto",
                   position: "relative",
@@ -264,7 +235,7 @@ export default function HierarchyTesterPage() {
                 }}
               >
                 <IconButton
-                  onClick={handleTabbedInterfaceToggle}
+                  onClick={() => handleToggle("tabbed-interface")}
                   sx={{
                     position: "absolute",
                     top: 8,
@@ -276,9 +247,9 @@ export default function HierarchyTesterPage() {
                   }}
                   size="small"
                 >
-                  {isTabbedInterfaceCollapsed ? <Maximize /> : <Minimize />}
+                  {isCollapsed["tabbed-interface"] ? <Maximize /> : <Minimize />}
                 </IconButton>
-                {!isTabbedInterfaceCollapsed && (
+                {!isCollapsed["tabbed-interface"] && (
                   <TreeDisplay result={result} isLoading={isLoading} />
                 )}
               </Box>
