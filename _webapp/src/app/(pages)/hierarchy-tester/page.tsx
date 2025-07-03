@@ -15,6 +15,7 @@ import TestDataConfigComponent from "../../../components/TestDataConfigComponent
 import TreeDisplay from "../../../components/TreeDisplay";
 import SuggestionsTable from "../../../components/SuggestionsTable";
 import MetricsBox from "../../../components/MetricsBox";
+import VisualMap from "../../../components/VisualMap";
 
 export interface TestDataConfig {
   // Basic parameters
@@ -71,6 +72,7 @@ export default function HierarchyTesterPage() {
   // Panel collapse state management
   const [isTableCollapsed, setIsTableCollapsed] = useState(false);
   const [isGraphCollapsed, setIsGraphCollapsed] = useState(false);
+  const [isVisualMapCollapsed, setIsVisualMapCollapsed] = useState(false);
 
   const handleGraphSelect = (graph: "reactflow" | "cytoscape" | "d3") => {
     setSelectedGraph(graph);
@@ -78,16 +80,14 @@ export default function HierarchyTesterPage() {
 
   const handleTableToggle = () => {
     setIsTableCollapsed(!isTableCollapsed);
-    if (!isTableCollapsed && isGraphCollapsed) {
-      setIsGraphCollapsed(false); // If table is being collapsed and graph is already collapsed, expand graph
-    }
   };
 
   const handleGraphToggle = () => {
     setIsGraphCollapsed(!isGraphCollapsed);
-    if (!isGraphCollapsed && isTableCollapsed) {
-      setIsTableCollapsed(false); // If graph is being collapsed and table is already collapsed, expand table
-    }
+  };
+
+  const handleVisualMapToggle = () => {
+    setIsVisualMapCollapsed(!isVisualMapCollapsed);
   };
 
   const handleConfigurationSelect = (newConfig: TestDataConfig) => {
@@ -223,9 +223,9 @@ export default function HierarchyTesterPage() {
               sx={{
                 width: isTableCollapsed
                   ? "50px"
-                  : isGraphCollapsed
+                  : isGraphCollapsed || isVisualMapCollapsed
                   ? "calc(100% - 50px)"
-                  : "50%",
+                  : "33.33%",
                 height: "100%",
                 overflow: "auto",
                 position: "relative",
@@ -257,9 +257,9 @@ export default function HierarchyTesterPage() {
               sx={{
                 width: isGraphCollapsed
                   ? "50px"
-                  : isTableCollapsed
+                  : isTableCollapsed || isVisualMapCollapsed
                   ? "calc(100% - 50px)"
-                  : "50%",
+                  : "33.33%",
                 height: "100%",
                 overflow: "auto",
                 position: "relative",
@@ -291,18 +291,41 @@ export default function HierarchyTesterPage() {
                 />
               )}
             </Box>
+            <Box
+              sx={{
+                width: isVisualMapCollapsed
+                  ? "50px"
+                  : isTableCollapsed || isGraphCollapsed
+                  ? "calc(100% - 50px)"
+                  : "33.33%",
+                height: "100%",
+                overflow: "auto",
+                position: "relative",
+                border: "1px solid #ddd",
+              }}
+            >
+              <IconButton
+                onClick={handleVisualMapToggle}
+                sx={{
+                  position: "absolute",
+                  top: 8,
+                  left: 8,
+                  zIndex: 1000,
+                  backgroundColor: "white",
+                  border: "1px solid #ccc",
+                  "&:hover": { backgroundColor: "#f5f5f5" },
+                }}
+                size="small"
+              >
+                {isVisualMapCollapsed ? <Maximize /> : <Minimize />}
+              </IconButton>
+              {!isVisualMapCollapsed && (
+                <VisualMap positioned={result?.positioned || []} />
+              )}
+            </Box>
           </Grid>
 
-          {/* Column 3: Three Small Graphs Stacked */}
-          <Grid item xs={12} lg={3}>
-            <TreeDisplay
-              result={result}
-              isLoading={isLoading}
-              layoutMode="sidebar-graphs"
-              selectedGraph={selectedGraph}
-              onGraphSelect={handleGraphSelect}
-            />
-          </Grid>
+          
         </Grid>
       </Box>
     </Box>

@@ -52,21 +52,12 @@ export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProp
       const svg = d3.select(svgRef.current);
       const margin = { top: 20, right: 20, bottom: 20, left: 20 };
       
-      // Handle width and height as numbers or strings
-      const numericWidth = typeof width === 'string' ? 
-        (svgRef.current?.clientWidth || 400) : (width || 400);
-      const numericHeight = typeof height === 'string' ? 
-        (svgRef.current?.clientHeight || 300) : (height || 300);
+      // Ensure SVG takes full available space
+      svg.attr('width', '100%').attr('height', '100%');
       
-      // Ensure we have valid numeric dimensions
-      const validWidth = Math.max(numericWidth, 100);
-      const validHeight = Math.max(numericHeight, 100);
-      
-      // Set SVG attributes with validated dimensions
-      svg.attr('width', validWidth).attr('height', validHeight);
-      
-      const innerWidth = validWidth - margin.left - margin.right;
-      const innerHeight = validHeight - margin.top - margin.bottom;
+      // Use the actual client dimensions for internal calculations
+      const innerWidth = (svgRef.current?.clientWidth || 400) - margin.left - margin.right;
+      const innerHeight = (svgRef.current?.clientHeight || 300) - margin.top - margin.bottom;
 
       // Create main group
       const g = svg.append('g')

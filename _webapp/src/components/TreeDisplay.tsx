@@ -136,7 +136,6 @@ export default function TreeDisplay({
       {/* Tabbed Content */}
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={tabValue} onChange={handleTabChange}>
-          <Tab label="Visual Map" />
           <Tab label="Entity Table" />
           <Tab label="Group Details" />
           <Tab label="ASCII Output" />
@@ -144,167 +143,16 @@ export default function TreeDisplay({
       </Box>
 
       <TabPanel value={tabValue} index={0}>
-        <VisualMap positioned={positioned} />
-      </TabPanel>
-
-      <TabPanel value={tabValue} index={1}>
         <EntityTable positioned={positioned} />
       </TabPanel>
 
-      <TabPanel value={tabValue} index={2}>
+      <TabPanel value={tabValue} index={1}>
         <GroupDetails groups={groups} />
       </TabPanel>
 
-      <TabPanel value={tabValue} index={3}>
+      <TabPanel value={tabValue} index={2}>
         <ASCIIOutput asciiMap={result.asciiMap} />
       </TabPanel>
-    </Box>
-  );
-}
-
-interface GraphContainerProps {
-  title: string;
-  children: ReactNode;
-  result: HierarchyResult | null;
-}
-
-function GraphContainer({ title, children, result }: GraphContainerProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  const handleToggle = () => {
-    setIsCollapsed(!isCollapsed);
-  };
-
-  if (!result) {
-    return (
-      <Alert severity="info">No data available for graph visualization</Alert>
-    );
-  }
-
-  return (
-    <Paper
-      variant="outlined"
-      sx={{
-        p: 2,
-        height: "100%",
-        width: isCollapsed ? "50px" : "100%",
-        display: "flex",
-        flexDirection: "column",
-        transition: "width 0.3s ease-in-out",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      <IconButton
-        onClick={handleToggle}
-        sx={{
-          position: "absolute",
-          top: 8,
-          left: 8,
-          zIndex: 1000,
-          backgroundColor: "white",
-          border: "1px solid #ccc",
-          "&:hover": { backgroundColor: "#f5f5f5" },
-        }}
-        size="small"
-      >
-        {isCollapsed ? <Maximize /> : <Minimize />}
-      </IconButton>
-      {!isCollapsed && (
-        <>
-          <Typography variant="h6" gutterBottom sx={{ textTransform: "capitalize", ml: 5 }}>
-            {title}
-          </Typography>
-          <Box sx={{ flex: 1, minHeight: 0, width: "100%", height: "100%" }}>
-            {children}
-          </Box>
-        </>
-      )}
-    </Paper>
-  );
-}
-
-function VisualMap({ positioned }: { positioned: unknown[] }) {
-  if (!positioned || positioned.length === 0) {
-    return <Alert severity="warning">No positioned entities to display</Alert>;
-  }
-
-  // Create a simple 2D visualization using CSS positioning
-  const bounds = positioned.reduce(
-    (acc, entity) => ({
-      minX: Math.min(acc.minX, entity.x),
-      maxX: Math.max(acc.maxX, entity.x),
-      minY: Math.min(acc.minY, entity.y),
-      maxY: Math.max(acc.maxY, entity.y),
-    }),
-    { minX: 0, maxX: 0, minY: 0, maxY: 0 }
-  );
-
-  const width = Math.max(bounds.maxX - bounds.minX, 400);
-  const height = Math.max(bounds.maxY - bounds.minY, 300);
-  const scale = Math.min(600 / width, 400 / height);
-
-  return (
-    <Box>
-      <Typography variant="h6" gutterBottom>
-        2D Visual Representation
-      </Typography>
-      <Paper
-        variant="outlined"
-        sx={{
-          position: "relative",
-          width: width * scale + 100,
-          height: height * scale + 100,
-          overflow: "hidden",
-          backgroundColor: "#f5f5f5",
-        }}
-      >
-        {positioned.map((entity) => {
-          const x = (entity.x - bounds.minX) * scale + 50;
-          const y = (bounds.maxY - entity.y) * scale + 50; // Flip Y axis
-
-          return (
-            <Box
-              key={entity.entityId}
-              sx={{
-                position: "absolute",
-                left: x - 15,
-                top: y - 15,
-                width: 30,
-                height: 30,
-                borderRadius: entity.type === "Parent" ? "50%" : "4px",
-                backgroundColor:
-                  entity.level === 0
-                    ? "#1976d2"
-                    : entity.level === 1
-                    ? "#42a5f5"
-                    : "#90caf9",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "white",
-                fontSize: "10px",
-                fontWeight: "bold",
-                cursor: "pointer",
-                "&:hover": {
-                  transform: "scale(1.2)",
-                  zIndex: 10,
-                },
-              }}
-              title={`${entity.entityId} (${entity.type}) - Level ${entity.level}`}
-            >
-              {entity.entityId.replace("entity_", "")}
-            </Box>
-          );
-        })}
-      </Paper>
-      <Typography
-        variant="caption"
-        color="text.secondary"
-        sx={{ mt: 1, display: "block" }}
-      >
-        🔵 Root Entities • 🔷 Level 1 • 🔸 Level 2+
-      </Typography>
     </Box>
   );
 }
@@ -424,6 +272,68 @@ function ASCIIOutput({ asciiMap }: { asciiMap?: string }) {
         </Typography>
       </Paper>
     </Box>
+  );
+}
+
+interface GraphContainerProps {
+  title: string;
+  children: ReactNode;
+  result: HierarchyResult | null;
+}
+
+function GraphContainer({ title, children, result }: GraphContainerProps) {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const handleToggle = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
+  if (!result) {
+    return (
+      <Alert severity="info">No data available for graph visualization</Alert>
+    );
+  }
+
+  return (
+    <Paper
+      variant="outlined"
+      sx={{
+        p: 2,
+        height: "100%",
+        width: isCollapsed ? "50px" : "100%",
+        display: "flex",
+        flexDirection: "column",
+        transition: "width 0.3s ease-in-out",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <IconButton
+        onClick={handleToggle}
+        sx={{
+          position: "absolute",
+          top: 8,
+          left: 8,
+          zIndex: 1000,
+          backgroundColor: "white",
+          border: "1px solid #ccc",
+          "&:hover": { backgroundColor: "#f5f5f5" },
+        }}
+        size="small"
+      >
+        {isCollapsed ? <Maximize /> : <Minimize />}
+      </IconButton>
+      {!isCollapsed && (
+        <>
+          <Typography variant="h6" gutterBottom sx={{ textTransform: "capitalize", ml: 5 }}>
+            {title}
+          </Typography>
+          <Box sx={{ flex: 1, minHeight: 0, width: "100%", height: "100%" }}>
+            {children}
+          </Box>
+        </>
+      )}
+    </Paper>
   );
 }
 
