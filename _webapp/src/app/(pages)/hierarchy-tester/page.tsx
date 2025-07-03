@@ -78,12 +78,14 @@ export default function HierarchyTesterPage() {
   const [isCytoscapeCollapsed, setIsCytoscapeCollapsed] = useState(false);
   const [isD3Collapsed, setIsD3Collapsed] = useState(false);
   const [isTabbedInterfaceCollapsed, setIsTabbedInterfaceCollapsed] = useState(false);
+  const [isConfigPanelCollapsed, setIsConfigPanelCollapsed] = useState(false);
 
   const handleTableToggle = () => setIsTableCollapsed(!isTableCollapsed);
   const handleReactFlowToggle = () => setIsReactFlowCollapsed(!isReactFlowCollapsed);
   const handleCytoscapeToggle = () => setIsCytoscapeCollapsed(!isCytoscapeCollapsed);
   const handleD3Toggle = () => setIsD3Collapsed(!isD3Collapsed);
   const handleTabbedInterfaceToggle = () => setIsTabbedInterfaceCollapsed(!isTabbedInterfaceCollapsed);
+  const handleConfigPanelToggle = () => setIsConfigPanelCollapsed(!isConfigPanelCollapsed);
 
   // Calculate flex values for each panel
   const getFlexValue = (isCollapsed: boolean) => (isCollapsed ? "0 0 50px" : "1");
@@ -93,6 +95,7 @@ export default function HierarchyTesterPage() {
   const cytoscapeFlex = getFlexValue(isCytoscapeCollapsed);
   const d3Flex = getFlexValue(isD3Collapsed);
   const tabbedInterfaceFlex = getFlexValue(isTabbedInterfaceCollapsed);
+  const configPanelFlex = getFlexValue(isConfigPanelCollapsed);
 
   const handleConfigurationSelect = (newConfig: TestDataConfig) => {
     console.log("Loading preset configuration:", newConfig);
@@ -207,19 +210,7 @@ export default function HierarchyTesterPage() {
           // sx={{ width: "100%", margin: 0 }}
           style={boxStyles}
         >
-          {/* Column 1: Configuration Panel */}
-          <Grid item xs={12} lg={3}>
-            <Paper elevation={1} sx={{ p: 2, position: "sticky", top: 16 }}>
-              <TestDataConfigComponent
-                initialConfig={config}
-                onSubmit={handleConfigSubmit}
-                isLoading={isLoading}
-              />
-            </Paper>
-
-            {/* Metrics Box */}
-            <MetricsBox result={result} isLoading={isLoading} />
-          </Grid>
+          
 
           {/* Column 2: Collapsible Panels */}
           <Grid item xs={12} lg={9}>
@@ -232,6 +223,24 @@ export default function HierarchyTesterPage() {
                 flexWrap: "nowrap", // Prevent wrapping
               }}
             >
+              {/* Configuration Panel and Metrics Box */}
+              <GraphContainer
+                title="Configuration"
+                isCollapsed={isConfigPanelCollapsed}
+                onToggle={handleConfigPanelToggle}
+                result={result} // Pass result for consistency
+                flex={configPanelFlex}
+              >
+                <Paper elevation={1} sx={{ p: 2, height: "100%" }}>
+                  <TestDataConfigComponent
+                    initialConfig={config}
+                    onSubmit={handleConfigSubmit}
+                    isLoading={isLoading}
+                  />
+                  <MetricsBox result={result} isLoading={isLoading} />
+                </Paper>
+              </GraphContainer>
+
               {/* Suggestions Table */}
               <GraphContainer
                 title="Suggestions"
