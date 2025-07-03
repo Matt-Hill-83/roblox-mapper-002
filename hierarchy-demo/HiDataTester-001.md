@@ -193,6 +193,13 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
        2. ✅ [GEM] Always show all rows.
    29. ✅ [GEM] R63: The system shall refactor the layout to move column 6 into a collapsible tab as column 7.
 
+10. ⬛ Revert Roblox Code to Working Version
+    1. ⬛ Background: The Roblox code exists in this project and uses a system called Roblox-TS, which allows you to write code in TypeScript that gets translated into Luau, a language used by Roblox.
+    2. ⬛ We made some changes to this file that I didn't like, but we committed them and then kept building.
+    3. ⬛ We added an entire Next.js app to the project and committed it.
+    4. ⬛ Now, I want to work on the Roblox part again and revert the Roblox code back to the working state without changing the Next.js code.
+    5. ⬛ I think the two apps are mostly separate.
+
 ## Task List
 
 1. ✅ Implementation Tasks
@@ -275,7 +282,7 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    77. ✅ [GEM] T77: Remove the mini versions of all 3 graphs (R61.2)
    78. ✅ [GEM] T78: Remove the page increment buttons from the bottom of the suggested configurations table (R62.1)
    79. ✅ [GEM] T79: Make the suggested configurations table always show all rows (R62.2)
-   80. ⬛ [GEM] T80: Refactor the layout to move column 6 into a collapsible tab as column 7 (R63)
+   80. ✅ [GEM] T80: Refactor the layout to move column 6 into a collapsible tab as column 7 (R63)
        80.1. ✅ [GEM] T80.1: Remove VisualMap's independent panel from `hierarchy-tester/page.tsx`.
        80.2. ✅ [GEM] T80.2: Adjust width calculations for remaining collapsible sections in `hierarchy-tester/page.tsx`.
        80.3. ✅ [GEM] T80.3: Add VisualMap import to `_webapp/src/components/TreeDisplay.tsx`.

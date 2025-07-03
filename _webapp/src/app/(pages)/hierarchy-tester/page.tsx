@@ -15,7 +15,10 @@ import TestDataConfigComponent from "../../../components/TestDataConfigComponent
 import TreeDisplay from "../../../components/TreeDisplay";
 import SuggestionsTable from "../../../components/SuggestionsTable";
 import MetricsBox from "../../../components/MetricsBox";
-import VisualMap from "../../../components/VisualMap";
+import ReactFlowGraph from "../../../components/graphs/ReactFlowGraph";
+import CytoscapeGraph from "../../../components/graphs/CytoscapeGraph";
+import D3Graph from "../../../components/graphs/D3Graph";
+import GraphContainer from "../../../components/graphs/GraphContainer";
 
 export interface TestDataConfig {
   // Basic parameters
@@ -71,19 +74,25 @@ export default function HierarchyTesterPage() {
 
   // Panel collapse state management
   const [isTableCollapsed, setIsTableCollapsed] = useState(false);
-  const [isGraphCollapsed, setIsGraphCollapsed] = useState(false);
+  const [isReactFlowCollapsed, setIsReactFlowCollapsed] = useState(false);
+  const [isCytoscapeCollapsed, setIsCytoscapeCollapsed] = useState(false);
+  const [isD3Collapsed, setIsD3Collapsed] = useState(false);
+  const [isTabbedInterfaceCollapsed, setIsTabbedInterfaceCollapsed] = useState(false);
 
-  const handleGraphSelect = (graph: "reactflow" | "cytoscape" | "d3") => {
-    setSelectedGraph(graph);
-  };
+  const handleTableToggle = () => setIsTableCollapsed(!isTableCollapsed);
+  const handleReactFlowToggle = () => setIsReactFlowCollapsed(!isReactFlowCollapsed);
+  const handleCytoscapeToggle = () => setIsCytoscapeCollapsed(!isCytoscapeCollapsed);
+  const handleD3Toggle = () => setIsD3Collapsed(!isD3Collapsed);
+  const handleTabbedInterfaceToggle = () => setIsTabbedInterfaceCollapsed(!isTabbedInterfaceCollapsed);
 
-  const handleTableToggle = () => {
-    setIsTableCollapsed(!isTableCollapsed);
-  };
+  // Calculate flex values for each panel
+  const getFlexValue = (isCollapsed: boolean) => (isCollapsed ? "0 0 50px" : "1");
 
-  const handleGraphToggle = () => {
-    setIsGraphCollapsed(!isGraphCollapsed);
-  };
+  const tableFlex = getFlexValue(isTableCollapsed);
+  const reactFlowFlex = getFlexValue(isReactFlowCollapsed);
+  const cytoscapeFlex = getFlexValue(isCytoscapeCollapsed);
+  const d3Flex = getFlexValue(isD3Collapsed);
+  const tabbedInterfaceFlex = getFlexValue(isTabbedInterfaceCollapsed);
 
   const handleConfigurationSelect = (newConfig: TestDataConfig) => {
     console.log("Loading preset configuration:", newConfig);
@@ -173,7 +182,7 @@ export default function HierarchyTesterPage() {
     display: "flex",
     flexDirection: "row",
     flex: 1,
-    height: "100vh",
+    // height: "100vh", // Removed height: "100vh"
   };
 
   return (
@@ -212,92 +221,99 @@ export default function HierarchyTesterPage() {
             <MetricsBox result={result} isLoading={isLoading} />
           </Grid>
 
-          {/* Column 2: Main Output Area with Suggestions Table and Large Graph */}
-          <Grid item xs={12} lg={6} style={col2Styles}>
+          {/* Column 2: Collapsible Panels */}
+          <Grid item xs={12} lg={9}>
             <Box
               sx={{
-                width: isTableCollapsed
-                  ? "50px"
-                  : isGraphCollapsed
-                  ? "calc(100% - 50px)"
-                  : "50%",
-                height: "100%",
-                overflow: "auto",
-                position: "relative",
-                border: "1px solid #ddd",
+                display: "flex",
+                flexDirection: "row",
+                height: "100vh",
+                gap: 2, // Add some gap between panels
+                flexWrap: "nowrap", // Prevent wrapping
               }}
             >
-              <IconButton
-                onClick={handleTableToggle}
-                sx={{
-                  position: "absolute",
-                  top: 8,
-                  left: 8,
-                  zIndex: 1000,
-                  backgroundColor: "white",
-                  border: "1px solid #ccc",
-                  "&:hover": { backgroundColor: "#f5f5f5" },
-                }}
-                size="small"
+              {/* Suggestions Table */}
+              <GraphContainer
+                title="Suggestions"
+                isCollapsed={isTableCollapsed}
+                onToggle={handleTableToggle}
+                result={result} // Pass result for consistency, though not directly used by SuggestionsTable
+                flex={tableFlex}
               >
-                {isTableCollapsed ? <Maximize /> : <Minimize />}
-              </IconButton>
-              {!isTableCollapsed && (
                 <SuggestionsTable
                   onConfigurationSelect={handleConfigurationSelect}
                 />
-              )}
-            </Box>
-            <Box
-              sx={{
-                width: isGraphCollapsed
-                  ? "50px"
-                  : isTableCollapsed
-                  ? "calc(100% - 50px)"
-                  : "50%",
-                height: "100%",
-                overflow: "auto",
-                position: "relative",
-                border: "1px solid #ddd",
-              }}
-            >
-              <IconButton
-                onClick={handleGraphToggle}
-                sx={{
-                  position: "absolute",
-                  top: 8,
-                  left: 8,
-                  zIndex: 1000,
-                  backgroundColor: "white",
-                  border: "1px solid #ccc",
-                  "&:hover": { backgroundColor: "#f5f5f5" },
-                }}
-                size="small"
+              </GraphContainer>
+
+              {/* React Flow Graph */}
+              <GraphContainer
+                title="React Flow"
+                isCollapsed={isReactFlowCollapsed}
+                onToggle={handleReactFlowToggle}
+                result={result}
+                flex={reactFlowFlex}
               >
-                {isGraphCollapsed ? <Maximize /> : <Minimize />}
-              </IconButton>
-              {!isGraphCollapsed && (
-                <TreeDisplay
-                  result={result}
-                  isLoading={isLoading}
-                  layoutMode="three-column"
-                  selectedGraph={selectedGraph}
-                  onGraphSelect={handleGraphSelect}
-                />
-              )}
+                <ReactFlowGraph data={result} width="100%" height="100%" />
+              </GraphContainer>
+
+              {/* Cytoscape Graph */}
+              <GraphContainer
+                title="Cytoscape.js"
+                isCollapsed={isCytoscapeCollapsed}
+                onToggle={handleCytoscapeToggle}
+                result={result}
+                flex={cytoscapeFlex}
+              >
+                <CytoscapeGraph data={result} width="100%" height="100%" />
+              </GraphContainer>
+
+              {/* D3 Graph */}
+              <GraphContainer
+                title="D3.js"
+                isCollapsed={isD3Collapsed}
+                onToggle={handleD3Toggle}
+                result={result}
+                flex={d3Flex}
+              >
+                <D3Graph data={result} width="100%" height="100%" />
+              </GraphContainer>
+
+              {/* Tabbed Interface (TreeDisplay) */}
+              <Box
+                sx={{
+                  flex: tabbedInterfaceFlex,
+                  height: "100%",
+                  overflow: "auto",
+                  position: "relative",
+                  border: "1px solid #ddd",
+                }}
+              >
+                <IconButton
+                  onClick={handleTabbedInterfaceToggle}
+                  sx={{
+                    position: "absolute",
+                    top: 8,
+                    left: 8,
+                    zIndex: 1000,
+                    backgroundColor: "white",
+                    border: "1px solid #ccc",
+                    "&:hover": { backgroundColor: "#f5f5f5" },
+                  }}
+                  size="small"
+                >
+                  {isTabbedInterfaceCollapsed ? <Maximize /> : <Minimize />}
+                </IconButton>
+                {!isTabbedInterfaceCollapsed && (
+                  <TreeDisplay
+                    result={result}
+                    isLoading={isLoading}
+                  />
+                )}
+              </Box>
             </Box>
           </Grid>
 
-          {/* Column 3: Tabbed Data Views */}
-          <Grid item xs={12} lg={3}>
-            <Paper elevation={1} sx={{ p: 2, height: "100%" }}>
-              <TreeDisplay
-                result={result}
-                isLoading={isLoading}
-                layoutMode="default"
-              />
-            </Paper>
-          </Grid>
+          
         </Grid>
       </Box>
     </Box>

@@ -27,11 +27,12 @@ import { HierarchyResult } from "../app/(pages)/hierarchy-tester/page";
 import ReactFlowGraph from "./graphs/ReactFlowGraph";
 import CytoscapeGraph from "./graphs/CytoscapeGraph";
 import D3Graph from "./graphs/D3Graph";
+import VisualMap from "./VisualMap";
+import GraphContainer from "./graphs/GraphContainer";
 
 interface TreeDisplayProps {
   result: HierarchyResult | null;
   isLoading?: boolean;
-  layoutMode?: "default" | "three-column" | "sidebar-graphs";
 }
 
 interface TabPanelProps {
@@ -59,7 +60,6 @@ function TabPanel(props: TabPanelProps) {
 export default function TreeDisplay({
   result,
   isLoading,
-  layoutMode = "default",
 }: TreeDisplayProps) {
   const [tabValue, setTabValue] = useState(0); // Default to Entity Table tab (index 0)
 
@@ -113,22 +113,7 @@ export default function TreeDisplay({
     {}
   );
 
-  // Three-column layout mode - main content area
-  if (layoutMode === "three-column") {
-    return (
-      <Box sx={{ height: "100%", display: "flex", gap: 2 }}>
-        <GraphContainer title="React Flow" result={result}>
-          <ReactFlowGraph data={result} width="100%" height="100%" />
-        </GraphContainer>
-        <GraphContainer title="Cytoscape.js" result={result}>
-          <CytoscapeGraph data={result} width="100%" height="100%" />
-        </GraphContainer>
-        <GraphContainer title="D3.js" result={result}>
-          <D3Graph data={result} width="100%" height="100%" />
-        </GraphContainer>
-      </Box>
-    );
-  }
+  
 
   // Default layout mode - original tabbed interface
   return (
@@ -139,6 +124,7 @@ export default function TreeDisplay({
           <Tab label="Entity Table" />
           <Tab label="Group Details" />
           <Tab label="ASCII Output" />
+          <Tab label="Visual Map" />
         </Tabs>
       </Box>
 
@@ -152,6 +138,10 @@ export default function TreeDisplay({
 
       <TabPanel value={tabValue} index={2}>
         <ASCIIOutput asciiMap={result.asciiMap} />
+      </TabPanel>
+
+      <TabPanel value={tabValue} index={3}>
+        <VisualMap result={result} />
       </TabPanel>
     </Box>
   );
@@ -275,68 +265,4 @@ function ASCIIOutput({ asciiMap }: { asciiMap?: string }) {
   );
 }
 
-interface GraphContainerProps {
-  title: string;
-  children: ReactNode;
-  result: HierarchyResult | null;
-}
 
-function GraphContainer({ title, children, result }: GraphContainerProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  const handleToggle = () => {
-    setIsCollapsed(!isCollapsed);
-  };
-
-  if (!result) {
-    return (
-      <Alert severity="info">No data available for graph visualization</Alert>
-    );
-  }
-
-  return (
-    <Paper
-      variant="outlined"
-      sx={{
-        p: 2,
-        height: "100%",
-        width: isCollapsed ? "50px" : "100%",
-        display: "flex",
-        flexDirection: "column",
-        transition: "width 0.3s ease-in-out",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      <IconButton
-        onClick={handleToggle}
-        sx={{
-          position: "absolute",
-          top: 8,
-          left: 8,
-          zIndex: 1000,
-          backgroundColor: "white",
-          border: "1px solid #ccc",
-          "&:hover": { backgroundColor: "#f5f5f5" },
-        }}
-        size="small"
-      >
-        {isCollapsed ? <Maximize /> : <Minimize />}
-      </IconButton>
-      {!isCollapsed && (
-        <>
-          <Typography
-            variant="h6"
-            gutterBottom
-            sx={{ textTransform: "capitalize", ml: 5 }}
-          >
-            {title}
-          </Typography>
-          <Box sx={{ flex: 1, minHeight: 0, width: "100%", height: "100%" }}>
-            {children}
-          </Box>
-        </>
-      )}
-    </Paper>
-  );
-}
