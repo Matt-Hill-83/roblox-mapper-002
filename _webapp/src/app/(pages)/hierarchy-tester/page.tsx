@@ -12,6 +12,7 @@ import ReactFlowGraph from "../../../components/graphs/ReactFlowGraph";
 import CytoscapeGraph from "../../../components/graphs/CytoscapeGraph";
 import D3Graph from "../../../components/graphs/D3Graph";
 import GraphContainer from "../../../components/graphs/GraphContainer";
+import CollapsibleGraphPanel from "../../../components/CollapsibleGraphPanel";
 
 export interface TestDataConfig {
   // Basic parameters
@@ -199,69 +200,58 @@ export default function HierarchyTesterPage() {
                 flexWrap: "nowrap", // Prevent wrapping
               }}
             >
-              {/* Configuration Panel and Metrics Box */}
-              <GraphContainer
+              <CollapsibleGraphPanel
                 title="Configuration"
                 isCollapsed={isConfigPanelCollapsed}
                 onToggle={handleConfigPanelToggle}
-                result={result} // Pass result for consistency
+                result={result}
                 flex={configPanelFlex}
-              >
-                <Paper elevation={1} sx={{ p: 2, height: "100%" }}>
-                  <TestDataConfigComponent
-                    initialConfig={config}
-                    onSubmit={handleConfigSubmit}
-                    isLoading={isLoading}
-                  />
-                  <MetricsBox result={result} isLoading={isLoading} />
-                </Paper>
-              </GraphContainer>
+                initialConfig={config}
+                onSubmit={handleConfigSubmit}
+                isLoading={isLoading}
+              />
 
-              {/* Suggestions Table */}
-              <GraphContainer
+              <CollapsibleGraphPanel
                 title="Suggestions"
                 isCollapsed={isTableCollapsed}
                 onToggle={handleTableToggle}
-                result={result} // Pass result for consistency, though not directly used by SuggestionsTable
+                result={result}
                 flex={tableFlex}
-              >
-                <SuggestionsTable
-                  onConfigurationSelect={handleConfigurationSelect}
-                />
-              </GraphContainer>
+                onConfigurationSelect={handleConfigurationSelect}
+              />
 
-              {/* React Flow Graph */}
-              <GraphContainer
+              <CollapsibleGraphPanel
                 title="React Flow"
                 isCollapsed={isReactFlowCollapsed}
                 onToggle={handleReactFlowToggle}
                 result={result}
                 flex={reactFlowFlex}
-              >
-                <ReactFlowGraph data={result} width="100%" height="100%" />
-              </GraphContainer>
+                data={result}
+                width="100%"
+                height="100%"
+              />
 
-              {/* Cytoscape Graph */}
-              <GraphContainer
+              <CollapsibleGraphPanel
                 title="Cytoscape.js"
                 isCollapsed={isCytoscapeCollapsed}
                 onToggle={handleCytoscapeToggle}
                 result={result}
                 flex={cytoscapeFlex}
-              >
-                <CytoscapeGraph data={result} width="100%" height="100%" />
-              </GraphContainer>
+                data={result}
+                width="100%"
+                height="100%"
+              />
 
-              {/* D3 Graph */}
-              <GraphContainer
+              <CollapsibleGraphPanel
                 title="D3.js"
                 isCollapsed={isD3Collapsed}
                 onToggle={handleD3Toggle}
                 result={result}
                 flex={d3Flex}
-              >
-                <D3Graph data={result} width="100%" height="100%" />
-              </GraphContainer>
+                data={result}
+                width="100%"
+                height="100%"
+              />
 
               {/* Tabbed Interface (TreeDisplay) */}
               <Box
