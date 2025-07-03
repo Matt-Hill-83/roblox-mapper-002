@@ -83,16 +83,7 @@ export default function HierarchyTesterPage() {
   const handleConfigPanelToggle = () =>
     setIsConfigPanelCollapsed(!isConfigPanelCollapsed);
 
-  // Calculate flex values for each panel
-  const getFlexValue = (isCollapsed: boolean) =>
-    isCollapsed ? "0 0 50px" : "1";
-
-  const tableFlex = getFlexValue(isTableCollapsed);
-  const reactFlowFlex = getFlexValue(isReactFlowCollapsed);
-  const cytoscapeFlex = getFlexValue(isCytoscapeCollapsed);
-  const d3Flex = getFlexValue(isD3Collapsed);
-  const tabbedInterfaceFlex = getFlexValue(isTabbedInterfaceCollapsed);
-  const configPanelFlex = getFlexValue(isConfigPanelCollapsed);
+  
 
   const handleConfigurationSelect = (newConfig: TestDataConfig) => {
     console.log("Loading preset configuration:", newConfig);
@@ -205,7 +196,7 @@ export default function HierarchyTesterPage() {
                 isCollapsed={isConfigPanelCollapsed}
                 onToggle={handleConfigPanelToggle}
                 result={result}
-                flex={configPanelFlex}
+                flex={isConfigPanelCollapsed ? "0 0 50px" : "1"}
                 initialConfig={config}
                 onSubmit={handleConfigSubmit}
                 isLoading={isLoading}
@@ -216,7 +207,7 @@ export default function HierarchyTesterPage() {
                 isCollapsed={isTableCollapsed}
                 onToggle={handleTableToggle}
                 result={result}
-                flex={tableFlex}
+                flex={isTableCollapsed ? "0 0 50px" : "1"}
                 onConfigurationSelect={handleConfigurationSelect}
               />
 
@@ -225,7 +216,7 @@ export default function HierarchyTesterPage() {
                 isCollapsed={isReactFlowCollapsed}
                 onToggle={handleReactFlowToggle}
                 result={result}
-                flex={reactFlowFlex}
+                flex={isReactFlowCollapsed ? "0 0 50px" : "1"}
                 data={result}
                 width="100%"
                 height="100%"
@@ -236,7 +227,7 @@ export default function HierarchyTesterPage() {
                 isCollapsed={isCytoscapeCollapsed}
                 onToggle={handleCytoscapeToggle}
                 result={result}
-                flex={cytoscapeFlex}
+                flex={isCytoscapeCollapsed ? "0 0 50px" : "1"}
                 data={result}
                 width="100%"
                 height="100%"
@@ -247,7 +238,7 @@ export default function HierarchyTesterPage() {
                 isCollapsed={isD3Collapsed}
                 onToggle={handleD3Toggle}
                 result={result}
-                flex={d3Flex}
+                flex={isD3Collapsed ? "0 0 50px" : "1"}
                 data={result}
                 width="100%"
                 height="100%"
@@ -256,7 +247,7 @@ export default function HierarchyTesterPage() {
               {/* Tabbed Interface (TreeDisplay) */}
               <Box
                 sx={{
-                  flex: tabbedInterfaceFlex,
+                  flex: isTabbedInterfaceCollapsed ? "0 0 50px" : "1",
                   height: "100%",
                   overflow: "auto",
                   position: "relative",
