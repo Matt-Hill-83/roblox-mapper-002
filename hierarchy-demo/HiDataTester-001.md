@@ -194,11 +194,21 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    29. ✅ [GEM] R63: The system shall refactor the layout to move column 6 into a collapsible tab as column 7.
 
    30. ⬛ Revert Roblox Code to Working Version:
-       1. ⬛ Background: The Roblox code exists in this project and uses a system called Roblox-TS, which allows you to write code in TypeScript that gets translated into Luau, a language used by Roblox.
-       2. ⬛ We made some changes to this file that I didn't like, but we committed them and then kept building.
-       3. ⬛ We added an entire Next.js app to the project and committed it.
-       4. ⬛ Now, I want to work on the Roblox part again and revert the Roblox code back to the working state without changing the Next.js code.
-       5. ⬛ I think the two apps are mostly separate.
+
+       1. ⬛ R64: Background: The Roblox code exists in this project and uses a system called Roblox-TS, which allows you to write code in TypeScript that gets translated into Luau, a language used by Roblox.
+       2. ⬛ R65: We made some changes to this file that I didn't like, but we committed them and then kept building.
+       3. ⬛ R66: We added an entire Next.js app to the project and committed it.
+       4. ⬛ R67: Now, I want to work on the Roblox part again and revert the Roblox code back to the working state without changing the Next.js code.
+       5. ⬛ R68: I think the two apps are mostly separate.
+
+   31. ⬛ clean up page.jsx
+       1. ⬛ Consolidate Collapse State Management: The multiple `useState` hooks and `handleToggle` functions for panel collapse (`isTableCollapsed`, `isReactFlowCollapsed`, etc.) could be consolidated into a single state object or a custom hook for better organization and less repetition.
+       2. ⬛ Extract API Logic: The `useEffect` and `handleConfigSubmit` functions contain direct API calls. This logic could be extracted into a separate service or hook (`useHierarchyData`) to improve separation of concerns and reusability.
+       3. ⬛ Centralize Default Config: The `config` default values are hardcoded. These could be moved to a separate constant or configuration file for easier management and to avoid magic numbers/strings.
+       4. ⬛ Simplify `getFlexValue`: While functional, `getFlexValue` is a very small helper. Consider if its direct inline usage or a more generic utility for dynamic styles would be clearer.
+       5. ⬛ Refine JSX Structure: The nested `Box` and `Grid` components, especially with inline `sx` props, can become deeply nested and hard to read. Consider breaking down complex sections into smaller, dedicated components.
+       6. ⬛ Consistent Styling: Some styles are applied via `sx` prop, others via `style` prop (`boxStyles`). Standardize on one approach, preferably `sx` for Material-UI components, and consider moving complex styles to a theme or `styled` components.
+       7. ⬛ Remove Commented-Out Code: Lines like `// width: '100%',` and `// border: "10px solid red",` should be removed.
 
 ## Task List
 
@@ -290,3 +300,10 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
        80.5. ✅ [GEM] T80.5: Add a corresponding `TabPanel` for 'Visual Map' in `_webapp/src/components/TreeDisplay.tsx`.
        80.6. ✅ [GEM] T80.6: Ensure `tabValue` state and `TabPanel` indices are correctly aligned in `_webapp/src/components/TreeDisplay.tsx`.
        80.7. ✅ [GEM] T80.7: Wrap the entire tabbed interface in `_webapp/src/components/TreeDisplay.tsx` with the `GraphContainer` component.
+   81. ⬛ T81: Consolidate Collapse State Management: The multiple `useState` hooks and `handleToggle` functions for panel collapse (`isTableCollapsed`, `isReactFlowCollapsed`, etc.) could be consolidated into a single state object or a custom hook for better organization and less repetition.
+   82. ⬛ T82: Extract API Logic: The `useEffect` and `handleConfigSubmit` functions contain direct API calls. This logic could be extracted into a separate service or hook (`useHierarchyData`) to improve separation of concerns and reusability.
+   83. ⬛ T83: Centralize Default Config: The `config` default values are hardcoded. These could be moved to a separate constant or configuration file for easier management and to avoid magic numbers/strings.
+   84. ⬛ T84: Simplify `getFlexValue`: While functional, `getFlexValue` is a very small helper. Consider if its direct inline usage or a more generic utility for dynamic styles would be clearer.
+   85. ⬛ T85: Refine JSX Structure: The nested `Box` and `Grid` components, especially with inline `sx` props, can become deeply nested and hard to read. Consider breaking down complex sections into smaller, dedicated components.
+   86. ✅ T86: Consistent Styling: Some styles are applied via `sx` prop, others via `style` prop (`boxStyles`). Standardize on one approach, preferably `sx` for Material-UI components, and consider moving complex styles to a theme or `styled` components.
+   87. ⬛ T87: Remove Commented-Out Code: Lines like `// width: '100%',` and `// border: "10px solid red",` should be removed.

@@ -168,14 +168,6 @@ export default function HierarchyTesterPage() {
     }
   };
 
-  const boxStyles = {
-    // width: '100%',
-    // minHeight: '100vh',
-    margin: 0,
-    // border: "10px solid red",
-    padding: 0,
-  };
-
   return (
     <Box
       sx={{
@@ -195,8 +187,7 @@ export default function HierarchyTesterPage() {
         <Grid
           container
           spacing={3}
-          // sx={{ width: "100%", margin: 0 }}
-          style={boxStyles}
+          sx={{ margin: 0, padding: 0 }}
         >
           {/* Column 2: Collapsible Panels */}
           <Grid item xs={12} lg={9}>
