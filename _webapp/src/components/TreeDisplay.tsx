@@ -325,7 +325,11 @@ function GraphContainer({ title, children, result }: GraphContainerProps) {
       </IconButton>
       {!isCollapsed && (
         <>
-          <Typography variant="h6" gutterBottom sx={{ textTransform: "capitalize", ml: 5 }}>
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{ textTransform: "capitalize", ml: 5 }}
+          >
             {title}
           </Typography>
           <Box sx={{ flex: 1, minHeight: 0, width: "100%", height: "100%" }}>
@@ -336,5 +340,3 @@ function GraphContainer({ title, children, result }: GraphContainerProps) {
     </Paper>
   );
 }
-
-

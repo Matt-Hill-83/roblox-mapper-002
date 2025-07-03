@@ -1,15 +1,6 @@
-'use client';
+"use client";
 
-import { useState } from "react";
-import {
-  Box,
-  Typography,
-  Paper,
-  Alert,
-  IconButton,
-} from "@mui/material";
-import { Minimize, Maximize } from "@mui/icons-material";
-import { HierarchyResult } from "../app/(pages)/hierarchy-tester/page";
+import { Box, Typography, Paper, Alert } from "@mui/material";
 
 interface VisualMapProps {
   positioned: unknown[];
