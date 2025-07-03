@@ -209,5 +209,25 @@ export const presetConfigurations: PresetConfiguration[] = [
     clusteringCoeff: 35,
     hubNodes: 2,
     networkDensity: "medium"
+  },
+  {
+    id: 11,
+    uuid: "matt-001-simple",
+    name: "matt-001-simple",
+    description: "A simple configuration for testing",
+    is_system: true,
+    numberOfNodes: 10,
+    numberOfConnectedChains: 1,
+    depthOfLongestChain: 2,
+    totalNodes: 10,
+    maxDepth: 2,
+    branchingMin: 2,
+    branchingMax: 2,
+    crossTreeConnections: 0,
+    entityTypes: 2,
+    connectorTypes: 1,
+    clusteringCoeff: 0,
+    hubNodes: 0,
+    networkDensity: "sparse"
   }
 ];

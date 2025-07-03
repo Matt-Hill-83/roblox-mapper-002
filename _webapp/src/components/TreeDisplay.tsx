@@ -61,7 +61,7 @@ export default function TreeDisplay({
   isLoading,
   layoutMode = "default",
 }: TreeDisplayProps) {
-  const [tabValue, setTabValue] = useState(0); // Default to Visual Map tab (index 0)
+  const [tabValue, setTabValue] = useState(0); // Default to Entity Table tab (index 0)
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);

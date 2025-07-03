@@ -286,8 +286,6 @@ export default function HierarchyTesterPage() {
                   result={result}
                   isLoading={isLoading}
                   layoutMode="three-column"
-                  selectedGraph={selectedGraph}
-                  onGraphSelect={handleGraphSelect}
                 />
               )}
             </Box>
