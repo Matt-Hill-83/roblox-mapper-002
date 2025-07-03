@@ -323,7 +323,16 @@ export default function HierarchyTesterPage() {
             </Box>
           </Grid>
 
-          
+          {/* Column 3: Tabbed Data Views */}
+          <Grid item xs={12} lg={3}>
+            <Paper elevation={1} sx={{ p: 2, height: "100%" }}>
+              <TreeDisplay
+                result={result}
+                isLoading={isLoading}
+                layoutMode="default"
+              />
+            </Paper>
+          </Grid>
         </Grid>
       </Box>
     </Box>
