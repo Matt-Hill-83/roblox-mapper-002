@@ -166,11 +166,21 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
        2. ✅ Connectors shall be solid lines, not dashed.
 
    24. ⬛ R58: The system shall implement horizontal type-based node positioning:
+
        1. ⬛ [GPT] Nodes shall be positioned horizontally based on their entity type
        2. ⬛ [GPT] Each entity type shall occupy a distinct horizontal lane/zone with defined X-coordinate ranges
        3. ⬛ [GPT] Node positioning shall maintain hierarchical relationships within each type zone
        4. ⬛ [GPT] Cross-type connections shall be visually clear despite horizontal separation
        5. ⬛ [GPT] Type zones shall be evenly distributed across the available horizontal space
+
+   25. ⬛ R59: The system shall implement minor node adjustments:
+
+       1. ⬛ Put an index number in each node
+       2. ⬛ Color the background of each node the same color as its border
+       3. ⬛ If the user clicks on a node, show a popup with a delete button that will delete the node
+
+   26. ⬛ R60: The system shall implement table tweaks:
+       1. ⬛ Make the suggested configurations table expand vertically to show all rows
 
 ## Task List
 
@@ -245,3 +255,7 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    68. ⬛ [GPT] T68: Implement horizontal type-based positioning algorithm in ReactFlowAdapter (R58.1, R58.3)
    69. ⬛ [GPT] T69: Ensure cross-type connections remain visually clear and properly routed (R58.4)
    70. ⬛ [GPT] T70: Implement dynamic type zone distribution across available horizontal space (R58.5)
+   71. ✅ [GPT] T71: Put an index number in each node (R59.1)
+   72. ✅ [GPT] T72: Color the background of each node the same color as its border (R59.2)
+   73. ⬛ [GPT] T73: Implement node deletion on click via popup (R59.3)
+   74. ⬛ T74: Make the suggested configurations table expand vertically to show all rows (R60.1)

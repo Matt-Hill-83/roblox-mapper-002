@@ -198,38 +198,40 @@ class ReactFlowAdapter {
     const laneGap = types.length > 0 ? 600 / types.length : 100;
 
     // First pass: create nodes with initial positions
-    const nodes: ReactFlowNode[] = data.entities.map((entity) => ({
-      id: entity.entityId,
-      type: "default",
-      position: {
-        x: (() => {
-          // Use entity's actual X coordinate if available, otherwise use type-based lane
-          if (typeof entity.x === 'number' && entity.x != null && !isNaN(entity.x)) {
-            return entity.x;
-          }
-          const typeIndex = typeIndexMap.get(entity.type) ?? 0;
-          const calculatedX = typeIndex * laneGap;
-          return isNaN(calculatedX) ? 0 : calculatedX;
-        })(), // Prefer actual coordinates, fallback to type-based lanes
-        y: (typeof entity.y === 'number' && entity.y != null && !isNaN(entity.y)) ? entity.y * -2 : 0, // Invert Y for React Flow
-      },
-      data: {
-        label: (entity.entityId || '').toString().replace("entity_", ""),
-        entityType: entity.type,
-        level: entity.level,
-        parentIds: entity.parentId ? [entity.parentId] : [],
-      },
-      style: {
-        backgroundColor: getEntityTypeColor(entity.type, entityColors),
-        color: "#ffffff",
-        border: `2px solid ${this.getBorderColor(entity.groupId)}`,
-        borderRadius: entity.type === "Parent" ? "50%" : "8px",
-        width: 60,
-        height: 60,
-        fontSize: "12px",
-        fontWeight: "bold",
-      },
-    }));
+    const nodes: ReactFlowNode[] = data.entities.map((entity, index) => {
+      const borderColor = this.getBorderColor(entity.groupId);
+      return {
+        id: entity.entityId,
+        type: "default",
+        position: {
+          x: (() => {
+            // Use entity's actual X coordinate if available, otherwise use type-based lane
+            if (typeof entity.x === 'number' && entity.x != null && !isNaN(entity.x)) {
+              return entity.x;
+            }
+            const typeIndex = typeIndexMap.get(entity.type) ?? 0;
+            const calculatedX = typeIndex * laneGap;
+            return isNaN(calculatedX) ? 0 : calculatedX;
+          })(), // Prefer actual coordinates, fallback to type-based lanes
+          y: (typeof entity.y === 'number' && entity.y != null && !isNaN(entity.y)) ? entity.y * -2 : 0, // Invert Y for React Flow
+        },
+        data: {
+          label: `${index + 1}`,
+          entityType: entity.type,
+          level: entity.level,
+          parentIds: entity.parentId ? [entity.parentId] : [],
+        },
+        style: {
+          backgroundColor: borderColor,
+          color: "#ffffff",
+          border: `2px solid ${borderColor}`,
+          borderRadius: entity.type === "Parent" ? "50%" : "8px",
+          width: 60,
+          height: 60,
+          fontSize: "24px",
+          fontWeight: "bold",
+        },
+      }});
 
     // 🔹 New step: reorder nodes horizontally to minimise crossings
     const decrossedNodes = this.minimiseCrossings(nodes);
