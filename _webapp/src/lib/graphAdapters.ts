@@ -270,14 +270,25 @@ export class CytoscapeAdapter {
     }));
 
     // Create edges
-    const edgeElements: CytoscapeElement[] = data.connections.map((conn, index) => ({
-      data: {
-        id: `edge-${index}`,
-        source: conn.fromId,
-        target: conn.toId
-      },
-      classes: 'hierarchy-edge'
-    }));
+    const edgeElements: CytoscapeElement[] = data.connections.map((conn, index) => {
+      // Map connection type to style index
+      const typeIndex = this.getConnectorTypeIndex(conn.type);
+      const connectorStyle = getConnectorTypeStyle(typeIndex, connectorStyles);
+      
+      return {
+        data: {
+          id: `edge-${index}`,
+          source: conn.fromId,
+          target: conn.toId,
+          connectorType: conn.type,
+          color: connectorStyle.color,
+          width: connectorStyle.strokeWidth,
+          dashPattern: connectorStyle.strokeDasharray,
+          opacity: connectorStyle.opacity
+        },
+        classes: `hierarchy-edge connector-${typeIndex}`
+      };
+    });
 
     const elements = [...nodeElements, ...edgeElements];
 
@@ -355,6 +366,17 @@ export class CytoscapeAdapter {
     };
 
     return { elements, style, layout };
+  }
+
+  private static getConnectorTypeIndex(type: string): number {
+    // Simple hash function to map connector type names to indices
+    let hash = 0;
+    for (let i = 0; i < type.length; i++) {
+      const char = type.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+    return Math.abs(hash) % 8; // Limit to reasonable range for connectors
   }
 }
 
@@ -455,8 +477,22 @@ export class D3Adapter {
     return node.entityType === 'Parent' ? (node.level === 0 ? 20 : 15) : 12;
   }
 
-  static getLinkColor(link: D3Link): string {
-    return '#666';
+  static getLinkColor(link: D3Link, connectorStyles: ConnectorStyle[]): string {
+    // Map connection type to style index
+    const typeIndex = this.getConnectorTypeIndex(link.type);
+    const connectorStyle = getConnectorTypeStyle(typeIndex, connectorStyles);
+    return connectorStyle.color;
+  }
+
+  private static getConnectorTypeIndex(type: string): number {
+    // Simple hash function to map connector type names to indices
+    let hash = 0;
+    for (let i = 0; i < type.length; i++) {
+      const char = type.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+    return Math.abs(hash) % 8; // Limit to reasonable range for connectors
   }
 }
 

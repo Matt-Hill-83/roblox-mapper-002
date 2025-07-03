@@ -142,10 +142,8 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
           2. ✅ Assign unique color to each entity type
           3. ✅ Apply entity-specific colors to graph nodes
        2. ⬛ Connector type configuration:
-          1. ⬛ Add input field for number of connector types
-          2. ⬛ Apply distinct visual styles per connector type
-          3. ⬛ Update graph edges to reflect connector types
-          4. ⬛ Update connector lines to have a different color for each connector type
+          1. ⬛ [C] Add input field for number of connector types
+          2. ⬛ [C] Update connector lines to have a different color for each connector type
        3. ✅ Graph enhancements:
           1. ✅ Update graph metrics to display connector types
           2. ✅ Update graph metrics to use compact styling
@@ -211,3 +209,5 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    56. ✅ T56: Add input field for number of connector types (R54.2.1)
    57. ✅ T57: Apply distinct visual styles per connector type (R54.2.2)
    58. ✅ T58: Update graph edges to reflect connector types (R54.2.3)
+   59. ✅ [C] T59: Add input field for number of connector types (R54.2.1)
+   60. ⬛ [C] T60: Update connector lines to have a different color for each connector type (R54.2.4)

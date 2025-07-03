@@ -297,7 +297,7 @@ export default function TestDataConfigComponent({
         </Accordion>
 
         {/* Advanced Features */}
-        <Accordion>
+        <Accordion defaultExpanded>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography variant="subtitle2">Advanced Features</Typography>
           </AccordionSummary>

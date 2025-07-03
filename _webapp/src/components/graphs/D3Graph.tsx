@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Box, Typography, Chip } from '@mui/material';
 import * as d3 from 'd3';
 import { GraphDataFactory, D3Data, D3Adapter } from '../../lib/graphAdapters';
-import { generateEntityTypeColors } from '../../utils/colorUtils';
+import { generateEntityTypeColors, generateConnectorTypeStyles } from '../../utils/colorUtils';
 
 interface D3GraphProps {
   data: unknown;
@@ -44,6 +44,7 @@ export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProp
       
       // Generate colors for use in rendering
       const entityColors = config ? generateEntityTypeColors(config.entityTypes) : generateEntityTypeColors(4);
+      const connectorStyles = config ? generateConnectorTypeStyles(config.connectorTypes) : generateConnectorTypeStyles(3);
 
       if (graphData.nodes.length === 0) return;
 
@@ -101,7 +102,7 @@ export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProp
         .data(graphData.links)
         .enter().append('line')
         .attr('class', 'link')
-        .attr('stroke', (d: any) => D3Adapter.getLinkColor(d))
+        .attr('stroke', (d: any) => D3Adapter.getLinkColor(d, connectorStyles))
         .attr('stroke-width', 2)
         .attr('marker-end', 'url(#arrowhead)')
         .attr('opacity', 0.6);
