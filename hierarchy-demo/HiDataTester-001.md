@@ -179,8 +179,8 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
        2. ✅ Color the background of each node the same color as its border
        3. ✅ If the user clicks on a node, show a popup with a delete button that will delete the node
 
-   26. ⬛ R60: The system shall implement table tweaks:
-       1. ⬛ Make the suggested configurations table expand vertically to show all rows
+   26. ✅ R60: The system shall implement table tweaks:
+       1. ✅ Make the suggested configurations table expand vertically to show all rows
 
 ## Task List
 
@@ -258,5 +258,5 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    71. ✅ [GPT] T71: Put an index number in each node (R59.1)
    72. ✅ [GPT] T72: Color the background of each node the same color as its border (R59.2)
    73. ✅ [GPT] T73: Implement node deletion on click via popup (R59.3)
-   74. ⬛ [GEM] T74: Make the suggested configurations table expand vertically to show all rows (R60.1)
+   74. ✅ [GEM] T74: Make the suggested configurations table expand vertically to show all rows (R60.1)
    75. ✅ [GEM] T75: When a node is deleted, delete its connectors also (R59.3)

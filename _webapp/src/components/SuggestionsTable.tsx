@@ -215,7 +215,7 @@ export default function SuggestionsTable({ onConfigurationSelect }: SuggestionsT
           ⭐ Click star to favorite • # Click number to load configuration
         </Typography>
       </Box>
-      <Box sx={{ height: 440, width: '100%' }}>
+      <Box sx={{ width: '100%' }}>
         <DataGrid
           rows={configurations}
           columns={columns}
@@ -232,6 +232,7 @@ export default function SuggestionsTable({ onConfigurationSelect }: SuggestionsT
           }}
           pageSizeOptions={[10]}
           disableRowSelectionOnClick
+          autoHeight
           sx={{
             border: 0,
             '& .MuiDataGrid-cell:focus': {
