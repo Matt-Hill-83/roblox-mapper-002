@@ -16,9 +16,16 @@ interface TestDataConfig {
   branchingMax: number;
   crossTreeConnections: number; // percentage 0-100
   entityTypes: number;
+  connectorTypes: number;
   clusteringCoeff: number; // percentage 0-100
   hubNodes: number;
   networkDensity: 'sparse' | 'medium' | 'dense';
+}
+
+interface Connection {
+  fromId: string;
+  toId: string;
+  type: string; // Connector type like "uses", "owns", "maintains"
 }
 
 interface SimpleEntity {
@@ -26,7 +33,7 @@ interface SimpleEntity {
   type: string; // Now supports multiple entity types
   parentId?: string;
   children: string[];
-  connections: string[]; // Cross-tree connections
+  connections: string[]; // Cross-tree connections (just IDs for backward compatibility)
   weight: number; // For weighted relationships
   isHub: boolean; // Hub node indicator
 }
@@ -54,12 +61,14 @@ interface EntityPosition {
 }
 
 // Advanced data generator with complex network properties
-function generateConfigurableData(config: TestDataConfig): SimpleEntity[] {
+function generateConfigurableData(config: TestDataConfig): { entities: SimpleEntity[], connections: Connection[] } {
   const entities: SimpleEntity[] = [];
+  const connections: Connection[] = [];
   let entityCounter = 0;
   
-  // Generate entity type names
+  // Generate entity type names and connector type names
   const entityTypeNames = generateEntityTypeNames(config.entityTypes);
+  const connectorTypeNames = generateConnectorTypeNames(config.connectorTypes || 3);
   
   const createEntity = (type: string, parentId?: string, isHub = false): SimpleEntity => {
     entityCounter++;
@@ -124,6 +133,13 @@ function generateConfigurableData(config: TestDataConfig): SimpleEntity[] {
           allNodes.push(child);
           nextLevel.push(child);
           remainingChainNodes--;
+          
+          // Add parent-child connection with type "parentChild"
+          connections.push({
+            fromId: parent.id,
+            toId: child.id,
+            type: 'parentChild'
+          });
         }
       }
       
@@ -139,15 +155,15 @@ function generateConfigurableData(config: TestDataConfig): SimpleEntity[] {
   });
 
   // Add cross-tree connections
-  addCrossTreeConnections(allNodes, config.crossTreeConnections);
+  addCrossTreeConnections(allNodes, connections, connectorTypeNames, config.crossTreeConnections);
   
   // Apply clustering coefficient
-  applyClustering(allNodes, config.clusteringCoeff);
+  applyClustering(allNodes, connections, connectorTypeNames, config.clusteringCoeff);
   
   // Apply network density adjustments
-  applyNetworkDensity(allNodes, config.networkDensity);
+  applyNetworkDensity(allNodes, connections, connectorTypeNames, config.networkDensity);
   
-  return allNodes;
+  return { entities: allNodes, connections };
 }
 
 function generateEntityTypeNames(count: number): string[] {
@@ -156,6 +172,14 @@ function generateEntityTypeNames(count: number): string[] {
     'Repository', 'Entity', 'Utility', 'Factory', 'Manager'
   ];
   return baseTypes.slice(0, Math.min(count, baseTypes.length));
+}
+
+function generateConnectorTypeNames(count: number): string[] {
+  const baseConnectorTypes = [
+    'uses', 'owns', 'maintains', 'implements', 'extends', 
+    'depends_on', 'configures', 'monitors', 'delegates_to', 'inherits_from'
+  ];
+  return baseConnectorTypes.slice(0, Math.min(count, baseConnectorTypes.length));
 }
 
 function selectRandomIndices(totalCount: number, selectCount: number): number[] {
@@ -172,7 +196,12 @@ function selectRandomIndices(totalCount: number, selectCount: number): number[] 
   return indices;
 }
 
-function addCrossTreeConnections(entities: SimpleEntity[], percentage: number) {
+function addCrossTreeConnections(
+  entities: SimpleEntity[], 
+  connections: Connection[], 
+  connectorTypeNames: string[], 
+  percentage: number
+) {
   const connectionCount = Math.floor((entities.length * percentage) / 100);
   
   for (let i = 0; i < connectionCount; i++) {
@@ -187,13 +216,28 @@ function addCrossTreeConnections(entities: SimpleEntity[], percentage: number) {
       if (!isInSameTree(source, target, entities)) {
         if (!source.connections.includes(target.id)) {
           source.connections.push(target.id);
+          
+          // Add typed connection
+          const connectorType = connectorTypeNames[
+            Math.floor(Math.random() * connectorTypeNames.length)
+          ];
+          connections.push({
+            fromId: source.id,
+            toId: target.id,
+            type: connectorType
+          });
         }
       }
     }
   }
 }
 
-function applyClustering(entities: SimpleEntity[], coefficient: number) {
+function applyClustering(
+  entities: SimpleEntity[], 
+  connections: Connection[], 
+  connectorTypeNames: string[], 
+  coefficient: number
+) {
   // Simple clustering: increase connections between nodes that share connections
   const targetConnections = Math.floor((entities.length * coefficient) / 100);
   let addedConnections = 0;
@@ -208,6 +252,17 @@ function applyClustering(entities: SimpleEntity[], coefficient: number) {
         for (const secondaryId of connectedEntity.connections) {
           if (secondaryId !== entity.id && !entity.connections.includes(secondaryId)) {
             entity.connections.push(secondaryId);
+            
+            // Add typed connection
+            const connectorType = connectorTypeNames[
+              Math.floor(Math.random() * connectorTypeNames.length)
+            ];
+            connections.push({
+              fromId: entity.id,
+              toId: secondaryId,
+              type: connectorType
+            });
+            
             addedConnections++;
             if (addedConnections >= targetConnections) break;
           }
@@ -218,7 +273,12 @@ function applyClustering(entities: SimpleEntity[], coefficient: number) {
   }
 }
 
-function applyNetworkDensity(entities: SimpleEntity[], density: 'sparse' | 'medium' | 'dense') {
+function applyNetworkDensity(
+  entities: SimpleEntity[], 
+  connections: Connection[], 
+  connectorTypeNames: string[], 
+  density: 'sparse' | 'medium' | 'dense'
+) {
   const densityMultipliers = { sparse: 0.5, medium: 1.0, dense: 2.0 };
   const multiplier = densityMultipliers[density];
   
@@ -234,6 +294,16 @@ function applyNetworkDensity(entities: SimpleEntity[], density: 'sparse' | 'medi
       
       if (!source.connections.includes(target.id)) {
         source.connections.push(target.id);
+        
+        // Add typed connection
+        const connectorType = connectorTypeNames[
+          Math.floor(Math.random() * connectorTypeNames.length)
+        ];
+        connections.push({
+          fromId: source.id,
+          toId: target.id,
+          type: connectorType
+        });
       }
     }
   }
@@ -453,14 +523,15 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Generate hierarchy data
-    const entities = generateConfigurableData(config);
+    // Generate hierarchy data with typed connections
+    const { entities, connections } = generateConfigurableData(config);
     const groups = findConnectedGroups(entities);
     const positioned = position2D(groups);
     const asciiMap = createSimpleASCII(positioned);
     
     return NextResponse.json({
       entities,
+      connections,
       groups,
       positioned,
       asciiMap,

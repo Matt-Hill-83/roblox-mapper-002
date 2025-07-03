@@ -148,6 +148,9 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
           1. ✅ Update graph metrics to display connector types
           2. ✅ Update graph metrics to use compact styling
 
+   21. ⬛ R55: The system shall restructure the UI:
+       1. ⬛ [G] In column 2, change the table and graph from a vertical to a horizontal layout, where each component occupies 50% of the available width and fills the container's height.
+
 ## Task List
 
 1. ⬛ Implementation Tasks
@@ -210,4 +213,4 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    57. ✅ T57: Apply distinct visual styles per connector type (R54.2.2)
    58. ✅ T58: Update graph edges to reflect connector types (R54.2.3)
    59. ✅ [C] T59: Add input field for number of connector types (R54.2.1)
-   60. ⬛ [C] T60: Update connector lines to have a different color for each connector type (R54.2.4)
+   60. ✅ [C] T60: Update connector lines to have a different color for each connector type (R54.2.4)

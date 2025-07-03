@@ -332,11 +332,63 @@ export class CytoscapeAdapter {
       {
         selector: '.hierarchy-edge',
         style: {
-          'width': 2,
-          'line-color': '#666',
-          'target-arrow-color': '#666',
+          'width': 'data(width)',
+          'line-color': 'data(color)',
+          'target-arrow-color': 'data(color)',
           'target-arrow-shape': 'triangle',
-          'curve-style': 'bezier'
+          'curve-style': 'bezier',
+          'opacity': 'data(opacity)'
+        }
+      },
+      // Connector type specific styles
+      {
+        selector: '.connector-0',
+        style: {
+          'line-style': 'solid'
+        }
+      },
+      {
+        selector: '.connector-1',
+        style: {
+          'line-style': 'dashed'
+        }
+      },
+      {
+        selector: '.connector-2',
+        style: {
+          'line-style': 'dotted'
+        }
+      },
+      {
+        selector: '.connector-3',
+        style: {
+          'line-style': 'solid',
+          'width': 3
+        }
+      },
+      {
+        selector: '.connector-4',
+        style: {
+          'line-style': 'dashed',
+          'line-dash-pattern': [12, 6]
+        }
+      },
+      {
+        selector: '.connector-5',
+        style: {
+          'line-style': 'solid'
+        }
+      },
+      {
+        selector: '.connector-6',
+        style: {
+          'line-style': 'dashed'
+        }
+      },
+      {
+        selector: '.connector-7',
+        style: {
+          'line-style': 'dotted'
         }
       },
       {
@@ -504,6 +556,7 @@ export class HierarchyDataExtractor {
   static extractFromApiResponse(apiResponse: unknown): HierarchyData {
     const response = apiResponse as {
       positioned: HierarchyEntity[];
+      connections?: Array<{ fromId: string; toId: string; type: string }>;
       groups: Array<{ entities: Array<{ id: string; parentId?: string }> }>;
     };
 
@@ -513,17 +566,28 @@ export class HierarchyDataExtractor {
 
     const entities = response.positioned;
     
-    // Extract connections from parent-child relationships
-    const connections: HierarchyConnection[] = [];
-    entities.forEach(entity => {
-      if (entity.parentId) {
-        connections.push({
-          fromId: entity.parentId,
-          toId: entity.entityId,
-          type: 'parent-child'
-        });
-      }
-    });
+    // Use API-provided connections if available, otherwise extract from parent-child relationships
+    let connections: HierarchyConnection[] = [];
+    
+    if (response.connections && Array.isArray(response.connections)) {
+      // Use the typed connections from the API
+      connections = response.connections.map(conn => ({
+        fromId: conn.fromId,
+        toId: conn.toId,
+        type: conn.type
+      }));
+    } else {
+      // Fallback: extract connections from parent-child relationships
+      entities.forEach(entity => {
+        if (entity.parentId) {
+          connections.push({
+            fromId: entity.parentId,
+            toId: entity.entityId,
+            type: 'parent-child'
+          });
+        }
+      });
+    }
 
     return { entities, connections };
   }
