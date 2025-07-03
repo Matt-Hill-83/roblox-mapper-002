@@ -1,7 +1,7 @@
 'use client';
 
-import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
-import { Box, Paper, Typography, IconButton, Divider } from '@mui/material';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { Box, Paper, Typography, IconButton } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { presetConfigurations, PresetConfiguration } from '../data/presetConfigurations';
@@ -32,7 +32,7 @@ export default function SuggestionsTable({ onConfigurationSelect }: SuggestionsT
       
       if (result.success) {
         // Parse database configs
-        const dbConfigs = result.data.map((config: any) => ({
+        const dbConfigs: ExtendedPresetConfiguration[] = result.data.map((config: any) => ({
           id: parseInt(config.uuid.split('-').pop() || '0'),
           uuid: config.uuid,
           name: config.name,
@@ -43,7 +43,7 @@ export default function SuggestionsTable({ onConfigurationSelect }: SuggestionsT
         }));
         
         // Merge with preset configurations
-        const presetUuids = new Set(dbConfigs.map((c: any) => c.uuid));
+        const presetUuids = new Set(dbConfigs.map((c) => c.uuid));
         const presetsToAdd = presetConfigurations.filter(p => !presetUuids.has(p.uuid));
         
         // Add missing presets to database
@@ -68,7 +68,7 @@ export default function SuggestionsTable({ onConfigurationSelect }: SuggestionsT
         const updatedResult = await updatedResponse.json();
         
         if (updatedResult.success) {
-          const allConfigs = updatedResult.data.map((config: any) => ({
+          const allConfigs: ExtendedPresetConfiguration[] = updatedResult.data.map((config: any) => ({
             id: parseInt(config.uuid.split('-').pop() || '0'),
             uuid: config.uuid,
             name: config.name,
@@ -199,7 +199,8 @@ export default function SuggestionsTable({ onConfigurationSelect }: SuggestionsT
       entityTypes: config.entityTypes,
       clusteringCoeff: config.clusteringCoeff,
       hubNodes: config.hubNodes,
-      networkDensity: config.networkDensity
+      networkDensity: config.networkDensity,
+      connectorTypes: config.connectorTypes
     };
     
     onConfigurationSelect(testConfig);
@@ -223,16 +224,14 @@ export default function SuggestionsTable({ onConfigurationSelect }: SuggestionsT
           loading={loading}
           getRowId={(row) => row.uuid}
           initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 10 }
-            },
             sorting: {
               sortModel: [{ field: 'is_favorite', sort: 'desc' }]
             }
           }}
-          pageSizeOptions={[10]}
           disableRowSelectionOnClick
           autoHeight
+          hideFooterPagination
+          hideFooter
           sx={{
             border: 0,
             '& .MuiDataGrid-cell:focus': {

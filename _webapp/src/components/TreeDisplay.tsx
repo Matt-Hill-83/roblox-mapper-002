@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import {
   Box,
   Typography,
@@ -20,7 +20,9 @@ import {
   Card,
   CardContent,
   Grid,
+  IconButton,
 } from "@mui/material";
+import { Minimize, Maximize } from "@mui/icons-material";
 import { HierarchyResult } from "../app/(pages)/hierarchy-tester/page";
 import ReactFlowGraph from "./graphs/ReactFlowGraph";
 import CytoscapeGraph from "./graphs/CytoscapeGraph";
@@ -30,8 +32,6 @@ interface TreeDisplayProps {
   result: HierarchyResult | null;
   isLoading?: boolean;
   layoutMode?: "default" | "three-column" | "sidebar-graphs";
-  selectedGraph?: "reactflow" | "cytoscape" | "d3";
-  onGraphSelect?: (graph: "reactflow" | "cytoscape" | "d3") => void;
 }
 
 interface TabPanelProps {
@@ -60,19 +60,11 @@ export default function TreeDisplay({
   result,
   isLoading,
   layoutMode = "default",
-  selectedGraph = "reactflow",
-  onGraphSelect,
 }: TreeDisplayProps) {
-  const [tabValue, setTabValue] = useState(4); // Default to Graphs tab (index 4)
+  const [tabValue, setTabValue] = useState(0); // Default to Visual Map tab (index 0)
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
-  };
-
-  const handleGraphSwitch = (graph: "reactflow" | "cytoscape" | "d3") => {
-    if (onGraphSelect) {
-      onGraphSelect(graph);
-    }
   };
 
   if (isLoading) {
@@ -124,47 +116,16 @@ export default function TreeDisplay({
   // Three-column layout mode - main content area
   if (layoutMode === "three-column") {
     return (
-      <Box sx={{ height: "100%" }}>
-        {/* Large Graph */}
-        <Paper
-          variant="outlined"
-          sx={{
-            p: 2,
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <LargeGraphDisplay result={result} selectedGraph={selectedGraph} />
-        </Paper>
-      </Box>
-    );
-  }
-
-  // Sidebar graphs mode - small graphs stacked
-  if (layoutMode === "sidebar-graphs") {
-    return (
-      <Box>
-        <Stack spacing={2}>
-          <SmallGraphCard
-            result={result}
-            graphType="reactflow"
-            isActive={selectedGraph === "reactflow"}
-            onClick={() => handleGraphSwitch("reactflow")}
-          />
-          <SmallGraphCard
-            result={result}
-            graphType="cytoscape"
-            isActive={selectedGraph === "cytoscape"}
-            onClick={() => handleGraphSwitch("cytoscape")}
-          />
-          <SmallGraphCard
-            result={result}
-            graphType="d3"
-            isActive={selectedGraph === "d3"}
-            onClick={() => handleGraphSwitch("d3")}
-          />
-        </Stack>
+      <Box sx={{ height: "100%", display: "flex", gap: 2 }}>
+        <GraphContainer title="React Flow" result={result}>
+          <ReactFlowGraph data={result} width="100%" height="100%" />
+        </GraphContainer>
+        <GraphContainer title="Cytoscape.js" result={result}>
+          <CytoscapeGraph data={result} width="100%" height="100%" />
+        </GraphContainer>
+        <GraphContainer title="D3.js" result={result}>
+          <D3Graph data={result} width="100%" height="100%" />
+        </GraphContainer>
       </Box>
     );
   }
@@ -179,7 +140,6 @@ export default function TreeDisplay({
           <Tab label="Entity Table" />
           <Tab label="Group Details" />
           <Tab label="ASCII Output" />
-          <Tab label="Graphs" />
         </Tabs>
       </Box>
 
@@ -198,11 +158,69 @@ export default function TreeDisplay({
       <TabPanel value={tabValue} index={3}>
         <ASCIIOutput asciiMap={result.asciiMap} />
       </TabPanel>
-
-      <TabPanel value={tabValue} index={4}>
-        <GraphsPanel result={result} />
-      </TabPanel>
     </Box>
+  );
+}
+
+interface GraphContainerProps {
+  title: string;
+  children: ReactNode;
+  result: HierarchyResult | null;
+}
+
+function GraphContainer({ title, children, result }: GraphContainerProps) {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const handleToggle = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
+  if (!result) {
+    return (
+      <Alert severity="info">No data available for graph visualization</Alert>
+    );
+  }
+
+  return (
+    <Paper
+      variant="outlined"
+      sx={{
+        p: 2,
+        height: "100%",
+        width: isCollapsed ? "50px" : "100%",
+        display: "flex",
+        flexDirection: "column",
+        transition: "width 0.3s ease-in-out",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <IconButton
+        onClick={handleToggle}
+        sx={{
+          position: "absolute",
+          top: 8,
+          left: 8,
+          zIndex: 1000,
+          backgroundColor: "white",
+          border: "1px solid #ccc",
+          "&:hover": { backgroundColor: "#f5f5f5" },
+        }}
+        size="small"
+      >
+        {isCollapsed ? <Maximize /> : <Minimize />}
+      </IconButton>
+      {!isCollapsed && (
+        <>
+          <Typography variant="h6" gutterBottom sx={{ textTransform: "capitalize", ml: 5 }}>
+            {title}
+          </Typography>
+          <Box sx={{ flex: 1, minHeight: 0, width: "100%", height: "100%" }}>
+            {children}
+          </Box>
+        </>
+      )}
+    </Paper>
   );
 }
 
@@ -409,229 +427,4 @@ function ASCIIOutput({ asciiMap }: { asciiMap?: string }) {
   );
 }
 
-function GraphsPanel({ result }: { result: HierarchyResult | null }) {
-  if (!result) {
-    return (
-      <Alert severity="info">No data available for graph visualization</Alert>
-    );
-  }
 
-  // Calculate responsive dimensions
-  const graphWidth = 380;
-  const graphHeight = 280;
-
-  const col2Styles = {
-    // border: "10px solid green",
-    display: "flex",
-    flexDirection: "column",
-    flex: 1,
-  };
-
-  return (
-    <Box>
-      <Grid container spacing={3}>
-        <Grid item xs={12} lg={4}>
-          <Card variant="outlined" sx={col2Styles}>
-            <CardContent sx={{ p: 1 }}>
-              <ReactFlowGraph
-                data={result}
-                width={graphWidth}
-                height={graphHeight}
-              />
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} lg={4}>
-          <Card variant="outlined" sx={col2Styles}>
-            <CardContent sx={{ p: 1 }}>
-              <CytoscapeGraph
-                data={result}
-                width={graphWidth}
-                height={graphHeight}
-              />
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} lg={4}>
-          <Card variant="outlined" sx={col2Styles}>
-            <CardContent sx={{ p: 1 }}>
-              <D3Graph data={result} width={graphWidth} height={graphHeight} />
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-    </Box>
-  );
-}
-
-function LargeGraphDisplay({
-  result,
-  selectedGraph,
-}: {
-  result: HierarchyResult | null;
-  selectedGraph: "reactflow" | "cytoscape" | "d3";
-}) {
-  if (!result) {
-    return (
-      <Alert severity="info">No data available for graph visualization</Alert>
-    );
-  }
-
-  // Large graph dimensions - use responsive values that ensure numeric calculations
-  const graphWidth = "100%";
-  const graphHeight = "100%";
-
-  const renderGraph = () => {
-    switch (selectedGraph) {
-      case "reactflow":
-        return (
-          <ReactFlowGraph
-            data={result}
-            width={graphWidth}
-            height={graphHeight}
-          />
-        );
-      case "cytoscape":
-        return (
-          <CytoscapeGraph
-            data={result}
-            width={graphWidth}
-            height={graphHeight}
-          />
-        );
-      case "d3":
-        return (
-          <D3Graph data={result} width={graphWidth} height={graphHeight} />
-        );
-      default:
-        return (
-          <ReactFlowGraph
-            data={result}
-            width={graphWidth}
-            height={graphHeight}
-          />
-        );
-    }
-  };
-
-  return (
-    <Box
-      sx={{
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        minHeight: 300,
-      }}
-    >
-      <Typography
-        variant="h6"
-        gutterBottom
-        sx={{ textTransform: "capitalize", flexShrink: 0 }}
-      >
-        {selectedGraph === "reactflow"
-          ? "React Flow"
-          : selectedGraph === "cytoscape"
-          ? "Cytoscape.js"
-          : "D3.js"}{" "}
-        Visualization
-      </Typography>
-      <Box
-        sx={{
-          flex: 1,
-          minHeight: 100,
-          width: "100%",
-          height: "100%",
-          position: "relative",
-        }}
-      >
-        {renderGraph()}
-      </Box>
-    </Box>
-  );
-}
-
-function SmallGraphCard({
-  result,
-  graphType,
-  isActive,
-  onClick,
-}: {
-  result: HierarchyResult | null;
-  graphType: "reactflow" | "cytoscape" | "d3";
-  isActive: boolean;
-  onClick: () => void;
-}) {
-  if (!result) {
-    return null;
-  }
-
-  // Small graph dimensions
-  const graphWidth = 200;
-  const graphHeight = 150;
-
-  const renderGraph = () => {
-    switch (graphType) {
-      case "reactflow":
-        return (
-          <ReactFlowGraph
-            data={result}
-            width={graphWidth}
-            height={graphHeight}
-          />
-        );
-      case "cytoscape":
-        return (
-          <CytoscapeGraph
-            data={result}
-            width={graphWidth}
-            height={graphHeight}
-          />
-        );
-      case "d3":
-        return (
-          <D3Graph data={result} width={graphWidth} height={graphHeight} />
-        );
-      default:
-        return null;
-    }
-  };
-
-  const getTitle = () => {
-    switch (graphType) {
-      case "reactflow":
-        return "React Flow";
-      case "cytoscape":
-        return "Cytoscape.js";
-      case "d3":
-        return "D3.js";
-      default:
-        return graphType;
-    }
-  };
-
-  return (
-    <Card
-      variant="outlined"
-      sx={{
-        cursor: "pointer",
-        border: isActive ? "2px solid #1976d2" : "1px solid #e0e0e0",
-        "&:hover": {
-          borderColor: "#1976d2",
-          boxShadow: 2,
-        },
-      }}
-      onClick={onClick}
-    >
-      <CardContent sx={{ p: 1 }}>
-        <Typography variant="subtitle2" gutterBottom align="center">
-          {getTitle()}
-        </Typography>
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          {renderGraph()}
-        </Box>
-      </CardContent>
-    </Card>
-  );
-}

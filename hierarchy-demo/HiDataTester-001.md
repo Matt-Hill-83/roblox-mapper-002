@@ -180,7 +180,16 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
        3. ✅ If the user clicks on a node, show a popup with a delete button that will delete the node
 
    26. ✅ R60: The system shall implement table tweaks:
+
        1. ✅ Make the suggested configurations table expand vertically to show all rows
+
+   27. ✅ [GEM] R61: The system shall add 2 more columns to main layout:
+       1. ✅ [GEM] Currently the react flow chart is in a large pane with a min/max button. Add the cyto and d3 graphs to similar panes, each with a min/max button.
+       2. ✅ [GEM] Remove the mini versions of all 3 graphs.
+
+   28. ⬛ [GEM] R62: The system shall implement suggested configurations table tweaks:
+       1. ⬛ [GEM] Remove the page increment buttons from the bottom of the table.
+       2. ⬛ [GEM] Always show all rows.
 
 ## Task List
 
@@ -260,3 +269,7 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    73. ✅ [GPT] T73: Implement node deletion on click via popup (R59.3)
    74. ✅ [GEM] T74: Make the suggested configurations table expand vertically to show all rows (R60.1)
    75. ✅ [GEM] T75: When a node is deleted, delete its connectors also (R59.3)
+   76. ✅ [GEM] T76: Add the cyto and d3 graphs to similar panes, each with a min/max button (R61.1)
+   77. ✅ [GEM] T77: Remove the mini versions of all 3 graphs (R61.2)
+   78. ⬛ [GEM] T78: Remove the page increment buttons from the bottom of the suggested configurations table (R62.1)
+   79. ⬛ [GEM] T79: Make the suggested configurations table always show all rows (R62.2)

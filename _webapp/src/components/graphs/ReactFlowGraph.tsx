@@ -147,16 +147,6 @@ export default function ReactFlowGraph({ data, width = 400, height = 300 }: Reac
         attributionPosition="bottom-left"
         style={{ width: '100%', height: '100%' }}
       >
-        <Controls 
-          position="top-left"
-          style={{ 
-            button: { 
-              backgroundColor: '#fff',
-              border: '1px solid #ddd',
-              borderRadius: '4px'
-            }
-          }}
-        />
         <MiniMap 
           style={{
             height: 80,
