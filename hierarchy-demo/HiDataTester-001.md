@@ -307,3 +307,5 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    85. ✅ T85: Refine JSX Structure: The nested `Box` and `Grid` components, especially with inline `sx` props, can become deeply nested and hard to read. Consider breaking down complex sections into smaller, dedicated components.
    86. ✅ T86: Consistent Styling: Some styles are applied via `sx` prop, others via `style` prop (`boxStyles`). Standardize on one approach, preferably `sx` for Material-UI components, and consider moving complex styles to a theme or `styled` components.
    87. ✅ T87: Remove Commented-Out Code: Lines like `// width: '100%',` and `// border: "10px solid red",` should be removed.
+   88. ⬛ T88: [VSC] update this file to say "vscode test" at the top.
+   89. ⬛ T89: [VSC] update this file to say "vscode test" at the top.
