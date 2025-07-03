@@ -5,7 +5,7 @@ import { Box, Typography, Chip } from '@mui/material';
 import cytoscape, { Core } from 'cytoscape';
 import dagre from 'cytoscape-dagre';
 import cola from 'cytoscape-cola';
-import { GraphDataFactory, CytoscapeData } from '../../lib/graphAdapters';
+import { GraphAdapters, CytoscapeData } from '../../lib/graphAdapters';
 
 // Register Cytoscape extensions
 if (typeof cytoscape !== 'undefined') {
@@ -49,7 +49,7 @@ export default function CytoscapeGraph({ data, width = 400, height = 300 }: Cyto
         connectorTypes: (data as any).config.connectorTypes || 3
       } : undefined;
       
-      const graphData: CytoscapeData = GraphDataFactory.createCytoscapeData(data, config);
+      const graphData: CytoscapeData = GraphAdapters.createCytoscapeData(data, config);
       
       // Count nodes and edges
       const nodes = graphData.elements.filter(el => !el.data.source);
@@ -170,15 +170,29 @@ export default function CytoscapeGraph({ data, width = 400, height = 300 }: Cyto
     );
   }
 
+  // Ensure numeric dimensions for proper rendering
+  const numericWidth = typeof width === 'string' ? '100%' : Math.max(width || 400, 100);
+  const numericHeight = typeof height === 'string' ? '100%' : Math.max(height || 300, 100);
+
   return (
-    <Box sx={{ width, height, position: 'relative', border: '1px solid #e0e0e0', borderRadius: 1 }}>
+    <Box sx={{ 
+      width: numericWidth, 
+      height: numericHeight, 
+      position: 'relative', 
+      border: '1px solid #e0e0e0', 
+      borderRadius: 1,
+      minWidth: 100,
+      minHeight: 100
+    }}>
       {/* Cytoscape container */}
       <div
         ref={containerRef}
         style={{
           width: '100%',
           height: '100%',
-          backgroundColor: '#ffffff'
+          backgroundColor: '#ffffff',
+          minWidth: '100px',
+          minHeight: '100px'
         }}
       />
       

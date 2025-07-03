@@ -96,7 +96,7 @@ export default function TestDataConfigComponent({
       const value =
         field === "networkDensity"
           ? event.target.value
-          : parseInt(event.target.value) || 0;
+          : parseInt(event.target.value, 10) || 0;
       const newConfig = { ...config, [field]: value };
       setConfig(newConfig);
 
@@ -142,7 +142,7 @@ export default function TestDataConfigComponent({
                 label="Total Nodes"
                 type="number"
                 size="small"
-                value={config.totalNodes}
+                value={config.totalNodes ?? 50}
                 onChange={handleInputChange("totalNodes")}
                 error={!!errors.totalNodes}
                 helperText={errors.totalNodes ? "Must be 1-1000" : ""}
@@ -161,7 +161,7 @@ export default function TestDataConfigComponent({
                 label="Max Depth"
                 type="number"
                 size="small"
-                value={config.maxDepth}
+                value={config.maxDepth ?? 4}
                 onChange={handleInputChange("maxDepth")}
                 error={!!errors.maxDepth}
                 helperText={errors.maxDepth ? "Must be 1-15" : ""}
@@ -192,7 +192,7 @@ export default function TestDataConfigComponent({
                   label="Branching Min"
                   type="number"
                   size="small"
-                  value={config.branchingMin}
+                  value={config.branchingMin ?? 2}
                   onChange={handleInputChange("branchingMin")}
                   error={!!errors.branchingMin}
                   slotProps={{ htmlInput: { min: 1, max: 20 } }}
@@ -210,7 +210,7 @@ export default function TestDataConfigComponent({
                   label="Branching Max"
                   type="number"
                   size="small"
-                  value={config.branchingMax}
+                  value={config.branchingMax ?? 5}
                   onChange={handleInputChange("branchingMax")}
                   error={!!errors.branchingMax}
                   slotProps={{ htmlInput: { min: 1, max: 20 } }}
@@ -234,7 +234,7 @@ export default function TestDataConfigComponent({
                   </Tooltip>
                 </Box>
                 <Slider
-                  value={config.crossTreeConnections}
+                  value={config.crossTreeConnections ?? 15}
                   onChange={handleSliderChange("crossTreeConnections")}
                   min={0}
                   max={100}
@@ -254,7 +254,7 @@ export default function TestDataConfigComponent({
                   </Tooltip>
                 </Box>
                 <Slider
-                  value={config.clusteringCoeff}
+                  value={config.clusteringCoeff ?? 30}
                   onChange={handleSliderChange("clusteringCoeff")}
                   min={0}
                   max={100}
@@ -268,7 +268,7 @@ export default function TestDataConfigComponent({
                 <FormControl size="small" fullWidth>
                   <InputLabel>Network Density</InputLabel>
                   <Select
-                    value={config.networkDensity}
+                    value={config.networkDensity ?? 'medium'}
                     label="Network Density"
                     onChange={(e) =>
                       setConfig({
@@ -308,7 +308,7 @@ export default function TestDataConfigComponent({
                   label="Entity Types"
                   type="number"
                   size="small"
-                  value={config.entityTypes}
+                  value={config.entityTypes ?? 4}
                   onChange={handleInputChange("entityTypes")}
                   error={!!errors.entityTypes}
                   helperText={errors.entityTypes ? "Must be 2-10" : ""}
@@ -327,7 +327,7 @@ export default function TestDataConfigComponent({
                   label="Connector Types"
                   type="number"
                   size="small"
-                  value={config.connectorTypes}
+                  value={config.connectorTypes ?? 3}
                   onChange={handleInputChange("connectorTypes")}
                   error={!!errors.connectorTypes}
                   helperText={errors.connectorTypes ? "Must be 1-8" : ""}
@@ -346,7 +346,7 @@ export default function TestDataConfigComponent({
                   label="Hub Nodes"
                   type="number"
                   size="small"
-                  value={config.hubNodes}
+                  value={config.hubNodes ?? 2}
                   onChange={handleInputChange("hubNodes")}
                   error={!!errors.hubNodes}
                   helperText={errors.hubNodes ? "Must be 0-10" : ""}

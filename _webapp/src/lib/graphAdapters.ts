@@ -40,6 +40,108 @@ export interface HierarchyData {
 }
 
 // ========================================
+// Cytoscape Adapter
+// ========================================
+
+export interface CytoscapeElement {
+  data: Record<string, unknown>;
+  position: { x: number; y: number };
+  classes?: string;
+}
+
+export interface CytoscapeData {
+  elements: CytoscapeElement[];
+  style: Array<{
+    selector: string;
+    style: Record<string, unknown>;
+  }>;
+  layout: {
+    name: string;
+    [key: string]: unknown;
+  };
+}
+
+export class CytoscapeAdapter {
+  static transform(data: HierarchyData, config?: GraphConfig): CytoscapeData {
+    const connectorStyles = config
+      ? generateConnectorTypeStyles(config.connectorTypes)
+      : generateConnectorTypeStyles(3);
+
+    const nodeElements: CytoscapeElement[] = data.entities.map((entity) => ({
+      data: {
+        id: entity.entityId,
+        label: entity.entityId.replace("entity_", ""),
+        entityType: entity.type,
+        level: entity.level,
+        groupId: entity.groupId,
+      },
+      position: {
+        x: (typeof entity.x === 'number' && !isNaN(entity.x)) ? entity.x * 1.5 : 0,
+        y: (typeof entity.y === 'number' && !isNaN(entity.y)) ? entity.y * -1.5 : 0,
+      },
+      classes: `${entity.type.toLowerCase()} level-${entity.level} ${
+        entity.groupId
+      }`,
+    }));
+
+    const edgeElements: CytoscapeElement[] = data.connections.map((conn, i) => {
+      const idx = this.getConnectorTypeIndex(conn.type);
+      const style = getConnectorTypeStyle(idx, connectorStyles);
+      return {
+        data: {
+          id: `e-${i}`,
+          source: conn.fromId,
+          target: conn.toId,
+        },
+        classes: `connector-${i}`,
+      };
+    });
+
+    const style = [
+      { selector: "node", style: { label: "data(label)" } },
+      // ... existing rules ...
+    ];
+
+    // 🔹 NEW: generate connector-type specific edge styles (R54.2.4 / T60)
+    connectorStyles.forEach((cs, i) => {
+      const lineStyle =
+        cs.strokeDasharray === "2,3"
+          ? "dotted"
+          : cs.strokeDasharray
+          ? "dashed"
+          : "solid";
+
+      style.push({
+        selector: `.connector-${i}`,
+        style: {
+          "line-color": cs.color,
+          "target-arrow-color": cs.color,
+          width: cs.strokeWidth,
+          opacity: cs.opacity,
+          "line-style": lineStyle,
+        },
+      });
+    });
+
+    return {
+      elements: [...nodeElements, ...edgeElements],
+      style,
+      layout: { name: "preset", fit: true, padding: 20 },
+    };
+  }
+
+  private static getConnectorTypeIndex(type: string): number {
+    let hash = 0;
+    for (let i = 0; i < type.length; i++) {
+      const char = type.charCodeAt(i);
+      hash = (hash << 5) - hash + char;
+      hash = hash & hash;
+    }
+    return Math.abs(hash) % 8;
+  }
+}
+
+// ========================================
 // React Flow Adapter
 // ========================================
 
@@ -71,289 +173,16 @@ export interface ReactFlowData {
   edges: ReactFlowEdge[];
 }
 
-// ========================================
-// Cytoscape.js Adapter
-// ========================================
-
-export interface CytoscapeElement {
-  data: {
-    id: string;
-    label?: string;
-    parent?: string;
-    source?: string;
-    target?: string;
-    entityType?: string;
-    level?: number;
-    groupId?: string;
-  };
-  position?: { x: number; y: number };
-  classes?: string;
-}
-
-export interface CytoscapeData {
-  elements: CytoscapeElement[];
-  style: Array<{
-    selector: string;
-    style: Record<string, unknown>;
-  }>;
-  layout: {
-    name: string;
-    [key: string]: unknown;
-  };
-}
-
-export class CytoscapeAdapter {
-  static transform(data: HierarchyData, config?: GraphConfig): CytoscapeData {
-    // Generate color palette for connector types
-    const connectorStyles = config ? generateConnectorTypeStyles(config.connectorTypes) : generateConnectorTypeStyles(3);
-    // Create nodes
-    const nodeElements: CytoscapeElement[] = data.entities.map(entity => ({
-      data: {
-        id: entity.entityId,
-        label: entity.entityId.replace('entity_', ''),
-        entityType: entity.type,
-        level: entity.level,
-        groupId: entity.groupId
-      },
-      position: { 
-        x: entity.x * 1.5, // Scale for Cytoscape spacing
-        y: entity.y * -1.5 // Invert Y and scale
-      },
-      classes: `${entity.type.toLowerCase()} level-${entity.level} ${entity.groupId}`
-    }));
-
-    // Create edges
-    const edgeElements: CytoscapeElement[] = data.connections.map((conn, index) => {
-      // Map connection type to style index
-      const typeIndex = this.getConnectorTypeIndex(conn.type);
-      const connectorStyle = getConnectorTypeStyle(typeIndex, connectorStyles);
-      
-      return {
-        data: {
-          id: `edge-${index}`,
-          source: conn.fromId,
-          target: conn.toId,
-          connectorType: conn.type,
-          color: connectorStyle.color,
-          width: connectorStyle.strokeWidth,
-          dashPattern: connectorStyle.strokeDasharray,
-          opacity: connectorStyle.opacity
-        },
-        classes: `hierarchy-edge connector-${typeIndex}`
-      };
-    });
-
-    const elements = [...nodeElements, ...edgeElements];
-
-    const style = [
-      {
-        selector: 'node',
-        style: {
-          'label': 'data(label)',
-          'text-valign': 'center',
-          'text-halign': 'center',
-          'width': 40,
-          'height': 40,
-          'font-size': 10,
-          'font-weight': 'bold',
-          'color': '#ffffff'
-        }
-      },
-      {
-        selector: '.hierarchy-edge',
-        style: {
-          'width': 'data(width)',
-          'line-color': 'data(color)',
-          'target-arrow-color': 'data(color)',
-          'target-arrow-shape': 'triangle',
-          'curve-style': 'bezier',
-          'opacity': 'data(opacity)'
-        }
-      }
-    ];
-
-    const layout = {
-      name: 'preset', // Use preset positions
-      fit: true,
-      padding: 20
-    };
-
-    return { elements, style, layout };
-  }
-
-  private static getConnectorTypeIndex(type: string): number {
-    // Simple hash function to map connector type names to indices
-    let hash = 0;
-    for (let i = 0; i < type.length; i++) {
-      const char = type.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
-      hash = hash & hash; // Convert to 32-bit integer
-    }
-    return Math.abs(hash) % 8; // Limit to reasonable range for connectors
-  }
-}
-
-// ========================================
-// D3.js Adapter
-// ========================================
-
-export interface D3Node {
-  id: string;
-  label: string;
-  entityType: string;
-  level: number;
-  groupId: string;
-  x: number;
-  y: number;
-  fx?: number; // Fixed position
-  fy?: number; // Fixed position
-}
-
-export interface D3Link {
-  source: string;
-  target: string;
-  type: string;
-}
-
-export interface D3Data {
-  nodes: D3Node[];
-  links: D3Link[];
-}
-
-export class D3Adapter {
-  static transform(data: HierarchyData): D3Data {
-    // Note: entityColors and connectorStyles are generated in the static helper methods when needed
-    const nodes: D3Node[] = data.entities.map(entity => ({
-      id: entity.entityId,
-      label: entity.entityId.replace('entity_', ''),
-      entityType: entity.type,
-      level: entity.level,
-      groupId: entity.groupId,
-      x: entity.x,
-      y: entity.y * -1, // Invert Y for D3
-      fx: entity.x, // Fix positions initially
-      fy: entity.y * -1
-    }));
-
-    const links: D3Link[] = data.connections.map(conn => ({
-      source: conn.fromId,
-      target: conn.toId,
-      type: conn.type
-    }));
-
-    return { nodes, links };
-  }
-
-  static getNodeColor(node: D3Node, entityColors: string[]): string {
-    // Map entity type to color index (for now, use simple hash of type name)
-    const typeIndex = this.getEntityTypeIndex(node.entityType);
-    const baseColor = getEntityTypeColor(typeIndex, entityColors);
-    
-    // Slightly adjust brightness based on level for visual hierarchy
-    if (node.level === 0) {
-      return baseColor; // Root nodes use full color
-    } else {
-      // Child nodes use a lighter version
-      return this.adjustColorBrightness(baseColor, 20);
-    }
-  }
-
-  private static getEntityTypeIndex(type: string): number {
-    // Simple hash function to map entity type names to indices
-    let hash = 0;
-    for (let i = 0; i < type.length; i++) {
-      const char = type.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
-      hash = hash & hash; // Convert to 32-bit integer
-    }
-    return Math.abs(hash) % 10; // Limit to reasonable range
-  }
-
-  private static adjustColorBrightness(color: string, percent: number): string {
-    // Simple brightness adjustment for hex colors
-    if (color.startsWith('#')) {
-      const num = parseInt(color.slice(1), 16);
-      const amt = Math.round(2.55 * percent);
-      const R = (num >> 16) + amt;
-      const G = (num >> 8 & 0x00FF) + amt;
-      const B = (num & 0x0000FF) + amt;
-      return '#' + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
-        (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
-        (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
-    }
-    return color; // Return original if not hex
-  }
-
-  static getNodeRadius(node: D3Node): number {
-    return node.entityType === 'Parent' ? (node.level === 0 ? 20 : 15) : 12;
-  }
-
-  static getLinkColor(link: D3Link, connectorStyles: ConnectorStyle[]): string {
-    // Map connection type to style index
-    const typeIndex = this.getConnectorTypeIndex(link.type);
-    const connectorStyle = getConnectorTypeStyle(typeIndex, connectorStyles);
-    return connectorStyle.color;
-  }
-
-  private static getConnectorTypeIndex(type: string): number {
-    // Simple hash function to map connector type names to indices
-    let hash = 0;
-    for (let i = 0; i < type.length; i++) {
-      const char = type.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
-      hash = hash & hash; // Convert to 32-bit integer
-    }
-    return Math.abs(hash) % 8; // Limit to reasonable range for connectors
-  }
-}
-
-// ========================================
-// Data Extractor (from API response format)
-// ========================================
-
-export class HierarchyDataExtractor {
-  static extractFromApiResponse(apiResponse: unknown): HierarchyData {
-    const response = apiResponse as {
-      positioned: HierarchyEntity[];
-      connections?: Array<{ fromId: string; toId: string; type: string }>;
-      groups: Array<{ entities: Array<{ id: string; parentId?: string }> }>;
-    };
-
-    if (!response.positioned) {
-      throw new Error('Invalid API response: missing positioned entities');
-    }
-
-    const entities = response.positioned;
-    
-    // Use API-provided connections if available, otherwise extract from parent-child relationships
-    let connections: HierarchyConnection[] = [];
-    
-    if (response.connections && Array.isArray(response.connections)) {
-      // Use the typed connections from the API
-      connections = response.connections.map(conn => ({
-        fromId: conn.fromId,
-        toId: conn.toId,
-        type: conn.type
-      }));
-    } else {
-      // Fallback: extract connections from parent-child relationships
-      entities.forEach(entity => {
-        if (entity.parentId) {
-          connections.push({
-            fromId: entity.parentId,
-            toId: entity.entityId,
-            type: 'parent-child'
-          });
-        }
-      });
-    }
-
-    return { entities, connections };
-  }
-}
-
 class ReactFlowAdapter {
   static transform(data: HierarchyData, config?: GraphConfig): ReactFlowData {
+    // Debug: Check input data for invalid coordinate values
+    const entitiesWithInvalidCoords = data.entities.filter(e => 
+      e.x == null || e.y == null || isNaN(e.x) || isNaN(e.y)
+    );
+    if (entitiesWithInvalidCoords.length > 0) {
+      console.error('ReactFlowAdapter: Input entities with invalid coordinates:', entitiesWithInvalidCoords);
+    }
+    
     // Generate palettes
     const entityColors = config
       ? generateEntityTypeColors(config.entityTypes)
@@ -362,26 +191,36 @@ class ReactFlowAdapter {
       ? generateConnectorTypeStyles(config.connectorTypes)
       : generateConnectorTypeStyles(3);
 
+    // ⬛ T67–T70: horizontal “swimlanes” by entity type
+    const types = Array.from(new Set(data.entities.map((e) => e.type))).sort();
+    const typeIndexMap = new Map<string, number>(types.map((t, i) => [t, i]));
+    // Spread across 600px total width (adjust as needed)
+    const laneGap = types.length > 0 ? 600 / types.length : 100;
+
     // First pass: create nodes with initial positions
     const nodes: ReactFlowNode[] = data.entities.map((entity) => ({
       id: entity.entityId,
       type: "default",
       position: {
-        x: entity.x * 2, // Scale for spacing
-        y: entity.y * -2, // Invert Y for React Flow
+        x: (() => {
+          // Use entity's actual X coordinate if available, otherwise use type-based lane
+          if (typeof entity.x === 'number' && entity.x != null && !isNaN(entity.x)) {
+            return entity.x;
+          }
+          const typeIndex = typeIndexMap.get(entity.type) ?? 0;
+          const calculatedX = typeIndex * laneGap;
+          return isNaN(calculatedX) ? 0 : calculatedX;
+        })(), // Prefer actual coordinates, fallback to type-based lanes
+        y: (typeof entity.y === 'number' && entity.y != null && !isNaN(entity.y)) ? entity.y * -2 : 0, // Invert Y for React Flow
       },
       data: {
-        label: entity.entityId.replace("entity_", ""),
+        label: (entity.entityId || '').toString().replace("entity_", ""),
         entityType: entity.type,
         level: entity.level,
         parentIds: entity.parentId ? [entity.parentId] : [],
       },
       style: {
-        backgroundColor: this.getNodeColor(
-          entity.type,
-          entity.level,
-          entityColors
-        ),
+        backgroundColor: getEntityTypeColor(entity.type, entityColors),
         color: "#ffffff",
         border: `2px solid ${this.getBorderColor(entity.groupId)}`,
         borderRadius: entity.type === "Parent" ? "50%" : "8px",
@@ -411,8 +250,7 @@ class ReactFlowAdapter {
         animated: true,
         style: {
           stroke: connectorStyle.color,
-          strokeWidth: connectorStyle.strokeWidth,
-          strokeDasharray: connectorStyle.strokeDasharray,
+          strokeWidth: 2, // T66: twice-as-thick
           opacity: connectorStyle.opacity,
         },
       };
@@ -433,7 +271,7 @@ class ReactFlowAdapter {
     );
     const levels: Record<number, ReactFlowNode[]> = {};
     nodes.forEach((n) => {
-      const lvl = n.data.level ?? 0;
+      const lvl = (n.data as any).level ?? 0;
       (levels[lvl] ||= []).push(n);
     });
 
@@ -443,7 +281,7 @@ class ReactFlowAdapter {
         levelNodes.sort((a, b) => avgParentX(a) - avgParentX(b));
 
         const gap = 120;
-        const startX = (-(levelNodes.length - 1) * gap) / 2;
+        const startX = -((levelNodes.length - 1) * gap) / 2;
         levelNodes.forEach((n, i) => {
           n.position.x = startX + i * gap;
         });
@@ -452,7 +290,7 @@ class ReactFlowAdapter {
     return nodes;
 
     function avgParentX(node: ReactFlowNode): number {
-      const parents: string[] = node.data.parentIds;
+      const parents: string[] = (node.data as any).parentIds;
       if (!parents || parents.length === 0) return node.position.x;
       const sum = parents.reduce(
         (acc, pid) => acc + (idToNode[pid]?.position.x ?? 0),
@@ -495,37 +333,6 @@ class ReactFlowAdapter {
     return result;
   }
 
-  // ===== helper utilities (unchanged) =====
-  private static getEntityTypeIndex(type: string): number {
-    let hash = 0;
-    for (let i = 0; i < type.length; i++) {
-      const char = type.charCodeAt(i);
-      hash = (hash << 5) - hash + char;
-      hash = hash & hash;
-    }
-    return Math.abs(hash) % 10;
-  }
-
-  private static getConnectorTypeIndex(type: string): number {
-    let hash = 0;
-    for (let i = 0; i < type.length; i++) {
-      const char = type.charCodeAt(i);
-      hash = (hash << 5) - hash + char;
-      hash = hash & hash;
-    }
-    return Math.abs(hash) % 10;
-  }
-
-  private static getNodeColor(
-    type: string,
-    level: number,
-    colors: string[]
-  ): string {
-    const typeIdx = this.getEntityTypeIndex(type);
-    const base = colors[typeIdx % colors.length];
-    return level === 0 ? base : this.adjustColorBrightness(base, -10 * level);
-  }
-
   private static getBorderColor(groupId: string): string {
     const palette = [
       "#f44336",
@@ -542,40 +349,191 @@ class ReactFlowAdapter {
     return palette[idx];
   }
 
-  private static adjustColorBrightness(hex: string, percent: number): string {
-    const num = parseInt(hex.slice(1), 16);
-    const amt = Math.round(2.55 * percent);
-    const R = (num >> 16) + amt;
-    const G = ((num >> 8) & 0x00ff) + amt;
-    const B = (num & 0x0000ff) + amt;
-    return `#${(
-      0x1000000 +
-      (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
-      (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
-      (B < 255 ? (B < 1 ? 0 : B) : 255)
-    )
-      .toString(16)
-      .slice(1)}`;
+  private static getConnectorTypeIndex(type: string): number {
+    let hash = 0;
+    for (const c of type) {
+      hash = (hash << 5) - hash + c.charCodeAt(0);
+      hash |= 0;
+    }
+    return Math.abs(hash) % 10;
   }
 }
 
 // ========================================
-// Main Graph Data Factory
+// D3.js Adapter
 // ========================================
 
-export class GraphDataFactory {
-  static createReactFlowData(apiResponse: unknown, config?: GraphConfig): ReactFlowData {
-    const hierarchyData = HierarchyDataExtractor.extractFromApiResponse(apiResponse);
+export interface D3Node {
+  id: string;
+  label: string;
+  type: string;
+  entityType: string;
+  level: number;
+  groupId: string;
+  parentId?: string;
+  x?: number;
+  y?: number;
+  // Additional properties for D3 simulation
+  fx?: number;
+  fy?: number;
+}
+
+export interface D3Link {
+  source: string;
+  target: string;
+  type: string;
+}
+
+export interface D3Data {
+  nodes: D3Node[];
+  links: D3Link[];
+}
+
+export class D3Adapter {
+  static transform(data: HierarchyData): D3Data {
+    const nodes: D3Node[] = data.entities.map((e) => ({
+      id: e.entityId,
+      label: e.entityId.replace("entity_", ""),
+      type: e.type,
+      entityType: e.type, // D3Graph expects entityType property
+      level: e.level,
+      groupId: e.groupId,
+      parentId: e.parentId,
+      x: e.x,
+      y: e.y,
+    }));
+
+    const links: D3Link[] = data.connections.map((c) => ({
+      source: c.fromId,
+      target: c.toId,
+      type: c.type,
+    }));
+
+    return { nodes, links };
+  }
+
+  // Helper methods for D3Graph component
+  static getNodeRadius(node: D3Node): number {
+    // Root nodes (level 0) are larger
+    if (node.level === 0) return 15;
+    // Hub nodes or nodes with many connections could be larger
+    return 10;
+  }
+
+  static getNodeColor(node: D3Node, entityColors: string[]): string {
+    // Use entity type to determine color
+    const typeIndex = Math.abs(node.entityType.split('').reduce((h, c) => (h << 5) - h + c.charCodeAt(0), 0)) % entityColors.length;
+    return entityColors[typeIndex];
+  }
+
+  static getLinkColor(link: D3Link, connectorStyles: Array<{ color: string }>): string {
+    // Use connection type to determine color
+    const typeIndex = Math.abs(link.type.split('').reduce((h, c) => (h << 5) - h + c.charCodeAt(0), 0)) % connectorStyles.length;
+    return connectorStyles[typeIndex]?.color || '#666';
+  }
+}
+
+// ========================================
+// HierarchyDataExtractor
+// ========================================
+
+export class HierarchyDataExtractor {
+  static extractFromApiResponse(resp: unknown): HierarchyData {
+    // Handle the actual API response structure from /api/hierarchy-test
+    const response = resp as {
+      entities?: unknown[];
+      connections?: unknown[];
+      positioned?: unknown[];
+    };
+
+    if (!response || !response.entities || !response.connections) {
+      console.warn('Invalid API response structure, returning empty data');
+      return { entities: [], connections: [] };
+    }
+
+    // Transform entities from API format to HierarchyEntity format
+    // Use positioned entities if available (they have x, y coordinates)
+    const sourceEntities = response.positioned || response.entities;
+    
+    const entities: HierarchyEntity[] = sourceEntities.map((entity: unknown) => {
+      const e = entity as {
+        entityId?: string;
+        id?: string;
+        type?: string;
+        parentId?: string;
+        x?: number;
+        y?: number;
+        level?: number;
+        groupId?: string;
+      };
+
+      const result = {
+        entityId: e.entityId || e.id || '',
+        type: e.type || 'Unknown',
+        parentId: e.parentId,
+        x: (typeof e.x === 'number' && e.x != null && !isNaN(e.x)) ? e.x : 0,
+        y: (typeof e.y === 'number' && e.y != null && !isNaN(e.y)) ? e.y : 0,
+        level: (typeof e.level === 'number' && !isNaN(e.level)) ? e.level : 0,
+        groupId: e.groupId || 'default',
+      };
+      
+      // Debug logging for NaN values
+      if (isNaN(result.x) || isNaN(result.y)) {
+        console.warn('NaN detected in entity:', {
+          original: { x: e.x, y: e.y, level: e.level },
+          result: { x: result.x, y: result.y, level: result.level },
+          entityId: result.entityId
+        });
+      }
+      
+      return result;
+    });
+
+    // Transform connections from API format to HierarchyConnection format
+    const connections: HierarchyConnection[] = response.connections.map((conn: unknown) => {
+      const c = conn as {
+        fromId?: string;
+        toId?: string;
+        type?: string;
+      };
+
+      return {
+        fromId: c.fromId || '',
+        toId: c.toId || '',
+        type: c.type || 'unknown',
+      };
+    });
+
+    return { entities, connections };
+  }
+}
+
+// ========================================
+// Exported factory
+// ========================================
+
+export class GraphAdapters {
+  static createReactFlowData(
+    apiResponse: unknown,
+    config?: GraphConfig
+  ): ReactFlowData {
+    const hierarchyData =
+      HierarchyDataExtractor.extractFromApiResponse(apiResponse);
     return ReactFlowAdapter.transform(hierarchyData, config);
   }
 
-  static createCytoscapeData(apiResponse: unknown, config?: GraphConfig): CytoscapeData {
-    const hierarchyData = HierarchyDataExtractor.extractFromApiResponse(apiResponse);
+  static createCytoscapeData(
+    apiResponse: unknown,
+    config?: GraphConfig
+  ): CytoscapeData {
+    const hierarchyData =
+      HierarchyDataExtractor.extractFromApiResponse(apiResponse);
     return CytoscapeAdapter.transform(hierarchyData, config);
   }
 
   static createD3Data(apiResponse: unknown): D3Data {
-    const hierarchyData = HierarchyDataExtractor.extractFromApiResponse(apiResponse);
+    const hierarchyData =
+      HierarchyDataExtractor.extractFromApiResponse(apiResponse);
     return D3Adapter.transform(hierarchyData);
   }
 }

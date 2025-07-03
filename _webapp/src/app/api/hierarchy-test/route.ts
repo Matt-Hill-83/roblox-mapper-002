@@ -412,7 +412,7 @@ function position2D(groups: ConnectedGroup[]): EntityPosition[] {
     const entityMap = new Map<string, SimpleEntity>();
     group.entities.forEach(entity => entityMap.set(entity.id, entity));
     
-    const baseX = groupIndex * TREE_SPACING;
+    const baseX = Math.floor(groupIndex * TREE_SPACING);
     const baseY = 0;
     
     const root = group.entities.find(entity => !entity.parentId);
@@ -452,19 +452,24 @@ function positionEntityAndChildren(
   const x = baseX + (siblingIndex * ENTITY_SPACING);
   const y = baseY - (level * LEVEL_HEIGHT);
   
+  // Ensure coordinates are valid numbers
+  const validX = isNaN(x) ? 0 : x;
+  const validY = isNaN(y) ? 0 : y;
+  
   positions.push({
     entityId: entity.id,
     type: entity.type,
     parentId: entity.parentId,
-    x,
-    y,
+    x: validX,
+    y: validY,
     level,
     groupId
   });
   
   entity.children.forEach((childId, childIndex) => {
     const childrenCount = entity.children.length;
-    const childSiblingIndex = childIndex - (childrenCount - 1) / 2;
+    // Ensure integer positioning to prevent fractional coordinates
+    const childSiblingIndex = Math.floor(childIndex - (childrenCount - 1) / 2);
     
     positionEntityAndChildren(
       childId,

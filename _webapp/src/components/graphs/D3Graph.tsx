@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Box, Typography, Chip } from '@mui/material';
 import * as d3 from 'd3';
-import { GraphDataFactory, D3Data, D3Adapter } from '../../lib/graphAdapters';
+import { GraphAdapters, D3Data, D3Adapter } from '../../lib/graphAdapters';
 import { generateEntityTypeColors, generateConnectorTypeStyles } from '../../utils/colorUtils';
 
 interface D3GraphProps {
@@ -38,7 +38,7 @@ export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProp
         connectorTypes: (data as any).config.connectorTypes || 3
       } : undefined;
       
-      const graphData: D3Data = GraphDataFactory.createD3Data(data, config);
+      const graphData: D3Data = GraphAdapters.createD3Data(data, config);
       setNodeCount(graphData.nodes.length);
       setLinkCount(graphData.links.length);
       
@@ -51,8 +51,22 @@ export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProp
       // Set up SVG
       const svg = d3.select(svgRef.current);
       const margin = { top: 20, right: 20, bottom: 20, left: 20 };
-      const innerWidth = width - margin.left - margin.right;
-      const innerHeight = height - margin.top - margin.bottom;
+      
+      // Handle width and height as numbers or strings
+      const numericWidth = typeof width === 'string' ? 
+        (svgRef.current?.clientWidth || 400) : (width || 400);
+      const numericHeight = typeof height === 'string' ? 
+        (svgRef.current?.clientHeight || 300) : (height || 300);
+      
+      // Ensure we have valid numeric dimensions
+      const validWidth = Math.max(numericWidth, 100);
+      const validHeight = Math.max(numericHeight, 100);
+      
+      // Set SVG attributes with validated dimensions
+      svg.attr('width', validWidth).attr('height', validHeight);
+      
+      const innerWidth = validWidth - margin.left - margin.right;
+      const innerHeight = validHeight - margin.top - margin.bottom;
 
       // Create main group
       const g = svg.append('g')
@@ -67,8 +81,17 @@ export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProp
 
       svg.call(zoom);
 
+      // Ensure nodes have valid initial positions
+      const nodesWithPositions = graphData.nodes.map((node, index) => ({
+        ...node,
+        x: isNaN(node.x) ? (index * 50) % innerWidth : node.x,
+        y: isNaN(node.y) ? Math.floor(index / Math.ceil(innerWidth / 50)) * 50 : node.y,
+        fx: null, // Allow free movement
+        fy: null  // Allow free movement
+      }));
+
       // Create simulation
-      const simulation = d3.forceSimulation(graphData.nodes)
+      const simulation = d3.forceSimulation(nodesWithPositions)
         .force('link', d3.forceLink(graphData.links)
           .id((d: any) => d.id)
           .distance(80)
@@ -109,7 +132,7 @@ export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProp
 
       // Create node groups
       const node = g.selectAll('.node')
-        .data(graphData.nodes)
+        .data(nodesWithPositions)
         .enter().append('g')
         .attr('class', 'node')
         .style('cursor', 'pointer');
@@ -213,12 +236,12 @@ export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProp
       const drag = d3.drag<any, any>()
         .on('start', function(event, d: any) {
           if (!event.active) simulation.alphaTarget(0.3).restart();
-          d.fx = d.x;
-          d.fy = d.y;
+          d.fx = isNaN(d.x) ? 0 : d.x;
+          d.fy = isNaN(d.y) ? 0 : d.y;
         })
         .on('drag', function(event, d: any) {
-          d.fx = event.x;
-          d.fy = event.y;
+          d.fx = isNaN(event.x) ? d.fx : event.x;
+          d.fy = isNaN(event.y) ? d.fy : event.y;
         })
         .on('end', function(event, d: any) {
           if (!event.active) simulation.alphaTarget(0);
@@ -231,13 +254,17 @@ export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProp
       // Update positions on tick
       simulation.on('tick', () => {
         link
-          .attr('x1', (d: any) => d.source.x)
-          .attr('y1', (d: any) => d.source.y)
-          .attr('x2', (d: any) => d.target.x)
-          .attr('y2', (d: any) => d.target.y);
+          .attr('x1', (d: any) => isNaN(d.source.x) ? 0 : d.source.x)
+          .attr('y1', (d: any) => isNaN(d.source.y) ? 0 : d.source.y)
+          .attr('x2', (d: any) => isNaN(d.target.x) ? 0 : d.target.x)
+          .attr('y2', (d: any) => isNaN(d.target.y) ? 0 : d.target.y);
 
         node
-          .attr('transform', (d: any) => `translate(${d.x},${d.y})`);
+          .attr('transform', (d: any) => {
+            const x = isNaN(d.x) ? 0 : d.x;
+            const y = isNaN(d.y) ? 0 : d.y;
+            return `translate(${x},${y})`;
+          });
       });
 
       // Cleanup function

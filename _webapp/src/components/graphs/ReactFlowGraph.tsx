@@ -17,7 +17,7 @@ import {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { Box, Typography, Chip } from '@mui/material';
-import { GraphDataFactory, ReactFlowData } from '../../lib/graphAdapters';
+import { GraphAdapters, ReactFlowData } from '../../lib/graphAdapters';
 
 interface ReactFlowGraphProps {
   data: unknown;
@@ -45,8 +45,36 @@ export default function ReactFlowGraph({ data, width = 400, height = 300 }: Reac
         connectorTypes: (data as any).config.connectorTypes || 3
       } : undefined;
       
-      const graphData: ReactFlowData = GraphDataFactory.createReactFlowData(data, config);
-      setNodes(graphData.nodes as Node[]);
+      const graphData: ReactFlowData = GraphAdapters.createReactFlowData(data, config);
+      
+      // Debug: Check for invalid values in node positions (NaN, null, undefined)
+      const invalidNodes = graphData.nodes.filter(node => 
+        node.position.x == null || node.position.y == null || 
+        isNaN(node.position.x) || isNaN(node.position.y)
+      );
+      
+      if (invalidNodes.length > 0) {
+        console.error('ReactFlow: Found nodes with NaN positions:', invalidNodes);
+        console.error('Full node details:', invalidNodes.map(node => ({
+          id: node.id,
+          position: node.position,
+          data: node.data
+        })));
+        
+        // Fix invalid positions (null, NaN, undefined)
+        const fixedNodes = graphData.nodes.map(node => ({
+          ...node,
+          position: {
+            x: (node.position.x == null || isNaN(node.position.x)) ? 0 : node.position.x,
+            y: (node.position.y == null || isNaN(node.position.y)) ? 0 : node.position.y
+          }
+        }));
+        
+        setNodes(fixedNodes as Node[]);
+      } else {
+        setNodes(graphData.nodes as Node[]);
+      }
+      
       setEdges(graphData.edges as Edge[]);
       setError(null);
     } catch (err) {
@@ -83,8 +111,19 @@ export default function ReactFlowGraph({ data, width = 400, height = 300 }: Reac
     );
   }
 
+  // Ensure numeric dimensions for proper rendering
+  const numericWidth = typeof width === 'string' ? '100%' : Math.max(width || 400, 100);
+  const numericHeight = typeof height === 'string' ? '100%' : Math.max(height || 300, 100);
+
   return (
-    <Box sx={{ width, height, border: '1px solid #e0e0e0', borderRadius: 1 }}>
+    <Box sx={{ 
+      width: numericWidth, 
+      height: numericHeight, 
+      border: '1px solid #e0e0e0', 
+      borderRadius: 1,
+      minWidth: 100,
+      minHeight: 100
+    }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}

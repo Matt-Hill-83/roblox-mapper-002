@@ -471,7 +471,7 @@ function LargeGraphDisplay({
     );
   }
 
-  // Large graph dimensions - expanded for wider layout
+  // Large graph dimensions - use responsive values that ensure numeric calculations
   const graphWidth = "100%";
   const graphHeight = "100%";
 
@@ -529,7 +529,15 @@ function LargeGraphDisplay({
           : "D3.js"}{" "}
         Visualization
       </Typography>
-      <Box sx={{ flex: 1, minHeight: 100 }}>{renderGraph()}</Box>
+      <Box sx={{ 
+        flex: 1, 
+        minHeight: 100,
+        width: "100%",
+        height: "100%",
+        position: "relative"
+      }}>
+        {renderGraph()}
+      </Box>
     </Box>
   );
 }
