@@ -43,24 +43,11 @@ export interface HierarchyResult {
 
 export default function HierarchyTesterPage() {
   const { isCollapsed, handleToggle, getFlexValue } = usePanelCollapse();
-  const [config, setConfig] = useState<TestDataConfig>({
-    // Basic parameters (legacy)
-    numberOfNodes: 15,
-    numberOfConnectedChains: 3,
-    depthOfLongestChain: 3,
+  import { initialConfig } from "../../../data/defaultConfigs";
 
-    // Advanced parameters
-    totalNodes: 50,
-    maxDepth: 4,
-    branchingMin: 2,
-    branchingMax: 5,
-    crossTreeConnections: 15, // 15%
-    entityTypes: 4,
-    connectorTypes: 3,
-    clusteringCoeff: 30, // 30%
-    hubNodes: 2,
-    networkDensity: "medium",
-  });
+export default function HierarchyTesterPage() {
+  const { isCollapsed, handleToggle, getFlexValue } = usePanelCollapse();
+  const [config, setConfig] = useState<TestDataConfig>(initialConfig);
 
   const [result, setResult] = useState<HierarchyResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
