@@ -25,6 +25,7 @@ export const presetConfigurations: PresetConfiguration[] = [
     branchingMax: 3,
     crossTreeConnections: 0,
     entityTypes: 2,
+    connectorTypes: 3,
     clusteringCoeff: 10,
     hubNodes: 1,
     networkDensity: "sparse"
@@ -44,6 +45,7 @@ export const presetConfigurations: PresetConfiguration[] = [
     branchingMax: 6,
     crossTreeConnections: 5,
     entityTypes: 5,
+    connectorTypes: 4,
     clusteringCoeff: 25,
     hubNodes: 3,
     networkDensity: "medium"
@@ -63,6 +65,7 @@ export const presetConfigurations: PresetConfiguration[] = [
     branchingMax: 8,
     crossTreeConnections: 45,
     entityTypes: 6,
+    connectorTypes: 6,
     clusteringCoeff: 75,
     hubNodes: 8,
     networkDensity: "dense"
@@ -82,6 +85,7 @@ export const presetConfigurations: PresetConfiguration[] = [
     branchingMax: 2,
     crossTreeConnections: 0,
     entityTypes: 3,
+    connectorTypes: 2,
     clusteringCoeff: 0,
     hubNodes: 0,
     networkDensity: "sparse"
@@ -101,6 +105,7 @@ export const presetConfigurations: PresetConfiguration[] = [
     branchingMax: 12,
     crossTreeConnections: 25,
     entityTypes: 4,
+    connectorTypes: 5,
     clusteringCoeff: 15,
     hubNodes: 5,
     networkDensity: "medium"
@@ -120,6 +125,7 @@ export const presetConfigurations: PresetConfiguration[] = [
     branchingMax: 7,
     crossTreeConnections: 80,
     entityTypes: 7,
+    connectorTypes: 7,
     clusteringCoeff: 90,
     hubNodes: 6,
     networkDensity: "dense"
@@ -139,6 +145,7 @@ export const presetConfigurations: PresetConfiguration[] = [
     branchingMax: 5,
     crossTreeConnections: 20,
     entityTypes: 8,
+    connectorTypes: 6,
     clusteringCoeff: 40,
     hubNodes: 4,
     networkDensity: "medium"
@@ -158,6 +165,7 @@ export const presetConfigurations: PresetConfiguration[] = [
     branchingMax: 15,
     crossTreeConnections: 60,
     entityTypes: 9,
+    connectorTypes: 7,
     clusteringCoeff: 55,
     hubNodes: 10,
     networkDensity: "dense"
@@ -177,6 +185,7 @@ export const presetConfigurations: PresetConfiguration[] = [
     branchingMax: 20,
     crossTreeConnections: 95,
     entityTypes: 10,
+    connectorTypes: 8,
     clusteringCoeff: 85,
     hubNodes: 8,
     networkDensity: "dense"
@@ -196,6 +205,7 @@ export const presetConfigurations: PresetConfiguration[] = [
     branchingMax: 4,
     crossTreeConnections: 15,
     entityTypes: 5,
+    connectorTypes: 4,
     clusteringCoeff: 35,
     hubNodes: 2,
     networkDensity: "medium"
