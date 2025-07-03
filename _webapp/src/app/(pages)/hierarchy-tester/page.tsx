@@ -180,7 +180,6 @@ export default function HierarchyTesterPage() {
         marginRight: "calc(-50vw + 50%)",
         left: 0,
         right: 0,
-        // border: "10px solid blue",
       }}
     >
       <Box>
