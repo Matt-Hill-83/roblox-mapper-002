@@ -98,6 +98,7 @@ export default function ReactFlowGraph({ data, width = 400, height = 300 }: Reac
           includeHiddenNodes: false
         }}
         attributionPosition="bottom-left"
+        style={{ width: '100%', height: '100%' }}
       >
         <Controls 
           position="top-left"

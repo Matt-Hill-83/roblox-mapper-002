@@ -124,9 +124,9 @@ export default function TreeDisplay({
   // Three-column layout mode - main content area
   if (layoutMode === "three-column") {
     return (
-      <Box>
+      <Box sx={{ height: "100%" }}>
         {/* Large Graph */}
-        <Paper variant="outlined" sx={{ p: 2 }}>
+        <Paper variant="outlined" sx={{ p: 2, height: "100%", display: "flex", flexDirection: "column" }}>
           <LargeGraphDisplay result={result} selectedGraph={selectedGraph} />
         </Paper>
       </Box>
@@ -509,11 +509,18 @@ function LargeGraphDisplay({
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        minHeight: 300,
+      }}
+    >
       <Typography
         variant="h6"
         gutterBottom
-        sx={{ textTransform: "capitalize" }}
+        sx={{ textTransform: "capitalize", flexShrink: 0 }}
       >
         {selectedGraph === "reactflow"
           ? "React Flow"
@@ -522,7 +529,7 @@ function LargeGraphDisplay({
           : "D3.js"}{" "}
         Visualization
       </Typography>
-      {renderGraph()}
+      <Box sx={{ flex: 1, minHeight: 100 }}>{renderGraph()}</Box>
     </Box>
   );
 }
