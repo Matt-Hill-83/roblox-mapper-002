@@ -8,12 +8,10 @@ const gridStyles = {
 import { useEffect, useState } from "react";
 
 import ConfigPanel from "../../../components/ConfigPanel";
-import ReactFlowGraph from "../../../components/graphs/ReactFlowGraph";
-import CytoscapeGraph from "../../../components/graphs/CytoscapeGraph";
-import D3Graph from "../../../components/graphs/D3Graph";
 import TreeDisplay from "../../../components/TreeDisplay";
 import HorizCollapsibleSetParent from "../../../components/HorizCollapsibleSetParent";
 import HorizCollapsibleSetChild from "../../../components/HorizCollapsibleSetChild";
+import GraphsDisplay from "../../../components/GraphsDisplay";
 
 export interface TestDataConfig {
   // Basic parameters
@@ -140,18 +138,6 @@ export default function HierarchyTesterPage() {
     />
   );
 
-  const reactFlowContent = (
-    <ReactFlowGraph data={result} width="100%" height="100%" />
-  );
-
-  const cytoscapeContent = (
-    <CytoscapeGraph data={result} width="100%" height="100%" />
-  );
-
-  const d3Content = (
-    <D3Graph data={result} width="100%" height="100%" />
-  );
-
   return (
     <Box
       sx={{
@@ -166,8 +152,7 @@ export default function HierarchyTesterPage() {
         right: 0,
       }}
     >
-      <Box>
-        <Grid container spacing={3} sx={{ margin: 0, padding: 0 }}>
+      <Grid container spacing={3} sx={{ margin: 0, padding: 0 }}>
           {/* Column 2: Collapsible Panels */}
           <Grid item xs={12} lg={12} sx={gridStyles}>
             <HorizCollapsibleSetParent>
@@ -182,33 +167,10 @@ export default function HierarchyTesterPage() {
                 {analysisToolsContent}
               </HorizCollapsibleSetChild>
 
-              <HorizCollapsibleSetChild
-                id="react-flow-panel"
-                title="React Flow"
-                minWidth="400px"
-              >
-                {reactFlowContent}
-              </HorizCollapsibleSetChild>
-
-              <HorizCollapsibleSetChild
-                id="cytoscape-panel"
-                title="Cytoscape.js"
-                minWidth="400px"
-              >
-                {cytoscapeContent}
-              </HorizCollapsibleSetChild>
-
-              <HorizCollapsibleSetChild
-                id="d3-panel"
-                title="D3.js"
-                minWidth="400px"
-              >
-                {d3Content}
-              </HorizCollapsibleSetChild>
+              <GraphsDisplay result={result} />
             </HorizCollapsibleSetParent>
           </Grid>
         </Grid>
-      </Box>
     </Box>
   );
 }
