@@ -49,6 +49,9 @@ The application will auto-reload when you make changes to the code.
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
+- `npm test` - Run all tests
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:coverage` - Run tests with coverage report
 
 ## Project Structure
 
@@ -78,7 +81,46 @@ _webapp/
 - **Data Grid:** @mui/x-data-grid-pro
 - **Pivot Table:** react-pivottable
 - **Database:** PostgreSQL (via @vercel/postgres)
+- **Testing:** Jest with React Testing Library
 - **Linting:** ESLint with Next.js config
+
+## Testing
+
+The project includes a comprehensive testing setup using Jest and React Testing Library.
+
+### Running Tests
+
+```bash
+# Run all tests once
+npm test
+
+# Run tests in watch mode (recommended for development)
+npm run test:watch
+
+# Run tests with coverage report
+npm run test:coverage
+```
+
+### Test Structure
+
+- **Unit Tests**: Located in `__tests__` folders next to the code they test
+  - Example: `src/utils/__tests__/colorUtils.test.ts`
+- **Component Tests**: Test React components with user interactions
+  - Example: `src/components/__tests__/MetricsBox.test.tsx`
+
+### Writing Tests
+
+Tests use custom render utilities that include MUI theme providers:
+
+```typescript
+import { render, screen } from '@/test-utils';
+import MyComponent from '../MyComponent';
+
+test('renders correctly', () => {
+  render(<MyComponent />);
+  expect(screen.getByText('Expected Text')).toBeInTheDocument();
+});
+```
 
 ## Development Notes
 
