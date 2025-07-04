@@ -8,13 +8,17 @@
     6. ✅ Consistent Styling: Some styles are applied via `sx` prop, others via `style` prop (`boxStyles`). Standardize on one approach, preferably `sx` for Material-UI components, and consider moving complex styles to a theme or `styled` components.
     7. ✅ Remove Commented-Out Code: Lines like `// width: '100%',` and `// border: "10px solid red",` should be removed.
 
-32. ⬛ [GEM] R69: The system shall implement MUI Accordion components:
-    1. ⬛ [GEM] R69.1: Replace `CollapsibleGraphPanel` with MUI `Accordion`, `AccordionSummary`, and `AccordionDetails`.
-    2. ⬛ [GEM] R69.2: Update imports in `hierarchy-tester/page.tsx` to include MUI Accordion components.
-    3. ⬛ [GEM] R69.3: Map `isCollapsed` and `onToggle` from `usePanelCollapse` to `expanded` and `onChange` props of `Accordion`.
-    4. ⬛ [GEM] R69.4: Place content previously rendered by `CollapsibleGraphPanel`'s `switch` case directly into `AccordionDetails`.
-    5. ⬛ [GEM] R69.5: Adjust layout and styling to ensure visual consistency with the new Accordion structure.
-    6. ⬛ [GEM] R69.6: Remove the `CollapsibleGraphPanel.tsx` component file.
+32. ✅ [GEM] R69: The system shall implement MUI Accordion components:
+
+    1. ✅ [GEM] R69.1: Replace `CollapsibleGraphPanel` with MUI `Accordion`, `AccordionSummary`, and `AccordionDetails`.
+    2. ✅ [GEM] R69.2: Update imports in `hierarchy-tester/page.tsx` to include MUI Accordion components.
+    3. ✅ [GEM] R69.3: Map `isCollapsed` and `onToggle` from `usePanelCollapse` to `expanded` and `onChange` props of `Accordion`.
+    4. ✅ [GEM] R69.4: Place content previously rendered by `CollapsibleGraphPanel`'s `switch` case directly into `AccordionDetails`.
+    5. ✅ [GEM] R69.5: Adjust layout and styling to ensure visual consistency with the new Accordion structure.
+    6. ✅ [GEM] R69.6: Remove the `CollapsibleGraphPanel.tsx` component file.
+
+33. ✅ [CLD] R70 UI collapser fixes:
+34. ✅ [CLD] R70.1: Make element shown in image expand to fill the width of the container. 2. ✅ [CLD] R70.2: Give the element a 10px red border.
 
 ## Task List
 
@@ -45,3 +49,18 @@
         91.4. ✅ [GEM] T91.4: Implement logic for boxes to collectively take up full parent width (R70.4).
         91.5. ✅ [GEM] T91.5: Implement logic for minimized box width to be 50px (R70.5).
         91.6. ✅ [GEM] T91.6: Implement logic for other boxes to expand proportionally (R70.6).
+    92. ✅ [CLD] T92: UI collapsor fixes (R33)
+        1. ✅ [CLD] Revert incorrect changes made to SuggestionsTable component (remove width: "100%" and border: "10px solid red" from Paper component).
+        2. ✅ [CLD] Change Grid item at line 141 in hierarchy-tester/page.tsx from lg={9} to lg={12} to fill full container width.
+        3. ✅ [CLD] Add 10px red border to the Grid item at line 141 in hierarchy-tester/page.tsx.
+    93. ✅ [CLD] T93: Adjust panel widths for better layout
+        1. ✅ [CLD] Update HorizCollapsibleSetChild component to accept minWidth and maxWidth props.
+        2. ✅ [CLD] Add minWidth="400px" to React Flow, Cytoscape.js, and D3.js graph panels.
+        3. ✅ [CLD] Add maxWidth="600px" to Suggested Configurations panel.
+    94. ✅ [CLD] T94: Fix panel expansion when collapsing panels
+        1. ✅ [CLD] Remove getFlexValues() function and related flex calculation logic from HorizCollapsibleSetParent.
+        2. ✅ [CLD] Remove flexValues state and calculation from HorizCollapsibleSetParent render logic.
+        3. ✅ [CLD] Update HorizCollapsibleSetChild to use standard flex values: "1 1 0" for expanded, "0 0 50px" for collapsed.
+        4. ✅ [CLD] Remove the flex prop from HorizCollapsibleSetChild interface and component usage.
+        5. ✅ [CLD] Add width: '100%' to the parent Box in HorizCollapsibleSetParent to ensure full width usage.
+        6. ✅ [CLD] Test that panels properly expand to fill available space when other panels are collapsed.

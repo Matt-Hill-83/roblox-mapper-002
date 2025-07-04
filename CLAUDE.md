@@ -9,6 +9,7 @@ This is a 3D hierarchical graph visualization system built for Roblox that maps 
 ## Development Commands
 
 ### Roblox Development (Primary)
+
 ```bash
 # Build TypeScript to Luau
 npm run build
@@ -20,7 +21,8 @@ npm run watch
 npm run generate-exports
 ```
 
-### Web App Development (_webapp/)
+### Web App Development (\_webapp/)
+
 ```bash
 cd _webapp
 npm run dev        # Development server
@@ -31,12 +33,14 @@ npm run lint       # Code linting
 ## Architecture
 
 ### Core Technologies
+
 - **roblox-ts**: TypeScript-to-Luau transpiler for Roblox development
 - **Next.js 15**: Web application for data viewing
 - **SQLite**: Entity and relationship data storage
 - **TypeScript**: Primary development language
 
 ### Directory Structure
+
 - `src/client/`: Client-side Roblox scripts
 - `src/server/`: Server-side game logic and services
 - `src/shared/`: Shared modules between client/server
@@ -46,13 +50,15 @@ npm run lint       # Code linting
 - `out/`: Compiled Luau output from TypeScript
 
 ### Service Architecture
+
 The system uses a service-oriented design with key services:
+
 - **GameService** (`src/server/services/game.service.ts`): Main orchestrator
-- **HierarchicalLayoutService**: 3D positioning and spatial algorithms
 - **ComponentStackService**: Visual entity representation
 - **ConnectorService**: Relationship visualization
 
 ### Data Pipeline
+
 1. CSV sources contain entity and relationship data
 2. `scripts/generate-data-exports.js` converts CSV to TypeScript
 3. Data is imported into SQLite database
@@ -60,6 +66,7 @@ The system uses a service-oriented design with key services:
 5. Web app provides tabular data exploration
 
 ### 3D Visualization Logic
+
 - Entities positioned based on hierarchical relationships
 - Parent entities appear above children in 3D space
 - Advanced spatial clustering and collision avoidance
@@ -75,8 +82,15 @@ The system uses a service-oriented design with key services:
 
 ## Key Modules
 
-- `hierarchyAnalyzer.ts`: Analyzes parent-child relationships and connection mapping
-- `hierarchicalLayoutCalculator.ts`: Computes 3D spatial positioning
-- `spatialPositioning.ts`: Handles entity placement algorithms
-- `collisionAvoidance.ts`: Prevents visual overlaps in 3D space
-- `spatialClustering.ts`: Groups related entities for better visualization
+## OnStartup
+
+When starting work on this project, please read all project specification files located in the `000ProjectSpecification/` folder:
+
+- Read all files in the folder to understand the complete project requirements
+- Use `000ProjectTasks-current.md` as the primary reference for new requirements and active tasks
+- The older specification files (`000ProjectTasks-old-001.md`, `000ProjectTasks-old-002.md`, etc.) contain historical context and completed work
+
+## Image Handling
+
+- Images will be pasted into the folder `___images for claude/`
+- When the user types "image?", list the name of the most recent image in that folder
