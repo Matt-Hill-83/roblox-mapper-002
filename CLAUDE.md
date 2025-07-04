@@ -94,3 +94,8 @@ When starting work on this project, please read all project specification files 
 
 - Images will be pasted into the folder `___images for claude/`
 - When the user types "image?", list the name of the most recent image in that folder
+
+## Git Commits
+
+- NEVER make a commit without specifically being told to
+- Only commit changes when the user explicitly asks you to commit

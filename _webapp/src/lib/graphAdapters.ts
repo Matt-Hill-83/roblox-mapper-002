@@ -77,8 +77,12 @@ export class CytoscapeAdapter {
         groupId: entity.groupId,
       },
       position: {
-        x: (typeof entity.x === 'number' && !isNaN(entity.x)) ? entity.x * 1.5 : 0,
-        y: (typeof entity.y === 'number' && !isNaN(entity.y)) ? entity.y * -1.5 : 0,
+        x:
+          typeof entity.x === "number" && !isNaN(entity.x) ? entity.x * 1.5 : 0,
+        y:
+          typeof entity.y === "number" && !isNaN(entity.y)
+            ? entity.y * -1.5
+            : 0,
       },
       classes: `type-${entity.type.toLowerCase()} level-${entity.level} ${
         entity.groupId
@@ -87,7 +91,8 @@ export class CytoscapeAdapter {
 
     const edgeElements: CytoscapeElement[] = data.connections.map((conn, i) => {
       const idx = this.getConnectorTypeIndex(conn.type);
-      const colorIndex = idx % colorTokens.pages.hiTester.graphs.edgeColors.types.length;
+      const colorIndex =
+        idx % colorTokens.pages.hiTester.graphs.edgeColors.types.length;
       return {
         data: {
           id: `e-${i}`,
@@ -99,12 +104,14 @@ export class CytoscapeAdapter {
     });
 
     // Get unique entity types
-    const entityTypes = Array.from(new Set(data.entities.map(e => e.type))).sort();
-    
+    const entityTypes = Array.from(
+      new Set(data.entities.map((e) => e.type))
+    ).sort();
+
     const style = [
-      { 
-        selector: "node", 
-        style: { 
+      {
+        selector: "node",
+        style: {
           label: "data(label)",
           "background-color": colorTokens.colors.gray005,
           "border-width": 2,
@@ -114,20 +121,22 @@ export class CytoscapeAdapter {
           "text-valign": "center",
           "text-halign": "center",
           "font-size": 12,
-        } 
+        },
       },
     ];
-    
+
     // Entity type-based coloring
     entityTypes.forEach((type, index) => {
-      const colorIndex = index % colorTokens.pages.hiTester.graphs.nodeColors.levels.length;
-      const color = colorTokens.pages.hiTester.graphs.nodeColors.levels[colorIndex];
+      const colorIndex =
+        index % colorTokens.pages.hiTester.graphs.nodeColors.levels.length;
+      const color =
+        colorTokens.pages.hiTester.graphs.nodeColors.levels[colorIndex];
       style.push({
         selector: `.type-${type.toLowerCase()}`,
         style: {
           "background-color": color,
           "border-color": color,
-        }
+        },
       });
     });
 
@@ -199,13 +208,16 @@ export interface ReactFlowData {
 class ReactFlowAdapter {
   static transform(data: HierarchyData, config?: GraphConfig): ReactFlowData {
     // Debug: Check input data for invalid coordinate values
-    const entitiesWithInvalidCoords = data.entities.filter(e => 
-      e.x == null || e.y == null || isNaN(e.x) || isNaN(e.y)
+    const entitiesWithInvalidCoords = data.entities.filter(
+      (e) => e.x == null || e.y == null || isNaN(e.x) || isNaN(e.y)
     );
     if (entitiesWithInvalidCoords.length > 0) {
-      console.error('ReactFlowAdapter: Input entities with invalid coordinates:', entitiesWithInvalidCoords);
+      console.error(
+        "ReactFlowAdapter: Input entities with invalid coordinates:",
+        entitiesWithInvalidCoords
+      );
     }
-    
+
     // Generate palettes
     const entityColors = config
       ? generateEntityTypeColors(config.entityTypes)
@@ -224,23 +236,32 @@ class ReactFlowAdapter {
     const nodes: ReactFlowNode[] = data.entities.map((entity, index) => {
       // Use entity type-based colors from colorTokens levels array
       const typeIndex = typeIndexMap.get(entity.type) ?? 0;
-      const colorIndex = typeIndex % colorTokens.pages.hiTester.graphs.nodeColors.levels.length;
-      const nodeColor = colorTokens.pages.hiTester.graphs.nodeColors.levels[colorIndex];
-      
+      const colorIndex =
+        typeIndex % colorTokens.pages.hiTester.graphs.nodeColors.levels.length;
+      const nodeColor =
+        colorTokens.pages.hiTester.graphs.nodeColors.levels[colorIndex];
+
       return {
         id: entity.entityId,
         type: "default",
         position: {
           x: (() => {
             // Use entity's actual X coordinate if available, otherwise use type-based lane
-            if (typeof entity.x === 'number' && entity.x != null && !isNaN(entity.x)) {
+            if (
+              typeof entity.x === "number" &&
+              entity.x != null &&
+              !isNaN(entity.x)
+            ) {
               return entity.x;
             }
             const typeIndex = typeIndexMap.get(entity.type) ?? 0;
             const calculatedX = typeIndex * laneGap;
             return isNaN(calculatedX) ? 0 : calculatedX;
           })(), // Prefer actual coordinates, fallback to type-based lanes
-          y: (typeof entity.y === 'number' && entity.y != null && !isNaN(entity.y)) ? entity.y * -2 : 0, // Invert Y for React Flow
+          y:
+            typeof entity.y === "number" && entity.y != null && !isNaN(entity.y)
+              ? entity.y * -2
+              : 0, // Invert Y for React Flow
         },
         data: {
           label: `${index + 1}`,
@@ -258,7 +279,8 @@ class ReactFlowAdapter {
           fontSize: "24px",
           fontWeight: "bold",
         },
-      }});
+      };
+    });
 
     // 🔹 New step: reorder nodes horizontally to minimise crossings
     const decrossedNodes = this.minimiseCrossings(nodes);
@@ -269,8 +291,10 @@ class ReactFlowAdapter {
     // Edges
     const edges: ReactFlowEdge[] = data.connections.map((conn, index) => {
       const typeIndex = this.getConnectorTypeIndex(conn.type);
-      const colorIndex = typeIndex % colorTokens.pages.hiTester.graphs.edgeColors.types.length;
-      const edgeColor = colorTokens.pages.hiTester.graphs.edgeColors.types[colorIndex];
+      const colorIndex =
+        typeIndex % colorTokens.pages.hiTester.graphs.edgeColors.types.length;
+      const edgeColor =
+        colorTokens.pages.hiTester.graphs.edgeColors.types[colorIndex];
 
       return {
         id: `edge-${index}`,
@@ -450,19 +474,28 @@ export class D3Adapter {
     return 10;
   }
 
-  static getNodeColor(node: D3Node, entityColors: string[]): string {
+  static getNodeColor(node: D3Node): string {
     // Use entity type-based colors from colorTokens levels array
-    // Get all unique entity types and sort them to ensure consistent ordering
-    const types = Array.from(new Set(entityColors)).sort();
-    const typeIndex = types.indexOf(node.type);
-    const colorIndex = (typeIndex >= 0 ? typeIndex : 0) % colorTokens.pages.hiTester.graphs.nodeColors.levels.length;
+    // Create a hash of the entity type to get a consistent index
+    let hash = 0;
+    for (let i = 0; i < node.type.length; i++) {
+      const char = node.type.charCodeAt(i);
+      hash = (hash << 5) - hash + char;
+      hash = hash & hash;
+    }
+    const colorIndex =
+      Math.abs(hash) %
+      colorTokens.pages.hiTester.graphs.nodeColors.levels.length;
     return colorTokens.pages.hiTester.graphs.nodeColors.levels[colorIndex];
   }
 
-  static getLinkColor(link: D3Link, connectorStyles: Array<{ color: string }>): string {
+  static getLinkColor(link: D3Link): string {
     // Use edge colors from colorTokens types array
-    const typeIndex = Math.abs(link.type.split('').reduce((h, c) => (h << 5) - h + c.charCodeAt(0), 0));
-    const colorIndex = typeIndex % colorTokens.pages.hiTester.graphs.edgeColors.types.length;
+    const typeIndex = Math.abs(
+      link.type.split("").reduce((h, c) => (h << 5) - h + c.charCodeAt(0), 0)
+    );
+    const colorIndex =
+      typeIndex % colorTokens.pages.hiTester.graphs.edgeColors.types.length;
     return colorTokens.pages.hiTester.graphs.edgeColors.types[colorIndex];
   }
 }
@@ -481,62 +514,66 @@ export class HierarchyDataExtractor {
     };
 
     if (!response || !response.entities || !response.connections) {
-      console.warn('Invalid API response structure, returning empty data');
+      console.warn("Invalid API response structure, returning empty data");
       return { entities: [], connections: [] };
     }
 
     // Transform entities from API format to HierarchyEntity format
     // Use positioned entities if available (they have x, y coordinates)
     const sourceEntities = response.positioned || response.entities;
-    
-    const entities: HierarchyEntity[] = sourceEntities.map((entity: unknown) => {
-      const e = entity as {
-        entityId?: string;
-        id?: string;
-        type?: string;
-        parentId?: string;
-        x?: number;
-        y?: number;
-        level?: number;
-        groupId?: string;
-      };
 
-      const result = {
-        entityId: e.entityId || e.id || '',
-        type: e.type || 'Unknown',
-        parentId: e.parentId,
-        x: (typeof e.x === 'number' && e.x != null && !isNaN(e.x)) ? e.x : 0,
-        y: (typeof e.y === 'number' && e.y != null && !isNaN(e.y)) ? e.y : 0,
-        level: (typeof e.level === 'number' && !isNaN(e.level)) ? e.level : 0,
-        groupId: e.groupId || 'default',
-      };
-      
-      // Debug logging for NaN values
-      if (isNaN(result.x) || isNaN(result.y)) {
-        console.warn('NaN detected in entity:', {
-          original: { x: e.x, y: e.y, level: e.level },
-          result: { x: result.x, y: result.y, level: result.level },
-          entityId: result.entityId
-        });
+    const entities: HierarchyEntity[] = sourceEntities.map(
+      (entity: unknown) => {
+        const e = entity as {
+          entityId?: string;
+          id?: string;
+          type?: string;
+          parentId?: string;
+          x?: number;
+          y?: number;
+          level?: number;
+          groupId?: string;
+        };
+
+        const result = {
+          entityId: e.entityId || e.id || "",
+          type: e.type || "Unknown",
+          parentId: e.parentId,
+          x: typeof e.x === "number" && e.x != null && !isNaN(e.x) ? e.x : 0,
+          y: typeof e.y === "number" && e.y != null && !isNaN(e.y) ? e.y : 0,
+          level: typeof e.level === "number" && !isNaN(e.level) ? e.level : 0,
+          groupId: e.groupId || "default",
+        };
+
+        // Debug logging for NaN values
+        if (isNaN(result.x) || isNaN(result.y)) {
+          console.warn("NaN detected in entity:", {
+            original: { x: e.x, y: e.y, level: e.level },
+            result: { x: result.x, y: result.y, level: result.level },
+            entityId: result.entityId,
+          });
+        }
+
+        return result;
       }
-      
-      return result;
-    });
+    );
 
     // Transform connections from API format to HierarchyConnection format
-    const connections: HierarchyConnection[] = response.connections.map((conn: unknown) => {
-      const c = conn as {
-        fromId?: string;
-        toId?: string;
-        type?: string;
-      };
+    const connections: HierarchyConnection[] = response.connections.map(
+      (conn: unknown) => {
+        const c = conn as {
+          fromId?: string;
+          toId?: string;
+          type?: string;
+        };
 
-      return {
-        fromId: c.fromId || '',
-        toId: c.toId || '',
-        type: c.type || 'unknown',
-      };
-    });
+        return {
+          fromId: c.fromId || "",
+          toId: c.toId || "",
+          type: c.type || "unknown",
+        };
+      }
+    );
 
     return { entities, connections };
   }

@@ -116,7 +116,7 @@ export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProp
         .data(graphData.links)
         .enter().append('line')
         .attr('class', 'link')
-        .attr('stroke', (d: any) => D3Adapter.getLinkColor(d, connectorStyles))
+        .attr('stroke', (d: any) => D3Adapter.getLinkColor(d))
         .attr('stroke-width', 2)
         .attr('marker-end', 'url(#arrowhead)')
         .attr('opacity', 0.6);
@@ -131,7 +131,7 @@ export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProp
       // Add circles for nodes
       node.append('circle')
         .attr('r', (d: any) => D3Adapter.getNodeRadius(d))
-        .attr('fill', (d: any) => D3Adapter.getNodeColor(d, entityColors))
+        .attr('fill', (d: any) => D3Adapter.getNodeColor(d))
         .attr('stroke', '#fff')
         .attr('stroke-width', 2);
 
