@@ -25,6 +25,7 @@ export interface HierarchyEntity {
   parentId?: string;
   x: number;
   y: number;
+  z?: number;
   level: number;
   groupId: string;
 }
@@ -501,6 +502,73 @@ export class D3Adapter {
 }
 
 // ========================================
+// Highcharts 3D Adapter
+// ========================================
+
+export interface Highcharts3DNode {
+  id: string;
+  label: string;
+  type: string;
+  x: number;
+  y: number;
+  z: number;
+  level: number;
+  groupId: string;
+  parentId?: string;
+  color?: string;
+}
+
+export interface Highcharts3DData {
+  nodes: Highcharts3DNode[];
+  links: Array<{ from: string; to: string; type: string }>;
+}
+
+export class Highcharts3DAdapter {
+  static transform(data: HierarchyData, config?: GraphConfig): Highcharts3DData {
+    // Get entities with z coordinates
+    const entitiesWithZ = data.entities.map((e: any) => ({
+      ...e,
+      z: e.z ?? (Math.random() * 20 - 10) // Use existing z or generate random
+    }));
+
+    const nodes: Highcharts3DNode[] = entitiesWithZ.map((e) => {
+      // Use entity type-based colors
+      let hash = 0;
+      for (let i = 0; i < e.type.length; i++) {
+        const char = e.type.charCodeAt(i);
+        hash = (hash << 5) - hash + char;
+        hash = hash & hash;
+      }
+      const colorIndex =
+        Math.abs(hash) %
+        colorTokens.pages.hiTester.graphs.nodeColors.levels.length;
+      const color = colorTokens.pages.hiTester.graphs.nodeColors.levels[colorIndex];
+
+      return {
+        id: e.entityId,
+        label: e.entityId.replace("entity_", ""),
+        type: e.type,
+        x: e.x,
+        y: e.y,
+        z: e.z,
+        level: e.level,
+        groupId: e.groupId,
+        parentId: e.parentId,
+        color: color
+      };
+    });
+
+    const links = data.connections.map((c) => ({
+      from: c.fromId,
+      to: c.toId,
+      type: c.type,
+    }));
+
+    return { nodes, links };
+  }
+}
+
+// ========================================
 // HierarchyDataExtractor
 // ========================================
 
@@ -531,6 +599,7 @@ export class HierarchyDataExtractor {
           parentId?: string;
           x?: number;
           y?: number;
+          z?: number;
           level?: number;
           groupId?: string;
         };
@@ -541,6 +610,7 @@ export class HierarchyDataExtractor {
           parentId: e.parentId,
           x: typeof e.x === "number" && e.x != null && !isNaN(e.x) ? e.x : 0,
           y: typeof e.y === "number" && e.y != null && !isNaN(e.y) ? e.y : 0,
+          z: typeof e.z === "number" && e.z != null && !isNaN(e.z) ? e.z : undefined,
           level: typeof e.level === "number" && !isNaN(e.level) ? e.level : 0,
           groupId: e.groupId || "default",
         };
@@ -606,5 +676,14 @@ export class GraphAdapters {
     const hierarchyData =
       HierarchyDataExtractor.extractFromApiResponse(apiResponse);
     return D3Adapter.transform(hierarchyData);
+  }
+
+  static createHighcharts3DData(
+    apiResponse: unknown,
+    config?: GraphConfig
+  ): Highcharts3DData {
+    const hierarchyData =
+      HierarchyDataExtractor.extractFromApiResponse(apiResponse);
+    return Highcharts3DAdapter.transform(hierarchyData, config);
   }
 }

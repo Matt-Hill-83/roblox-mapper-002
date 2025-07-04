@@ -29,6 +29,8 @@
     "cytoscape-cola": "^2.5.1",
     "cytoscape-dagre": "^2.5.0",
     "d3": "^7.9.0",
+    "highcharts": "^12.3.0",
+    "highcharts-react-official": "^3.2.2",
     "next": "15.3.4",
     "plotly.js": "^3.0.1",
     "react": "^19.0.0",

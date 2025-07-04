@@ -3,6 +3,7 @@ import HorizCollapsibleSetChild from "./HorizCollapsibleSetChild";
 import ReactFlowGraph from "./graphs/ReactFlowGraph";
 import CytoscapeGraph from "./graphs/CytoscapeGraph";
 import D3Graph from "./graphs/D3Graph";
+import Highcharts3DGraphWrapper from "./graphs/Highcharts3DGraphWrapper";
 import { HierarchyResult } from "../app/(pages)/hierarchy-tester/page";
 
 interface GraphsDisplayProps {
@@ -19,6 +20,10 @@ const GraphsDisplay: React.FC<GraphsDisplayProps> = ({ result }) => {
   );
 
   const d3Content = <D3Graph data={result} width="100%" height="100%" />;
+
+  const highcharts3DContent = (
+    <Highcharts3DGraphWrapper data={result} width="100%" height="100%" />
+  );
 
   return (
     <>
@@ -44,6 +49,14 @@ const GraphsDisplay: React.FC<GraphsDisplayProps> = ({ result }) => {
         minWidth="400px"
       >
         {d3Content}
+      </HorizCollapsibleSetChild>
+
+      <HorizCollapsibleSetChild
+        id="highcharts-3d-panel"
+        title="Highcharts 3D"
+        minWidth="400px"
+      >
+        {highcharts3DContent}
       </HorizCollapsibleSetChild>
     </>
   );
