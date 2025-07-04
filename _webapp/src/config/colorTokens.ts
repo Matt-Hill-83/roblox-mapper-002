@@ -154,15 +154,15 @@ function shuffle<T>(array: T[]): T[] {
   return array;
 }
 
-const nodeColorPool = shuffle([...interleavedColorPool()]);
-const edgeColorPool = shuffle([...interleavedColorPool()]);
+const nodeColorPool = [...interleavedColorPool()];
+const edgeColorPool = [...interleavedColorPool()];
 
 const nodeColors = {
-  levels: shuffle([...nodeColorPool]),
+  levels: [...nodeColorPool],
 };
 
 const edgeColors = {
-  types: shuffle([...edgeColorPool]),
+  types: [...edgeColorPool],
 };
 
 const colorTokens = {
