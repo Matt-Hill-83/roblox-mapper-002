@@ -36,6 +36,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "reactflow": "^11.11.4",
+    "scichart": "^3.5.774",
+    "scichart-react": "^0.1.13",
     "zustand": "^5.0.6"
   },
   "devDependencies": {

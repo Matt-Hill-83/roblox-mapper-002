@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import HorizCollapsibleSetChild from "./HorizCollapsibleSetChild";
 import ReactFlowGraph from "./graphs/ReactFlowGraph";
 import CytoscapeGraph from "./graphs/CytoscapeGraph";
 import D3Graph from "./graphs/D3Graph";
-import Highcharts3DGraphWrapper from "./graphs/Highcharts3DGraphWrapper";
+import SciChart3DBubbleWrapper from "./graphs/SciChart3DBubbleWrapper";
 import { HierarchyResult } from "../app/(pages)/hierarchy-tester/page";
 
 interface GraphsDisplayProps {
@@ -11,6 +11,19 @@ interface GraphsDisplayProps {
 }
 
 const GraphsDisplay: React.FC<GraphsDisplayProps> = ({ result }) => {
+  const [collapsedPanels, setCollapsedPanels] = useState<Set<string>>(new Set());
+
+  const handleToggle = (id: string) => {
+    setCollapsedPanels(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
+  };
   const reactFlowContent = (
     <ReactFlowGraph data={result} width="100%" height="100%" />
   );
@@ -21,8 +34,8 @@ const GraphsDisplay: React.FC<GraphsDisplayProps> = ({ result }) => {
 
   const d3Content = <D3Graph data={result} width="100%" height="100%" />;
 
-  const highcharts3DContent = (
-    <Highcharts3DGraphWrapper data={result} width="100%" height="100%" />
+  const sciChart3DContent = (
+    <SciChart3DBubbleWrapper data={result} width="100%" height="100%" />
   );
 
   return (
@@ -31,6 +44,8 @@ const GraphsDisplay: React.FC<GraphsDisplayProps> = ({ result }) => {
         id="react-flow-panel"
         title="React Flow"
         minWidth="400px"
+        isCollapsed={collapsedPanels.has("react-flow-panel")}
+        onToggle={handleToggle}
       >
         {reactFlowContent}
       </HorizCollapsibleSetChild>
@@ -39,6 +54,8 @@ const GraphsDisplay: React.FC<GraphsDisplayProps> = ({ result }) => {
         id="cytoscape-panel"
         title="Cytoscape.js"
         minWidth="400px"
+        isCollapsed={collapsedPanels.has("cytoscape-panel")}
+        onToggle={handleToggle}
       >
         {cytoscapeContent}
       </HorizCollapsibleSetChild>
@@ -47,16 +64,20 @@ const GraphsDisplay: React.FC<GraphsDisplayProps> = ({ result }) => {
         id="d3-panel"
         title="D3.js"
         minWidth="400px"
+        isCollapsed={collapsedPanels.has("d3-panel")}
+        onToggle={handleToggle}
       >
         {d3Content}
       </HorizCollapsibleSetChild>
 
       <HorizCollapsibleSetChild
-        id="highcharts-3d-panel"
-        title="Highcharts 3D"
+        id="scichart-3d-panel"
+        title="SciChart 3D"
         minWidth="400px"
+        isCollapsed={collapsedPanels.has("scichart-3d-panel")}
+        onToggle={handleToggle}
       >
-        {highcharts3DContent}
+        {sciChart3DContent}
       </HorizCollapsibleSetChild>
     </>
   );

@@ -35,7 +35,7 @@ export default function HorizCollapsibleSetChild({
       }}
     >
       <IconButton
-        onClick={() => onToggle(id)}
+        onClick={() => onToggle && onToggle(id)}
         sx={{
           position: 'absolute',
           top: 8,

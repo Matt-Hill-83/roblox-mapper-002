@@ -80,6 +80,18 @@ The system uses a service-oriented design with key services:
 4. Test in Roblox Studio using compiled Luau output
 5. Use web app (`cd _webapp && npm run dev`) for data verification
 
+### Troubleshooting
+
+If the lua-language-server is consuming too many resources:
+```bash
+# Kill lua-language-server process
+pkill -f lua-language-server
+
+# Or find and kill specific process
+ps aux | grep -i lua-language-server
+kill -9 [PID]
+```
+
 ## Key Modules
 
 ## OnStartup
