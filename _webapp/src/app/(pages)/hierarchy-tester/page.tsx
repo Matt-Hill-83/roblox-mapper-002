@@ -1,12 +1,17 @@
 "use client";
 
-import { Grid, Box, IconButton } from "@mui/material";
-import { Minimize, Maximize } from "@mui/icons-material";
+import { Grid, Box, Paper } from "@mui/material";
 import { useEffect, useState } from "react";
 
+import TestDataConfigComponent from "../../../components/TestDataConfigComponent";
+import MetricsBox from "../../../components/MetricsBox";
+import SuggestionsTable from "../../../components/SuggestionsTable";
+import ReactFlowGraph from "../../../components/graphs/ReactFlowGraph";
+import CytoscapeGraph from "../../../components/graphs/CytoscapeGraph";
+import D3Graph from "../../../components/graphs/D3Graph";
 import TreeDisplay from "../../../components/TreeDisplay";
-import CollapsibleGraphPanel from "../../../components/CollapsibleGraphPanel";
-import { usePanelCollapse } from "../../../hooks/usePanelCollapse";
+import HorizCollapsibleSetParent from "../../../components/HorizCollapsibleSetParent";
+import HorizCollapsibleSetChild from "../../../components/HorizCollapsibleSetChild";
 
 export interface TestDataConfig {
   // Basic parameters
@@ -37,9 +42,7 @@ export interface HierarchyResult {
 import { initialConfig } from "../../../data/defaultConfigs";
 
 export default function HierarchyTesterPage() {
-  const { isCollapsed, handleToggle, getFlexValue } = usePanelCollapse();
   const [config, setConfig] = useState<TestDataConfig>(initialConfig);
-
   const [result, setResult] = useState<HierarchyResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -83,7 +86,7 @@ export default function HierarchyTesterPage() {
     };
 
     generateDefaultHierarchy();
-  }, []); // Empty dependency array - only run on mount
+  }, [config]); // Empty dependency array - only run on mount
 
   const handleConfigSubmit = async (newConfig: TestDataConfig) => {
     setIsLoading(true);
@@ -136,102 +139,52 @@ export default function HierarchyTesterPage() {
         <Grid container spacing={3} sx={{ margin: 0, padding: 0 }}>
           {/* Column 2: Collapsible Panels */}
           <Grid item xs={12} lg={9}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                height: "100vh",
-                gap: 2, // Add some gap between panels
-                flexWrap: "nowrap", // Prevent wrapping
-              }}
-            >
-              <CollapsibleGraphPanel
-                title="Configuration"
-                isCollapsed={isCollapsed["config-panel"]}
-                onToggle={() => handleToggle("config-panel")}
-                result={result}
-                flex={getFlexValue("config-panel")}
-                initialConfig={config}
-                onSubmit={handleConfigSubmit}
-                isLoading={isLoading}
-              />
+            <HorizCollapsibleSetParent>
+              <HorizCollapsibleSetChild id="config-panel" title="Configuration">
+                <Paper elevation={1} sx={{ p: 2, height: "100%" }}>
+                  <TestDataConfigComponent
+                    initialConfig={config}
+                    onSubmit={handleConfigSubmit}
+                    isLoading={isLoading}
+                  />
+                  <MetricsBox result={result} isLoading={isLoading} />
+                </Paper>
+              </HorizCollapsibleSetChild>
 
-              <CollapsibleGraphPanel
+              <HorizCollapsibleSetChild
+                id="suggestions-panel"
                 title="Suggestions"
-                isCollapsed={isCollapsed["table"]}
-                onToggle={() => handleToggle("table")}
-                result={result}
-                flex={getFlexValue("table")}
-                onConfigurationSelect={handleConfigurationSelect}
-              />
-
-              <CollapsibleGraphPanel
-                title="React Flow"
-                isCollapsed={isCollapsed["react-flow"]}
-                onToggle={() => handleToggle("react-flow")}
-                result={result}
-                flex={getFlexValue("react-flow")}
-                data={result}
-                width="100%"
-                height="100%"
-              />
-
-              <CollapsibleGraphPanel
-                title="Cytoscape.js"
-                isCollapsed={isCollapsed["cytoscape"]}
-                onToggle={() => handleToggle("cytoscape")}
-                result={result}
-                flex={getFlexValue("cytoscape")}
-                data={result}
-                width="100%"
-                height="100%"
-              />
-
-              <CollapsibleGraphPanel
-                title="D3.js"
-                isCollapsed={isCollapsed["d3"]}
-                onToggle={() => handleToggle("d3")}
-                result={result}
-                flex={getFlexValue("d3")}
-                data={result}
-                width="100%"
-                height="100%"
-              />
-
-              {/* Tabbed Interface (TreeDisplay) */}
-              <Box
-                sx={{
-                  flex: getFlexValue("tabbed-interface"),
-                  height: "100%",
-                  overflow: "auto",
-                  position: "relative",
-                  border: "1px solid #ddd",
-                }}
               >
-                <IconButton
-                  onClick={() => handleToggle("tabbed-interface")}
-                  sx={{
-                    position: "absolute",
-                    top: 8,
-                    left: 8,
-                    zIndex: 1000,
-                    backgroundColor: "white",
-                    border: "1px solid #ccc",
-                    "&:hover": { backgroundColor: "#f5f5f5" },
-                  }}
-                  size="small"
-                >
-                  {isCollapsed["tabbed-interface"] ? (
-                    <Maximize />
-                  ) : (
-                    <Minimize />
-                  )}
-                </IconButton>
-                {!isCollapsed["tabbed-interface"] && (
-                  <TreeDisplay result={result} isLoading={isLoading} />
-                )}
-              </Box>
-            </Box>
+                <SuggestionsTable
+                  onConfigurationSelect={handleConfigurationSelect}
+                />
+              </HorizCollapsibleSetChild>
+
+              <HorizCollapsibleSetChild
+                id="react-flow-panel"
+                title="React Flow"
+              >
+                <ReactFlowGraph data={result} width="100%" height="100%" />
+              </HorizCollapsibleSetChild>
+
+              <HorizCollapsibleSetChild
+                id="cytoscape-panel"
+                title="Cytoscape.js"
+              >
+                <CytoscapeGraph data={result} width="100%" height="100%" />
+              </HorizCollapsibleSetChild>
+
+              <HorizCollapsibleSetChild id="d3-panel" title="D3.js">
+                <D3Graph data={result} width="100%" height="100%" />
+              </HorizCollapsibleSetChild>
+
+              <HorizCollapsibleSetChild
+                id="tree-display-panel"
+                title="Tree Display"
+              >
+                <TreeDisplay result={result} isLoading={isLoading} />
+              </HorizCollapsibleSetChild>
+            </HorizCollapsibleSetParent>
           </Grid>
         </Grid>
       </Box>
