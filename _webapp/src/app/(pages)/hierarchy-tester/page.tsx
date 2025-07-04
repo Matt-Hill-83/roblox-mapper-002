@@ -1,10 +1,6 @@
 "use client";
 
-import { Grid, Box } from "@mui/material";
-const gridStyles = {
-  border: "10px solid red",
-  width: "100%",
-};
+import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import ConfigPanel from "../../../components/ConfigPanel";
@@ -142,7 +138,7 @@ export default function HierarchyTesterPage() {
     <Box
       sx={{
         width: "100vw",
-        minHeight: "100vh",
+        height: "100vh",
         margin: 0,
         padding: 0,
         position: "relative",
@@ -150,27 +146,23 @@ export default function HierarchyTesterPage() {
         marginRight: "calc(-50vw + 50%)",
         left: 0,
         right: 0,
+        overflow: "hidden",
       }}
     >
-      <Grid container spacing={3} sx={{ margin: 0, padding: 0 }}>
-          {/* Column 2: Collapsible Panels */}
-          <Grid item xs={12} lg={12} sx={gridStyles}>
-            <HorizCollapsibleSetParent>
-              <HorizCollapsibleSetChild id="config-panel" title="Configuration">
-                {configContent}
-              </HorizCollapsibleSetChild>
+      <HorizCollapsibleSetParent>
+        <HorizCollapsibleSetChild id="config-panel" title="Configuration">
+          {configContent}
+        </HorizCollapsibleSetChild>
 
-              <HorizCollapsibleSetChild
-                id="analysis-tools-panel"
-                title="Analysis Tools"
-              >
-                {analysisToolsContent}
-              </HorizCollapsibleSetChild>
+        <HorizCollapsibleSetChild
+          id="analysis-tools-panel"
+          title="Analysis Tools"
+        >
+          {analysisToolsContent}
+        </HorizCollapsibleSetChild>
 
-              <GraphsDisplay result={result} />
-            </HorizCollapsibleSetParent>
-          </Grid>
-        </Grid>
+        <GraphsDisplay result={result} />
+      </HorizCollapsibleSetParent>
     </Box>
   );
 }
