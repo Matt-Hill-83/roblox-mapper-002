@@ -41,9 +41,7 @@ export interface HierarchyResult {
   asciiMap?: string;
 }
 
-export default function HierarchyTesterPage() {
-  const { isCollapsed, handleToggle, getFlexValue } = usePanelCollapse();
-  import { initialConfig } from "../../../data/defaultConfigs";
+import { initialConfig } from "../../../data/defaultConfigs";
 
 export default function HierarchyTesterPage() {
   const { isCollapsed, handleToggle, getFlexValue } = usePanelCollapse();
