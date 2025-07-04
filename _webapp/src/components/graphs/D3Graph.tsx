@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Box, Typography, Chip } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import * as d3 from 'd3';
 import { GraphAdapters, D3Data, D3Adapter } from '../../lib/graphAdapters';
 import { generateEntityTypeColors, generateConnectorTypeStyles } from '../../utils/colorUtils';
@@ -15,8 +15,6 @@ interface D3GraphProps {
 export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [error, setError] = useState<string | null>(null);
-  const [nodeCount, setNodeCount] = useState(0);
-  const [linkCount, setLinkCount] = useState(0);
 
   useEffect(() => {
     if (!svgRef.current) return;
@@ -26,8 +24,6 @@ export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProp
       d3.select(svgRef.current).selectAll('*').remove();
 
       if (!data) {
-        setNodeCount(0);
-        setLinkCount(0);
         return;
       }
 
@@ -39,8 +35,6 @@ export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProp
       } : undefined;
       
       const graphData: D3Data = GraphAdapters.createD3Data(data, config);
-      setNodeCount(graphData.nodes.length);
-      setLinkCount(graphData.links.length);
       
       // Generate colors for use in rendering
       const entityColors = config ? generateEntityTypeColors(config.entityTypes) : generateEntityTypeColors(4);
@@ -303,40 +297,6 @@ export default function D3Graph({ data, width = 400, height = 300 }: D3GraphProp
         style={{ backgroundColor: '#ffffff' }}
       />
       
-      {/* Info panel */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 8,
-          right: 8,
-          backgroundColor: 'rgba(255, 255, 255, 0.9)',
-          padding: 1,
-          borderRadius: 1,
-          backdropFilter: 'blur(4px)',
-          border: '1px solid rgba(0, 0, 0, 0.1)'
-        }}
-      >
-        <Typography variant="caption" display="block" gutterBottom>
-          <strong>D3.js</strong>
-        </Typography>
-        <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
-          <Chip 
-            label={`${nodeCount} nodes`} 
-            size="small" 
-            variant="outlined"
-            color="primary"
-          />
-          <Chip 
-            label={`${linkCount} links`} 
-            size="small" 
-            variant="outlined"
-            color="secondary"
-          />
-        </Box>
-        <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, display: 'block' }}>
-          Drag nodes • Double-click to reset
-        </Typography>
-      </Box>
     </Box>
   );
 }

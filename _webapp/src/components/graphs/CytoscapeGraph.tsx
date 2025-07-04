@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Box, Typography, Chip } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import cytoscape, { Core } from 'cytoscape';
 import dagre from 'cytoscape-dagre';
 import cola from 'cytoscape-cola';
@@ -23,8 +23,6 @@ export default function CytoscapeGraph({ data, width = 400, height = 300 }: Cyto
   const containerRef = useRef<HTMLDivElement>(null);
   const cyRef = useRef<Core | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [nodeCount, setNodeCount] = useState(0);
-  const [edgeCount, setEdgeCount] = useState(0);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -37,8 +35,6 @@ export default function CytoscapeGraph({ data, width = 400, height = 300 }: Cyto
       }
 
       if (!data) {
-        setNodeCount(0);
-        setEdgeCount(0);
         return;
       }
 
@@ -50,12 +46,6 @@ export default function CytoscapeGraph({ data, width = 400, height = 300 }: Cyto
       } : undefined;
       
       const graphData: CytoscapeData = GraphAdapters.createCytoscapeData(data, config);
-      
-      // Count nodes and edges
-      const nodes = graphData.elements.filter(el => !el.data.source);
-      const edges = graphData.elements.filter(el => el.data.source);
-      setNodeCount(nodes.length);
-      setEdgeCount(edges.length);
 
       // Initialize Cytoscape
       cyRef.current = cytoscape({
@@ -196,40 +186,6 @@ export default function CytoscapeGraph({ data, width = 400, height = 300 }: Cyto
         }}
       />
       
-      {/* Info panel */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 8,
-          right: 8,
-          backgroundColor: 'rgba(255, 255, 255, 0.9)',
-          padding: 1,
-          borderRadius: 1,
-          backdropFilter: 'blur(4px)',
-          border: '1px solid rgba(0, 0, 0, 0.1)'
-        }}
-      >
-        <Typography variant="caption" display="block" gutterBottom>
-          <strong>Cytoscape.js</strong>
-        </Typography>
-        <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
-          <Chip 
-            label={`${nodeCount} nodes`} 
-            size="small" 
-            variant="outlined"
-            color="primary"
-          />
-          <Chip 
-            label={`${edgeCount} edges`} 
-            size="small" 
-            variant="outlined"
-            color="secondary"
-          />
-        </Box>
-        <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, display: 'block' }}>
-          Click nodes to highlight
-        </Typography>
-      </Box>
     </Box>
   );
 }

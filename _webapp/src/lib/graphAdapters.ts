@@ -300,7 +300,7 @@ class ReactFlowAdapter {
         id: `edge-${index}`,
         source: conn.fromId,
         target: conn.toId,
-        type: "smoothstep",
+        type: "straight",
         animated: false,
         style: {
           stroke: edgeColor,

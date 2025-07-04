@@ -12,11 +12,10 @@ import {
   ConnectionMode,
   Controls,
   Background,
-  MiniMap,
-  Panel
+  MiniMap
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-import { Box, Typography, Chip } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { GraphAdapters, ReactFlowData } from '../../lib/graphAdapters';
 
 interface ReactFlowGraphProps {
@@ -163,32 +162,6 @@ export default function ReactFlowGraph({ data, width = 400, height = 300 }: Reac
           color="#e0e0e0"
         />
         
-        <Panel position="top-right">
-          <Box sx={{ 
-            backgroundColor: 'rgba(255, 255, 255, 0.9)', 
-            padding: 1, 
-            borderRadius: 1,
-            backdropFilter: 'blur(4px)'
-          }}>
-            <Typography variant="caption" display="block" gutterBottom>
-              <strong>React Flow</strong>
-            </Typography>
-            <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
-              <Chip 
-                label={`${nodes.length} nodes`} 
-                size="small" 
-                variant="outlined"
-                color="primary"
-              />
-              <Chip 
-                label={`${edges.length} edges`} 
-                size="small" 
-                variant="outlined"
-                color="secondary"
-              />
-            </Box>
-          </Box>
-        </Panel>
       </ReactFlow>
     </Box>
   );

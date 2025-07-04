@@ -66,3 +66,10 @@
         7. ✅ [CLD1] Set default tabValue state to 0 to show Suggestions tab by default
         8. ✅ [CLD1] Test that suggestions table displays correctly in the new tab location
         9. ✅ [CLD1] Verify clicking a suggestion still updates the configuration
+    103. ✅ [CLD1] T103: Change React Flow edge type to straight
+        1. ✅ [CLD1] Modified edge type from "smoothstep" to "straight" in graphAdapters.ts
+    104. ✅ [CLD1] T104: Remove stats widgets from all graph components
+        1. ✅ [CLD1] Remove info panel from ReactFlowGraph showing node/edge counts
+        2. ✅ [CLD1] Remove info panel from CytoscapeGraph showing node/edge counts
+        3. ✅ [CLD1] Remove info panel from D3Graph showing node/link counts
+        4. ✅ [CLD1] Clean up unused imports and state variables in all three components
