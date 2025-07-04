@@ -43,6 +43,7 @@ export default function HierarchyTesterPage() {
   const [result, setResult] = useState<HierarchyResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  console.log("result:", result); // zzz
   const handleConfigurationSelect = (newConfig: TestDataConfig) => {
     console.log("Loading preset configuration:", newConfig);
     setConfig(newConfig);
