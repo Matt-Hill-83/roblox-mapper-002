@@ -13,10 +13,16 @@
     2. ✅ [CLD] R70.2: Give the element a 10px red border.
 
 34. ✅ [CLD] R71: Layout changes:
+
     1. ✅ [CLD] R71.1: Darken light font in collapsible columns
     2. ✅ [CLD] R71.2: Move max/min icon to upper right instead of upper left
     3. ✅ [CLD] R71.3: Change max/min to more common icon
     4. ✅ [CLD] R71.4: apply compact styling to entity table
+
+35. ✅ [CLD] R72: graph colors:
+    1. ✅ [CLD] R72.1: fix colors on nodes and edges on cytpscape graph
+    2. ✅ [CLD] R72.2. make colors consistent across all 3 graphs
+    3. ✅ [CLD] R72.3. create a centralized location in the code to store colors
 
 ## Task List
 
@@ -37,3 +43,10 @@
         1. ✅ [CLD] Find the entity table component in TreeDisplay.tsx
         2. ✅ [CLD] Apply density="compact" prop to the DataGrid component (applied size="small" to Table component)
         3. ✅ [CLD] Verify compact styling is applied consistently across all table views
+    97. ⬛ [CLD] T97: Standardize graph colors across visualization components (R72)
+        1. ⬛ [CLD] Create a centralized color configuration file (e.g., graphColors.ts) in shared location
+        2. ⬛ [CLD] Define consistent color scheme for nodes (by type) and edges (by relationship)
+        3. ⬛ [CLD] Fix Cytoscape graph colors - update node and edge styling in CytoscapeGraph component
+        4. ⬛ [CLD] Update React Flow graph to use centralized colors
+        5. ⬛ [CLD] Update D3.js graph to use centralized colors
+        6. ⬛ [CLD] Ensure parent nodes, child nodes, and different edge types have distinct but consistent colors
