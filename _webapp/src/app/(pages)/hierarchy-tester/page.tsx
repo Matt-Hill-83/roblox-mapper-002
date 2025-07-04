@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import ConfigPanel from "../../../components/ConfigPanel";
+import { containerStyle } from "./pageStyle";
 import TreeDisplay from "../../../components/TreeDisplay";
 import HorizCollapsibleSetParent from "../../../components/HorizCollapsibleSetParent";
 import HorizCollapsibleSetChild from "../../../components/HorizCollapsibleSetChild";
@@ -135,20 +136,7 @@ export default function HierarchyTesterPage() {
   );
 
   return (
-    <Box
-      sx={{
-        width: "100vw",
-        height: "100vh",
-        margin: 0,
-        padding: 0,
-        position: "relative",
-        marginLeft: "calc(-50vw + 50%)",
-        marginRight: "calc(-50vw + 50%)",
-        left: 0,
-        right: 0,
-        overflow: "hidden",
-      }}
-    >
+    <Box sx={containerStyle}>
       <HorizCollapsibleSetParent>
         <HorizCollapsibleSetChild id="config-panel" title="Configuration">
           {configContent}
