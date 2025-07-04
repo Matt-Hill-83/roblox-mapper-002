@@ -67,6 +67,10 @@ npm run typecheck  # TypeScript checking
 - Verify tests pass before considering tasks complete
 - Handle edge cases and provide meaningful error messages
 
+## Gemini-Specific Instructions
+- On startup, read all files in the `@000ProjectSpecification/` directory.
+- Manage tasks using the `@000ProjectSpecification/000ProjectTasks-current.md` file.
+
 ---
 
 ## Setup Instructions
