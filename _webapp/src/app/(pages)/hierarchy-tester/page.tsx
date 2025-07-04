@@ -1,17 +1,10 @@
 "use client";
 
-import { Grid, Paper, Box, IconButton } from "@mui/material";
+import { Grid, Box, IconButton } from "@mui/material";
 import { Minimize, Maximize } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 
-import TestDataConfigComponent from "../../../components/TestDataConfigComponent";
 import TreeDisplay from "../../../components/TreeDisplay";
-import SuggestionsTable from "../../../components/SuggestionsTable";
-import MetricsBox from "../../../components/MetricsBox";
-import ReactFlowGraph from "../../../components/graphs/ReactFlowGraph";
-import CytoscapeGraph from "../../../components/graphs/CytoscapeGraph";
-import D3Graph from "../../../components/graphs/D3Graph";
-import GraphContainer from "../../../components/graphs/GraphContainer";
 import CollapsibleGraphPanel from "../../../components/CollapsibleGraphPanel";
 import { usePanelCollapse } from "../../../hooks/usePanelCollapse";
 
@@ -140,11 +133,7 @@ export default function HierarchyTesterPage() {
       }}
     >
       <Box>
-        <Grid
-          container
-          spacing={3}
-          sx={{ margin: 0, padding: 0 }}
-        >
+        <Grid container spacing={3} sx={{ margin: 0, padding: 0 }}>
           {/* Column 2: Collapsible Panels */}
           <Grid item xs={12} lg={9}>
             <Box
@@ -232,7 +221,11 @@ export default function HierarchyTesterPage() {
                   }}
                   size="small"
                 >
-                  {isCollapsed["tabbed-interface"] ? <Maximize /> : <Minimize />}
+                  {isCollapsed["tabbed-interface"] ? (
+                    <Maximize />
+                  ) : (
+                    <Minimize />
+                  )}
                 </IconButton>
                 {!isCollapsed["tabbed-interface"] && (
                   <TreeDisplay result={result} isLoading={isLoading} />
