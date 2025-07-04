@@ -13,10 +13,10 @@
 
 36. R73: Testing Framework Setup:
 
-    1. ⬛ R73.1: The system shall implement Jest testing framework for the Next.js web application
-    2. ⬛ R73.2: The system shall implement React Testing Library (RTL) for component testing
-    3. ⬛ R73.3: The system shall include at least one sample unit test
-    4. ⬛ R73.4: The system shall include at least one sample component test
+    1. ⬛ [CLD2] R73.1: The system shall implement Jest testing framework for the Next.js web application
+    2. ⬛ [CLD2] R73.2: The system shall implement React Testing Library (RTL) for component testing
+    3. ⬛ [CLD2] R73.3: The system shall include at least one sample unit test
+    4. ⬛ [CLD2] R73.4: The system shall include at least one sample component test
 
 ## Task List
 
@@ -33,20 +33,20 @@
         4. ✅ [CLD] Update D3Graph to use colorTokens.pages.hiTester.graphs colors
         5. ✅ [CLD] Ensure nodes use level-based colors (level1: blue, level2: orange, level3: green)
         6. ✅ [CLD] Ensure edges use the defined edge color array consistently
-    98. ⬛ T98: Set up Jest testing framework for Next.js application (R73.1)
-        1. ⬛ Install Jest and related dependencies for Next.js
-        2. ⬛ Create Jest configuration file (jest.config.js)
-        3. ⬛ Configure Jest for TypeScript support
-        4. ⬛ Set up test script in package.json
-    99. ⬛ T99: Set up React Testing Library (R73.2)
-        1. ⬛ Install React Testing Library dependencies
-        2. ⬛ Create test setup file for RTL configuration
-        3. ⬛ Configure testing utilities and custom render functions
-    100. ⬛ T100: Create sample unit test (R73.3)
-        1. ⬛ Create a test directory structure
-        2. ⬛ Write a sample unit test for a utility function or service
-        3. ⬛ Ensure test runs successfully with Jest
-    101. ⬛ T101: Create sample component test (R73.4)
-        1. ⬛ Write a sample test for a React component using RTL
-        2. ⬛ Include tests for rendering and user interactions
-        3. ⬛ Verify component test runs successfully
+    98. ⬛ [CLD2] T98: Set up Jest testing framework for Next.js application (R73.1)
+        1. ⬛ [CLD2] Install Jest and related dependencies for Next.js
+        2. ⬛ [CLD2] Create Jest configuration file (jest.config.js)
+        3. ⬛ [CLD2] Configure Jest for TypeScript support
+        4. ⬛ [CLD2] Set up test script in package.json
+    99. ⬛ [CLD2] T99: Set up React Testing Library (R73.2)
+        1. ⬛ [CLD2] Install React Testing Library dependencies
+        2. ⬛ [CLD2] Create test setup file for RTL configuration
+        3. ⬛ [CLD2] Configure testing utilities and custom render functions
+    100. ⬛ [CLD2] T100: Create sample unit test (R73.3)
+        1. ⬛ [CLD2] Create a test directory structure
+        2. ⬛ [CLD2] Write a sample unit test for a utility function or service
+        3. ⬛ [CLD2] Ensure test runs successfully with Jest
+    101. ⬛ [CLD2] T101: Create sample component test (R73.4)
+        1. ⬛ [CLD2] Write a sample test for a React component using RTL
+        2. ⬛ [CLD2] Include tests for rendering and user interactions
+        3. ⬛ [CLD2] Verify component test runs successfully
