@@ -10,6 +10,7 @@ import {
   getConnectorTypeStyle,
   ConnectorStyle,
 } from "../utils/colorUtils";
+import colorTokens from "../config/colorTokens";
 
 // Configuration for graph visualization
 export interface GraphConfig {
@@ -86,39 +87,67 @@ export class CytoscapeAdapter {
 
     const edgeElements: CytoscapeElement[] = data.connections.map((conn, i) => {
       const idx = this.getConnectorTypeIndex(conn.type);
-      const style = getConnectorTypeStyle(idx, connectorStyles);
+      const colorIndex = idx % colorTokens.pages.hiTester.graphs.edgeColors.types.length;
       return {
         data: {
           id: `e-${i}`,
           source: conn.fromId,
           target: conn.toId,
         },
-        classes: `connector-${i}`,
+        classes: `connector-${colorIndex}`,
       };
     });
 
     const style = [
-      { selector: "node", style: { label: "data(label)" } },
-      // ... existing rules ...
+      { 
+        selector: "node", 
+        style: { 
+          label: "data(label)",
+          "background-color": colorTokens.colors.gray005,
+          "border-width": 2,
+          "border-color": colorTokens.colors.gray008,
+          width: 40,
+          height: 40,
+          "text-valign": "center",
+          "text-halign": "center",
+          "font-size": 12,
+        } 
+      },
+      // Level-based coloring using levels array
+      {
+        selector: ".level-1",
+        style: {
+          "background-color": colorTokens.pages.hiTester.graphs.nodeColors.levels[0],
+          "border-color": colorTokens.pages.hiTester.graphs.nodeColors.levels[0],
+        }
+      },
+      {
+        selector: ".level-2",
+        style: {
+          "background-color": colorTokens.pages.hiTester.graphs.nodeColors.levels[1],
+          "border-color": colorTokens.pages.hiTester.graphs.nodeColors.levels[1],
+        }
+      },
+      {
+        selector: ".level-3",
+        style: {
+          "background-color": colorTokens.pages.hiTester.graphs.nodeColors.levels[2],
+          "border-color": colorTokens.pages.hiTester.graphs.nodeColors.levels[2],
+        }
+      },
     ];
 
-    // 🔹 NEW: generate connector-type specific edge styles (R54.2.4 / T60)
-    connectorStyles.forEach((cs, i) => {
-      const lineStyle =
-        cs.strokeDasharray === "2,3"
-          ? "dotted"
-          : cs.strokeDasharray
-          ? "dashed"
-          : "solid";
-
+    // Edge styles using colorTokens types array
+    colorTokens.pages.hiTester.graphs.edgeColors.types.forEach((color, i) => {
       style.push({
         selector: `.connector-${i}`,
         style: {
-          "line-color": cs.color,
-          "target-arrow-color": cs.color,
-          width: cs.strokeWidth,
-          opacity: cs.opacity,
-          "line-style": lineStyle,
+          "line-color": color,
+          "target-arrow-color": color,
+          "target-arrow-shape": "triangle",
+          width: 2,
+          opacity: 0.8,
+          "curve-style": "bezier",
         },
       });
     });
@@ -199,7 +228,10 @@ class ReactFlowAdapter {
 
     // First pass: create nodes with initial positions
     const nodes: ReactFlowNode[] = data.entities.map((entity, index) => {
-      const borderColor = this.getBorderColor(entity.groupId);
+      // Use level-based colors from colorTokens levels array
+      const levelIndex = (entity.level - 1) % colorTokens.pages.hiTester.graphs.nodeColors.levels.length;
+      const nodeColor = colorTokens.pages.hiTester.graphs.nodeColors.levels[levelIndex];
+      
       return {
         id: entity.entityId,
         type: "default",
@@ -222,9 +254,9 @@ class ReactFlowAdapter {
           parentIds: entity.parentId ? [entity.parentId] : [],
         },
         style: {
-          backgroundColor: borderColor,
+          backgroundColor: nodeColor,
           color: "#ffffff",
-          border: `2px solid ${borderColor}`,
+          border: `2px solid ${nodeColor}`,
           borderRadius: entity.type === "Parent" ? "50%" : "8px",
           width: 60,
           height: 60,
@@ -242,7 +274,8 @@ class ReactFlowAdapter {
     // Edges
     const edges: ReactFlowEdge[] = data.connections.map((conn, index) => {
       const typeIndex = this.getConnectorTypeIndex(conn.type);
-      const connectorStyle = getConnectorTypeStyle(typeIndex, connectorStyles);
+      const colorIndex = typeIndex % colorTokens.pages.hiTester.graphs.edgeColors.types.length;
+      const edgeColor = colorTokens.pages.hiTester.graphs.edgeColors.types[colorIndex];
 
       return {
         id: `edge-${index}`,
@@ -251,9 +284,9 @@ class ReactFlowAdapter {
         type: "smoothstep",
         animated: false,
         style: {
-          stroke: connectorStyle.color,
-          strokeWidth: connectorStyle.strokeWidth,
-          opacity: connectorStyle.opacity,
+          stroke: edgeColor,
+          strokeWidth: 2,
+          opacity: 0.8,
         },
       };
     });
@@ -423,15 +456,16 @@ export class D3Adapter {
   }
 
   static getNodeColor(node: D3Node, entityColors: string[]): string {
-    // Use entity type to determine color
-    const typeIndex = Math.abs(node.entityType.split('').reduce((h, c) => (h << 5) - h + c.charCodeAt(0), 0)) % entityColors.length;
-    return entityColors[typeIndex];
+    // Use level-based colors from colorTokens levels array
+    const levelIndex = (node.level - 1) % colorTokens.pages.hiTester.graphs.nodeColors.levels.length;
+    return colorTokens.pages.hiTester.graphs.nodeColors.levels[levelIndex];
   }
 
   static getLinkColor(link: D3Link, connectorStyles: Array<{ color: string }>): string {
-    // Use connection type to determine color
-    const typeIndex = Math.abs(link.type.split('').reduce((h, c) => (h << 5) - h + c.charCodeAt(0), 0)) % connectorStyles.length;
-    return connectorStyles[typeIndex]?.color || '#666';
+    // Use edge colors from colorTokens types array
+    const typeIndex = Math.abs(link.type.split('').reduce((h, c) => (h << 5) - h + c.charCodeAt(0), 0));
+    const colorIndex = typeIndex % colorTokens.pages.hiTester.graphs.edgeColors.types.length;
+    return colorTokens.pages.hiTester.graphs.edgeColors.types[colorIndex];
   }
 }
 
