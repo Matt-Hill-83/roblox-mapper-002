@@ -80,7 +80,7 @@ export class CytoscapeAdapter {
         x: (typeof entity.x === 'number' && !isNaN(entity.x)) ? entity.x * 1.5 : 0,
         y: (typeof entity.y === 'number' && !isNaN(entity.y)) ? entity.y * -1.5 : 0,
       },
-      classes: `${entity.type.toLowerCase()} level-${entity.level} ${
+      classes: `type-${entity.type.toLowerCase()} level-${entity.level} ${
         entity.groupId
       }`,
     }));
@@ -98,6 +98,9 @@ export class CytoscapeAdapter {
       };
     });
 
+    // Get unique entity types
+    const entityTypes = Array.from(new Set(data.entities.map(e => e.type))).sort();
+    
     const style = [
       { 
         selector: "node", 
@@ -113,29 +116,20 @@ export class CytoscapeAdapter {
           "font-size": 12,
         } 
       },
-      // Level-based coloring using levels array
-      {
-        selector: ".level-1",
-        style: {
-          "background-color": colorTokens.pages.hiTester.graphs.nodeColors.levels[0],
-          "border-color": colorTokens.pages.hiTester.graphs.nodeColors.levels[0],
-        }
-      },
-      {
-        selector: ".level-2",
-        style: {
-          "background-color": colorTokens.pages.hiTester.graphs.nodeColors.levels[1],
-          "border-color": colorTokens.pages.hiTester.graphs.nodeColors.levels[1],
-        }
-      },
-      {
-        selector: ".level-3",
-        style: {
-          "background-color": colorTokens.pages.hiTester.graphs.nodeColors.levels[2],
-          "border-color": colorTokens.pages.hiTester.graphs.nodeColors.levels[2],
-        }
-      },
     ];
+    
+    // Entity type-based coloring
+    entityTypes.forEach((type, index) => {
+      const colorIndex = index % colorTokens.pages.hiTester.graphs.nodeColors.levels.length;
+      const color = colorTokens.pages.hiTester.graphs.nodeColors.levels[colorIndex];
+      style.push({
+        selector: `.type-${type.toLowerCase()}`,
+        style: {
+          "background-color": color,
+          "border-color": color,
+        }
+      });
+    });
 
     // Edge styles using colorTokens types array
     colorTokens.pages.hiTester.graphs.edgeColors.types.forEach((color, i) => {
@@ -228,9 +222,10 @@ class ReactFlowAdapter {
 
     // First pass: create nodes with initial positions
     const nodes: ReactFlowNode[] = data.entities.map((entity, index) => {
-      // Use level-based colors from colorTokens levels array
-      const levelIndex = (entity.level - 1) % colorTokens.pages.hiTester.graphs.nodeColors.levels.length;
-      const nodeColor = colorTokens.pages.hiTester.graphs.nodeColors.levels[levelIndex];
+      // Use entity type-based colors from colorTokens levels array
+      const typeIndex = typeIndexMap.get(entity.type) ?? 0;
+      const colorIndex = typeIndex % colorTokens.pages.hiTester.graphs.nodeColors.levels.length;
+      const nodeColor = colorTokens.pages.hiTester.graphs.nodeColors.levels[colorIndex];
       
       return {
         id: entity.entityId,
@@ -456,9 +451,12 @@ export class D3Adapter {
   }
 
   static getNodeColor(node: D3Node, entityColors: string[]): string {
-    // Use level-based colors from colorTokens levels array
-    const levelIndex = (node.level - 1) % colorTokens.pages.hiTester.graphs.nodeColors.levels.length;
-    return colorTokens.pages.hiTester.graphs.nodeColors.levels[levelIndex];
+    // Use entity type-based colors from colorTokens levels array
+    // Get all unique entity types and sort them to ensure consistent ordering
+    const types = Array.from(new Set(entityColors)).sort();
+    const typeIndex = types.indexOf(node.type);
+    const colorIndex = (typeIndex >= 0 ? typeIndex : 0) % colorTokens.pages.hiTester.graphs.nodeColors.levels.length;
+    return colorTokens.pages.hiTester.graphs.nodeColors.levels[colorIndex];
   }
 
   static getLinkColor(link: D3Link, connectorStyles: Array<{ color: string }>): string {
