@@ -138,7 +138,7 @@ export default function HierarchyTesterPage() {
       <Box>
         <Grid container spacing={3} sx={{ margin: 0, padding: 0 }}>
           {/* Column 2: Collapsible Panels */}
-          <Grid item xs={12} lg={9}>
+          <Grid item xs={12} lg={12} sx={{ border: "10px solid red" }}>
             <HorizCollapsibleSetParent>
               <HorizCollapsibleSetChild id="config-panel" title="Configuration">
                 <Paper elevation={1} sx={{ p: 2, height: "100%" }}>
@@ -154,6 +154,7 @@ export default function HierarchyTesterPage() {
               <HorizCollapsibleSetChild
                 id="suggestions-panel"
                 title="Suggestions"
+                maxWidth="600px"
               >
                 <SuggestionsTable
                   onConfigurationSelect={handleConfigurationSelect}
@@ -163,6 +164,7 @@ export default function HierarchyTesterPage() {
               <HorizCollapsibleSetChild
                 id="react-flow-panel"
                 title="React Flow"
+                minWidth="400px"
               >
                 <ReactFlowGraph data={result} width="100%" height="100%" />
               </HorizCollapsibleSetChild>
@@ -170,11 +172,12 @@ export default function HierarchyTesterPage() {
               <HorizCollapsibleSetChild
                 id="cytoscape-panel"
                 title="Cytoscape.js"
+                minWidth="400px"
               >
                 <CytoscapeGraph data={result} width="100%" height="100%" />
               </HorizCollapsibleSetChild>
 
-              <HorizCollapsibleSetChild id="d3-panel" title="D3.js">
+              <HorizCollapsibleSetChild id="d3-panel" title="D3.js" minWidth="400px">
                 <D3Graph data={result} width="100%" height="100%" />
               </HorizCollapsibleSetChild>
 

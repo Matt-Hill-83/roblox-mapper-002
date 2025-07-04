@@ -7,7 +7,8 @@ interface HorizCollapsibleSetChildProps {
   title: string;
   isCollapsed?: boolean; // Made optional
   onToggle?: (id: string) => void; // Made optional
-  flex?: string; // Made optional
+  minWidth?: string | number; // Add minWidth prop
+  maxWidth?: string | number; // Add maxWidth prop
   children: React.ReactNode;
 }
 
@@ -16,19 +17,21 @@ export default function HorizCollapsibleSetChild({
   title,
   isCollapsed,
   onToggle,
-  flex,
+  minWidth,
+  maxWidth,
   children,
 }: HorizCollapsibleSetChildProps) {
   return (
     <Box
       sx={{
-        flex: flex,
+        flex: isCollapsed ? '0 0 50px' : '1 1 0',
         height: '100%',
         overflow: 'hidden', // Hide content when collapsed
         position: 'relative',
         border: '1px solid #ddd',
         transition: 'flex 0.3s ease-in-out',
-        minWidth: isCollapsed ? '50px' : '200px', // Ensure a minimum width when expanded
+        minWidth: isCollapsed ? '50px' : (minWidth || '200px'), // Use custom minWidth or default
+        maxWidth: maxWidth || 'none', // Use custom maxWidth if provided
       }}
     >
       <IconButton

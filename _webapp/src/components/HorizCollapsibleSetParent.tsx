@@ -22,44 +22,13 @@ export default function HorizCollapsibleSetParent({
     }));
   };
 
-  const getFlexValues = () => {
-    const childrenArray = React.Children.toArray(children);
-    const numChildren = childrenArray.length;
-    const numCollapsed = Object.values(collapsedState).filter(Boolean).length;
-    const numExpanded = numChildren - numCollapsed;
-
-    const collapsedWidth = 50; // px
-    const totalCollapsedWidth = numCollapsed * collapsedWidth;
-
-    // Calculate remaining flexible space
-    // This assumes the parent container has a defined width (e.g., 100% or fixed px)
-    // For simplicity, we'll distribute remaining flex units.
-    // A more robust solution might involve actual pixel calculations if parent width is known.
-    const totalFlexUnits = 100; // Arbitrary total flex units for distribution
-    const flexPerExpanded = numExpanded > 0 ? (totalFlexUnits - totalCollapsedWidth) / numExpanded : 0;
-
-    const flexValues: { [key: string]: string } = {};
-    React.Children.forEach(children, (child) => {
-      if (React.isValidElement(child) && child.props.id) {
-        const id = child.props.id;
-        if (collapsedState[id]) {
-          flexValues[id] = `${collapsedWidth}px`;
-        } else {
-          flexValues[id] = `${flexPerExpanded}fr`; // Using 'fr' for flexible units
-        }
-      }
-    });
-    return flexValues;
-  };
-
-  const flexValues = getFlexValues();
-
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'row',
         height: '100%',
+        width: '100%',
         gap: 2,
         flexWrap: 'nowrap',
       }}
@@ -70,7 +39,6 @@ export default function HorizCollapsibleSetParent({
           return React.cloneElement(child, {
             isCollapsed: collapsedState[id] || false,
             onToggle: handleToggle,
-            flex: flexValues[id] || '1fr', // Default to 1fr if not calculated
           });
         }
         return child;
