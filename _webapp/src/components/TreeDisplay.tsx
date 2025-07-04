@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, ReactNode } from "react";
+import { useState } from "react";
 import {
   Box,
   Typography,
@@ -19,16 +19,9 @@ import {
   Stack,
   Card,
   CardContent,
-  Grid,
-  IconButton,
 } from "@mui/material";
-import { Minimize, Maximize } from "@mui/icons-material";
 import { HierarchyResult, TestDataConfig } from "../app/(pages)/hierarchy-tester/page";
-import ReactFlowGraph from "./graphs/ReactFlowGraph";
-import CytoscapeGraph from "./graphs/CytoscapeGraph";
-import D3Graph from "./graphs/D3Graph";
 import VisualMap from "./VisualMap";
-import GraphContainer from "./graphs/GraphContainer";
 import SuggestionsTable from "./SuggestionsTable";
 
 interface TreeDisplayProps {
@@ -66,7 +59,7 @@ export default function TreeDisplay({
 }: TreeDisplayProps) {
   const [tabValue, setTabValue] = useState(0); // Default to Suggestions tab (index 0)
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
 
@@ -96,25 +89,14 @@ export default function TreeDisplay({
         minHeight={300}
       >
         <Alert severity="info" sx={{ width: "100%" }}>
-          Configure test parameters and click "Generate Hierarchy" to see
+          Configure test parameters and click &quot;Generate Hierarchy&quot; to see
           results
         </Alert>
       </Box>
     );
   }
 
-  const { entities, groups, positioned } = result;
-
-  // Calculate summary statistics
-  const totalEntities = entities.length;
-  const totalGroups = groups.length;
-  const entityTypes = entities.reduce(
-    (acc: Record<string, number>, entity: any) => {
-      acc[entity.type] = (acc[entity.type] || 0) + 1;
-      return acc;
-    },
-    {}
-  );
+  const { groups, positioned } = result;
 
   
 
@@ -133,15 +115,19 @@ export default function TreeDisplay({
       </Box>
 
       <TabPanel value={tabValue} index={0}>
-        <SuggestionsTable onConfigurationSelect={onConfigurationSelect} />
+        {onConfigurationSelect ? (
+          <SuggestionsTable onConfigurationSelect={onConfigurationSelect} />
+        ) : (
+          <Alert severity="info">Configuration selection not available</Alert>
+        )}
       </TabPanel>
 
       <TabPanel value={tabValue} index={1}>
-        <EntityTable positioned={positioned} />
+        <EntityTable positioned={positioned as Entity[]} />
       </TabPanel>
 
       <TabPanel value={tabValue} index={2}>
-        <GroupDetails groups={groups} />
+        <GroupDetails groups={groups as Group[]} />
       </TabPanel>
 
       <TabPanel value={tabValue} index={3}>
@@ -149,13 +135,23 @@ export default function TreeDisplay({
       </TabPanel>
 
       <TabPanel value={tabValue} index={4}>
-        <VisualMap result={result} />
+        <VisualMap positioned={positioned} />
       </TabPanel>
     </Box>
   );
 }
 
-function EntityTable({ positioned }: { positioned: any[] }) {
+interface Entity {
+  entityId: string;
+  type: string;
+  parentId?: string;
+  groupId: string;
+  x: number;
+  y: number;
+  level: number;
+}
+
+function EntityTable({ positioned }: { positioned: Entity[] }) {
   return (
     <TableContainer component={Paper} variant="outlined">
       <Table size="small">
@@ -207,7 +203,17 @@ function EntityTable({ positioned }: { positioned: any[] }) {
   );
 }
 
-function GroupDetails({ groups }: { groups: any[] }) {
+interface Group {
+  id: string;
+  entities?: unknown[];
+  rootEntityId: string;
+  metrics?: {
+    depth: number;
+    typeCounts: Record<string, number>;
+  };
+}
+
+function GroupDetails({ groups }: { groups: Group[] }) {
   return (
     <Stack spacing={2}>
       {groups.map((group, index) => (
@@ -216,16 +222,16 @@ function GroupDetails({ groups }: { groups: any[] }) {
             <Typography variant="h6" gutterBottom>
               {group.id}
             </Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+              <Box sx={{ flex: 1 }}>
                 <Typography variant="body2" color="text.secondary">
                   Total Entities: <strong>{group.entities?.length || 0}</strong>
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Root Entity: <strong>{group.rootEntityId}</strong>
                 </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              </Box>
+              <Box sx={{ flex: 1 }}>
                 {group.metrics && (
                   <>
                     <Typography variant="body2" color="text.secondary">
@@ -236,8 +242,8 @@ function GroupDetails({ groups }: { groups: any[] }) {
                     </Typography>
                   </>
                 )}
-              </Grid>
-            </Grid>
+              </Box>
+            </Box>
           </CardContent>
         </Card>
       ))}
