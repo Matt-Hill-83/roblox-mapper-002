@@ -204,6 +204,7 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
        5. ✅ R68: I think the two apps are mostly separate.
 
    31. ✅ clean up page.jsx
+
        1. ✅ Consolidate Collapse State Management: The multiple `useState` hooks and `handleToggle` functions for panel collapse (`isTableCollapsed`, `isReactFlowCollapsed`, etc.) could be consolidated into a single state object or a custom hook for better organization and less repetition.
        2. ✅ Extract API Logic: The `useEffect` and `handleConfigSubmit` functions contain direct API calls. This logic could be extracted into a separate service or hook (`useHierarchyData`) to improve separation of concerns and reusability.
        3. ✅ Centralize Default Config: The `config` default values are hardcoded. These could be moved to a separate constant or configuration file for easier management and to avoid magic numbers/strings.
@@ -319,10 +320,10 @@ Create a minimal proof of concept that demonstrates hierarchical data analysis a
    87. ✅ T87: Remove Commented-Out Code: Lines like `// width: '100%',` and `// border: "10px solid red",` should be removed.
    88. ✅ T88: [VSC] update this file to say "vscode test" at the top.
    89. ✅ T89: [VSC] update this file to say "copilot test" at the top.
-   90. ✅ [GEM] T90: Implement MUI Accordion components (R69)
-       90.1. ✅ [GEM] T90.1: Replace `CollapsibleGraphPanel` with MUI `Accordion`, `AccordionSummary`, and `AccordionDetails` (R69.1)
-       90.2. ✅ [GEM] T90.2: Update imports in `hierarchy-tester/page.tsx` to include MUI Accordion components (R69.2)
-       90.3. ✅ [GEM] T90.3: Map `isCollapsed` and `onToggle` from `usePanelCollapse` to `expanded` and `onChange` props of `Accordion` (R69.3)
-       90.4. ✅ [GEM] T90.4: Place content previously rendered by `CollapsibleGraphPanel`'s `switch` case directly into `AccordionDetails` (R69.4)
-       90.5. ✅ [GEM] T90.5: Adjust layout and styling to ensure visual consistency with the new Accordion structure (R69.5)
-       90.6. ✅ [GEM] T90.6: Remove the `CollapsibleGraphPanel.tsx` component file (R69.6)
+   90. ⬛ [GEM] T90: Implement MUI Accordion components (R69)
+       90.1. ⬛ [GEM] T90.1: Replace `CollapsibleGraphPanel` with MUI `Accordion`, `AccordionSummary`, and `AccordionDetails` (R69.1)
+       90.2. ⬛ [GEM] T90.2: Update imports in `hierarchy-tester/page.tsx` to include MUI Accordion components (R69.2)
+       90.3. ⬛ [GEM] T90.3: Map `isCollapsed` and `onToggle` from `usePanelCollapse` to `expanded` and `onChange` props of `Accordion` (R69.3)
+       90.4. ⬛ [GEM] T90.4: Place content previously rendered by `CollapsibleGraphPanel`'s `switch` case directly into `AccordionDetails` (R69.4)
+       90.5. ⬛ [GEM] T90.5: Adjust layout and styling to ensure visual consistency with the new Accordion structure (R69.5)
+       90.6. ⬛ [GEM] T90.6: Remove the `CollapsibleGraphPanel.tsx` component file (R69.6)
