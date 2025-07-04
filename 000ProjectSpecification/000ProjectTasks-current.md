@@ -43,10 +43,10 @@
         1. ✅ [CLD] Find the entity table component in TreeDisplay.tsx
         2. ✅ [CLD] Apply density="compact" prop to the DataGrid component (applied size="small" to Table component)
         3. ✅ [CLD] Verify compact styling is applied consistently across all table views
-    97. ⬛ [CLD] T97: Standardize graph colors across visualization components (R72)
-        1. ⬛ [CLD] Create a centralized color configuration file (e.g., graphColors.ts) in shared location
-        2. ⬛ [CLD] Define consistent color scheme for nodes (by type) and edges (by relationship)
-        3. ⬛ [CLD] Fix Cytoscape graph colors - update node and edge styling in CytoscapeGraph component
-        4. ⬛ [CLD] Update React Flow graph to use centralized colors
-        5. ⬛ [CLD] Update D3.js graph to use centralized colors
-        6. ⬛ [CLD] Ensure parent nodes, child nodes, and different edge types have distinct but consistent colors
+    97. ✅ [CLD] T97: Standardize graph colors across visualization components (R72)
+        1. ✅ [CLD] Copy colorTokens.js to _webapp/src/config/colorTokens.ts and convert to TypeScript
+        2. ✅ [CLD] Update CytoscapeGraph to use colorTokens.pages.hiTester.graphs colors
+        3. ✅ [CLD] Update ReactFlowGraph to use colorTokens.pages.hiTester.graphs colors
+        4. ✅ [CLD] Update D3Graph to use colorTokens.pages.hiTester.graphs colors
+        5. ✅ [CLD] Ensure nodes use level-based colors (level1: blue, level2: orange, level3: green)
+        6. ✅ [CLD] Ensure edges use the defined edge color array consistently
