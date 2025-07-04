@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 
 import TestDataConfigComponent from "../../../components/TestDataConfigComponent";
 import MetricsBox from "../../../components/MetricsBox";
-import SuggestionsTable from "../../../components/SuggestionsTable";
 import ReactFlowGraph from "../../../components/graphs/ReactFlowGraph";
 import CytoscapeGraph from "../../../components/graphs/CytoscapeGraph";
 import D3Graph from "../../../components/graphs/D3Graph";
@@ -156,12 +155,13 @@ export default function HierarchyTesterPage() {
               </HorizCollapsibleSetChild>
 
               <HorizCollapsibleSetChild
-                id="suggestions-panel"
-                title="Suggestions"
-                maxWidth="600px"
+                id="analysis-tools-panel"
+                title="Analysis Tools"
               >
-                <SuggestionsTable
-                  onConfigurationSelect={handleConfigurationSelect}
+                <TreeDisplay 
+                  result={result} 
+                  isLoading={isLoading} 
+                  onConfigurationSelect={handleConfigurationSelect} 
                 />
               </HorizCollapsibleSetChild>
 
@@ -187,13 +187,6 @@ export default function HierarchyTesterPage() {
                 minWidth="400px"
               >
                 <D3Graph data={result} width="100%" height="100%" />
-              </HorizCollapsibleSetChild>
-
-              <HorizCollapsibleSetChild
-                id="tree-display-panel"
-                title="Tree Display"
-              >
-                <TreeDisplay result={result} isLoading={isLoading} />
               </HorizCollapsibleSetChild>
             </HorizCollapsibleSetParent>
           </Grid>

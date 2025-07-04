@@ -23,16 +23,18 @@ import {
   IconButton,
 } from "@mui/material";
 import { Minimize, Maximize } from "@mui/icons-material";
-import { HierarchyResult } from "../app/(pages)/hierarchy-tester/page";
+import { HierarchyResult, TestDataConfig } from "../app/(pages)/hierarchy-tester/page";
 import ReactFlowGraph from "./graphs/ReactFlowGraph";
 import CytoscapeGraph from "./graphs/CytoscapeGraph";
 import D3Graph from "./graphs/D3Graph";
 import VisualMap from "./VisualMap";
 import GraphContainer from "./graphs/GraphContainer";
+import SuggestionsTable from "./SuggestionsTable";
 
 interface TreeDisplayProps {
   result: HierarchyResult | null;
   isLoading?: boolean;
+  onConfigurationSelect?: (config: TestDataConfig) => void;
 }
 
 interface TabPanelProps {
@@ -60,8 +62,9 @@ function TabPanel(props: TabPanelProps) {
 export default function TreeDisplay({
   result,
   isLoading,
+  onConfigurationSelect,
 }: TreeDisplayProps) {
-  const [tabValue, setTabValue] = useState(0); // Default to Entity Table tab (index 0)
+  const [tabValue, setTabValue] = useState(0); // Default to Suggestions tab (index 0)
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -121,6 +124,7 @@ export default function TreeDisplay({
       {/* Tabbed Content */}
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={tabValue} onChange={handleTabChange}>
+          <Tab label="Suggestions" />
           <Tab label="Entity Table" />
           <Tab label="Group Details" />
           <Tab label="ASCII Output" />
@@ -129,18 +133,22 @@ export default function TreeDisplay({
       </Box>
 
       <TabPanel value={tabValue} index={0}>
-        <EntityTable positioned={positioned} />
+        <SuggestionsTable onConfigurationSelect={onConfigurationSelect} />
       </TabPanel>
 
       <TabPanel value={tabValue} index={1}>
-        <GroupDetails groups={groups} />
+        <EntityTable positioned={positioned} />
       </TabPanel>
 
       <TabPanel value={tabValue} index={2}>
-        <ASCIIOutput asciiMap={result.asciiMap} />
+        <GroupDetails groups={groups} />
       </TabPanel>
 
       <TabPanel value={tabValue} index={3}>
+        <ASCIIOutput asciiMap={result.asciiMap} />
+      </TabPanel>
+
+      <TabPanel value={tabValue} index={4}>
         <VisualMap result={result} />
       </TabPanel>
     </Box>
