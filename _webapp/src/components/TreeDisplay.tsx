@@ -150,7 +150,7 @@ export default function TreeDisplay({
 function EntityTable({ positioned }: { positioned: any[] }) {
   return (
     <TableContainer component={Paper} variant="outlined">
-      <Table>
+      <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>Entity ID</TableCell>

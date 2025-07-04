@@ -1,6 +1,10 @@
 "use client";
 
 import { Grid, Box, Paper } from "@mui/material";
+const gridStyles = {
+  border: "10px solid red",
+  width: "100%",
+};
 import { useEffect, useState } from "react";
 
 import TestDataConfigComponent from "../../../components/TestDataConfigComponent";
@@ -138,7 +142,7 @@ export default function HierarchyTesterPage() {
       <Box>
         <Grid container spacing={3} sx={{ margin: 0, padding: 0 }}>
           {/* Column 2: Collapsible Panels */}
-          <Grid item xs={12} lg={12} sx={{ border: "10px solid red" }}>
+          <Grid item xs={12} lg={12} sx={gridStyles}>
             <HorizCollapsibleSetParent>
               <HorizCollapsibleSetChild id="config-panel" title="Configuration">
                 <Paper elevation={1} sx={{ p: 2, height: "100%" }}>
@@ -177,7 +181,11 @@ export default function HierarchyTesterPage() {
                 <CytoscapeGraph data={result} width="100%" height="100%" />
               </HorizCollapsibleSetChild>
 
-              <HorizCollapsibleSetChild id="d3-panel" title="D3.js" minWidth="400px">
+              <HorizCollapsibleSetChild
+                id="d3-panel"
+                title="D3.js"
+                minWidth="400px"
+              >
                 <D3Graph data={result} width="100%" height="100%" />
               </HorizCollapsibleSetChild>
 

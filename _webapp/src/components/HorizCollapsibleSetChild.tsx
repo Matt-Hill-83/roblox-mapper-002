@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, IconButton, Typography } from '@mui/material';
-import { Minimize, Maximize } from '@mui/icons-material';
+import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 
 interface HorizCollapsibleSetChildProps {
   id: string;
@@ -39,7 +39,7 @@ export default function HorizCollapsibleSetChild({
         sx={{
           position: 'absolute',
           top: 8,
-          left: 8,
+          right: 8,
           zIndex: 1000,
           backgroundColor: 'white',
           border: '1px solid #ccc',
@@ -47,11 +47,11 @@ export default function HorizCollapsibleSetChild({
         }}
         size="small"
       >
-        {isCollapsed ? <Maximize /> : <Minimize />}
+        {isCollapsed ? <ChevronRight /> : <ChevronLeft />}
       </IconButton>
       {!isCollapsed && (
         <Box sx={{ p: 2, height: '100%', overflow: 'auto' }}>
-          <Typography variant="h6" gutterBottom>{title}</Typography>
+          <Typography variant="h6" gutterBottom sx={{ color: 'text.primary' }}>{title}</Typography>
           {children}
         </Box>
       )}
@@ -68,7 +68,7 @@ export default function HorizCollapsibleSetChild({
             p: 1,
           }}
         >
-          <Typography variant="subtitle1">{title}</Typography>
+          <Typography variant="subtitle1" sx={{ color: 'text.primary' }}>{title}</Typography>
         </Box>
       )}
     </Box>
