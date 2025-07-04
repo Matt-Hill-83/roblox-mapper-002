@@ -53,20 +53,33 @@ export default function SciChart3DBubbleSimple({ data, width = '100%', height = 
         theme: new SciChartJsNavyTheme()
       });
 
-      // Create X, Y, Z axes
+      // Calculate data ranges for better axis scaling
+      const xMin = Math.min(...chartData.nodes.map((n: any) => n.x));
+      const xMax = Math.max(...chartData.nodes.map((n: any) => n.x));
+      const yMin = Math.min(...chartData.nodes.map((n: any) => n.y));
+      const yMax = Math.max(...chartData.nodes.map((n: any) => n.y));
+      const zMin = Math.min(...chartData.nodes.map((n: any) => n.z));
+      const zMax = Math.max(...chartData.nodes.map((n: any) => n.z));
+      
+      // Add padding to ranges
+      const xPadding = (xMax - xMin) * 0.1 || 10;
+      const yPadding = (yMax - yMin) * 0.1 || 10;
+      const zPadding = (zMax - zMin) * 0.1 || 5;
+
+      // Create X, Y, Z axes with fitted ranges
       sciChart3DSurface.xAxis = new NumericAxis3D(wasmContext, {
         axisTitle: "X Axis",
-        visibleRange: new NumberRange(-100, 100)
+        visibleRange: new NumberRange(xMin - xPadding, xMax + xPadding)
       });
       
       sciChart3DSurface.yAxis = new NumericAxis3D(wasmContext, {
         axisTitle: "Y Axis", 
-        visibleRange: new NumberRange(-100, 100)
+        visibleRange: new NumberRange(yMin - yPadding, yMax + yPadding)
       });
       
       sciChart3DSurface.zAxis = new NumericAxis3D(wasmContext, {
         axisTitle: "Z Axis",
-        visibleRange: new NumberRange(-20, 20)
+        visibleRange: new NumberRange(zMin - zPadding, zMax + zPadding)
       });
 
       // Add interactivity modifiers

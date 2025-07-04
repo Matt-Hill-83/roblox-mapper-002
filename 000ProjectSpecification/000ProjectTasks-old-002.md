@@ -138,3 +138,42 @@
         1. ✅ [CLD] Darken light font in collapsible columns - update Typography color in HorizCollapsibleSetChild for better readability.
         2. ✅ [CLD] Move minimize/maximize icon from upper left to upper right in HorizCollapsibleSetChild component.
         3. ✅ [CLD] Replace current Minimize/Maximize icons with more common expand/collapse icons (e.g., ChevronLeft/ChevronRight or ExpandMore/ExpandLess).
+    18. ✅ [CLD] T96: Apply compact styling to entity table (R71.4)
+        1. ✅ [CLD] Find the entity table component in TreeDisplay.tsx
+        2. ✅ [CLD] Apply density="compact" prop to the DataGrid component (applied size="small" to Table component)
+        3. ✅ [CLD] Verify compact styling is applied consistently across all table views
+    19. ✅ [CLD] T97: Standardize graph colors across visualization components (R72)
+        1. ✅ [CLD] Copy colorTokens.js to \_webapp/src/config/colorTokens.ts and convert to TypeScript
+        2. ✅ [CLD] Update CytoscapeGraph to use colorTokens.pages.hiTester.graphs colors
+        3. ✅ [CLD] Update ReactFlowGraph to use colorTokens.pages.hiTester.graphs colors
+        4. ✅ [CLD] Update D3Graph to use colorTokens.pages.hiTester.graphs colors
+        5. ✅ [CLD] Ensure nodes use level-based colors (level1: blue, level2: orange, level3: green)
+        6. ✅ [CLD] Ensure edges use the defined edge color array consistently
+    20. ✅ [CLD2] T98: Set up Jest testing framework for Next.js application (R73.1)
+        1. ✅ [CLD2] Install Jest and related dependencies for Next.js
+        2. ✅ [CLD2] Create Jest configuration file (jest.config.js)
+        3. ✅ [CLD2] Configure Jest for TypeScript support
+        4. ✅ [CLD2] Set up test script in package.json
+    21. ✅ [CLD2] T99: Set up React Testing Library (R73.2)
+        1. ✅ [CLD2] Install React Testing Library dependencies
+        2. ✅ [CLD2] Create test setup file for RTL configuration
+        3. ✅ [CLD2] Configure testing utilities and custom render functions
+    22. ✅ [CLD2] T100: Create sample unit test (R73.3)
+    23. ✅ [CLD2] Create a test directory structure
+    24. ✅ [CLD2] Write a sample unit test for a utility function or service
+    25. ✅ [CLD2] Ensure test runs successfully with Jest
+    26. ✅ [CLD2] T101: Create sample component test (R73.4)
+    27. ✅ [CLD2] Write a sample test for a React component using RTL
+    28. ✅ [CLD2] Include tests for rendering and user interactions
+    29. ✅ [CLD2] Verify component test runs successfully
+    30. ✅ [CLD1] T102: Move suggestions component to TreeDisplay tabs (R74)
+    31. ✅ [CLD1] Remove SuggestionsTable from hierarchy-tester/page.tsx
+    32. ✅ [CLD1] Import SuggestionsTable component in TreeDisplay.tsx
+    33. ✅ [CLD1] Add "Suggestions" as the first tab in the Tabs component
+    34. ✅ [CLD1] Create corresponding TabPanel for Suggestions tab
+    35. ✅ [CLD1] Pass necessary props (suggestions data and click handler) to SuggestionsTable
+    36. ✅ [CLD1] Update tab indices to accommodate new first tab
+    37. ✅ [CLD1] Set default tabValue state to 0 to show Suggestions tab by default
+    38. ✅ [CLD1] Test that suggestions table displays correctly in the new tab location
+    39. ✅ [CLD1] Verify clicking a suggestion still updates the configuration
+    40. ✅ [CLD1] T103: Change React Flow edge type to straight

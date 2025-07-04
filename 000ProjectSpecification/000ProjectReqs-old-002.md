@@ -110,3 +110,23 @@
     5. ✅ Refine JSX Structure: The nested `Box` and `Grid` components, especially with inline `sx` props, can become deeply nested and hard to read. Consider breaking down complex sections into smaller, dedicated components.
     6. ✅ Consistent Styling: Some styles are applied via `sx` prop, others via `style` prop (`boxStyles`). Standardize on one approach, preferably `sx` for Material-UI components, and consider moving complex styles to a theme or `styled` components.
     7. ✅ Remove Commented-Out Code: Lines like `// width: '100%',` and `// border: "10px solid red",` should be removed.
+
+31. ✅ [CLD] R71: Layout changes:
+
+    1. ✅ [CLD] R71.1: Darken light font in collapsible columns
+    2. ✅ [CLD] R71.2: Move max/min icon to upper right instead of upper left
+    3. ✅ [CLD] R71.3: Change max/min to more common icon
+    4. ✅ [CLD] R71.4: apply compact styling to entity table
+
+32. ✅ [CLD] R72: graph colors:
+
+    1. ✅ [CLD] R72.1: fix colors on nodes and edges on cytpscape graph
+    2. ✅ [CLD] R72.2. make colors consistent across all 3 graphs
+    3. ✅ [CLD] R72.3. create a centralized location in the code to store colors
+
+33. ✅ R73: Testing Framework Setup:
+
+    1. ✅ [CLD2] R73.1: The system shall implement Jest testing framework for the Next.js web application
+    2. ✅ [CLD2] R73.2: The system shall implement React Testing Library (RTL) for component testing
+    3. ✅ [CLD2] R73.3: The system shall include at least one sample unit test
+    4. ✅ [CLD2] R73.4: The system shall include at least one sample component test
