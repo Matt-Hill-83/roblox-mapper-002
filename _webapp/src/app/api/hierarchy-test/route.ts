@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-// Import our hierarchy logic (we'll need to adapt this)
-// For now, we'll create simplified versions of the core functions
+import { position2D, calculateMaxDepth } from '../../../lib/positioning/positioning';
+import type { SimpleEntity, ConnectedGroup, EntityPosition } from '../../../lib/positioning/positioning';
 
 interface TestDataConfig {
   // Basic parameters
@@ -28,37 +27,7 @@ interface Connection {
   type: string; // Connector type like "uses", "owns", "maintains"
 }
 
-interface SimpleEntity {
-  id: string;
-  type: string; // Now supports multiple entity types
-  parentId?: string;
-  children: string[];
-  connections: string[]; // Cross-tree connections (just IDs for backward compatibility)
-  weight: number; // For weighted relationships
-  isHub: boolean; // Hub node indicator
-}
-
-interface ConnectedGroup {
-  id: string;
-  rootEntityId: string;
-  entities: SimpleEntity[];
-  metrics: {
-    totalEntities: number;
-    depth: number;
-    typeCounts: Record<string, number>;
-    rootId: string;
-  };
-}
-
-interface EntityPosition {
-  entityId: string;
-  type: string;
-  parentId?: string;
-  x: number;
-  y: number;
-  level: number;
-  groupId: string;
-}
+// SimpleEntity, ConnectedGroup, and EntityPosition are now imported from positioning module
 
 // Advanced data generator with complex network properties
 function generateConfigurableData(config: TestDataConfig): { entities: SimpleEntity[], connections: Connection[] } {
@@ -402,87 +371,7 @@ function calculateDepth(entityId: string, entityMap: Map<string, SimpleEntity>, 
   return maxChildDepth;
 }
 
-// Simplified positioner based on our Node.js version
-function position2D(groups: ConnectedGroup[]): EntityPosition[] {
-  const TREE_SPACING = 200;
-  
-  const positionedEntities: EntityPosition[] = [];
-  
-  groups.forEach((group, groupIndex) => {
-    const entityMap = new Map<string, SimpleEntity>();
-    group.entities.forEach(entity => entityMap.set(entity.id, entity));
-    
-    const baseX = Math.floor(groupIndex * TREE_SPACING);
-    const baseY = 0;
-    
-    const root = group.entities.find(entity => !entity.parentId);
-    if (!root) return;
-    
-    positionEntityAndChildren(
-      root.id,
-      entityMap,
-      baseX,
-      baseY,
-      0,
-      0,
-      group.id,
-      positionedEntities
-    );
-  });
-  
-  return positionedEntities;
-}
-
-function positionEntityAndChildren(
-  entityId: string,
-  entityMap: Map<string, SimpleEntity>,
-  baseX: number,
-  baseY: number,
-  level: number,
-  siblingIndex: number,
-  groupId: string,
-  positions: EntityPosition[]
-): void {
-  const entity = entityMap.get(entityId);
-  if (!entity) return;
-  
-  const ENTITY_SPACING = 30;
-  const LEVEL_HEIGHT = 50;
-  
-  const x = baseX + (siblingIndex * ENTITY_SPACING);
-  const y = baseY - (level * LEVEL_HEIGHT);
-  
-  // Ensure coordinates are valid numbers
-  const validX = isNaN(x) ? 0 : x;
-  const validY = isNaN(y) ? 0 : y;
-  
-  positions.push({
-    entityId: entity.id,
-    type: entity.type,
-    parentId: entity.parentId,
-    x: validX,
-    y: validY,
-    level,
-    groupId
-  });
-  
-  entity.children.forEach((childId, childIndex) => {
-    const childrenCount = entity.children.length;
-    // Ensure integer positioning to prevent fractional coordinates
-    const childSiblingIndex = Math.floor(childIndex - (childrenCount - 1) / 2);
-    
-    positionEntityAndChildren(
-      childId,
-      entityMap,
-      x,
-      baseY,
-      level + 1,
-      childSiblingIndex,
-      groupId,
-      positions
-    );
-  });
-}
+// position2D and positionEntityAndChildren are now imported from positioning module
 
 // Simple ASCII renderer
 function createSimpleASCII(positioned: EntityPosition[]): string {
