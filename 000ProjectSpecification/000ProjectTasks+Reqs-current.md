@@ -18,6 +18,12 @@
     3. ⬛ [CLD2] R73.3: The system shall include at least one sample unit test
     4. ⬛ [CLD2] R73.4: The system shall include at least one sample component test
 
+37. ⬛ [CLD1] R74: Suggestions Component Relocation:
+
+    1. ⬛ [CLD1] R74.1: The system shall move the suggestions component into TreeDisplay as a tab
+    2. ⬛ [CLD1] R74.2: The suggestions tab shall be positioned as the first tab
+    3. ⬛ [CLD1] R74.3: The suggestions tab shall be the default selected tab on page load
+
 ## Task List
 
 1.  ✅ Implementation Tasks
@@ -50,3 +56,13 @@
         1. ⬛ [CLD2] Write a sample test for a React component using RTL
         2. ⬛ [CLD2] Include tests for rendering and user interactions
         3. ⬛ [CLD2] Verify component test runs successfully
+    102. ⬛ [CLD1] T102: Move suggestions component to TreeDisplay tabs (R74)
+        1. ⬛ [CLD1] Remove SuggestionsTable from hierarchy-tester/page.tsx
+        2. ⬛ [CLD1] Import SuggestionsTable component in TreeDisplay.tsx
+        3. ⬛ [CLD1] Add "Suggestions" as the first tab in the Tabs component
+        4. ⬛ [CLD1] Create corresponding TabPanel for Suggestions tab
+        5. ⬛ [CLD1] Pass necessary props (suggestions data and click handler) to SuggestionsTable
+        6. ⬛ [CLD1] Update tab indices to accommodate new first tab
+        7. ⬛ [CLD1] Set default tabValue state to 0 to show Suggestions tab by default
+        8. ⬛ [CLD1] Test that suggestions table displays correctly in the new tab location
+        9. ⬛ [CLD1] Verify clicking a suggestion still updates the configuration
