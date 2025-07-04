@@ -25,8 +25,10 @@
     122.  ✅ [CLD1] Remove info panel from CytoscapeGraph showing node/edge counts
     123.  ✅ [CLD1] Remove info panel from D3Graph showing node/link counts
     124.  ✅ [CLD1] Clean up unused imports and state variables in all three components
-    125.  ✅ [CLD2] T125: Route.js Refactoring (R75)
-    126.  ✅ [CLD2] Move logic to lib/generateData/ folder and create generateData file (R75.1)
-    127.  ✅ [CLD2] Extract constants to separate constants file (R75.2)
-    128.  ✅ [CLD2] Extract interfaces to separate interfaces file (R75.3)
-    129.  ✅ [CLD2] Extract utils to separate utils file (R75.4)
+    125. ✅ [CLD2] T125: Route.js Refactoring (R75)
+        1. ✅ [CLD2] Move logic to lib/generateData/ folder and create generateData file (R75.1)
+        2. ✅ [CLD2] Extract constants to separate constants file (R75.2)
+        3. ✅ [CLD2] Extract interfaces to separate interfaces file (R75.3)
+        4. ✅ [CLD2] Extract utils to separate utils file (R75.4)
+    126. ⬛ T126: Create Small Graphs in Roblox (R76)
+        1. ⬛ Move the existing asset creation code from game.service.ts to a service called makeOldStuff.ts and import it (R76.1)

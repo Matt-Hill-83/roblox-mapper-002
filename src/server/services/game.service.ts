@@ -1,6 +1,4 @@
 import { ComponentStackService } from "./componentStack.service";
-// import { HexStackService } from "./hexStack.service";
-// import { NationsStackService } from "./nationsStack.service";
 import { ToolStackService } from "./toolStack.service";
 import { createRingOfStacks } from "../../shared/modules/createRingOfStacks";
 import { ConnectorService } from "./connector.service";
@@ -14,8 +12,6 @@ import {
 import { analyzeEntityHierarchy } from "../../shared/modules/hierarchyAnalyzer";
 
 export class GameService {
-  // private hexStackService = new HexStackService();
-  // private nationsStackService = new NationsStackService();
   private componentStackService = new ComponentStackService();
   private toolStackService = new ToolStackService();
   private connectorService = new ConnectorService();
@@ -33,11 +29,11 @@ export class GameService {
     print("🎮 GameService.startGame() called");
     this.gameStarted = true;
 
-    // Create or find the myStuff folder at the start
-    this.myStuffFolder = game.Workspace.FindFirstChild("myStuff") as Folder;
+    // Create or find the MyStuff folder at the start
+    this.myStuffFolder = game.Workspace.FindFirstChild("MyStuff") as Folder;
     if (!this.myStuffFolder) {
       this.myStuffFolder = new Instance("Folder");
-      this.myStuffFolder.Name = "myStuff";
+      this.myStuffFolder.Name = "MyStuff";
       this.myStuffFolder.Parent = game.Workspace;
     }
 
@@ -63,72 +59,13 @@ export class GameService {
     print("✅ GameService.startGame() completed");
   }
 
-  // private createHexagon(): void {
-  //     this.hexagonService.createHexagon({
-  //         id: 1,
-  //         centerPosition: [5, 5, 5],
-  //         width: 10,
-  //         height: 0.5,
-  //         barProps: {
-  //             Color: [0.9, 0.7, 0.3], // Golden color
-  //         },
-  //         labels: ["North", "East", "West"]
-  //     });
-  //     print("Hexagon created at (5, 5, 5)!");
-  // }
-
-  // private createHexStack(): void {
-  //     this.hexStackService.createHexStack({
-  //         id: 2,
-  //         centerPosition: [20, 5, 5], // Positioned next to the hexagon
-  //         width: 8,
-  //         height: 0.5,
-  //         count: 6,
-  //         colors: [
-  //             [1, 0, 0], // Red
-  //             [0, 1, 0], // Green
-  //             [0, 0, 1], // Blue
-  //             [1, 1, 0], // Yellow
-  //             [1, 0, 1], // Magenta
-  //             [0, 1, 1], // Cyan
-  //         ]
-  //     });
-  //     print("Hex stack created at (20, 5, 5)!");
-  // }
-
-  // private createNationsStack(): void {
-  //     this.nationsStackService.createNationsStack({
-  //         id: "nationsStack1",
-  //         centerPosition: [35, 5, 5], // Positioned next to the hex stack
-  //         width: 8,
-  //         height: 2,
-  //         maxItems: 3, // Create 3 nations
-  //     });
-  //     print("Nations stack created at (35, 5, 5)!");
-  // }
 
   private createComponentStack(): void {
-    if (false) {
-      this.componentStackService.createComponentStack({
-        id: "componentStack1",
-        centerPosition: [50, 1, 1], // Positioned next to the nations stack
-        width: 8,
-        height: 1, // Limited to height 1
-        maxItems: 100, // Create 16 components (can be increased up to 64)
-      });
-    }
+    // Disabled for now
   }
 
   private createToolStack(): void {
-    if (false) {
-      this.toolStackService.createToolStack({
-        id: "toolStack1",
-        centerPosition: [65, 1, 9], // Positioned next to the component stack
-        width: 8,
-        height: 1, // Limited to height 1
-        maxItems: 100, // Create all 8 tools
-      });
-    }
+    // Disabled for now
   }
 
   private createEntityRing(): void {
