@@ -1,14 +1,13 @@
 "use client";
 
-import { Grid, Box, Paper } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 const gridStyles = {
   border: "10px solid red",
   width: "100%",
 };
 import { useEffect, useState } from "react";
 
-import TestDataConfigComponent from "../../../components/TestDataConfigComponent";
-import MetricsBox from "../../../components/MetricsBox";
+import ConfigPanel from "../../../components/ConfigPanel";
 import ReactFlowGraph from "../../../components/graphs/ReactFlowGraph";
 import CytoscapeGraph from "../../../components/graphs/CytoscapeGraph";
 import D3Graph from "../../../components/graphs/D3Graph";
@@ -124,6 +123,35 @@ export default function HierarchyTesterPage() {
     }
   };
 
+  const configContent = (
+    <ConfigPanel
+      config={config}
+      result={result}
+      isLoading={isLoading}
+      onSubmit={handleConfigSubmit}
+    />
+  );
+
+  const analysisToolsContent = (
+    <TreeDisplay
+      result={result}
+      isLoading={isLoading}
+      onConfigurationSelect={handleConfigurationSelect}
+    />
+  );
+
+  const reactFlowContent = (
+    <ReactFlowGraph data={result} width="100%" height="100%" />
+  );
+
+  const cytoscapeContent = (
+    <CytoscapeGraph data={result} width="100%" height="100%" />
+  );
+
+  const d3Content = (
+    <D3Graph data={result} width="100%" height="100%" />
+  );
+
   return (
     <Box
       sx={{
@@ -144,25 +172,14 @@ export default function HierarchyTesterPage() {
           <Grid item xs={12} lg={12} sx={gridStyles}>
             <HorizCollapsibleSetParent>
               <HorizCollapsibleSetChild id="config-panel" title="Configuration">
-                <Paper elevation={1} sx={{ p: 2, height: "100%" }}>
-                  <TestDataConfigComponent
-                    initialConfig={config}
-                    onSubmit={handleConfigSubmit}
-                    isLoading={isLoading}
-                  />
-                  <MetricsBox result={result} isLoading={isLoading} />
-                </Paper>
+                {configContent}
               </HorizCollapsibleSetChild>
 
               <HorizCollapsibleSetChild
                 id="analysis-tools-panel"
                 title="Analysis Tools"
               >
-                <TreeDisplay 
-                  result={result} 
-                  isLoading={isLoading} 
-                  onConfigurationSelect={handleConfigurationSelect} 
-                />
+                {analysisToolsContent}
               </HorizCollapsibleSetChild>
 
               <HorizCollapsibleSetChild
@@ -170,7 +187,7 @@ export default function HierarchyTesterPage() {
                 title="React Flow"
                 minWidth="400px"
               >
-                <ReactFlowGraph data={result} width="100%" height="100%" />
+                {reactFlowContent}
               </HorizCollapsibleSetChild>
 
               <HorizCollapsibleSetChild
@@ -178,7 +195,7 @@ export default function HierarchyTesterPage() {
                 title="Cytoscape.js"
                 minWidth="400px"
               >
-                <CytoscapeGraph data={result} width="100%" height="100%" />
+                {cytoscapeContent}
               </HorizCollapsibleSetChild>
 
               <HorizCollapsibleSetChild
@@ -186,7 +203,7 @@ export default function HierarchyTesterPage() {
                 title="D3.js"
                 minWidth="400px"
               >
-                <D3Graph data={result} width="100%" height="100%" />
+                {d3Content}
               </HorizCollapsibleSetChild>
             </HorizCollapsibleSetParent>
           </Grid>
