@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rbxtsc",
     "watch": "rbxtsc -w",
-    "generate-exports": "node scripts/generate-data-exports.js"
+    "generate-exports": "node scripts/generate-data-exports.js",
+    "dev": "cd _webapp && npm run dev"
   },
   "keywords": [],
   "author": "",

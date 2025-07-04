@@ -1,11 +1,16 @@
 "use client";
 
-import { Grid, Box, IconButton } from "@mui/material";
-import { Minimize, Maximize } from "@mui/icons-material";
+import { Grid, Box, IconButton, Accordion, AccordionSummary, AccordionDetails, Typography, Paper } from "@mui/material";
+import { Minimize, Maximize, ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 
+import TestDataConfigComponent from "../../../components/TestDataConfigComponent";
+import MetricsBox from "../../../components/MetricsBox";
+import SuggestionsTable from "../../../components/SuggestionsTable";
+import ReactFlowGraph from "../../../components/graphs/ReactFlowGraph";
+import CytoscapeGraph from "../../../components/graphs/CytoscapeGraph";
+import D3Graph from "../../../components/graphs/D3Graph";
 import TreeDisplay from "../../../components/TreeDisplay";
-import CollapsibleGraphPanel from "../../../components/CollapsibleGraphPanel";
 import { usePanelCollapse } from "../../../hooks/usePanelCollapse";
 
 export interface TestDataConfig {
@@ -145,58 +150,79 @@ export default function HierarchyTesterPage() {
                 flexWrap: "nowrap", // Prevent wrapping
               }}
             >
-              <CollapsibleGraphPanel
-                title="Configuration"
-                isCollapsed={isCollapsed["config-panel"]}
-                onToggle={() => handleToggle("config-panel")}
-                result={result}
-                flex={getFlexValue("config-panel")}
-                initialConfig={config}
-                onSubmit={handleConfigSubmit}
-                isLoading={isLoading}
-              />
+              <Accordion
+                expanded={!isCollapsed["config-panel"]}
+                onChange={() => handleToggle("config-panel")}
+                sx={{ flex: getFlexValue("config-panel") }}
+              >
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>Configuration</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Paper elevation={1} sx={{ p: 2, height: "100%" }}>
+                    <TestDataConfigComponent
+                      initialConfig={config}
+                      onSubmit={handleConfigSubmit}
+                      isLoading={isLoading}
+                    />
+                    <MetricsBox result={result} isLoading={isLoading} />
+                  </Paper>
+                </AccordionDetails>
+              </Accordion>
 
-              <CollapsibleGraphPanel
-                title="Suggestions"
-                isCollapsed={isCollapsed["table"]}
-                onToggle={() => handleToggle("table")}
-                result={result}
-                flex={getFlexValue("table")}
-                onConfigurationSelect={handleConfigurationSelect}
-              />
+              <Accordion
+                expanded={!isCollapsed["table"]}
+                onChange={() => handleToggle("table")}
+                sx={{ flex: getFlexValue("table") }}
+              >
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>Suggestions</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <SuggestionsTable
+                    onConfigurationSelect={handleConfigurationSelect}
+                  />
+                </AccordionDetails>
+              </Accordion>
 
-              <CollapsibleGraphPanel
-                title="React Flow"
-                isCollapsed={isCollapsed["react-flow"]}
-                onToggle={() => handleToggle("react-flow")}
-                result={result}
-                flex={getFlexValue("react-flow")}
-                data={result}
-                width="100%"
-                height="100%"
-              />
+              <Accordion
+                expanded={!isCollapsed["react-flow"]}
+                onChange={() => handleToggle("react-flow")}
+                sx={{ flex: getFlexValue("react-flow") }}
+              >
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>React Flow</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <ReactFlowGraph data={result} width="100%" height="100%" />
+                </AccordionDetails>
+              </Accordion>
 
-              <CollapsibleGraphPanel
-                title="Cytoscape.js"
-                isCollapsed={isCollapsed["cytoscape"]}
-                onToggle={() => handleToggle("cytoscape")}
-                result={result}
-                flex={getFlexValue("cytoscape")}
-                data={result}
-                width="100%"
-                height="100%"
-              />
+              <Accordion
+                expanded={!isCollapsed["cytoscape"]}
+                onChange={() => handleToggle("cytoscape")}
+                sx={{ flex: getFlexValue("cytoscape") }}
+              >
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>Cytoscape.js</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <CytoscapeGraph data={result} width="100%" height="100%" />
+                </AccordionDetails>
+              </Accordion>
 
-              <CollapsibleGraphPanel
-                title="D3.js"
-                isCollapsed={isCollapsed["d3"]}
-                onToggle={() => handleToggle("d3")}
-                result={result}
-                flex={getFlexValue("d3")}
-                data={result}
-                width="100%"
-                height="100%"
-              />
+              <Accordion
+                expanded={!isCollapsed["d3"]}
+                onChange={() => handleToggle("d3")}
+                sx={{ flex: getFlexValue("d3") }}
+              >
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>D3.js</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <D3Graph data={result} width="100%" height="100%" />
+                </AccordionDetails>
+              </Accordion>
 
               {/* Tabbed Interface (TreeDisplay) */}
               <Box
