@@ -2,19 +2,19 @@ import { TestDataConfig } from "../app/(pages)/hierarchy-tester/page";
 
 export const initialConfig: TestDataConfig = {
   // Basic parameters (legacy)
-  numberOfNodes: 15,
-  numberOfConnectedChains: 3,
-  depthOfLongestChain: 3,
+  numberOfNodes: 10,
+  numberOfConnectedChains: 1,
+  depthOfLongestChain: 2,
 
   // Advanced parameters
-  totalNodes: 50,
-  maxDepth: 4,
+  totalNodes: 10,
+  maxDepth: 2,
   branchingMin: 2,
-  branchingMax: 5,
-  crossTreeConnections: 15, // 15%
-  entityTypes: 4,
-  connectorTypes: 3,
-  clusteringCoeff: 30, // 30%
-  hubNodes: 2,
-  networkDensity: "medium",
+  branchingMax: 2,
+  crossTreeConnections: 0, // 0%
+  entityTypes: 2,
+  connectorTypes: 1,
+  clusteringCoeff: 0, // 0%
+  hubNodes: 0,
+  networkDensity: "sparse",
 };
