@@ -2,7 +2,7 @@ import { Cluster, Node, Group } from "../../shared/interfaces/simpleDataGenerato
 
 // Layout constants organized in a single object
 const layoutConstants = {
-  levelHeight: 15,      // Vertical spacing between levels
+  levelHeight: 2,       // Vertical spacing between levels (reduced to 2 units)
   nodeSpacing: 10,      // Horizontal spacing between nodes (reduced by 50%)
   groupSpacing: 25,     // Spacing between top-level groups (reduced by 50%)
   origin: { x: 20, y: 20, z: 20 },  // Origin point for the graph
@@ -24,7 +24,18 @@ export class SimpleDataLayoutService {
     // Find root groups (no parent)
     const rootGroups = cluster.groups.filter(g => !g.parentId);
     
-    let currentX = layoutConstants.origin.x;
+    // Calculate the maximum depth of the hierarchy
+    const maxDepth = this.calculateMaxDepth(cluster);
+    const totalHeight = maxDepth * layoutConstants.levelHeight;
+    
+    // Adjust origin Y by the total height of the structure
+    const adjustedOrigin = {
+      x: layoutConstants.origin.x,
+      y: layoutConstants.origin.y + totalHeight,
+      z: layoutConstants.origin.z
+    };
+    
+    let currentX = adjustedOrigin.x;
     
     // Layout each root group and its children
     rootGroups.forEach((rootGroup, index) => {
@@ -32,10 +43,35 @@ export class SimpleDataLayoutService {
       const groupCenterX = currentX + groupWidth / 2;
       
       // Layout this group hierarchy
-      this.layoutGroupHierarchy(rootGroup, cluster, groupCenterX, 0);
+      this.layoutGroupHierarchy(rootGroup, cluster, groupCenterX, 0, adjustedOrigin);
       
       currentX += groupWidth + layoutConstants.groupSpacing;
     });
+  }
+  
+  /**
+   * Calculates the maximum depth of the hierarchy
+   */
+  private calculateMaxDepth(cluster: Cluster): number {
+    let maxDepth = 0;
+    
+    const calculateGroupDepth = (groupId: string, currentDepth: number): void => {
+      maxDepth = math.max(maxDepth, currentDepth);
+      
+      // Find child groups
+      const childGroups = cluster.groups.filter(g => g.parentId === groupId);
+      childGroups.forEach(child => {
+        calculateGroupDepth(child.id, currentDepth + 1);
+      });
+    };
+    
+    // Start from root groups
+    const rootGroups = cluster.groups.filter(g => !g.parentId);
+    rootGroups.forEach(root => {
+      calculateGroupDepth(root.id, 0);
+    });
+    
+    return maxDepth;
   }
   
   /**
@@ -67,9 +103,9 @@ export class SimpleDataLayoutService {
   /**
    * Recursively layouts a group and all its descendants
    */
-  private layoutGroupHierarchy(group: Group, cluster: Cluster, centerX: number, level: number): void {
+  private layoutGroupHierarchy(group: Group, cluster: Cluster, centerX: number, level: number, adjustedOrigin: { x: number; y: number; z: number }): void {
     // Layout nodes in this group
-    this.layoutGroupNodes(group, centerX, level);
+    this.layoutGroupNodes(group, centerX, level, adjustedOrigin);
     
     // Find child groups
     const childGroups = cluster.groups.filter(g => g.parentId === group.id);
@@ -89,7 +125,7 @@ export class SimpleDataLayoutService {
       const childWidth = this.calculateGroupWidth(childGroup, cluster);
       const childCenterX = childX + childWidth / 2;
       
-      this.layoutGroupHierarchy(childGroup, cluster, childCenterX, level + 1);
+      this.layoutGroupHierarchy(childGroup, cluster, childCenterX, level + 1, adjustedOrigin);
       
       childX += childWidth + layoutConstants.nodeSpacing;
     });
@@ -98,19 +134,19 @@ export class SimpleDataLayoutService {
   /**
    * Layouts nodes within a single group
    */
-  private layoutGroupNodes(group: Group, centerX: number, level: number): void {
+  private layoutGroupNodes(group: Group, centerX: number, level: number, adjustedOrigin: { x: number; y: number; z: number }): void {
     const nodeCount = group.nodes.size();
     if (nodeCount === 0) return;
     
     const totalWidth = (nodeCount - 1) * layoutConstants.nodeSpacing;
     let currentX = centerX - totalWidth / 2;
-    const y = layoutConstants.origin.y + (level * layoutConstants.levelHeight);
+    const y = adjustedOrigin.y + (level * layoutConstants.levelHeight);
     
     group.nodes.forEach(node => {
       node.position = {
         x: currentX,
         y: y,
-        z: layoutConstants.origin.z  // Use origin Z coordinate
+        z: adjustedOrigin.z  // Use adjusted origin Z coordinate
       };
       
       currentX += layoutConstants.nodeSpacing;

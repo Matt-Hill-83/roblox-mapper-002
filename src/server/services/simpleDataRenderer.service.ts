@@ -49,9 +49,9 @@ export class SimpleDataRendererService {
    * Renders a single node as a hexagon
    */
   private renderNode(node: Node, hexIndex: number): Model {
-    // Determine size based on node type
-    const width = node.type === "People" ? 10 : 8;
-    const height = node.type === "People" ? 2 : 1.5;
+    // Use uniform size for all nodes
+    const width = 8;
+    const height = 1.5;
     
     // Create labels
     const labels: string[] = [
