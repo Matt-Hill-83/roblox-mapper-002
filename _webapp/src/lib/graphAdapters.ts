@@ -528,7 +528,7 @@ export class Highcharts3DAdapter {
     // Get entities with z coordinates
     const entitiesWithZ = data.entities.map((e: any) => ({
       ...e,
-      z: e.z ?? (Math.random() * 20 - 10) // Use existing z or generate random
+      z: e.z ?? 0 // Use existing z or default to 0
     }));
 
     const nodes: Highcharts3DNode[] = entitiesWithZ.map((e) => {

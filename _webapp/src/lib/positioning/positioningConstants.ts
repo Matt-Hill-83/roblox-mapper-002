@@ -10,4 +10,7 @@ export const positioningConstants = {
   
   /** Vertical distance between parent and child levels */
   LEVEL_HEIGHT: 50,
+  
+  /** Z-axis spacing between hierarchy levels */
+  Z_LEVEL_SPACING: 5,
 };

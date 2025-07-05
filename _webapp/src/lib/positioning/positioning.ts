@@ -65,8 +65,8 @@ function positionEntityAndChildren(
   const validX = isNaN(x) ? 0 : x;
   const validY = isNaN(y) ? 0 : y;
 
-  // Generate random z coordinate between -10 and 10
-  const z = Math.random() * 20 - 10;
+  // Z coordinate based on hierarchy level
+  const z = positioningConstants.Z_LEVEL_SPACING * level;
   
   positions.push({
     entityId: entity.id,
