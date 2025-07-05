@@ -120,3 +120,8 @@
 1. ✅ [CLD1] The system shall move the suggestions component into TreeDisplay as a tab
 2. ✅ [CLD1] The suggestions tab shall be positioned as the first tab
 3. ✅ [CLD1] The suggestions tab shall be the default selected tab on page load
+
+## R75: 3D Chart Enhancements
+
+1. ✅ [CLD2] R75.1: The system shall change node shape from spheres to cubes
+2. ✅ [CLD2] R75.2: The system shall make 3D chart refresh with correct data when user selects a new config

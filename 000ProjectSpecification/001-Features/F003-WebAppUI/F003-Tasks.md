@@ -140,3 +140,16 @@
      2. ✅ [CLD1] Remove info panel from CytoscapeGraph
      3. ✅ [CLD1] Remove info panel from D3Graph
      4. ✅ [CLD1] Clean up unused imports and state variables
+
+## T131-T132: 3D Chart Enhancements (R75)
+
+131. ✅ [CLD2] T131: 3D Chart Node Shape Changes (R75.1)
+     1. ✅ [CLD2] T131.1: Replace SpherePointMarker3D with cube/box point markers in SciChart3DBubbleSimple.tsx
+     2. ✅ [CLD2] T131.2: Configure cube size based on node weight or fixed size
+     3. ✅ [CLD2] T131.3: Apply entity type colors to cube faces
+
+132. ✅ [CLD2] T132: 3D Chart Config Refresh (R75.2)
+     1. ✅ [CLD2] T132.1: Fix data binding between config selection dropdown and 3D chart component
+     2. ✅ [CLD2] T132.2: Implement chart re-initialization when config changes
+     3. ✅ [CLD2] T132.3: Ensure nodes update with new positions and properties
+     4. ✅ [CLD2] T132.4: Ensure edges update with new connections

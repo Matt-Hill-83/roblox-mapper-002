@@ -22,4 +22,4 @@ Real-time configuration interface for adjusting data generation parameters with 
 - Configuration interface components
 
 ## Integration
-Implements the Screen GUI specification defined in `000ProjectSpecification/002ScreenGuiSpec.md` with full real-time parameter control.
+Implements the Screen GUI specification defined in [F002-Spec.md](F002-Spec.md) with full real-time parameter control.
