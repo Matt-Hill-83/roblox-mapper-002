@@ -3,12 +3,14 @@ import { SimpleGraphService } from "./simpleGraph.service";
 import { TestSimpleDataGeneratorService } from "./testSimpleDataGenerator.service";
 import { ConfigGUIServerService } from "./configGUIServer.service";
 import { DataGeneratorRobloxRendererService } from "./dataGeneratorRobloxRenderer.service";
+import { TestLabelBlockService } from "./testLabelBlock.service";
 
 export class GameService {
   private makeOldStuffService = new MakeOldStuffService();
   private simpleGraphService = new SimpleGraphService();
   private testSimpleDataGenerator = new TestSimpleDataGeneratorService();
   private dataGeneratorRenderer = new DataGeneratorRobloxRendererService();
+  private testLabelBlockService = new TestLabelBlockService();
   private configGUIServer?: ConfigGUIServerService;
   private myStuffFolder!: Folder;
   private gameStarted = false; // Flag to prevent duplicate initialization
@@ -47,15 +49,22 @@ export class GameService {
       this.testSimpleDataGenerator.runPeopleAnimalsDemo(this.myStuffFolder);
     }
 
+    // Test label block primitive
+    if (true) {
+      this.testLabelBlockService.testLabelBlocks(this.myStuffFolder);
+    }
+
     // Use actual data generator with swim lane positioning
-    this.dataGeneratorRenderer.renderGeneratedData(this.myStuffFolder, {
-      numLevel1Nodes: 1,
-      numLevel2Nodes: 1,
-      numLevel3Nodes: 5,
-      childrenPerNode: 1,
-      numNodeTypes: 3,
-      numLinkTypes: 3,
-    });
+    if (false) {
+      this.dataGeneratorRenderer.renderGeneratedData(this.myStuffFolder, {
+        numLevel1Nodes: 1,
+        numLevel2Nodes: 1,
+        numLevel3Nodes: 5,
+        childrenPerNode: 1,
+        numNodeTypes: 3,
+        numLinkTypes: 3,
+      });
+    }
 
     // Initialize the configuration GUI server
     this.configGUIServer = new ConfigGUIServerService(

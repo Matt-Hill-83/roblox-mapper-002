@@ -97,8 +97,48 @@
 
 ## T138: Add Label Scaling Features
 
-1. ⬛ T138.1: Add scaling factor to label creation
+1. ⬛ T138.1: Add scaling factor to rope label creation
    1. ⬛ T138.1.1: Add font size scaling parameter
    2. ⬛ T138.1.2: Scale label block width (perpendicular to rope direction)
    3. ⬛ T138.1.3: Keep label block length constant
    4. ⬛ T138.1.4: Test with different scaling values
+
+## T139: Create Label Block Primitive
+
+1. ✅ [CLD1] T139.1: Design label block primitive
+   1. ✅ [CLD1] T139.1.1: Create new primitive modeled after makeBar primitive
+   2. ✅ [CLD1] T139.1.2: Support cube dimensions (n×n×n)
+   3. ✅ [CLD1] T139.1.3: Accept labels configuration object with face-specific properties:
+      ```typescript
+      labels: {
+        top: { ...textBoxProps },
+        bottom: { ...textBoxProps },
+        front: { ...textBoxProps },
+        back: { ...textBoxProps },
+        left: { ...textBoxProps },
+        right: { ...textBoxProps }
+      }
+      ```
+2. ✅ [CLD1] T139.2: Implement multi-face labeling
+   1. ✅ [CLD1] T139.2.1: Create label interface supporting all six faces (top, bottom, front, back, left, right)
+   2. ✅ [CLD1] T139.2.2: Each face accepts standard textBox properties
+   3. ✅ [CLD1] T139.2.3: Handle label positioning and orientation for each face
+3. ✅ [CLD1] T139.3: Test label block primitive
+   1. ✅ [CLD1] T139.3.1: Create unit tests for different configurations
+   2. ✅ [CLD1] T139.3.2: Verify labels render correctly on all faces
+   3. ✅ [CLD1] T139.3.3: Test with various cube sizes
+
+## T140: Add Row Label Blocks to Data Generator
+
+1. ⬛ T140.1: Integrate label blocks with positioning system
+   1. ⬛ T140.1.1: Calculate row width for each level
+   2. ⬛ T140.1.2: Position label block at the end of each row of nodes
+   3. ⬛ T140.1.3: Set block dimensions to match hex width (n×n×n where n = hex width)
+2. ⬛ T140.2: Configure level number display
+   1. ⬛ T140.2.1: Add level number to each face of the block
+   2. ⬛ T140.2.2: Style text to be clearly visible
+   3. ⬛ T140.2.3: Ensure proper text orientation on each face
+3. ⬛ T140.3: Update renderer to include row labels
+   1. ⬛ T140.3.1: Modify dataGeneratorRobloxRenderer to create row label blocks
+   2. ⬛ T140.3.2: Ensure proper parent-child relationships in scene hierarchy
+   3. ⬛ T140.3.3: Test with different numbers of levels and node configurations
