@@ -72,3 +72,20 @@
    1. ✅ T135.3.1: Apply width scaling to node boxes
    2. ✅ T135.3.2: Apply height scaling to node boxes
    3. ✅ T135.3.3: Apply spacing scaling to level separation
+
+## T136: Integrate Generated Data into Roblox 3D Graph
+
+1. ✅ T136.1: confirm Data generator returns correctly scaled x,y,z data
+2. ✅ T136.2: Create entity instances in Roblox
+   1. ✅ T136.2.1: Generate hexagon models for each entity
+   2. ✅ T136.2.2: Apply entity type colors (blue for People, orange for Animals)
+   3. ✅ T136.2.3: Position entities at calculated 3D coordinates
+   4. ✅ T136.2.4: Add entity labels with name and type identifier
+3. ⬛ T136.3: Create relationship connections
+
+   1. ⬛ T136.3.1: Generate rope/beam objects for all links
+   2. ⬛ T136.3.2: color ropes based on link type
+
+4. ⬛ T137.3: Create Object Generator
+   1. ✅ T137.3.1: copy testSimpleDataGenerator and modify it to use x.y.z data for hex placement.
+   2. ⬛ T137.3.2: pass link data created by generator into existing link creation service

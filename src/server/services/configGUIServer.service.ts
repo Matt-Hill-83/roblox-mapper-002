@@ -55,7 +55,8 @@ export class ConfigGUIServerService {
   private validateConfig(config: Partial<GeneratorConfig>): boolean {
     // Check if all required fields are present and valid
     const requiredFields: Array<keyof GeneratorConfig> = [
-      "numGroups", "numLevels", "numBranches", "numNodeTypes", "numLinkTypes"
+      "numLevel1Nodes", "numLevel2Nodes", "numLevel3Nodes", 
+      "childrenPerNode", "numNodeTypes", "numLinkTypes"
     ];
 
     for (const field of requiredFields) {
@@ -66,11 +67,12 @@ export class ConfigGUIServerService {
     }
 
     // Additional validation for specific fields
-    if (config.numGroups && config.numGroups > 10) return false;
-    if (config.numLevels && config.numLevels > 5) return false;
-    if (config.numBranches && config.numBranches > 5) return false;
-    if (config.numNodeTypes && config.numNodeTypes > 2) return false;
-    if (config.numLinkTypes && config.numLinkTypes > 3) return false;
+    if (config.numLevel1Nodes && config.numLevel1Nodes > 10) return false;
+    if (config.numLevel2Nodes && config.numLevel2Nodes > 50) return false;
+    if (config.numLevel3Nodes && config.numLevel3Nodes > 100) return false;
+    if (config.childrenPerNode && config.childrenPerNode > 10) return false;
+    if (config.numNodeTypes && config.numNodeTypes > 10) return false;
+    if (config.numLinkTypes && config.numLinkTypes > 10) return false;
 
     return true;
   }

@@ -47,6 +47,9 @@ class MockDataGenerator {
     }
     nodesByLevel.set(3, level3Nodes);
 
+    // Calculate positions for all nodes using swim lane logic
+    this.calculateNodePositions(nodesByLevel);
+
     // Create main group
     cluster.groups.push({
       id: "group-0",
@@ -183,6 +186,92 @@ class MockDataGenerator {
         targetNodeUuid: target.uuid,
         color: [0.5, 0.5, 0.5],
       });
+    }
+  }
+
+  calculateNodePositions(nodesByLevel) {
+    // Constants for positioning (matching draw.io logic)
+    const ROBLOX_SCALE = 10;  // Scale factor for Roblox units
+    const COLUMN_SPACING = 2 * ROBLOX_SCALE;  // 20 studs between columns
+    const LEVEL_SPACING = 10 * ROBLOX_SCALE;  // 100 studs between levels
+    
+    // Group nodes by type across all levels
+    const typeCounters = new Map();
+    const nodesByTypeAndLevel = new Map();
+    
+    // First pass: organize nodes by type and level, count totals
+    for (const [level, nodes] of nodesByLevel) {
+      for (const node of nodes) {
+        const key = `${node.type}-${level}`;
+        if (!nodesByTypeAndLevel.has(key)) {
+          nodesByTypeAndLevel.set(key, []);
+        }
+        nodesByTypeAndLevel.get(key).push(node);
+        
+        // Track total count per type
+        typeCounters.set(node.type, (typeCounters.get(node.type) || 0) + 1);
+      }
+    }
+    
+    // Sort nodes within each type-level group alphabetically
+    for (const [key, nodes] of nodesByTypeAndLevel) {
+      nodes.sort((a, b) => a.name.localeCompare(b.name));
+    }
+    
+    // Calculate type columns (sorted by count, descending)
+    const sortedTypes = Array.from(typeCounters.keys()).sort((a, b) => {
+      return typeCounters.get(b) - typeCounters.get(a);
+    });
+    
+    // Assign positions
+    let typeXOffset = 0;
+    const typeXPositions = new Map();
+    
+    for (const type of sortedTypes) {
+      typeXPositions.set(type, typeXOffset);
+      
+      // Find max nodes of this type in any level
+      let maxNodesInLevel = 0;
+      for (let level = 1; level <= 3; level++) {
+        const key = `${type}-${level}`;
+        const nodes = nodesByTypeAndLevel.get(key) || [];
+        maxNodesInLevel = Math.max(maxNodesInLevel, nodes.length);
+      }
+      
+      // Move to next type column
+      typeXOffset += maxNodesInLevel * COLUMN_SPACING;
+      if (sortedTypes.indexOf(type) < sortedTypes.length - 1) {
+        typeXOffset += COLUMN_SPACING; // Extra gap between types
+      }
+    }
+    
+    // Assign positions to each node
+    const typeNodeCounters = new Map();
+    for (const type of sortedTypes) {
+      typeNodeCounters.set(type, 0);
+    }
+    
+    for (let level = 1; level <= 3; level++) {
+      const levelY = (3 - level) * LEVEL_SPACING;  // Level 1 at top (y=200), level 3 at bottom (y=0)
+      
+      for (const type of sortedTypes) {
+        const key = `${type}-${level}`;
+        const nodes = nodesByTypeAndLevel.get(key) || [];
+        
+        nodes.forEach((node, index) => {
+          const baseX = typeXPositions.get(type);
+          const x = baseX + index * COLUMN_SPACING;
+          const z = 0;  // Depth, can be adjusted later
+          
+          // Update node position
+          node.position = { x, y: levelY, z };
+          
+          // Add type number for labeling
+          const typeCounter = typeNodeCounters.get(type) + 1;
+          typeNodeCounters.set(type, typeCounter);
+          node.typeNumber = `${type.toLowerCase()}${String(typeCounter).padStart(2, '0')}`;
+        });
+      }
     }
   }
 }

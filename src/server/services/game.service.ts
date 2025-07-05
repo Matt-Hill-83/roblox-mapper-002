@@ -2,11 +2,13 @@ import { MakeOldStuffService } from "./makeOldStuff.service";
 import { SimpleGraphService } from "./simpleGraph.service";
 import { TestSimpleDataGeneratorService } from "./testSimpleDataGenerator.service";
 import { ConfigGUIServerService } from "./configGUIServer.service";
+import { DataGeneratorRobloxRendererService } from "./dataGeneratorRobloxRenderer.service";
 
 export class GameService {
   private makeOldStuffService = new MakeOldStuffService();
   private simpleGraphService = new SimpleGraphService();
   private testSimpleDataGenerator = new TestSimpleDataGeneratorService();
+  private dataGeneratorRenderer = new DataGeneratorRobloxRendererService();
   private configGUIServer?: ConfigGUIServerService;
   private myStuffFolder!: Folder;
   private gameStarted = false; // Flag to prevent duplicate initialization
@@ -39,10 +41,22 @@ export class GameService {
     if (false) {
       this.simpleGraphService.createSimpleGraph(this.myStuffFolder);
     }
-    
+
     // Test the new simple data generator
-    this.testSimpleDataGenerator.runPeopleAnimalsDemo(this.myStuffFolder);
-    
+    if (false) {
+      this.testSimpleDataGenerator.runPeopleAnimalsDemo(this.myStuffFolder);
+    }
+
+    // Use actual data generator with swim lane positioning
+    this.dataGeneratorRenderer.renderGeneratedData(this.myStuffFolder, {
+      numLevel1Nodes: 1,
+      numLevel2Nodes: 6,
+      numLevel3Nodes: 12,
+      childrenPerNode: 3,
+      numNodeTypes: 3,
+      numLinkTypes: 3,
+    });
+
     // Initialize the configuration GUI server
     this.configGUIServer = new ConfigGUIServerService(
       this.testSimpleDataGenerator,

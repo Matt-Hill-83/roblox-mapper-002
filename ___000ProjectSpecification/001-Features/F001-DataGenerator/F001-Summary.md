@@ -31,3 +31,19 @@ Enhanced data generation system with expanded name pools and swim lane organizat
 
 ## Testing
 Test script generates draw.io diagrams showing node organization in swim lanes with proper coordinate positioning for Roblox integration.
+
+## Next Steps - Roblox Integration
+
+### T136: Integrate Generated Data into Roblox 3D Graph
+- Parse draw.io coordinates into Roblox 3D positions
+- Create hexagon entity models with proper colors
+- Generate rope/beam connections for relationships
+- Implement hierarchical Y-axis positioning
+- Add interactive features (selection, highlighting)
+- Optimize performance with LOD and instancing
+
+### T137: Create Data Import Pipeline
+- Design JSON schema for entity/relationship data
+- Implement ModuleScript data loader in Roblox
+- Connect to existing ComponentStackService and ConnectorService
+- Support both test and production data formats

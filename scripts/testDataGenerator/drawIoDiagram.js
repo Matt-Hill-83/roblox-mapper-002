@@ -149,12 +149,10 @@ function buildXml(data, cluster) {
         const nodeX = typeInfo.startX + index * data.COLUMN_WIDTH;
         const nodeY = levelY;
         
-        // Calculate coordinates for the node
-        const coordX = Math.floor(nodeX / data.UNIT_SIZE);
-        const coordY = 0; // Depth into page
-        const coordZ = Math.floor(levelY / data.UNIT_SIZE);
-        
-        node.coordinates = { x: coordX, y: coordY, z: coordZ };
+        // Use the actual position from the node (already calculated)
+        const coordX = node.position.x / 10;  // Convert from Roblox scale back to grid units
+        const coordY = node.position.z / 10;  // z becomes y in 2D
+        const coordZ = (200 - node.position.y) / 10;  // Invert Y for draw.io (top is 0)
         
         const label = `${node.name}\n${coordX},${coordY},${coordZ}\n${node.typeNumber}`;
         const style = getNodeStyle(node.type);

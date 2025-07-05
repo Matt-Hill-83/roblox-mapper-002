@@ -454,8 +454,8 @@ export class SimpleDataGeneratorService {
     
     print(`  - Total Nodes: ${totalNodes}`);
     print(`    By Type:`);
-    nodeTypeCounts.forEach((count, type) => {
-      print(`      - ${type}: ${count}`);
+    nodeTypeCounts.forEach((count, nodeType) => {
+      print(`      - ${nodeType}: ${count}`);
     });
     
     print(`    By Level (approximate):`);

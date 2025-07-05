@@ -20,9 +20,10 @@ export class ConfigGUIController {
 
     // Create GUI with default config
     const defaultConfig: GeneratorConfig = {
-      numGroups: config001.numGroups || 1,
-      numLevels: config001.numLevels || 5,
-      numBranches: config001.numBranches || 3,
+      numLevel1Nodes: 1,
+      numLevel2Nodes: 6,
+      numLevel3Nodes: 12,
+      childrenPerNode: 3,
       numNodeTypes: config001.numNodeTypes || 2,
       numLinkTypes: config001.numLinkTypes || 3
     };
