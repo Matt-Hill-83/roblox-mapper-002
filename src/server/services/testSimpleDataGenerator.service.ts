@@ -1,4 +1,4 @@
-import { SimpleDataGeneratorService } from "./simpleDataGenerator.service";
+import { SimpleDataGeneratorService } from "./dataGenerator/simpleDataGenerator.service";
 import { SimpleDataLayoutService } from "./simpleDataLayout.service";
 import { SimpleDataRendererService } from "./simpleDataRenderer.service";
 import { GeneratorConfig } from "../../shared/interfaces/simpleDataGenerator.interface";
