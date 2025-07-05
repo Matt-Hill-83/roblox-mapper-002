@@ -10,18 +10,24 @@
 
 import { Players } from "@rbxts/services";
 import { GeneratorConfig } from "../../../shared/interfaces/simpleDataGenerator.interface";
-import { createInputFields } from "./createInputFields";
-import { createRegenerateButton } from "./createRegenerateButton";
+import { GUI_CONSTANTS } from "./constants";
+import { GUIState } from "./interfaces";
+import { validateAndUpdateInput } from "./utilities";
+import { createMainFrame } from "./components/frame";
+import { createTitle } from "./components/title";
+import { createInputFields } from "./components/inputFields";
+import { createRegenerateButton } from "./components/regenerateButton";
 
 export class ConfigGUIService {
-  private gui?: ScreenGui;
-  private configFrame?: Frame;
-  private inputs: Map<keyof GeneratorConfig, TextBox> = new Map();
-  private currentConfig: GeneratorConfig;
+  private state: GUIState;
   private onConfigChange?: (config: GeneratorConfig) => void;
 
   constructor(initialConfig: GeneratorConfig) {
-    this.currentConfig = { ...initialConfig };
+    this.state = {
+      isVisible: false,
+      currentConfig: { ...initialConfig },
+      inputs: new Map()
+    };
   }
 
   /**
@@ -33,80 +39,33 @@ export class ConfigGUIService {
     const playerGui = player.WaitForChild("PlayerGui") as PlayerGui;
 
     // Create ScreenGui
-    this.gui = new Instance("ScreenGui");
-    this.gui.Name = "ConfigurationGUI";
-    this.gui.ResetOnSpawn = false;
-    this.gui.Parent = playerGui;
+    this.state.gui = new Instance("ScreenGui");
+    this.state.gui.Name = GUI_CONSTANTS.NAMES.SCREEN_GUI;
+    this.state.gui.ResetOnSpawn = false;
+    this.state.gui.Parent = playerGui;
 
     // Create main frame
-    this.configFrame = new Instance("Frame");
-    this.configFrame.Name = "ConfigFrame";
-    this.configFrame.Size = new UDim2(0, 350, 0, 285);
-    this.configFrame.Position = new UDim2(0, 10, 0, 10); // Upper left corner
-    this.configFrame.BackgroundColor3 = new Color3(0.2, 0.2, 0.2);
-    this.configFrame.BorderSizePixel = 0;
-    this.configFrame.Parent = this.gui;
-
-    // Add corner rounding
-    const corner = new Instance("UICorner");
-    corner.CornerRadius = new UDim(0, 8);
-    corner.Parent = this.configFrame;
+    this.state.configFrame = createMainFrame(this.state.gui);
 
     // Add title
-    this.createTitle();
+    createTitle(this.state.configFrame);
 
     // Create input fields
     createInputFields({
-      configFrame: this.configFrame,
-      currentConfig: this.currentConfig,
-      inputs: this.inputs as Map<keyof GeneratorConfig, TextBox>,
-      validateAndUpdateInput: (input, key, min, max) => this.validateAndUpdateInput(input, key, min, max)
+      configFrame: this.state.configFrame,
+      currentConfig: this.state.currentConfig,
+      inputs: this.state.inputs,
+      validateAndUpdateInput: (input, key, min, max) => 
+        validateAndUpdateInput(input, this.state.currentConfig, key, min, max)
     });
 
     // Create regenerate button
     createRegenerateButton({
-      configFrame: this.configFrame,
+      configFrame: this.state.configFrame,
       onRegenerateClick: () => this.onRegenerateClick()
     });
-  }
 
-  /**
-   * Creates the title label
-   */
-  private createTitle(): void {
-    const title = new Instance("TextLabel");
-    title.Name = "Title";
-    title.Size = new UDim2(1, 0, 0, 30);
-    title.Position = new UDim2(0, 0, 0, 0);
-    title.BackgroundTransparency = 1;
-    title.Text = "Generator Configuration";
-    title.TextColor3 = new Color3(1, 1, 1);
-    title.TextScaled = true;
-    title.Font = Enum.Font.SourceSansBold;
-    title.Parent = this.configFrame;
-  }
-
-
-
-  /**
-   * Validates and updates input value
-   */
-  private validateAndUpdateInput(input: TextBox, key: keyof GeneratorConfig, min: number, max: number): void {
-    const value = tonumber(input.Text);
-    
-    if (value !== undefined && value >= min && value <= max) {
-      this.currentConfig[key] = math.floor(value);
-      input.Text = tostring(this.currentConfig[key]);
-      input.TextColor3 = new Color3(1, 1, 1);
-    } else {
-      // Reset to current valid value
-      input.Text = tostring(this.currentConfig[key]);
-      input.TextColor3 = new Color3(1, 0.5, 0.5);
-      
-      // Flash red briefly
-      wait(0.5);
-      input.TextColor3 = new Color3(1, 1, 1);
-    }
+    this.state.isVisible = true;
   }
 
   /**
@@ -115,17 +74,10 @@ export class ConfigGUIService {
   private onRegenerateClick(): void {
     if (this.onConfigChange) {
       // Gather all current values
-      const newConfig: GeneratorConfig = { ...this.currentConfig };
+      const newConfig: GeneratorConfig = { ...this.state.currentConfig };
       
       // Trigger the callback
       this.onConfigChange(newConfig);
-      
-      // Visual feedback
-      const button = this.configFrame!.FindFirstChild("RegenerateButton") as TextButton;
-      const originalColor = button.BackgroundColor3;
-      button.BackgroundColor3 = new Color3(0.1, 0.4, 0.1);
-      wait(0.2);
-      button.BackgroundColor3 = originalColor;
     }
   }
 
@@ -133,23 +85,31 @@ export class ConfigGUIService {
    * Updates the displayed configuration
    */
   public updateConfig(config: GeneratorConfig): void {
-    this.currentConfig = { ...config };
+    this.state.currentConfig = { ...config };
     
     // Update all input fields
-    this.inputs.forEach((input, key) => {
+    this.state.inputs.forEach((input, key) => {
       input.Text = tostring(config[key]);
     });
+  }
+
+  /**
+   * Gets the current visibility state
+   */
+  public isVisible(): boolean {
+    return this.state.isVisible;
   }
 
   /**
    * Destroys the GUI
    */
   public destroy(): void {
-    if (this.gui) {
-      this.gui.Destroy();
-      this.gui = undefined;
-      this.configFrame = undefined;
-      this.inputs.clear();
+    if (this.state.gui) {
+      this.state.gui.Destroy();
+      this.state.gui = undefined;
+      this.state.configFrame = undefined;
+      this.state.inputs.clear();
+      this.state.isVisible = false;
     }
   }
 }

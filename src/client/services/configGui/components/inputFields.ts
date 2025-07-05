@@ -5,19 +5,15 @@
  * 000ProjectSpecification/002ScreenGuiSpec.md
  */
 
-import { GeneratorConfig } from "../../../shared/interfaces/simpleDataGenerator.interface";
-
-interface InputFieldParams {
-  configFrame: Frame;
-  currentConfig: GeneratorConfig;
-  inputs: Map<keyof GeneratorConfig, TextBox>;
-  validateAndUpdateInput: (input: TextBox, key: keyof GeneratorConfig, min: number, max: number) => void;
-}
+import { GeneratorConfig } from "../../../../shared/interfaces/simpleDataGenerator.interface";
+import { InputFieldProps } from "../interfaces";
+import { GUI_CONSTANTS } from "../constants";
+import { createUICorner } from "../utilities";
 
 /**
  * Creates input fields for each configuration parameter
  */
-export function createInputFields(params: InputFieldParams): void {
+export function createInputFields(params: InputFieldProps): void {
   const { configFrame, currentConfig, inputs, validateAndUpdateInput } = params;
   
   const parameters: Array<{ key: keyof GeneratorConfig; label: string; min: number; max: number }> = [
@@ -29,39 +25,37 @@ export function createInputFields(params: InputFieldParams): void {
     { key: "numLinkTypes", label: "Link Types", min: 1, max: 10 }
   ];
 
-  let yOffset = 40;
-  const rowHeight = 35;
+  let yOffset = GUI_CONSTANTS.INPUT.START_Y;
+  const rowHeight = GUI_CONSTANTS.INPUT.HEIGHT + GUI_CONSTANTS.INPUT.SPACING;
 
   parameters.forEach((param) => {
     // Create label
     const label = new Instance("TextLabel");
-    label.Size = new UDim2(0.5, -10, 0, 25);
+    label.Size = new UDim2(GUI_CONSTANTS.INPUT.LABEL_WIDTH, -10, 0, GUI_CONSTANTS.INPUT.HEIGHT);
     label.Position = new UDim2(0, 10, 0, yOffset);
     label.BackgroundTransparency = 1;
     label.Text = param.label + ":";
-    label.TextColor3 = new Color3(0.9, 0.9, 0.9);
+    label.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
     label.TextXAlignment = Enum.TextXAlignment.Left;
     label.TextScaled = true;
-    label.Font = Enum.Font.SourceSans;
+    label.Font = GUI_CONSTANTS.TYPOGRAPHY.LABEL_FONT;
     label.Parent = configFrame;
 
     // Create input box
     const input = new Instance("TextBox");
     input.Name = param.key;
-    input.Size = new UDim2(0.3, 0, 0, 25);
-    input.Position = new UDim2(0.7, -10, 0, yOffset);
+    input.Size = new UDim2(GUI_CONSTANTS.INPUT.INPUT_WIDTH, 0, 0, GUI_CONSTANTS.INPUT.HEIGHT);
+    input.Position = new UDim2(1 - GUI_CONSTANTS.INPUT.INPUT_WIDTH, -10, 0, yOffset);
     input.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
     input.BorderSizePixel = 0;
     input.Text = tostring(currentConfig[param.key]);
-    input.TextColor3 = new Color3(1, 1, 1);
+    input.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
     input.TextScaled = true;
-    input.Font = Enum.Font.SourceSans;
+    input.Font = GUI_CONSTANTS.TYPOGRAPHY.INPUT_FONT;
     input.Parent = configFrame;
 
     // Add corner rounding to input
-    const inputCorner = new Instance("UICorner");
-    inputCorner.CornerRadius = new UDim(0, 4);
-    inputCorner.Parent = input;
+    createUICorner(input, new UDim(0, 4));
 
     // Add validation
     input.FocusLost.Connect(() => {
