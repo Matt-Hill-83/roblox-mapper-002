@@ -1,9 +1,6 @@
-import { MakeOldStuffService } from "./makeOldStuff.service";
-import { SimpleGraphService } from "./simpleGraph.service";
 import { TestSimpleDataGeneratorService } from "./testSimpleDataGenerator.service";
 import { ConfigGUIServerService } from "./configGUIServer.service";
 import { DataGeneratorRobloxRendererService } from "./dataGeneratorRobloxRenderer.service";
-import { TestLabelBlockService } from "./testLabelBlock.service";
 import { makeOriginBlock } from "../../shared/modules/makeOriginBlock";
 
 // Origin configuration for 3D positioning
@@ -14,11 +11,8 @@ const ORIGIN = {
 };
 
 export class GameService {
-  private makeOldStuffService = new MakeOldStuffService();
-  private simpleGraphService = new SimpleGraphService();
   private testSimpleDataGenerator = new TestSimpleDataGeneratorService();
   private dataGeneratorRenderer = new DataGeneratorRobloxRendererService();
-  private testLabelBlockService = new TestLabelBlockService();
   private configGUIServer?: ConfigGUIServerService;
   private myStuffFolder!: Folder;
   private gameStarted = false; // Flag to prevent duplicate initialization
@@ -40,26 +34,6 @@ export class GameService {
       this.myStuffFolder = new Instance("Folder");
       this.myStuffFolder.Name = "MyStuff";
       this.myStuffFolder.Parent = game.Workspace;
-    }
-
-    // Disable old assets for now
-    if (false) {
-      this.makeOldStuffService.createOldAssets(this.myStuffFolder);
-    }
-
-    // Create simple graph with 3 hexagons
-    if (false) {
-      this.simpleGraphService.createSimpleGraph(this.myStuffFolder);
-    }
-
-    // Test the new simple data generator
-    if (false) {
-      this.testSimpleDataGenerator.runPeopleAnimalsDemo(this.myStuffFolder);
-    }
-
-    // Test label block primitive
-    if (false) {
-      this.testLabelBlockService.testLabelBlocks(this.myStuffFolder);
     }
 
     // Use actual data generator with swim lane positioning
