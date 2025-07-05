@@ -9,7 +9,7 @@ import { makeOriginBlock } from "../../shared/modules/makeOriginBlock";
 // Origin configuration for 3D positioning
 const ORIGIN = {
   x: 0,
-  y: 10, // BASE_Y from RENDERER_CONSTANTS
+  y: 0, // BASE_Y from RENDERER_CONSTANTS
   z: 0,
 };
 
@@ -78,7 +78,7 @@ export class GameService {
     if (true) {
       makeOriginBlock({
         origin: ORIGIN,
-        parent: this.myStuffFolder
+        parent: this.myStuffFolder,
       });
     }
 

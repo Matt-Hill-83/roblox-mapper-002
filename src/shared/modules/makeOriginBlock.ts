@@ -14,7 +14,7 @@ interface OriginBlockConfig {
 export function makeOriginBlock({
   origin,
   parent,
-  offset = { x: -20, y: 20, z: -20 },
+  offset = { x: 0, y: 0, z: 0 },
   size = 4
 }: OriginBlockConfig): Part {
   const orientationFolder = new Instance("Folder");
@@ -32,7 +32,7 @@ export function makeOriginBlock({
       Size: size,
       Color: [0.3, 0.3, 0.3], // Dark gray
       Transparency: 0.2,
-      Material: "Neon",
+      Material: "Concrete",
       CanCollide: false,
       CastShadow: false,
     },
