@@ -51,7 +51,7 @@ export class GameService {
     this.dataGeneratorRenderer.renderGeneratedData(this.myStuffFolder, {
       numLevel1Nodes: 1,
       numLevel2Nodes: 1,
-      numLevel3Nodes: 1,
+      numLevel3Nodes: 5,
       childrenPerNode: 1,
       numNodeTypes: 3,
       numLinkTypes: 3,

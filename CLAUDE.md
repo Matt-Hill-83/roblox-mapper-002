@@ -30,6 +30,15 @@ npm run build      # Production build
 npm run lint       # Code linting
 ```
 
+## Roblox Coordinate System
+
+**Important**: In Roblox, the coordinate axes are oriented as follows:
+- **X axis**: Horizontal, parallel to the ground (left/right)
+- **Z axis**: Horizontal, parallel to the ground (forward/backward)
+- **Y axis**: Vertical, perpendicular to the ground (up/down)
+
+To avoid confusion, we refer to the Y axis as the "up/down axis" throughout this project.
+
 ## Architecture
 
 ### Core Technologies

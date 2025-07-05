@@ -267,7 +267,7 @@ export class SimpleDataGeneratorService {
   /**
    * Generates a single node with random properties
    */
-  private generateNode(_level: number, maxNodeTypes: number): Node {
+  private generateNode(level: number, maxNodeTypes: number): Node {
     const nodeTypes = this.getAvailableNodeTypes(maxNodeTypes);
     const nodeType = nodeTypes[math.random(0, nodeTypes.size() - 1)];
     const uuid = `h-${this.nodeCounter++}`;
@@ -292,6 +292,9 @@ export class SimpleDataGeneratorService {
       ],
       properties: {}
     };
+    
+    // Add level to properties so the renderer can access it
+    (node as any).level = level;
     
     // Add type-specific properties
     if (nodeType === "People") {

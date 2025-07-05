@@ -90,12 +90,16 @@ export function createLabelGroup({
     cube.Material = finalProps.material;
     cube.Transparency = finalProps.transparency;
     cube.Shape = Enum.PartType.Block;
-    cube.Anchored = true;
+    cube.Anchored = false; // Unanchored so it can follow the rope
     cube.CanCollide = false;
 
     // Position the block along the rope direction
     const blockPosition = midpoint.add(direction.mul(positions[i]));
-    cube.CFrame = CFrame.lookAt(blockPosition, blockPosition.add(direction));
+    // Create CFrame that aligns the block's Z axis (long dimension) with the rope direction
+    // CFrame.lookAt points -Z at target, but we want +Z along the rope, so we rotate 180 degrees
+    const lookAtCFrame = CFrame.lookAt(blockPosition, blockPosition.add(direction));
+    // Rotate 180 degrees around Y axis to align +Z with rope direction
+    cube.CFrame = lookAtCFrame.mul(CFrame.Angles(0, math.pi, 0));
 
     cube.Parent = labelGroup;
     blocks.push(cube);
@@ -130,7 +134,7 @@ export function createLabelGroup({
   midpointPart.Name = `ropeAnchor${padNumber(ropeIndex, 3)}`;
   midpointPart.Size = new Vector3(0.1, 0.1, 0.1);
   midpointPart.Transparency = 1; // Invisible
-  midpointPart.Anchored = true;
+  midpointPart.Anchored = false; // Unanchored to follow rope physics
   midpointPart.CanCollide = false;
   midpointPart.Position = midpoint;
   midpointPart.Parent = parent;
@@ -139,6 +143,32 @@ export function createLabelGroup({
   ropeAttachment.Name = `ropeAtt${padNumber(ropeIndex, 3)}`;
   ropeAttachment.Position = new Vector3(0, 0, 0);
   ropeAttachment.Parent = midpointPart;
+  
+  // Create a RodConstraint to connect the midpoint part to the rope's midpoint
+  // This will keep the labels positioned at the rope's midpoint
+  const rodConstraint = new Instance("RodConstraint");
+  rodConstraint.Name = `labelRod${padNumber(ropeIndex, 3)}`;
+  rodConstraint.Attachment0 = ropeAttachment;
+  rodConstraint.Attachment1 = sourceAttachment; // Connect to one of the rope's attachments
+  rodConstraint.Length = sourceAttachment.WorldPosition.sub(midpoint).Magnitude;
+  rodConstraint.Parent = midpointPart;
+  
+  // Create another rod to the target for stability
+  const rodConstraint2 = new Instance("RodConstraint");
+  rodConstraint2.Name = `labelRod2${padNumber(ropeIndex, 3)}`;
+  rodConstraint2.Attachment0 = ropeAttachment;
+  rodConstraint2.Attachment1 = targetAttachment;
+  rodConstraint2.Length = targetAttachment.WorldPosition.sub(midpoint).Magnitude;
+  rodConstraint2.Parent = midpointPart;
+  
+  // Weld each block to the midpoint part
+  for (let i = 0; i < blocks.size(); i++) {
+    const weld = new Instance("WeldConstraint");
+    weld.Name = `labelWeld${i + 1}`;
+    weld.Part0 = blocks[i];
+    weld.Part1 = midpointPart;
+    weld.Parent = blocks[i];
+  }
 
   print(
     `✅ Created label group with 3 blocks for rope ${ropeIndex}: ${sourceText} ${relationText} ${targetText}`

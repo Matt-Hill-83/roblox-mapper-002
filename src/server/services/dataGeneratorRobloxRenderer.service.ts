@@ -40,8 +40,8 @@ export class DataGeneratorRobloxRendererService {
   private calculateSwimLanePositions(cluster: Cluster): void {
     // Constants for positioning - reasonable for Roblox viewing
     const COLUMN_SPACING = 10;  // 10 studs between columns (hexagons are 8 wide)
-    const LEVEL_SPACING = 15;   // 15 studs between levels vertically
-    const BASE_Y = 10;          // Start 10 studs above ground
+    const LEVEL_SPACING = 5;    // 5 studs between levels vertically
+    const BASE_Y = 20;          // Start 20 studs above ground in the up/down axis
     
     // Organize nodes by level
     const nodesByLevel = new Map<number, Node[]>();
@@ -49,18 +49,11 @@ export class DataGeneratorRobloxRendererService {
     nodesByLevel.set(2, []);
     nodesByLevel.set(3, []);
     
-    // Determine level for each node based on its position in the array
-    // This is temporary - in production we'd track level properly
+    // Use the actual level information from each node
     cluster.groups.forEach(group => {
-      group.nodes.forEach((node, index) => {
-        let level: number;
-        if (index < 10) {
-          level = 1;  // First 10 nodes are level 1
-        } else if (index < 60) {
-          level = 2;  // Next 50 nodes are level 2
-        } else {
-          level = 3;  // Rest are level 3
-        }
+      group.nodes.forEach((node) => {
+        const nodeWithLevel = node as Node & { level?: number };
+        const level = nodeWithLevel.level || 1; // Default to level 1 if not set
         nodesByLevel.get(level)!.push(node);
       });
     });
@@ -265,8 +258,8 @@ export class DataGeneratorRobloxRendererService {
           rope.Name = `rope${this.padNumber(ropeIndex, 3)}-${link.type.lower()}-${sourceHex.Name}-to-${targetHex.Name}`;
           rope.Attachment0 = sourceAttachment;
           rope.Attachment1 = targetAttachment;
-          // Make the rope a bit longer for sag
-          rope.Length = sourceAttachment.WorldPosition.sub(targetAttachment.WorldPosition).Magnitude * 1.1;
+          // Set rope length to exact distance (no sag)
+          rope.Length = sourceAttachment.WorldPosition.sub(targetAttachment.WorldPosition).Magnitude;
           rope.Visible = true;
           rope.Color = this.getLinkBrickColor(link.type);
           rope.Thickness = 0.4;
@@ -325,6 +318,9 @@ export class DataGeneratorRobloxRendererService {
     
     print("✅ Data generation and rendering complete!");
     print(`📊 Created ${nodeToHexagon.size()} hexagons and ${cluster.relations.size()} connections`);
+    
+    // Generate draw.io diagram for visualization
+    this.generateDrawIoDiagram(cluster);
   }
   
   /**
@@ -394,5 +390,122 @@ export class DataGeneratorRobloxRendererService {
     
     // Fallback to hexagon name
     return hexagon.Name;
+  }
+  
+  /**
+   * Generate draw.io diagram XML for visualization
+   */
+  private generateDrawIoDiagram(cluster: Cluster): void {
+    print("📊 Generating draw.io diagram...");
+    
+    // Create timestamp for filename
+    const dateTable = os.date("*t");
+    const timestamp = string.format("%04d-%02d-%02d_%02d-%02d-%02d", 
+      dateTable.year, dateTable.month, dateTable.day, 
+      dateTable.hour, dateTable.min, dateTable.sec);
+    const filename = `data-generator-diagram-${timestamp}.drawio`;
+    
+    // Build XML content
+    let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="${os.date("%Y-%m-%d")}" agent="DataGeneratorRobloxRenderer" version="21.1.2">
+  <diagram name="Generated Data" id="generated-data">
+    <mxGraphModel dx="1434" dy="823" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+`;
+    
+    // Track node IDs for connections
+    const nodeIdMap = new Map<string, number>();
+    let cellId = 2;
+    
+    // Draw nodes
+    cluster.groups.forEach(group => {
+      group.nodes.forEach(node => {
+        const nodeWithLevel = node as Node & { level?: number; typeNumber?: string };
+        
+        // Scale positions for draw.io (multiply by 10 for better visibility)
+        const x = node.position.x * 10;
+        const y = 400 - (node.position.y * 10); // Invert Y and double the scale factor from 5 to 10
+        
+        // Node color
+        const fillColor = node.type === "People" ? "#4A90E2" : "#F5A623";
+        
+        // Create node cell
+        xml += `        <mxCell id="${cellId}" value="${node.name}\\n${node.type}\\n${nodeWithLevel.typeNumber || ""}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=${fillColor};strokeColor=#000000;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="${x}" y="${y}" width="120" height="60" as="geometry" />
+        </mxCell>\n`;
+        
+        nodeIdMap.set(node.uuid, cellId);
+        cellId++;
+      });
+    });
+    
+    // Draw connections
+    cluster.relations.forEach(relation => {
+      const sourceId = nodeIdMap.get(relation.sourceNodeUuid);
+      const targetId = nodeIdMap.get(relation.targetNodeUuid);
+      
+      if (sourceId && targetId) {
+        const edgeColor = this.getDrawIoEdgeColor(relation.type);
+        
+        xml += `        <mxCell id="${cellId}" value="${relation.type}" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=${edgeColor};strokeWidth=2;" edge="1" parent="1" source="${sourceId}" target="${targetId}">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>\n`;
+        
+        cellId++;
+      }
+    });
+    
+    xml += `      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>`;
+    
+    // Write to file
+    const outputPath = `output/${filename}`;
+    print(`💾 Writing draw.io diagram to: ${outputPath}`);
+    print(`📝 Diagram contains ${cluster.groups[0].nodes.size()} nodes and ${cluster.relations.size()} connections`);
+    
+    // Note: In Roblox, we can't directly write files. 
+    // You would need to either:
+    // 1. Use HttpService to POST this to a server
+    // 2. Print it to console for manual copying
+    // 3. Store it in a StringValue for retrieval
+    
+    // For now, let's store it in a StringValue in workspace
+    let drawIoStorage = game.Workspace.FindFirstChild("DrawIoDiagrams") as Folder;
+    if (!drawIoStorage) {
+      drawIoStorage = new Instance("Folder");
+      drawIoStorage.Name = "DrawIoDiagrams";
+      drawIoStorage.Parent = game.Workspace;
+    }
+    
+    const xmlValue = new Instance("StringValue");
+    xmlValue.Name = filename;
+    xmlValue.Value = xml;
+    xmlValue.Parent = drawIoStorage;
+    
+    print(`✅ Draw.io diagram stored in Workspace.DrawIoDiagrams.${filename}`);
+  }
+  
+  /**
+   * Get edge color for draw.io based on link type
+   */
+  private getDrawIoEdgeColor(linkType: string): string {
+    const edgeColors: Record<string, string> = {
+      "Parent-Child": "#000000",
+      "Owns": "#8B4513",
+      "Wants": "#9370DB",
+      "Eats": "#FFD700",
+      "Link4": "#00FFFF",
+      "Link5": "#FF0000",
+      "Link6": "#9370DB",
+      "Link7": "#8B4513",
+      "Link8": "#808080",
+      "Link9": "#FFA500",
+      "Link10": "#ADD8E6"
+    };
+    return edgeColors[linkType] || "#FF0000";
   }
 }
