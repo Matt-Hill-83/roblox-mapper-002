@@ -1,5 +1,5 @@
 import { ReplicatedStorage } from "@rbxts/services";
-import { ConfigGUIService } from "../services/configGui/configGUI.service";
+import { ConfigGUIService } from "../services/configGui";
 import { GeneratorConfig } from "../../shared/interfaces/simpleDataGenerator.interface";
 import { config001 } from "../../shared/configs/simpleDataGeneratorConfigs";
 
