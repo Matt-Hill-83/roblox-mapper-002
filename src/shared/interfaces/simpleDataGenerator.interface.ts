@@ -18,13 +18,13 @@ export interface Node {
     age?: number;
     
     // For Animals nodes
-    animalType?: "cat" | "bird" | "dog";
+    animalType?: string;  // Now supports 10 different animal types
   };
 }
 
 export interface Link {
   uuid: string;           // Link identifier
-  type: "Owns" | "Wants" | "Eats";  // Link type
+  type: string;           // Link type (now supports up to 10 types)
   sourceNodeUuid: string; // UUID of source node
   targetNodeUuid: string; // UUID of target node
   color: [number, number, number];  // RGB color values (0-1 range)
@@ -43,9 +43,10 @@ export interface Cluster {
 }
 
 export interface GeneratorConfig {
-  numGroups: number;      // Number of groups to generate
-  numLevels: number;      // Number of hierarchical levels
-  numBranches: number;    // Number of branches per parent
-  numNodeTypes: number;   // Number of different node types to use
-  numLinkTypes: number;   // Number of different link types to use
+  numLevel1Nodes: number;   // Number of root/top-level nodes
+  numLevel2Nodes: number;   // Number of second-level nodes
+  numLevel3Nodes: number;   // Number of third-level nodes
+  childrenPerNode: number;  // Maximum children per parent node
+  numNodeTypes: number;     // Number of different node types to use
+  numLinkTypes: number;     // Number of different link types to use
 }

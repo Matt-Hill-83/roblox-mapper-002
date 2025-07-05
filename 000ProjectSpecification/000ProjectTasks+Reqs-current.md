@@ -1,3 +1,5 @@
+Requirements:
+
 41. ✅ [CLD1] R78: Simple Data Generator Layout Adjustments:
 
     1. ✅ [CLD1] R78.1: The system shall set the origin point for the generated graph to coordinates (20, 20, 20)
@@ -19,6 +21,19 @@
     3. ✅ [CLD1] R79.3: The GUI shall allow users to modify configuration values through input controls
     4. ✅ [CLD1] R79.4: The GUI shall have a "Regenerate" button to apply new configuration values
     5. ✅ [CLD1] R79.5: The GUI shall update the 3D visualization when configuration changes are applied
+
+43. ⬛ R80: Update Data Generator:
+
+    1. ⬛ R80.1: The system shall expand the name pools for test data generation:
+       1. ⬛ R80.1.1: Include 10 people names for human entities
+       2. ⬛ R80.1.2: Include 10 animal names for animal entities
+    2. ⬛ R80.2: The system shall support 10 different animal types
+    3. ⬛ R80.3: The system shall allow configuration of up to:
+       1. ⬛ R80.3.1: 10 hierarchical levels in the generated structure
+       2. ⬛ R80.3.2: 10 different node types
+    4. ⬛ R80.4: The system shall remove hard-coded limits in the data generator:
+       1. ⬛ R80.4.1: Remove hard-coded check for numNodeTypes > 2
+       2. ⬛ R80.4.2: Make all configuration limits data-driven rather than hard-coded
 
 ## Task List
 
@@ -44,3 +59,15 @@
           2. ✅ [CLD1] T130.4.2: Clear existing visualization on regenerate
           3. ✅ [CLD1] T130.4.3: Generate new cluster with updated config
           4. ✅ [CLD1] T130.4.4: Render new visualization
+    155.  ⬛ T131: Update Data Generator (R80)
+    156.  ⬛ T131.1: Expand name pools (R80.1)
+          1. ⬛ T131.1.1: Add 10 people names to the data generator (R80.1.1)
+          2. ⬛ T131.1.2: Add 10 animal names to the data generator (R80.1.2)
+    157.  ⬛ T131.2: Expand animal types (R80.2)
+          1. ⬛ T131.2.1: Update animal type pool to include 10 different types
+          2. ⬛ T131.2.2: Ensure proper distribution of animal types in generation
+    158.  ⬛ T131.3: Update configuration limits (R80.3)
+          1. ⬛ T131.3.1: Update maximum levels from current limit to 10 (R80.3.1)
+          2. ⬛ T131.3.2: Update maximum node types from current limit to 10 (R80.3.2)
+          3. ⬛ T131.3.3: Update GUI input validation to reflect new limits
+          4. ⬛ T131.3.4: Test generator with maximum configuration values
