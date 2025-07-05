@@ -52,7 +52,7 @@ export class GameService {
       numLevel1Nodes: 1,
       numLevel2Nodes: 6,
       numLevel3Nodes: 12,
-      childrenPerNode: 3,
+      childrenPerNode: 1,
       numNodeTypes: 3,
       numLinkTypes: 3,
     });
