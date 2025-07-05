@@ -425,7 +425,7 @@ function generateDrawIoDiagram(cluster) {
   const NODE_WIDTH_UNITS = 1; // Nodes are 1 unit wide
   const COLUMN_WIDTH_UNITS = 2; // Columns are 2 units wide
   const TYPE_GROUP_SPACING_UNITS = 3; // Space between type groups
-  const LEVEL_SPACING_UNITS = 10; // Space between levels vertically
+  const LEVEL_SPACING_UNITS = 2; // Space between levels vertically (same as column width)
   const CANVAS_PADDING_UNITS = 2; // Padding on sides
   
   // Convert units to pixels
@@ -536,7 +536,7 @@ function generateDrawIoDiagram(cluster) {
     const levelMap = nodesByLevel.get(level);
     if (!levelMap || levelMap.size === 0) continue;
     
-    const levelY = 50 + (level - 1) * LEVEL_SPACING * UNIT_SIZE;
+    const levelY = 50 + (level - 1) * LEVEL_SPACING;
     
     // Draw level background
     xml += `        <!-- Level ${level} Background -->\n`;
