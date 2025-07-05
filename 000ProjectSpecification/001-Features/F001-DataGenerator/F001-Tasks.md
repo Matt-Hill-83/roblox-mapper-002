@@ -45,7 +45,7 @@
    1. ⬛ T133.4.1: Sort nodes alphabetically by name within type groups
    2. ⬛ T133.4.2: Assign sequential numbers to nodes in each group
 5. ⬛ T133.5: Implement coordinate and label system (R81.7)
-   1. ⬛ T133.5.1: Calculate coordinates using 2-unit spacing (x = column * 2, z = level * 2, y = 0)
+   1. ⬛ T133.5.1: Calculate coordinates using 2-unit spacing (x = column _ 2, z = level _ 2, y = 0)
    2. ⬛ T133.5.2: Format labels as "FirstName LastName x,y,z typeNN"
    3. ⬛ T133.5.3: Track global numbering for each type (person01, person02, etc.)
    4. ⬛ T133.5.4: Update draw.io XML to show multi-line labels
@@ -56,7 +56,19 @@
 
 ## T134: Update Data Generator with Names (R80.1.3-R80.1.4)
 
-1. ⬛ T134.1: Add last names array to generator constants
-2. ⬛ T134.2: Modify person name generation to combine first and last names
-3. ⬛ T134.3: Update test scripts to handle full names
-4. ⬛ T134.4: Ensure proper name display in visualizations
+1. ✅ T134.1: Add last names array to generator constants
+2. ✅ T134.2: Modify person name generation to combine first and last names
+3. ✅ T134.3: Update test scripts to handle full names
+4. ✅ T134.4: Ensure proper name display in visualizations
+
+## T135: Update Draw.io Scaling for Better Visualization
+
+1. ⬛ T135.1: Use Roblox scale units in generator
+2. ✅ T135.2: Add drawIoScaling object to top of testDataGenerator.js
+   1. ✅ T135.2.1: Define NODE_WIDTH_SCALE = 5 (5x wider nodes)
+   2. ✅ T135.2.2: Define NODE_HEIGHT_SCALE = 2 (2x taller nodes)
+   3. ✅ T135.2.3: Define LEVEL_SPACING_SCALE = 2 (2x vertical spacing)
+3. ✅ T135.3: Update draw.io XML generation to use scaling constants
+   1. ✅ T135.3.1: Apply width scaling to node boxes
+   2. ✅ T135.3.2: Apply height scaling to node boxes
+   3. ✅ T135.3.3: Apply spacing scaling to level separation

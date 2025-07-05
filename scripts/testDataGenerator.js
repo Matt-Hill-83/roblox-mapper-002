@@ -18,6 +18,13 @@ const TEST_CONFIG = {
   numLinkTypes: 3, // Owns, Wants, Eats
 };
 
+// Draw.io scaling constants for better visualization
+const drawIoScaling = {
+  NODE_WIDTH_SCALE: 5,    // Make nodes 5x wider
+  NODE_HEIGHT_SCALE: 2,   // Make nodes 2x taller
+  LEVEL_SPACING_SCALE: 2  // Double the vertical spacing between levels
+};
+
 // Constants
 const GENERATOR_CONSTANTS = {
   PEOPLE_NAMES: [
@@ -428,12 +435,12 @@ function generateDrawIoDiagram(cluster) {
   const LEVEL_SPACING_UNITS = 2; // Space between levels vertically (same as column width)
   const CANVAS_PADDING_UNITS = 2; // Padding on sides
   
-  // Convert units to pixels
-  const NODE_WIDTH = NODE_WIDTH_UNITS * UNIT_SIZE;
-  const NODE_HEIGHT = 3 * UNIT_SIZE; // Make nodes taller for multi-line text
+  // Convert units to pixels with scaling
+  const NODE_WIDTH = NODE_WIDTH_UNITS * UNIT_SIZE * drawIoScaling.NODE_WIDTH_SCALE;
+  const NODE_HEIGHT = 3 * UNIT_SIZE * drawIoScaling.NODE_HEIGHT_SCALE; // Make nodes taller for multi-line text
   const COLUMN_WIDTH = COLUMN_WIDTH_UNITS * UNIT_SIZE;
   const TYPE_GROUP_SPACING = TYPE_GROUP_SPACING_UNITS * UNIT_SIZE;
-  const LEVEL_SPACING = LEVEL_SPACING_UNITS * UNIT_SIZE;
+  const LEVEL_SPACING = LEVEL_SPACING_UNITS * UNIT_SIZE * drawIoScaling.LEVEL_SPACING_SCALE;
   const CANVAS_PADDING = CANVAS_PADDING_UNITS * UNIT_SIZE;
   
   // Group nodes by level and type
