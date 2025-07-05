@@ -35,19 +35,36 @@ export function makeLabelBlock({
     math.floor(tonumber(id) || 1), 
     LABEL_BLOCK_CONSTANTS.PAD_LENGTH
   )}`;
+  
+  // Apply default properties first
   block.Size = new Vector3(size, size, size);
   block.Position = new Vector3(position.x, position.y, position.z);
   block.Orientation = new Vector3(rotation.x, rotation.y, rotation.z);
   block.Anchored = finalProps.Anchored!;
-  block.Color = Color3.fromRGB(
-    blockColor[0] * 255,
-    blockColor[1] * 255,
-    blockColor[2] * 255
-  );
-  block.Material = finalProps.Material as unknown as Enum.Material;
   block.TopSurface = Enum.SurfaceType.Smooth;
   block.BottomSurface = Enum.SurfaceType.Smooth;
-  block.Transparency = finalProps.Transparency!;
+  
+  // Handle Color specially since it needs RGB conversion
+  if (finalProps.Color) {
+    block.Color = Color3.fromRGB(
+      blockColor[0] * 255,
+      blockColor[1] * 255,
+      blockColor[2] * 255
+    );
+  }
+  
+  // Apply all other properties from finalProps
+  for (const [key, value] of pairs(finalProps)) {
+    // Skip properties we've already handled
+    if (key === "Size" || key === "Color" || key === "Anchored") continue;
+    
+    // Try to apply the property to the block
+    try {
+      (block as unknown as Record<string, unknown>)[key] = value;
+    } catch (e) {
+      // Property may not exist or be writable, skip it
+    }
+  }
 
   // Use face mapping from constants
   const faceMap = LABEL_BLOCK_CONSTANTS.FACE_MAP as [keyof LabelConfig, Enum.NormalId][];

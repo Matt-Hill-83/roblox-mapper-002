@@ -28,6 +28,7 @@ export interface LabelBlockProps {
   Color?: [number, number, number];
   Material?: string;
   Transparency?: number;
+  [key: string]: any; // Allow any additional Part properties
 }
 
 export interface LabelBlockConfig {
