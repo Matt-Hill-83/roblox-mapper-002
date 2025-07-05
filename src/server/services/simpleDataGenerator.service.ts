@@ -1,3 +1,13 @@
+/**
+ * Simple Data Generator Service
+ * 
+ * Implements the data generation logic for the Screen GUI specification defined in:
+ * 000ProjectSpecification/002ScreenGuiSpec.md
+ * 
+ * This service generates hierarchical data structures based on level-based node counts
+ * and other configuration parameters received from the GUI.
+ */
+
 import { Cluster, Node, Link, Group, GeneratorConfig } from "../../shared/interfaces/simpleDataGenerator.interface";
 
 // All constants organized in a single object

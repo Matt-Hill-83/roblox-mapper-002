@@ -1,5 +1,17 @@
+/**
+ * Configuration GUI Service
+ * 
+ * Implements the Screen GUI specification defined in:
+ * 000ProjectSpecification/002ScreenGuiSpec.md
+ * 
+ * This service provides the user interface for configuring the simple data generator
+ * with level-based node counts and other parameters.
+ */
+
 import { Players } from "@rbxts/services";
-import { GeneratorConfig } from "../../shared/interfaces/simpleDataGenerator.interface";
+import { GeneratorConfig } from "../../../shared/interfaces/simpleDataGenerator.interface";
+import { createInputFields } from "./createInputFields";
+import { createRegenerateButton } from "./createRegenerateButton";
 
 export class ConfigGUIService {
   private gui?: ScreenGui;
@@ -29,7 +41,7 @@ export class ConfigGUIService {
     // Create main frame
     this.configFrame = new Instance("Frame");
     this.configFrame.Name = "ConfigFrame";
-    this.configFrame.Size = new UDim2(0, 300, 0, 250);
+    this.configFrame.Size = new UDim2(0, 350, 0, 285);
     this.configFrame.Position = new UDim2(0, 10, 0, 10); // Upper left corner
     this.configFrame.BackgroundColor3 = new Color3(0.2, 0.2, 0.2);
     this.configFrame.BorderSizePixel = 0;
@@ -44,10 +56,18 @@ export class ConfigGUIService {
     this.createTitle();
 
     // Create input fields
-    this.createInputFields();
+    createInputFields({
+      configFrame: this.configFrame,
+      currentConfig: this.currentConfig,
+      inputs: this.inputs as Map<keyof GeneratorConfig, TextBox>,
+      validateAndUpdateInput: (input, key, min, max) => this.validateAndUpdateInput(input, key, min, max)
+    });
 
     // Create regenerate button
-    this.createRegenerateButton();
+    createRegenerateButton({
+      configFrame: this.configFrame,
+      onRegenerateClick: () => this.onRegenerateClick()
+    });
   }
 
   /**
@@ -66,97 +86,7 @@ export class ConfigGUIService {
     title.Parent = this.configFrame;
   }
 
-  /**
-   * Creates input fields for each configuration parameter
-   */
-  private createInputFields(): void {
-    const parameters: Array<{ key: keyof GeneratorConfig; label: string; min: number; max: number }> = [
-      { key: "numGroups", label: "Number of Groups", min: 1, max: 10 },
-      { key: "numLevels", label: "Number of Levels", min: 1, max: 5 },
-      { key: "numBranches", label: "Branches per Parent", min: 1, max: 5 },
-      { key: "numNodeTypes", label: "Node Types", min: 1, max: 2 },
-      { key: "numLinkTypes", label: "Link Types", min: 1, max: 3 }
-    ];
 
-    let yOffset = 40;
-    const rowHeight = 35;
-
-    parameters.forEach((param) => {
-      // Create label
-      const label = new Instance("TextLabel");
-      label.Size = new UDim2(0.5, -10, 0, 25);
-      label.Position = new UDim2(0, 10, 0, yOffset);
-      label.BackgroundTransparency = 1;
-      label.Text = param.label + ":";
-      label.TextColor3 = new Color3(0.9, 0.9, 0.9);
-      label.TextXAlignment = Enum.TextXAlignment.Left;
-      label.TextScaled = true;
-      label.Font = Enum.Font.SourceSans;
-      label.Parent = this.configFrame;
-
-      // Create input box
-      const input = new Instance("TextBox");
-      input.Name = param.key;
-      input.Size = new UDim2(0.3, 0, 0, 25);
-      input.Position = new UDim2(0.7, -10, 0, yOffset);
-      input.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
-      input.BorderSizePixel = 0;
-      input.Text = tostring(this.currentConfig[param.key]);
-      input.TextColor3 = new Color3(1, 1, 1);
-      input.TextScaled = true;
-      input.Font = Enum.Font.SourceSans;
-      input.Parent = this.configFrame;
-
-      // Add corner rounding to input
-      const inputCorner = new Instance("UICorner");
-      inputCorner.CornerRadius = new UDim(0, 4);
-      inputCorner.Parent = input;
-
-      // Add validation
-      input.FocusLost.Connect(() => {
-        this.validateAndUpdateInput(input, param.key, param.min, param.max);
-      });
-
-      this.inputs.set(param.key, input);
-      yOffset += rowHeight;
-    });
-  }
-
-  /**
-   * Creates the regenerate button
-   */
-  private createRegenerateButton(): void {
-    const button = new Instance("TextButton");
-    button.Name = "RegenerateButton";
-    button.Size = new UDim2(0.8, 0, 0, 30);
-    button.Position = new UDim2(0.1, 0, 1, -40);
-    button.BackgroundColor3 = new Color3(0.2, 0.6, 0.2);
-    button.BorderSizePixel = 0;
-    button.Text = "Regenerate";
-    button.TextColor3 = new Color3(1, 1, 1);
-    button.TextScaled = true;
-    button.Font = Enum.Font.SourceSansBold;
-    button.Parent = this.configFrame;
-
-    // Add corner rounding
-    const buttonCorner = new Instance("UICorner");
-    buttonCorner.CornerRadius = new UDim(0, 6);
-    buttonCorner.Parent = button;
-
-    // Add hover effect
-    button.MouseEnter.Connect(() => {
-      button.BackgroundColor3 = new Color3(0.3, 0.7, 0.3);
-    });
-
-    button.MouseLeave.Connect(() => {
-      button.BackgroundColor3 = new Color3(0.2, 0.6, 0.2);
-    });
-
-    // Handle click
-    button.MouseButton1Click.Connect(() => {
-      this.onRegenerateClick();
-    });
-  }
 
   /**
    * Validates and updates input value
