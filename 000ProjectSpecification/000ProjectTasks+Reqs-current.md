@@ -10,6 +10,26 @@
   - Requirements: [Feat002-ConfigGUI-Reqs.md](Feat002-ConfigGUI-Reqs.md)
   - Tasks: [Feat002-ConfigGUI-Tasks.md](Feat002-ConfigGUI-Tasks.md)
 
+- **Feature 003: Web App UI Enhancements**
+  - Requirements: [Feat003-WebAppUI-Reqs.md](Feat003-WebAppUI-Reqs.md)
+  - Tasks: [Feat003-WebAppUI-Tasks.md](Feat003-WebAppUI-Tasks.md)
+
+- **Feature 004: Graph Layout Optimization**
+  - Requirements: [Feat004-GraphOptimization-Reqs.md](Feat004-GraphOptimization-Reqs.md)
+  - Tasks: [Feat004-GraphOptimization-Tasks.md](Feat004-GraphOptimization-Tasks.md)
+
+- **Feature 005: Testing Framework**
+  - Requirements: [Feat005-TestingFramework-Reqs.md](Feat005-TestingFramework-Reqs.md)
+  - Tasks: [Feat005-TestingFramework-Tasks.md](Feat005-TestingFramework-Tasks.md)
+
+- **Feature 006: Code Refactoring**
+  - Requirements: [Feat006-CodeRefactoring-Reqs.md](Feat006-CodeRefactoring-Reqs.md)
+  - Tasks: [Feat006-CodeRefactoring-Tasks.md](Feat006-CodeRefactoring-Tasks.md)
+
+- **Feature 007: Roblox Graph Creation**
+  - Requirements: [Feat007-RobloxGraphCreation-Reqs.md](Feat007-RobloxGraphCreation-Reqs.md)
+  - Tasks: [Feat007-RobloxGraphCreation-Tasks.md](Feat007-RobloxGraphCreation-Tasks.md)
+
 ## Requirements
 
 41. ✅ [CLD1] R78: Simple Data Generator Layout Adjustments:
