@@ -16,7 +16,8 @@ import {
   ResetCamera3DModifier,
   NumberRange,
   parseColorToUIntArgb,
-  SciChartJsNavyTheme
+  SciChartJsNavyTheme,
+  PointLineRenderableSeries3D
 } from 'scichart';
 
 // Load WASM files from CDN
@@ -131,6 +132,74 @@ export default function SciChart3DBubbleSimple({ data, width = '100%', height = 
 
       sciChart3DSurface.renderableSeries.add(scatterSeries);
 
+      // Add edge rendering
+      if (chartData.links && chartData.links.length > 0) {
+        // Create a map of node positions for quick lookup
+        const nodePositions = new Map<string, { x: number; y: number; z: number }>();
+        chartData.nodes.forEach((node: any) => {
+          nodePositions.set(node.id, { x: node.x, y: node.y, z: node.z });
+        });
+
+        // Create edge colors based on connection type
+        const edgeColors = new Map<string, string>([
+          ['parentChild', '#4CAF50'],
+          ['uses', '#2196F3'],
+          ['owns', '#FF9800'],
+          ['maintains', '#9C27B0'],
+          ['implements', '#F44336'],
+          ['extends', '#00BCD4'],
+          ['depends_on', '#FFEB3B'],
+          ['configures', '#795548'],
+          ['monitors', '#607D8B'],
+          ['delegates_to', '#E91E63'],
+          ['inherits_from', '#3F51B5']
+        ]);
+
+        // Group edges by type for different colors
+        const edgesByType = new Map<string, any[]>();
+        chartData.links.forEach((link: any) => {
+          const fromPos = nodePositions.get(link.from);
+          const toPos = nodePositions.get(link.to);
+          
+          if (fromPos && toPos) {
+            const type = link.type || 'default';
+            if (!edgesByType.has(type)) {
+              edgesByType.set(type, []);
+            }
+            edgesByType.get(type)!.push({ from: fromPos, to: toPos });
+          }
+        });
+
+        // Create a line series for each edge type
+        edgesByType.forEach((edges, type) => {
+          // For PointLineRenderableSeries3D with individual line segments
+          // we need to create separate series for each edge when isLineStrip is false
+          edges.forEach((edge, index) => {
+            const xValues = [edge.from.x, edge.to.x];
+            const yValues = [edge.from.y, edge.to.y];
+            const zValues = [edge.from.z, edge.to.z];
+
+            const edgeDataSeries = new XyzDataSeries3D(wasmContext, {
+              xValues,
+              yValues,
+              zValues,
+              dataSeriesName: `Edge-${type}-${index}`
+            });
+
+            const edgeColor = edgeColors.get(type) || '#666666';
+            const lineSeries = new PointLineRenderableSeries3D(wasmContext, {
+              dataSeries: edgeDataSeries,
+              stroke: edgeColor,
+              strokeThickness: 1.5,
+              opacity: 0.6,
+              isLineStrip: true  // Connect the two points
+            });
+
+            sciChart3DSurface.renderableSeries.add(lineSeries);
+          });
+        });
+      }
+
       // Configure camera
       sciChart3DSurface.camera.position = new Vector3(200, 200, 200);
       sciChart3DSurface.camera.target = new Vector3(0, 0, 0);
@@ -157,6 +226,29 @@ export default function SciChart3DBubbleSimple({ data, width = '100%', height = 
         style={{ width: '100%', height: '100%' }}
         initChart={initChart}
       />
+      {/* Edge type legend */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 10,
+          right: 10,
+          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          color: 'white',
+          padding: 1,
+          borderRadius: 1,
+          fontSize: '0.75rem',
+          maxHeight: '200px',
+          overflowY: 'auto'
+        }}
+      >
+        <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>Edge Types:</div>
+        <div style={{ color: '#4CAF50' }}>● Parent-Child</div>
+        <div style={{ color: '#2196F3' }}>● Uses</div>
+        <div style={{ color: '#FF9800' }}>● Owns</div>
+        <div style={{ color: '#9C27B0' }}>● Maintains</div>
+        <div style={{ color: '#F44336' }}>● Implements</div>
+        <div style={{ color: '#00BCD4' }}>● Extends</div>
+      </Box>
     </Box>
   );
 }
