@@ -125,6 +125,7 @@ class MockDataGenerator {
       uuid,
       name: this.getRandomName(type),
       type,
+      level, // Track which level this node belongs to
       color: GENERATOR_CONSTANTS.NODE_COLORS[type] as [number, number, number],
       position: { x: 0, y: 0, z: 0 },
       attachmentNames: [`att001-${uuid}`, `att002-${uuid}`, `att003-${uuid}`],
@@ -224,16 +225,36 @@ class MockDataGenerator {
 
 // Function to generate Mermaid diagram
 function generateMermaidDiagram(cluster: Cluster): string {
-  let mermaid = '```mermaid\ngraph TD\n';
+  let mermaid = '```mermaid\ngraph TB\n'; // TB for top-bottom layout
   
-  // Add nodes
+  // Group nodes by level
+  const nodesByLevel = new Map<number, Node[]>();
   cluster.groups.forEach(group => {
     group.nodes.forEach(node => {
-      const label = `${node.name}<br/>${node.type}`;
-      const shape = node.type === "People" ? `[${label}]` : `(${label})`;
-      mermaid += `    ${node.uuid}${shape}\n`;
+      const level = (node as any).level || 1;
+      if (!nodesByLevel.has(level)) {
+        nodesByLevel.set(level, []);
+      }
+      nodesByLevel.get(level)!.push(node);
     });
   });
+  
+  // Create subgraphs for each level
+  for (let level = 1; level <= 3; level++) {
+    const nodes = nodesByLevel.get(level) || [];
+    if (nodes.length > 0) {
+      mermaid += `    subgraph Level${level}[Level ${level}]\n`;
+      mermaid += `        direction LR\n`; // Left to right within each level
+      
+      nodes.forEach(node => {
+        const label = `${node.name}<br/>${node.type}`;
+        const shape = node.type === "People" ? `[${label}]` : `(${label})`;
+        mermaid += `        ${node.uuid}${shape}\n`;
+      });
+      
+      mermaid += `    end\n`;
+    }
+  }
   
   mermaid += '\n';
   
@@ -248,6 +269,9 @@ function generateMermaidDiagram(cluster: Cluster): string {
   mermaid += '\n';
   mermaid += '    classDef people fill:#3366cc,stroke:#1a3d7a,stroke-width:2px,color:#fff\n';
   mermaid += '    classDef animals fill:#cc6633,stroke:#7a3d1a,stroke-width:2px,color:#fff\n';
+  mermaid += '    classDef level1 fill:#f9f9f9,stroke:#666,stroke-width:2px\n';
+  mermaid += '    classDef level2 fill:#f0f0f0,stroke:#666,stroke-width:2px\n';
+  mermaid += '    classDef level3 fill:#e8e8e8,stroke:#666,stroke-width:2px\n';
   
   // Apply styles to nodes
   cluster.groups.forEach(group => {
@@ -257,6 +281,11 @@ function generateMermaidDiagram(cluster: Cluster): string {
     if (peopleNodes) mermaid += `    class ${peopleNodes} people\n`;
     if (animalNodes) mermaid += `    class ${animalNodes} animals\n`;
   });
+  
+  // Apply styles to subgraphs
+  mermaid += '    class Level1 level1\n';
+  mermaid += '    class Level2 level2\n';
+  mermaid += '    class Level3 level3\n';
   
   mermaid += '```';
   
