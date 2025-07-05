@@ -29,15 +29,23 @@ const DRAW_IO_STYLES = {
     spacing: "2"
   },
   parentChildEdge: {
-    base: "edgeStyle=orthogonalEdgeStyle;rounded=1;",
+    base: "edgeStyle=straight;",
     strokeColor: "#000000",
-    strokeWidth: "2"
+    strokeWidth: "4"
   },
   relationEdge: {
-    base: "edgeStyle=orthogonalEdgeStyle;rounded=1;",
+    base: "edgeStyle=straight;",
     strokeColor: "#666666",
-    strokeWidth: "1",
+    strokeWidth: "2",
     dashed: "1"
+  },
+  // Colors for specific link types
+  linkTypeColors: {
+    "Owns": "#00aa00",      // Green
+    "Wants": "#ff6600",     // Orange
+    "Eats": "#aa0000",      // Red
+    "Link4": "#0066cc",     // Blue
+    "Link5": "#9900cc"      // Purple
   }
 };
 
@@ -54,7 +62,9 @@ function getEdgeStyle(linkType) {
     return `${style.base}strokeColor=${style.strokeColor};strokeWidth=${style.strokeWidth};`;
   } else {
     const style = DRAW_IO_STYLES.relationEdge;
-    return `${style.base}strokeColor=${style.strokeColor};strokeWidth=${style.strokeWidth};dashed=${style.dashed};`;
+    // Use specific color for link type if available
+    const color = DRAW_IO_STYLES.linkTypeColors[linkType] || style.strokeColor;
+    return `${style.base}strokeColor=${color};strokeWidth=${style.strokeWidth};dashed=${style.dashed};`;
   }
 }
 

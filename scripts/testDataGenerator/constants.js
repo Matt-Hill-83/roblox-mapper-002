@@ -14,7 +14,7 @@ const TEST_CONFIG = {
 
 // Draw.io scaling constants for better visualization
 const DRAW_IO_SCALING = {
-  NODE_WIDTH_SCALE: 5, // Make nodes 5x wider
+  NODE_WIDTH_SCALE: 2, // Make nodes 5x wider
   NODE_HEIGHT_SCALE: 2, // Make nodes 2x taller
   LEVEL_SPACING_SCALE: 2, // Double the vertical spacing between levels
 };
@@ -74,11 +74,11 @@ const GENERATOR_CONSTANTS = {
 // Layout constants
 const LAYOUT_CONSTANTS = {
   UNIT_SIZE: 20, // Base unit in pixels
-  NODE_WIDTH_UNITS: 1, // Nodes are 1 unit wide
-  COLUMN_WIDTH_UNITS: 2, // Columns are 2 units wide
+  NODE_WIDTH_UNITS: 4, // Nodes are 1 unit wide
+  COLUMN_WIDTH_UNITS: 8, // Columns are 2 units wide
   TYPE_GROUP_SPACING_UNITS: 3, // Space between type groups
   LEVEL_SPACING_UNITS: 10, // Space between levels vertically
-  CANVAS_PADDING_UNITS: 2, // Padding on sides
+  CANVAS_PADDING_UNITS: 4, // Padding on sides
 };
 
 module.exports = {
