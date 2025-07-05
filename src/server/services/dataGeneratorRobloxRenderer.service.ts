@@ -146,7 +146,21 @@ export class DataGeneratorRobloxRendererService {
         
         nodes.forEach((node, index) => {
           const baseX = typeXPositions.get(nodeType)!;
-          const x = baseX + index * COLUMN_SPACING;
+          
+          // Find max nodes of this type across all levels for centering
+          let maxNodesForType = 0;
+          for (let checkLevel = 1; checkLevel <= 3; checkLevel++) {
+            const checkKey = `${nodeType}-${checkLevel}`;
+            const checkNodes = nodesByTypeAndLevel.get(checkKey) || [];
+            maxNodesForType = math.max(maxNodesForType, checkNodes.size());
+          }
+          
+          // Calculate centering offset
+          const laneWidth = maxNodesForType * COLUMN_SPACING;
+          const nodesWidth = nodes.size() * COLUMN_SPACING;
+          const centeringOffset = (laneWidth - nodesWidth) / 2;
+          
+          const x = baseX + centeringOffset + index * COLUMN_SPACING;
           const z = 0;  // Depth, can be adjusted later
           
           // Update node position
