@@ -166,3 +166,40 @@
    1. ⬛ T140.3.1: Modify dataGeneratorRobloxRenderer to create row label blocks
    2. ⬛ T140.3.2: Ensure proper parent-child relationships in scene hierarchy
    3. ⬛ T140.3.3: Test with different numbers of levels and node configurations
+
+## T141: Refactor labelBlockMaker Module
+
+1. ✅ [CLD1] T141.1: Reorganize into folder structure
+   1. ✅ [CLD1] T141.1.1: Create labelBlockMaker folder
+   2. ✅ [CLD1] T141.1.2: Move labelBlockMaker.ts into folder
+2. ✅ [CLD1] T141.2: Split into modular files
+   1. ✅ [CLD1] T141.2.1: Create interfaces.ts for all type definitions
+   2. ✅ [CLD1] T141.2.2: Create utilities.ts for helper functions
+   3. ✅ [CLD1] T141.2.3: Create part.ts for main creation logic
+   4. ✅ [CLD1] T141.2.4: Create index.ts for clean public API
+3. ✅ [CLD1] T141.3: Ensure backward compatibility
+   1. ✅ [CLD1] T141.3.1: Maintain same export signatures
+   2. ✅ [CLD1] T141.3.2: Verify all imports still work
+   3. ✅ [CLD1] T141.3.3: Test build succeeds
+
+## T142: Remove Duplicate Asset Generation System
+
+1. ✅ [CLD1] T142.1: Identify duplicate code
+   1. ✅ [CLD1] T142.1.1: Find JavaScript makeBar.js vs TypeScript barMaker.ts
+   2. ✅ [CLD1] T142.1.2: Identify entire src/scripts folder as legacy system
+2. ✅ [CLD1] T142.2: Verify scripts folder is unused
+   1. ✅ [CLD1] T142.2.1: Check no external references to scripts folder
+   2. ✅ [CLD1] T142.2.2: Verify project.json doesn't reference it
+   3. ✅ [CLD1] T142.2.3: Confirm package.json scripts don't depend on it
+3. ✅ [CLD1] T142.3: Remove duplicate code
+   1. ✅ [CLD1] T142.3.1: Delete entire src/scripts folder
+   2. ✅ [CLD1] T142.3.2: Verify project still builds
+   3. ✅ [CLD1] T142.3.3: Ensure single source of truth with TypeScript modules
+
+## T143: Clean Up Unused Services
+
+1. ✅ [CLD1] T143.1: Remove unused BarService
+   1. ✅ [CLD1] T143.1.1: Verify BarService is not imported anywhere
+   2. ✅ [CLD1] T143.1.2: Confirm makeBar is only used by hexagonMaker
+   3. ✅ [CLD1] T143.1.3: Delete bar.service.ts
+   4. ✅ [CLD1] T143.1.4: Verify project builds successfully
