@@ -81,11 +81,24 @@
    2. ✅ T136.2.2: Apply entity type colors (blue for People, orange for Animals)
    3. ✅ T136.2.3: Position entities at calculated 3D coordinates
    4. ✅ T136.2.4: Add entity labels with name and type identifier
-3. ⬛ T136.3: Create relationship connections
+3. ✅ [CLD1] T136.3: Create relationship connections
+   1. ✅ [CLD1] T136.3.1: Generate rope/beam objects for all links
+   2. ✅ [CLD1] T136.3.2: Color ropes based on link type
+   3. ✅ [CLD1] T136.3.3: Add rope labels showing relationship type
+   4. ✅ [CLD1] T136.3.4: Eliminate rope sag for cleaner visualization
 
-   1. ⬛ T136.3.1: Generate rope/beam objects for all links
-   2. ⬛ T136.3.2: color ropes based on link type
+## T137: Create Object Generator
 
-4. ⬛ T137.3: Create Object Generator
-   1. ✅ T137.3.1: copy testSimpleDataGenerator and modify it to use x.y.z data for hex placement.
-   2. ⬛ T137.3.2: pass link data created by generator into existing link creation service
+1. ✅ [CLD1] T137.1: Create DataGeneratorRobloxRenderer service
+   1. ✅ [CLD1] T137.1.1: Use actual data generator instead of mock data
+   2. ✅ [CLD1] T137.1.2: Implement swim lane positioning from JS test
+   3. ✅ [CLD1] T137.1.3: Generate draw.io diagram on each run
+   4. ✅ [CLD1] T137.1.4: Refactor into clean modular structure
+
+## T138: Add Label Scaling Features
+
+1. ⬛ T138.1: Add scaling factor to label creation
+   1. ⬛ T138.1.1: Add font size scaling parameter
+   2. ⬛ T138.1.2: Scale label block width (perpendicular to rope direction)
+   3. ⬛ T138.1.3: Keep label block length constant
+   4. ⬛ T138.1.4: Test with different scaling values
