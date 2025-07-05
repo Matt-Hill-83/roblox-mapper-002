@@ -31,4 +31,4 @@
         3. ✅ [CLD2] Extract interfaces to separate interfaces file (R75.3)
         4. ✅ [CLD2] Extract utils to separate utils file (R75.4)
     126. ⬛ T126: Create Small Graphs in Roblox (R76)
-        1. ⬛ Move the existing asset creation code from game.service.ts to a service called makeOldStuff.ts and import it (R76.1)
+        1. ✅ Move the existing asset creation code from game.service.ts to a service called makeOldStuff.ts and import it (R76.1)
