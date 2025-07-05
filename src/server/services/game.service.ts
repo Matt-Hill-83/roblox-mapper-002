@@ -1,11 +1,13 @@
 import { MakeOldStuffService } from "./makeOldStuff.service";
 import { SimpleGraphService } from "./simpleGraph.service";
 import { TestSimpleDataGeneratorService } from "./testSimpleDataGenerator.service";
+import { ConfigGUIServerService } from "./configGUIServer.service";
 
 export class GameService {
   private makeOldStuffService = new MakeOldStuffService();
   private simpleGraphService = new SimpleGraphService();
   private testSimpleDataGenerator = new TestSimpleDataGeneratorService();
+  private configGUIServer?: ConfigGUIServerService;
   private myStuffFolder!: Folder;
   private gameStarted = false; // Flag to prevent duplicate initialization
 
@@ -40,6 +42,13 @@ export class GameService {
     
     // Test the new simple data generator
     this.testSimpleDataGenerator.runPeopleAnimalsDemo(this.myStuffFolder);
+    
+    // Initialize the configuration GUI server
+    this.configGUIServer = new ConfigGUIServerService(
+      this.testSimpleDataGenerator,
+      this.myStuffFolder
+    );
+    print(`🎮 GUI Server initialized: ${this.configGUIServer !== undefined}`);
 
     print("✅ GameService.startGame() completed");
   }

@@ -2,13 +2,14 @@ import { SimpleDataGeneratorService } from "./simpleDataGenerator.service";
 import { SimpleDataLayoutService } from "./simpleDataLayout.service";
 import { SimpleDataRendererService } from "./simpleDataRenderer.service";
 import { GeneratorConfig } from "../../shared/interfaces/simpleDataGenerator.interface";
-import { config001 } from "../configs/simpleDataGeneratorConfigs";
+import { config001 } from "../../shared/configs/simpleDataGeneratorConfigs";
 
 export class TestSimpleDataGeneratorService {
   
   private generator = new SimpleDataGeneratorService();
   private layout = new SimpleDataLayoutService();
   private renderer = new SimpleDataRendererService();
+  private currentClusterFolder?: Folder;
   
   /**
    * Runs a test of the simple data generator with default settings
@@ -63,11 +64,17 @@ export class TestSimpleDataGeneratorService {
   public runPeopleAnimalsDemo(parentFolder: Folder): void {
     print("🐾 Running People & Animals Demo...");
     
+    // Clear any existing cluster
+    this.clearCurrentCluster();
+    
     // Generate and render using config001
     const cluster = this.generator.generateCluster(config001);
     this.generator.printClusterSummary(cluster);
     this.layout.calculateLayout(cluster);
     this.renderer.renderCluster(cluster, parentFolder);
+    
+    // Store reference to current cluster folder
+    this.currentClusterFolder = parentFolder.FindFirstChild("GeneratedCluster") as Folder;
     
     // Print some example relationships
     print("\n📋 Sample Relationships:");
@@ -94,5 +101,36 @@ export class TestSimpleDataGeneratorService {
     }
     
     print("\n✅ People & Animals demo complete!");
+  }
+  
+  /**
+   * Regenerates the visualization with new configuration
+   */
+  public regenerateWithConfig(parentFolder: Folder, config: Partial<GeneratorConfig>): void {
+    print("🔄 Regenerating with new configuration...");
+    
+    // Clear existing visualization
+    this.clearCurrentCluster();
+    
+    // Generate and render with new config
+    const cluster = this.generator.generateCluster(config);
+    this.generator.printClusterSummary(cluster);
+    this.layout.calculateLayout(cluster);
+    this.renderer.renderCluster(cluster, parentFolder);
+    
+    // Store reference to new cluster folder
+    this.currentClusterFolder = parentFolder.FindFirstChild("GeneratedCluster") as Folder;
+    
+    print("✅ Regeneration complete!");
+  }
+  
+  /**
+   * Clears the current cluster visualization
+   */
+  private clearCurrentCluster(): void {
+    if (this.currentClusterFolder) {
+      this.currentClusterFolder.Destroy();
+      this.currentClusterFolder = undefined;
+    }
   }
 }
