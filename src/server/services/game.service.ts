@@ -50,12 +50,12 @@ export class GameService {
     }
 
     // Test label block primitive
-    if (true) {
+    if (false) {
       this.testLabelBlockService.testLabelBlocks(this.myStuffFolder);
     }
 
     // Use actual data generator with swim lane positioning
-    if (false) {
+    if (true) {
       this.dataGeneratorRenderer.renderGeneratedData(this.myStuffFolder, {
         numLevel1Nodes: 1,
         numLevel2Nodes: 1,

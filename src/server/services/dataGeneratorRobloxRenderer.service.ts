@@ -1,5 +1,6 @@
 import { SimpleDataGeneratorService } from "./dataGenerator/simpleDataGenerator.service";
 import { makeHexagon } from "../../shared/modules/hexagonMaker";
+import { makeLabelBlock } from "../../shared/modules/labelBlockMaker";
 import { Cluster, Node } from "../../shared/interfaces/simpleDataGenerator.interface";
 import { RENDERER_CONSTANTS } from "./dataGeneratorRobloxRenderer/constants";
 import { calculateSwimLanePositions } from "./dataGeneratorRobloxRenderer/positioning";
@@ -52,6 +53,9 @@ export class DataGeneratorRobloxRendererService {
     const linksFolder = new Instance("Folder");
     linksFolder.Name = "Links";
     linksFolder.Parent = clusterFolder;
+    
+    // Add orientation reference block
+    this.createOrientationReferenceBlock(clusterFolder);
     
     // Create hexagons for all nodes
     const nodeToHexagon = this.createHexagons(cluster, nodesFolder);
@@ -114,5 +118,77 @@ export class DataGeneratorRobloxRendererService {
     });
     
     return nodeToHexagon;
+  }
+  
+  /**
+   * Creates an orientation reference block to help understand the 3D space
+   */
+  private createOrientationReferenceBlock(parentFolder: Folder): void {
+    const referenceFolder = new Instance("Folder");
+    referenceFolder.Name = "OrientationReference";
+    referenceFolder.Parent = parentFolder;
+    
+    // Position it above and to the side of the main structure
+    const referencePosition = {
+      x: -20, // To the left
+      y: RENDERER_CONSTANTS.POSITIONING.BASE_Y + 20, // Above the structure
+      z: -20  // Forward
+    };
+    
+    makeLabelBlock({
+      id: "orientation-ref",
+      position: referencePosition,
+      props: {
+        Size: 10,
+        Color: [0.3, 0.3, 0.3], // Dark gray
+        Transparency: 0.2
+      },
+      labels: {
+        front: { 
+          text: "FRONT",
+          textColor: new Color3(0, 0, 1), // Blue
+          backgroundColor: new Color3(0.2, 0.2, 0.6), // Dark blue background
+          borderColor: new Color3(0.4, 0.4, 0.8) // Light blue border
+        },
+        back: { 
+          text: "BACK",
+          textColor: new Color3(0, 0, 1), // Blue
+          backgroundColor: new Color3(0.2, 0.2, 0.6), // Dark blue background
+          borderColor: new Color3(0.4, 0.4, 0.8) // Light blue border
+        },
+        left: { 
+          text: "LEFT",
+          textColor: new Color3(1, 0, 0), // Red
+          backgroundColor: new Color3(0.6, 0.2, 0.2), // Dark red background
+          borderColor: new Color3(0.8, 0.4, 0.4) // Light red border
+        },
+        right: { 
+          text: "RIGHT",
+          textColor: new Color3(1, 0, 0), // Red
+          backgroundColor: new Color3(0.6, 0.2, 0.2), // Dark red background
+          borderColor: new Color3(0.8, 0.4, 0.4) // Light red border
+        },
+        top: { 
+          text: "TOP",
+          textColor: new Color3(0, 1, 0), // Green
+          backgroundColor: new Color3(0.2, 0.6, 0.2), // Dark green background
+          borderColor: new Color3(0.4, 0.8, 0.4) // Light green border
+        },
+        bottom: { 
+          text: "BOTTOM",
+          textColor: new Color3(0, 1, 0), // Green
+          backgroundColor: new Color3(0.2, 0.6, 0.2), // Dark green background
+          borderColor: new Color3(0.4, 0.8, 0.4) // Light green border
+        }
+      },
+      textBoxOverrides: {
+        textSize: 100, // Maximum font size in Roblox
+        font: Enum.Font.SourceSansBold,
+        borderSizePixel: 5 // Make borders more visible
+      },
+      parent: referenceFolder
+    });
+    
+    print("🧭 Created orientation reference block");
   }
 }

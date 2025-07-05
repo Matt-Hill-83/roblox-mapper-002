@@ -127,6 +127,10 @@
    1. ✅ [CLD1] T139.3.1: Create unit tests for different configurations
    2. ✅ [CLD1] T139.3.2: Verify labels render correctly on all faces
    3. ✅ [CLD1] T139.3.3: Test with various cube sizes
+4. ✅ [CLD1] T139.4: Add orientation reference block to data generator
+   1. ✅ [CLD1] T139.4.1: Add test label block above the node structure
+   2. ✅ [CLD1] T139.4.2: Label each face with its direction (front, back, left, right, top, bottom)
+   3. ✅ [CLD1] T139.4.3: Position separately from main visualization for clarity
 
 ## T140: Add Row Label Blocks to Data Generator
 

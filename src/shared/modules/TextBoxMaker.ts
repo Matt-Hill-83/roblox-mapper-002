@@ -56,6 +56,7 @@ export function createTextBoxWithCustomStyling({
   textColor = new Color3(0, 0, 0),
   font = Enum.Font.SourceSans,
   borderSizePixel = 2, // Reduced default from 10 to 2
+  borderColor,
   textWrapped = true,
 }: TextBoxConfig & {
   textSize?: number;
@@ -63,6 +64,7 @@ export function createTextBoxWithCustomStyling({
   textColor?: Color3;
   font?: Enum.Font;
   borderSizePixel?: number;
+  borderColor?: Color3;
   textWrapped?: boolean;
 }): TextBox {
   // Create the SurfaceGui
@@ -88,6 +90,9 @@ export function createTextBoxWithCustomStyling({
   textBox.BackgroundColor3 = defaultBackgroundColor;
   textBox.TextColor3 = textColor;
   textBox.BorderSizePixel = borderSizePixel;
+  if (borderColor) {
+    textBox.BorderColor3 = borderColor;
+  }
   textBox.BorderMode = Enum.BorderMode.Inset; // Keep border inside bounds
   textBox.TextWrapped = textWrapped;
   textBox.Parent = surfaceGui;
