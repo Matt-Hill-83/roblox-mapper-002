@@ -1,9 +1,9 @@
 import { MakeOldStuffService } from "./makeOldStuff.service";
-import { BarService } from "./bar.service";
+import { SimpleGraphService } from "./simpleGraph.service";
 
 export class GameService {
   private makeOldStuffService = new MakeOldStuffService();
-  private barService = new BarService();
+  private simpleGraphService = new SimpleGraphService();
   private myStuffFolder!: Folder;
   private gameStarted = false; // Flag to prevent duplicate initialization
 
@@ -31,17 +31,8 @@ export class GameService {
       this.makeOldStuffService.createOldAssets(this.myStuffFolder);
     }
 
-    // Create a single bar at (20, 20, 20)
-    print("🔷 Creating single bar at (20, 20, 20)...");
-    this.barService.createBar({
-      id: "singleBar",
-      position: { x: 20, y: 20, z: 20 },
-      props: {
-        Size: [8, 2, 1],     // 8 wide, 2 tall, 1 deep
-        Color: [0.2, 0.6, 1] // Light blue
-      },
-      label: "Test Bar"
-    });
+    // Create simple graph with 3 hexagons
+    this.simpleGraphService.createSimpleGraph(this.myStuffFolder);
 
     print("✅ GameService.startGame() completed");
   }
