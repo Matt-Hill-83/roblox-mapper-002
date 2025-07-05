@@ -146,45 +146,45 @@ export class DataGeneratorRobloxRendererService {
       labels: {
         front: { 
           text: "FRONT",
-          textColor: new Color3(0, 0, 1), // Blue
-          backgroundColor: new Color3(0.2, 0.2, 0.6), // Dark blue background
-          borderColor: new Color3(0.4, 0.4, 0.8) // Light blue border
+          textColor: new Color3(0, 0, 0.8), // Dark blue text
+          backgroundColor: new Color3(0.5, 0.5, 0.8), // Medium blue background
+          borderColor: new Color3(0, 0, 0.3) // Very dark blue border
         },
         back: { 
           text: "BACK",
-          textColor: new Color3(0, 0, 1), // Blue
-          backgroundColor: new Color3(0.2, 0.2, 0.6), // Dark blue background
-          borderColor: new Color3(0.4, 0.4, 0.8) // Light blue border
+          textColor: new Color3(0, 0, 0.8), // Dark blue text
+          backgroundColor: new Color3(0.5, 0.5, 0.8), // Medium blue background
+          borderColor: new Color3(0, 0, 0.3) // Very dark blue border
         },
         left: { 
           text: "LEFT",
-          textColor: new Color3(1, 0, 0), // Red
-          backgroundColor: new Color3(0.6, 0.2, 0.2), // Dark red background
-          borderColor: new Color3(0.8, 0.4, 0.4) // Light red border
+          textColor: new Color3(0.8, 0, 0), // Dark red text
+          backgroundColor: new Color3(0.8, 0.5, 0.5), // Medium red background
+          borderColor: new Color3(0.3, 0, 0) // Very dark red border
         },
         right: { 
           text: "RIGHT",
-          textColor: new Color3(1, 0, 0), // Red
-          backgroundColor: new Color3(0.6, 0.2, 0.2), // Dark red background
-          borderColor: new Color3(0.8, 0.4, 0.4) // Light red border
+          textColor: new Color3(0.8, 0, 0), // Dark red text
+          backgroundColor: new Color3(0.8, 0.5, 0.5), // Medium red background
+          borderColor: new Color3(0.3, 0, 0) // Very dark red border
         },
         top: { 
           text: "TOP",
-          textColor: new Color3(0, 1, 0), // Green
-          backgroundColor: new Color3(0.2, 0.6, 0.2), // Dark green background
-          borderColor: new Color3(0.4, 0.8, 0.4) // Light green border
+          textColor: new Color3(0, 0.8, 0), // Dark green text
+          backgroundColor: new Color3(0.5, 0.8, 0.5), // Medium green background
+          borderColor: new Color3(0, 0.3, 0) // Very dark green border
         },
         bottom: { 
           text: "BOTTOM",
-          textColor: new Color3(0, 1, 0), // Green
-          backgroundColor: new Color3(0.2, 0.6, 0.2), // Dark green background
-          borderColor: new Color3(0.4, 0.8, 0.4) // Light green border
+          textColor: new Color3(0, 0.8, 0), // Dark green text
+          backgroundColor: new Color3(0.5, 0.8, 0.5), // Medium green background
+          borderColor: new Color3(0, 0.3, 0) // Very dark green border
         }
       },
       textBoxOverrides: {
         textSize: 100, // Maximum font size in Roblox
         font: Enum.Font.SourceSansBold,
-        borderSizePixel: 5 // Make borders more visible
+        borderSizePixel: 10 // Wider borders for better visibility
       },
       parent: referenceFolder
     });

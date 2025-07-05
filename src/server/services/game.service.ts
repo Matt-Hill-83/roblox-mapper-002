@@ -5,6 +5,14 @@ import { ConfigGUIServerService } from "./configGUIServer.service";
 import { DataGeneratorRobloxRendererService } from "./dataGeneratorRobloxRenderer.service";
 import { TestLabelBlockService } from "./testLabelBlock.service";
 
+// Origin configuration for 3D positioning
+// TODO: Pass this to data generator renderer when needed
+// const ORIGIN = {
+//   x: 0,
+//   y: 20, // BASE_Y from RENDERER_CONSTANTS
+//   z: 0
+// };
+
 export class GameService {
   private makeOldStuffService = new MakeOldStuffService();
   private simpleGraphService = new SimpleGraphService();

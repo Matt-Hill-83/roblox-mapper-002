@@ -1,59 +1,15 @@
-import { createTextBox, createTextBoxWithCustomStyling } from "./TextBoxMaker";
+/**
+ * Main label block part creation logic
+ */
 
-interface TextBoxProps {
-  text?: string;
-  textSize?: number;
-  backgroundColor?: Color3;
-  textColor?: Color3;
-  font?: Enum.Font;
-  borderSizePixel?: number;
-  borderColor?: Color3;
-  textWrapped?: boolean;
-}
-
-interface LabelConfig {
-  top?: TextBoxProps;
-  bottom?: TextBoxProps;
-  front?: TextBoxProps;
-  back?: TextBoxProps;
-  left?: TextBoxProps;
-  right?: TextBoxProps;
-}
-
-interface LabelBlockProps {
-  Size?: number; // Cube dimension (n x n x n)
-  Anchored?: boolean;
-  Color?: [number, number, number];
-  Material?: string;
-  Transparency?: number;
-}
-
-interface LabelBlockConfig {
-  id: string;
-  position?: { x: number; y: number; z: number };
-  rotation?: { x: number; y: number; z: number };
-  props?: LabelBlockProps;
-  labels?: LabelConfig;
-  textBoxOverrides?: Partial<TextBoxProps>;
-  parent?: Instance;
-}
-
-const defaultProps: LabelBlockProps = {
-  Size: 8, // Default cube size
-  Anchored: true,
-  Color: [0.5, 0.5, 0.5], // Gray default
-  Material: "Concrete",
-  Transparency: 0,
-};
-
-function padNumber(num: number, length: number): string {
-  const str = tostring(num);
-  let result = str;
-  while (result.size() < length) {
-    result = "0" + result;
-  }
-  return result;
-}
+import { createTextBox, createTextBoxWithCustomStyling } from "../TextBoxMaker";
+import { 
+  TextBoxProps, 
+  LabelConfig, 
+  LabelBlockConfig, 
+  defaultProps 
+} from "./interfaces";
+import { padNumber } from "./utilities";
 
 export function makeLabelBlock({
   id,

@@ -131,6 +131,26 @@
    1. ✅ [CLD1] T139.4.1: Add test label block above the node structure
    2. ✅ [CLD1] T139.4.2: Label each face with its direction (front, back, left, right, top, bottom)
    3. ✅ [CLD1] T139.4.3: Position separately from main visualization for clarity
+5. ✅ [CLD1] T139.5: Add textBoxOverrides parameter
+   1. ✅ [CLD1] T139.5.1: Add textBoxOverrides parameter to labelBlockMaker
+   2. ✅ [CLD1] T139.5.2: Spread override properties to all text labels
+   3. ✅ [CLD1] T139.5.3: Ensure individual label configs take precedence
+6. ✅ [CLD1] T139.6: Enhance orientation reference block
+
+   1. ✅ [CLD1] T139.6.1: Set font size to maximum (100)
+   2. ✅ [CLD1] T139.6.2: Add color coding for axes (blue Z, red X, green Y)
+   3. ✅ [CLD1] T139.6.3: Add matching background and border colors in different shades
+   4. ✅ [CLD1] T139.6.4: Support BorderColor3 in TextBoxMaker
+
+7. ✅ [CLD1] T139.7: Add origin configuration to game service
+   1. ✅ [CLD1] T139.7.1: Create origin object at top of game.service
+   2. ✅ [CLD1] T139.7.2: Set values to current origin coordinates (x:0, y:20, z:0)
+   3. ⬛ T139.7.3: Pass origin to data generator renderer (TODO)
+8. ✅ [CLD1] T139.8: Improve orientation block visual contrast
+   1. ✅ [CLD1] T139.8.1: Make text colors darker for better readability
+   2. ✅ [CLD1] T139.8.2: Make background colors lighter
+   3. ✅ [CLD1] T139.8.3: Increase border width from 5 to 10 pixels
+   4. ✅ [CLD1] T139.8.4: Make border colors darker
 
 ## T140: Add Row Label Blocks to Data Generator
 
