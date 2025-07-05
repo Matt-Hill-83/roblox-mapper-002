@@ -2,6 +2,7 @@ import { SimpleDataGeneratorService } from "./simpleDataGenerator.service";
 import { SimpleDataLayoutService } from "./simpleDataLayout.service";
 import { SimpleDataRendererService } from "./simpleDataRenderer.service";
 import { GeneratorConfig } from "../../shared/interfaces/simpleDataGenerator.interface";
+import { config001 } from "../configs/simpleDataGeneratorConfigs";
 
 export class TestSimpleDataGeneratorService {
   
@@ -62,16 +63,8 @@ export class TestSimpleDataGeneratorService {
   public runPeopleAnimalsDemo(parentFolder: Folder): void {
     print("🐾 Running People & Animals Demo...");
     
-    const config: Partial<GeneratorConfig> = {
-      numGroups: 2,      // 2 main groups
-      numLevels: 2,      // 2 hierarchy levels
-      numBranches: 2,    // 2 branches per parent
-      numNodeTypes: 2,   // Both People and Animals
-      numLinkTypes: 3    // All link types (Owns, Wants, Eats)
-    };
-    
-    // Generate and render
-    const cluster = this.generator.generateCluster(config);
+    // Generate and render using config001
+    const cluster = this.generator.generateCluster(config001);
     this.generator.printClusterSummary(cluster);
     this.layout.calculateLayout(cluster);
     this.renderer.renderCluster(cluster, parentFolder);
