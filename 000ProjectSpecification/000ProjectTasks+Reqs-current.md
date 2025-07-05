@@ -2,20 +2,16 @@
 
 ## Feature Documents
 
-+------+----------------------+-------+-----+----------+-----------------------------+
-| Num  | Feature Name         | Tasks | Done| Status   | Next Task                   |
-+------+----------------------+-------+-----+----------+-----------------------------+
-| F001 | Data Generator       |   62  |  17 | In Prog  | T131.1.1: Add 10 names     |
-| F002 | Configuration GUI    |   20  |  20 | Complete | None                        |
-| F003 | Web App UI           |  155  | 155 | Complete | None                        |
-| F004 | Graph Optimization   |    7  |   7 | Complete | None                        |
-| F005 | Testing Framework    |    4  |   4 | Complete | None                        |
-| F006 | Code Refactoring     |   13  |  13 | Complete | None                        |
-| F007 | Roblox Graph         |   58  |  58 | Complete | None                        |
-| F008 | Console Demo         |   48  |  48 | Complete | None                        |
-+------+----------------------+-------+-----+----------+-----------------------------+
-
-Feature Files: 001-Features/F00X-FeatureName/F00X-[Summary|Spec|Reqs|Tasks].md
+| Num  | Feature Name       | Tasks | Done | Pct  | Status   | Next Task              |
+| ---- | ------------------ | ----- | ---- | ---- | -------- | ---------------------- |
+| F002 | Configuration GUI  | 20    | 20   | 100% | Complete | None                   |
+| F003 | Web App UI         | 155   | 155  | 100% | Complete | None                   |
+| F004 | Graph Optimization | 7     | 7    | 100% | Complete | None                   |
+| F005 | Testing Framework  | 4     | 4    | 100% | Complete | None                   |
+| F006 | Code Refactoring   | 13    | 13   | 100% | Complete | None                   |
+| F007 | Roblox Graph       | 58    | 58   | 100% | Complete | None                   |
+| F008 | Console Demo       | 48    | 48   | 100% | Complete | None                   |
+| F001 | Data Generator     | 62    | 17   | 27%  | In Prog  | T131.1.1: Add 10 names |
 
 ## Requirements
 
@@ -40,5 +36,5 @@ Feature Files: 001-Features/F00X-FeatureName/F00X-[Summary|Spec|Reqs|Tasks].md
           1. ✅ [CLD1] T129.3.1: Calculate total structure height before layout
           2. ✅ [CLD1] T129.3.2: Adjust origin Y coordinate accordingly
     150.  ✅ [CLD1] T130: Configuration GUI - See [001-Features/F002-ConfigGUI/F002-Tasks.md](001-Features/F002-ConfigGUI/F002-Tasks.md)
-    
+
     151.  ⬛ T131-T134: Data Generator and Swim Lanes - See [001-Features/F001-DataGenerator/F001-Tasks.md](001-Features/F001-DataGenerator/F001-Tasks.md)
