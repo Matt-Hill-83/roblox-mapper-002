@@ -103,6 +103,45 @@ kill -9 [PID]
 
 ## Key Modules
 
+## Code Organization Guidelines
+
+### How to Clean Up a Roblox File
+
+When refactoring a large file, follow these steps:
+
+1. **Put the file in a well-named folder** that reflects its purpose
+
+2. **Split the file into well-named sub-files**, if it makes sense:
+   - **constants.ts** - All constants, configuration values, and magic numbers
+   - **data.ts** - Data structures, interfaces, and static data (if relevant)
+   - **More granular asset sub-files**:
+     - `block.ts` - Block creation and manipulation
+     - `rope.ts` - Rope/connector creation and styling
+     - `label.ts` - Label creation and positioning
+   - **More granular processing sub-files**:
+     - Split by logical operations or phases
+     - Keep related functionality together
+     - Ensure clear interfaces between modules
+
+3. **Constants Organization**:
+   - Constants should always be organized into an object at the top of the file
+   - Group related constants together within the object
+   - Use descriptive names for both the object and its properties
+   - Example:
+     ```typescript
+     const VISUALIZATION_CONSTANTS = {
+       SPACING: {
+         COLUMN: 10,
+         LEVEL: 5,
+         BASE_Y: 20
+       },
+       COLORS: {
+         PEOPLE: [0.2, 0.4, 0.8],
+         ANIMALS: [0.8, 0.4, 0.2]
+       }
+     };
+     ```
+
 ## OnStartup
 
 When starting work on this project, please read all project specification files located in the `000ProjectSpecification/` folder:
