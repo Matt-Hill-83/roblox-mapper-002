@@ -3,32 +3,45 @@
 ## Feature Documents
 
 - **Feature 001: Data Generator** 
-  - Requirements: [001-Features/F001-DataGenerator-Reqs.md](001-Features/F001-DataGenerator-Reqs.md)
-  - Tasks: [001-Features/F001-DataGenerator-Tasks.md](001-Features/F001-DataGenerator-Tasks.md)
+  - Summary: [001-Features/F001-DataGenerator/F001-Summary.md](001-Features/F001-DataGenerator/F001-Summary.md)
+  - Requirements: [001-Features/F001-DataGenerator/F001-Reqs.md](001-Features/F001-DataGenerator/F001-Reqs.md)
+  - Tasks: [001-Features/F001-DataGenerator/F001-Tasks.md](001-Features/F001-DataGenerator/F001-Tasks.md)
   
 - **Feature 002: Configuration GUI**
-  - Requirements: [001-Features/F002-ConfigGUI-Reqs.md](001-Features/F002-ConfigGUI-Reqs.md)
-  - Tasks: [001-Features/F002-ConfigGUI-Tasks.md](001-Features/F002-ConfigGUI-Tasks.md)
+  - Summary: [001-Features/F002-ConfigGUI/F002-Summary.md](001-Features/F002-ConfigGUI/F002-Summary.md)
+  - Specification: [001-Features/F002-ConfigGUI/F002-Spec.md](001-Features/F002-ConfigGUI/F002-Spec.md)
+  - Requirements: [001-Features/F002-ConfigGUI/F002-Reqs.md](001-Features/F002-ConfigGUI/F002-Reqs.md)
+  - Tasks: [001-Features/F002-ConfigGUI/F002-Tasks.md](001-Features/F002-ConfigGUI/F002-Tasks.md)
 
 - **Feature 003: Web App UI Enhancements**
-  - Requirements: [001-Features/F003-WebAppUI-Reqs.md](001-Features/F003-WebAppUI-Reqs.md)
-  - Tasks: [001-Features/F003-WebAppUI-Tasks.md](001-Features/F003-WebAppUI-Tasks.md)
+  - Summary: [001-Features/F003-WebAppUI/F003-Summary.md](001-Features/F003-WebAppUI/F003-Summary.md)
+  - Requirements: [001-Features/F003-WebAppUI/F003-Reqs.md](001-Features/F003-WebAppUI/F003-Reqs.md)
+  - Tasks: [001-Features/F003-WebAppUI/F003-Tasks.md](001-Features/F003-WebAppUI/F003-Tasks.md)
 
 - **Feature 004: Graph Layout Optimization**
-  - Requirements: [001-Features/F004-GraphOptimization-Reqs.md](001-Features/F004-GraphOptimization-Reqs.md)
-  - Tasks: [001-Features/F004-GraphOptimization-Tasks.md](001-Features/F004-GraphOptimization-Tasks.md)
+  - Summary: [001-Features/F004-GraphOptimization/F004-Summary.md](001-Features/F004-GraphOptimization/F004-Summary.md)
+  - Requirements: [001-Features/F004-GraphOptimization/F004-Reqs.md](001-Features/F004-GraphOptimization/F004-Reqs.md)
+  - Tasks: [001-Features/F004-GraphOptimization/F004-Tasks.md](001-Features/F004-GraphOptimization/F004-Tasks.md)
 
 - **Feature 005: Testing Framework**
-  - Requirements: [001-Features/F005-TestingFramework-Reqs.md](001-Features/F005-TestingFramework-Reqs.md)
-  - Tasks: [001-Features/F005-TestingFramework-Tasks.md](001-Features/F005-TestingFramework-Tasks.md)
+  - Summary: [001-Features/F005-TestingFramework/F005-Summary.md](001-Features/F005-TestingFramework/F005-Summary.md)
+  - Requirements: [001-Features/F005-TestingFramework/F005-Reqs.md](001-Features/F005-TestingFramework/F005-Reqs.md)
+  - Tasks: [001-Features/F005-TestingFramework/F005-Tasks.md](001-Features/F005-TestingFramework/F005-Tasks.md)
 
 - **Feature 006: Code Refactoring**
-  - Requirements: [001-Features/F006-CodeRefactoring-Reqs.md](001-Features/F006-CodeRefactoring-Reqs.md)
-  - Tasks: [001-Features/F006-CodeRefactoring-Tasks.md](001-Features/F006-CodeRefactoring-Tasks.md)
+  - Summary: [001-Features/F006-CodeRefactoring/F006-Summary.md](001-Features/F006-CodeRefactoring/F006-Summary.md)
+  - Requirements: [001-Features/F006-CodeRefactoring/F006-Reqs.md](001-Features/F006-CodeRefactoring/F006-Reqs.md)
+  - Tasks: [001-Features/F006-CodeRefactoring/F006-Tasks.md](001-Features/F006-CodeRefactoring/F006-Tasks.md)
 
 - **Feature 007: Roblox Graph Creation**
-  - Requirements: [001-Features/F007-RobloxGraphCreation-Reqs.md](001-Features/F007-RobloxGraphCreation-Reqs.md)
-  - Tasks: [001-Features/F007-RobloxGraphCreation-Tasks.md](001-Features/F007-RobloxGraphCreation-Tasks.md)
+  - Summary: [001-Features/F007-RobloxGraphCreation/F007-Summary.md](001-Features/F007-RobloxGraphCreation/F007-Summary.md)
+  - Requirements: [001-Features/F007-RobloxGraphCreation/F007-Reqs.md](001-Features/F007-RobloxGraphCreation/F007-Reqs.md)
+  - Tasks: [001-Features/F007-RobloxGraphCreation/F007-Tasks.md](001-Features/F007-RobloxGraphCreation/F007-Tasks.md)
+
+- **Feature 008: Console Demo and Early Web Interface**
+  - Summary: [001-Features/F008-ConsoleDemo/F008-Summary.md](001-Features/F008-ConsoleDemo/F008-Summary.md)
+  - Requirements: [001-Features/F008-ConsoleDemo/F008-Reqs.md](001-Features/F008-ConsoleDemo/F008-Reqs.md)
+  - Tasks: [001-Features/F008-ConsoleDemo/F008-Tasks.md](001-Features/F008-ConsoleDemo/F008-Tasks.md)
 
 ## Requirements
 
@@ -41,9 +54,9 @@
     5. ✅ [CLD1] R78.5: The system shall render all nodes with the same size regardless of type
     6. ✅ [CLD1] R78.6: The system shall increase the origin Y coordinate by the total height of the structure
 
-42. ✅ [CLD1] R79: Configuration GUI - See [001-Features/F002-ConfigGUI-Reqs.md](001-Features/F002-ConfigGUI-Reqs.md)
+42. ✅ [CLD1] R79: Configuration GUI - See [001-Features/F002-ConfigGUI/F002-Reqs.md](001-Features/F002-ConfigGUI/F002-Reqs.md)
 
-43. ⬛ R80-R81: Data Generator and Swim Lanes - See [001-Features/F001-DataGenerator-Reqs.md](001-Features/F001-DataGenerator-Reqs.md)
+43. ⬛ R80-R81: Data Generator and Swim Lanes - See [001-Features/F001-DataGenerator/F001-Reqs.md](001-Features/F001-DataGenerator/F001-Reqs.md)
 
 ## Task List
 
@@ -52,6 +65,6 @@
     149.  ✅ [CLD1] T129.3: Increase origin Y by structure height (R78.6)
           1. ✅ [CLD1] T129.3.1: Calculate total structure height before layout
           2. ✅ [CLD1] T129.3.2: Adjust origin Y coordinate accordingly
-    150.  ✅ [CLD1] T130: Configuration GUI - See [001-Features/F002-ConfigGUI-Tasks.md](001-Features/F002-ConfigGUI-Tasks.md)
+    150.  ✅ [CLD1] T130: Configuration GUI - See [001-Features/F002-ConfigGUI/F002-Tasks.md](001-Features/F002-ConfigGUI/F002-Tasks.md)
     
-    151.  ⬛ T131-T134: Data Generator and Swim Lanes - See [001-Features/F001-DataGenerator-Tasks.md](001-Features/F001-DataGenerator-Tasks.md)
+    151.  ⬛ T131-T134: Data Generator and Swim Lanes - See [001-Features/F001-DataGenerator/F001-Tasks.md](001-Features/F001-DataGenerator/F001-Tasks.md)
