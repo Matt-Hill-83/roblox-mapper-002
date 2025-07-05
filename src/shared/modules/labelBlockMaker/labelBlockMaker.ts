@@ -8,7 +8,9 @@ import {
   LabelBlockConfig, 
   defaultProps 
 } from "./interfaces";
-import { padNumber, createLabelsForBlock } from "./utilities";
+import { createLabelsForBlock } from "./utilities";
+import { LABEL_BLOCK_CONSTANTS } from "./constants";
+import { padNumber } from "../../utils/stringUtils";
 
 export function makeLabelBlock({
   id,
@@ -29,7 +31,10 @@ export function makeLabelBlock({
 
   // Create the cube part
   const block = new Instance("Part");
-  block.Name = `labelBlock${padNumber(math.floor(tonumber(id) || 1), 3)}`;
+  block.Name = `${LABEL_BLOCK_CONSTANTS.NAME_PREFIX}${padNumber(
+    math.floor(tonumber(id) || 1), 
+    LABEL_BLOCK_CONSTANTS.PAD_LENGTH
+  )}`;
   block.Size = new Vector3(size, size, size);
   block.Position = new Vector3(position.x, position.y, position.z);
   block.Orientation = new Vector3(rotation.x, rotation.y, rotation.z);
@@ -44,15 +49,8 @@ export function makeLabelBlock({
   block.BottomSurface = Enum.SurfaceType.Smooth;
   block.Transparency = finalProps.Transparency!;
 
-  // Define face mapping
-  const faceMap: [keyof LabelConfig, Enum.NormalId][] = [
-    ["top", Enum.NormalId.Top],
-    ["bottom", Enum.NormalId.Bottom],
-    ["front", Enum.NormalId.Front],
-    ["back", Enum.NormalId.Back],
-    ["left", Enum.NormalId.Left],
-    ["right", Enum.NormalId.Right],
-  ];
+  // Use face mapping from constants
+  const faceMap = LABEL_BLOCK_CONSTANTS.FACE_MAP as [keyof LabelConfig, Enum.NormalId][];
 
   // Create labels using utility function
   createLabelsForBlock(block, labels, textBoxOverrides, faceMap);

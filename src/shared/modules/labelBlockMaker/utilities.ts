@@ -5,15 +5,6 @@
 import { createTextBox, createTextBoxWithCustomStyling } from "../TextBoxMaker";
 import { LabelConfig, TextBoxProps } from "./interfaces";
 
-export function padNumber(num: number, length: number): string {
-  const str = tostring(num);
-  let result = str;
-  while (result.size() < length) {
-    result = "0" + result;
-  }
-  return result;
-}
-
 export function createLabelsForBlock(
   block: Part,
   labels: LabelConfig,

@@ -1,4 +1,5 @@
 import { createTextBox } from "./TextBoxMaker";
+import { padNumber } from "../utils/stringUtils";
 
 interface BarProps {
   Size: [number, number, number];
@@ -57,15 +58,6 @@ function makeCircle(
   circle.Material = Enum.Material.Neon;
   circle.Shape = Enum.PartType.Ball;
   return circle;
-}
-
-function padNumber(num: number, length: number): string {
-  const str = tostring(num);
-  let result = str;
-  while (result.size() < length) {
-    result = "0" + result;
-  }
-  return result;
 }
 
 function generateBarName(

@@ -40,10 +40,12 @@ export interface LabelBlockConfig {
   parent?: Instance;
 }
 
+import { LABEL_BLOCK_CONSTANTS } from "./constants";
+
 export const defaultProps: LabelBlockProps = {
-  Size: 8, // Default cube size
-  Anchored: true,
-  Color: [0.5, 0.5, 0.5], // Gray default
-  Material: "Concrete",
-  Transparency: 0,
+  Size: LABEL_BLOCK_CONSTANTS.DEFAULT_SIZE,
+  Anchored: LABEL_BLOCK_CONSTANTS.DEFAULT_ANCHORED,
+  Color: LABEL_BLOCK_CONSTANTS.DEFAULT_COLOR,
+  Material: LABEL_BLOCK_CONSTANTS.DEFAULT_MATERIAL,
+  Transparency: LABEL_BLOCK_CONSTANTS.DEFAULT_TRANSPARENCY,
 };

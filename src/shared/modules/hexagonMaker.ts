@@ -1,4 +1,5 @@
 import { makeBar } from "./barMaker";
+import { padNumber } from "../utils/stringUtils";
 
 interface HexagonConfig {
   id?: number;
@@ -10,15 +11,6 @@ interface HexagonConfig {
   stackIndex?: number;
   hexIndex?: number;
   guid?: string;
-}
-
-function padNumber(num: number, length: number): string {
-  const str = tostring(num);
-  let result = str;
-  while (result.size() < length) {
-    result = "0" + result;
-  }
-  return result;
 }
 
 function generateHexagonName(stackIndex: number, hexIndex: number): string {

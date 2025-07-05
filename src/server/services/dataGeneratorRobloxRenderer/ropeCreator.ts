@@ -5,6 +5,7 @@
 import { Cluster, Link } from "../../../shared/interfaces/simpleDataGenerator.interface";
 import { RopeLabelService } from "../../../shared/modules/ropeLabelService";
 import { RENDERER_CONSTANTS } from "./constants";
+import { padNumber } from "../../../shared/utils/stringUtils";
 
 interface RopeCreationContext {
   cluster: Cluster;
@@ -187,14 +188,3 @@ function getNodeName(hexagon: Model): string {
   return hexagon.Name;
 }
 
-/**
- * Pad number with leading zeros
- */
-function padNumber(num: number, length: number): string {
-  const str = tostring(num);
-  let result = str;
-  while (result.size() < length) {
-    result = "0" + result;
-  }
-  return result;
-}
