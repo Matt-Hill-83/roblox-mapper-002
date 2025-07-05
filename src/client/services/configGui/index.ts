@@ -1,2 +1,2 @@
-export { ConfigGUIService } from "./configGUI.service";
+export { ConfigGUIService } from "./makeConfigGui";
 export type { ConfigGUIServiceOptions } from "./interfaces";
