@@ -1,11 +1,21 @@
 import { Cluster, Node, Group } from "../../shared/interfaces/simpleDataGenerator.interface";
 
+// Layout constants organized in a single object
+const layoutConstants = {
+  levelHeight: 15,      // Vertical spacing between levels
+  nodeSpacing: 10,      // Horizontal spacing between nodes (reduced by 50%)
+  groupSpacing: 25,     // Spacing between top-level groups (reduced by 50%)
+  origin: { x: 20, y: 20, z: 20 },  // Origin point for the graph
+  circularLayout: {
+    baseRadius: 15      // Base radius for circular layout
+  },
+  overlapAvoidance: {
+    minDistance: 10,    // Minimum distance between nodes
+    iterations: 10      // Maximum iterations for overlap avoidance
+  }
+};
+
 export class SimpleDataLayoutService {
-  
-  private readonly levelHeight = 15;    // Vertical spacing between levels
-  private readonly nodeSpacing = 10;    // Horizontal spacing between nodes (reduced by 50%)
-  private readonly groupSpacing = 25;   // Spacing between top-level groups (reduced by 50%)
-  private readonly origin = { x: 20, y: 20, z: 20 };  // Origin point for the graph
   
   /**
    * Calculates positions for all nodes in the cluster
@@ -14,7 +24,7 @@ export class SimpleDataLayoutService {
     // Find root groups (no parent)
     const rootGroups = cluster.groups.filter(g => !g.parentId);
     
-    let currentX = this.origin.x;
+    let currentX = layoutConstants.origin.x;
     
     // Layout each root group and its children
     rootGroups.forEach((rootGroup, index) => {
@@ -24,7 +34,7 @@ export class SimpleDataLayoutService {
       // Layout this group hierarchy
       this.layoutGroupHierarchy(rootGroup, cluster, groupCenterX, 0);
       
-      currentX += groupWidth + this.groupSpacing;
+      currentX += groupWidth + layoutConstants.groupSpacing;
     });
   }
   
@@ -36,7 +46,7 @@ export class SimpleDataLayoutService {
     
     if (childGroups.size() === 0) {
       // Leaf group - width based on number of nodes
-      return math.max(1, group.nodes.size()) * this.nodeSpacing;
+      return math.max(1, group.nodes.size()) * layoutConstants.nodeSpacing;
     }
     
     // Parent group - sum of child widths
@@ -46,10 +56,10 @@ export class SimpleDataLayoutService {
     });
     
     // Add spacing between child groups
-    totalWidth += (childGroups.size() - 1) * this.nodeSpacing;
+    totalWidth += (childGroups.size() - 1) * layoutConstants.nodeSpacing;
     
     // Ensure parent is at least as wide as its nodes
-    const minWidth = math.max(1, group.nodes.size()) * this.nodeSpacing;
+    const minWidth = math.max(1, group.nodes.size()) * layoutConstants.nodeSpacing;
     
     return math.max(totalWidth, minWidth);
   }
@@ -70,7 +80,7 @@ export class SimpleDataLayoutService {
     let childX = centerX;
     const totalChildWidth = childGroups.reduce((sum, child) => {
       return sum + this.calculateGroupWidth(child, cluster);
-    }, 0) + (childGroups.size() - 1) * this.nodeSpacing;
+    }, 0) + (childGroups.size() - 1) * layoutConstants.nodeSpacing;
     
     childX -= totalChildWidth / 2;
     
@@ -81,7 +91,7 @@ export class SimpleDataLayoutService {
       
       this.layoutGroupHierarchy(childGroup, cluster, childCenterX, level + 1);
       
-      childX += childWidth + this.nodeSpacing;
+      childX += childWidth + layoutConstants.nodeSpacing;
     });
   }
   
@@ -92,18 +102,18 @@ export class SimpleDataLayoutService {
     const nodeCount = group.nodes.size();
     if (nodeCount === 0) return;
     
-    const totalWidth = (nodeCount - 1) * this.nodeSpacing;
+    const totalWidth = (nodeCount - 1) * layoutConstants.nodeSpacing;
     let currentX = centerX - totalWidth / 2;
-    const y = this.origin.y + (level * this.levelHeight);
+    const y = layoutConstants.origin.y + (level * layoutConstants.levelHeight);
     
     group.nodes.forEach(node => {
       node.position = {
         x: currentX,
         y: y,
-        z: this.origin.z  // Use origin Z coordinate
+        z: layoutConstants.origin.z  // Use origin Z coordinate
       };
       
-      currentX += this.nodeSpacing;
+      currentX += layoutConstants.nodeSpacing;
     });
   }
   
@@ -112,9 +122,9 @@ export class SimpleDataLayoutService {
    */
   public applyCircularLayout(cluster: Cluster): void {
     cluster.groups.forEach((group, groupIndex) => {
-      const baseRadius = 15;
-      const centerX = this.origin.x + (groupIndex * (baseRadius * 3));
-      const centerY = this.origin.y;
+      const baseRadius = layoutConstants.circularLayout.baseRadius;
+      const centerX = layoutConstants.origin.x + (groupIndex * (baseRadius * 3));
+      const centerY = layoutConstants.origin.y;
       
       group.nodes.forEach((node, nodeIndex) => {
         const angle = (nodeIndex / group.nodes.size()) * math.pi * 2;
@@ -123,7 +133,7 @@ export class SimpleDataLayoutService {
         node.position = {
           x: centerX + math.cos(angle) * radius,
           y: centerY,
-          z: this.origin.z + math.sin(angle) * radius
+          z: layoutConstants.origin.z + math.sin(angle) * radius
         };
       });
     });
@@ -132,8 +142,8 @@ export class SimpleDataLayoutService {
   /**
    * Spreads nodes to avoid overlaps (post-processing step)
    */
-  public avoidOverlaps(nodes: Node[], minDistance: number = 10): void {
-    const iterations = 10;
+  public avoidOverlaps(nodes: Node[], minDistance: number = layoutConstants.overlapAvoidance.minDistance): void {
+    const iterations = layoutConstants.overlapAvoidance.iterations;
     
     for (let iter = 0; iter < iterations; iter++) {
       let moved = false;
