@@ -3,32 +3,32 @@
 ## Feature Documents
 
 - **Feature 001: Data Generator** 
-  - Requirements: [Feat001-DataGenerator-Reqs.md](Feat001-DataGenerator-Reqs.md)
-  - Tasks: [Feat001-DataGenerator-Tasks.md](Feat001-DataGenerator-Tasks.md)
+  - Requirements: [001-Features/Feat001-DataGenerator-Reqs.md](001-Features/Feat001-DataGenerator-Reqs.md)
+  - Tasks: [001-Features/Feat001-DataGenerator-Tasks.md](001-Features/Feat001-DataGenerator-Tasks.md)
   
 - **Feature 002: Configuration GUI**
-  - Requirements: [Feat002-ConfigGUI-Reqs.md](Feat002-ConfigGUI-Reqs.md)
-  - Tasks: [Feat002-ConfigGUI-Tasks.md](Feat002-ConfigGUI-Tasks.md)
+  - Requirements: [001-Features/Feat002-ConfigGUI-Reqs.md](001-Features/Feat002-ConfigGUI-Reqs.md)
+  - Tasks: [001-Features/Feat002-ConfigGUI-Tasks.md](001-Features/Feat002-ConfigGUI-Tasks.md)
 
 - **Feature 003: Web App UI Enhancements**
-  - Requirements: [Feat003-WebAppUI-Reqs.md](Feat003-WebAppUI-Reqs.md)
-  - Tasks: [Feat003-WebAppUI-Tasks.md](Feat003-WebAppUI-Tasks.md)
+  - Requirements: [001-Features/Feat003-WebAppUI-Reqs.md](001-Features/Feat003-WebAppUI-Reqs.md)
+  - Tasks: [001-Features/Feat003-WebAppUI-Tasks.md](001-Features/Feat003-WebAppUI-Tasks.md)
 
 - **Feature 004: Graph Layout Optimization**
-  - Requirements: [Feat004-GraphOptimization-Reqs.md](Feat004-GraphOptimization-Reqs.md)
-  - Tasks: [Feat004-GraphOptimization-Tasks.md](Feat004-GraphOptimization-Tasks.md)
+  - Requirements: [001-Features/Feat004-GraphOptimization-Reqs.md](001-Features/Feat004-GraphOptimization-Reqs.md)
+  - Tasks: [001-Features/Feat004-GraphOptimization-Tasks.md](001-Features/Feat004-GraphOptimization-Tasks.md)
 
 - **Feature 005: Testing Framework**
-  - Requirements: [Feat005-TestingFramework-Reqs.md](Feat005-TestingFramework-Reqs.md)
-  - Tasks: [Feat005-TestingFramework-Tasks.md](Feat005-TestingFramework-Tasks.md)
+  - Requirements: [001-Features/Feat005-TestingFramework-Reqs.md](001-Features/Feat005-TestingFramework-Reqs.md)
+  - Tasks: [001-Features/Feat005-TestingFramework-Tasks.md](001-Features/Feat005-TestingFramework-Tasks.md)
 
 - **Feature 006: Code Refactoring**
-  - Requirements: [Feat006-CodeRefactoring-Reqs.md](Feat006-CodeRefactoring-Reqs.md)
-  - Tasks: [Feat006-CodeRefactoring-Tasks.md](Feat006-CodeRefactoring-Tasks.md)
+  - Requirements: [001-Features/Feat006-CodeRefactoring-Reqs.md](001-Features/Feat006-CodeRefactoring-Reqs.md)
+  - Tasks: [001-Features/Feat006-CodeRefactoring-Tasks.md](001-Features/Feat006-CodeRefactoring-Tasks.md)
 
 - **Feature 007: Roblox Graph Creation**
-  - Requirements: [Feat007-RobloxGraphCreation-Reqs.md](Feat007-RobloxGraphCreation-Reqs.md)
-  - Tasks: [Feat007-RobloxGraphCreation-Tasks.md](Feat007-RobloxGraphCreation-Tasks.md)
+  - Requirements: [001-Features/Feat007-RobloxGraphCreation-Reqs.md](001-Features/Feat007-RobloxGraphCreation-Reqs.md)
+  - Tasks: [001-Features/Feat007-RobloxGraphCreation-Tasks.md](001-Features/Feat007-RobloxGraphCreation-Tasks.md)
 
 ## Requirements
 
@@ -41,9 +41,9 @@
     5. ✅ [CLD1] R78.5: The system shall render all nodes with the same size regardless of type
     6. ✅ [CLD1] R78.6: The system shall increase the origin Y coordinate by the total height of the structure
 
-42. ✅ [CLD1] R79: Configuration GUI - See [Feat002-ConfigGUI-Reqs.md](Feat002-ConfigGUI-Reqs.md)
+42. ✅ [CLD1] R79: Configuration GUI - See [001-Features/Feat002-ConfigGUI-Reqs.md](001-Features/Feat002-ConfigGUI-Reqs.md)
 
-43. ⬛ R80-R81: Data Generator and Swim Lanes - See [Feat001-DataGenerator-Reqs.md](Feat001-DataGenerator-Reqs.md)
+43. ⬛ R80-R81: Data Generator and Swim Lanes - See [001-Features/Feat001-DataGenerator-Reqs.md](001-Features/Feat001-DataGenerator-Reqs.md)
 
 ## Task List
 
@@ -52,6 +52,6 @@
     149.  ✅ [CLD1] T129.3: Increase origin Y by structure height (R78.6)
           1. ✅ [CLD1] T129.3.1: Calculate total structure height before layout
           2. ✅ [CLD1] T129.3.2: Adjust origin Y coordinate accordingly
-    150.  ✅ [CLD1] T130: Configuration GUI - See [Feat002-ConfigGUI-Tasks.md](Feat002-ConfigGUI-Tasks.md)
+    150.  ✅ [CLD1] T130: Configuration GUI - See [001-Features/Feat002-ConfigGUI-Tasks.md](001-Features/Feat002-ConfigGUI-Tasks.md)
     
-    151.  ⬛ T131-T134: Data Generator and Swim Lanes - See [Feat001-DataGenerator-Tasks.md](Feat001-DataGenerator-Tasks.md)
+    151.  ⬛ T131-T134: Data Generator and Swim Lanes - See [001-Features/Feat001-DataGenerator-Tasks.md](001-Features/Feat001-DataGenerator-Tasks.md)
