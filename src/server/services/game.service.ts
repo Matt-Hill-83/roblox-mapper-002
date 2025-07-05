@@ -1,9 +1,11 @@
 import { MakeOldStuffService } from "./makeOldStuff.service";
 import { SimpleGraphService } from "./simpleGraph.service";
+import { TestSimpleDataGeneratorService } from "./testSimpleDataGenerator.service";
 
 export class GameService {
   private makeOldStuffService = new MakeOldStuffService();
   private simpleGraphService = new SimpleGraphService();
+  private testSimpleDataGenerator = new TestSimpleDataGeneratorService();
   private myStuffFolder!: Folder;
   private gameStarted = false; // Flag to prevent duplicate initialization
 
@@ -32,7 +34,12 @@ export class GameService {
     }
 
     // Create simple graph with 3 hexagons
-    this.simpleGraphService.createSimpleGraph(this.myStuffFolder);
+    if (false) {
+      this.simpleGraphService.createSimpleGraph(this.myStuffFolder);
+    }
+    
+    // Test the new simple data generator
+    this.testSimpleDataGenerator.runPeopleAnimalsDemo(this.myStuffFolder);
 
     print("✅ GameService.startGame() completed");
   }
