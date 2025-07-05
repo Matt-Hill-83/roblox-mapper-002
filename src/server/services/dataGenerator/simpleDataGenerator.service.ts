@@ -73,6 +73,11 @@ const GENERATOR_CONSTANTS = {
     "Frank", "Grace", "Henry", "Iris", "Jack"
   ],
   
+  LAST_NAMES: [
+    "Smith", "Johnson", "Williams", "Brown", "Jones",
+    "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"
+  ],
+  
   ANIMAL_NAMES: [
     "Fifi", "Bongo", "Rex", "Luna", "Max", 
     "Bella", "Rocky", "Daisy", "Shadow", "Buddy"
@@ -333,8 +338,11 @@ export class SimpleDataGeneratorService {
    */
   private getRandomName(nodeType: "People" | "Animals"): string {
     if (nodeType === "People") {
-      const names = GENERATOR_CONSTANTS.PEOPLE_NAMES;
-      return names[math.random(0, names.size() - 1)];
+      const firstNames = GENERATOR_CONSTANTS.PEOPLE_NAMES;
+      const lastNames = GENERATOR_CONSTANTS.LAST_NAMES;
+      const firstName = firstNames[math.random(0, firstNames.size() - 1)];
+      const lastName = lastNames[math.random(0, lastNames.size() - 1)];
+      return `${firstName} ${lastName}`;
     } else {
       const names = GENERATOR_CONSTANTS.ANIMAL_NAMES;
       return names[math.random(0, names.size() - 1)];

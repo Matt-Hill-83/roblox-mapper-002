@@ -32,6 +32,18 @@ const GENERATOR_CONSTANTS = {
     "Iris",
     "Jack",
   ],
+  LAST_NAMES: [
+    "Smith",
+    "Johnson",
+    "Williams",
+    "Brown",
+    "Jones",
+    "Garcia",
+    "Miller",
+    "Davis",
+    "Rodriguez",
+    "Martinez",
+  ],
   ANIMAL_NAMES: [
     "Fifi",
     "Bongo",
@@ -147,11 +159,18 @@ class MockDataGenerator {
   }
 
   getRandomName(type) {
-    const names =
-      type === "People"
-        ? GENERATOR_CONSTANTS.PEOPLE_NAMES
-        : GENERATOR_CONSTANTS.ANIMAL_NAMES;
-    return names[Math.floor(Math.random() * names.length)];
+    if (type === "People") {
+      const firstName = GENERATOR_CONSTANTS.PEOPLE_NAMES[
+        Math.floor(Math.random() * GENERATOR_CONSTANTS.PEOPLE_NAMES.length)
+      ];
+      const lastName = GENERATOR_CONSTANTS.LAST_NAMES[
+        Math.floor(Math.random() * GENERATOR_CONSTANTS.LAST_NAMES.length)
+      ];
+      return `${firstName} ${lastName}`;
+    } else {
+      const names = GENERATOR_CONSTANTS.ANIMAL_NAMES;
+      return names[Math.floor(Math.random() * names.length)];
+    }
   }
 
   createHierarchy(nodesByLevel, maxChildren, cluster) {
@@ -399,44 +418,101 @@ function generateMermaidDiagram(cluster) {
   return mermaid;
 }
 
-// Function to generate draw.io XML diagram with precise positioning
+// Function to generate draw.io XML diagram with swim lane organization
 function generateDrawIoDiagram(cluster) {
-  // Group nodes by level
+  // Constants for swim lane layout
+  const UNIT_SIZE = 20; // Base unit in pixels
+  const NODE_WIDTH_UNITS = 1; // Nodes are 1 unit wide
+  const COLUMN_WIDTH_UNITS = 2; // Columns are 2 units wide
+  const TYPE_GROUP_SPACING_UNITS = 3; // Space between type groups
+  const LEVEL_SPACING_UNITS = 10; // Space between levels vertically
+  const CANVAS_PADDING_UNITS = 2; // Padding on sides
+  
+  // Convert units to pixels
+  const NODE_WIDTH = NODE_WIDTH_UNITS * UNIT_SIZE;
+  const NODE_HEIGHT = 3 * UNIT_SIZE; // Make nodes taller for multi-line text
+  const COLUMN_WIDTH = COLUMN_WIDTH_UNITS * UNIT_SIZE;
+  const TYPE_GROUP_SPACING = TYPE_GROUP_SPACING_UNITS * UNIT_SIZE;
+  const LEVEL_SPACING = LEVEL_SPACING_UNITS * UNIT_SIZE;
+  const CANVAS_PADDING = CANVAS_PADDING_UNITS * UNIT_SIZE;
+  
+  // Group nodes by level and type
   const nodesByLevel = new Map();
+  const typeCounters = new Map(); // Global counters for each type
+  
   cluster.groups.forEach((group) => {
     group.nodes.forEach((node) => {
       const level = node.level || 1;
       if (!nodesByLevel.has(level)) {
-        nodesByLevel.set(level, []);
+        nodesByLevel.set(level, new Map());
       }
-      nodesByLevel.get(level).push(node);
+      
+      const levelMap = nodesByLevel.get(level);
+      if (!levelMap.has(node.type)) {
+        levelMap.set(node.type, []);
+      }
+      levelMap.get(node.type).push(node);
     });
   });
-
-  // Layout constants
-  const CANVAS_WIDTH = 1200;
-  const LEVEL_HEIGHT = 200;
-  const NODE_WIDTH = 120;
-  const NODE_HEIGHT = 60;
-  const LEVEL_BOX_PADDING = 40;
-  const NODE_SPACING = 20;
   
-  // Calculate level box dimensions
-  const maxNodesInLevel = Math.max(
-    nodesByLevel.get(1)?.length || 0,
-    nodesByLevel.get(2)?.length || 0,
-    nodesByLevel.get(3)?.length || 0
-  );
+  // Calculate max nodes per type across all levels
+  const typeMaxCounts = new Map();
+  const allTypes = new Set();
   
-  const levelBoxWidth = maxNodesInLevel * (NODE_WIDTH + NODE_SPACING) + NODE_SPACING + (LEVEL_BOX_PADDING * 2);
-  const levelBoxHeight = NODE_HEIGHT + (LEVEL_BOX_PADDING * 2);
-  const levelBoxX = (CANVAS_WIDTH - levelBoxWidth) / 2;
+  for (const [level, typeMap] of nodesByLevel) {
+    for (const [type, nodes] of typeMap) {
+      allTypes.add(type);
+      const currentMax = typeMaxCounts.get(type) || 0;
+      typeMaxCounts.set(type, Math.max(currentMax, nodes.length));
+    }
+  }
+  
+  // Sort types by max count (descending) and create column layout
+  const sortedTypes = Array.from(allTypes).sort((a, b) => {
+    return typeMaxCounts.get(b) - typeMaxCounts.get(a);
+  });
+  
+  // Calculate column positions for each type
+  const typeColumnInfo = new Map();
+  let currentX = CANVAS_PADDING;
+  
+  sortedTypes.forEach((type, index) => {
+    const maxCount = typeMaxCounts.get(type);
+    const swimLaneWidth = maxCount * COLUMN_WIDTH;
+    
+    typeColumnInfo.set(type, {
+      startX: currentX,
+      width: swimLaneWidth,
+      maxCount: maxCount
+    });
+    
+    currentX += swimLaneWidth + (index < sortedTypes.length - 1 ? TYPE_GROUP_SPACING : 0);
+  });
+  
+  const totalWidth = currentX + CANVAS_PADDING;
+  
+  // Sort nodes alphabetically within each type and assign numbers
+  for (const [level, typeMap] of nodesByLevel) {
+    for (const [type, nodes] of typeMap) {
+      nodes.sort((a, b) => a.name.localeCompare(b.name));
+      
+      // Assign type numbers
+      nodes.forEach(node => {
+        if (!typeCounters.has(type)) {
+          typeCounters.set(type, 1);
+        }
+        const typeNum = typeCounters.get(type);
+        node.typeNumber = `${type.toLowerCase()}${String(typeNum).padStart(2, '0')}`;
+        typeCounters.set(type, typeNum + 1);
+      });
+    }
+  }
   
   // Start building XML
   let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
   xml += '<mxfile host="app.diagrams.net">\n';
-  xml += '  <diagram name="Hierarchical Graph">\n';
-  xml += '    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10">\n';
+  xml += '  <diagram name="Hierarchical Graph with Swim Lanes">\n';
+  xml += `    <mxGraphModel dx="${totalWidth}" dy="800" grid="1" gridSize="${UNIT_SIZE}">\n`;
   xml += '      <root>\n';
   xml += '        <mxCell id="0"/>\n';
   xml += '        <mxCell id="1" parent="0"/>\n\n';
@@ -444,38 +520,60 @@ function generateDrawIoDiagram(cluster) {
   let cellId = 2;
   const nodeIdMap = new Map();
   
+  // Draw swim lane headers
+  xml += '        <!-- Swim Lane Headers -->\n';
+  sortedTypes.forEach(type => {
+    const info = typeColumnInfo.get(type);
+    xml += `        <mxCell id="${cellId}" value="${type} (${typeMaxCounts.get(type)})" style="rounded=0;fillColor=#e8e8e8;strokeColor=#666666;fontSize=14;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">\n`;
+    xml += `          <mxGeometry x="${info.startX}" y="0" width="${info.width}" height="30" as="geometry"/>\n`;
+    xml += `        </mxCell>\n`;
+    cellId++;
+  });
+  xml += '\n';
+  
   // Draw level boxes and nodes
   for (let level = 1; level <= 3; level++) {
-    const levelNodes = nodesByLevel.get(level) || [];
-    if (levelNodes.length === 0) continue;
+    const levelMap = nodesByLevel.get(level);
+    if (!levelMap || levelMap.size === 0) continue;
     
-    const levelY = 50 + (level - 1) * LEVEL_HEIGHT;
+    const levelY = 50 + (level - 1) * LEVEL_SPACING * UNIT_SIZE;
     
-    // Draw level box
-    xml += `        <!-- Level ${level} Box -->\n`;
-    xml += `        <mxCell id="${cellId}" value="Level ${level}" style="group;rounded=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontSize=14;fontStyle=1;spacingTop=10;" vertex="1" parent="1">\n`;
-    xml += `          <mxGeometry x="${levelBoxX}" y="${levelY}" width="${levelBoxWidth}" height="${levelBoxHeight}" as="geometry"/>\n`;
+    // Draw level background
+    xml += `        <!-- Level ${level} Background -->\n`;
+    xml += `        <mxCell id="${cellId}" value="Level ${level}" style="rounded=1;fillColor=#f9f9f9;strokeColor=#999999;verticalAlign=top;fontSize=12;fontStyle=1;spacingTop=5;opacity=50;" vertex="1" parent="1">\n`;
+    xml += `          <mxGeometry x="0" y="${levelY - 20}" width="${totalWidth}" height="${NODE_HEIGHT + 40}" as="geometry"/>\n`;
     xml += `        </mxCell>\n\n`;
-    const levelGroupId = cellId++;
+    cellId++;
     
-    // Calculate starting X position to center nodes within level box
-    const totalNodesWidth = levelNodes.length * NODE_WIDTH + (levelNodes.length - 1) * NODE_SPACING;
-    const startX = levelBoxX + (levelBoxWidth - totalNodesWidth) / 2;
-    
-    // Draw nodes
-    levelNodes.forEach((node, index) => {
-      const nodeX = startX + index * (NODE_WIDTH + NODE_SPACING);
+    // Draw nodes for each type in this level
+    sortedTypes.forEach(type => {
+      const nodes = levelMap.get(type) || [];
+      const typeInfo = typeColumnInfo.get(type);
       
-      const fillColor = node.type === "People" ? "#3366cc" : "#cc6633";
-      const shape = node.type === "People" ? "rounded=1" : "ellipse";
-      
-      xml += `        <!-- ${node.uuid}: ${node.name} (${node.type}) -->\n`;
-      xml += `        <mxCell id="${cellId}" value="${node.name}\n${node.type}" style="${shape};fillColor=${fillColor};strokeColor=#000000;fontColor=#ffffff;fontSize=12;" vertex="1" parent="${levelGroupId}">\n`;
-      xml += `          <mxGeometry x="${nodeX - levelBoxX}" y="${LEVEL_BOX_PADDING}" width="${NODE_WIDTH}" height="${NODE_HEIGHT}" as="geometry"/>\n`;
-      xml += `        </mxCell>\n\n`;
-      
-      nodeIdMap.set(node.uuid, cellId);
-      cellId++;
+      nodes.forEach((node, index) => {
+        const nodeX = typeInfo.startX + index * COLUMN_WIDTH;
+        const nodeY = levelY;
+        
+        // Calculate coordinates for the node
+        const coordX = Math.floor(nodeX / UNIT_SIZE);
+        const coordY = 0; // Depth into page
+        const coordZ = Math.floor(levelY / UNIT_SIZE);
+        
+        node.coordinates = { x: coordX, y: coordY, z: coordZ };
+        
+        const fillColor = node.type === "People" ? "#3366cc" : "#cc6633";
+        const shape = node.type === "People" ? "rounded=1" : "ellipse";
+        
+        const label = `${node.name}\n${coordX},${coordY},${coordZ}\n${node.typeNumber}`;
+        
+        xml += `        <!-- ${node.uuid}: ${node.name} -->\n`;
+        xml += `        <mxCell id="${cellId}" value="${label}" style="${shape};fillColor=${fillColor};strokeColor=#000000;fontColor=#ffffff;fontSize=10;verticalAlign=middle;spacing=2;" vertex="1" parent="1">\n`;
+        xml += `          <mxGeometry x="${nodeX}" y="${nodeY}" width="${NODE_WIDTH}" height="${NODE_HEIGHT}" as="geometry"/>\n`;
+        xml += `        </mxCell>\n\n`;
+        
+        nodeIdMap.set(node.uuid, cellId);
+        cellId++;
+      });
     });
   }
   
