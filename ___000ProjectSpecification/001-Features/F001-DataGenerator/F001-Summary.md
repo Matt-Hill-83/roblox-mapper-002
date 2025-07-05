@@ -6,9 +6,8 @@ cd /Users/__projects/roblox-mapper-002-multi/vscode
 node scripts/testDataGenerator/index.js
 ```
 
-Output files:
-- `output/data-generator-test-[timestamp].md` - Mermaid diagram
-- `output/data-generator-diagram-[timestamp].drawio` - Draw.io visualization
+Output file:
+- `output/data-generator-diagram-[timestamp].drawio` - Draw.io visualization with swim lanes
 
 ## Overview
 Enhanced data generation system with expanded name pools and swim lane organization for 3D hierarchical graph visualization in Roblox.

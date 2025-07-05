@@ -7,9 +7,8 @@ This folder contains the test data generator split into modular files for better
 - `index.js` - Main entry point that orchestrates the generation process
 - `constants.js` - All configuration constants, scaling factors, and name pools
 - `MockDataGenerator.js` - Core data generation logic for nodes and relationships
-- `mermaidDiagram.js` - Generates Mermaid diagram markdown from cluster data
 - `drawIoDiagram.js` - Generates draw.io XML diagrams with swim lane organization
-- `styles.js` - Style definitions for both Mermaid and draw.io diagrams
+- `styles.js` - Style definitions for draw.io diagrams
 - `utils.js` - Utility functions like summary generation
 
 ## Usage
@@ -20,13 +19,12 @@ node scripts/testDataGenerator/index.js
 
 ## File Size
 
-Each file is kept under 100 lines for better readability:
-- index.js: ~84 lines
+Each file is kept under 200 lines for better readability:
+- index.js: ~50 lines
 - constants.js: ~92 lines
-- MockDataGenerator.js: ~190 lines (slightly over but logically complete)
-- mermaidDiagram.js: ~170 lines
-- drawIoDiagram.js: ~197 lines (slightly over but logically complete)
-- styles.js: ~78 lines
+- MockDataGenerator.js: ~190 lines
+- drawIoDiagram.js: ~197 lines
+- styles.js: ~65 lines
 - utils.js: ~55 lines
 
 ## Configuration

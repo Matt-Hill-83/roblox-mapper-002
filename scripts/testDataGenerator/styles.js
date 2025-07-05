@@ -1,14 +1,6 @@
 /**
- * Style definitions for diagrams
+ * Style definitions for draw.io diagrams
  */
-
-// Mermaid diagram styles
-const MERMAID_STYLES = {
-  peopleClass: "classDef people fill:#3366cc,stroke:#1a3d7a,stroke-width:2px,color:#fff",
-  animalsClass: "classDef animals fill:#cc6633,stroke:#7a3d1a,stroke-width:2px,color:#fff",
-  invisibleClass: "classDef invisible fill:transparent,stroke:transparent",
-  graphType: "graph TB" // Top-bottom layout
-};
 
 // Draw.io styles
 const DRAW_IO_STYLES = {
@@ -67,7 +59,6 @@ function getEdgeStyle(linkType) {
 }
 
 module.exports = {
-  MERMAID_STYLES,
   DRAW_IO_STYLES,
   getNodeStyle,
   getEdgeStyle
