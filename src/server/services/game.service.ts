@@ -9,8 +9,8 @@ import { makeLabelBlock } from "../../shared/modules/labelBlockMaker";
 // Origin configuration for 3D positioning
 const ORIGIN = {
   x: 0,
-  y: 20, // BASE_Y from RENDERER_CONSTANTS
-  z: 0
+  y: 10, // BASE_Y from RENDERER_CONSTANTS
+  z: 0,
 };
 
 export class GameService {
@@ -85,62 +85,62 @@ export class GameService {
         position: {
           x: ORIGIN.x - 20, // Offset to the left
           y: ORIGIN.y + 20, // Above the origin
-          z: ORIGIN.z - 20  // Forward
+          z: ORIGIN.z - 20, // Forward
         },
         props: {
-          Size: 10,
+          Size: 4,
           Color: [0.3, 0.3, 0.3], // Dark gray
           Transparency: 0.2,
           Material: "Neon",
           CanCollide: false,
-          CastShadow: false
+          CastShadow: false,
         },
         labels: {
-          front: { 
+          front: {
             text: "FRONT",
             textColor: new Color3(0, 0, 0.8), // Dark blue text
             backgroundColor: new Color3(0.5, 0.5, 0.8), // Medium blue background
-            borderColor: new Color3(0, 0, 0.3) // Very dark blue border
+            borderColor: new Color3(0, 0, 0.3), // Very dark blue border
           },
-          back: { 
+          back: {
             text: "BACK",
             textColor: new Color3(0, 0, 0.8), // Dark blue text
             backgroundColor: new Color3(0.5, 0.5, 0.8), // Medium blue background
-            borderColor: new Color3(0, 0, 0.3) // Very dark blue border
+            borderColor: new Color3(0, 0, 0.3), // Very dark blue border
           },
-          left: { 
+          left: {
             text: "LEFT",
             textColor: new Color3(0.8, 0, 0), // Dark red text
             backgroundColor: new Color3(0.8, 0.5, 0.5), // Medium red background
-            borderColor: new Color3(0.3, 0, 0) // Very dark red border
+            borderColor: new Color3(0.3, 0, 0), // Very dark red border
           },
-          right: { 
+          right: {
             text: "RIGHT",
             textColor: new Color3(0.8, 0, 0), // Dark red text
             backgroundColor: new Color3(0.8, 0.5, 0.5), // Medium red background
-            borderColor: new Color3(0.3, 0, 0) // Very dark red border
+            borderColor: new Color3(0.3, 0, 0), // Very dark red border
           },
-          top: { 
+          top: {
             text: "TOP",
             textColor: new Color3(0, 0.8, 0), // Dark green text
             backgroundColor: new Color3(0.5, 0.8, 0.5), // Medium green background
-            borderColor: new Color3(0, 0.3, 0) // Very dark green border
+            borderColor: new Color3(0, 0.3, 0), // Very dark green border
           },
-          bottom: { 
+          bottom: {
             text: "BOTTOM",
             textColor: new Color3(0, 0.8, 0), // Dark green text
             backgroundColor: new Color3(0.5, 0.8, 0.5), // Medium green background
-            borderColor: new Color3(0, 0.3, 0) // Very dark green border
-          }
+            borderColor: new Color3(0, 0.3, 0), // Very dark green border
+          },
         },
         textBoxOverrides: {
           textSize: 100, // Maximum font size in Roblox
           font: Enum.Font.SourceSansBold,
-          borderSizePixel: 10 // Wider borders for better visibility
+          borderSizePixel: 10, // Wider borders for better visibility
         },
-        parent: orientationFolder
+        parent: orientationFolder,
       });
-      
+
       print("🧭 Created orientation reference block at origin");
     }
 
