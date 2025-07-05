@@ -11,6 +11,7 @@ import {
   ScatterRenderableSeries3D,
   XyzDataSeries3D,
   SpherePointMarker3D,
+  CubePointMarker3D,
   MouseWheelZoomModifier3D,
   OrbitModifier3D,
   ResetCamera3DModifier,
@@ -31,6 +32,7 @@ interface SciChart3DBubbleSimpleProps {
 
 export default function SciChart3DBubbleSimple({ data, width = '100%', height = '100%' }: SciChart3DBubbleSimpleProps) {
   const [chartData, setChartData] = useState<any>(null);
+  const [chartKey, setChartKey] = useState<string>('0');
 
   useEffect(() => {
     if (!data) return;
@@ -44,6 +46,9 @@ export default function SciChart3DBubbleSimple({ data, width = '100%', height = 
     // Transform data
     const graphData = GraphAdapters.createHighcharts3DData(data, config);
     setChartData(graphData);
+    
+    // Update chart key to force re-initialization
+    setChartKey(prev => String(parseInt(prev) + 1));
   }, [data]);
 
   const initChart = async (rootElement: string | HTMLDivElement) => {
@@ -102,9 +107,13 @@ export default function SciChart3DBubbleSimple({ data, width = '100%', height = 
         zValues.push(node.z);
         
         // Create metadata for each point
+        // Use node weight if available, otherwise use a default scale
+        const nodeWeight = node.weight || 1;
+        const normalizedScale = 0.8 + (nodeWeight / 10) * 0.4; // Scale between 0.8 and 1.2
+        
         metadata.push({
           vertexColor: parseColorToUIntArgb(node.color),
-          pointScale: 1 + Math.random() * 0.5,  // Scale factor for bubble size
+          pointScale: normalizedScale,  // Scale factor based on weight
           label: node.label,
           type: node.type
         });
@@ -119,15 +128,23 @@ export default function SciChart3DBubbleSimple({ data, width = '100%', height = 
         dataSeriesName: "3D Bubbles"
       });
 
-      // Create the scatter series with sphere markers
+      // Create the scatter series with cube markers
       const scatterSeries = new ScatterRenderableSeries3D(wasmContext, {
         dataSeries,
-        pointMarker: new SpherePointMarker3D(wasmContext, {
-          size: 10,
-          fill: "#4682B4",
-          opacity: 0.8
+        pointMarker: new CubePointMarker3D(wasmContext, {
+          size: 12,  // Base size, will be scaled by pointScale in metadata
+          opacity: 0.9
         }),
-        opacity: 0.8
+        opacity: 0.9,
+        // Enable per-point coloring from metadata
+        paletteProvider: {
+          onAttached: (parentSeries) => {},
+          onDetached: () => {},
+          overridePointMarkerArgb: (xValue, yValue, zValue, index, opacity, metadata) => {
+            // Use the vertexColor from metadata if available
+            return metadata?.vertexColor || parseColorToUIntArgb("#4682B4");
+          }
+        }
       });
 
       sciChart3DSurface.renderableSeries.add(scatterSeries);
@@ -204,8 +221,14 @@ export default function SciChart3DBubbleSimple({ data, width = '100%', height = 
       sciChart3DSurface.camera.position = new Vector3(200, 200, 200);
       sciChart3DSurface.camera.target = new Vector3(0, 0, 0);
       
-      // Return with the expected property name
-      return { sciChartSurface: sciChart3DSurface };
+      // Return cleanup function and surface
+      return { 
+        sciChartSurface: sciChart3DSurface,
+        // Add cleanup function to properly dispose of the chart
+        cleanup: () => {
+          sciChart3DSurface.delete();
+        }
+      };
     } catch (error) {
       console.error("Error initializing SciChart 3D:", error);
       throw error;
@@ -225,6 +248,7 @@ export default function SciChart3DBubbleSimple({ data, width = '100%', height = 
       <SciChartReact
         style={{ width: '100%', height: '100%' }}
         initChart={initChart}
+        key={chartKey} // Force re-mount when data changes
       />
       {/* Edge type legend */}
       <Box
