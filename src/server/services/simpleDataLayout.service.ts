@@ -3,8 +3,9 @@ import { Cluster, Node, Group } from "../../shared/interfaces/simpleDataGenerato
 export class SimpleDataLayoutService {
   
   private readonly levelHeight = 15;    // Vertical spacing between levels
-  private readonly nodeSpacing = 20;    // Horizontal spacing between nodes
-  private readonly groupSpacing = 50;   // Spacing between top-level groups
+  private readonly nodeSpacing = 10;    // Horizontal spacing between nodes (reduced by 50%)
+  private readonly groupSpacing = 25;   // Spacing between top-level groups (reduced by 50%)
+  private readonly origin = { x: 20, y: 20, z: 20 };  // Origin point for the graph
   
   /**
    * Calculates positions for all nodes in the cluster
@@ -13,7 +14,7 @@ export class SimpleDataLayoutService {
     // Find root groups (no parent)
     const rootGroups = cluster.groups.filter(g => !g.parentId);
     
-    let currentX = 0;
+    let currentX = this.origin.x;
     
     // Layout each root group and its children
     rootGroups.forEach((rootGroup, index) => {
@@ -93,13 +94,13 @@ export class SimpleDataLayoutService {
     
     const totalWidth = (nodeCount - 1) * this.nodeSpacing;
     let currentX = centerX - totalWidth / 2;
-    const y = level * this.levelHeight;
+    const y = this.origin.y + (level * this.levelHeight);
     
     group.nodes.forEach(node => {
       node.position = {
         x: currentX,
         y: y,
-        z: 0  // Keep all nodes on same Z plane for now
+        z: this.origin.z  // Use origin Z coordinate
       };
       
       currentX += this.nodeSpacing;
@@ -112,8 +113,8 @@ export class SimpleDataLayoutService {
   public applyCircularLayout(cluster: Cluster): void {
     cluster.groups.forEach((group, groupIndex) => {
       const baseRadius = 15;
-      const centerX = groupIndex * (baseRadius * 3);
-      const centerY = 20;
+      const centerX = this.origin.x + (groupIndex * (baseRadius * 3));
+      const centerY = this.origin.y;
       
       group.nodes.forEach((node, nodeIndex) => {
         const angle = (nodeIndex / group.nodes.size()) * math.pi * 2;
@@ -122,7 +123,7 @@ export class SimpleDataLayoutService {
         node.position = {
           x: centerX + math.cos(angle) * radius,
           y: centerY,
-          z: math.sin(angle) * radius
+          z: this.origin.z + math.sin(angle) * radius
         };
       });
     });

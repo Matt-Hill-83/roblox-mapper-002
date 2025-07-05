@@ -147,8 +147,8 @@ export class SimpleDataGeneratorService {
       color: this.nodeColors[nodeType],
       position: {
         x: 0,  // Will be calculated by layout algorithm
-        y: level * 10,  // Basic vertical spacing by level
-        z: 0
+        y: 0,  // Will be calculated by layout algorithm
+        z: 0   // Will be calculated by layout algorithm
       },
       attachmentNames: [
         `att001-${uuid}`,

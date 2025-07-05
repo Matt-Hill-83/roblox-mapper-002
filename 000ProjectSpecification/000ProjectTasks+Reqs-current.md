@@ -67,6 +67,11 @@
                 2. ⬛ [CLD1] R77.5.1.2.2: type property (e.g., cat, bird, dog)
         2. ⬛ [CLD1] R77.5.2: Include Owns, Wants, and Eats relationships
 
+41. ✅ [CLD1] R78: Simple Data Generator Layout Adjustments:
+
+    1. ✅ [CLD1] R78.1: The system shall set the origin point for the generated graph to coordinates (20, 20, 20)
+    2. ✅ [CLD1] R78.2: The system shall reduce node spacing by 50% from the current implementation
+
 ## Task List
 
 1.  ✅ Implementation Tasks
@@ -114,3 +119,9 @@
             3. ✅ [CLD1] T127.5.3: Create Owns, Wants, and Eats relationships
             4. ✅ [CLD1] T127.5.4: Store test data in separate file
             5. ✅ [CLD1] T127.5.5: Test the complete generator with sample data
+    128. ✅ [CLD1] T128: Simple Data Generator Layout Adjustments (R78)
+        1. ✅ [CLD1] T128.1: Set origin point to (20, 20, 20) for generated graph (R78.1)
+        2. ✅ [CLD1] T128.2: Reduce node spacing by 50% to 10 units (R78.2)
+        3. ✅ [CLD1] T128.3: Reduce group spacing by 50% to 25 units
+        4. ✅ [CLD1] T128.4: Update circular layout to use origin point
+        5. ✅ [CLD1] T128.5: Remove hardcoded Y position in node generation
