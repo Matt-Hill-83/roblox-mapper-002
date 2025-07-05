@@ -50,8 +50,8 @@ export class GameService {
     // Use actual data generator with swim lane positioning
     this.dataGeneratorRenderer.renderGeneratedData(this.myStuffFolder, {
       numLevel1Nodes: 1,
-      numLevel2Nodes: 6,
-      numLevel3Nodes: 12,
+      numLevel2Nodes: 1,
+      numLevel3Nodes: 1,
       childrenPerNode: 1,
       numNodeTypes: 3,
       numLinkTypes: 3,

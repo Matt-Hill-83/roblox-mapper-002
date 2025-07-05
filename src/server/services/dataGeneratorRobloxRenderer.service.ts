@@ -1,6 +1,7 @@
 import { SimpleDataGeneratorService } from "./dataGenerator/simpleDataGenerator.service";
 import { makeHexagon } from "../../shared/modules/hexagonMaker";
 import { Cluster, Node } from "../../shared/interfaces/simpleDataGenerator.interface";
+import { RopeLabelService } from "../../shared/modules/ropeLabelService";
 
 export class DataGeneratorRobloxRendererService {
   private dataGenerator = new SimpleDataGeneratorService();
@@ -229,29 +230,169 @@ export class DataGeneratorRobloxRendererService {
     });
     
     // Create links/ropes for relationships
+    let ropeIndex = 1;
     cluster.relations.forEach(link => {
       const sourceHex = nodeToHexagon.get(link.sourceNodeUuid);
       const targetHex = nodeToHexagon.get(link.targetNodeUuid);
       
       if (sourceHex && targetHex) {
-        // Find attachment points on hexagons
-        const sourceAttachment = sourceHex.FindFirstChild("Attachment", true) as Attachment;
-        const targetAttachment = targetHex.FindFirstChild("Attachment", true) as Attachment;
+        // Find center attachments - first try the expected pattern, then any att000 attachment
+        let sourceAttachment = this.findAttachmentRecursive(sourceHex, `att000-${sourceHex.Name}`);
+        if (!sourceAttachment) {
+          // Find any attachment starting with att000
+          for (const desc of sourceHex.GetDescendants()) {
+            if (desc.IsA("Attachment") && desc.Name.sub(1, 6) === "att000") {
+              sourceAttachment = desc as Attachment;
+              break;
+            }
+          }
+        }
+        
+        let targetAttachment = this.findAttachmentRecursive(targetHex, `att000-${targetHex.Name}`);
+        if (!targetAttachment) {
+          // Find any attachment starting with att000
+          for (const desc of targetHex.GetDescendants()) {
+            if (desc.IsA("Attachment") && desc.Name.sub(1, 6) === "att000") {
+              targetAttachment = desc as Attachment;
+              break;
+            }
+          }
+        }
         
         if (sourceAttachment && targetAttachment) {
           // Create a rope constraint
           const rope = new Instance("RopeConstraint");
-          rope.Name = `${link.type}_${link.uuid}`;
+          rope.Name = `rope${this.padNumber(ropeIndex, 3)}-${link.type.lower()}-${sourceHex.Name}-to-${targetHex.Name}`;
           rope.Attachment0 = sourceAttachment;
           rope.Attachment1 = targetAttachment;
+          // Make the rope a bit longer for sag
+          rope.Length = sourceAttachment.WorldPosition.sub(targetAttachment.WorldPosition).Magnitude * 1.1;
           rope.Visible = true;
-          rope.Color = new BrickColor(new Color3(link.color[0], link.color[1], link.color[2]));
-          rope.Thickness = 0.2;
-          rope.Parent = linksFolder;
+          rope.Color = this.getLinkBrickColor(link.type);
+          rope.Thickness = 0.4;
+          
+          // Parent the rope to the target's center cube
+          let targetCenterCube = targetHex.FindFirstChild("center");
+          if (!targetCenterCube) {
+            const children = targetHex.GetChildren();
+            for (const child of children) {
+              if (child.IsA("Part") && child.Name.find("centerCube-") !== undefined) {
+                targetCenterCube = child;
+                break;
+              }
+            }
+          }
+          rope.Parent = targetCenterCube || linksFolder;
+          
+          // Create rope label
+          const ropeLabelService = RopeLabelService.getInstance();
+          const relationName = `${this.getNodeName(sourceHex)}_${link.type}_${this.getNodeName(targetHex)}`;
+          
+          // Find the center cube of the target hexagon to parent the label to
+          let labelParent: Instance = linksFolder; // fallback
+          if (targetCenterCube) {
+            labelParent = targetCenterCube;
+          } else {
+            // Try to find center cube in source hexagon as fallback
+            let sourceCenterCube = sourceHex.FindFirstChild("center");
+            if (!sourceCenterCube) {
+              const sourceChildren = sourceHex.GetChildren();
+              for (const child of sourceChildren) {
+                if (child.IsA("Part") && child.Name.find("centerCube-") !== undefined) {
+                  sourceCenterCube = child;
+                  break;
+                }
+              }
+            }
+            if (sourceCenterCube) {
+              labelParent = sourceCenterCube;
+            }
+          }
+          
+          ropeLabelService.createLabel(
+            ropeIndex,
+            link.type,
+            sourceAttachment,
+            targetAttachment,
+            labelParent,  // Parent to center cube of one of the hexagons
+            relationName
+          );
+          
+          ropeIndex++;
         }
       }
     });
     
     print("✅ Data generation and rendering complete!");
+    print(`📊 Created ${nodeToHexagon.size()} hexagons and ${cluster.relations.size()} connections`);
+  }
+  
+  /**
+   * Find attachment recursively in a model
+   */
+  private findAttachmentRecursive(model: Instance, attachmentName: string): Attachment | undefined {
+    for (const desc of model.GetDescendants()) {
+      if (desc.IsA("Attachment") && desc.Name === attachmentName) {
+        return desc as Attachment;
+      }
+    }
+    return undefined;
+  }
+  
+  /**
+   * Pad number with leading zeros
+   */
+  private padNumber(num: number, length: number): string {
+    const str = tostring(num);
+    let result = str;
+    while (result.size() < length) {
+      result = "0" + result;
+    }
+    return result;
+  }
+  
+  /**
+   * Get BrickColor for link type
+   */
+  private getLinkBrickColor(linkType: string): BrickColor {
+    const linkColors: Record<string, BrickColor> = {
+      "Parent-Child": new BrickColor("Black"),
+      "Owns": new BrickColor("Brown"),
+      "Wants": new BrickColor("Bright violet"),
+      "Eats": new BrickColor("Bright yellow"),
+      "Link4": new BrickColor("Cyan"),
+      "Link5": new BrickColor("Bright red"),
+      "Link6": new BrickColor("Bright violet"),
+      "Link7": new BrickColor("Brown"),
+      "Link8": new BrickColor("Medium stone grey"),
+      "Link9": new BrickColor("Bright orange"),
+      "Link10": new BrickColor("Light blue")
+    };
+    return linkColors[linkType] || new BrickColor("Bright red");
+  }
+  
+  /**
+   * Get node name from hexagon model for label creation
+   */
+  private getNodeName(hexagon: Model): string {
+    // Try to find a text label inside the hexagon that contains the node name
+    const textLabels = hexagon.GetDescendants().filter(desc => 
+      desc.IsA("TextLabel") || desc.IsA("BillboardGui")
+    );
+    
+    if (textLabels.size() > 0) {
+      const firstLabel = textLabels[0];
+      if (firstLabel.IsA("TextLabel")) {
+        return firstLabel.Text;
+      } else if (firstLabel.IsA("BillboardGui")) {
+        const textLabel = firstLabel.FindFirstChildOfClass("TextLabel");
+        if (textLabel) {
+          return textLabel.Text;
+        }
+      }
+    }
+    
+    // Fallback to hexagon name
+    return hexagon.Name;
   }
 }
