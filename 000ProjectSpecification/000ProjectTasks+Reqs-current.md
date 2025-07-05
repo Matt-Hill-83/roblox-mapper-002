@@ -2,46 +2,20 @@
 
 ## Feature Documents
 
-- **Feature 001: Data Generator** 
-  - Summary: [001-Features/F001-DataGenerator/F001-Summary.md](001-Features/F001-DataGenerator/F001-Summary.md)
-  - Requirements: [001-Features/F001-DataGenerator/F001-Reqs.md](001-Features/F001-DataGenerator/F001-Reqs.md)
-  - Tasks: [001-Features/F001-DataGenerator/F001-Tasks.md](001-Features/F001-DataGenerator/F001-Tasks.md)
-  
-- **Feature 002: Configuration GUI**
-  - Summary: [001-Features/F002-ConfigGUI/F002-Summary.md](001-Features/F002-ConfigGUI/F002-Summary.md)
-  - Specification: [001-Features/F002-ConfigGUI/F002-Spec.md](001-Features/F002-ConfigGUI/F002-Spec.md)
-  - Requirements: [001-Features/F002-ConfigGUI/F002-Reqs.md](001-Features/F002-ConfigGUI/F002-Reqs.md)
-  - Tasks: [001-Features/F002-ConfigGUI/F002-Tasks.md](001-Features/F002-ConfigGUI/F002-Tasks.md)
++------+----------------------+-------+-----+----------+-----------------------------+
+| Num  | Feature Name         | Tasks | Done| Status   | Next Task                   |
++------+----------------------+-------+-----+----------+-----------------------------+
+| F001 | Data Generator       |   62  |  17 | In Prog  | T131.1.1: Add 10 names     |
+| F002 | Configuration GUI    |   20  |  20 | Complete | None                        |
+| F003 | Web App UI           |  155  | 155 | Complete | None                        |
+| F004 | Graph Optimization   |    7  |   7 | Complete | None                        |
+| F005 | Testing Framework    |    4  |   4 | Complete | None                        |
+| F006 | Code Refactoring     |   13  |  13 | Complete | None                        |
+| F007 | Roblox Graph         |   58  |  58 | Complete | None                        |
+| F008 | Console Demo         |   48  |  48 | Complete | None                        |
++------+----------------------+-------+-----+----------+-----------------------------+
 
-- **Feature 003: Web App UI Enhancements**
-  - Summary: [001-Features/F003-WebAppUI/F003-Summary.md](001-Features/F003-WebAppUI/F003-Summary.md)
-  - Requirements: [001-Features/F003-WebAppUI/F003-Reqs.md](001-Features/F003-WebAppUI/F003-Reqs.md)
-  - Tasks: [001-Features/F003-WebAppUI/F003-Tasks.md](001-Features/F003-WebAppUI/F003-Tasks.md)
-
-- **Feature 004: Graph Layout Optimization**
-  - Summary: [001-Features/F004-GraphOptimization/F004-Summary.md](001-Features/F004-GraphOptimization/F004-Summary.md)
-  - Requirements: [001-Features/F004-GraphOptimization/F004-Reqs.md](001-Features/F004-GraphOptimization/F004-Reqs.md)
-  - Tasks: [001-Features/F004-GraphOptimization/F004-Tasks.md](001-Features/F004-GraphOptimization/F004-Tasks.md)
-
-- **Feature 005: Testing Framework**
-  - Summary: [001-Features/F005-TestingFramework/F005-Summary.md](001-Features/F005-TestingFramework/F005-Summary.md)
-  - Requirements: [001-Features/F005-TestingFramework/F005-Reqs.md](001-Features/F005-TestingFramework/F005-Reqs.md)
-  - Tasks: [001-Features/F005-TestingFramework/F005-Tasks.md](001-Features/F005-TestingFramework/F005-Tasks.md)
-
-- **Feature 006: Code Refactoring**
-  - Summary: [001-Features/F006-CodeRefactoring/F006-Summary.md](001-Features/F006-CodeRefactoring/F006-Summary.md)
-  - Requirements: [001-Features/F006-CodeRefactoring/F006-Reqs.md](001-Features/F006-CodeRefactoring/F006-Reqs.md)
-  - Tasks: [001-Features/F006-CodeRefactoring/F006-Tasks.md](001-Features/F006-CodeRefactoring/F006-Tasks.md)
-
-- **Feature 007: Roblox Graph Creation**
-  - Summary: [001-Features/F007-RobloxGraphCreation/F007-Summary.md](001-Features/F007-RobloxGraphCreation/F007-Summary.md)
-  - Requirements: [001-Features/F007-RobloxGraphCreation/F007-Reqs.md](001-Features/F007-RobloxGraphCreation/F007-Reqs.md)
-  - Tasks: [001-Features/F007-RobloxGraphCreation/F007-Tasks.md](001-Features/F007-RobloxGraphCreation/F007-Tasks.md)
-
-- **Feature 008: Console Demo and Early Web Interface**
-  - Summary: [001-Features/F008-ConsoleDemo/F008-Summary.md](001-Features/F008-ConsoleDemo/F008-Summary.md)
-  - Requirements: [001-Features/F008-ConsoleDemo/F008-Reqs.md](001-Features/F008-ConsoleDemo/F008-Reqs.md)
-  - Tasks: [001-Features/F008-ConsoleDemo/F008-Tasks.md](001-Features/F008-ConsoleDemo/F008-Tasks.md)
+Feature Files: 001-Features/F00X-FeatureName/F00X-[Summary|Spec|Reqs|Tasks].md
 
 ## Requirements
 
