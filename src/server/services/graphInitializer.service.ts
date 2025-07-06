@@ -34,6 +34,11 @@ export class GraphInitializerService {
       layerSpacing: 4,
       nodeSpacing: 5,
       swimlaneSpacing: 2
+    },
+    visualization: {
+      showLinkLabels: false,
+      showConnectors: false,
+      allowSameLevelLinks: false
     }
   };
   

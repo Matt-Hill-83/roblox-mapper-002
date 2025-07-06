@@ -457,7 +457,8 @@ export class UnifiedDataRenderer {
     createRopeConnectors({
       cluster,
       nodeToHexagon,
-      linksFolder
+      linksFolder,
+      visualization: config?.visualization
     });
     
     print(`📊 Created ${nodeToHexagon.size()} hexagons and ${cluster.relations.size()} connections`);
@@ -731,7 +732,8 @@ export class UnifiedDataRenderer {
     createRopeConnectors({
       cluster,
       nodeToHexagon: updatedNodeToHexagon,
-      linksFolder
+      linksFolder,
+      visualization: newConfig.visualization
     });
     
     print(`📊 Updated ${allNodes.size()} nodes and ${allLinks.size()} connections`);

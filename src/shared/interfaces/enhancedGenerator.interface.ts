@@ -21,10 +21,18 @@ export interface SpacingConfig {
   swimlaneSpacing: number;
 }
 
+// Visualization control options
+export interface VisualizationOptions {
+  showLinkLabels: boolean;
+  showConnectors: boolean;
+  allowSameLevelLinks: boolean;
+}
+
 // Enhanced configuration that includes layers
 export interface EnhancedGeneratorConfig {
   numNodeTypes: number;
   numLinkTypes: number;
   layers: LayerConfig[];
   spacing?: SpacingConfig; // Optional for backward compatibility
+  visualization?: VisualizationOptions; // Optional for backward compatibility
 }

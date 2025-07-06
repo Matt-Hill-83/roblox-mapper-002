@@ -11,13 +11,14 @@
 import { Players } from "@rbxts/services";
 import { GUI_CONSTANTS } from "./constants";
 import { GUIState, EnhancedGeneratorConfig, ConfigGUIServiceOptions } from "./interfaces";
-import type { SpacingConfig } from "../../../shared/interfaces/enhancedGenerator.interface";
+import type { SpacingConfig, VisualizationOptions } from "../../../shared/interfaces/enhancedGenerator.interface";
 import { createMainFrame } from "./components/frame";
 import { createTitle } from "./components/title";
 import { createGlobalSettings } from "./components/globalSettings";
 import { createNodeTypesSection } from "./components/nodeTypesSection";
 import { createLayerGrid } from "./components/layerGrid";
 import { createStatusArea, updateStatus } from "./components/status";
+import { createVisualizationControls } from "./components/visualizationControls";
 
 export class ConfigGUIService {
   private state: GUIState;
@@ -46,13 +47,21 @@ export class ConfigGUIService {
       swimlaneSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.SWIMLANE_SPACING
     };
     
+    // Initialize visualization options with defaults
+    const defaultVisualization: VisualizationOptions = {
+      showLinkLabels: false,
+      showConnectors: false,
+      allowSameLevelLinks: false
+    };
+    
     this.state = {
       isVisible: false,
       enhancedConfig: options.initialConfig || {
         numNodeTypes: 3,
         numLinkTypes: 3,
         layers: [],
-        spacing: defaultSpacing
+        spacing: defaultSpacing,
+        visualization: defaultVisualization
       },
       layerRows: []
     };
@@ -60,6 +69,11 @@ export class ConfigGUIService {
     // Ensure spacing is always defined
     if (!this.state.enhancedConfig.spacing) {
       this.state.enhancedConfig.spacing = defaultSpacing;
+    }
+    
+    // Ensure visualization is always defined
+    if (!this.state.enhancedConfig.visualization) {
+      this.state.enhancedConfig.visualization = defaultVisualization;
     }
     
     this.onEnhancedConfigChange = options.onEnhancedConfigChange;
@@ -145,6 +159,22 @@ export class ConfigGUIService {
 
     // Create action buttons
     this.createActionButtons();
+
+    // Create visualization controls (positioned to the right of buttons)
+    createVisualizationControls({
+      parent: this.state.configFrame,
+      visualization: this.state.enhancedConfig.visualization!,
+      onVisualizationChange: (field, value) => {
+        if (this.state.enhancedConfig.visualization) {
+          this.state.enhancedConfig.visualization[field] = value;
+          this.updateStatus(`Visualization option "${field}" changed`);
+          // Trigger immediate update without regeneration
+          if (this.onEnhancedConfigChange) {
+            this.onEnhancedConfigChange(this.state.enhancedConfig);
+          }
+        }
+      }
+    });
 
     // Create status area
     this.state.statusLabel = createStatusArea({
@@ -295,6 +325,13 @@ export class ConfigGUIService {
       layerSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.LAYER_SPACING,
       nodeSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_SPACING,
       swimlaneSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.SWIMLANE_SPACING
+    };
+    
+    // Reset visualization options to defaults
+    this.state.enhancedConfig.visualization = {
+      showLinkLabels: false,
+      showConnectors: false,
+      allowSameLevelLinks: false
     };
     
     // Recreate the UI

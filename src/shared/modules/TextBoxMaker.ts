@@ -40,10 +40,6 @@ export function createTextBox({
   textBox.TextWrapped = true; // Allow wrapping in addition to scaling
   textBox.Parent = surfaceGui;
 
-  print(
-    `✅ Created TextBox with text "${text}" on ${face.Name} face of ${part.Name}`
-  );
-
   return textBox;
 }
 
@@ -96,10 +92,6 @@ export function createTextBoxWithCustomStyling({
   textBox.BorderMode = Enum.BorderMode.Inset; // Keep border inside bounds
   textBox.TextWrapped = textWrapped;
   textBox.Parent = surfaceGui;
-
-  print(
-    `✅ Created styled TextBox with text "${text}" on ${face.Name} face of ${part.Name}`
-  );
 
   return textBox;
 }

@@ -81,9 +81,9 @@
 
 ## R6: Visualization Control Checkboxes
 
-1. 🔲 [CLD6] R6.1: The GUI shall include a checkbox section for visualization controls
-2. 🔲 [CLD6] R6.2: The section shall include the following checkboxes:
-   1. 🔲 [CLD6] R6.2.1: "Show link labels" checkbox (default: unchecked/false)
-   2. 🔲 [CLD6] R6.2.2: "Show connectors" checkbox (default: unchecked/false)
-   3. 🔲 [CLD6] R6.2.3: "Allow same level links" checkbox (default: unchecked/false)
-3. 🔲 [CLD6] R6.3: Changes to checkbox states shall update the visualization immediately without requiring regeneration
+1. ✅ [CLD6] R6.1: The GUI shall include a checkbox section for visualization controls
+2. ✅ [CLD6] R6.2: The section shall include the following checkboxes:
+   1. ✅ [CLD6] R6.2.1: "Show link labels" checkbox (default: unchecked/false)
+   2. ✅ [CLD6] R6.2.2: "Show connectors" checkbox (default: unchecked/false)
+   3. ✅ [CLD6] R6.2.3: "Allow same level links" checkbox (default: unchecked/false)
+3. ✅ [CLD6] R6.3: Changes to checkbox states shall update the visualization immediately without requiring regeneration

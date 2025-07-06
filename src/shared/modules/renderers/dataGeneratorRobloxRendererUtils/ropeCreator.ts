@@ -6,18 +6,31 @@ import { Cluster, Link } from "../../../interfaces/simpleDataGenerator.interface
 import { createRopeLabel as createRopeLabelFromMaker } from "../../ropeLabelMaker/ropeLabelMaker";
 import { RENDERER_CONSTANTS } from "./constants";
 import { padNumber } from "../../../utils/stringUtils";
+import { VisualizationOptions } from "../../../interfaces/enhancedGenerator.interface";
 
 interface RopeCreationContext {
   cluster: Cluster;
   nodeToHexagon: Map<string, Model>;
   linksFolder: Folder;
+  visualization?: VisualizationOptions;
 }
 
 /**
  * Creates rope connectors between hexagons based on relationships
  */
 export function createRopeConnectors(context: RopeCreationContext): void {
-  const { cluster, nodeToHexagon, linksFolder } = context;
+  const { cluster, nodeToHexagon, linksFolder, visualization } = context;
+  
+  // Check if connectors should be shown
+  const showConnectors = visualization?.showConnectors ?? false;
+  const showLinkLabels = visualization?.showLinkLabels ?? false;
+  const allowSameLevelLinks = visualization?.allowSameLevelLinks ?? false;
+  
+  // Early return if connectors are disabled
+  if (!showConnectors) {
+    return;
+  }
+  
   let ropeIndex = 1;
   
   cluster.relations.forEach(link => {
@@ -25,6 +38,16 @@ export function createRopeConnectors(context: RopeCreationContext): void {
     const targetHex = nodeToHexagon.get(link.targetNodeUuid);
     
     if (sourceHex && targetHex) {
+      // Check if this is a same-level link
+      const sourceLevel = getNodeLevel(sourceHex);
+      const targetLevel = getNodeLevel(targetHex);
+      const isSameLevelLink = sourceLevel === targetLevel;
+      
+      // Skip same-level links if not allowed
+      if (isSameLevelLink && !allowSameLevelLinks) {
+        return;
+      }
+      
       // Find center attachments
       const sourceAttachment = findCenterAttachment(sourceHex);
       const targetAttachment = findCenterAttachment(targetHex);
@@ -37,21 +60,31 @@ export function createRopeConnectors(context: RopeCreationContext): void {
         const targetCenterCube = findCenterCube(targetHex);
         rope.Parent = targetCenterCube || linksFolder;
         
-        // Create rope label
-        createRopeLabel(
-          sourceHex, 
-          targetHex, 
-          link, 
-          sourceAttachment, 
-          targetAttachment, 
-          targetCenterCube || findCenterCube(sourceHex) || linksFolder,
-          ropeIndex
-        );
+        // Create rope label only if showLinkLabels is true
+        if (showLinkLabels) {
+          createRopeLabel(
+            sourceHex, 
+            targetHex, 
+            link, 
+            sourceAttachment, 
+            targetAttachment, 
+            targetCenterCube || findCenterCube(sourceHex) || linksFolder,
+            ropeIndex
+          );
+        }
         
         ropeIndex++;
       }
     }
   });
+}
+
+/**
+ * Gets the level/layer of a node from its name
+ */
+function getNodeLevel(hexagon: Model): number {
+  const match = hexagon.Name.match("Hexagon_L(\\d+)_N\\d+");
+  return match ? tonumber(match[1]) || 1 : 1;
 }
 
 /**
