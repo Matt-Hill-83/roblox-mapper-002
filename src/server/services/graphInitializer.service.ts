@@ -9,31 +9,15 @@ export class GraphInitializerService {
   private configGUIServer?: unknown;
   
   private readonly DEFAULT_CONFIG: EnhancedGeneratorConfig = {
-    numNodeTypes: 3,
-    numLinkTypes: 2,
-    layers: [
-      {
-        layerNumber: 1,
-        numNodes: 3,
-        connectionsPerNode: 2,
-        nodeType: "Type A",
-        linkType: "Link A"
-      },
-      {
-        layerNumber: 2,
-        numNodes: 6,
-        connectionsPerNode: 3,
-        nodeType: "Type B",
-        linkType: "Link B"
-      },
-      {
-        layerNumber: 3,
-        numNodes: 9,
-        connectionsPerNode: 1,
-        nodeType: "Type C",
-        linkType: "Link A"
-      }
-    ]
+    numNodeTypes: 1,
+    numLinkTypes: 1,
+    layers: [{
+      layerNumber: 1,
+      numNodes: 1,
+      connectionsPerNode: 0,
+      nodeType: "Type A",
+      linkType: "Link A"
+    }]
   };
   
   private readonly DEFAULT_POSITION = { x: 0, y: 0, z: 0 };
