@@ -28,8 +28,8 @@
    1. ✅ [CLD3] R2.4.1: Layer number (read-only, auto-generated)
    2. ✅ [CLD3] R2.4.2: Number of nodes text input field
    3. ✅ [CLD3] R2.4.3: Connections per node text input field
-   4. ✅ [CLD3] R2.4.4: Node Type dropdown selector
-   5. ✅ [CLD3] R2.4.5: Link Type dropdown selector
+   4. ✅ [CLD4] R2.4.4: ~~Node Type dropdown selector~~ (Removed - types distributed automatically)
+   5. ✅ [CLD4] R2.4.5: ~~Link Type dropdown selector~~ (Removed - types distributed automatically)
    6. ✅ [CLD3] R2.4.6: Delete button [X] to remove the layer
 5. ✅ [CLD3] R2.5: The GUI shall include action buttons:
    1. ✅ [CLD3] R2.5.1: "Regenerate" button to apply configuration and rebuild visualization
@@ -40,34 +40,34 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│ Configuration GUI                                          [X]  │
+│ Generator Configuration                                    [X]  │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│ Global Settings (R1 - Original Features)                        │
+│ Global Settings                                                 │
 │ ┌─────────────────────────────────────────────────────────┐   │
-│ │ Number of Node Types:  [3    ▼]                          │   │
-│ │ Number of Link Types:  [3    ▼]                          │   │
+│ │ Number of Node Types:  [2    ▼]                          │   │
+│ │ Number of Link Types:  [2    ▼]                          │   │
 │ └─────────────────────────────────────────────────────────┘   │
 │                                                                 │
-│ Layer Configuration (R2 - New Features)                              │
-│ ┌──────────────────────────────────────────────────────────────┐   │
-│ │ Layer │ # Nodes │ Connections │ Node Type │ Link Type  │ Del │   │
-│ │       │         │  per Node   │           │            │     │   │
-│ ├───────┼─────────┼─────────────┼───────────┼────────────┼─────┤   │
-│ │   1   │ [1    ] │ [2       ]  │ [Type A▼] │ [Parent ▼] │ [X] │   │
-│ ├───────┼─────────┼─────────────┼───────────┼────────────┼─────┤   │
-│ │   2   │ [1    ] │ [3       ]  │ [Type B▼] │ [Child  ▼] │ [X] │   │
-│ ├───────┼─────────┼─────────────┼───────────┼────────────┼─────┤   │
-│ │   3   │ [5    ] │ [1       ]  │ [Type C▼] │ [Sibling▼] │ [X] │   │
-│ ├───────┼─────────┼─────────────┼───────────┼────────────┼─────┤   │
-│ │  [+] Add Layer                                                 │   │
-│ └──────────────────────────────────────────────────────────────┘   │
+│ ┌──────────────────────────────────────────────────────────┐   │
+│ │ Layer │ # Nodes │ Connections/Node │ Del                 │   │
+│ ├───────┼─────────┼──────────────────┼─────────────────────┤   │
+│ │   1   │ [3    ] │ [2            ]  │ [X]                 │   │
+│ ├───────┼─────────┼──────────────────┼─────────────────────┤   │
+│ │   2   │ [6    ] │ [3            ]  │ [X]                 │   │
+│ ├───────┼─────────┼──────────────────┼─────────────────────┤   │
+│ │   3   │ [9    ] │ [1            ]  │ [X]                 │   │
+│ ├───────┼─────────┼──────────────────┼─────────────────────┤   │
+│ │   4   │ [12   ] │ [2            ]  │ [X]                 │   │
+│ └──────────────────────────────────────────────────────────┘   │
+│                                                                 │
+│ [+] Add Layer                                                   │
 │                                                                 │
 │ ┌─────────────────┐  ┌─────────────────┐                      │
 │ │   Regenerate    │  │     Clear       │                      │
 │ └─────────────────┘  └─────────────────┘                      │
 │                                                                 │
-│ Status: Ready                                                   │
+│ Status: Regeneration complete                                   │
 └─────────────────────────────────────────────────────────────────┘
 
 Legend:
@@ -76,4 +76,7 @@ Legend:
 - [X] = Delete button for removing a layer
 - [+] Add Layer = Button to add a new layer row
 - Layer numbers are auto-generated
-```
+
+Note: Node Type and Link Type columns have been removed from the layer 
+configuration grid. The system now automatically distributes node and 
+link types based on the global settings.
