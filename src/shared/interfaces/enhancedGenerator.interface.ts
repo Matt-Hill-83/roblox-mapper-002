@@ -27,6 +27,7 @@ export interface VisualizationOptions {
   showLinkLabels: boolean;
   showConnectors: boolean;
   allowSameLevelLinks: boolean;
+  randomZOffset: boolean;
 }
 
 // Enhanced configuration that includes layers

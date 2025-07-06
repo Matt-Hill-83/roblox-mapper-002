@@ -16,11 +16,11 @@ interface SpacingField {
 }
 
 const SPACING_FIELDS: SpacingField[] = [
-  { label: "Node Height:", field: "nodeHeight", min: 1, max: 100, default: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_HEIGHT },
-  { label: "Node Radius:", field: "nodeRadius", min: 0.5, max: 20, default: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_RADIUS },
-  { label: "Layer Spacing:", field: "layerSpacing", min: 1, max: 200, default: GUI_CONSTANTS.SPACING_DEFAULTS.LAYER_SPACING },
-  { label: "Node Spacing:", field: "nodeSpacing", min: 1, max: 100, default: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_SPACING },
-  { label: "Swimlane Spacing:", field: "swimlaneSpacing", min: 1, max: 100, default: GUI_CONSTANTS.SPACING_DEFAULTS.SWIMLANE_SPACING },
+  { label: "Node Height:", field: "nodeHeight", min: 0.1, max: 100, default: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_HEIGHT },
+  { label: "Node Radius:", field: "nodeRadius", min: 0.1, max: 20, default: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_RADIUS },
+  { label: "Layer Spacing:", field: "layerSpacing", min: 0.1, max: 200, default: GUI_CONSTANTS.SPACING_DEFAULTS.LAYER_SPACING },
+  { label: "Node Spacing:", field: "nodeSpacing", min: 0.1, max: 100, default: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_SPACING },
+  { label: "Swimlane Spacing:", field: "swimlaneSpacing", min: 0.1, max: 100, default: GUI_CONSTANTS.SPACING_DEFAULTS.SWIMLANE_SPACING },
   { label: "Link Diameter:", field: "linkDiameter", min: 0.1, max: 10, default: GUI_CONSTANTS.SPACING_DEFAULTS.LINK_DIAMETER }
 ];
 
@@ -71,10 +71,9 @@ export function createSpacingControls({
     input.FocusLost.Connect(() => {
       const value = tonumber(input.Text);
       if (value && value >= fieldDef.min && value <= fieldDef.max) {
-        // For decimal fields like nodeRadius and linkDiameter, keep decimal precision
-        const finalValue = (fieldDef.field === "nodeRadius" || fieldDef.field === "linkDiameter") ? value : math.floor(value);
-        onSpacingChange(fieldDef.field, finalValue);
-        input.Text = tostring(finalValue);
+        // Keep decimal precision for all fields now that minimum is 0.1
+        onSpacingChange(fieldDef.field, value);
+        input.Text = tostring(value);
       } else {
         // Revert to current value
         input.Text = tostring(spacing[fieldDef.field]);

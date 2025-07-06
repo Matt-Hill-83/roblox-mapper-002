@@ -26,9 +26,14 @@
 
 ## R7: GUI Improvements
 
-1. 🔲 [CLD7] R7.1: The GUI shall include an input field for link diameter control
-2. 🔲 [CLD7] R7.2: The minimum value for all numeric input fields shall be 0.1
-3. 🔲 [CLD7] R7.3: The GUI shall include a "Rand X" checkbox that gives each node a 50% chance of having their X value offset by 20 units when created
+1. ✅ [CLD7] R7.1: The GUI shall include an input field for link diameter control
+2. ✅ [CLD7] R7.2: The minimum value for all numeric input fields shall be 0.1
+3. ✅ [CLD7] R7.3: The GUI shall include a "Rand Z" checkbox that gives each node a 50% chance of having their Z value offset by 20 units when created
 
-- set show link labels to false
-- same layer links to false
+## R8: Default Value Updates
+
+1. ✅ [CLD8] R8.1: The default value for "Show link labels" checkbox shall be false
+2. ✅ [CLD8] R8.2: The default value for "Create same-layer links" checkbox shall be false
+3. ✅ [CLD8] R8.3: The minimum value for Node Height shall be 0.1
+
+- link types are not displaying correct colors. they are all red

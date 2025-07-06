@@ -14,9 +14,10 @@ interface CheckboxField {
 }
 
 const CHECKBOX_FIELDS: CheckboxField[] = [
-  { label: "Show link labels", field: "showLinkLabels", default: true },
+  { label: "Show link labels", field: "showLinkLabels", default: false },
   { label: "Show connectors", field: "showConnectors", default: true },
-  { label: "Create same-layer links", field: "allowSameLevelLinks", default: true }
+  { label: "Create same-layer links", field: "allowSameLevelLinks", default: false },
+  { label: "Rand Z", field: "randomZOffset", default: false }
 ];
 
 export function createVisualizationControls({
@@ -27,9 +28,9 @@ export function createVisualizationControls({
   // Create container that will be positioned inline with buttons
   const container = new Instance("Frame");
   container.Name = "VisualizationControls";
-  container.Size = new UDim2(0, 200, 0, 100);
+  container.Size = new UDim2(0, 200, 0, 120);
   // Position to the right of the buttons
-  container.Position = new UDim2(1, -210, 1, -110);
+  container.Position = new UDim2(1, -210, 1, -130);
   container.BackgroundColor3 = new Color3(0.15, 0.15, 0.15);
   container.BorderSizePixel = 0;
   container.Parent = parent;

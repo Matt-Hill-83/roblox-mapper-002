@@ -407,7 +407,24 @@ export class UnifiedDataRenderer {
           const centeringOffset = (laneWidth - nodesWidth) / 2;
           
           const x = baseX + centeringOffset + index * COLUMN_SPACING;
-          const z = 0;
+          let z = 0;
+          
+          // Apply random Z offset if enabled
+          if (config.visualization?.randomZOffset) {
+            // Use node UUID as seed for deterministic randomness
+            let seed = 0;
+            for (let i = 0; i < node.uuid.size(); i++) {
+              seed += string.byte(node.uuid, i + 1)[0];
+            }
+            math.randomseed(seed);
+            
+            // 50% chance to offset
+            if (math.random() < 0.5) {
+              // 50% chance for +20 or -20
+              const offsetDirection = math.random() < 0.5 ? -1 : 1;
+              z += offsetDirection * 20;
+            }
+          }
           
           // Update node position
           node.position = { x, y: layerY, z };

@@ -50,9 +50,10 @@ export class ConfigGUIService {
     
     // Initialize visualization options with defaults
     const defaultVisualization: VisualizationOptions = {
-      showLinkLabels: true,
+      showLinkLabels: false,
       showConnectors: true,
-      allowSameLevelLinks: true
+      allowSameLevelLinks: false,
+      randomZOffset: false
     };
     
     this.state = {
@@ -331,9 +332,10 @@ export class ConfigGUIService {
     
     // Reset visualization options to defaults
     this.state.enhancedConfig.visualization = {
-      showLinkLabels: true,
+      showLinkLabels: false,
       showConnectors: true,
-      allowSameLevelLinks: true
+      allowSameLevelLinks: false,
+      randomZOffset: false
     };
     
     // Recreate the UI

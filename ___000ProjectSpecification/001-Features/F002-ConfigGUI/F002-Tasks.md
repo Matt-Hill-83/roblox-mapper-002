@@ -145,3 +145,42 @@
 - Will need custom implementation using UserInputService
 - Consider visual focus indicators for current field
 - Test with dynamically added/removed layer rows
+
+## T158: Update Default Checkbox Values
+
+**Status**: COMPLETED
+**Priority**: High
+**Description**: Update default values for visualization checkboxes to false
+
+### Tasks:
+
+1. ✅ [CLD8] T158.1: Update showLinkLabels default to false
+   1. ✅ [CLD8] T158.1.1: Update default in makeConfigGui.ts
+   2. ✅ [CLD8] T158.1.2: Update default in graphInitializer.service.ts
+   3. ✅ [CLD8] T158.1.3: Update checkbox field default in visualizationControls.ts
+
+2. ✅ [CLD8] T158.2: Update allowSameLevelLinks default to false
+   1. ✅ [CLD8] T158.2.1: Update default in makeConfigGui.ts
+   2. ✅ [CLD8] T158.2.2: Update default in graphInitializer.service.ts
+   3. ✅ [CLD8] T158.2.3: Update checkbox field default in visualizationControls.ts
+
+### Technical Notes:
+- Ensure all places where defaults are defined are updated
+- Test that new graphs start with these checkboxes unchecked
+
+## T159: Update Node Height Minimum Value
+
+**Status**: COMPLETED
+**Priority**: Medium
+**Description**: Change the minimum value for Node Height from 1 to 0.1
+
+### Tasks:
+
+1. ✅ [CLD8] T159.1: Update Node Height minimum in spacingControls.ts
+   1. ✅ [CLD8] T159.1.1: Change min value from 1 to 0.1 in SPACING_FIELDS array
+   2. ✅ [CLD8] T159.1.2: Updated all spacing fields to have min value of 0.1 and allow decimal precision
+
+### Technical Notes:
+- This allows for much smaller nodes
+- May need to test rendering with very small values
+- Consider impact on label visibility with small nodes
