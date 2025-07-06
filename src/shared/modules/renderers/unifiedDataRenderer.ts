@@ -358,17 +358,21 @@ export class UnifiedDataRenderer {
    * Renders the cluster with positioned nodes
    */
   private renderCluster(cluster: Cluster, parentFolder: Folder): void {
-    // Clear existing visualization
-    parentFolder.GetChildren().forEach(child => {
-      if (child.Name !== "OriginBlock") {
-        child.Destroy();
-      }
-    });
+    // Look for existing GraphMaker folder and delete it
+    const existingGraphMaker = parentFolder.FindFirstChild("GraphMaker");
+    if (existingGraphMaker) {
+      existingGraphMaker.Destroy();
+    }
 
-    // Create folder structure
+    // Create GraphMaker folder
+    const graphMakerFolder = new Instance("Folder");
+    graphMakerFolder.Name = "GraphMaker";
+    graphMakerFolder.Parent = parentFolder;
+
+    // Create folder structure inside GraphMaker
     const clusterFolder = new Instance("Folder");
     clusterFolder.Name = "UnifiedDataCluster";
-    clusterFolder.Parent = parentFolder;
+    clusterFolder.Parent = graphMakerFolder;
     
     const nodesFolder = new Instance("Folder");
     nodesFolder.Name = "Nodes";

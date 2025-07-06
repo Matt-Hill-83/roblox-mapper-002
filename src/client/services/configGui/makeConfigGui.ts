@@ -20,6 +20,7 @@ import { createStatusArea, updateStatus } from "./components/status";
 export class ConfigGUIService {
   private state: GUIState;
   private onEnhancedConfigChange?: (config: EnhancedGeneratorConfig) => void;
+  private onClearRequest?: () => void;
 
   constructor(options: ConfigGUIServiceOptions) {
     print("🏗️ ConfigGUIService constructor called");
@@ -44,6 +45,7 @@ export class ConfigGUIService {
     };
     
     this.onEnhancedConfigChange = options.onEnhancedConfigChange;
+    this.onClearRequest = options.onClearRequest;
   }
 
   /**
@@ -206,6 +208,11 @@ export class ConfigGUIService {
    * Handles clear button click
    */
   private onClearClick(): void {
+    // Send clear request to server to delete GraphMaker folder
+    if (this.onClearRequest) {
+      this.onClearRequest();
+    }
+    
     // Clear all layers
     this.state.enhancedConfig.layers = [];
     
@@ -219,7 +226,7 @@ export class ConfigGUIService {
     }
     
     this.createGUI();
-    this.updateStatus("Configuration cleared");
+    this.updateStatus("Configuration and graph cleared");
   }
 
   /**

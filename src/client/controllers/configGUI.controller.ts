@@ -51,6 +51,7 @@ export class ConfigGUIController {
               this.guiService = new ConfigGUIService({
                 onEnhancedConfigChange: (config) =>
                   this.onEnhancedConfigChange(config),
+                onClearRequest: () => this.onClearRequest(),
                 initialConfig: enhancedConfig,
               });
               this.guiService.createGUI();
@@ -87,6 +88,16 @@ export class ConfigGUIController {
     if (this.remoteEvent) {
       print("📤 Sending enhanced regenerate request to server...");
       this.remoteEvent.FireServer("regenerateEnhanced", config);
+    }
+  }
+
+  /**
+   * Handles clear request from the GUI
+   */
+  private onClearRequest(): void {
+    if (this.remoteEvent) {
+      print("🗑️ Sending clear request to server...");
+      this.remoteEvent.FireServer("clearGraph");
     }
   }
 

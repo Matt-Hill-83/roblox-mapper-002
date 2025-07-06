@@ -5,6 +5,7 @@ export { LayerConfig, EnhancedGeneratorConfig };
 
 export interface ConfigGUIServiceOptions {
   onEnhancedConfigChange?: (config: EnhancedGeneratorConfig) => void;
+  onClearRequest?: () => void;
   position?: UDim2;
   initialConfig?: EnhancedGeneratorConfig;
 }

@@ -49,6 +49,18 @@ export class ConfigGUIServerService {
           // Send error response
           this.remoteEvent.FireClient(player, "regenerateError", "Invalid enhanced configuration");
         }
+      } else if (eventType === "clearGraph") {
+        print(`🗑️ Received clear graph request from ${player.Name}`);
+        
+        // Delete the GraphMaker folder
+        const graphMakerFolder = this.myStuffFolder.FindFirstChild("GraphMaker");
+        if (graphMakerFolder) {
+          graphMakerFolder.Destroy();
+          print("✅ GraphMaker folder deleted");
+        }
+        
+        // Send success response
+        this.remoteEvent.FireClient(player, "clearSuccess");
       }
     });
   }
