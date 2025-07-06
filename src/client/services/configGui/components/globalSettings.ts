@@ -57,7 +57,7 @@ export function createGlobalSettings({
     nodeTypeItems.push(tostring(i));
   }
 
-  createDropdown({
+  const nodeDropdown = createDropdown({
     parent: container,
     position: new UDim2(0, 165, 0, 35),
     size: new UDim2(0, 80, 0, 25),
@@ -70,6 +70,17 @@ export function createGlobalSettings({
       }
     }
   });
+
+  // Add dropdown arrow indicator
+  const nodeArrow = new Instance("TextLabel");
+  nodeArrow.Size = new UDim2(0, 20, 1, 0);
+  nodeArrow.Position = new UDim2(1, -25, 0, 0);
+  nodeArrow.BackgroundTransparency = 1;
+  nodeArrow.Font = GUI_CONSTANTS.TYPOGRAPHY.LABEL_FONT;
+  nodeArrow.Text = "▼";
+  nodeArrow.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
+  nodeArrow.TextScaled = true;
+  nodeArrow.Parent = nodeDropdown;
 
   // Link types setting
   const linkTypesLabel = new Instance("TextLabel");
@@ -88,7 +99,7 @@ export function createGlobalSettings({
     linkTypeItems.push(tostring(i));
   }
 
-  createDropdown({
+  const linkDropdown = createDropdown({
     parent: container,
     position: new UDim2(0, 435, 0, 35),
     size: new UDim2(0, 80, 0, 25),
@@ -101,6 +112,17 @@ export function createGlobalSettings({
       }
     }
   });
+
+  // Add dropdown arrow indicator
+  const linkArrow = new Instance("TextLabel");
+  linkArrow.Size = new UDim2(0, 20, 1, 0);
+  linkArrow.Position = new UDim2(1, -25, 0, 0);
+  linkArrow.BackgroundTransparency = 1;
+  linkArrow.Font = GUI_CONSTANTS.TYPOGRAPHY.LABEL_FONT;
+  linkArrow.Text = "▼";
+  linkArrow.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
+  linkArrow.TextScaled = true;
+  linkArrow.Parent = linkDropdown;
 
   return container;
 }

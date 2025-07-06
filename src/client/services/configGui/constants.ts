@@ -59,7 +59,7 @@ export const GUI_CONSTANTS = {
   
   // Enhanced mode configuration
   ENHANCED: {
-    GLOBAL_SETTINGS_HEIGHT: 80,
+    GLOBAL_SETTINGS_HEIGHT: 110,
     GRID_HEADER_HEIGHT: 30,
     GRID_ROW_HEIGHT: 30,
     GRID_PADDING: 10,

@@ -1,6 +1,5 @@
 import { GUI_CONSTANTS } from "../constants";
 import { LayerConfig } from "../interfaces";
-import { createDropdown } from "./dropdown";
 
 interface LayerGridProps {
   parent: Frame;
@@ -160,8 +159,6 @@ function createGridHeader(parent: Frame): Frame {
     { text: "Layer", width: GUI_CONSTANTS.ENHANCED.COLUMN_WIDTHS.LAYER },
     { text: "# Nodes", width: GUI_CONSTANTS.ENHANCED.COLUMN_WIDTHS.NODES },
     { text: "Connections/Node", width: GUI_CONSTANTS.ENHANCED.COLUMN_WIDTHS.CONNECTIONS },
-    { text: "Node Type", width: GUI_CONSTANTS.ENHANCED.COLUMN_WIDTHS.NODE_TYPE },
-    { text: "Link Type", width: GUI_CONSTANTS.ENHANCED.COLUMN_WIDTHS.LINK_TYPE },
     { text: "Del", width: GUI_CONSTANTS.ENHANCED.COLUMN_WIDTHS.DELETE }
   ];
 
@@ -260,34 +257,6 @@ function createLayerRow({
   const connectionsCorner = new Instance("UICorner");
   connectionsCorner.CornerRadius = new UDim(0, 4);
   connectionsCorner.Parent = connectionsInput;
-
-  // Node type dropdown
-  createDropdown({
-    parent: row,
-    position: new UDim2(0, xOffset, 0, 2),
-    size: new UDim2(0, GUI_CONSTANTS.ENHANCED.COLUMN_WIDTHS.NODE_TYPE, 1, -4),
-    items: nodeTypes,
-    defaultValue: config.nodeType,
-    onChange: (value) => {
-      config.nodeType = value;
-      onUpdate(config);
-    }
-  });
-  xOffset += GUI_CONSTANTS.ENHANCED.COLUMN_WIDTHS.NODE_TYPE + 5;
-
-  // Link type dropdown
-  createDropdown({
-    parent: row,
-    position: new UDim2(0, xOffset, 0, 2),
-    size: new UDim2(0, GUI_CONSTANTS.ENHANCED.COLUMN_WIDTHS.LINK_TYPE, 1, -4),
-    items: linkTypes,
-    defaultValue: config.linkType,
-    onChange: (value) => {
-      config.linkType = value;
-      onUpdate(config);
-    }
-  });
-  xOffset += GUI_CONSTANTS.ENHANCED.COLUMN_WIDTHS.LINK_TYPE + 5;
 
   // Delete button
   const deleteButton = new Instance("TextButton");

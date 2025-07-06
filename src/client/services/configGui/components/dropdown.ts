@@ -25,7 +25,7 @@ export function createDropdown({
   dropdown.BackgroundColor3 = GUI_CONSTANTS.COLORS.BUTTON.DEFAULT;
   dropdown.BorderSizePixel = 0;
   dropdown.Font = GUI_CONSTANTS.TYPOGRAPHY.INPUT_FONT;
-  dropdown.Text = defaultValue + " ▼";
+  dropdown.Text = defaultValue;
   dropdown.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
   dropdown.TextScaled = true;
   dropdown.Parent = parent;
@@ -89,7 +89,7 @@ export function createDropdown({
 
     // Click handler
     itemButton.MouseButton1Click.Connect(() => {
-      dropdown.Text = item + " ▼";
+      dropdown.Text = item;
       listFrame.Visible = false;
       onChange(item);
     });
