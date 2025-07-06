@@ -1,6 +1,5 @@
 import { TestSimpleDataGeneratorService } from "../testSimpleDataGenerator.service";
 import { ConfigGUIServerService } from "../configGUIServer.service";
-import { DataGeneratorRobloxRenderer } from "../../../shared/modules/renderers/dataGeneratorRobloxRenderer";
 import { makeOriginBlock } from "../../../shared/modules/makeOriginBlock";
 
 // Origin configuration for 3D positioning
@@ -12,7 +11,6 @@ const ORIGIN = {
 
 export class GameService {
   private testSimpleDataGenerator = new TestSimpleDataGeneratorService();
-  private dataGeneratorRenderer = new DataGeneratorRobloxRenderer();
   private configGUIServer?: ConfigGUIServerService;
   private myStuffFolder!: Folder;
   private gameStarted = false; // Flag to prevent duplicate initialization
@@ -36,17 +34,8 @@ export class GameService {
       this.myStuffFolder.Parent = game.Workspace;
     }
 
-    // Use actual data generator with swim lane positioning
-    if (true) {
-      this.dataGeneratorRenderer.renderGeneratedData(this.myStuffFolder, {
-        numLevel1Nodes: 1,
-        numLevel2Nodes: 1,
-        numLevel3Nodes: 5,
-        childrenPerNode: 1,
-        numNodeTypes: 3,
-        numLinkTypes: 3,
-      });
-    }
+    // Skip initial data generation - let user generate via GUI
+    // The GUI starts in enhanced mode with its own configuration
 
     // Create orientation reference block at origin
     if (true) {
