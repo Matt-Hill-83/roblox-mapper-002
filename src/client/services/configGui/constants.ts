@@ -3,6 +3,8 @@ export const GUI_CONSTANTS = {
   FRAME: {
     WIDTH: 350,
     HEIGHT: 285,
+    ENHANCED_WIDTH: 650,
+    ENHANCED_HEIGHT: 450,
     POSITION: new UDim2(0, 10, 0, 10), // Upper left corner
     CORNER_RADIUS: new UDim(0, 8)
   },
@@ -53,5 +55,30 @@ export const GUI_CONSTANTS = {
     LABEL_WIDTH: 0.5,
     INPUT_WIDTH: 0.4,
     START_Y: 40
+  },
+  
+  // Enhanced mode configuration
+  ENHANCED: {
+    GLOBAL_SETTINGS_HEIGHT: 80,
+    GRID_HEADER_HEIGHT: 30,
+    GRID_ROW_HEIGHT: 30,
+    GRID_PADDING: 10,
+    COLUMN_WIDTHS: {
+      LAYER: 60,
+      NODES: 80,
+      CONNECTIONS: 100,
+      NODE_TYPE: 100,
+      LINK_TYPE: 100,
+      DELETE: 50
+    },
+    MAX_LAYERS: 10,
+    DROPDOWN_ITEMS: 10
+  },
+  
+  // Button configuration
+  BUTTON: {
+    HEIGHT: 30,
+    SPACING: 10,
+    WIDTH: 120
   }
 };

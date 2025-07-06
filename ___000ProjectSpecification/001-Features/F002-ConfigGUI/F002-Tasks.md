@@ -21,35 +21,35 @@
 
 ## T131: Enhanced Data Generator GUI (R2)
 
-1. ⬛ T131.1: Update GUI to control new data generator (R2.1)
-   1. ⬛ T131.1.1: Refactor GUI to support both original and enhanced modes
-   2. ⬛ T131.1.2: Create interface for data generator integration
-   3. ⬛ T131.1.3: Implement mode switching mechanism
+1. ✅ [CLD3] T131.1: Update GUI to control new data generator (R2.1)
+   1. ✅ [CLD3] T131.1.1: Refactor GUI to support both original and enhanced modes
+   2. ✅ [CLD3] T131.1.2: Create interface for data generator integration
+   3. ✅ [CLD3] T131.1.3: Implement mode switching mechanism
 
-2. ⬛ T131.2: Implement global settings controls (R2.2)
-   1. ⬛ T131.2.1: Create Number of Node Types dropdown selector (R2.2.1)
-   2. ⬛ T131.2.2: Create Number of Link Types dropdown selector (R2.2.2)
-   3. ⬛ T131.2.3: Populate dropdowns with appropriate ranges
-   4. ⬛ T131.2.4: Implement change handlers for global settings
+2. ✅ [CLD3] T131.2: Implement global settings controls (R2.2)
+   1. ✅ [CLD3] T131.2.1: Create Number of Node Types dropdown selector (R2.2.1)
+   2. ✅ [CLD3] T131.2.2: Create Number of Link Types dropdown selector (R2.2.2)
+   3. ✅ [CLD3] T131.2.3: Populate dropdowns with appropriate ranges
+   4. ✅ [CLD3] T131.2.4: Implement change handlers for global settings
 
-3. ⬛ T131.3: Create grid-based layer configuration interface (R2.3)
-   1. ⬛ T131.3.1: Design grid layout with rows representing layers (R2.3.1)
-   2. ⬛ T131.3.2: Implement auto-generated layer numbering system (R2.3.2)
-   3. ⬛ T131.3.3: Create "Add Layer" button functionality (R2.3.3)
-   4. ⬛ T131.3.4: Implement layer removal via delete buttons (R2.3.4)
-   5. ⬛ T131.3.5: Handle dynamic grid resizing and scrolling
+3. ✅ [CLD3] T131.3: Create grid-based layer configuration interface (R2.3)
+   1. ✅ [CLD3] T131.3.1: Design grid layout with rows representing layers (R2.3.1)
+   2. ✅ [CLD3] T131.3.2: Implement auto-generated layer numbering system (R2.3.2)
+   3. ✅ [CLD3] T131.3.3: Create "Add Layer" button functionality (R2.3.3)
+   4. ✅ [CLD3] T131.3.4: Implement layer removal via delete buttons (R2.3.4)
+   5. ✅ [CLD3] T131.3.5: Handle dynamic grid resizing and scrolling
 
-4. ⬛ T131.4: Implement layer row controls (R2.4)
-   1. ⬛ T131.4.1: Display read-only layer numbers (R2.4.1)
-   2. ⬛ T131.4.2: Create "Number of nodes" text input fields (R2.4.2)
-   3. ⬛ T131.4.3: Create "Connections per node" text input fields (R2.4.3)
-   4. ⬛ T131.4.4: Implement Node Type dropdown selectors (R2.4.4)
-   5. ⬛ T131.4.5: Implement Link Type dropdown selectors (R2.4.5)
-   6. ⬛ T131.4.6: Create delete [X] buttons for each row (R2.4.6)
+4. ✅ [CLD3] T131.4: Implement layer row controls (R2.4)
+   1. ✅ [CLD3] T131.4.1: Display read-only layer numbers (R2.4.1)
+   2. ✅ [CLD3] T131.4.2: Create "Number of nodes" text input fields (R2.4.2)
+   3. ✅ [CLD3] T131.4.3: Create "Connections per node" text input fields (R2.4.3)
+   4. ✅ [CLD3] T131.4.4: Implement Node Type dropdown selectors (R2.4.4)
+   5. ✅ [CLD3] T131.4.5: Implement Link Type dropdown selectors (R2.4.5)
+   6. ✅ [CLD3] T131.4.6: Create delete [X] buttons for each row (R2.4.6)
 
-5. ⬛ T131.5: Implement action buttons and status area (R2.5-R2.6)
-   1. ⬛ T131.5.1: Update "Regenerate" button for new data generator (R2.5.1)
-   2. ⬛ T131.5.2: Create "Clear" button to reset all settings (R2.5.2)
-   3. ⬛ T131.5.3: Implement status message display area (R2.6)
-   4. ⬛ T131.5.4: Add status updates for user actions
-   5. ⬛ T131.5.5: Implement error handling and validation messages
+5. ✅ [CLD3] T131.5: Implement action buttons and status area (R2.5-R2.6)
+   1. ✅ [CLD3] T131.5.1: Update "Regenerate" button for new data generator (R2.5.1)
+   2. ✅ [CLD3] T131.5.2: Create "Clear" button to reset all settings (R2.5.2)
+   3. ✅ [CLD3] T131.5.3: Implement status message display area (R2.6)
+   4. ✅ [CLD3] T131.5.4: Add status updates for user actions
+   5. ✅ [CLD3] T131.5.5: Implement error handling and validation messages

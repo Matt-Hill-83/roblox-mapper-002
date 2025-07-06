@@ -2,6 +2,7 @@ import { ReplicatedStorage } from "@rbxts/services";
 import { ConfigGUIService } from "../services/configGui";
 import { GeneratorConfig } from "../../shared/interfaces/simpleDataGenerator.interface";
 import { config001 } from "../../shared/configs/simpleDataGeneratorConfigs";
+import { EnhancedGeneratorConfig } from "../services/configGui/interfaces";
 
 export class ConfigGUIController {
   private guiService?: ConfigGUIService;
@@ -28,8 +29,13 @@ export class ConfigGUIController {
       numLinkTypes: config001.numLinkTypes || 3
     };
 
-    this.guiService = new ConfigGUIService(defaultConfig);
-    this.guiService.createGUI((newConfig) => this.onConfigChange(newConfig));
+    this.guiService = new ConfigGUIService({
+      initialConfig: defaultConfig,
+      onConfigChange: (newConfig) => this.onConfigChange(newConfig),
+      onEnhancedConfigChange: (enhancedConfig) => this.onEnhancedConfigChange(enhancedConfig),
+      mode: "enhanced" // Start in enhanced mode
+    });
+    this.guiService.createGUI();
   }
 
   /**
@@ -59,6 +65,16 @@ export class ConfigGUIController {
     if (this.remoteEvent) {
       print("📤 Sending regenerate request to server...");
       this.remoteEvent.FireServer("regenerate", config);
+    }
+  }
+
+  /**
+   * Handles enhanced configuration changes from the GUI
+   */
+  private onEnhancedConfigChange(config: EnhancedGeneratorConfig): void {
+    if (this.remoteEvent) {
+      print("📤 Sending enhanced regenerate request to server...");
+      this.remoteEvent.FireServer("regenerateEnhanced", config);
     }
   }
 

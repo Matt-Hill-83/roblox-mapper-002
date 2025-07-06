@@ -1,7 +1,7 @@
 import { SimpleDataGeneratorService } from "./dataGenerator/simpleDataGenerator.service";
 import { SimpleDataLayoutService } from "./simpleDataLayout.service";
 import { SimpleDataRendererService } from "./simpleDataRenderer.service";
-import { GeneratorConfig } from "../../shared/interfaces/simpleDataGenerator.interface";
+import { GeneratorConfig, Cluster } from "../../shared/interfaces/simpleDataGenerator.interface";
 import { config001 } from "../../shared/configs/simpleDataGeneratorConfigs";
 
 export class TestSimpleDataGeneratorService {
@@ -132,5 +132,24 @@ export class TestSimpleDataGeneratorService {
       this.currentClusterFolder.Destroy();
       this.currentClusterFolder = undefined;
     }
+  }
+  
+  /**
+   * Renders a pre-generated cluster
+   */
+  public renderCluster(parentFolder: Folder, cluster: Cluster): void {
+    print("🎨 Rendering cluster...");
+    
+    // Clear existing visualization
+    this.clearCurrentCluster();
+    
+    // Calculate layout and render
+    this.layout.calculateLayout(cluster);
+    this.renderer.renderCluster(cluster, parentFolder);
+    
+    // Store reference to new cluster folder
+    this.currentClusterFolder = parentFolder.FindFirstChild("GeneratedCluster") as Folder;
+    
+    print("✅ Cluster rendering complete!");
   }
 }
