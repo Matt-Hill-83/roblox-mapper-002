@@ -5,12 +5,12 @@ import { UnifiedDataRenderer } from "../../shared/modules/renderers/unifiedDataR
 export class ConfigGUIServerService {
   private remoteEvent: RemoteEvent;
   private unifiedRenderer: UnifiedDataRenderer;
-  private myStuffFolder: Folder;
+  private projectRootFolder: Folder;
   private origin: Vector3;
 
-  constructor(myStuffFolder: Folder, origin?: Vector3) {
+  constructor(projectRootFolder: Folder, origin?: Vector3) {
     this.unifiedRenderer = new UnifiedDataRenderer();
-    this.myStuffFolder = myStuffFolder;
+    this.projectRootFolder = projectRootFolder;
     this.origin = origin || new Vector3(0, 0, 0);
 
     // Create or get RemoteEvent
@@ -41,7 +41,7 @@ export class ConfigGUIServerService {
         // Validate the enhanced config
         if (this.validateEnhancedConfig(enhancedConfig)) {
           // Use unified renderer which handles everything
-          this.unifiedRenderer.renderEnhancedData(this.myStuffFolder, enhancedConfig, this.origin);
+          this.unifiedRenderer.renderEnhancedData(this.projectRootFolder, enhancedConfig, this.origin);
           
           // Send success response
           this.remoteEvent.FireClient(player, "regenerateSuccess", enhancedConfig);
@@ -53,7 +53,7 @@ export class ConfigGUIServerService {
         print(`🗑️ Received clear graph request from ${player.Name}`);
         
         // Delete the GraphMaker folder
-        const graphMakerFolder = this.myStuffFolder.FindFirstChild("GraphMaker");
+        const graphMakerFolder = this.projectRootFolder.FindFirstChild("GraphMaker");
         if (graphMakerFolder) {
           graphMakerFolder.Destroy();
           print("✅ GraphMaker folder deleted");
