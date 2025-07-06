@@ -6,7 +6,7 @@
  * that triggers an animation where red blocks move to blue blocks' position.
  */
 
-import { TweenService, Players } from "@rbxts/services";
+import { TweenService, ReplicatedStorage } from "@rbxts/services";
 
 // Block configuration constants
 const BLOCK_CONFIG = {
@@ -31,25 +31,10 @@ const POSITIONS = {
   BLUE_STACK: new Vector3(20, 10, 0)
 };
 
-// GUI configuration
-const GUI_CONFIG = {
-  BUTTON: {
-    SIZE: new UDim2(0, 200, 0, 50),
-    POSITION: new UDim2(0.5, -100, 0, 20),
-    TEXT: "Move Red to Blue",
-    COLORS: {
-      DEFAULT: new Color3(0.2, 0.6, 0.2),
-      HOVER: new Color3(0.3, 0.7, 0.3),
-      DISABLED: new Color3(0.5, 0.5, 0.5)
-    }
-  }
-};
-
 export class GroupAnimationTestService {
   private redBlocks: Part[] = [];
   private blueBlocks: Part[] = [];
-  private gui?: ScreenGui;
-  private button?: TextButton;
+  private remoteEvent?: RemoteEvent;
   private isAnimating = false;
   private testFolder?: Folder;
 
@@ -67,6 +52,17 @@ export class GroupAnimationTestService {
     this.testFolder.Name = "AnimationTest";
     this.testFolder.Parent = parentFolder;
     
+    // Create or get RemoteEvent
+    this.remoteEvent = ReplicatedStorage.FindFirstChild("AnimationTestRemote") as RemoteEvent;
+    if (!this.remoteEvent) {
+      this.remoteEvent = new Instance("RemoteEvent");
+      this.remoteEvent.Name = "AnimationTestRemote";
+      this.remoteEvent.Parent = ReplicatedStorage;
+    }
+    
+    // Set up remote event listener
+    this.setupRemoteListener();
+    
     // Create block stacks
     this.redBlocks = this.createStack(
       BLOCK_CONFIG.COLORS.RED,
@@ -79,9 +75,6 @@ export class GroupAnimationTestService {
       POSITIONS.BLUE_STACK,
       3
     );
-    
-    // Create GUI
-    this.gui = this.createGUI();
     
     print("✅ Animation test ready!");
   }
@@ -118,75 +111,32 @@ export class GroupAnimationTestService {
   }
 
   /**
-   * Creates the GUI with move button
+   * Sets up remote event listener
    */
-  private createGUI(): ScreenGui {
-    const player = Players.LocalPlayer;
-    if (!player) {
-      warn("No local player found for GUI creation");
-      return new Instance("ScreenGui");
-    }
-
-    // Create ScreenGui
-    const screenGui = new Instance("ScreenGui");
-    screenGui.Name = "AnimationTestGUI";
-    screenGui.ResetOnSpawn = false;
+  private setupRemoteListener(): void {
+    if (!this.remoteEvent) return;
     
-    // Create transparent frame container
-    const frame = new Instance("Frame");
-    frame.Size = new UDim2(1, 0, 1, 0);
-    frame.BackgroundTransparency = 1;
-    frame.Parent = screenGui;
-    
-    // Create button
-    this.button = new Instance("TextButton");
-    this.button.Size = GUI_CONFIG.BUTTON.SIZE;
-    this.button.Position = GUI_CONFIG.BUTTON.POSITION;
-    this.button.Text = GUI_CONFIG.BUTTON.TEXT;
-    this.button.Font = Enum.Font.SourceSansBold;
-    this.button.TextScaled = true;
-    this.button.TextColor3 = new Color3(1, 1, 1);
-    this.button.BackgroundColor3 = GUI_CONFIG.BUTTON.COLORS.DEFAULT;
-    this.button.BorderSizePixel = 0;
-    this.button.Parent = frame;
-    
-    // Add corner rounding
-    const uiCorner = new Instance("UICorner");
-    uiCorner.CornerRadius = new UDim(0, 8);
-    uiCorner.Parent = this.button;
-    
-    // Add hover effects
-    this.button.MouseEnter.Connect(() => {
-      if (!this.isAnimating && this.button) {
-        this.button.BackgroundColor3 = GUI_CONFIG.BUTTON.COLORS.HOVER;
+    this.remoteEvent.OnServerEvent.Connect((player: Player, ...args: unknown[]) => {
+      const eventType = args[0] as string;
+      if (eventType === "triggerAnimation" && !this.isAnimating) {
+        print(`🎯 Animation triggered by ${player.Name}`);
+        this.startAnimation();
       }
     });
-    
-    this.button.MouseLeave.Connect(() => {
-      if (!this.isAnimating && this.button) {
-        this.button.BackgroundColor3 = GUI_CONFIG.BUTTON.COLORS.DEFAULT;
-      }
-    });
-    
-    // Connect click event
-    this.button.MouseButton1Click.Connect(() => this.onMoveButtonClick());
-    
-    // Parent to PlayerGui
-    const playerGui = player.WaitForChild("PlayerGui") as PlayerGui;
-    screenGui.Parent = playerGui;
-    
-    return screenGui;
   }
 
   /**
-   * Handles move button click
+   * Starts the animation
    */
-  private onMoveButtonClick(): void {
-    if (this.isAnimating) {
-      return;
-    }
+  private startAnimation(): void {
+    if (this.isAnimating) return;
     
     print("🚀 Starting block animation...");
+    
+    // Notify all clients that animation started
+    if (this.remoteEvent) {
+      this.remoteEvent.FireAllClients("animationStarted");
+    }
     
     // Calculate target positions (where blue blocks are)
     const targetPositions = this.blueBlocks.map(block => block.Position);
@@ -200,7 +150,6 @@ export class GroupAnimationTestService {
    */
   private animateBlocks(blocks: Part[], targetPositions: Vector3[]): void {
     this.isAnimating = true;
-    this.updateButtonState();
     
     const tweenInfo = new TweenInfo(
       ANIMATION_CONFIG.DURATION,
@@ -220,30 +169,18 @@ export class GroupAnimationTestService {
       tween.Play();
     });
     
-    // Re-enable button after first tween completes
+    // Notify clients when animation completes
     if (tweens.size() > 0) {
       tweens[0].Completed.Connect(() => {
         this.isAnimating = false;
-        this.updateButtonState();
+        if (this.remoteEvent) {
+          this.remoteEvent.FireAllClients("animationCompleted");
+        }
         print("✅ Animation complete!");
       });
     }
   }
 
-  /**
-   * Updates button state based on animation status
-   */
-  private updateButtonState(): void {
-    if (!this.button) return;
-    
-    if (this.isAnimating) {
-      this.button.BackgroundColor3 = GUI_CONFIG.BUTTON.COLORS.DISABLED;
-      this.button.Text = "Animating...";
-    } else {
-      this.button.BackgroundColor3 = GUI_CONFIG.BUTTON.COLORS.DEFAULT;
-      this.button.Text = GUI_CONFIG.BUTTON.TEXT;
-    }
-  }
 
   /**
    * Cleans up previous test instances
@@ -255,16 +192,9 @@ export class GroupAnimationTestService {
       this.testFolder = undefined;
     }
     
-    // Destroy GUI
-    if (this.gui) {
-      this.gui.Destroy();
-      this.gui = undefined;
-    }
-    
     // Clear arrays
     this.redBlocks = [];
     this.blueBlocks = [];
-    this.button = undefined;
     this.isAnimating = false;
   }
 }
