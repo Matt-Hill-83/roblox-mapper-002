@@ -36,4 +36,6 @@
 2. ✅ [CLD8] R8.2: The default value for "Create same-layer links" checkbox shall be false
 3. ✅ [CLD8] R8.3: The minimum value for Node Height shall be 0.1
 
-- link types are not displaying correct colors. they are all red
+## R9: Link Color Fix
+
+1. ✅ [CLD9] R9.1: Link types shall display with their assigned colors instead of all appearing red

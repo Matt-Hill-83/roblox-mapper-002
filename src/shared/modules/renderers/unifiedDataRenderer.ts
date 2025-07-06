@@ -718,7 +718,7 @@ export class UnifiedDataRenderer {
             
             allLinks.push({
               uuid: `link_${this.linkIdCounter++}`,
-              type: `LinkType${linkTypeIndex}`,
+              type: `Link${linkTypeIndex + 1}`,
               sourceNodeUuid: sourceNode.uuid,
               targetNodeUuid: targetNode.uuid,
               color: linkColor
@@ -736,7 +736,7 @@ export class UnifiedDataRenderer {
           
           allLinks.push({
             uuid: `link_${this.linkIdCounter++}`,
-            type: `LinkType${linkTypeIndex}`,
+            type: `Link${linkTypeIndex + 1}`,
             sourceNodeUuid: sourceNode.uuid,
             targetNodeUuid: targetNode.uuid,
             color: linkColor
