@@ -1,3 +1,0 @@
-guid,name,source_guid,source_type,target_guid,target_type,creation_timestamp,creation_source
-a5e3c864-83de-dd02-8058-5a11234f1e3c,sentry_tracks_errors_django_web_app,962bce0f-bec4-4c30-ffb2-ef636f78a5d5,tool,fc0483d0-7462-84cf-8145-b8cefe04bbb3,component,2025-04-23T18:42:31.092718,posthog/posthog_fork/README.md
-1a1ee84e-9dba-a60a-4840-4d62b26d1936,sentry_tracks_errors_frontend_app,962bce0f-bec4-4c30-ffb2-ef636f78a5d5,tool,25d87628-0832-bffb-0142-44fe39b6b033,component,2025-04-23T18:42:31.092722,posthog/posthog_fork/README.md

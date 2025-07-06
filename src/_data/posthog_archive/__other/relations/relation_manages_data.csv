@@ -1,7 +1,0 @@
-guid,name,source_guid,source_type,target_guid,target_type,creation_timestamp,creation_source
-33dbd956-b18f-11c3-b431-00eb8c621c98,terraform_manages_kubernetes_cluster,d271747b-6768-dbb1-9289-11ba8511994c,tool,ff0d4a2e-8e45-d70a-293c-384dbb3c0066,resource,2025-04-23T18:42:31.092744,posthog/posthog_fork/README.md
-37966b91-4d6d-b840-51a2-2e6341877c56,terraform_manages_postgres_database,d271747b-6768-dbb1-9289-11ba8511994c,tool,31ef92ff-1023-053e-b2be-20e3babeaf21,resource,2025-04-23T18:42:31.092748,posthog/posthog_fork/README.md
-71759f52-f5ec-ea99-749e-0d8e846936af,terraform_manages_clickhouse_database,d271747b-6768-dbb1-9289-11ba8511994c,tool,e6827708-4deb-bbd1-0335-ed9c56487c6d,resource,2025-04-23T18:42:31.092753,posthog/posthog_fork/README.md
-c5a411f3-33de-ec44-3da5-e9ca2deac82f,terraform_manages_redis_cache,d271747b-6768-dbb1-9289-11ba8511994c,tool,f712a389-9cb5-3c57-99ff-b4b84e165574,resource,2025-04-23T18:42:31.092757,posthog/posthog_fork/README.md
-1cdb5ef9-1ac4-b716-ee4d-874f10235b35,terraform_manages_s3_storage,d271747b-6768-dbb1-9289-11ba8511994c,tool,446490a3-2122-f01a-83b8-19054836a46e,resource,2025-04-23T18:42:31.092761,posthog/posthog_fork/README.md
-a8301d15-37ad-2584-4626-48aaed0e88eb,terraform_manages_kafka_cluster,d271747b-6768-dbb1-9289-11ba8511994c,tool,c6baf26d-9cd1-e4d6-8336-67a12c00ac1e,resource,2025-04-23T18:42:31.092765,posthog/posthog_fork/README.md

@@ -1,4 +1,0 @@
-guid,name,source_guid,source_type,target_guid,target_type,creation_timestamp,creation_source
-105b9a48-6ed2-84fc-2964-36301c092757,production_provided_by_aws,1e391f7b-8eea-42a6-01b8-21ff374a07da,environment,738c8404-e8e9-a856-dfda-f44edd54d097,infraProvider,2025-04-23T18:42:31.092470,posthog/posthog_fork/README.md
-c32debf7-046f-ac52-5f5a-79cf93d1bf9f,staging_provided_by_aws,0513f0ab-c520-9e1c-c071-0311fca5341a,environment,738c8404-e8e9-a856-dfda-f44edd54d097,infraProvider,2025-04-23T18:42:31.092474,posthog/posthog_fork/README.md
-33093a49-f1a1-35fe-cf05-70c9611c292d,development_provided_by_aws,fd2c5d42-8b3b-f58a-1608-4e61648e60c1,environment,738c8404-e8e9-a856-dfda-f44edd54d097,infraProvider,2025-04-23T18:42:31.092478,posthog/posthog_fork/README.md
