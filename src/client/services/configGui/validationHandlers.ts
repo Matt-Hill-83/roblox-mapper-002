@@ -93,12 +93,12 @@ export function validateLayerConfig(layer: LayerConfig, layerNumber: number): Va
  */
 export function validateSpacingConfig(spacing: import("../../../shared/interfaces/enhancedGenerator.interface").SpacingConfig): ValidationResult {
   const fields = [
-    { name: "nodeHeight", value: spacing.nodeHeight, min: 1, max: 100 },
-    { name: "nodeRadius", value: spacing.nodeRadius, min: 1, max: 50 },
-    { name: "layerSpacing", value: spacing.layerSpacing, min: 5, max: 200 },
-    { name: "nodeSpacing", value: spacing.nodeSpacing, min: 1, max: 100 },
-    { name: "swimlaneSpacing", value: spacing.swimlaneSpacing, min: 5, max: 200 },
-    { name: "linkDiameter", value: spacing.linkDiameter, min: 0.1, max: 5 }
+    { name: "nodeHeight", value: spacing.nodeHeight, min: 0.1, max: 100 },
+    { name: "nodeRadius", value: spacing.nodeRadius, min: 0.1, max: 50 },
+    { name: "layerSpacing", value: spacing.layerSpacing, min: 0.1, max: 200 },
+    { name: "nodeSpacing", value: spacing.nodeSpacing, min: 0.1, max: 100 },
+    { name: "swimlaneSpacing", value: spacing.swimlaneSpacing, min: 0.1, max: 200 },
+    { name: "linkDiameter", value: spacing.linkDiameter, min: 0.1, max: 10 }
   ];
 
   for (const field of fields) {
