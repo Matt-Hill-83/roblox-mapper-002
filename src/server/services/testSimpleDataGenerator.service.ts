@@ -137,14 +137,16 @@ export class TestSimpleDataGeneratorService {
   /**
    * Renders a pre-generated cluster
    */
-  public renderCluster(parentFolder: Folder, cluster: Cluster): void {
+  public renderCluster(parentFolder: Folder, cluster: Cluster, skipLayout = false): void {
     print("🎨 Rendering cluster...");
     
     // Clear existing visualization
     this.clearCurrentCluster();
     
-    // Calculate layout and render
-    this.layout.calculateLayout(cluster);
+    // Calculate layout if not skipped (for enhanced data, positions are pre-calculated)
+    if (!skipLayout) {
+      this.layout.calculateLayout(cluster);
+    }
     this.renderer.renderCluster(cluster, parentFolder);
     
     // Store reference to new cluster folder

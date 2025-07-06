@@ -13,7 +13,9 @@ export class ConfigGUIController {
    */
   public initialize(): void {
     // Wait for remote event
-    const remoteEvent = ReplicatedStorage.WaitForChild("ConfigGUIRemote") as RemoteEvent;
+    const remoteEvent = ReplicatedStorage.WaitForChild(
+      "ConfigGUIRemote"
+    ) as RemoteEvent;
     this.remoteEvent = remoteEvent;
 
     // Set up event listeners
@@ -22,18 +24,19 @@ export class ConfigGUIController {
     // Create GUI with default config
     const defaultConfig: GeneratorConfig = {
       numLevel1Nodes: 1,
-      numLevel2Nodes: 6,
-      numLevel3Nodes: 12,
+      numLevel2Nodes: 1,
+      numLevel3Nodes: 1,
       childrenPerNode: 3,
       numNodeTypes: config001.numNodeTypes || 2,
-      numLinkTypes: config001.numLinkTypes || 3
+      numLinkTypes: config001.numLinkTypes || 3,
     };
 
     this.guiService = new ConfigGUIService({
       initialConfig: defaultConfig,
       onConfigChange: (newConfig) => this.onConfigChange(newConfig),
-      onEnhancedConfigChange: (enhancedConfig) => this.onEnhancedConfigChange(enhancedConfig),
-      mode: "enhanced" // Start in enhanced mode
+      onEnhancedConfigChange: (enhancedConfig) =>
+        this.onEnhancedConfigChange(enhancedConfig),
+      mode: "enhanced", // Start in enhanced mode
     });
     this.guiService.createGUI();
   }
@@ -44,18 +47,20 @@ export class ConfigGUIController {
   private setupEventListeners(): void {
     if (!this.remoteEvent) return;
 
-    this.remoteEvent.OnClientEvent.Connect((eventType: string, data?: unknown) => {
-      if (eventType === "initialConfig" && typeIs(data, "table")) {
-        const config = data as GeneratorConfig;
-        if (this.guiService) {
-          this.guiService.updateConfig(config);
+    this.remoteEvent.OnClientEvent.Connect(
+      (eventType: string, data?: unknown) => {
+        if (eventType === "initialConfig" && typeIs(data, "table")) {
+          const config = data as GeneratorConfig;
+          if (this.guiService) {
+            this.guiService.updateConfig(config);
+          }
+        } else if (eventType === "regenerateSuccess") {
+          print("✅ Regeneration successful!");
+        } else if (eventType === "regenerateError") {
+          warn("❌ Regeneration failed:", data);
         }
-      } else if (eventType === "regenerateSuccess") {
-        print("✅ Regeneration successful!");
-      } else if (eventType === "regenerateError") {
-        warn("❌ Regeneration failed:", data);
       }
-    });
+    );
   }
 
   /**

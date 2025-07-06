@@ -68,16 +68,24 @@ function generateLinkId(): string {
 /**
  * Creates a node with the specified type
  */
-function createNode(nodeType: string, layerIndex: number, nodeIndex: number): Node {
+function createNode(nodeType: string, layerIndex: number, nodeIndex: number, totalNodesInLayer: number): Node {
   const nodeTypeName = NODE_TYPES[math.min(tonumber(nodeType.match("%d+")[0]) || 1, NODE_TYPES.size()) - 1];
   const color = NODE_COLORS[nodeType] || [0.5, 0.5, 0.5];
+  
+  // Calculate position based on layer and node index
+  const layerSpacing = 10; // Vertical spacing between layers
+  const nodeSpacing = 8;  // Horizontal spacing between nodes in same layer
   
   const node: Node = {
     uuid: generateNodeId(),
     name: `${nodeType} ${layerIndex}-${nodeIndex}`,
     type: nodeTypeName as "People" | "Animals",
     color,
-    position: { x: 0, y: 0, z: 0 }, // Position will be calculated later
+    position: { 
+      x: (nodeIndex - 1 - (totalNodesInLayer - 1) / 2) * nodeSpacing, // Center nodes horizontally
+      y: (layerIndex - 1) * layerSpacing, // Stack layers vertically
+      z: 0 
+    },
     attachmentNames: ["top", "bottom", "left", "right", "front", "back"],
   };
 
@@ -124,7 +132,7 @@ export function generateEnhancedData(config: EnhancedGeneratorInput): Cluster {
     const layerNodes: Node[] = [];
     
     for (let i = 0; i < layer.numNodes; i++) {
-      const node = createNode(layer.nodeType, layerIndex + 1, i + 1);
+      const node = createNode(layer.nodeType, layerIndex + 1, i + 1, layer.numNodes);
       layerNodes.push(node);
       allNodes.push(node);
     }

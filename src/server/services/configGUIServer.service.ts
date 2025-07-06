@@ -61,8 +61,8 @@ export class ConfigGUIServerService {
           const generatorInput = convertEnhancedConfig(enhancedConfig);
           const cluster = generateEnhancedData(generatorInput);
           
-          // Use the test generator to render the cluster
-          this.testGenerator.renderCluster(this.myStuffFolder, cluster);
+          // Use the test generator to render the cluster (skip layout since positions are pre-calculated)
+          this.testGenerator.renderCluster(this.myStuffFolder, cluster, true);
           
           // Send success response
           this.remoteEvent.FireClient(player, "regenerateSuccess", enhancedConfig);
