@@ -159,4 +159,5 @@ When starting work on this project, please read all project specification files 
 
 - NEVER make a commit without specifically being told to
 - Only commit changes when the user explicitly asks you to commit
+- When the user says "commit", execute the git commit immediately without asking for confirmation
 - Sometimes there are several agents working on the same branch at the same time
