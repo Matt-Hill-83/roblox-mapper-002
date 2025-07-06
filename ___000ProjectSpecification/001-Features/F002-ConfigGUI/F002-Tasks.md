@@ -93,3 +93,36 @@
 - It uses SimpleDataGeneratorService internally which has better node/link generation
 - The renderer creates proper folder structure and uses consistent styling
 - Need to preserve enhanced mode's layer-based positioning while adopting the better rendering
+
+## T133: Graph Initializer (R3)
+**Status**: TODO
+**Priority**: Medium
+**Description**: Create a service that initializes the graph with default configuration on game startup
+
+### Tasks:
+
+1. ⬜ T133.1: Create graph initialization service (R3.1)
+   1. ⬜ T133.1.1: Create graphInitializer.service.ts in server/services
+   2. ⬜ T133.1.2: Define interface for initialization parameters
+   3. ⬜ T133.1.3: Implement service class with initialization method
+
+2. ⬜ T133.2: Integrate with game.service startup (R3.2)
+   1. ⬜ T133.2.1: Import GraphInitializerService in game.service.ts
+   2. ⬜ T133.2.2: Create instance during game startup
+   3. ⬜ T133.2.3: Call initialization after GUI server is ready
+
+3. ⬜ T133.3: Pass configuration to GUI (R3.3)
+   1. ⬜ T133.3.1: Define initial position for graph bottom center (R3.3.1)
+   2. ⬜ T133.3.2: Create default graph configuration object (R3.3.2)
+   3. ⬜ T133.3.3: Pass configuration through remote event to GUI
+
+4. ⬜ T133.4: Trigger automatic generation (R3.4)
+   1. ⬜ T133.4.1: Send generation request after GUI receives configuration
+   2. ⬜ T133.4.2: Ensure generation uses passed position parameter
+   3. ⬜ T133.4.3: Test automatic generation on game startup
+
+### Technical Notes:
+- Should coordinate with ConfigGUIServerService
+- Initial position affects where the graph origin appears
+- Default configuration should create a reasonable starter graph
+- Consider making initial generation optional via configuration

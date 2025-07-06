@@ -36,6 +36,15 @@
    2. ✅ [CLD3] R2.5.2: "Clear" button to reset all settings
 6. ✅ [CLD3] R2.6: The GUI shall display a status message area
 
+## R3: Graph Initializer
+
+1. ⬜ R3.1: The system shall provide a graph initialization service
+2. ⬜ R3.2: The initializer shall run during game startup from game.service
+3. ⬜ R3.3: The initializer shall pass configuration to the GUI:
+   1. ⬜ R3.3.1: Initial position for bottom center of graph
+   2. ⬜ R3.3.2: Default graph configuration
+4. ⬜ R3.4: The initializer shall trigger automatic graph generation on startup
+
 ## GUI Mockup
 
 ```
@@ -77,6 +86,4 @@ Legend:
 - [+] Add Layer = Button to add a new layer row
 - Layer numbers are auto-generated
 
-Note: Node Type and Link Type columns have been removed from the layer 
-configuration grid. The system now automatically distributes node and 
-link types based on the global settings.
+```
