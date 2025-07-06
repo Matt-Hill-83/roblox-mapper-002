@@ -39,3 +39,9 @@
 3. ⬛ R5.3: The service shall handle rapid button clicks without breaking
 4. ⬛ R5.4: The service shall parent all created objects to a dedicated folder
 5. ⬛ R5.5: The service shall provide console output for major operations
+
+Feedback
+
+- suggest ways to reduce resource consumption, for example:
+  -- turn off shadows
+  -- switch from rope to a static object type
