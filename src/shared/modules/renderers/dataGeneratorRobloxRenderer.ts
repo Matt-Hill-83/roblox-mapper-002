@@ -1,12 +1,12 @@
-import { SimpleDataGeneratorService } from "./dataGenerator/simpleDataGenerator.service";
-import { makeHexagon } from "../../shared/modules/hexagonMaker";
-import { Cluster, Node } from "../../shared/interfaces/simpleDataGenerator.interface";
-import { RENDERER_CONSTANTS } from "./dataGeneratorRobloxRenderer/constants";
-import { calculateSwimLanePositions } from "./dataGeneratorRobloxRenderer/positioning";
-import { createRopeConnectors } from "./dataGeneratorRobloxRenderer/ropeCreator";
-import { generateDrawIoDiagram } from "./dataGeneratorRobloxRenderer/drawIoGenerator";
+import { SimpleDataGeneratorService } from "../../services/dataGenerator/simpleDataGenerator.service";
+import { makeHexagon } from "../hexagonMaker";
+import { Cluster, Node } from "../../interfaces/simpleDataGenerator.interface";
+import { RENDERER_CONSTANTS } from "./dataGeneratorRobloxRendererUtils/constants";
+import { calculateSwimLanePositions } from "./dataGeneratorRobloxRendererUtils/positioning";
+import { createRopeConnectors } from "./dataGeneratorRobloxRendererUtils/ropeCreator";
+import { generateDrawIoDiagram } from "./dataGeneratorRobloxRendererUtils/drawIoGenerator";
 
-export class DataGeneratorRobloxRendererService {
+export class DataGeneratorRobloxRenderer {
   private dataGenerator = new SimpleDataGeneratorService();
   
   /**

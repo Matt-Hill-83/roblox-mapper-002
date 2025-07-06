@@ -2,7 +2,7 @@
  * Positioning logic for swim lane organization
  */
 
-import { Cluster, Node } from "../../../shared/interfaces/simpleDataGenerator.interface";
+import { Cluster, Node } from "../../../interfaces/simpleDataGenerator.interface";
 import { RENDERER_CONSTANTS } from "./constants";
 
 /**

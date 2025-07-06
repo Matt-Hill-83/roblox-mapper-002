@@ -1,7 +1,7 @@
-import { Cluster, Node, Link } from "../../shared/interfaces/simpleDataGenerator.interface";
-import { makeHexagon } from "../../shared/modules/hexagonMaker";
+import { Cluster, Node, Link } from "../../interfaces/simpleDataGenerator.interface";
+import { makeHexagon } from "../hexagonMaker";
 
-export class SimpleDataRendererService {
+export class SimpleDataRenderer {
   
   private nodeModels = new Map<string, Model>();  // UUID to Model mapping
   

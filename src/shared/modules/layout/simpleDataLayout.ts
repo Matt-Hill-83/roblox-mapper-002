@@ -1,4 +1,4 @@
-import { Cluster, Node, Group } from "../../shared/interfaces/simpleDataGenerator.interface";
+import { Cluster, Node, Group } from "../../interfaces/simpleDataGenerator.interface";
 
 // Layout constants organized in a single object
 const layoutConstants = {
@@ -15,7 +15,7 @@ const layoutConstants = {
   }
 };
 
-export class SimpleDataLayoutService {
+export class SimpleDataLayout {
   
   /**
    * Calculates positions for all nodes in the cluster

@@ -2,10 +2,10 @@
  * Rope and connector creation logic
  */
 
-import { Cluster, Link } from "../../../shared/interfaces/simpleDataGenerator.interface";
-import { createRopeLabel } from "../../../shared/modules/ropeLabelMaker";
+import { Cluster, Link } from "../../../interfaces/simpleDataGenerator.interface";
+import { createRopeLabel as createRopeLabelFromMaker } from "../../ropeLabelMaker/ropeLabelMaker";
 import { RENDERER_CONSTANTS } from "./constants";
-import { padNumber } from "../../../shared/utils/stringUtils";
+import { padNumber } from "../../../utils/stringUtils";
 
 interface RopeCreationContext {
   cluster: Cluster;
@@ -38,7 +38,7 @@ export function createRopeConnectors(context: RopeCreationContext): void {
         rope.Parent = targetCenterCube || linksFolder;
         
         // Create rope label
-        createLabelForRope(
+        createRopeLabel(
           sourceHex, 
           targetHex, 
           link, 
@@ -133,7 +133,7 @@ function createRope(
 /**
  * Create rope label
  */
-function createLabelForRope(
+function createRopeLabel(
   sourceHex: Model,
   targetHex: Model,
   link: Link,
@@ -144,7 +144,7 @@ function createLabelForRope(
 ): void {
   const relationName = `${getNodeName(sourceHex)}_${link.type}_${getNodeName(targetHex)}`;
   
-  createRopeLabel({
+  createRopeLabelFromMaker({
     ropeIndex,
     relationTypeName: link.type,
     sourceAttachment,

@@ -1,14 +1,14 @@
-import { SimpleDataGeneratorService } from "./dataGenerator/simpleDataGenerator.service";
-import { SimpleDataLayoutService } from "./simpleDataLayout.service";
-import { SimpleDataRendererService } from "./simpleDataRenderer.service";
+import { SimpleDataGeneratorService } from "../../shared/services/dataGenerator/simpleDataGenerator.service";
+import { SimpleDataLayout } from "../../shared/modules/layout/simpleDataLayout";
+import { SimpleDataRenderer } from "../../shared/modules/renderers/simpleDataRenderer";
 import { GeneratorConfig, Cluster } from "../../shared/interfaces/simpleDataGenerator.interface";
 import { config001 } from "../../shared/configs/simpleDataGeneratorConfigs";
 
 export class TestSimpleDataGeneratorService {
   
   private generator = new SimpleDataGeneratorService();
-  private layout = new SimpleDataLayoutService();
-  private renderer = new SimpleDataRendererService();
+  private layout = new SimpleDataLayout();
+  private renderer = new SimpleDataRenderer();
   private currentClusterFolder?: Folder;
   
   /**

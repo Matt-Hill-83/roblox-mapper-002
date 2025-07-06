@@ -8,7 +8,7 @@
  * and other configuration parameters received from the GUI.
  */
 
-import { Cluster, Node, Link, Group, GeneratorConfig } from "../../../shared/interfaces/simpleDataGenerator.interface";
+import { Cluster, Node, Link, Group, GeneratorConfig } from "../../interfaces/simpleDataGenerator.interface";
 
 // All constants organized in a single object
 const GENERATOR_CONSTANTS = {

@@ -1,7 +1,7 @@
-import { TestSimpleDataGeneratorService } from "./testSimpleDataGenerator.service";
-import { ConfigGUIServerService } from "./configGUIServer.service";
-import { DataGeneratorRobloxRendererService } from "./dataGeneratorRobloxRenderer.service";
-import { makeOriginBlock } from "../../shared/modules/makeOriginBlock";
+import { TestSimpleDataGeneratorService } from "../testSimpleDataGenerator.service";
+import { ConfigGUIServerService } from "../configGUIServer.service";
+import { DataGeneratorRobloxRenderer } from "../../../shared/modules/renderers/dataGeneratorRobloxRenderer";
+import { makeOriginBlock } from "../../../shared/modules/makeOriginBlock";
 
 // Origin configuration for 3D positioning
 const ORIGIN = {
@@ -12,7 +12,7 @@ const ORIGIN = {
 
 export class GameService {
   private testSimpleDataGenerator = new TestSimpleDataGeneratorService();
-  private dataGeneratorRenderer = new DataGeneratorRobloxRendererService();
+  private dataGeneratorRenderer = new DataGeneratorRobloxRenderer();
   private configGUIServer?: ConfigGUIServerService;
   private myStuffFolder!: Folder;
   private gameStarted = false; // Flag to prevent duplicate initialization
