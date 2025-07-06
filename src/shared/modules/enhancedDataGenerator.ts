@@ -6,7 +6,7 @@
  */
 
 import { Node, Link, Group, Cluster } from "../interfaces/simpleDataGenerator.interface";
-import { LayerConfig } from "../../client/services/configGui/interfaces";
+import { LayerConfig } from "../interfaces/enhancedGenerator.interface";
 
 interface EnhancedGeneratorInput {
   numNodeTypes: number;

@@ -1,20 +1,8 @@
 import { GeneratorConfig } from "../../../shared/interfaces/simpleDataGenerator.interface";
+import { LayerConfig, EnhancedGeneratorConfig } from "../../../shared/interfaces/enhancedGenerator.interface";
 
-// Layer configuration for enhanced data generator
-export interface LayerConfig {
-  layerNumber: number;
-  numNodes: number;
-  connectionsPerNode: number;
-  nodeType: string;
-  linkType: string;
-}
-
-// Enhanced configuration that includes layers
-export interface EnhancedGeneratorConfig {
-  numNodeTypes: number;
-  numLinkTypes: number;
-  layers: LayerConfig[];
-}
+// Re-export the shared interfaces for local use
+export { LayerConfig, EnhancedGeneratorConfig };
 
 export interface ConfigGUIServiceOptions {
   initialConfig: GeneratorConfig;

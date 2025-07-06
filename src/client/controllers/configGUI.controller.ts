@@ -1,8 +1,8 @@
 import { ReplicatedStorage } from "@rbxts/services";
 import { ConfigGUIService } from "../services/configGui";
 import { GeneratorConfig } from "../../shared/interfaces/simpleDataGenerator.interface";
+import { EnhancedGeneratorConfig } from "../../shared/interfaces/enhancedGenerator.interface";
 import { config001 } from "../../shared/configs/simpleDataGeneratorConfigs";
-import { EnhancedGeneratorConfig } from "../services/configGui/interfaces";
 
 export class ConfigGUIController {
   private guiService?: ConfigGUIService;

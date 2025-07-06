@@ -1,7 +1,7 @@
 import { ReplicatedStorage } from "@rbxts/services";
 import { GeneratorConfig } from "../../shared/interfaces/simpleDataGenerator.interface";
+import { EnhancedGeneratorConfig } from "../../shared/interfaces/enhancedGenerator.interface";
 import { TestSimpleDataGeneratorService } from "./testSimpleDataGenerator.service";
-import { EnhancedGeneratorConfig } from "../../client/services/configGui/interfaces";
 import { generateEnhancedData, convertEnhancedConfig } from "../../shared/modules/enhancedDataGenerator";
 
 export class ConfigGUIServerService {
