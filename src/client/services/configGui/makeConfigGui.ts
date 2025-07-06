@@ -207,6 +207,40 @@ export class ConfigGUIService {
   }
 
   /**
+   * Shows an error message to the user
+   */
+  public showError(message: string): void {
+    const state = this.stateManager.getState();
+    const screenGui = state.configFrame?.Parent?.Parent as ScreenGui;
+    if (!screenGui) return;
+    
+    // Create error notification
+    const errorFrame = new Instance("Frame");
+    errorFrame.Name = "ErrorNotification";
+    errorFrame.Size = new UDim2(0, 400, 0, 100);
+    errorFrame.Position = new UDim2(0.5, -200, 0, 50);
+    errorFrame.BackgroundColor3 = new Color3(0.8, 0.2, 0.2);
+    errorFrame.BorderSizePixel = 2;
+    errorFrame.BorderColor3 = new Color3(0.6, 0, 0);
+    errorFrame.Parent = screenGui;
+    
+    const errorText = new Instance("TextLabel");
+    errorText.Text = "⚠️ " + message;
+    errorText.Size = new UDim2(1, -20, 1, -20);
+    errorText.Position = new UDim2(0, 10, 0, 10);
+    errorText.BackgroundTransparency = 1;
+    errorText.TextColor3 = new Color3(1, 1, 1);
+    errorText.TextScaled = true;
+    errorText.TextWrapped = true;
+    errorText.Font = Enum.Font.SourceSansBold;
+    errorText.Parent = errorFrame;
+    
+    // Auto-dismiss after 5 seconds
+    wait(5);
+    errorFrame.Destroy();
+  }
+
+  /**
    * Destroys the GUI
    */
   public destroy(): void {

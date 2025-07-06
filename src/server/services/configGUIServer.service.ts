@@ -1,7 +1,7 @@
 import { ReplicatedStorage } from "@rbxts/services";
-import { EnhancedGeneratorConfig } from "../../shared/interfaces/enhancedGenerator.interface";
 import { UnifiedDataRenderer } from "../../shared/modules/renderers/unifiedDataRenderer";
 import { BaseService } from "../../shared/services/base/BaseService";
+import { validateEnhancedGeneratorConfig, validateRemoteData } from "../../shared/utils/validation";
 
 export class ConfigGUIServerService extends BaseService {
   private remoteEvent: RemoteEvent;
@@ -37,21 +37,36 @@ export class ConfigGUIServerService extends BaseService {
     const eventConnection = this.remoteEvent.OnServerEvent.Connect((player: Player, ...args: unknown[]) => {
       const [eventType, data] = args;
       
+      // First validate remote data size and structure
+      const remoteValidation = validateRemoteData(data);
+      if (!remoteValidation.isValid) {
+        warn(`[ConfigGUIServerService] Invalid remote data from ${player.Name}: ${remoteValidation.error}`);
+        this.remoteEvent.FireClient(player, "error", remoteValidation.error);
+        return;
+      }
+      
       // We only handle enhanced mode now with the unified renderer
       if (eventType === "regenerateEnhanced" && typeIs(data, "table")) {
-        const enhancedConfig = data as EnhancedGeneratorConfig;
         print(`📡 Received enhanced regenerate request from ${player.Name}`);
         
-        // Validate the enhanced config
-        if (this.validateEnhancedConfig(enhancedConfig)) {
-          // Use unified renderer which handles everything
-          this.unifiedRenderer.renderEnhancedData(this.projectRootFolder, enhancedConfig, this.origin);
+        // Use comprehensive validation
+        const validationResult = validateEnhancedGeneratorConfig(data);
+        
+        if (validationResult.isValid && validationResult.sanitizedConfig) {
+          // Use unified renderer with sanitized config
+          this.unifiedRenderer.renderEnhancedData(
+            this.projectRootFolder, 
+            validationResult.sanitizedConfig, 
+            this.origin
+          );
           
           // Send success response
-          this.remoteEvent.FireClient(player, "regenerateSuccess", enhancedConfig);
+          this.remoteEvent.FireClient(player, "regenerateSuccess", validationResult.sanitizedConfig);
         } else {
-          // Send error response
-          this.remoteEvent.FireClient(player, "regenerateError", "Invalid enhanced configuration");
+          // Send detailed error response
+          const errorMessage = validationResult.errors.join("; ");
+          warn(`[ConfigGUIServerService] Validation errors: ${errorMessage}`);
+          this.remoteEvent.FireClient(player, "regenerateError", errorMessage);
         }
       } else if (eventType === "clearGraph") {
         print(`🗑️ Received clear graph request from ${player.Name}`);
@@ -66,19 +81,26 @@ export class ConfigGUIServerService extends BaseService {
         // Send success response
         this.remoteEvent.FireClient(player, "clearSuccess");
       } else if (eventType === "updateEnhanced" && typeIs(data, "table")) {
-        const enhancedConfig = data as EnhancedGeneratorConfig;
         print(`🔄 Received update request from ${player.Name}`);
         
-        // Validate the enhanced config
-        if (this.validateEnhancedConfig(enhancedConfig)) {
-          // Use unified renderer's update method
-          this.unifiedRenderer.updateEnhancedData(this.projectRootFolder, enhancedConfig, this.origin);
+        // Use comprehensive validation
+        const validationResult = validateEnhancedGeneratorConfig(data);
+        
+        if (validationResult.isValid && validationResult.sanitizedConfig) {
+          // Use unified renderer's update method with sanitized config
+          this.unifiedRenderer.updateEnhancedData(
+            this.projectRootFolder, 
+            validationResult.sanitizedConfig, 
+            this.origin
+          );
           
           // Send success response
-          this.remoteEvent.FireClient(player, "updateSuccess", enhancedConfig);
+          this.remoteEvent.FireClient(player, "updateSuccess", validationResult.sanitizedConfig);
         } else {
-          // Send error response
-          this.remoteEvent.FireClient(player, "updateError", "Invalid enhanced configuration");
+          // Send detailed error response
+          const errorMessage = validationResult.errors.join("; ");
+          warn(`[ConfigGUIServerService] Update validation errors: ${errorMessage}`);
+          this.remoteEvent.FireClient(player, "updateError", errorMessage);
         }
       }
     });
@@ -87,33 +109,6 @@ export class ConfigGUIServerService extends BaseService {
     this.addConnection(eventConnection);
   }
 
-  /**
-   * Validates the enhanced configuration from client
-   */
-  private validateEnhancedConfig(config: EnhancedGeneratorConfig): boolean {
-    // Check basic structure
-    if (!config.numNodeTypes || !config.numLinkTypes || !config.layers) {
-      return false;
-    }
-    
-    // Validate number ranges
-    if (config.numNodeTypes < 1 || config.numNodeTypes > 10) return false;
-    if (config.numLinkTypes < 1 || config.numLinkTypes > 10) return false;
-    
-    // Validate layers
-    if (!typeIs(config.layers, "table") || config.layers.size() === 0) {
-      return false;
-    }
-    
-    // Validate each layer
-    for (const layer of config.layers) {
-      if (!layer.numNodes || layer.numNodes < 1 || layer.numNodes > 50) return false;
-      if (layer.connectionsPerNode === undefined || layer.connectionsPerNode < 0 || layer.connectionsPerNode > 20) return false;
-      // nodeType and linkType are now optional
-    }
-    
-    return true;
-  }
   
   /**
    * Custom cleanup logic

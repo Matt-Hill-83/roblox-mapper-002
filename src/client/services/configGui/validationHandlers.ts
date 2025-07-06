@@ -7,6 +7,7 @@
 
 import { EnhancedGeneratorConfig, LayerConfig } from "./interfaces";
 import { GUI_CONSTANTS } from "./constants";
+import { validateString, sanitizeString, STRING_LIMITS } from "../../../shared/utils/validation";
 
 export interface ValidationResult {
   isValid: boolean;
@@ -149,35 +150,35 @@ export function validateNumericInput(value: string, min: number, max: number, fi
 }
 
 /**
- * Validates a string input
+ * Validates a string input using comprehensive validation
  */
 export function validateStringInput(value: string, maxLength: number, fieldName: string): ValidationResult {
-  if (value.size() === 0) {
+  const result = validateString(value, {
+    maxLength: maxLength || STRING_LIMITS.NODE_NAME,
+    minLength: 1,
+    blockSpecialChars: true,
+    trimWhitespace: true,
+  });
+  
+  if (!result.isValid) {
     return {
       isValid: false,
-      error: `${fieldName} cannot be empty`
+      error: `${fieldName}: ${result.error}`
     };
   }
+  
+  return { 
+    isValid: true,
+    // Include sanitized value for use by caller
+    error: result.sanitized 
+  };
+}
 
-  if (value.size() > maxLength) {
-    return {
-      isValid: false,
-      error: `${fieldName} cannot exceed ${maxLength} characters`
-    };
-  }
-
-  // Check for potentially malicious patterns
-  const dangerousPatterns = ["<", ">", "&", '"', "'", "\\"];
-  for (const pattern of dangerousPatterns) {
-    if (value.find(pattern)[0] !== undefined) {
-      return {
-        isValid: false,
-        error: `${fieldName} contains invalid characters`
-      };
-    }
-  }
-
-  return { isValid: true };
+/**
+ * Sanitizes a string input for safe use
+ */
+export function sanitizeStringInput(value: string, maxLength?: number): string {
+  return sanitizeString(value, maxLength || STRING_LIMITS.NODE_NAME);
 }
 
 /**

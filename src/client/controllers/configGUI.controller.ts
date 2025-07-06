@@ -2,6 +2,7 @@ import { ReplicatedStorage } from "@rbxts/services";
 import { ConfigGUIService } from "../services/configGui";
 import { EnhancedGeneratorConfig } from "../../shared/interfaces/enhancedGenerator.interface";
 import { BaseService } from "../../shared/services/base/BaseService";
+import { validateEnhancedGeneratorConfig } from "../../shared/utils/validation";
 
 export class ConfigGUIController extends BaseService {
   private guiService?: ConfigGUIService;
@@ -99,8 +100,21 @@ export class ConfigGUIController extends BaseService {
    */
   private onEnhancedConfigChange(config: EnhancedGeneratorConfig): void {
     if (this.remoteEvent) {
-      print("📤 Sending enhanced regenerate request to server...");
-      this.remoteEvent.FireServer("regenerateEnhanced", config);
+      // Validate configuration before sending
+      const validationResult = validateEnhancedGeneratorConfig(config);
+      
+      if (validationResult.isValid && validationResult.sanitizedConfig) {
+        print("📤 Sending enhanced regenerate request to server...");
+        this.remoteEvent.FireServer("regenerateEnhanced", validationResult.sanitizedConfig);
+      } else {
+        // Show validation errors in GUI
+        const errorMessage = validationResult.errors.join("\n");
+        warn(`❌ Configuration validation failed:\n${errorMessage}`);
+        
+        if (this.guiService) {
+          this.guiService.showError(`Validation failed: ${validationResult.errors[0]}`);
+        }
+      }
     }
   }
 
@@ -119,8 +133,21 @@ export class ConfigGUIController extends BaseService {
    */
   private onUpdateRequest(config: EnhancedGeneratorConfig): void {
     if (this.remoteEvent) {
-      print("🔄 Sending update request to server...");
-      this.remoteEvent.FireServer("updateEnhanced", config);
+      // Validate configuration before sending
+      const validationResult = validateEnhancedGeneratorConfig(config);
+      
+      if (validationResult.isValid && validationResult.sanitizedConfig) {
+        print("🔄 Sending update request to server...");
+        this.remoteEvent.FireServer("updateEnhanced", validationResult.sanitizedConfig);
+      } else {
+        // Show validation errors in GUI
+        const errorMessage = validationResult.errors.join("\n");
+        warn(`❌ Update validation failed:\n${errorMessage}`);
+        
+        if (this.guiService) {
+          this.guiService.showError(`Validation failed: ${validationResult.errors[0]}`);
+        }
+      }
     }
   }
 
