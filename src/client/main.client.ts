@@ -1,5 +1,6 @@
 import { ConfigGUIController } from "./controllers/configGUI.controller";
 import { AnimationTestGUIController } from "./controllers/animationTestGUI.controller";
+import { ColorPickerController } from "./controllers/colorPicker.controller";
 import { Players } from "@rbxts/services";
 import { KeyboardShortcutsService } from "./services/keyboardShortcuts.service";
 
@@ -24,7 +25,11 @@ configGUIController.initialize();
 const animationTestController = new AnimationTestGUIController();
 animationTestController.initialize();
 
+// Initialize the color picker GUI
+const colorPickerController = new ColorPickerController();
+colorPickerController.initialize();
+
 // Initialize keyboard shortcuts service
 new KeyboardShortcutsService();
 
-print("🎮 Client initialized with Configuration GUI, Animation Test GUI, and Keyboard Shortcuts");
+print("🎮 Client initialized with Configuration GUI, Animation Test GUI, Color Picker, and Keyboard Shortcuts");
