@@ -22,9 +22,8 @@ export function createRopeConnectors(context: RopeCreationContext): void {
   const { cluster, nodeToHexagon, linksFolder, visualization } = context;
   
   // Check if connectors should be shown
-  const showConnectors = visualization?.showConnectors ?? false;
-  const showLinkLabels = visualization?.showLinkLabels ?? false;
-  const allowSameLevelLinks = visualization?.allowSameLevelLinks ?? false;
+  const showConnectors = visualization?.showConnectors ?? true;
+  const showLinkLabels = visualization?.showLinkLabels ?? true;
   
   // Early return if connectors are disabled
   if (!showConnectors) {
@@ -38,15 +37,6 @@ export function createRopeConnectors(context: RopeCreationContext): void {
     const targetHex = nodeToHexagon.get(link.targetNodeUuid);
     
     if (sourceHex && targetHex) {
-      // Check if this is a same-level link
-      const sourceLevel = getNodeLevel(sourceHex);
-      const targetLevel = getNodeLevel(targetHex);
-      const isSameLevelLink = sourceLevel === targetLevel;
-      
-      // Skip same-level links if not allowed
-      if (isSameLevelLink && !allowSameLevelLinks) {
-        return;
-      }
       
       // Find center attachments
       const sourceAttachment = findCenterAttachment(sourceHex);
@@ -77,14 +67,6 @@ export function createRopeConnectors(context: RopeCreationContext): void {
       }
     }
   });
-}
-
-/**
- * Gets the level/layer of a node from its name
- */
-function getNodeLevel(hexagon: Model): number {
-  const match = hexagon.Name.match("Hexagon_L(\\d+)_N\\d+");
-  return match ? tonumber(match[1]) || 1 : 1;
 }
 
 /**

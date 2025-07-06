@@ -9,8 +9,8 @@ export class GraphInitializerService {
   private configGUIServer?: unknown;
   
   private readonly DEFAULT_CONFIG: EnhancedGeneratorConfig = {
-    numNodeTypes: 1,
-    numLinkTypes: 1,
+    numNodeTypes: 4,
+    numLinkTypes: 3,
     layers: [
       {
         layerNumber: 1,
@@ -36,9 +36,9 @@ export class GraphInitializerService {
       swimlaneSpacing: 2
     },
     visualization: {
-      showLinkLabels: false,
-      showConnectors: false,
-      allowSameLevelLinks: false
+      showLinkLabels: true,
+      showConnectors: true,
+      allowSameLevelLinks: true
     }
   };
   

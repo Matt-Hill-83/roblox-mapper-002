@@ -14,9 +14,9 @@ interface CheckboxField {
 }
 
 const CHECKBOX_FIELDS: CheckboxField[] = [
-  { label: "Show link labels", field: "showLinkLabels", default: false },
-  { label: "Show connectors", field: "showConnectors", default: false },
-  { label: "Allow same level links", field: "allowSameLevelLinks", default: false }
+  { label: "Show link labels", field: "showLinkLabels", default: true },
+  { label: "Show connectors", field: "showConnectors", default: true },
+  { label: "Create same-layer links", field: "allowSameLevelLinks", default: true }
 ];
 
 export function createVisualizationControls({

@@ -165,8 +165,9 @@ export class UnifiedDataRenderer {
       const currentLayerNodes = nodesByLayer.get(layer.layerNumber)!;
       
       currentLayerNodes.forEach((sourceNode) => {
-        // Create intra-layer connections
-        if (layer.connectionsPerNode > 0 && currentLayerNodes.size() > 1) {
+        // Create intra-layer connections (only if allowed by visualization settings)
+        const allowSameLevelLinks = config.visualization?.allowSameLevelLinks ?? true;
+        if (allowSameLevelLinks && layer.connectionsPerNode > 0 && currentLayerNodes.size() > 1) {
           const availableTargets = currentLayerNodes.filter(n => n.uuid !== sourceNode.uuid);
           const numConnections = math.min(layer.connectionsPerNode, availableTargets.size());
           
@@ -678,8 +679,9 @@ export class UnifiedDataRenderer {
       const currentLayerNodes = nodesByLayer.get(layerNum) || [];
       const nextLayerNodes = nodesByLayer.get(layerNum + 1);
       
-      // Create intra-layer connections
-      if (layer.connectionsPerNode > 0 && currentLayerNodes.size() > 1) {
+      // Create intra-layer connections (only if allowed by visualization settings)
+      const allowSameLevelLinks = newConfig.visualization?.allowSameLevelLinks ?? true;
+      if (allowSameLevelLinks && layer.connectionsPerNode > 0 && currentLayerNodes.size() > 1) {
         currentLayerNodes.forEach((sourceNode, nodeIndex) => {
           const availableTargets = currentLayerNodes.filter((_, idx) => idx !== nodeIndex);
           const numConnections = math.min(layer.connectionsPerNode, availableTargets.size());

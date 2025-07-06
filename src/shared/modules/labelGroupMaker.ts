@@ -170,9 +170,5 @@ export function createLabelGroup({
     weld.Parent = blocks[i];
   }
 
-  print(
-    `✅ Created label group with 3 blocks for rope ${ropeIndex}: ${sourceText} ${relationText} ${targetText}`
-  );
-
   return labelGroup;
 }

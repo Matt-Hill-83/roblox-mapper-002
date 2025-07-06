@@ -49,15 +49,15 @@ export class ConfigGUIService {
     
     // Initialize visualization options with defaults
     const defaultVisualization: VisualizationOptions = {
-      showLinkLabels: false,
-      showConnectors: false,
-      allowSameLevelLinks: false
+      showLinkLabels: true,
+      showConnectors: true,
+      allowSameLevelLinks: true
     };
     
     this.state = {
       isVisible: false,
       enhancedConfig: options.initialConfig || {
-        numNodeTypes: 3,
+        numNodeTypes: 4,
         numLinkTypes: 3,
         layers: [],
         spacing: defaultSpacing,
@@ -315,7 +315,7 @@ export class ConfigGUIService {
     this.state.enhancedConfig.layers = [];
     
     // Reset global settings
-    this.state.enhancedConfig.numNodeTypes = 3;
+    this.state.enhancedConfig.numNodeTypes = 4;
     this.state.enhancedConfig.numLinkTypes = 3;
     
     // Reset spacing to defaults
@@ -329,9 +329,9 @@ export class ConfigGUIService {
     
     // Reset visualization options to defaults
     this.state.enhancedConfig.visualization = {
-      showLinkLabels: false,
-      showConnectors: false,
-      allowSameLevelLinks: false
+      showLinkLabels: true,
+      showConnectors: true,
+      allowSameLevelLinks: true
     };
     
     // Recreate the UI

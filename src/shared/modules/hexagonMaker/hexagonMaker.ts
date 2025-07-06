@@ -19,8 +19,6 @@ export function makeHexagon({
   hexIndex = 1,
   guid,
 }: HexagonConfig): Model {
-  print("⬡ Generating hexagon with 3 bars...");
-
   // Calculate bar dimensions
   const dimensions = calculateBarDimensions(width, height);
 
