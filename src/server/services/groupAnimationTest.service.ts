@@ -1,20 +1,22 @@
 /**
  * Group Animation Test Service
  * 
- * Demonstrates animated movement of grouped blocks in 3D space.
- * Creates two stacks of blocks (red and blue) and provides a GUI button
- * that triggers an animation where red blocks move to blue blocks' position.
+ * Demonstrates animated movement of grouped hexagons in 3D space.
+ * Creates two stacks of hexagons (red and blue) and provides a GUI button
+ * that triggers an animation where red hexagons move to blue hexagons' position.
  */
 
 import { TweenService, ReplicatedStorage } from "@rbxts/services";
+import { makeHexagon } from "../../shared/modules/hexagonMaker/hexagonMaker";
 
-// Block configuration constants
-const BLOCK_CONFIG = {
-  SIZE: new Vector3(4, 4, 4),
-  SPACING: 2,
+// Hexagon configuration constants
+const HEXAGON_CONFIG = {
+  WIDTH: 8,
+  HEIGHT: 0.5,
+  SPACING: 4,
   COLORS: {
-    RED: new Color3(1, 0, 0),
-    BLUE: new Color3(0, 0, 1)
+    RED: [1, 0, 0] as [number, number, number],
+    BLUE: [0, 0, 1] as [number, number, number]
   }
 };
 
@@ -32,8 +34,8 @@ const POSITIONS = {
 };
 
 export class GroupAnimationTestService {
-  private redBlocks: Part[] = [];
-  private blueBlocks: Part[] = [];
+  private redHexagons: Model[] = [];
+  private blueHexagons: Model[] = [];
   private remoteEvent?: RemoteEvent;
   private isAnimating = false;
   private testFolder?: Folder;
@@ -63,51 +65,62 @@ export class GroupAnimationTestService {
     // Set up remote event listener
     this.setupRemoteListener();
     
-    // Create block stacks
-    this.redBlocks = this.createStack(
-      BLOCK_CONFIG.COLORS.RED,
+    // Create hexagon stacks
+    this.redHexagons = this.createHexagonStack(
+      HEXAGON_CONFIG.COLORS.RED,
       POSITIONS.RED_STACK,
-      3
+      3,
+      "red"
     );
     
-    this.blueBlocks = this.createStack(
-      BLOCK_CONFIG.COLORS.BLUE,
+    this.blueHexagons = this.createHexagonStack(
+      HEXAGON_CONFIG.COLORS.BLUE,
       POSITIONS.BLUE_STACK,
-      3
+      3,
+      "blue"
     );
     
     print("✅ Animation test ready!");
   }
 
   /**
-   * Creates a colored block at the specified position
+   * Creates a vertical stack of hexagons
    */
-  private createBlock(color: Color3, position: Vector3): Part {
-    const block = new Instance("Part");
-    block.Size = BLOCK_CONFIG.SIZE;
-    block.Position = position;
-    block.Color = color;
-    block.Material = Enum.Material.Neon;
-    block.Anchored = true;
-    block.Parent = this.testFolder;
-    return block;
-  }
-
-  /**
-   * Creates a vertical stack of blocks
-   */
-  private createStack(color: Color3, basePosition: Vector3, count: number): Part[] {
-    const blocks: Part[] = [];
+  private createHexagonStack(
+    color: [number, number, number], 
+    basePosition: Vector3, 
+    count: number,
+    colorName: string
+  ): Model[] {
+    const hexagons: Model[] = [];
     
     for (let i = 0; i < count; i++) {
-      const yOffset = i * (BLOCK_CONFIG.SIZE.Y + BLOCK_CONFIG.SPACING);
-      const position = basePosition.add(new Vector3(0, yOffset, 0));
-      const block = this.createBlock(color, position);
-      block.Name = color === BLOCK_CONFIG.COLORS.RED ? `RedBlock${i + 1}` : `BlueBlock${i + 1}`;
-      blocks.push(block);
+      const yOffset = i * (HEXAGON_CONFIG.HEIGHT + HEXAGON_CONFIG.SPACING);
+      const position: [number, number, number] = [
+        basePosition.X,
+        basePosition.Y + yOffset,
+        basePosition.Z
+      ];
+      
+      const hexagon = makeHexagon({
+        id: colorName === "red" ? 100 + i : 200 + i,
+        centerPosition: position,
+        width: HEXAGON_CONFIG.WIDTH,
+        height: HEXAGON_CONFIG.HEIGHT,
+        barProps: {
+          Color: color
+        },
+        labels: [`${colorName}-Front`, `${colorName}-Left`, `${colorName}-Right`],
+        stackIndex: colorName === "red" ? 1 : 2,
+        hexIndex: i + 1
+      });
+      
+      hexagon.Name = `${colorName}Hexagon${i + 1}`;
+      hexagon.Parent = this.testFolder;
+      hexagons.push(hexagon);
     }
     
-    return blocks;
+    return hexagons;
   }
 
   /**
@@ -138,17 +151,20 @@ export class GroupAnimationTestService {
       this.remoteEvent.FireAllClients("animationStarted");
     }
     
-    // Calculate target positions (where blue blocks are)
-    const targetPositions = this.blueBlocks.map(block => block.Position);
+    // Calculate target positions (where blue hexagons are)
+    const targetPositions = this.blueHexagons.map(hexagon => {
+      const primaryPart = hexagon.FindFirstChildWhichIsA("Part");
+      return primaryPart ? primaryPart.Position : new Vector3(0, 0, 0);
+    });
     
-    // Animate red blocks to blue positions
-    this.animateBlocks(this.redBlocks, targetPositions);
+    // Animate red hexagons to blue positions
+    this.animateHexagons(this.redHexagons, targetPositions);
   }
 
   /**
-   * Animates blocks to target positions
+   * Animates hexagons to target positions
    */
-  private animateBlocks(blocks: Part[], targetPositions: Vector3[]): void {
+  private animateHexagons(hexagons: Model[], targetPositions: Vector3[]): void {
     this.isAnimating = true;
     
     const tweenInfo = new TweenInfo(
@@ -157,21 +173,34 @@ export class GroupAnimationTestService {
       ANIMATION_CONFIG.EASING_DIRECTION
     );
     
-    // Create and play tweens for each block
-    const tweens: Tween[] = [];
-    blocks.forEach((block, index) => {
-      const tween = TweenService.Create(
-        block,
-        tweenInfo,
-        { Position: targetPositions[index] }
-      );
-      tweens.push(tween);
-      tween.Play();
+    // Create and play tweens for each hexagon's parts
+    const allTweens: Tween[] = [];
+    
+    hexagons.forEach((hexagon, hexIndex) => {
+      const targetPos = targetPositions[hexIndex];
+      const parts = hexagon.GetDescendants().filter((obj): obj is Part => obj.IsA("Part"));
+      
+      parts.forEach(part => {
+        // Calculate offset from the hexagon's primary part
+        const primaryPart = hexagon.FindFirstChildWhichIsA("Part");
+        if (primaryPart) {
+          const offset = part.Position.sub(primaryPart.Position);
+          const newPosition = targetPos.add(offset);
+          
+          const tween = TweenService.Create(
+            part,
+            tweenInfo,
+            { Position: newPosition }
+          );
+          allTweens.push(tween);
+          tween.Play();
+        }
+      });
     });
     
     // Notify clients when animation completes
-    if (tweens.size() > 0) {
-      tweens[0].Completed.Connect(() => {
+    if (allTweens.size() > 0) {
+      allTweens[0].Completed.Connect(() => {
         this.isAnimating = false;
         if (this.remoteEvent) {
           this.remoteEvent.FireAllClients("animationCompleted");
@@ -193,8 +222,8 @@ export class GroupAnimationTestService {
     }
     
     // Clear arrays
-    this.redBlocks = [];
-    this.blueBlocks = [];
+    this.redHexagons = [];
+    this.blueHexagons = [];
     this.isAnimating = false;
   }
 }

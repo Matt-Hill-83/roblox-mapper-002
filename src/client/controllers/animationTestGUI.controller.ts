@@ -10,7 +10,7 @@ const GUI_CONFIG = {
   BUTTON: {
     SIZE: new UDim2(0, 200, 0, 50),
     POSITION: new UDim2(1, -220, 0, 20), // Upper right with 20px margin
-    TEXT: "Move Red to Blue",
+    TEXT: "Move Red Hexes to Blue",
     COLORS: {
       DEFAULT: new Color3(0.2, 0.6, 0.2),
       HOVER: new Color3(0.3, 0.7, 0.3),
