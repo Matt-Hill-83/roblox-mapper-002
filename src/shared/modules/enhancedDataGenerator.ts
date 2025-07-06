@@ -68,7 +68,7 @@ function generateLinkId(): string {
 /**
  * Creates a node with the specified type
  */
-function createNode(nodeType: string, layerIndex: number, nodeIndex: number, totalNodesInLayer: number): Node {
+function createNode(nodeType: string, layerIndex: number, nodeIndex: number, totalNodesInLayer: number, totalLayers: number): Node {
   const nodeTypeName = NODE_TYPES[math.min(tonumber(nodeType.match("%d+")[0]) || 1, NODE_TYPES.size()) - 1];
   const color = NODE_COLORS[nodeType] || [0.5, 0.5, 0.5];
   
@@ -83,7 +83,7 @@ function createNode(nodeType: string, layerIndex: number, nodeIndex: number, tot
     color,
     position: { 
       x: (nodeIndex - 1 - (totalNodesInLayer - 1) / 2) * nodeSpacing, // Center nodes horizontally
-      y: (layerIndex - 1) * layerSpacing, // Stack layers vertically
+      y: (totalLayers - layerIndex) * layerSpacing, // Invert layers - layer 1 at top
       z: 0 
     },
     attachmentNames: ["top", "bottom", "left", "right", "front", "back"],
@@ -128,11 +128,12 @@ export function generateEnhancedData(config: EnhancedGeneratorInput): Cluster {
   const nodesByLayer: Node[][] = [];
 
   // Generate nodes for each layer
+  const totalLayers = config.layers.size();
   config.layers.forEach((layer, layerIndex) => {
     const layerNodes: Node[] = [];
     
     for (let i = 0; i < layer.numNodes; i++) {
-      const node = createNode(layer.nodeType, layerIndex + 1, i + 1, layer.numNodes);
+      const node = createNode(layer.nodeType, layerIndex + 1, i + 1, layer.numNodes, totalLayers);
       layerNodes.push(node);
       allNodes.push(node);
     }
