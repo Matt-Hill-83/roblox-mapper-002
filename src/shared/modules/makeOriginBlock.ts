@@ -1,6 +1,14 @@
+/**
+ * Legacy export - redirects to standardized implementation
+ * @deprecated Use the standardized version from makeOriginBlock/index.ts
+ */
+export { makeOriginBlock, type OriginBlockConfig } from "./makeOriginBlock/index";
+export { validateOriginBlockConfig, getOriginBlockDefaults } from "./makeOriginBlock/index";
+
+// Legacy function signature for backward compatibility
 import { makeLabelBlock } from "./labelBlockMaker";
 
-interface OriginBlockConfig {
+interface LegacyOriginBlockConfig {
   origin: { x: number; y: number; z: number };
   parent: Instance;
   offset?: { x: number; y: number; z: number };
@@ -8,15 +16,14 @@ interface OriginBlockConfig {
 }
 
 /**
- * Creates an orientation reference block to help users understand the 3D space
- * The block has labeled faces (FRONT, BACK, LEFT, RIGHT, TOP, BOTTOM) with color coding
+ * @deprecated Legacy implementation - use makeOriginBlock from ./makeOriginBlock/index.ts
  */
-export function makeOriginBlock({
+export function makeOriginBlockLegacy({
   origin,
   parent,
   offset = { x: 0, y: 0, z: 0 },
   size = 4
-}: OriginBlockConfig): Part {
+}: LegacyOriginBlockConfig): Part {
   const orientationFolder = new Instance("Folder");
   orientationFolder.Name = "OrientationReference";
   orientationFolder.Parent = parent;
