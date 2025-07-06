@@ -11,13 +11,30 @@ export class GraphInitializerService {
   private readonly DEFAULT_CONFIG: EnhancedGeneratorConfig = {
     numNodeTypes: 1,
     numLinkTypes: 1,
-    layers: [{
-      layerNumber: 1,
-      numNodes: 1,
-      connectionsPerNode: 0,
-      nodeType: "Type A",
-      linkType: "Link A"
-    }]
+    layers: [
+      {
+        layerNumber: 1,
+        numNodes: 1,
+        connectionsPerNode: 1
+      },
+      {
+        layerNumber: 2,
+        numNodes: 3,
+        connectionsPerNode: 2
+      },
+      {
+        layerNumber: 3,
+        numNodes: 9,
+        connectionsPerNode: 1
+      }
+    ],
+    spacing: {
+      nodeHeight: 1,
+      nodeRadius: 2,
+      layerSpacing: 4,
+      nodeSpacing: 5,
+      swimlaneSpacing: 2
+    }
   };
   
   private readonly DEFAULT_POSITION = { x: 0, y: 0, z: 0 };

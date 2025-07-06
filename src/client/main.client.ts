@@ -1,6 +1,7 @@
 import { ConfigGUIController } from "./controllers/configGUI.controller";
 import { AnimationTestGUIController } from "./controllers/animationTestGUI.controller";
 import { Players } from "@rbxts/services";
+import { KeyboardShortcutsService } from "./services/keyboardShortcuts.service";
 
 // Disable the default Roblox chat
 const starterGui = game.GetService("StarterGui");
@@ -23,4 +24,7 @@ configGUIController.initialize();
 const animationTestController = new AnimationTestGUIController();
 animationTestController.initialize();
 
-print("🎮 Client initialized with Configuration GUI and Animation Test GUI");
+// Initialize keyboard shortcuts service
+new KeyboardShortcutsService();
+
+print("🎮 Client initialized with Configuration GUI, Animation Test GUI, and Keyboard Shortcuts");

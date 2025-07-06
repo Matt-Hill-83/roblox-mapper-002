@@ -1,0 +1,83 @@
+import { GUI_CONSTANTS } from "../constants";
+import type { SpacingConfig } from "../../../../shared/interfaces/enhancedGenerator.interface";
+
+interface SpacingControlsProps {
+  parent: Frame;
+  spacing: SpacingConfig;
+  onSpacingChange: (field: keyof SpacingConfig, value: number) => void;
+}
+
+interface SpacingField {
+  label: string;
+  field: keyof SpacingConfig;
+  min: number;
+  max: number;
+  default: number;
+}
+
+const SPACING_FIELDS: SpacingField[] = [
+  { label: "Node Height:", field: "nodeHeight", min: 1, max: 100, default: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_HEIGHT },
+  { label: "Node Radius:", field: "nodeRadius", min: 0.5, max: 20, default: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_RADIUS },
+  { label: "Layer Spacing:", field: "layerSpacing", min: 1, max: 200, default: GUI_CONSTANTS.SPACING_DEFAULTS.LAYER_SPACING },
+  { label: "Node Spacing:", field: "nodeSpacing", min: 1, max: 100, default: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_SPACING },
+  { label: "Swimlane Spacing:", field: "swimlaneSpacing", min: 1, max: 100, default: GUI_CONSTANTS.SPACING_DEFAULTS.SWIMLANE_SPACING }
+];
+
+export function createSpacingControls({
+  parent,
+  spacing,
+  onSpacingChange
+}: SpacingControlsProps): void {
+  const rowHeight = 25;
+  const labelWidth = 120;
+  const inputWidth = 60;
+  const startY = 35;
+  const spacing_between = 5;
+
+  SPACING_FIELDS.forEach((fieldDef, index) => {
+    const yPos = startY + (index * (rowHeight + spacing_between));
+
+    // Create label
+    const label = new Instance("TextLabel");
+    label.Size = new UDim2(0, labelWidth, 0, rowHeight);
+    label.Position = new UDim2(0, 10, 0, yPos);
+    label.BackgroundTransparency = 1;
+    label.Font = GUI_CONSTANTS.TYPOGRAPHY.LABEL_FONT;
+    label.Text = fieldDef.label;
+    label.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
+    label.TextScaled = true;
+    label.TextXAlignment = Enum.TextXAlignment.Left;
+    label.Parent = parent;
+
+    // Create input box
+    const input = new Instance("TextBox");
+    input.Name = `${fieldDef.field}Input`;
+    input.Size = new UDim2(0, inputWidth, 0, rowHeight);
+    input.Position = new UDim2(0, labelWidth + 15, 0, yPos);
+    input.BackgroundColor3 = new Color3(0.25, 0.25, 0.25);
+    input.BorderSizePixel = 0;
+    input.Font = GUI_CONSTANTS.TYPOGRAPHY.INPUT_FONT;
+    input.Text = tostring(spacing[fieldDef.field]);
+    input.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
+    input.TextScaled = true;
+    input.Parent = parent;
+
+    const corner = new Instance("UICorner");
+    corner.CornerRadius = new UDim(0, 4);
+    corner.Parent = input;
+
+    // Input validation
+    input.FocusLost.Connect(() => {
+      const value = tonumber(input.Text);
+      if (value && value >= fieldDef.min && value <= fieldDef.max) {
+        // For decimal fields like nodeRadius, keep decimal precision
+        const finalValue = fieldDef.field === "nodeRadius" ? value : math.floor(value);
+        onSpacingChange(fieldDef.field, finalValue);
+        input.Text = tostring(finalValue);
+      } else {
+        // Revert to current value
+        input.Text = tostring(spacing[fieldDef.field]);
+      }
+    });
+  });
+}

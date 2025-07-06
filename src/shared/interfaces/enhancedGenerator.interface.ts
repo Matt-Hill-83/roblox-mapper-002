@@ -8,8 +8,17 @@ export interface LayerConfig {
   layerNumber: number;
   numNodes: number;
   connectionsPerNode: number;
-  nodeType: string;
-  linkType: string;
+  nodeType?: string;
+  linkType?: string;
+}
+
+// Spacing configuration for visual layout
+export interface SpacingConfig {
+  nodeHeight: number;
+  nodeRadius: number;
+  layerSpacing: number;
+  nodeSpacing: number;
+  swimlaneSpacing: number;
 }
 
 // Enhanced configuration that includes layers
@@ -17,4 +26,5 @@ export interface EnhancedGeneratorConfig {
   numNodeTypes: number;
   numLinkTypes: number;
   layers: LayerConfig[];
+  spacing?: SpacingConfig; // Optional for backward compatibility
 }

@@ -58,14 +58,14 @@ export class UnifiedDataRenderer {
     const cluster = this.generateClusterFromLayers(config);
     
     // Calculate swim lane positions
-    this.calculateLayerSwimLanePositions(cluster, config.layers.size());
+    this.calculateLayerSwimLanePositions(cluster, config);
     
     // Adjust positions to center bottom at origin
     const targetOrigin = origin || new Vector3(0, 0, 0);
     this.centerBottomAtOrigin(cluster, targetOrigin);
     
     // Render the cluster
-    this.renderCluster(cluster, parentFolder);
+    this.renderCluster(cluster, parentFolder, config);
     
     print(`✅ Unified renderer: Complete! Created ${cluster.groups[0].nodes.size()} nodes with swim lanes`);
     
@@ -277,8 +277,21 @@ export class UnifiedDataRenderer {
   /**
    * Calculates swim lane positions for layer-based data
    */
-  private calculateLayerSwimLanePositions(cluster: Cluster, numLayers: number): void {
-    const { COLUMN_SPACING, LEVEL_SPACING, BASE_Y } = RENDERER_CONSTANTS.POSITIONING;
+  private calculateLayerSwimLanePositions(cluster: Cluster, config: EnhancedGeneratorConfig): void {
+    // Use spacing from config if provided, otherwise use defaults
+    const spacing = config.spacing || {
+      nodeHeight: RENDERER_CONSTANTS.HEXAGON.HEIGHT,
+      nodeRadius: RENDERER_CONSTANTS.HEXAGON.WIDTH / 2,
+      layerSpacing: RENDERER_CONSTANTS.POSITIONING.LEVEL_SPACING,
+      nodeSpacing: RENDERER_CONSTANTS.POSITIONING.COLUMN_SPACING,
+      swimlaneSpacing: RENDERER_CONSTANTS.POSITIONING.COLUMN_SPACING
+    };
+    
+    const COLUMN_SPACING = spacing.nodeSpacing;
+    const LEVEL_SPACING = spacing.layerSpacing;
+    const SWIMLANE_SPACING = spacing.swimlaneSpacing;
+    const BASE_Y = RENDERER_CONSTANTS.POSITIONING.BASE_Y;
+    const numLayers = config.layers.size();
     
     // Organize nodes by layer (using level property)
     const nodesByLayer = new Map<number, Node[]>();
@@ -349,7 +362,7 @@ export class UnifiedDataRenderer {
       // Move to next type column
       typeXOffset += maxNodesInLayer * COLUMN_SPACING;
       if (typeIndex < sortedTypes.size() - 1) {
-        typeXOffset += COLUMN_SPACING; // Extra gap between types
+        typeXOffset += SWIMLANE_SPACING; // Gap between swim lanes
       }
     });
     
@@ -412,7 +425,7 @@ export class UnifiedDataRenderer {
   /**
    * Renders the cluster with positioned nodes
    */
-  private renderCluster(cluster: Cluster, parentFolder: Folder): void {
+  private renderCluster(cluster: Cluster, parentFolder: Folder, config?: EnhancedGeneratorConfig): void {
     // Look for existing GraphMaker folder and delete it
     const existingGraphMaker = parentFolder.FindFirstChild("GraphMaker");
     if (existingGraphMaker) {
@@ -438,7 +451,7 @@ export class UnifiedDataRenderer {
     linksFolder.Parent = clusterFolder;
     
     // Create hexagons for all nodes
-    const nodeToHexagon = this.createHexagons(cluster, nodesFolder);
+    const nodeToHexagon = this.createHexagons(cluster, nodesFolder, config);
     
     // Create links/ropes for relationships
     createRopeConnectors({
@@ -453,13 +466,23 @@ export class UnifiedDataRenderer {
   /**
    * Creates hexagons for all nodes in the cluster
    */
-  private createHexagons(cluster: Cluster, nodesFolder: Folder): Map<string, Model> {
+  private createHexagons(cluster: Cluster, nodesFolder: Folder, config?: EnhancedGeneratorConfig): Map<string, Model> {
     const nodeToHexagon = new Map<string, Model>();
     let hexIndex = 1;
     
+    // Use spacing from config if provided, otherwise use defaults
+    const spacing = config?.spacing || {
+      nodeHeight: RENDERER_CONSTANTS.HEXAGON.HEIGHT,
+      nodeRadius: RENDERER_CONSTANTS.HEXAGON.WIDTH / 2,
+      layerSpacing: RENDERER_CONSTANTS.POSITIONING.LEVEL_SPACING,
+      nodeSpacing: RENDERER_CONSTANTS.POSITIONING.COLUMN_SPACING,
+      swimlaneSpacing: RENDERER_CONSTANTS.POSITIONING.COLUMN_SPACING
+    };
+    
     cluster.groups.forEach(group => {
       group.nodes.forEach(node => {
-        const { WIDTH, HEIGHT } = RENDERER_CONSTANTS.HEXAGON;
+        const WIDTH = spacing.nodeRadius * 2; // Diameter from radius
+        const HEIGHT = spacing.nodeHeight;
         
         const labels: string[] = [
           node.name,
@@ -617,12 +640,12 @@ export class UnifiedDataRenderer {
     };
     
     // Recalculate positions for all layers
-    this.calculateLayerSwimLanePositions(cluster, newConfig.layers.size());
+    this.calculateLayerSwimLanePositions(cluster, newConfig);
     this.centerBottomAtOrigin(cluster, origin);
     
     // Create hexagons for new nodes now that they have positions
     newNodesToCreate.forEach(node => {
-      const hexagon = this.createSingleHexagon(node, nodesFolder);
+      const hexagon = this.createSingleHexagon(node, nodesFolder, newConfig);
       updatedNodeToHexagon.set(node.uuid, hexagon);
     });
     
@@ -788,8 +811,18 @@ export class UnifiedDataRenderer {
   /**
    * Creates a single hexagon for a node
    */
-  private createSingleHexagon(node: Node, nodesFolder: Folder): Model {
-    const { WIDTH, HEIGHT } = RENDERER_CONSTANTS.HEXAGON;
+  private createSingleHexagon(node: Node, nodesFolder: Folder, config?: EnhancedGeneratorConfig): Model {
+    // Use spacing from config if provided, otherwise use defaults
+    const spacing = config?.spacing || {
+      nodeHeight: RENDERER_CONSTANTS.HEXAGON.HEIGHT,
+      nodeRadius: RENDERER_CONSTANTS.HEXAGON.WIDTH / 2,
+      layerSpacing: RENDERER_CONSTANTS.POSITIONING.LEVEL_SPACING,
+      nodeSpacing: RENDERER_CONSTANTS.POSITIONING.COLUMN_SPACING,
+      swimlaneSpacing: RENDERER_CONSTANTS.POSITIONING.COLUMN_SPACING
+    };
+    
+    const WIDTH = spacing.nodeRadius * 2; // Diameter from radius
+    const HEIGHT = spacing.nodeHeight;
     const layerNum = tonumber(node.uuid.match("node_(\d+)_")?.[1]) || 1;
     const nodeIndex = tonumber(node.uuid.match("node_\d+_(\d+)")?.[1]) || 1;
     

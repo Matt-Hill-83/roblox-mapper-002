@@ -11,9 +11,11 @@
 import { Players } from "@rbxts/services";
 import { GUI_CONSTANTS } from "./constants";
 import { GUIState, EnhancedGeneratorConfig, ConfigGUIServiceOptions } from "./interfaces";
+import type { SpacingConfig } from "../../../shared/interfaces/enhancedGenerator.interface";
 import { createMainFrame } from "./components/frame";
 import { createTitle } from "./components/title";
 import { createGlobalSettings } from "./components/globalSettings";
+import { createNodeTypesSection } from "./components/nodeTypesSection";
 import { createLayerGrid } from "./components/layerGrid";
 import { createStatusArea, updateStatus } from "./components/status";
 
@@ -35,15 +37,30 @@ export class ConfigGUIService {
       });
     }
     
+    // Initialize spacing with defaults if not provided
+    const defaultSpacing: SpacingConfig = {
+      nodeHeight: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_HEIGHT,
+      nodeRadius: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_RADIUS,
+      layerSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.LAYER_SPACING,
+      nodeSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_SPACING,
+      swimlaneSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.SWIMLANE_SPACING
+    };
+    
     this.state = {
       isVisible: false,
       enhancedConfig: options.initialConfig || {
         numNodeTypes: 3,
         numLinkTypes: 3,
-        layers: []
+        layers: [],
+        spacing: defaultSpacing
       },
       layerRows: []
     };
+    
+    // Ensure spacing is always defined
+    if (!this.state.enhancedConfig.spacing) {
+      this.state.enhancedConfig.spacing = defaultSpacing;
+    }
     
     this.onEnhancedConfigChange = options.onEnhancedConfigChange;
     this.onClearRequest = options.onClearRequest;
@@ -63,8 +80,8 @@ export class ConfigGUIService {
     this.state.gui.ResetOnSpawn = false;
     this.state.gui.Parent = playerGui;
 
-    // Create main frame
-    const frameSize = new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH, 0, GUI_CONSTANTS.FRAME.ENHANCED_HEIGHT);
+    // Create main frame - use 90% of screen height
+    const frameSize = new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH, GUI_CONSTANTS.FRAME.ENHANCED_HEIGHT_SCALE, 0);
     this.state.configFrame = createMainFrame(this.state.gui, frameSize);
 
     // Add title
@@ -82,8 +99,20 @@ export class ConfigGUIService {
   private createUnifiedUI(): void {
     if (!this.state.configFrame) return;
     
-    // Create global settings
+    // Create global settings with spacing controls
     createGlobalSettings({
+      parent: this.state.configFrame,
+      spacing: this.state.enhancedConfig.spacing!,
+      onSpacingChange: (field, value) => {
+        if (this.state.enhancedConfig.spacing) {
+          this.state.enhancedConfig.spacing[field] = value;
+          this.updateStatus(`${field} updated to ${value}`);
+        }
+      }
+    });
+
+    // Create node/link types section
+    createNodeTypesSection({
       parent: this.state.configFrame,
       numNodeTypes: this.state.enhancedConfig.numNodeTypes,
       numLinkTypes: this.state.enhancedConfig.numLinkTypes,
@@ -129,13 +158,15 @@ export class ConfigGUIService {
   private createActionButtons(): void {
     if (!this.state.configFrame) return;
     
-    const buttonY = this.state.configFrame.Size.Y.Offset - 70;
+    // Position buttons 70 pixels from bottom using scale
+    const buttonYScale = 1;
+    const buttonYOffset = -70;
     
     // Regenerate button
     const regenerateButton = new Instance("TextButton");
     regenerateButton.Name = "RegenerateButton";
     regenerateButton.Size = new UDim2(0, GUI_CONSTANTS.BUTTON.WIDTH, 0, GUI_CONSTANTS.BUTTON.HEIGHT);
-    regenerateButton.Position = new UDim2(0, 10, 0, buttonY);
+    regenerateButton.Position = new UDim2(0, 10, buttonYScale, buttonYOffset);
     regenerateButton.BackgroundColor3 = GUI_CONSTANTS.COLORS.BUTTON.DEFAULT;
     regenerateButton.BorderSizePixel = 0;
     regenerateButton.Font = GUI_CONSTANTS.TYPOGRAPHY.BUTTON_FONT;
@@ -154,7 +185,7 @@ export class ConfigGUIService {
     const updateButton = new Instance("TextButton");
     updateButton.Name = "UpdateButton";
     updateButton.Size = new UDim2(0, GUI_CONSTANTS.BUTTON.WIDTH, 0, GUI_CONSTANTS.BUTTON.HEIGHT);
-    updateButton.Position = new UDim2(0, 10 + GUI_CONSTANTS.BUTTON.WIDTH + GUI_CONSTANTS.BUTTON.SPACING, 0, buttonY);
+    updateButton.Position = new UDim2(0, 10 + GUI_CONSTANTS.BUTTON.WIDTH + GUI_CONSTANTS.BUTTON.SPACING, buttonYScale, buttonYOffset);
     updateButton.BackgroundColor3 = GUI_CONSTANTS.COLORS.BUTTON.DEFAULT;
     updateButton.BorderSizePixel = 0;
     updateButton.Font = GUI_CONSTANTS.TYPOGRAPHY.BUTTON_FONT;
@@ -173,7 +204,7 @@ export class ConfigGUIService {
     const clearButton = new Instance("TextButton");
     clearButton.Name = "ClearButton";
     clearButton.Size = new UDim2(0, GUI_CONSTANTS.BUTTON.WIDTH, 0, GUI_CONSTANTS.BUTTON.HEIGHT);
-    clearButton.Position = new UDim2(0, 10 + (GUI_CONSTANTS.BUTTON.WIDTH + GUI_CONSTANTS.BUTTON.SPACING) * 2, 0, buttonY);
+    clearButton.Position = new UDim2(0, 10 + (GUI_CONSTANTS.BUTTON.WIDTH + GUI_CONSTANTS.BUTTON.SPACING) * 2, buttonYScale, buttonYOffset);
     clearButton.BackgroundColor3 = GUI_CONSTANTS.COLORS.BUTTON.DEFAULT;
     clearButton.BorderSizePixel = 0;
     clearButton.Font = GUI_CONSTANTS.TYPOGRAPHY.BUTTON_FONT;
@@ -256,6 +287,15 @@ export class ConfigGUIService {
     // Reset global settings
     this.state.enhancedConfig.numNodeTypes = 3;
     this.state.enhancedConfig.numLinkTypes = 3;
+    
+    // Reset spacing to defaults
+    this.state.enhancedConfig.spacing = {
+      nodeHeight: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_HEIGHT,
+      nodeRadius: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_RADIUS,
+      layerSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.LAYER_SPACING,
+      nodeSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_SPACING,
+      swimlaneSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.SWIMLANE_SPACING
+    };
     
     // Recreate the UI
     if (this.state.configFrame) {

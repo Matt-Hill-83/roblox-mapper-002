@@ -16,12 +16,12 @@
 ## R2: Enhanced Data Generator GUI
 
 1. ✅ [CLD3] R2.1: The GUI shall be titled "Generator Configuration"
-2. 🔲 [CLD5] R2.2: The GUI shall have a "Global Settings" section containing:
-   1. 🔲 [CLD5] R2.2.1: Node Height text input field
-   2. 🔲 [CLD5] R2.2.2: Node Radius text input field
-   3. 🔲 [CLD5] R2.2.3: Layer Spacing text input field
-   4. 🔲 [CLD5] R2.2.4: Node Spacing text input field
-   5. 🔲 [CLD5] R2.2.5: Swimlane Spacing text input field
+2. ✅ [CLD5] R2.2: The GUI shall have a "Global Settings" section containing:
+   1. ✅ [CLD5] R2.2.1: Node Height text input field
+   2. ✅ [CLD5] R2.2.2: Node Radius text input field
+   3. ✅ [CLD5] R2.2.3: Layer Spacing text input field
+   4. ✅ [CLD5] R2.2.4: Node Spacing text input field
+   5. ✅ [CLD5] R2.2.5: Swimlane Spacing text input field
 3. ✅ [CLD3] R2.3: The GUI shall have a "Node/Link Types" section containing:
    1. ✅ [CLD3] R2.3.1: Number of Node Types text input field
    2. ✅ [CLD3] R2.3.2: Number of Link Types text input field
@@ -65,4 +65,25 @@
 ## R5: Additional Features
 
 1. 🔲 [CLD5] R5.1: When a user adds a new layer, the row values in the GUI table shall be initialized to match the row above it
-2. 🔲 [CLD5] R5.2: The system shall allow the user to quit the game by pressing Esc, then P
+2. ✅ [CLD5] R5.2: The system shall allow the user to quit the game by pressing Esc, then P
+3. 🔲 [CLD5] R5.3: The GUI shall allow Tab key to advance to the next input field
+4. ✅ [CLD5] R5.4: The GUI shall use the following default values (as shown in the image):
+   1. ✅ [CLD5] R5.4.1: Node Height: 1
+   2. ✅ [CLD5] R5.4.2: Node Radius: 2
+   3. ✅ [CLD5] R5.4.3: Layer Spacing: 4
+   4. ✅ [CLD5] R5.4.4: Node Spacing: 5
+   5. ✅ [CLD5] R5.4.5: Swimlane Spacing: 2
+   6. ✅ [CLD5] R5.4.6: Number of Node Types: 1
+   7. ✅ [CLD5] R5.4.7: Number of Link Types: 1
+   8. ✅ [CLD5] R5.4.8: Layer 1: 1 node, 1 connection/node
+   9. ✅ [CLD5] R5.4.9: Layer 2: 3 nodes, 2 connections/node
+   10. ✅ [CLD5] R5.4.10: Layer 3: 9 nodes, 1 connection/node
+
+## R6: Visualization Control Checkboxes
+
+1. 🔲 [CLD6] R6.1: The GUI shall include a checkbox section for visualization controls
+2. 🔲 [CLD6] R6.2: The section shall include the following checkboxes:
+   1. 🔲 [CLD6] R6.2.1: "Show link labels" checkbox (default: unchecked/false)
+   2. 🔲 [CLD6] R6.2.2: "Show connectors" checkbox (default: unchecked/false)
+   3. 🔲 [CLD6] R6.2.3: "Allow same level links" checkbox (default: unchecked/false)
+3. 🔲 [CLD6] R6.3: Changes to checkbox states shall update the visualization immediately without requiring regeneration

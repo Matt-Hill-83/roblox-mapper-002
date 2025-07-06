@@ -26,8 +26,10 @@ export function createLayerGrid({
   // Create container for the grid
   const gridContainer = new Instance("Frame");
   gridContainer.Name = "LayerGrid";
-  gridContainer.Size = new UDim2(1, -20, 1, -GUI_CONSTANTS.ENHANCED.GLOBAL_SETTINGS_HEIGHT - 80);
-  gridContainer.Position = new UDim2(0, 10, 0, GUI_CONSTANTS.ENHANCED.GLOBAL_SETTINGS_HEIGHT + 10);
+  const topOffset = 40 + GUI_CONSTANTS.ENHANCED.GLOBAL_SETTINGS_HEIGHT + 10 + GUI_CONSTANTS.ENHANCED.NODE_LINK_TYPES_HEIGHT + 10;
+  // Use remaining space after fixed elements and before buttons (80px from bottom)
+  gridContainer.Size = new UDim2(1, -20, 1, -topOffset - 80);
+  gridContainer.Position = new UDim2(0, 10, 0, topOffset);
   gridContainer.BackgroundColor3 = new Color3(0.15, 0.15, 0.15);
   gridContainer.BorderSizePixel = 0;
   gridContainer.Parent = parent;

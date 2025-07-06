@@ -102,7 +102,7 @@ export class ConfigGUIServerService {
     for (const layer of config.layers) {
       if (!layer.numNodes || layer.numNodes < 1 || layer.numNodes > 50) return false;
       if (layer.connectionsPerNode === undefined || layer.connectionsPerNode < 0 || layer.connectionsPerNode > 20) return false;
-      if (!layer.nodeType || !layer.linkType) return false;
+      // nodeType and linkType are now optional
     }
     
     return true;

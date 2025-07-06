@@ -4,7 +4,8 @@ export const GUI_CONSTANTS = {
     WIDTH: 350,
     HEIGHT: 285,
     ENHANCED_WIDTH: 650,
-    ENHANCED_HEIGHT: 450,
+    ENHANCED_HEIGHT: 0, // Will be calculated as 90% of screen height
+    ENHANCED_HEIGHT_SCALE: 0.9, // 90% of screen height
     POSITION: new UDim2(0, 10, 0, 10), // Upper left corner
     CORNER_RADIUS: new UDim(0, 8)
   },
@@ -59,7 +60,8 @@ export const GUI_CONSTANTS = {
   
   // Enhanced mode configuration
   ENHANCED: {
-    GLOBAL_SETTINGS_HEIGHT: 110,
+    GLOBAL_SETTINGS_HEIGHT: 180, // Increased to accommodate spacing controls
+    NODE_LINK_TYPES_HEIGHT: 70, // New section for node/link types
     GRID_HEADER_HEIGHT: 30,
     GRID_ROW_HEIGHT: 30,
     GRID_PADDING: 10,
@@ -73,6 +75,15 @@ export const GUI_CONSTANTS = {
     },
     MAX_LAYERS: 10,
     DROPDOWN_ITEMS: 10
+  },
+  
+  // Default spacing values
+  SPACING_DEFAULTS: {
+    NODE_HEIGHT: 1,
+    NODE_RADIUS: 2,
+    LAYER_SPACING: 4,
+    NODE_SPACING: 5,
+    SWIMLANE_SPACING: 2
   },
   
   // Button configuration
