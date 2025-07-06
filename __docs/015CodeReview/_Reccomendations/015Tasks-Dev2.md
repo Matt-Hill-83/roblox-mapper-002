@@ -6,26 +6,6 @@ This task list is derived from the code review recommendations assigned to Dev2.
 
 ## Tasks
 
-### T4: Implement Rendering Optimizations (Medium Priority) ✅
-
-7. ✅ T14: Disable shadows on graph parts
-
-   1. ✅ Find all part creation locations
-   2. ✅ Add part.CastShadow = false to each
-   3. ✅ Test visual appearance
-
-8. ✅ T15: Optimize materials
-
-   1. ✅ Replace all materials with SmoothPlastic
-   2. ✅ Remove unnecessary material properties
-   3. ✅ Document material choices
-
-9. ✅ T16: Optimize transparency
-
-   1. ✅ Set Transparency = 0 where possible
-   2. ✅ Remove unnecessary transparency effects
-   3. ✅ Test visual impact
-
 ### Type Safety Improvements (Medium Priority)
 
 1. ⬛ T6: Create generic base classes
@@ -39,36 +19,27 @@ This task list is derived from the code review recommendations assigned to Dev2.
 
    1. ⬛ Audit all Map and Set usage
    2. ⬛ Add proper type parameters
-   3. ⬛ Remove any casts to 'any'
-   4. ⬛ Ensure type safety throughout
 
 3. ⬛ T8: Improve type inference
 
    1. ⬛ Remove unnecessary type annotations
    2. ⬛ Let TypeScript infer where possible
-   3. ⬛ Use const assertions appropriately
-   4. ⬛ Document inference patterns
-
-4. ⬛ T9: Reduce type assertions
-   1. ⬛ Find all 'as' type assertions
-   2. ⬛ Replace with proper type guards
-   3. ⬛ Remove unsafe assertions
-   4. ⬛ Add runtime validation where needed
+   3. ⬛ Document inference patterns
 
 ### Code Cleanup (Low Priority)
 
-3. ⬛ T12: Document entry point orphans
+3. ✅ T12: Document entry point orphans
 
-   1. ⬛ Add comments to main.client.ts explaining why orphaned
-   2. ⬛ Add comments to main.server.ts explaining why orphaned
-   3. ⬛ Create README in controllers folder
-   4. ⬛ Document architectural decisions
+   1. ✅ Add comments to main.client.ts explaining why orphaned
+   2. ✅ Add comments to main.server.ts explaining why orphaned
+   3. ✅ Create README in controllers folder
+   4. ✅ Document architectural decisions
 
-4. ⬛ T13: Create \_orphaned folder structure
-   1. ⬛ Create client/controllers/\_orphaned folder
-   2. ⬛ Move truly orphaned files
-   3. ⬛ Add .gitignore if needed
-   4. ⬛ Document folder purpose
+4. ✅ T13: Create \_orphaned folder structure
+   1. ✅ Create client/controllers/\_orphaned folder
+   2. ✅ Move truly orphaned files
+   3. ✅ Add .gitignore if needed (not required)
+   4. ✅ Document folder purpose
 
 ### T2: Refactor UnifiedDataRenderer (Medium Priority) ✅
 
@@ -107,3 +78,23 @@ This task list is derived from the code review recommendations assigned to Dev2.
    1. ✅ Update UnifiedDataRenderer to use new modules
    2. ✅ Test all functionality
    3. ✅ Ensure no regressions
+
+### T4: Implement Rendering Optimizations (Medium Priority) ✅
+
+7. ✅ T14: Disable shadows on graph parts
+
+   1. ✅ Find all part creation locations
+   2. ✅ Add part.CastShadow = false to each
+   3. ✅ Test visual appearance
+
+8. ✅ T15: Optimize materials
+
+   1. ✅ Replace all materials with SmoothPlastic
+   2. ✅ Remove unnecessary material properties
+   3. ✅ Document material choices
+
+9. ✅ T16: Optimize transparency
+
+   1. ✅ Set Transparency = 0 where possible
+   2. ✅ Remove unnecessary transparency effects
+   3. ✅ Test visual impact
