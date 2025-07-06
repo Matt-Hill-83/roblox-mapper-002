@@ -133,7 +133,11 @@ export function generateEnhancedData(config: EnhancedGeneratorInput): Cluster {
     const layerNodes: Node[] = [];
     
     for (let i = 0; i < layer.numNodes; i++) {
-      const node = createNode(layer.nodeType, layerIndex + 1, i + 1, layer.numNodes, totalLayers);
+      // Distribute node types across the layer based on numNodeTypes
+      const nodeTypeIndex = i % config.numNodeTypes;
+      const nodeType = `Type ${string.char(65 + nodeTypeIndex)}`; // Type A, Type B, Type C, etc.
+      
+      const node = createNode(nodeType, layerIndex + 1, i + 1, layer.numNodes, totalLayers);
       layerNodes.push(node);
       allNodes.push(node);
     }
@@ -142,6 +146,7 @@ export function generateEnhancedData(config: EnhancedGeneratorInput): Cluster {
   });
 
   // Generate links based on layer configuration
+  let linkCounter = 0;
   config.layers.forEach((layer, layerIndex) => {
     const currentLayerNodes = nodesByLayer[layerIndex];
     
@@ -160,7 +165,12 @@ export function generateEnhancedData(config: EnhancedGeneratorInput): Cluster {
         
         for (let i = 0; i < numConnections; i++) {
           const targetNode = shuffled[i];
-          const link = createLink(sourceNode.uuid, targetNode.uuid, layer.linkType);
+          // Distribute link types
+          const linkTypeIndex = linkCounter % config.numLinkTypes;
+          const linkType = `Link ${string.char(65 + linkTypeIndex)}`; // Link A, Link B, Link C, etc.
+          linkCounter++;
+          
+          const link = createLink(sourceNode.uuid, targetNode.uuid, linkType);
           allLinks.push(link);
         }
       }
@@ -171,7 +181,12 @@ export function generateEnhancedData(config: EnhancedGeneratorInput): Cluster {
         if (nextLayerNodes.size() > 0) {
           // Connect to one random node in the next layer
           const targetNode = nextLayerNodes[math.random(0, nextLayerNodes.size() - 1)];
-          const link = createLink(sourceNode.uuid, targetNode.uuid, "Parent");
+          // Use a specific link type for hierarchical connections
+          const linkTypeIndex = linkCounter % config.numLinkTypes;
+          const linkType = `Link ${string.char(65 + linkTypeIndex)}`;
+          linkCounter++;
+          
+          const link = createLink(sourceNode.uuid, targetNode.uuid, linkType);
           allLinks.push(link);
         }
       }
