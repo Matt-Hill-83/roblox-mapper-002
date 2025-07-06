@@ -1,14 +1,19 @@
 import { ReplicatedStorage } from "@rbxts/services";
 import { ConfigGUIService } from "../services/configGui";
 import { EnhancedGeneratorConfig } from "../../shared/interfaces/enhancedGenerator.interface";
+import { BaseService } from "../../shared/services/base/BaseService";
 
-export class ConfigGUIController {
+export class ConfigGUIController extends BaseService {
   private guiService?: ConfigGUIService;
   private remoteEvent?: RemoteEvent;
 
   /**
    * Initializes the configuration GUI controller
    */
+  constructor() {
+    super("ConfigGUIController");
+  }
+  
   public initialize(): void {
     // Wait for remote event
     const remoteEvent = ReplicatedStorage.WaitForChild(
@@ -30,7 +35,7 @@ export class ConfigGUIController {
   private setupEventListeners(): void {
     if (!this.remoteEvent) return;
 
-    this.remoteEvent.OnClientEvent.Connect(
+    const eventConnection = this.remoteEvent.OnClientEvent.Connect(
       (eventType: string, data?: unknown) => {
         print(`🔔 Client received event: ${eventType}`);
         
@@ -84,6 +89,9 @@ export class ConfigGUIController {
         }
       }
     );
+    
+    // Add connection to be managed
+    this.addConnection(eventConnection);
   }
 
   /**
@@ -117,12 +125,14 @@ export class ConfigGUIController {
   }
 
   /**
-   * Cleans up the GUI
+   * Custom cleanup logic
    */
-  public destroy(): void {
+  protected onDestroy(): void {
     if (this.guiService) {
       this.guiService.destroy();
       this.guiService = undefined;
     }
+    
+    print("[ConfigGUIController] Cleaned up");
   }
 }

@@ -1,14 +1,16 @@
 import { ReplicatedStorage } from "@rbxts/services";
 import { EnhancedGeneratorConfig } from "../../shared/interfaces/enhancedGenerator.interface";
 import { UnifiedDataRenderer } from "../../shared/modules/renderers/unifiedDataRenderer";
+import { BaseService } from "../../shared/services/base/BaseService";
 
-export class ConfigGUIServerService {
+export class ConfigGUIServerService extends BaseService {
   private remoteEvent: RemoteEvent;
   private unifiedRenderer: UnifiedDataRenderer;
   private projectRootFolder: Folder;
   private origin: Vector3;
 
   constructor(projectRootFolder: Folder, origin?: Vector3) {
+    super("ConfigGUIServerService");
     this.unifiedRenderer = new UnifiedDataRenderer();
     this.projectRootFolder = projectRootFolder;
     this.origin = origin || new Vector3(0, 0, 0);
@@ -19,6 +21,8 @@ export class ConfigGUIServerService {
       remoteEvent = new Instance("RemoteEvent");
       remoteEvent.Name = "ConfigGUIRemote";
       remoteEvent.Parent = ReplicatedStorage;
+      // Track the instance for cleanup
+      this.addInstance(remoteEvent);
     }
     this.remoteEvent = remoteEvent;
 
@@ -30,7 +34,7 @@ export class ConfigGUIServerService {
    * Sets up the remote event listener for config changes
    */
   private setupEventListener(): void {
-    this.remoteEvent.OnServerEvent.Connect((player: Player, ...args: unknown[]) => {
+    const eventConnection = this.remoteEvent.OnServerEvent.Connect((player: Player, ...args: unknown[]) => {
       const [eventType, data] = args;
       
       // We only handle enhanced mode now with the unified renderer
@@ -78,6 +82,9 @@ export class ConfigGUIServerService {
         }
       }
     });
+    
+    // Add connection to be managed
+    this.addConnection(eventConnection);
   }
 
   /**
@@ -106,5 +113,20 @@ export class ConfigGUIServerService {
     }
     
     return true;
+  }
+  
+  /**
+   * Custom cleanup logic
+   */
+  protected onDestroy(): void {
+    // Clean up the unified renderer if it has a destroy method
+    if (this.unifiedRenderer && "destroy" in this.unifiedRenderer) {
+      const renderer = this.unifiedRenderer as unknown as { destroy?: () => void };
+      if (renderer.destroy) {
+        renderer.destroy();
+      }
+    }
+    
+    print("[ConfigGUIServerService] Cleaned up");
   }
 }
