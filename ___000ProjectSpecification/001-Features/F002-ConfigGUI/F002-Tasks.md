@@ -237,4 +237,48 @@
 - GUI issue: Currently GUI creates before receiving initial config from server
 - Position issue: Nodes are positioned relative to BASE_Y but not centered on origin
 - Origin should be the bottom center of the entire node group
+
+## T140: Add Update Button for Incremental Data Updates
+**Status**: PENDING
+**Priority**: High
+**Description**: Add an Update button to the GUI that modifies existing data instead of recreating the entire graph
+
+### Tasks:
+
+1. 🔲 [CLD5] T140.1: Add Update button to GUI interface
+   1. 🔲 [CLD5] T140.1.1: Add button between Regenerate and Clear buttons
+   2. 🔲 [CLD5] T140.1.2: Style consistently with other buttons
+   3. 🔲 [CLD5] T140.1.3: Add click handler for update operation
+   4. 🔲 [CLD5] T140.1.4: Add onUpdateRequest callback to service interface
+
+2. 🔲 [CLD5] T140.2: Create incremental update logic in UnifiedDataRenderer
+   1. 🔲 [CLD5] T140.2.1: Add updateEnhancedData method alongside renderEnhancedData
+   2. 🔲 [CLD5] T140.2.2: Track existing nodes by layer and index
+   3. 🔲 [CLD5] T140.2.3: Compare new config with existing state
+   4. 🔲 [CLD5] T140.2.4: Add/remove nodes as needed per layer
+
+3. 🔲 [CLD5] T140.3: Handle node additions and removals
+   1. 🔲 [CLD5] T140.3.1: When layer node count increases, add new nodes at end
+   2. 🔲 [CLD5] T140.3.2: When layer node count decreases, remove nodes from end
+   3. 🔲 [CLD5] T140.3.3: Preserve existing node positions and properties
+   4. 🔲 [CLD5] T140.3.4: Recalculate swim lanes only for affected layers
+
+4. 🔲 [CLD5] T140.4: Handle layer additions and removals
+   1. 🔲 [CLD5] T140.4.1: Add new layers with proper positioning
+   2. 🔲 [CLD5] T140.4.2: Remove deleted layers and their nodes
+   3. 🔲 [CLD5] T140.4.3: Update layer numbering for remaining layers
+   4. 🔲 [CLD5] T140.4.4: Maintain visual hierarchy
+
+5. 🔲 [CLD5] T140.5: Update connections incrementally
+   1. 🔲 [CLD5] T140.5.1: Remove connections for deleted nodes
+   2. 🔲 [CLD5] T140.5.2: Add connections for new nodes
+   3. 🔲 [CLD5] T140.5.3: Update connection counts for existing nodes
+   4. 🔲 [CLD5] T140.5.4: Preserve existing connections where possible
+
+### Technical Notes:
+- Update should be more efficient than full regeneration
+- Preserve as much existing structure as possible
+- Maintain visual continuity for user
+- Store current configuration state for comparison
+- Only modify what has changed
 - Need to calculate group bounds after swim lane positioning

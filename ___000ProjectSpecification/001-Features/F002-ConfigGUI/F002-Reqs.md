@@ -34,6 +34,7 @@
 5. ✅ [CLD3] R2.5: The GUI shall include action buttons:
    1. ✅ [CLD3] R2.5.1: "Regenerate" button to apply configuration and rebuild visualization
    2. ✅ [CLD3] R2.5.2: "Clear" button to reset all settings
+   3. 🔲 [CLD5] R2.5.3: "Update" button to modify existing data without recreating the entire graph
 6. ✅ [CLD3] R2.6: The GUI shall display a status message area
 
 ## R3: Graph Initializer
@@ -44,3 +45,15 @@
    1. ✅ [CLD4] R3.3.1: Initial position for bottom center of graph
    2. ✅ [CLD4] R3.3.2: Default graph configuration
 4. ✅ [CLD4] R3.4: The initializer shall trigger automatic graph generation on startup
+
+## R4: Incremental Update Feature
+
+1. 🔲 [CLD5] R4.1: The system shall support incremental updates to the graph visualization
+2. 🔲 [CLD5] R4.2: The Update button shall only modify changed elements:
+   1. 🔲 [CLD5] R4.2.1: Add new nodes when layer node count increases
+   2. 🔲 [CLD5] R4.2.2: Remove excess nodes when layer node count decreases
+   3. 🔲 [CLD5] R4.2.3: Add new layers when layers are added
+   4. 🔲 [CLD5] R4.2.4: Remove layers when layers are deleted
+   5. 🔲 [CLD5] R4.2.5: Update connections based on new connection counts
+3. 🔲 [CLD5] R4.3: The Update operation shall preserve existing node positions where possible
+4. 🔲 [CLD5] R4.4: The system shall track the current graph state to enable incremental updates
