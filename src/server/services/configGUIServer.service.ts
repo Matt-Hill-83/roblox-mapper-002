@@ -61,6 +61,21 @@ export class ConfigGUIServerService {
         
         // Send success response
         this.remoteEvent.FireClient(player, "clearSuccess");
+      } else if (eventType === "updateEnhanced" && typeIs(data, "table")) {
+        const enhancedConfig = data as EnhancedGeneratorConfig;
+        print(`🔄 Received update request from ${player.Name}`);
+        
+        // Validate the enhanced config
+        if (this.validateEnhancedConfig(enhancedConfig)) {
+          // Use unified renderer's update method
+          this.unifiedRenderer.updateEnhancedData(this.projectRootFolder, enhancedConfig, this.origin);
+          
+          // Send success response
+          this.remoteEvent.FireClient(player, "updateSuccess", enhancedConfig);
+        } else {
+          // Send error response
+          this.remoteEvent.FireClient(player, "updateError", "Invalid enhanced configuration");
+        }
       }
     });
   }

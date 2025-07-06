@@ -75,13 +75,28 @@ export function createLayerGrid({
     }
 
     const layerNumber = layers.size() + 1;
-    const layerConfig: LayerConfig = {
-      layerNumber,
-      numNodes: 1,
-      connectionsPerNode: 2,
-      nodeType: nodeTypes[0],
-      linkType: linkTypes[0]
-    };
+    
+    // Copy values from the previous layer if it exists
+    let layerConfig: LayerConfig;
+    if (layers.size() > 0) {
+      const previousLayer = layers[layers.size() - 1].config;
+      layerConfig = {
+        layerNumber,
+        numNodes: previousLayer.numNodes,
+        connectionsPerNode: previousLayer.connectionsPerNode,
+        nodeType: previousLayer.nodeType,
+        linkType: previousLayer.linkType
+      };
+    } else {
+      // Default values for first layer
+      layerConfig = {
+        layerNumber,
+        numNodes: 3,
+        connectionsPerNode: 2,
+        nodeType: nodeTypes[0],
+        linkType: linkTypes[0]
+      };
+    }
 
     const row = createLayerRow({
       parent: scrollFrame,

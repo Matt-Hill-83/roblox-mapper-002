@@ -7,7 +7,7 @@
 
 import { makeHexagon } from "../hexagonMaker";
 import { Cluster, Node, Link, Group } from "../../interfaces/simpleDataGenerator.interface";
-import { EnhancedGeneratorConfig } from "../../interfaces/enhancedGenerator.interface";
+import { EnhancedGeneratorConfig, LayerConfig } from "../../interfaces/enhancedGenerator.interface";
 import { RENDERER_CONSTANTS } from "./dataGeneratorRobloxRendererUtils/constants";
 import { createRopeConnectors } from "./dataGeneratorRobloxRendererUtils/ropeCreator";
 
@@ -46,6 +46,7 @@ const NODE_TYPE_NAMES = ["People", "Animals", "Buildings", "Vehicles", "Plants",
 export class UnifiedDataRenderer {
   private nodeIdCounter = 0;
   private linkIdCounter = 0;
+  private currentConfig?: EnhancedGeneratorConfig;
 
   /**
    * Main entry point - renders data based on enhanced configuration
@@ -60,12 +61,56 @@ export class UnifiedDataRenderer {
     this.calculateLayerSwimLanePositions(cluster, config.layers.size());
     
     // Adjust positions to center bottom at origin
-    this.centerBottomAtOrigin(cluster, origin || new Vector3(0, 0, 0));
+    const targetOrigin = origin || new Vector3(0, 0, 0);
+    this.centerBottomAtOrigin(cluster, targetOrigin);
     
     // Render the cluster
     this.renderCluster(cluster, parentFolder);
     
     print(`✅ Unified renderer: Complete! Created ${cluster.groups[0].nodes.size()} nodes with swim lanes`);
+    
+    // Store current configuration for update comparison
+    this.currentConfig = config;
+  }
+
+  /**
+   * Updates existing data incrementally based on configuration changes
+   */
+  public updateEnhancedData(parentFolder: Folder, config: EnhancedGeneratorConfig, origin?: Vector3): void {
+    print("🔄 Unified renderer: Starting incremental update...");
+    
+    // Find GraphMaker folder
+    const graphMakerFolder = parentFolder.FindFirstChild("GraphMaker");
+    if (!graphMakerFolder || !this.currentConfig) {
+      print("⚠️ No existing graph found, performing full render");
+      this.renderEnhancedData(parentFolder, config, origin);
+      return;
+    }
+    
+    // Find nodes and links folders
+    const clusterFolder = graphMakerFolder.FindFirstChild("UnifiedDataCluster");
+    if (!clusterFolder) {
+      print("⚠️ No cluster folder found, performing full render");
+      this.renderEnhancedData(parentFolder, config, origin);
+      return;
+    }
+    
+    const nodesFolder = clusterFolder.FindFirstChild("Nodes") as Folder;
+    const linksFolder = clusterFolder.FindFirstChild("Links") as Folder;
+    
+    if (!nodesFolder || !linksFolder) {
+      print("⚠️ Missing folders, performing full render");
+      this.renderEnhancedData(parentFolder, config, origin);
+      return;
+    }
+    
+    // Compare configurations and update incrementally
+    this.performIncrementalUpdate(config, nodesFolder, linksFolder, origin || new Vector3(0, 0, 0));
+    
+    // Update stored configuration
+    this.currentConfig = config;
+    
+    print("✅ Incremental update complete!");
   }
 
   /**
@@ -87,7 +132,7 @@ export class UnifiedDataRenderer {
         const color = COLOR_PALETTES.NODE_COLORS[nodeTypeIndex % COLOR_PALETTES.NODE_COLORS.size()];
         
         const node: Node = {
-          uuid: `node-${++this.nodeIdCounter}`,
+          uuid: `node_${layer.layerNumber}_${i}`,
           name: `${nodeTypeName} ${layer.layerNumber}-${i + 1}`,
           type: nodeTypeName as "People" | "Animals",
           color,
@@ -209,14 +254,24 @@ export class UnifiedDataRenderer {
     const offsetY = origin.Y - minY; // Bottom of group at origin Y
     const offsetZ = origin.Z;
     
+    // Ensure nodes stay above ground level (minimum Y = 5)
+    const minFinalY = minY + offsetY;
+    const groundClearanceAdjustment = minFinalY < 5 ? 5 - minFinalY : 0;
+    const finalOffsetY = offsetY + groundClearanceAdjustment;
+    
+    // Debug ground clearance only if adjustment needed
+    if (groundClearanceAdjustment > 0) {
+      print(`🎯 Ground clearance applied: +${groundClearanceAdjustment} (final Y will be ${minFinalY + groundClearanceAdjustment})`);
+    }
+    
     // Apply offsets to all nodes
     cluster.groups[0].nodes.forEach(node => {
       node.position.x += offsetX;
-      node.position.y += offsetY;
+      node.position.y += finalOffsetY;
       node.position.z += offsetZ;
     });
     
-    print(`🎯 Group centered at origin: offset (${offsetX}, ${offsetY}, ${offsetZ})`);
+    print(`✅ Positioned ${cluster.groups[0].nodes.size()} nodes with swim lanes`);
   }
   
   /**
@@ -432,6 +487,14 @@ export class UnifiedDataRenderer {
           guid: node.uuid
         });
         
+        // Extract layer and node index from uuid if available
+        const layerMatch = node.uuid.match("node_(\d+)_(\d+)");
+        if (layerMatch) {
+          const layerNum = layerMatch[1];
+          const nodeIdx = layerMatch[2];
+          hexagon.Name = `Hexagon_L${layerNum}_N${nodeIdx}`;
+        }
+        
         hexagon.Parent = nodesFolder;
         nodeToHexagon.set(node.uuid, hexagon);
         hexIndex++;
@@ -439,5 +502,329 @@ export class UnifiedDataRenderer {
     });
     
     return nodeToHexagon;
+  }
+
+  /**
+   * Performs incremental update of the graph
+   */
+  private performIncrementalUpdate(newConfig: EnhancedGeneratorConfig, nodesFolder: Folder, linksFolder: Folder, origin: Vector3): void {
+    if (!this.currentConfig) return;
+    
+    // Build current state map of nodes by layer
+    const currentNodesByLayer = new Map<number, Model[]>();
+    nodesFolder.GetChildren().forEach(node => {
+      if (node.IsA("Model")) {
+        // Extract layer number from node name (e.g., "Hexagon_L1_N2")
+        const match = node.Name.match("Hexagon_L(\d+)_N(\d+)");
+        if (match) {
+          const layerNum = tonumber(match[1]) || 1;
+          if (!currentNodesByLayer.has(layerNum)) {
+            currentNodesByLayer.set(layerNum, []);
+          }
+          currentNodesByLayer.get(layerNum)!.push(node);
+        }
+      }
+    });
+    
+    // Sort nodes within each layer by their index
+    currentNodesByLayer.forEach((nodes, layer) => {
+      nodes.sort((a, b) => {
+        const matchA = a.Name.match("Hexagon_L\d+_N(\d+)");
+        const matchB = b.Name.match("Hexagon_L\d+_N(\d+)");
+        const indexA = matchA ? tonumber(matchA[1]) || 0 : 0;
+        const indexB = matchB ? tonumber(matchB[1]) || 0 : 0;
+        return indexA < indexB;
+      });
+    });
+    
+    // Clear all existing connections (we'll rebuild them)
+    linksFolder.ClearAllChildren();
+    
+    // Update layers
+    const updatedNodeToHexagon = new Map<string, Model>();
+    const allNodes: Node[] = [];
+    const nodesByLayer = new Map<number, Node[]>();
+    const newNodesToCreate: Node[] = []; // Track new nodes that need hexagons
+    
+    newConfig.layers.forEach((newLayer, layerIndex) => {
+      const layerNum = layerIndex + 1;
+      const currentLayerNodes = currentNodesByLayer.get(layerNum) || [];
+      const layerNodes: Node[] = [];
+      
+      
+      // Handle node count changes
+      if (newLayer.numNodes > currentLayerNodes.size()) {
+        // Add new nodes
+        for (let i = 0; i < newLayer.numNodes; i++) {
+          if (i < currentLayerNodes.size()) {
+            // Keep existing node
+            const hexagon = currentLayerNodes[i];
+            const node = this.createNodeFromHexagon(hexagon, newConfig, i, layerNum);
+            allNodes.push(node);
+            layerNodes.push(node);
+            updatedNodeToHexagon.set(node.uuid, hexagon);
+          } else {
+            // Create new node
+            const node = this.createNewNode(newConfig, i, layerNum, newLayer);
+            allNodes.push(node);
+            layerNodes.push(node);
+            newNodesToCreate.push(node); // Mark for hexagon creation after positioning
+          }
+        }
+      } else if (newLayer.numNodes < currentLayerNodes.size()) {
+        // Remove excess nodes
+        for (let i = 0; i < currentLayerNodes.size(); i++) {
+          if (i < newLayer.numNodes) {
+            // Keep existing node
+            const hexagon = currentLayerNodes[i];
+            const node = this.createNodeFromHexagon(hexagon, newConfig, i, layerNum);
+            allNodes.push(node);
+            layerNodes.push(node);
+            updatedNodeToHexagon.set(node.uuid, hexagon);
+          } else {
+            // Remove excess node
+            currentLayerNodes[i].Destroy();
+          }
+        }
+      } else {
+        // Same number of nodes, just update
+        currentLayerNodes.forEach((hexagon, i) => {
+          const node = this.createNodeFromHexagon(hexagon, newConfig, i, layerNum);
+          allNodes.push(node);
+          layerNodes.push(node);
+          updatedNodeToHexagon.set(node.uuid, hexagon);
+        });
+      }
+      
+      nodesByLayer.set(layerNum, layerNodes);
+    });
+    
+    // Remove layers that no longer exist
+    currentNodesByLayer.forEach((nodes, layerNum) => {
+      if (layerNum > newConfig.layers.size()) {
+        nodes.forEach(node => node.Destroy());
+      }
+    });
+    
+    // Create cluster for positioning
+    const cluster: Cluster = {
+      groups: [{
+        id: "group_1",
+        name: "Group1",
+        nodes: allNodes
+      }],
+      relations: []
+    };
+    
+    // Recalculate positions for all layers
+    this.calculateLayerSwimLanePositions(cluster, newConfig.layers.size());
+    this.centerBottomAtOrigin(cluster, origin);
+    
+    // Create hexagons for new nodes now that they have positions
+    newNodesToCreate.forEach(node => {
+      const hexagon = this.createSingleHexagon(node, nodesFolder);
+      updatedNodeToHexagon.set(node.uuid, hexagon);
+    });
+    
+    // Update hexagon positions by moving all parts manually to preserve anchoring
+    allNodes.forEach(node => {
+      const hexagon = updatedNodeToHexagon.get(node.uuid);
+      if (hexagon && node.position) {
+        const currentPos = hexagon.PrimaryPart?.Position || new Vector3(0, 0, 0);
+        const targetPos = new Vector3(node.position.x, node.position.y, node.position.z);
+        const offset = targetPos.sub(currentPos);
+        
+        print(`🔧 Updating hexagon ${hexagon.Name} position from (${currentPos.X}, ${currentPos.Y}, ${currentPos.Z}) to (${targetPos.X}, ${targetPos.Y}, ${targetPos.Z})`);
+        
+        // Move all parts manually to preserve anchoring
+        hexagon.GetChildren().forEach(part => {
+          if (part.IsA("BasePart")) {
+            const oldPos = part.Position;
+            part.Position = part.Position.add(offset);
+            print(`  📍 Part ${part.Name}: Anchored=${part.Anchored}, Position (${oldPos.X}, ${oldPos.Y}, ${oldPos.Z}) -> (${part.Position.X}, ${part.Position.Y}, ${part.Position.Z})`);
+          }
+        });
+      }
+    });
+    
+    // Recreate connections based on new configuration
+    const allLinks: Link[] = [];
+    newConfig.layers.forEach((layer, layerIndex) => {
+      const layerNum = layerIndex + 1;
+      const currentLayerNodes = nodesByLayer.get(layerNum) || [];
+      const nextLayerNodes = nodesByLayer.get(layerNum + 1);
+      
+      // Create intra-layer connections
+      if (layer.connectionsPerNode > 0 && currentLayerNodes.size() > 1) {
+        currentLayerNodes.forEach((sourceNode, nodeIndex) => {
+          const availableTargets = currentLayerNodes.filter((_, idx) => idx !== nodeIndex);
+          const numConnections = math.min(layer.connectionsPerNode, availableTargets.size());
+          
+          // Shuffle and select targets
+          const shuffled = [...availableTargets];
+          for (let i = shuffled.size() - 1; i > 0; i--) {
+            const j = math.random(0, i);
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+          }
+          
+          for (let i = 0; i < numConnections; i++) {
+            const targetNode = shuffled[i];
+            const linkTypeIndex = i % newConfig.numLinkTypes;
+            const linkColor = COLOR_PALETTES.LINK_COLORS[linkTypeIndex % COLOR_PALETTES.LINK_COLORS.size()];
+            
+            allLinks.push({
+              uuid: `link_${this.linkIdCounter++}`,
+              type: `LinkType${linkTypeIndex}`,
+              sourceNodeUuid: sourceNode.uuid,
+              targetNodeUuid: targetNode.uuid,
+              color: linkColor
+            });
+          }
+        });
+      }
+      
+      // Create inter-layer connections to next layer
+      if (nextLayerNodes && nextLayerNodes.size() > 0) {
+        currentLayerNodes.forEach(sourceNode => {
+          const targetNode = nextLayerNodes[math.random(0, nextLayerNodes.size() - 1)];
+          const linkTypeIndex = 0;
+          const linkColor = COLOR_PALETTES.LINK_COLORS[linkTypeIndex % COLOR_PALETTES.LINK_COLORS.size()];
+          
+          allLinks.push({
+            uuid: `link_${this.linkIdCounter++}`,
+            type: `LinkType${linkTypeIndex}`,
+            sourceNodeUuid: sourceNode.uuid,
+            targetNodeUuid: targetNode.uuid,
+            color: linkColor
+          });
+        });
+      }
+    });
+    
+    // Update cluster relations
+    cluster.relations = allLinks;
+    
+    // Create rope connectors
+    createRopeConnectors({
+      cluster,
+      nodeToHexagon: updatedNodeToHexagon,
+      linksFolder
+    });
+    
+    print(`📊 Updated ${allNodes.size()} nodes and ${allLinks.size()} connections`);
+  }
+
+  /**
+   * Creates a node from an existing hexagon model
+   */
+  private createNodeFromHexagon(hexagon: Model, config: EnhancedGeneratorConfig, nodeIndex: number, layerNum: number): Node {
+    const nodeTypeIndex = nodeIndex % config.numNodeTypes;
+    const nodeTypeName = NODE_TYPE_NAMES[math.min(nodeTypeIndex, NODE_TYPE_NAMES.size() - 1)];
+    const color = COLOR_PALETTES.NODE_COLORS[nodeTypeIndex % COLOR_PALETTES.NODE_COLORS.size()];
+    
+    const primaryPart = hexagon.PrimaryPart;
+    const position = primaryPart ? primaryPart.Position : new Vector3(0, 0, 0);
+    
+    const node: Node = {
+      uuid: `node_${layerNum}_${nodeIndex}`,
+      name: `${nodeTypeName} ${nodeIndex + 1}`,
+      type: nodeTypeName as "People" | "Animals",
+      position: { x: position.X, y: position.Y, z: position.Z },
+      color: color,
+      attachmentNames: ["top", "bottom", "left", "right", "front", "back"]
+    };
+    
+    // Add level property for swim lane algorithm
+    const nodeWithLevel = node as Node & { level: number };
+    nodeWithLevel.level = layerNum;
+    
+    // Add nodeType property for compatibility
+    const nodeWithType = node as Node & { nodeType: string };
+    nodeWithType.nodeType = nodeTypeName;
+    
+    // Add animal type property if it's an Animals node
+    if (nodeTypeName === "Animals") {
+      const animalTypes = ["Dog", "Cat", "Bird", "Fish", "Horse", "Rabbit", "Snake", "Bear"];
+      node.properties = { animalType: animalTypes[math.random(0, animalTypes.size() - 1)] };
+    }
+    
+    return node;
+  }
+
+  /**
+   * Creates a new node
+   */
+  private createNewNode(config: EnhancedGeneratorConfig, nodeIndex: number, layerNum: number, layer: LayerConfig): Node {
+    const nodeTypeIndex = nodeIndex % config.numNodeTypes;
+    const nodeTypeName = NODE_TYPE_NAMES[math.min(nodeTypeIndex, NODE_TYPE_NAMES.size() - 1)];
+    const color = COLOR_PALETTES.NODE_COLORS[nodeTypeIndex % COLOR_PALETTES.NODE_COLORS.size()];
+    
+    const node: Node = {
+      uuid: `node_${layerNum}_${nodeIndex}`,
+      name: `${nodeTypeName} ${nodeIndex + 1}`,
+      type: nodeTypeName as "People" | "Animals",
+      position: { x: 0, y: 0, z: 0 }, // Will be set by swim lane positioning
+      color: color,
+      attachmentNames: ["top", "bottom", "left", "right", "front", "back"]
+    };
+    
+    // Add level property for swim lane algorithm
+    const nodeWithLevel = node as Node & { level: number };
+    nodeWithLevel.level = layerNum;
+    
+    // Add nodeType property for compatibility
+    const nodeWithType = node as Node & { nodeType: string };
+    nodeWithType.nodeType = nodeTypeName;
+    
+    // Add animal type property if it's an Animals node
+    if (nodeTypeName === "Animals") {
+      const animalTypes = ["Dog", "Cat", "Bird", "Fish", "Horse", "Rabbit", "Snake", "Bear"];
+      node.properties = { animalType: animalTypes[math.random(0, animalTypes.size() - 1)] };
+    }
+    
+    return node;
+  }
+
+  /**
+   * Creates a single hexagon for a node
+   */
+  private createSingleHexagon(node: Node, nodesFolder: Folder): Model {
+    const { WIDTH, HEIGHT } = RENDERER_CONSTANTS.HEXAGON;
+    const layerNum = tonumber(node.uuid.match("node_(\d+)_")?.[1]) || 1;
+    const nodeIndex = tonumber(node.uuid.match("node_\d+_(\d+)")?.[1]) || 1;
+    
+    const nodeWithType = node as Node & { nodeType?: string };
+    const nodeType = nodeWithType.nodeType || node.type || "Unknown";
+    
+    const labels: string[] = [
+      node.name,
+      nodeType,
+      ""  // typeNumber would go here if needed
+    ];
+    
+    if (nodeType === "People" && node.properties?.age) {
+      labels.push(`Age: ${node.properties.age}`);
+    } else if (nodeType === "Animals" && node.properties?.animalType) {
+      labels.push(node.properties.animalType);
+    }
+    
+    const hexagon = makeHexagon({
+      id: this.nodeIdCounter,
+      centerPosition: [node.position.x, node.position.y, node.position.z],
+      width: WIDTH,
+      height: HEIGHT,
+      barProps: {
+        Color: node.color
+      },
+      labels: labels,
+      stackIndex: 1,
+      hexIndex: this.nodeIdCounter,
+      guid: node.uuid
+    });
+    
+    // Set name to match pattern for layer tracking
+    hexagon.Name = `Hexagon_L${layerNum}_N${nodeIndex}`;
+    hexagon.Parent = nodesFolder;
+    return hexagon;
   }
 }
