@@ -1,5 +1,6 @@
 import { ConfigGUIController } from "./controllers/configGUI.controller";
 import { AnimationTestGUIController } from "./controllers/animationTestGUI.controller";
+import { ColorPickerController } from "./controllers/colorPicker.controller";
 import { Players } from "@rbxts/services";
 
 // Disable the default Roblox chat
@@ -23,4 +24,8 @@ configGUIController.initialize();
 const animationTestController = new AnimationTestGUIController();
 animationTestController.initialize();
 
-print("🎮 Client initialized with Configuration GUI and Animation Test GUI");
+// Initialize the color picker GUI
+const colorPickerController = new ColorPickerController();
+colorPickerController.initialize();
+
+print("🎮 Client initialized with Configuration GUI, Animation Test GUI, and Color Picker");
