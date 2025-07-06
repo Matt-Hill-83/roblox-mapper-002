@@ -1,4 +1,5 @@
 import { ConfigGUIController } from "./controllers/configGUI.controller";
+import { AnimationTestGUIController } from "./controllers/animationTestGUI.controller";
 import { Players } from "@rbxts/services";
 
 // Disable the default Roblox chat
@@ -18,4 +19,8 @@ wait(0.5);
 const configGUIController = new ConfigGUIController();
 configGUIController.initialize();
 
-print("🎮 Client initialized with Configuration GUI");
+// Initialize the animation test GUI
+const animationTestController = new AnimationTestGUIController();
+animationTestController.initialize();
+
+print("🎮 Client initialized with Configuration GUI and Animation Test GUI");
