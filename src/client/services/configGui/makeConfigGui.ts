@@ -147,9 +147,10 @@ export class ConfigGUIService {
   /**
    * Creates action buttons for enhanced mode
    */
-  private createActionButtons(): void {
+  private createActionButtons(parentFrame?: Frame): void {
     const state = this.stateManager.getState();
-    if (!state.configFrame) return;
+    const parent = parentFrame || state.configFrame;
+    if (!parent) return;
     
     // Position buttons 70 pixels from bottom using scale
     const buttonYScale = 1;
@@ -160,7 +161,7 @@ export class ConfigGUIService {
       name: "RegenerateButton",
       text: "Regenerate",
       position: new UDim2(0, 10, buttonYScale, buttonYOffset),
-      parent: state.configFrame,
+      parent: parent,
       onClick: () => this.eventHandlers.handleRegenerateClick()
     });
 
@@ -169,7 +170,7 @@ export class ConfigGUIService {
       name: "UpdateButton",
       text: "Update",
       position: new UDim2(0, 10 + GUI_CONSTANTS.BUTTON.WIDTH + GUI_CONSTANTS.BUTTON.SPACING, buttonYScale, buttonYOffset),
-      parent: state.configFrame,
+      parent: parent,
       onClick: () => this.eventHandlers.handleUpdateClick()
     });
 
@@ -178,7 +179,7 @@ export class ConfigGUIService {
       name: "ClearButton",
       text: "Clear",
       position: new UDim2(0, 10 + (GUI_CONSTANTS.BUTTON.WIDTH + GUI_CONSTANTS.BUTTON.SPACING) * 2, buttonYScale, buttonYOffset),
-      parent: state.configFrame,
+      parent: parent,
       onClick: () => this.eventHandlers.handleClearClick(() => this.createGUI())
     });
   }

@@ -155,6 +155,7 @@
 ### Tasks:
 
 1. ✅ [CLD8] T158.1: Update showLinkLabels default to false
+
    1. ✅ [CLD8] T158.1.1: Update default in makeConfigGui.ts
    2. ✅ [CLD8] T158.1.2: Update default in graphInitializer.service.ts
    3. ✅ [CLD8] T158.1.3: Update checkbox field default in visualizationControls.ts
@@ -165,6 +166,7 @@
    3. ✅ [CLD8] T158.2.3: Update checkbox field default in visualizationControls.ts
 
 ### Technical Notes:
+
 - Ensure all places where defaults are defined are updated
 - Test that new graphs start with these checkboxes unchecked
 
@@ -181,6 +183,7 @@
    2. ✅ [CLD8] T159.1.2: Updated all spacing fields to have min value of 0.1 and allow decimal precision
 
 ### Technical Notes:
+
 - This allows for much smaller nodes
 - May need to test rendering with very small values
 - Consider impact on label visibility with small nodes
@@ -194,6 +197,7 @@
 ### Tasks:
 
 1. ✅ [CLD9] T160.1: Identify root cause of color issue
+
    1. ✅ [CLD9] T160.1.1: Check link type naming in UnifiedDataRenderer
    2. ✅ [CLD9] T160.1.2: Verify color mapping in ropeCreator
    3. ✅ [CLD9] T160.1.3: Check RENDERER_CONSTANTS color definitions
@@ -204,5 +208,41 @@
    3. ✅ [CLD9] T160.2.3: Fixed inconsistent type naming in update method
 
 ### Technical Notes:
+
 - Links are showing red which is the default/fallback color
 - Likely a mismatch between generated link type names and color mapping keys
+
+## T161: Make Main GUI Collapsible
+
+**Status**: COMPLETED
+**Priority**: Medium
+**Description**: Add ability to collapse/expand the main configuration GUI
+
+### Tasks:
+
+1. ✅ [CLD10] T161.1: Create collapsible frame component
+
+   1. ✅ [CLD10] T161.1.1: Create collapsibleFrame.ts component
+   2. ✅ [CLD10] T161.1.2: Add header with title and toggle button
+   3. ✅ [CLD10] T161.1.3: Implement smooth collapse/expand animation
+
+2. ✅ [CLD10] T161.2: Add dragging functionality
+
+   1. ✅ [CLD10] T161.2.1: Make GUI draggable by header
+   2. ✅ [CLD10] T161.2.2: Track mouse position for drag
+   3. ✅ [CLD10] T161.2.3: Update frame position on drag
+
+3. ✅ [CLD10] T161.3: Update ConfigGUIService
+
+   1. ✅ [CLD10] T161.3.1: Replace createMainFrame with createCollapsibleFrame
+   2. ✅ [CLD10] T161.3.2: Update content to render in contentFrame
+   3. ✅ [CLD10] T161.3.3: Add animation constants
+
+### Technical Notes:
+
+- Collapsed state shows only header (40px height)
+- Expanded state shows full GUI content
+- Smooth animation using TweenService (0.3s duration)
+- Toggle button shows − when expanded, + when collapsed
+- GUI can be dragged by clicking and dragging the header
+- Content is hidden during collapse animation for cleaner visual

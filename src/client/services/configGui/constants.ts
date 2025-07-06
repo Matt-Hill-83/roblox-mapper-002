@@ -36,7 +36,8 @@ export const GUI_CONSTANTS = {
   ANIMATION: {
     FLASH_DURATION: 0.5,
     BUTTON_FEEDBACK: 0.2,
-    FADE_TIME: 0.3
+    FADE_TIME: 0.3,
+    COLLAPSE_DURATION: 0.3
   },
   
   // Component names
