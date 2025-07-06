@@ -1,137 +1,147 @@
-## T150: Implement GUI Layout Improvements
+## T153: Add Link Diameter Control
 
-**Status**: COMPLETED
-**Priority**: High
-**Description**: Reorganize GUI layout to match the ASCII mockup with separate sections for Global Settings and Node/Link Types
+**Status**: NOT STARTED
+**Priority**: Medium
+**Description**: Add input field to control the diameter/thickness of connector ropes
 
 ### Tasks:
 
-1. ✅ [CLD5] T150.1: Restructure GUI layout sections
+1. 🔲 [CLD7] T153.1: Add link diameter input to GUI
 
-   1. ✅ [CLD5] T150.1.1: Update GUI title from "Enhanced Data Generator" to "Generator Configuration"
-   2. ✅ [CLD5] T150.1.2: Create separate "Global Settings" section with visual border
-   3. ✅ [CLD5] T150.1.3: Create separate "Node/Link Types" section with visual border
-   4. ✅ [CLD5] T150.1.4: Move Number of Node Types and Number of Link Types to new section
-   5. ✅ [CLD5] T150.1.5: Update section spacing and alignment to match mockup
+   1. 🔲 [CLD7] T153.1.1: Add "Link Diameter" field to Global Settings section
+   2. 🔲 [CLD7] T153.1.2: Set default value to appropriate thickness
+   3. 🔲 [CLD7] T153.1.3: Add input validation (min: 0.1, max: 10)
 
-2. ✅ [CLD5] T150.2: Add spacing control fields to Global Settings
+2. 🔲 [CLD7] T153.2: Update interfaces and configuration
 
-   1. ✅ [CLD5] T150.2.1: Add Node Height text input field with default value 10
-   2. ✅ [CLD5] T150.2.2: Add Node Radius text input field with default value 2
-   3. ✅ [CLD5] T150.2.3: Add Layer Spacing text input field with default value 20
-   4. ✅ [CLD5] T150.2.4: Add Node Spacing text input field with default value 8
-   5. ✅ [CLD5] T150.2.5: Add Swimlane Spacing text input field with default value 12
+   1. 🔲 [CLD7] T153.2.1: Add linkDiameter field to SpacingConfig interface
+   2. 🔲 [CLD7] T153.2.2: Update default configurations with link diameter value
+   3. 🔲 [CLD7] T153.2.3: Ensure value persists through regenerate/update operations
 
-3. ✅ [CLD5] T150.3: Implement spacing controls in renderer
-
-   1. ✅ [CLD5] T150.3.1: Update UnifiedDataRenderer to accept spacing parameters
-   2. ✅ [CLD5] T150.3.2: Apply node height to hexagon creation
-   3. ✅ [CLD5] T150.3.3: Apply node radius to hexagon width/size
-   4. ✅ [CLD5] T150.3.4: Apply layer spacing to Y-axis separation between layers
-   5. ✅ [CLD5] T150.3.5: Apply node spacing to X-axis separation within layers
-   6. ✅ [CLD5] T150.3.6: Apply swimlane spacing to column separation
-
-4. ✅ [CLD5] T150.4: Add input validation for spacing controls
-
-   1. ✅ [CLD5] T150.4.1: Validate Node Height (min: 1, max: 100)
-   2. ✅ [CLD5] T150.4.2: Validate Node Radius (min: 0.5, max: 20)
-   3. ✅ [CLD5] T150.4.3: Validate Layer Spacing (min: 1, max: 200)
-   4. ✅ [CLD5] T150.4.4: Validate Node Spacing (min: 1, max: 100)
-   5. ✅ [CLD5] T150.4.5: Validate Swimlane Spacing (min: 1, max: 100)
-
-5. ✅ [CLD5] T150.5: Update configuration interfaces
-   1. ✅ [CLD5] T150.5.1: Add spacing fields to EnhancedGeneratorConfig interface
-   2. ✅ [CLD5] T150.5.2: Update GraphInitializerService default config with spacing values
-   3. ✅ [CLD5] T150.5.3: Ensure spacing values persist through regenerate/update operations
-   4. ✅ [CLD5] T150.5.4: Pass spacing config from GUI to server via remote events
-
-### Additional Improvements:
-
-6. ✅ [CLD5] T150.6: Update GUI height to 90% of screen to prevent scrolling
+3. 🔲 [CLD7] T153.3: Implement link diameter in renderer
+   1. 🔲 [CLD7] T153.3.1: Pass link diameter to rope creation functions
+   2. 🔲 [CLD7] T153.3.2: Apply diameter value to rope thickness/radius
+   3. 🔲 [CLD7] T153.3.3: Test with various diameter values
 
 ### Technical Notes:
 
-- Spacing controls affect visual layout only, not data generation
-- Must maintain backward compatibility with existing saved configurations
-- Default values should match current hardcoded constants in renderer
-- Consider creating a SpacingConfig interface for cleaner parameter passing
+- Link diameter affects visual appearance only
+- Should scale appropriately with other spacing values
+- Consider rope physics when setting thickness
 
-## T151: Implement Quit Game Shortcut
+## T154: Update Minimum Values for Input Fields
 
-**Status**: COMPLETED
+**Status**: NOT STARTED
 **Priority**: Low
-**Description**: Allow users to quit the game by pressing Esc then P
+**Description**: Change minimum value for all numeric input fields to 0.1
 
 ### Tasks:
 
-1. ✅ [CLD6] T151.1: Create keyboard input handler
+1. 🔲 [CLD7] T154.1: Update spacing control minimums
 
-   1. ✅ [CLD6] T151.1.1: Create new client service for keyboard shortcuts
-   2. ✅ [CLD6] T151.1.2: Detect Esc key press
-   3. ✅ [CLD6] T151.1.3: Start timeout for P key after Esc
-   4. ✅ [CLD6] T151.1.4: Clear timeout if different key pressed
+   1. 🔲 [CLD7] T154.1.1: Change Node Height minimum to 0.1
+   2. 🔲 [CLD7] T154.1.2: Change Node Radius minimum to 0.1 (already 0.5)
+   3. 🔲 [CLD7] T154.1.3: Change Layer Spacing minimum to 0.1
+   4. 🔲 [CLD7] T154.1.4: Change Node Spacing minimum to 0.1
+   5. 🔲 [CLD7] T154.1.5: Change Swimlane Spacing minimum to 0.1
 
-2. ✅ [CLD6] T151.2: Implement quit functionality
-   1. ✅ [CLD6] T151.2.1: Show confirmation dialog when Esc+P detected
-   2. ✅ [CLD6] T151.2.2: Quit game if confirmed
-   3. ✅ [CLD6] T151.2.3: Cancel on dialog dismiss or timeout
+2. 🔲 [CLD7] T154.2: Update validation logic
+   1. 🔲 [CLD7] T154.2.1: Modify spacingControls.ts validation ranges
+   2. 🔲 [CLD7] T154.2.2: Test edge cases with very small values
+   3. 🔲 [CLD7] T154.2.3: Ensure renderer handles small values gracefully
 
 ### Technical Notes:
 
-- Use UserInputService for keyboard detection
-- Consider 1-2 second window for P after Esc
-- Show visual feedback when Esc pressed
+- Very small values may cause rendering issues
+- Test thoroughly with minimum values
+- Consider warning messages for extremely small values
 
-## T152: Implement Visualization Control Checkboxes
+## T155: Add Random X Offset Checkbox
 
-**Status**: COMPLETED
-**Priority**: High
-**Description**: Add checkboxes to control visualization options for links and labels
+**Status**: NOT STARTED
+**Priority**: Medium
+**Description**: Add checkbox to randomly offset node X positions by 20 units
 
 ### Tasks:
 
-1. ✅ [CLD6] T152.1: Add checkbox section to GUI
-   1. ✅ [CLD6] T152.1.1: Create visualization controls component
-   2. ✅ [CLD6] T152.1.2: Position checkboxes in bottom-right corner
-   3. ✅ [CLD6] T152.1.3: Style checkboxes with proper sizing and spacing
+1. 🔲 [CLD7] T155.1: Add checkbox to visualization controls
 
-2. ✅ [CLD6] T152.2: Create checkbox components
-   1. ✅ [CLD6] T152.2.1: "Show link labels" checkbox (default: checked/true)
-   2. ✅ [CLD6] T152.2.2: "Show connectors" checkbox (default: checked/true)
-   3. ✅ [CLD6] T152.2.3: "Create same-layer links" checkbox (default: checked/true)
+   1. 🔲 [CLD7] T155.1.1: Add "Rand X" checkbox to visualization controls
+   2. 🔲 [CLD7] T155.1.2: Set default value to unchecked/false
+   3. 🔲 [CLD7] T155.1.3: Update checkbox layout if needed
 
-3. ✅ [CLD6] T152.3: Add visualization flags to interfaces
-   1. ✅ [CLD6] T152.3.1: Create VisualizationOptions interface
-   2. ✅ [CLD6] T152.3.2: Add visualization field to EnhancedGeneratorConfig
-   3. ✅ [CLD6] T152.3.3: Update all default configs with visualization options
+2. 🔲 [CLD7] T155.2: Update interfaces
 
-4. ✅ [CLD6] T152.4: Implement real-time visualization updates
-   1. ✅ [CLD6] T152.4.1: Handle checkbox state changes
-   2. ✅ [CLD6] T152.4.2: Trigger immediate config update on change
-   3. ✅ [CLD6] T152.4.3: Update status message on visualization change
+   1. 🔲 [CLD7] T155.2.1: Add randomXOffset field to VisualizationOptions
+   2. 🔲 [CLD7] T155.2.2: Update all default configs
 
-5. ✅ [CLD6] T152.5: Update renderer to respect visualization flags
-   1. ✅ [CLD6] T152.5.1: Modify rope creator to check showConnectors flag
-   2. ✅ [CLD6] T152.5.2: Modify rope creator to check showLinkLabels flag
-   3. ✅ [CLD6] T152.5.3: Modify data generator to check allowSameLevelLinks during generation
-   4. ✅ [CLD6] T152.5.4: Update incremental update logic to respect same flags
-
-### Additional Changes:
-
-6. ✅ [CLD6] T152.6: Update default values
-   1. ✅ [CLD6] T152.6.1: Change default number of node types from 3 to 4
-   2. ✅ [CLD6] T152.6.2: Change default number of link types from 1 to 3
-   3. ✅ [CLD6] T152.6.3: Update all checkbox defaults to true
-
-7. ✅ [CLD6] T152.7: Remove debug print statements
-   1. ✅ [CLD6] T152.7.1: Remove prints from textBoxMaker
-   2. ✅ [CLD6] T152.7.2: Remove prints from hexagonMaker
-   3. ✅ [CLD6] T152.7.3: Remove prints from labelGroupMaker
+3. 🔲 [CLD7] T155.3: Implement random offset logic
+   1. 🔲 [CLD7] T155.3.1: Modify node positioning logic in UnifiedDataRenderer
+   2. 🔲 [CLD7] T155.3.2: Apply 50% chance of +20 or -20 unit X offset
+   3. 🔲 [CLD7] T155.3.3: Ensure offset is applied during both create and update
+   4. 🔲 [CLD7] T155.3.4: Test with various node configurations
 
 ### Technical Notes:
 
-- "Show connectors" controls rope visibility
-- "Show link labels" controls label visibility on ropes
-- "Create same-layer links" controls data generation, not just display
-- Checkboxes positioned to avoid overlapping with other UI elements
-- All visualization options require immediate update without full regeneration
+- Random offset should be deterministic per node (same seed)
+- Offset direction (+20 or -20) should also be random
+- Consider impact on swim lane alignment
+- This affects data generation, requires regeneration to see changes
+
+## T156: Initialize New Layer with Previous Layer Values
+
+**Status**: NOT STARTED
+**Priority**: Medium
+**Description**: When adding a new layer, initialize its values to match the layer above it
+
+### Tasks:
+
+1. 🔲 [CLD7] T156.1: Modify add layer functionality
+
+   1. 🔲 [CLD7] T156.1.1: Update createLayerRow in layerGrid.ts
+   2. 🔲 [CLD7] T156.1.2: Get values from the last layer in the array
+   3. 🔲 [CLD7] T156.1.3: Copy numNodes and connectionsPerNode values
+
+2. 🔲 [CLD7] T156.2: Handle edge cases
+   1. 🔲 [CLD7] T156.2.1: Handle case when no layers exist (use defaults)
+   2. 🔲 [CLD7] T156.2.2: Ensure layer number increments correctly
+   3. 🔲 [CLD7] T156.2.3: Test with various layer configurations
+
+### Technical Notes:
+
+- Improves user experience by reducing repetitive input
+- Should only copy editable values, not layer number
+- Consider copying node/link type selections when dropdowns are implemented
+
+## T157: Implement Tab Key Navigation
+
+**Status**: NOT STARTED
+**Priority**: Low
+**Description**: Allow Tab key to navigate between input fields in the GUI
+
+### Tasks:
+
+1. 🔲 [CLD7] T157.1: Implement tab navigation system
+
+   1. 🔲 [CLD7] T157.1.1: Create tab index management system
+   2. 🔲 [CLD7] T157.1.2: Assign tab indices to all input fields
+   3. 🔲 [CLD7] T157.1.3: Handle Tab key press in UserInputService
+
+2. 🔲 [CLD7] T157.2: Define tab order
+
+   1. 🔲 [CLD7] T157.2.1: Global Settings fields (top to bottom)
+   2. 🔲 [CLD7] T157.2.2: Node/Link Types fields
+   3. 🔲 [CLD7] T157.2.3: Layer grid fields (left to right, top to bottom)
+   4. 🔲 [CLD7] T157.2.4: Loop back to first field after last
+
+3. 🔲 [CLD7] T157.3: Handle special cases
+   1. 🔲 [CLD7] T157.3.1: Skip disabled/readonly fields
+   2. 🔲 [CLD7] T157.3.2: Handle Shift+Tab for reverse navigation
+   3. 🔲 [CLD7] T157.3.3: Ensure focus visual feedback
+
+### Technical Notes:
+
+- Roblox doesn't have native tab navigation for GUIs
+- Will need custom implementation using UserInputService
+- Consider visual focus indicators for current field
+- Test with dynamically added/removed layer rows
