@@ -13,13 +13,14 @@ interface RopeCreationContext {
   nodeToHexagon: Map<string, Model>;
   linksFolder: Folder;
   visualization?: VisualizationOptions;
+  linkDiameter?: number;
 }
 
 /**
  * Creates rope connectors between hexagons based on relationships
  */
 export function createRopeConnectors(context: RopeCreationContext): void {
-  const { cluster, nodeToHexagon, linksFolder, visualization } = context;
+  const { cluster, nodeToHexagon, linksFolder, visualization, linkDiameter } = context;
   
   // Check if connectors should be shown
   const showConnectors = visualization?.showConnectors ?? true;
@@ -44,7 +45,7 @@ export function createRopeConnectors(context: RopeCreationContext): void {
       
       if (sourceAttachment && targetAttachment) {
         // Create rope
-        const rope = createRope(link, sourceHex, targetHex, sourceAttachment, targetAttachment, ropeIndex);
+        const rope = createRope(link, sourceHex, targetHex, sourceAttachment, targetAttachment, ropeIndex, linkDiameter);
         
         // Parent rope to target's center cube
         const targetCenterCube = findCenterCube(targetHex);
@@ -127,7 +128,8 @@ function createRope(
   targetHex: Model,
   sourceAttachment: Attachment,
   targetAttachment: Attachment,
-  ropeIndex: number
+  ropeIndex: number,
+  linkDiameter?: number
 ): RopeConstraint {
   const rope = new Instance("RopeConstraint");
   rope.Name = `rope${padNumber(ropeIndex, 3)}-${link.type.lower()}-${sourceHex.Name}-to-${targetHex.Name}`;
@@ -140,7 +142,7 @@ function createRope(
   
   rope.Visible = true;
   rope.Color = getLinkBrickColor(link.type);
-  rope.Thickness = RENDERER_CONSTANTS.ROPE.THICKNESS;
+  rope.Thickness = linkDiameter ?? RENDERER_CONSTANTS.ROPE.THICKNESS;
   
   return rope;
 }

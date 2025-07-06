@@ -60,7 +60,7 @@ export const GUI_CONSTANTS = {
   
   // Enhanced mode configuration
   ENHANCED: {
-    GLOBAL_SETTINGS_HEIGHT: 180, // Increased to accommodate spacing controls
+    GLOBAL_SETTINGS_HEIGHT: 210, // Increased to accommodate spacing controls including link diameter
     NODE_LINK_TYPES_HEIGHT: 70, // New section for node/link types
     GRID_HEADER_HEIGHT: 30,
     GRID_ROW_HEIGHT: 30,
@@ -80,10 +80,11 @@ export const GUI_CONSTANTS = {
   // Default spacing values
   SPACING_DEFAULTS: {
     NODE_HEIGHT: 1,
-    NODE_RADIUS: 2,
-    LAYER_SPACING: 4,
-    NODE_SPACING: 5,
-    SWIMLANE_SPACING: 2
+    NODE_RADIUS: 0.5,
+    LAYER_SPACING: 2,
+    NODE_SPACING: 1,
+    SWIMLANE_SPACING: 1,
+    LINK_DIAMETER: 0.5
   },
   
   // Button configuration

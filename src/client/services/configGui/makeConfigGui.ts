@@ -44,7 +44,8 @@ export class ConfigGUIService {
       nodeRadius: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_RADIUS,
       layerSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.LAYER_SPACING,
       nodeSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_SPACING,
-      swimlaneSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.SWIMLANE_SPACING
+      swimlaneSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.SWIMLANE_SPACING,
+      linkDiameter: GUI_CONSTANTS.SPACING_DEFAULTS.LINK_DIAMETER
     };
     
     // Initialize visualization options with defaults
@@ -324,7 +325,8 @@ export class ConfigGUIService {
       nodeRadius: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_RADIUS,
       layerSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.LAYER_SPACING,
       nodeSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_SPACING,
-      swimlaneSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.SWIMLANE_SPACING
+      swimlaneSpacing: GUI_CONSTANTS.SPACING_DEFAULTS.SWIMLANE_SPACING,
+      linkDiameter: GUI_CONSTANTS.SPACING_DEFAULTS.LINK_DIAMETER
     };
     
     // Reset visualization options to defaults

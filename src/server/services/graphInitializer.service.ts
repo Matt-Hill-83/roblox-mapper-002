@@ -26,14 +26,25 @@ export class GraphInitializerService {
         layerNumber: 3,
         numNodes: 9,
         connectionsPerNode: 1
+      },
+      {
+        layerNumber: 4,
+        numNodes: 27,
+        connectionsPerNode: 1
+      },
+      {
+        layerNumber: 5,
+        numNodes: 36,
+        connectionsPerNode: 1
       }
     ],
     spacing: {
       nodeHeight: 1,
-      nodeRadius: 2,
-      layerSpacing: 4,
-      nodeSpacing: 5,
-      swimlaneSpacing: 2
+      nodeRadius: 0.5,
+      layerSpacing: 2,
+      nodeSpacing: 1,
+      swimlaneSpacing: 1,
+      linkDiameter: 0.5
     },
     visualization: {
       showLinkLabels: true,

@@ -459,7 +459,8 @@ export class UnifiedDataRenderer {
       cluster,
       nodeToHexagon,
       linksFolder,
-      visualization: config?.visualization
+      visualization: config?.visualization,
+      linkDiameter: config?.spacing?.linkDiameter
     });
     
     print(`📊 Created ${nodeToHexagon.size()} hexagons and ${cluster.relations.size()} connections`);
@@ -735,7 +736,8 @@ export class UnifiedDataRenderer {
       cluster,
       nodeToHexagon: updatedNodeToHexagon,
       linksFolder,
-      visualization: newConfig.visualization
+      visualization: newConfig.visualization,
+      linkDiameter: newConfig.spacing?.linkDiameter
     });
     
     print(`📊 Updated ${allNodes.size()} nodes and ${allLinks.size()} connections`);

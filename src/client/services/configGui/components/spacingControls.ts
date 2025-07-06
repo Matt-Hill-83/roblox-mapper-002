@@ -20,7 +20,8 @@ const SPACING_FIELDS: SpacingField[] = [
   { label: "Node Radius:", field: "nodeRadius", min: 0.5, max: 20, default: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_RADIUS },
   { label: "Layer Spacing:", field: "layerSpacing", min: 1, max: 200, default: GUI_CONSTANTS.SPACING_DEFAULTS.LAYER_SPACING },
   { label: "Node Spacing:", field: "nodeSpacing", min: 1, max: 100, default: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_SPACING },
-  { label: "Swimlane Spacing:", field: "swimlaneSpacing", min: 1, max: 100, default: GUI_CONSTANTS.SPACING_DEFAULTS.SWIMLANE_SPACING }
+  { label: "Swimlane Spacing:", field: "swimlaneSpacing", min: 1, max: 100, default: GUI_CONSTANTS.SPACING_DEFAULTS.SWIMLANE_SPACING },
+  { label: "Link Diameter:", field: "linkDiameter", min: 0.1, max: 10, default: GUI_CONSTANTS.SPACING_DEFAULTS.LINK_DIAMETER }
 ];
 
 export function createSpacingControls({
@@ -70,8 +71,8 @@ export function createSpacingControls({
     input.FocusLost.Connect(() => {
       const value = tonumber(input.Text);
       if (value && value >= fieldDef.min && value <= fieldDef.max) {
-        // For decimal fields like nodeRadius, keep decimal precision
-        const finalValue = fieldDef.field === "nodeRadius" ? value : math.floor(value);
+        // For decimal fields like nodeRadius and linkDiameter, keep decimal precision
+        const finalValue = (fieldDef.field === "nodeRadius" || fieldDef.field === "linkDiameter") ? value : math.floor(value);
         onSpacingChange(fieldDef.field, finalValue);
         input.Text = tostring(finalValue);
       } else {

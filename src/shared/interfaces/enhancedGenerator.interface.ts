@@ -19,6 +19,7 @@ export interface SpacingConfig {
   layerSpacing: number;
   nodeSpacing: number;
   swimlaneSpacing: number;
+  linkDiameter: number;
 }
 
 // Visualization control options
