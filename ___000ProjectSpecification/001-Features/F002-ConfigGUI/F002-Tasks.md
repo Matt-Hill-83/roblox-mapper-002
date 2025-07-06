@@ -239,41 +239,41 @@
 - Origin should be the bottom center of the entire node group
 
 ## T140: Add Update Button for Incremental Data Updates
-**Status**: PENDING
+**Status**: COMPLETED (with known issue)
 **Priority**: High
 **Description**: Add an Update button to the GUI that modifies existing data instead of recreating the entire graph
 
 ### Tasks:
 
-1. 🔲 [CLD5] T140.1: Add Update button to GUI interface
-   1. 🔲 [CLD5] T140.1.1: Add button between Regenerate and Clear buttons
-   2. 🔲 [CLD5] T140.1.2: Style consistently with other buttons
-   3. 🔲 [CLD5] T140.1.3: Add click handler for update operation
-   4. 🔲 [CLD5] T140.1.4: Add onUpdateRequest callback to service interface
+1. ✅ [CLD5] T140.1: Add Update button to GUI interface
+   1. ✅ [CLD5] T140.1.1: Add button between Regenerate and Clear buttons
+   2. ✅ [CLD5] T140.1.2: Style consistently with other buttons
+   3. ✅ [CLD5] T140.1.3: Add click handler for update operation
+   4. ✅ [CLD5] T140.1.4: Add onUpdateRequest callback to service interface
 
-2. 🔲 [CLD5] T140.2: Create incremental update logic in UnifiedDataRenderer
-   1. 🔲 [CLD5] T140.2.1: Add updateEnhancedData method alongside renderEnhancedData
-   2. 🔲 [CLD5] T140.2.2: Track existing nodes by layer and index
-   3. 🔲 [CLD5] T140.2.3: Compare new config with existing state
-   4. 🔲 [CLD5] T140.2.4: Add/remove nodes as needed per layer
+2. ✅ [CLD5] T140.2: Create incremental update logic in UnifiedDataRenderer
+   1. ✅ [CLD5] T140.2.1: Add updateEnhancedData method alongside renderEnhancedData
+   2. ✅ [CLD5] T140.2.2: Track existing nodes by layer and index
+   3. ✅ [CLD5] T140.2.3: Compare new config with existing state
+   4. ✅ [CLD5] T140.2.4: Add/remove nodes as needed per layer
 
-3. 🔲 [CLD5] T140.3: Handle node additions and removals
-   1. 🔲 [CLD5] T140.3.1: When layer node count increases, add new nodes at end
-   2. 🔲 [CLD5] T140.3.2: When layer node count decreases, remove nodes from end
-   3. 🔲 [CLD5] T140.3.3: Preserve existing node positions and properties
-   4. 🔲 [CLD5] T140.3.4: Recalculate swim lanes only for affected layers
+3. ✅ [CLD5] T140.3: Handle node additions and removals
+   1. ✅ [CLD5] T140.3.1: When layer node count increases, add new nodes at end
+   2. ✅ [CLD5] T140.3.2: When layer node count decreases, remove nodes from end
+   3. ✅ [CLD5] T140.3.3: Preserve existing node positions and properties
+   4. ✅ [CLD5] T140.3.4: Recalculate swim lanes only for affected layers
 
-4. 🔲 [CLD5] T140.4: Handle layer additions and removals
-   1. 🔲 [CLD5] T140.4.1: Add new layers with proper positioning
-   2. 🔲 [CLD5] T140.4.2: Remove deleted layers and their nodes
-   3. 🔲 [CLD5] T140.4.3: Update layer numbering for remaining layers
-   4. 🔲 [CLD5] T140.4.4: Maintain visual hierarchy
+4. ✅ [CLD5] T140.4: Handle layer additions and removals
+   1. ✅ [CLD5] T140.4.1: Add new layers with proper positioning
+   2. ✅ [CLD5] T140.4.2: Remove deleted layers and their nodes
+   3. ✅ [CLD5] T140.4.3: Update layer numbering for remaining layers
+   4. ✅ [CLD5] T140.4.4: Maintain visual hierarchy
 
-5. 🔲 [CLD5] T140.5: Update connections incrementally
-   1. 🔲 [CLD5] T140.5.1: Remove connections for deleted nodes
-   2. 🔲 [CLD5] T140.5.2: Add connections for new nodes
-   3. 🔲 [CLD5] T140.5.3: Update connection counts for existing nodes
-   4. 🔲 [CLD5] T140.5.4: Preserve existing connections where possible
+5. ✅ [CLD5] T140.5: Update connections incrementally
+   1. ✅ [CLD5] T140.5.1: Remove connections for deleted nodes
+   2. ✅ [CLD5] T140.5.2: Add connections for new nodes
+   3. ✅ [CLD5] T140.5.3: Update connection counts for existing nodes
+   4. ✅ [CLD5] T140.5.4: Preserve existing connections where possible
 
 ### Technical Notes:
 - Update should be more efficient than full regeneration
@@ -282,3 +282,53 @@
 - Store current configuration state for comparison
 - Only modify what has changed
 - Need to calculate group bounds after swim lane positioning
+- **KNOWN ISSUE**: New nodes are created at 0,0,0 instead of proper positions
+
+## T141: Fix Update Button - Nodes Created at 0,0,0
+**Status**: TODO
+**Priority**: High
+**Description**: Fix the issue where new nodes created by the Update button appear at origin instead of proper swim lane positions
+
+### Tasks:
+
+1. ⬜ T141.1: Debug position calculation in performIncrementalUpdate
+   1. ⬜ T141.1.1: Investigate why new nodes don't get swim lane positions
+   2. ⬜ T141.1.2: Ensure calculateLayerSwimLanePositions is called properly
+   3. ⬜ T141.1.3: Verify position assignment to new hexagons
+
+2. ⬜ T141.2: Fix position update logic
+   1. ⬜ T141.2.1: Ensure all nodes (new and existing) participate in positioning
+   2. ⬜ T141.2.2: Update hexagon positions after swim lane calculation
+   3. ⬜ T141.2.3: Test with various update scenarios
+
+## T142: Initialize New Layer with Values from Row Above
+**Status**: COMPLETED
+**Priority**: Medium
+**Description**: When adding a new layer, copy values from the previous layer instead of using defaults
+
+### Tasks:
+
+1. ✅ [CLD5] T142.1: Update addLayer function in layerGrid.ts
+   1. ✅ [CLD5] T142.1.1: Check if previous layers exist
+   2. ✅ [CLD5] T142.1.2: Copy numNodes, connectionsPerNode, nodeType, linkType from previous layer
+   3. ✅ [CLD5] T142.1.3: Use sensible defaults only for first layer
+
+## T143: Replace Dropdowns with Number Input Boxes
+**Status**: COMPLETED
+**Priority**: Medium
+**Description**: Replace the two global settings dropdowns with number input boxes for consistency
+
+### Tasks:
+
+1. ✅ [CLD5] T143.1: Replace node types dropdown
+   1. ✅ [CLD5] T143.1.1: Remove dropdown creation code
+   2. ✅ [CLD5] T143.1.2: Create TextBox input with validation
+   3. ✅ [CLD5] T143.1.3: Ensure values stay within valid range (1-10)
+
+2. ✅ [CLD5] T143.2: Replace link types dropdown
+   1. ✅ [CLD5] T143.2.1: Remove dropdown creation code
+   2. ✅ [CLD5] T143.2.2: Create TextBox input with validation
+   3. ✅ [CLD5] T143.2.3: Ensure values stay within valid range (1-10)
+
+3. ✅ [CLD5] T143.3: Remove unused dropdown imports
+   1. ✅ [CLD5] T143.3.1: Remove createDropdown import from globalSettings.ts

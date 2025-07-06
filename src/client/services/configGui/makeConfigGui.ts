@@ -21,6 +21,7 @@ export class ConfigGUIService {
   private state: GUIState;
   private onEnhancedConfigChange?: (config: EnhancedGeneratorConfig) => void;
   private onClearRequest?: () => void;
+  private onUpdateRequest?: (config: EnhancedGeneratorConfig) => void;
 
   constructor(options: ConfigGUIServiceOptions) {
     print("🏗️ ConfigGUIService constructor called");
@@ -46,6 +47,7 @@ export class ConfigGUIService {
     
     this.onEnhancedConfigChange = options.onEnhancedConfigChange;
     this.onClearRequest = options.onClearRequest;
+    this.onUpdateRequest = options.onUpdateRequest;
   }
 
   /**
@@ -148,11 +150,30 @@ export class ConfigGUIService {
 
     regenerateButton.MouseButton1Click.Connect(() => this.onRegenerateClick());
 
+    // Update button
+    const updateButton = new Instance("TextButton");
+    updateButton.Name = "UpdateButton";
+    updateButton.Size = new UDim2(0, GUI_CONSTANTS.BUTTON.WIDTH, 0, GUI_CONSTANTS.BUTTON.HEIGHT);
+    updateButton.Position = new UDim2(0, 10 + GUI_CONSTANTS.BUTTON.WIDTH + GUI_CONSTANTS.BUTTON.SPACING, 0, buttonY);
+    updateButton.BackgroundColor3 = GUI_CONSTANTS.COLORS.BUTTON.DEFAULT;
+    updateButton.BorderSizePixel = 0;
+    updateButton.Font = GUI_CONSTANTS.TYPOGRAPHY.BUTTON_FONT;
+    updateButton.Text = "Update";
+    updateButton.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
+    updateButton.TextScaled = true;
+    updateButton.Parent = this.state.configFrame;
+
+    const updateCorner = new Instance("UICorner");
+    updateCorner.CornerRadius = new UDim(0, 4);
+    updateCorner.Parent = updateButton;
+
+    updateButton.MouseButton1Click.Connect(() => this.onUpdateClick());
+
     // Clear button
     const clearButton = new Instance("TextButton");
     clearButton.Name = "ClearButton";
     clearButton.Size = new UDim2(0, GUI_CONSTANTS.BUTTON.WIDTH, 0, GUI_CONSTANTS.BUTTON.HEIGHT);
-    clearButton.Position = new UDim2(0, 10 + GUI_CONSTANTS.BUTTON.WIDTH + GUI_CONSTANTS.BUTTON.SPACING, 0, buttonY);
+    clearButton.Position = new UDim2(0, 10 + (GUI_CONSTANTS.BUTTON.WIDTH + GUI_CONSTANTS.BUTTON.SPACING) * 2, 0, buttonY);
     clearButton.BackgroundColor3 = GUI_CONSTANTS.COLORS.BUTTON.DEFAULT;
     clearButton.BorderSizePixel = 0;
     clearButton.Font = GUI_CONSTANTS.TYPOGRAPHY.BUTTON_FONT;
@@ -201,6 +222,22 @@ export class ConfigGUIService {
       this.updateStatus("Regenerating with new configuration...");
       this.onEnhancedConfigChange(this.state.enhancedConfig);
       this.updateStatus("Regeneration complete");
+    }
+  }
+
+  /**
+   * Handles update button click
+   */
+  private onUpdateClick(): void {
+    if (this.state.enhancedConfig.layers.size() === 0) {
+      this.updateStatus("No layers configured!", true);
+      return;
+    }
+
+    if (this.onUpdateRequest) {
+      this.updateStatus("Updating existing graph...");
+      this.onUpdateRequest(this.state.enhancedConfig);
+      this.updateStatus("Update complete");
     }
   }
 

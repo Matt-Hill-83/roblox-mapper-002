@@ -1,5 +1,4 @@
 import { GUI_CONSTANTS } from "../constants";
-import { createDropdown } from "./dropdown";
 
 interface GlobalSettingsProps {
   parent: Frame;
@@ -52,35 +51,33 @@ export function createGlobalSettings({
   nodeTypesLabel.TextXAlignment = Enum.TextXAlignment.Left;
   nodeTypesLabel.Parent = container;
 
-  const nodeTypeItems = [];
-  for (let i = 1; i <= GUI_CONSTANTS.ENHANCED.DROPDOWN_ITEMS; i++) {
-    nodeTypeItems.push(tostring(i));
-  }
+  // Node types input box
+  const nodeTypesInput = new Instance("TextBox");
+  nodeTypesInput.Name = "NodeTypesInput";
+  nodeTypesInput.Size = new UDim2(0, 80, 0, 25);
+  nodeTypesInput.Position = new UDim2(0, 165, 0, 35);
+  nodeTypesInput.BackgroundColor3 = new Color3(0.25, 0.25, 0.25);
+  nodeTypesInput.BorderSizePixel = 0;
+  nodeTypesInput.Font = GUI_CONSTANTS.TYPOGRAPHY.INPUT_FONT;
+  nodeTypesInput.Text = tostring(numNodeTypes);
+  nodeTypesInput.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
+  nodeTypesInput.TextScaled = true;
+  nodeTypesInput.Parent = container;
 
-  const nodeDropdown = createDropdown({
-    parent: container,
-    position: new UDim2(0, 165, 0, 35),
-    size: new UDim2(0, 80, 0, 25),
-    items: nodeTypeItems,
-    defaultValue: tostring(numNodeTypes),
-    onChange: (value) => {
-      const num = tonumber(value);
-      if (num) {
-        onNodeTypesChange(num);
-      }
+  const nodeTypesCorner = new Instance("UICorner");
+  nodeTypesCorner.CornerRadius = new UDim(0, 4);
+  nodeTypesCorner.Parent = nodeTypesInput;
+
+  // Input validation
+  nodeTypesInput.FocusLost.Connect(() => {
+    const value = tonumber(nodeTypesInput.Text);
+    if (value && value >= 1 && value <= GUI_CONSTANTS.ENHANCED.DROPDOWN_ITEMS) {
+      onNodeTypesChange(math.floor(value));
+      nodeTypesInput.Text = tostring(math.floor(value));
+    } else {
+      nodeTypesInput.Text = tostring(numNodeTypes);
     }
   });
-
-  // Add dropdown arrow indicator
-  const nodeArrow = new Instance("TextLabel");
-  nodeArrow.Size = new UDim2(0, 20, 1, 0);
-  nodeArrow.Position = new UDim2(1, -25, 0, 0);
-  nodeArrow.BackgroundTransparency = 1;
-  nodeArrow.Font = GUI_CONSTANTS.TYPOGRAPHY.LABEL_FONT;
-  nodeArrow.Text = "▼";
-  nodeArrow.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
-  nodeArrow.TextScaled = true;
-  nodeArrow.Parent = nodeDropdown;
 
   // Link types setting
   const linkTypesLabel = new Instance("TextLabel");
@@ -94,35 +91,33 @@ export function createGlobalSettings({
   linkTypesLabel.TextXAlignment = Enum.TextXAlignment.Left;
   linkTypesLabel.Parent = container;
 
-  const linkTypeItems = [];
-  for (let i = 1; i <= GUI_CONSTANTS.ENHANCED.DROPDOWN_ITEMS; i++) {
-    linkTypeItems.push(tostring(i));
-  }
+  // Link types input box
+  const linkTypesInput = new Instance("TextBox");
+  linkTypesInput.Name = "LinkTypesInput";
+  linkTypesInput.Size = new UDim2(0, 80, 0, 25);
+  linkTypesInput.Position = new UDim2(0, 435, 0, 35);
+  linkTypesInput.BackgroundColor3 = new Color3(0.25, 0.25, 0.25);
+  linkTypesInput.BorderSizePixel = 0;
+  linkTypesInput.Font = GUI_CONSTANTS.TYPOGRAPHY.INPUT_FONT;
+  linkTypesInput.Text = tostring(numLinkTypes);
+  linkTypesInput.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
+  linkTypesInput.TextScaled = true;
+  linkTypesInput.Parent = container;
 
-  const linkDropdown = createDropdown({
-    parent: container,
-    position: new UDim2(0, 435, 0, 35),
-    size: new UDim2(0, 80, 0, 25),
-    items: linkTypeItems,
-    defaultValue: tostring(numLinkTypes),
-    onChange: (value) => {
-      const num = tonumber(value);
-      if (num) {
-        onLinkTypesChange(num);
-      }
+  const linkTypesCorner = new Instance("UICorner");
+  linkTypesCorner.CornerRadius = new UDim(0, 4);
+  linkTypesCorner.Parent = linkTypesInput;
+
+  // Input validation
+  linkTypesInput.FocusLost.Connect(() => {
+    const value = tonumber(linkTypesInput.Text);
+    if (value && value >= 1 && value <= GUI_CONSTANTS.ENHANCED.DROPDOWN_ITEMS) {
+      onLinkTypesChange(math.floor(value));
+      linkTypesInput.Text = tostring(math.floor(value));
+    } else {
+      linkTypesInput.Text = tostring(numLinkTypes);
     }
   });
-
-  // Add dropdown arrow indicator
-  const linkArrow = new Instance("TextLabel");
-  linkArrow.Size = new UDim2(0, 20, 1, 0);
-  linkArrow.Position = new UDim2(1, -25, 0, 0);
-  linkArrow.BackgroundTransparency = 1;
-  linkArrow.Font = GUI_CONSTANTS.TYPOGRAPHY.LABEL_FONT;
-  linkArrow.Text = "▼";
-  linkArrow.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
-  linkArrow.TextScaled = true;
-  linkArrow.Parent = linkDropdown;
 
   return container;
 }

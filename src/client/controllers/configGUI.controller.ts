@@ -52,6 +52,7 @@ export class ConfigGUIController {
                 onEnhancedConfigChange: (config) =>
                   this.onEnhancedConfigChange(config),
                 onClearRequest: () => this.onClearRequest(),
+                onUpdateRequest: (config) => this.onUpdateRequest(config),
                 initialConfig: enhancedConfig,
               });
               this.guiService.createGUI();
@@ -66,6 +67,10 @@ export class ConfigGUIController {
           print("✅ Regeneration successful!");
         } else if (eventType === "regenerateError") {
           warn("❌ Regeneration failed:", data);
+        } else if (eventType === "updateSuccess") {
+          print("✅ Update successful!");
+        } else if (eventType === "updateError") {
+          warn("❌ Update failed:", data);
         } else if (eventType === "triggerGeneration" && typeIs(data, "table")) {
           // Automatic generation triggered by server
           print("🚀 Auto-generating graph from server trigger...");
@@ -98,6 +103,16 @@ export class ConfigGUIController {
     if (this.remoteEvent) {
       print("🗑️ Sending clear request to server...");
       this.remoteEvent.FireServer("clearGraph");
+    }
+  }
+
+  /**
+   * Handles update request from the GUI
+   */
+  private onUpdateRequest(config: EnhancedGeneratorConfig): void {
+    if (this.remoteEvent) {
+      print("🔄 Sending update request to server...");
+      this.remoteEvent.FireServer("updateEnhanced", config);
     }
   }
 

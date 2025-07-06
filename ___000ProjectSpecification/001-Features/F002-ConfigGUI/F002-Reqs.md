@@ -57,3 +57,6 @@
    5. 🔲 [CLD5] R4.2.5: Update connections based on new connection counts
 3. 🔲 [CLD5] R4.3: The Update operation shall preserve existing node positions where possible
 4. 🔲 [CLD5] R4.4: The system shall track the current graph state to enable incremental updates
+
+5. 🔲 [CLD5] R2.7: When a user adds a new layer, the row values in the GUI table shall be initialized to match the row above it.
+6. 🔲 [CLD5] R2.8: The two dropdowns for node and link types shall be replaced with number entry boxes, consistent with the table input style.
