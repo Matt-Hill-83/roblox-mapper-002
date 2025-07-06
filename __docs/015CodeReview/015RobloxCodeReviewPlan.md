@@ -37,6 +37,10 @@ A comprehensive plan to review the entire Roblox TypeScript codebase for quality
 6. ⬛ **Q6** – Variable naming and clarity
 7. ⬛ **Q7** – Comment quality and documentation
 8. ⬛ **Q8** – Dead code and unused imports
+9. ⬛ **Q9** – Orphaned files and modules
+10. ⬛ **Q10** – Unused exports and functions
+11. ⬛ **Q11** – Unreachable code paths
+12. ⬛ **Q12** – File size and modularization needs
 
 ### 3. ⬛ Roblox-Specific Practices
 
@@ -72,6 +76,27 @@ A comprehensive plan to review the entire Roblox TypeScript codebase for quality
 8. ⬛ **S8** – Anti-exploit measures
 
 ## Task List
+
+### Phase 0: Codebase Inventory & Cleanup
+
+1. ⬛ **T0.1** – Generate dependency graph of all files
+2. ⬛ **T0.2** – Identify files with no incoming dependencies
+3. ⬛ **T0.3** – List all exported symbols and their usage
+4. ⬛ **T0.4** – Find assets referenced in code vs assets on disk
+5. ⬛ **T0.5** – Identify stale or duplicate configuration files
+6. ⬛ **T0.6** – Map file sizes and complexity metrics
+7. ⬛ **T0.7** – Create file structure visualization
+   1. ⬛ **T0.7.1** – Scan all directories and files
+   2. ⬛ **T0.7.2** – Calculate metrics (file count, total lines, complexity)
+   3. ⬛ **T0.7.3** – Generate hierarchical data structure
+   4. ⬛ **T0.7.4** – Export to draw.io XML format
+   5. ⬛ **T0.7.5** – Include file size and type indicators
+   6. ⬛ **T0.7.6** – Color-code by module type (client/server/shared)
+8. ⬛ **T0.8** – Create dependency flow diagram
+   1. ⬛ **T0.8.1** – Map import/export relationships
+   2. ⬛ **T0.8.2** – Identify circular dependencies
+   3. ⬛ **T0.8.3** – Generate draw.io graph with arrows
+   4. ⬛ **T0.8.4** – Highlight problematic dependencies in red
 
 ### Phase 1: Initial Assessment
 
@@ -213,6 +238,46 @@ interface ReviewChecklist {
 6. Technical debt inventory
 7. Refactoring roadmap
 8. Best practices documentation
+9. File structure diagram (draw.io format)
+   - Hierarchical view of all modules
+   - File sizes and complexity indicators
+   - Color-coded by type (client/server/shared)
+10. Dependency flow diagram (draw.io format)
+   - Import/export relationships
+   - Circular dependency identification
+   - Service communication patterns
+
+## File Modularization Guidelines
+
+When reviewing large files (>300 lines), apply this uniform pattern:
+
+### Standard Module Structure
+```
+module-name/
+├── index.ts           // Public API exports
+├── types.ts          // Interfaces and type definitions
+├── constants.ts      // All constants and configuration
+├── core/             // Core business logic
+│   ├── processor.ts  // Main processing logic
+│   └── validator.ts  // Validation logic
+├── components/       // UI or game components
+│   ├── creator.ts    // Component creation
+│   └── updater.ts    // Component updates
+└── utils/           // Helper functions
+    └── helpers.ts    // Utility functions
+```
+
+### Refactoring Criteria
+1. **File > 300 lines**: Consider splitting
+2. **Multiple responsibilities**: Separate concerns
+3. **Mixed abstraction levels**: Layer properly
+4. **Tangled dependencies**: Extract interfaces
+
+### Common Patterns
+1. **Service Pattern**: Separate API, implementation, and types
+2. **Component Pattern**: Split creation, update, and disposal
+3. **Data Pattern**: Separate schema, validation, and transformation
+4. **Renderer Pattern**: Split setup, render loop, and cleanup
 
 ## Tools & Techniques
 
@@ -224,3 +289,31 @@ interface ReviewChecklist {
 6. Security audit checklist
 7. Architecture decision records
 8. Technical debt tracking
+9. File size and complexity analyzers
+10. Import/export usage trackers
+
+## Draw.io Diagram Specifications
+
+### File Structure Diagram
+- **Format**: Hierarchical tree layout
+- **Node Types**:
+  - Folder: Rectangle with folder icon
+  - TypeScript file: Rectangle with TS badge
+  - Lua file: Rectangle with Lua badge
+  - Config file: Rectangle with gear icon
+- **Color Coding**:
+  - Client modules: Blue (#4A90E2)
+  - Server modules: Green (#7ED321)
+  - Shared modules: Purple (#9013FE)
+  - Tests: Yellow (#F5A623)
+- **Metadata**: File size, line count, complexity score
+
+### Dependency Flow Diagram
+- **Format**: Directed graph with curved edges
+- **Node Sizing**: Based on number of dependencies
+- **Edge Styling**:
+  - Normal dependency: Solid arrow
+  - Circular dependency: Red dashed arrow
+  - Remote event: Blue dotted arrow
+- **Clustering**: Group by service/module
+- **Export Format**: `.drawio` XML file

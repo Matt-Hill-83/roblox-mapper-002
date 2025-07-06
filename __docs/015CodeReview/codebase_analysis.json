@@ -1,0 +1,3087 @@
+{
+  "summary": {
+    "totalFiles": 112,
+    "byCategory": {
+      "client": {
+        "count": 19,
+        "files": []
+      },
+      "server": {
+        "count": 8,
+        "files": []
+      },
+      "shared": {
+        "count": 85,
+        "files": []
+      }
+    },
+    "byPurpose": {
+      "controller": {
+        "count": 3,
+        "files": []
+      },
+      "general": {
+        "count": 20,
+        "files": []
+      },
+      "constants": {
+        "count": 7,
+        "files": []
+      },
+      "module-export": {
+        "count": 8,
+        "files": []
+      },
+      "type-definitions": {
+        "count": 8,
+        "files": []
+      },
+      "utilities": {
+        "count": 6,
+        "files": []
+      },
+      "service": {
+        "count": 8,
+        "files": []
+      },
+      "configuration": {
+        "count": 1,
+        "files": []
+      },
+      "data": {
+        "count": 40,
+        "files": []
+      },
+      "component-maker": {
+        "count": 7,
+        "files": []
+      },
+      "layout": {
+        "count": 1,
+        "files": []
+      },
+      "renderer": {
+        "count": 3,
+        "files": []
+      }
+    },
+    "averageLines": 265,
+    "averageSize": 10142,
+    "totalImports": 154,
+    "totalExports": 220
+  },
+  "orphanedFiles": [
+    "client/services/configGui/components/dropdown.ts",
+    "client/services/configGui/makeConfigGui.ts",
+    "server/services/testSimpleDataGenerator.service.ts",
+    "shared/data/index.ts",
+    "shared/modules/barMaker/barMaker.ts",
+    "shared/modules/componentData.ts",
+    "shared/modules/enhancedDataGenerator.ts",
+    "shared/modules/hexStackMaker/hexStackMaker.ts",
+    "shared/modules/hexStackMaker/index.ts",
+    "shared/modules/labelBlockMaker/labelBlockMaker.ts",
+    "shared/modules/layoutConstants.ts",
+    "shared/modules/renderers/dataGeneratorRobloxRenderer.ts",
+    "shared/modules/ropeLabelMaker/index.ts",
+    "shared/modules/toolData.ts",
+    "shared/types/index.ts"
+  ],
+  "largeFiles": [
+    {
+      "path": "shared/data/entityFileData.ts",
+      "lines": 5403,
+      "size": 221788
+    },
+    {
+      "path": "shared/data/relationDefinedInData.ts",
+      "lines": 2015,
+      "size": 82875
+    },
+    {
+      "path": "shared/data/entityClassData.ts",
+      "lines": 1803,
+      "size": 77453
+    },
+    {
+      "path": "shared/data/entityMethodData.ts",
+      "lines": 1803,
+      "size": 66908
+    },
+    {
+      "path": "shared/data/entityFlagData.ts",
+      "lines": 1603,
+      "size": 65453
+    },
+    {
+      "path": "shared/data/relationDeployedInData.ts",
+      "lines": 1385,
+      "size": 57864
+    },
+    {
+      "path": "shared/data/relationDeployedToData.ts",
+      "lines": 1145,
+      "size": 48358
+    },
+    {
+      "path": "shared/modules/renderers/unifiedDataRenderer.ts",
+      "lines": 886,
+      "size": 33402
+    },
+    {
+      "path": "shared/data/relationCreatesData.ts",
+      "lines": 675,
+      "size": 28198
+    },
+    {
+      "path": "shared/data/entityArtifactData.ts",
+      "lines": 663,
+      "size": 24213
+    },
+    {
+      "path": "client/controllers/colorPicker.controller.ts",
+      "lines": 551,
+      "size": 18454
+    },
+    {
+      "path": "shared/data/entityUserData.ts",
+      "lines": 503,
+      "size": 19790
+    },
+    {
+      "path": "shared/services/dataGenerator/simpleDataGenerator.service.ts",
+      "lines": 480,
+      "size": 16070
+    },
+    {
+      "path": "shared/data/relationControlsData.ts",
+      "lines": 445,
+      "size": 19100
+    },
+    {
+      "path": "shared/data/relationMaintainsData.ts",
+      "lines": 415,
+      "size": 17075
+    },
+    {
+      "path": "client/services/configGui/makeConfigGui.ts",
+      "lines": 382,
+      "size": 13287
+    },
+    {
+      "path": "client/services/configGui/components/layerGrid.ts",
+      "lines": 369,
+      "size": 12506
+    },
+    {
+      "path": "shared/data/relationPartOfData.ts",
+      "lines": 315,
+      "size": 12651
+    },
+    {
+      "path": "shared/data/relationContainsData.ts",
+      "lines": 305,
+      "size": 12240
+    },
+    {
+      "path": "shared/data/relationDependsOnData.ts",
+      "lines": 305,
+      "size": 12500
+    },
+    {
+      "path": "shared/data/relationOwnsData.ts",
+      "lines": 305,
+      "size": 12160
+    }
+  ],
+  "fileDetails": [
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/controllers/animationTestGUI.controller.ts",
+      "relativePath": "client/controllers/animationTestGUI.controller.ts",
+      "lines": 159,
+      "size": 4307,
+      "imports": 1,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "AnimationTestGUIController",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "@rbxts/services"
+      ],
+      "importedBy": [
+        "client/main.client.ts"
+      ],
+      "category": "client",
+      "purpose": "controller"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/controllers/colorPicker.controller.ts",
+      "relativePath": "client/controllers/colorPicker.controller.ts",
+      "lines": 551,
+      "size": 18454,
+      "imports": 1,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "ColorPickerController",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "@rbxts/services"
+      ],
+      "importedBy": [
+        "client/main.client.ts"
+      ],
+      "category": "client",
+      "purpose": "controller"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/controllers/configGUI.controller.ts",
+      "relativePath": "client/controllers/configGUI.controller.ts",
+      "lines": 129,
+      "size": 4535,
+      "imports": 3,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "ConfigGUIController",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "@rbxts/services",
+        "../services/configGui",
+        "../../shared/interfaces/enhancedGenerator.interface"
+      ],
+      "importedBy": [
+        "client/main.client.ts"
+      ],
+      "category": "client",
+      "purpose": "controller"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/main.client.ts",
+      "relativePath": "client/main.client.ts",
+      "lines": 36,
+      "size": 1302,
+      "imports": 5,
+      "exports": 0,
+      "exportDetails": [],
+      "importDetails": [
+        "./controllers/configGUI.controller",
+        "./controllers/animationTestGUI.controller",
+        "./controllers/colorPicker.controller",
+        "@rbxts/services",
+        "./services/keyboardShortcuts.service"
+      ],
+      "importedBy": [],
+      "category": "client",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/services/configGui/components/dropdown.ts",
+      "relativePath": "client/services/configGui/components/dropdown.ts",
+      "lines": 116,
+      "size": 3515,
+      "imports": 1,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "createDropdown",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../constants"
+      ],
+      "importedBy": [],
+      "category": "client",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/services/configGui/components/frame.ts",
+      "relativePath": "client/services/configGui/components/frame.ts",
+      "lines": 20,
+      "size": 695,
+      "imports": 2,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "createMainFrame",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../constants",
+        "../utilities"
+      ],
+      "importedBy": [
+        "client/services/configGui/makeConfigGui.ts"
+      ],
+      "category": "client",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/services/configGui/components/globalSettings.ts",
+      "relativePath": "client/services/configGui/components/globalSettings.ts",
+      "lines": 48,
+      "size": 1464,
+      "imports": 2,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "createGlobalSettings",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../constants",
+        "./spacingControls"
+      ],
+      "importedBy": [
+        "client/services/configGui/makeConfigGui.ts"
+      ],
+      "category": "client",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/services/configGui/components/layerGrid.ts",
+      "relativePath": "client/services/configGui/components/layerGrid.ts",
+      "lines": 369,
+      "size": 12506,
+      "imports": 2,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "createLayerGrid",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../constants",
+        "../interfaces"
+      ],
+      "importedBy": [
+        "client/services/configGui/makeConfigGui.ts"
+      ],
+      "category": "client",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/services/configGui/components/nodeTypesSection.ts",
+      "relativePath": "client/services/configGui/components/nodeTypesSection.ts",
+      "lines": 123,
+      "size": 4560,
+      "imports": 1,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "createNodeTypesSection",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../constants"
+      ],
+      "importedBy": [
+        "client/services/configGui/makeConfigGui.ts"
+      ],
+      "category": "client",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/services/configGui/components/spacingControls.ts",
+      "relativePath": "client/services/configGui/components/spacingControls.ts",
+      "lines": 83,
+      "size": 3142,
+      "imports": 1,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "createSpacingControls",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../constants"
+      ],
+      "importedBy": [
+        "client/services/configGui/components/globalSettings.ts"
+      ],
+      "category": "client",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/services/configGui/components/status.ts",
+      "relativePath": "client/services/configGui/components/status.ts",
+      "lines": 40,
+      "size": 1450,
+      "imports": 1,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "createStatusArea",
+          "type": "named"
+        },
+        {
+          "name": "updateStatus",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../constants"
+      ],
+      "importedBy": [
+        "client/services/configGui/makeConfigGui.ts"
+      ],
+      "category": "client",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/services/configGui/components/title.ts",
+      "relativePath": "client/services/configGui/components/title.ts",
+      "lines": 19,
+      "size": 615,
+      "imports": 1,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "createTitle",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../constants"
+      ],
+      "importedBy": [
+        "client/services/configGui/makeConfigGui.ts"
+      ],
+      "category": "client",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/services/configGui/components/visualizationControls.ts",
+      "relativePath": "client/services/configGui/components/visualizationControls.ts",
+      "lines": 108,
+      "size": 3809,
+      "imports": 1,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "createVisualizationControls",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../constants"
+      ],
+      "importedBy": [
+        "client/services/configGui/makeConfigGui.ts"
+      ],
+      "category": "client",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/services/configGui/constants.ts",
+      "relativePath": "client/services/configGui/constants.ts",
+      "lines": 96,
+      "size": 2141,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "GUI_CONSTANTS",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "client/services/configGui/components/dropdown.ts",
+        "client/services/configGui/components/frame.ts",
+        "client/services/configGui/components/globalSettings.ts",
+        "client/services/configGui/components/layerGrid.ts",
+        "client/services/configGui/components/nodeTypesSection.ts",
+        "client/services/configGui/components/spacingControls.ts",
+        "client/services/configGui/components/status.ts",
+        "client/services/configGui/components/title.ts",
+        "client/services/configGui/components/visualizationControls.ts",
+        "client/services/configGui/makeConfigGui.ts",
+        "client/services/configGui/utilities.ts"
+      ],
+      "category": "client",
+      "purpose": "constants"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/services/configGui/index.ts",
+      "relativePath": "client/services/configGui/index.ts",
+      "lines": 2,
+      "size": 112,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "ConfigGUIService",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "client/controllers/configGUI.controller.ts"
+      ],
+      "category": "client",
+      "purpose": "module-export"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/services/configGui/interfaces.ts",
+      "relativePath": "client/services/configGui/interfaces.ts",
+      "lines": 33,
+      "size": 849,
+      "imports": 1,
+      "exports": 5,
+      "exportDetails": [
+        {
+          "name": "ConfigGUIServiceOptions",
+          "type": "named"
+        },
+        {
+          "name": "GUIState",
+          "type": "named"
+        },
+        {
+          "name": "ComponentProps",
+          "type": "named"
+        },
+        {
+          "name": "LayerConfig",
+          "type": "named"
+        },
+        {
+          "name": "EnhancedGeneratorConfig",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../../../shared/interfaces/enhancedGenerator.interface"
+      ],
+      "importedBy": [
+        "client/services/configGui/components/layerGrid.ts",
+        "client/services/configGui/makeConfigGui.ts"
+      ],
+      "category": "client",
+      "purpose": "type-definitions"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/services/configGui/makeConfigGui.ts",
+      "relativePath": "client/services/configGui/makeConfigGui.ts",
+      "lines": 382,
+      "size": 13287,
+      "imports": 10,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "ConfigGUIService",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "@rbxts/services",
+        "./constants",
+        "./interfaces",
+        "./components/frame",
+        "./components/title",
+        "./components/globalSettings",
+        "./components/nodeTypesSection",
+        "./components/layerGrid",
+        "./components/status",
+        "./components/visualizationControls"
+      ],
+      "importedBy": [],
+      "category": "client",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/services/configGui/utilities.ts",
+      "relativePath": "client/services/configGui/utilities.ts",
+      "lines": 82,
+      "size": 2365,
+      "imports": 2,
+      "exports": 5,
+      "exportDetails": [
+        {
+          "name": "validateInput",
+          "type": "named"
+        },
+        {
+          "name": "flashColor",
+          "type": "named"
+        },
+        {
+          "name": "createUICorner",
+          "type": "named"
+        },
+        {
+          "name": "validateAndUpdateInput",
+          "type": "named"
+        },
+        {
+          "name": "animateButtonClick",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../../../shared/interfaces/simpleDataGenerator.interface",
+        "./constants"
+      ],
+      "importedBy": [
+        "client/services/configGui/components/frame.ts"
+      ],
+      "category": "client",
+      "purpose": "utilities"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/client/services/keyboardShortcuts.service.ts",
+      "relativePath": "client/services/keyboardShortcuts.service.ts",
+      "lines": 193,
+      "size": 7175,
+      "imports": 2,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "KeyboardShortcutsService",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "@rbxts/services",
+        "@rbxts/services"
+      ],
+      "importedBy": [
+        "client/main.client.ts"
+      ],
+      "category": "client",
+      "purpose": "service"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/server/main.server.ts",
+      "relativePath": "server/main.server.ts",
+      "lines": 12,
+      "size": 282,
+      "imports": 1,
+      "exports": 0,
+      "exportDetails": [],
+      "importDetails": [
+        "./services/main/game.service"
+      ],
+      "importedBy": [],
+      "category": "server",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/server/services/colorsTest.service.ts",
+      "relativePath": "server/services/colorsTest.service.ts",
+      "lines": 129,
+      "size": 3973,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "ColorsTestService",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "server/services/main/dev2features.ts"
+      ],
+      "category": "server",
+      "purpose": "service"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/server/services/configGUIServer.service.ts",
+      "relativePath": "server/services/configGUIServer.service.ts",
+      "lines": 110,
+      "size": 4334,
+      "imports": 3,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "ConfigGUIServerService",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "@rbxts/services",
+        "../../shared/interfaces/enhancedGenerator.interface",
+        "../../shared/modules/renderers/unifiedDataRenderer"
+      ],
+      "importedBy": [
+        "server/services/main/game.service.ts"
+      ],
+      "category": "server",
+      "purpose": "service"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/server/services/graphInitializer.service.ts",
+      "relativePath": "server/services/graphInitializer.service.ts",
+      "lines": 112,
+      "size": 2802,
+      "imports": 1,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "GraphInitConfig",
+          "type": "named"
+        },
+        {
+          "name": "GraphInitializerService",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../../shared/interfaces/enhancedGenerator.interface"
+      ],
+      "importedBy": [
+        "server/services/main/game.service.ts"
+      ],
+      "category": "server",
+      "purpose": "service"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/server/services/groupAnimationTest.service.ts",
+      "relativePath": "server/services/groupAnimationTest.service.ts",
+      "lines": 229,
+      "size": 6305,
+      "imports": 2,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "GroupAnimationTestService",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "@rbxts/services",
+        "../../shared/modules/hexagonMaker/hexagonMaker"
+      ],
+      "importedBy": [
+        "server/services/main/dev2features.ts"
+      ],
+      "category": "server",
+      "purpose": "service"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/server/services/main/dev2features.ts",
+      "relativePath": "server/services/main/dev2features.ts",
+      "lines": 34,
+      "size": 1090,
+      "imports": 2,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "initializeDev2Features",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../groupAnimationTest.service",
+        "../colorsTest.service"
+      ],
+      "importedBy": [
+        "server/services/main/game.service.ts"
+      ],
+      "category": "server",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/server/services/main/game.service.ts",
+      "relativePath": "server/services/main/game.service.ts",
+      "lines": 71,
+      "size": 2241,
+      "imports": 4,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "GameService",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../configGUIServer.service",
+        "../graphInitializer.service",
+        "../../../shared/modules/makeOriginBlock",
+        "./dev2features"
+      ],
+      "importedBy": [
+        "server/main.server.ts"
+      ],
+      "category": "server",
+      "purpose": "service"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/server/services/testSimpleDataGenerator.service.ts",
+      "relativePath": "server/services/testSimpleDataGenerator.service.ts",
+      "lines": 157,
+      "size": 5190,
+      "imports": 5,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "TestSimpleDataGeneratorService",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../../shared/services/dataGenerator/simpleDataGenerator.service",
+        "../../shared/modules/layout/simpleDataLayout",
+        "../../shared/modules/renderers/simpleDataRenderer",
+        "../../shared/interfaces/simpleDataGenerator.interface",
+        "../../shared/configs/simpleDataGeneratorConfigs"
+      ],
+      "importedBy": [],
+      "category": "server",
+      "purpose": "service"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/configs/simpleDataGeneratorConfigs.ts",
+      "relativePath": "shared/configs/simpleDataGeneratorConfigs.ts",
+      "lines": 11,
+      "size": 441,
+      "imports": 1,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "config001",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../../shared/interfaces/simpleDataGenerator.interface"
+      ],
+      "importedBy": [
+        "server/services/testSimpleDataGenerator.service.ts"
+      ],
+      "category": "shared",
+      "purpose": "configuration"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/entityArtifactData.ts",
+      "relativePath": "shared/data/entityArtifactData.ts",
+      "lines": 663,
+      "size": 24213,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "entityArtifactData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/entityClassData.ts",
+      "relativePath": "shared/data/entityClassData.ts",
+      "lines": 1803,
+      "size": 77453,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "entityClassData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/entityComponentData.ts",
+      "relativePath": "shared/data/entityComponentData.ts",
+      "lines": 163,
+      "size": 6251,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "entityComponentData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/entityDomainData.ts",
+      "relativePath": "shared/data/entityDomainData.ts",
+      "lines": 52,
+      "size": 2041,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "entityDomainData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/entityEnvironmentData.ts",
+      "relativePath": "shared/data/entityEnvironmentData.ts",
+      "lines": 27,
+      "size": 890,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "entityEnvironmentData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/entityFileData.ts",
+      "relativePath": "shared/data/entityFileData.ts",
+      "lines": 5403,
+      "size": 221788,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "entityFileData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/entityFlagData.ts",
+      "relativePath": "shared/data/entityFlagData.ts",
+      "lines": 1603,
+      "size": 65453,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "entityFlagData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/entityGroupData.ts",
+      "relativePath": "shared/data/entityGroupData.ts",
+      "lines": 66,
+      "size": 2609,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "entityGroupData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/entityInfraProviderData.ts",
+      "relativePath": "shared/data/entityInfraProviderData.ts",
+      "lines": 10,
+      "size": 299,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "entityInfraProviderData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/entityMethodData.ts",
+      "relativePath": "shared/data/entityMethodData.ts",
+      "lines": 1803,
+      "size": 66908,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "entityMethodData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/entityModuleData.ts",
+      "relativePath": "shared/data/entityModuleData.ts",
+      "lines": 243,
+      "size": 9081,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "entityModuleData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/entityResourceData.ts",
+      "relativePath": "shared/data/entityResourceData.ts",
+      "lines": 282,
+      "size": 10307,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "entityResourceData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/entitySystemData.ts",
+      "relativePath": "shared/data/entitySystemData.ts",
+      "lines": 94,
+      "size": 3638,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "entitySystemData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/entityToolData.ts",
+      "relativePath": "shared/data/entityToolData.ts",
+      "lines": 275,
+      "size": 9729,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "entityToolData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/entityUserData.ts",
+      "relativePath": "shared/data/entityUserData.ts",
+      "lines": 503,
+      "size": 19790,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "entityUserData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/index.ts",
+      "relativePath": "shared/data/index.ts",
+      "lines": 128,
+      "size": 7005,
+      "imports": 38,
+      "exports": 40,
+      "exportDetails": [
+        {
+          "name": "allEntityData",
+          "type": "named"
+        },
+        {
+          "name": "allRelationData",
+          "type": "named"
+        },
+        {
+          "name": "entityArtifactData",
+          "type": "named"
+        },
+        {
+          "name": "entityClassData",
+          "type": "named"
+        },
+        {
+          "name": "entityComponentData",
+          "type": "named"
+        },
+        {
+          "name": "entityDomainData",
+          "type": "named"
+        },
+        {
+          "name": "entityEnvironmentData",
+          "type": "named"
+        },
+        {
+          "name": "entityFileData",
+          "type": "named"
+        },
+        {
+          "name": "entityFlagData",
+          "type": "named"
+        },
+        {
+          "name": "entityGroupData",
+          "type": "named"
+        },
+        {
+          "name": "entityInfraProviderData",
+          "type": "named"
+        },
+        {
+          "name": "entityMethodData",
+          "type": "named"
+        },
+        {
+          "name": "entityModuleData",
+          "type": "named"
+        },
+        {
+          "name": "entityResourceData",
+          "type": "named"
+        },
+        {
+          "name": "entitySystemData",
+          "type": "named"
+        },
+        {
+          "name": "entityToolData",
+          "type": "named"
+        },
+        {
+          "name": "entityUserData",
+          "type": "named"
+        },
+        {
+          "name": "relationBelongsToData",
+          "type": "named"
+        },
+        {
+          "name": "relationConsumesData",
+          "type": "named"
+        },
+        {
+          "name": "relationContainsData",
+          "type": "named"
+        },
+        {
+          "name": "relationControlsData",
+          "type": "named"
+        },
+        {
+          "name": "relationCreatesData",
+          "type": "named"
+        },
+        {
+          "name": "relationDefinedInData",
+          "type": "named"
+        },
+        {
+          "name": "relationDependsOnData",
+          "type": "named"
+        },
+        {
+          "name": "relationDeployedInData",
+          "type": "named"
+        },
+        {
+          "name": "relationDeployedToData",
+          "type": "named"
+        },
+        {
+          "name": "relationExposesData",
+          "type": "named"
+        },
+        {
+          "name": "relationMaintainsData",
+          "type": "named"
+        },
+        {
+          "name": "relationManagesData",
+          "type": "named"
+        },
+        {
+          "name": "relationMemberOfData",
+          "type": "named"
+        },
+        {
+          "name": "relationMonitorsData",
+          "type": "named"
+        },
+        {
+          "name": "relationOwnsData",
+          "type": "named"
+        },
+        {
+          "name": "relationPackagedAsData",
+          "type": "named"
+        },
+        {
+          "name": "relationPartOfData",
+          "type": "named"
+        },
+        {
+          "name": "relationProvidedByData",
+          "type": "named"
+        },
+        {
+          "name": "relationSecuresData",
+          "type": "named"
+        },
+        {
+          "name": "relationTestsData",
+          "type": "named"
+        },
+        {
+          "name": "relationTracksErrorsData",
+          "type": "named"
+        },
+        {
+          "name": "relationUsedByData",
+          "type": "named"
+        },
+        {
+          "name": "relationUsesData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "./entityArtifactData",
+        "./entityClassData",
+        "./entityComponentData",
+        "./entityDomainData",
+        "./entityEnvironmentData",
+        "./entityFileData",
+        "./entityFlagData",
+        "./entityGroupData",
+        "./entityInfraProviderData",
+        "./entityMethodData",
+        "./entityModuleData",
+        "./entityResourceData",
+        "./entitySystemData",
+        "./entityToolData",
+        "./entityUserData",
+        "./relationBelongsToData",
+        "./relationConsumesData",
+        "./relationContainsData",
+        "./relationControlsData",
+        "./relationCreatesData",
+        "./relationDefinedInData",
+        "./relationDependsOnData",
+        "./relationDeployedInData",
+        "./relationDeployedToData",
+        "./relationExposesData",
+        "./relationMaintainsData",
+        "./relationManagesData",
+        "./relationMemberOfData",
+        "./relationMonitorsData",
+        "./relationOwnsData",
+        "./relationPackagedAsData",
+        "./relationPartOfData",
+        "./relationProvidedByData",
+        "./relationSecuresData",
+        "./relationTestsData",
+        "./relationTracksErrorsData",
+        "./relationUsedByData",
+        "./relationUsesData"
+      ],
+      "importedBy": [],
+      "category": "shared",
+      "purpose": "module-export"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationBelongsToData.ts",
+      "relativePath": "shared/data/relationBelongsToData.ts",
+      "lines": 235,
+      "size": 9413,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationBelongsToData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationConsumesData.ts",
+      "relativePath": "shared/data/relationConsumesData.ts",
+      "lines": 85,
+      "size": 3135,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationConsumesData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationContainsData.ts",
+      "relativePath": "shared/data/relationContainsData.ts",
+      "lines": 305,
+      "size": 12240,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationContainsData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationControlsData.ts",
+      "relativePath": "shared/data/relationControlsData.ts",
+      "lines": 445,
+      "size": 19100,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationControlsData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationCreatesData.ts",
+      "relativePath": "shared/data/relationCreatesData.ts",
+      "lines": 675,
+      "size": 28198,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationCreatesData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationDefinedInData.ts",
+      "relativePath": "shared/data/relationDefinedInData.ts",
+      "lines": 2015,
+      "size": 82875,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationDefinedInData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationDependsOnData.ts",
+      "relativePath": "shared/data/relationDependsOnData.ts",
+      "lines": 305,
+      "size": 12500,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationDependsOnData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationDeployedInData.ts",
+      "relativePath": "shared/data/relationDeployedInData.ts",
+      "lines": 1385,
+      "size": 57864,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationDeployedInData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationDeployedToData.ts",
+      "relativePath": "shared/data/relationDeployedToData.ts",
+      "lines": 1145,
+      "size": 48358,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationDeployedToData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationExposesData.ts",
+      "relativePath": "shared/data/relationExposesData.ts",
+      "lines": 165,
+      "size": 6385,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationExposesData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationMaintainsData.ts",
+      "relativePath": "shared/data/relationMaintainsData.ts",
+      "lines": 415,
+      "size": 17075,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationMaintainsData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationManagesData.ts",
+      "relativePath": "shared/data/relationManagesData.ts",
+      "lines": 75,
+      "size": 2697,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationManagesData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationMemberOfData.ts",
+      "relativePath": "shared/data/relationMemberOfData.ts",
+      "lines": 45,
+      "size": 1513,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationMemberOfData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationMonitorsData.ts",
+      "relativePath": "shared/data/relationMonitorsData.ts",
+      "lines": 235,
+      "size": 9245,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationMonitorsData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationOwnsData.ts",
+      "relativePath": "shared/data/relationOwnsData.ts",
+      "lines": 305,
+      "size": 12160,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationOwnsData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationPackagedAsData.ts",
+      "relativePath": "shared/data/relationPackagedAsData.ts",
+      "lines": 105,
+      "size": 4108,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationPackagedAsData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationPartOfData.ts",
+      "relativePath": "shared/data/relationPartOfData.ts",
+      "lines": 315,
+      "size": 12651,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationPartOfData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationProvidedByData.ts",
+      "relativePath": "shared/data/relationProvidedByData.ts",
+      "lines": 45,
+      "size": 1518,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationProvidedByData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationSecuresData.ts",
+      "relativePath": "shared/data/relationSecuresData.ts",
+      "lines": 65,
+      "size": 2275,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationSecuresData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationTestsData.ts",
+      "relativePath": "shared/data/relationTestsData.ts",
+      "lines": 65,
+      "size": 2274,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationTestsData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationTracksErrorsData.ts",
+      "relativePath": "shared/data/relationTracksErrorsData.ts",
+      "lines": 35,
+      "size": 1113,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationTracksErrorsData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationUsedByData.ts",
+      "relativePath": "shared/data/relationUsedByData.ts",
+      "lines": 115,
+      "size": 4298,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationUsedByData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/data/relationUsesData.ts",
+      "relativePath": "shared/data/relationUsesData.ts",
+      "lines": 45,
+      "size": 1473,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "RelationData",
+          "type": "named"
+        },
+        {
+          "name": "relationUsesData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/data/index.ts"
+      ],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/interfaces/enhancedGenerator.interface.ts",
+      "relativePath": "shared/interfaces/enhancedGenerator.interface.ts",
+      "lines": 40,
+      "size": 1027,
+      "imports": 0,
+      "exports": 4,
+      "exportDetails": [
+        {
+          "name": "LayerConfig",
+          "type": "named"
+        },
+        {
+          "name": "SpacingConfig",
+          "type": "named"
+        },
+        {
+          "name": "VisualizationOptions",
+          "type": "named"
+        },
+        {
+          "name": "EnhancedGeneratorConfig",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "client/controllers/configGUI.controller.ts",
+        "client/services/configGui/interfaces.ts",
+        "server/services/configGUIServer.service.ts",
+        "server/services/graphInitializer.service.ts",
+        "shared/modules/enhancedDataGenerator.ts",
+        "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts",
+        "shared/modules/renderers/unifiedDataRenderer.ts"
+      ],
+      "category": "shared",
+      "purpose": "type-definitions"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/interfaces/simpleDataGenerator.interface.ts",
+      "relativePath": "shared/interfaces/simpleDataGenerator.interface.ts",
+      "lines": 52,
+      "size": 1703,
+      "imports": 0,
+      "exports": 5,
+      "exportDetails": [
+        {
+          "name": "Node",
+          "type": "named"
+        },
+        {
+          "name": "Link",
+          "type": "named"
+        },
+        {
+          "name": "Group",
+          "type": "named"
+        },
+        {
+          "name": "Cluster",
+          "type": "named"
+        },
+        {
+          "name": "GeneratorConfig",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "client/services/configGui/utilities.ts",
+        "server/services/testSimpleDataGenerator.service.ts",
+        "shared/configs/simpleDataGeneratorConfigs.ts",
+        "shared/modules/enhancedDataGenerator.ts",
+        "shared/modules/layout/simpleDataLayout.ts",
+        "shared/modules/renderers/dataGeneratorRobloxRenderer.ts",
+        "shared/modules/renderers/dataGeneratorRobloxRendererUtils/drawIoGenerator.ts",
+        "shared/modules/renderers/dataGeneratorRobloxRendererUtils/positioning.ts",
+        "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts",
+        "shared/modules/renderers/simpleDataRenderer.ts",
+        "shared/modules/renderers/unifiedDataRenderer.ts",
+        "shared/services/dataGenerator/simpleDataGenerator.service.ts"
+      ],
+      "category": "shared",
+      "purpose": "type-definitions"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/barMaker/barMaker.ts",
+      "relativePath": "shared/modules/barMaker/barMaker.ts",
+      "lines": 103,
+      "size": 2682,
+      "imports": 4,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "makeBar",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../TextBoxMaker",
+        "./interfaces",
+        "./constants",
+        "./utilities"
+      ],
+      "importedBy": [],
+      "category": "shared",
+      "purpose": "component-maker"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/barMaker/constants.ts",
+      "relativePath": "shared/modules/barMaker/constants.ts",
+      "lines": 21,
+      "size": 514,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "BAR_CONSTANTS",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/modules/barMaker/barMaker.ts",
+        "shared/modules/barMaker/interfaces.ts",
+        "shared/modules/barMaker/utilities.ts"
+      ],
+      "category": "shared",
+      "purpose": "constants"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/barMaker/index.ts",
+      "relativePath": "shared/modules/barMaker/index.ts",
+      "lines": 2,
+      "size": 94,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "makeBar",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/modules/hexagonMaker/hexagonMaker.ts"
+      ],
+      "category": "shared",
+      "purpose": "module-export"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/barMaker/interfaces.ts",
+      "relativePath": "shared/modules/barMaker/interfaces.ts",
+      "lines": 34,
+      "size": 779,
+      "imports": 1,
+      "exports": 3,
+      "exportDetails": [
+        {
+          "name": "BarProps",
+          "type": "named"
+        },
+        {
+          "name": "BarConfig",
+          "type": "named"
+        },
+        {
+          "name": "defaultProps",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "./constants"
+      ],
+      "importedBy": [
+        "shared/modules/barMaker/barMaker.ts"
+      ],
+      "category": "shared",
+      "purpose": "type-definitions"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/barMaker/utilities.ts",
+      "relativePath": "shared/modules/barMaker/utilities.ts",
+      "lines": 48,
+      "size": 1787,
+      "imports": 2,
+      "exports": 4,
+      "exportDetails": [
+        {
+          "name": "makeAttachment",
+          "type": "named"
+        },
+        {
+          "name": "makeCircle",
+          "type": "named"
+        },
+        {
+          "name": "generateBarName",
+          "type": "named"
+        },
+        {
+          "name": "generateAttachmentName",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../../utils/stringUtils",
+        "./constants"
+      ],
+      "importedBy": [
+        "shared/modules/barMaker/barMaker.ts"
+      ],
+      "category": "shared",
+      "purpose": "utilities"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/componentData.ts",
+      "relativePath": "shared/modules/componentData.ts",
+      "lines": 173,
+      "size": 6188,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "ComponentData",
+          "type": "named"
+        },
+        {
+          "name": "entityComponentData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/enhancedDataGenerator.ts",
+      "relativePath": "shared/modules/enhancedDataGenerator.ts",
+      "lines": 235,
+      "size": 7738,
+      "imports": 2,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "generateEnhancedData",
+          "type": "named"
+        },
+        {
+          "name": "convertEnhancedConfig",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../interfaces/simpleDataGenerator.interface",
+        "../interfaces/enhancedGenerator.interface"
+      ],
+      "importedBy": [],
+      "category": "shared",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/hexagonMaker/constants.ts",
+      "relativePath": "shared/modules/hexagonMaker/constants.ts",
+      "lines": 29,
+      "size": 701,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "HEXAGON_CONSTANTS",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/modules/hexagonMaker/hexagonMaker.ts",
+        "shared/modules/hexagonMaker/utilities.ts"
+      ],
+      "category": "shared",
+      "purpose": "constants"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/hexagonMaker/hexagonMaker.ts",
+      "relativePath": "shared/modules/hexagonMaker/hexagonMaker.ts",
+      "lines": 73,
+      "size": 2138,
+      "imports": 4,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "makeHexagon",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../barMaker",
+        "./interfaces",
+        "./constants",
+        "./utilities"
+      ],
+      "importedBy": [
+        "server/services/groupAnimationTest.service.ts"
+      ],
+      "category": "shared",
+      "purpose": "component-maker"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/hexagonMaker/index.ts",
+      "relativePath": "shared/modules/hexagonMaker/index.ts",
+      "lines": 2,
+      "size": 96,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "makeHexagon",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/modules/hexStackMaker/hexStackMaker.ts",
+        "shared/modules/renderers/dataGeneratorRobloxRenderer.ts",
+        "shared/modules/renderers/simpleDataRenderer.ts",
+        "shared/modules/renderers/unifiedDataRenderer.ts"
+      ],
+      "category": "shared",
+      "purpose": "module-export"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/hexagonMaker/interfaces.ts",
+      "relativePath": "shared/modules/hexagonMaker/interfaces.ts",
+      "lines": 11,
+      "size": 231,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "HexagonConfig",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/modules/hexagonMaker/hexagonMaker.ts"
+      ],
+      "category": "shared",
+      "purpose": "type-definitions"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/hexagonMaker/utilities.ts",
+      "relativePath": "shared/modules/hexagonMaker/utilities.ts",
+      "lines": 73,
+      "size": 2403,
+      "imports": 2,
+      "exports": 4,
+      "exportDetails": [
+        {
+          "name": "generateHexagonName",
+          "type": "named"
+        },
+        {
+          "name": "createCenterCube",
+          "type": "named"
+        },
+        {
+          "name": "createCenterAttachment",
+          "type": "named"
+        },
+        {
+          "name": "calculateBarDimensions",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../../utils/stringUtils",
+        "./constants"
+      ],
+      "importedBy": [
+        "shared/modules/hexagonMaker/hexagonMaker.ts"
+      ],
+      "category": "shared",
+      "purpose": "utilities"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/hexStackMaker/constants.ts",
+      "relativePath": "shared/modules/hexStackMaker/constants.ts",
+      "lines": 23,
+      "size": 572,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "HEX_STACK_CONSTANTS",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/modules/hexStackMaker/hexStackMaker.ts",
+        "shared/modules/hexStackMaker/utilities.ts"
+      ],
+      "category": "shared",
+      "purpose": "constants"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/hexStackMaker/hexStackMaker.ts",
+      "relativePath": "shared/modules/hexStackMaker/hexStackMaker.ts",
+      "lines": 49,
+      "size": 1565,
+      "imports": 4,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "makeHexStack",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../hexagonMaker",
+        "./interfaces",
+        "./constants",
+        "./utilities"
+      ],
+      "importedBy": [],
+      "category": "shared",
+      "purpose": "component-maker"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/hexStackMaker/index.ts",
+      "relativePath": "shared/modules/hexStackMaker/index.ts",
+      "lines": 2,
+      "size": 99,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "makeHexStack",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [],
+      "category": "shared",
+      "purpose": "module-export"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/hexStackMaker/interfaces.ts",
+      "relativePath": "shared/modules/hexStackMaker/interfaces.ts",
+      "lines": 9,
+      "size": 212,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "HexStackConfig",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/modules/hexStackMaker/hexStackMaker.ts"
+      ],
+      "category": "shared",
+      "purpose": "type-definitions"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/hexStackMaker/utilities.ts",
+      "relativePath": "shared/modules/hexStackMaker/utilities.ts",
+      "lines": 16,
+      "size": 563,
+      "imports": 2,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "generateStackName",
+          "type": "named"
+        },
+        {
+          "name": "calculateLevelPosition",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../../utils/stringUtils",
+        "./constants"
+      ],
+      "importedBy": [
+        "shared/modules/hexStackMaker/hexStackMaker.ts"
+      ],
+      "category": "shared",
+      "purpose": "utilities"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/labelBlockMaker/constants.ts",
+      "relativePath": "shared/modules/labelBlockMaker/constants.ts",
+      "lines": 26,
+      "size": 657,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "LABEL_BLOCK_CONSTANTS",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/modules/labelBlockMaker/interfaces.ts",
+        "shared/modules/labelBlockMaker/labelBlockMaker.ts"
+      ],
+      "category": "shared",
+      "purpose": "constants"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/labelBlockMaker/index.ts",
+      "relativePath": "shared/modules/labelBlockMaker/index.ts",
+      "lines": 12,
+      "size": 276,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "makeLabelBlock",
+          "type": "named"
+        },
+        {
+          "name": "makeLabelBlockAllFaces",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/modules/makeOriginBlock.ts"
+      ],
+      "category": "shared",
+      "purpose": "module-export"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/labelBlockMaker/interfaces.ts",
+      "relativePath": "shared/modules/labelBlockMaker/interfaces.ts",
+      "lines": 52,
+      "size": 1320,
+      "imports": 1,
+      "exports": 5,
+      "exportDetails": [
+        {
+          "name": "TextBoxProps",
+          "type": "named"
+        },
+        {
+          "name": "LabelConfig",
+          "type": "named"
+        },
+        {
+          "name": "LabelBlockProps",
+          "type": "named"
+        },
+        {
+          "name": "LabelBlockConfig",
+          "type": "named"
+        },
+        {
+          "name": "defaultProps",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "./constants"
+      ],
+      "importedBy": [
+        "shared/modules/labelBlockMaker/labelBlockMaker.ts",
+        "shared/modules/labelBlockMaker/utilities.ts"
+      ],
+      "category": "shared",
+      "purpose": "type-definitions"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/labelBlockMaker/labelBlockMaker.ts",
+      "relativePath": "shared/modules/labelBlockMaker/labelBlockMaker.ts",
+      "lines": 124,
+      "size": 3154,
+      "imports": 4,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "makeLabelBlock",
+          "type": "named"
+        },
+        {
+          "name": "makeLabelBlockAllFaces",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "./interfaces",
+        "./utilities",
+        "./constants",
+        "../../utils/stringUtils"
+      ],
+      "importedBy": [],
+      "category": "shared",
+      "purpose": "component-maker"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/labelBlockMaker/utilities.ts",
+      "relativePath": "shared/modules/labelBlockMaker/utilities.ts",
+      "lines": 59,
+      "size": 1965,
+      "imports": 2,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "createLabelsForBlock",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../TextBoxMaker",
+        "./interfaces"
+      ],
+      "importedBy": [
+        "shared/modules/labelBlockMaker/labelBlockMaker.ts"
+      ],
+      "category": "shared",
+      "purpose": "utilities"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/labelGroupMaker.ts",
+      "relativePath": "shared/modules/labelGroupMaker.ts",
+      "lines": 175,
+      "size": 5847,
+      "imports": 1,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "createLabelGroup",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "./TextBoxMaker"
+      ],
+      "importedBy": [
+        "shared/modules/ropeLabelMaker/ropeLabelMaker.ts"
+      ],
+      "category": "shared",
+      "purpose": "component-maker"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/layout/simpleDataLayout.ts",
+      "relativePath": "shared/modules/layout/simpleDataLayout.ts",
+      "lines": 221,
+      "size": 7580,
+      "imports": 1,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "SimpleDataLayout",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../../interfaces/simpleDataGenerator.interface"
+      ],
+      "importedBy": [
+        "server/services/testSimpleDataGenerator.service.ts"
+      ],
+      "category": "shared",
+      "purpose": "layout"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/layoutConstants.ts",
+      "relativePath": "shared/modules/layoutConstants.ts",
+      "lines": 11,
+      "size": 719,
+      "imports": 0,
+      "exports": 9,
+      "exportDetails": [
+        {
+          "name": "TREE_SPACING",
+          "type": "named"
+        },
+        {
+          "name": "LEVEL_HEIGHT",
+          "type": "named"
+        },
+        {
+          "name": "CLUSTER_RADIUS",
+          "type": "named"
+        },
+        {
+          "name": "ENTITY_SPACING",
+          "type": "named"
+        },
+        {
+          "name": "CLUSTER_VARIATION",
+          "type": "named"
+        },
+        {
+          "name": "BASE_HEIGHT",
+          "type": "named"
+        },
+        {
+          "name": "COLLISION_BUFFER",
+          "type": "named"
+        },
+        {
+          "name": "MAX_TREE_WIDTH",
+          "type": "named"
+        },
+        {
+          "name": "BRANCH_SPREAD",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [],
+      "category": "shared",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/makeOriginBlock.ts",
+      "relativePath": "shared/modules/makeOriginBlock.ts",
+      "lines": 88,
+      "size": 2858,
+      "imports": 1,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "makeOriginBlock",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "./labelBlockMaker"
+      ],
+      "importedBy": [
+        "server/services/main/game.service.ts"
+      ],
+      "category": "shared",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/renderers/dataGeneratorRobloxRenderer.ts",
+      "relativePath": "shared/modules/renderers/dataGeneratorRobloxRenderer.ts",
+      "lines": 133,
+      "size": 4391,
+      "imports": 7,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "DataGeneratorRobloxRenderer",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../../services/dataGenerator/simpleDataGenerator.service",
+        "../hexagonMaker",
+        "../../interfaces/simpleDataGenerator.interface",
+        "./dataGeneratorRobloxRendererUtils/constants",
+        "./dataGeneratorRobloxRendererUtils/positioning",
+        "./dataGeneratorRobloxRendererUtils/ropeCreator",
+        "./dataGeneratorRobloxRendererUtils/drawIoGenerator"
+      ],
+      "importedBy": [],
+      "category": "shared",
+      "purpose": "renderer"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/renderers/dataGeneratorRobloxRendererUtils/constants.ts",
+      "relativePath": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/constants.ts",
+      "lines": 79,
+      "size": 2073,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "RENDERER_CONSTANTS",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/modules/renderers/dataGeneratorRobloxRenderer.ts",
+        "shared/modules/renderers/dataGeneratorRobloxRendererUtils/drawIoGenerator.ts",
+        "shared/modules/renderers/dataGeneratorRobloxRendererUtils/positioning.ts",
+        "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts",
+        "shared/modules/renderers/unifiedDataRenderer.ts"
+      ],
+      "category": "shared",
+      "purpose": "constants"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/renderers/dataGeneratorRobloxRendererUtils/drawIoGenerator.ts",
+      "relativePath": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/drawIoGenerator.ts",
+      "lines": 152,
+      "size": 4908,
+      "imports": 2,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "generateDrawIoDiagram",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../../../interfaces/simpleDataGenerator.interface",
+        "./constants"
+      ],
+      "importedBy": [
+        "shared/modules/renderers/dataGeneratorRobloxRenderer.ts"
+      ],
+      "category": "shared",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/renderers/dataGeneratorRobloxRendererUtils/positioning.ts",
+      "relativePath": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/positioning.ts",
+      "lines": 148,
+      "size": 5242,
+      "imports": 2,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "calculateSwimLanePositions",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../../../interfaces/simpleDataGenerator.interface",
+        "./constants"
+      ],
+      "importedBy": [
+        "shared/modules/renderers/dataGeneratorRobloxRenderer.ts"
+      ],
+      "category": "shared",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts",
+      "relativePath": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts",
+      "lines": 207,
+      "size": 5856,
+      "imports": 5,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "createRopeConnectors",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../../../interfaces/simpleDataGenerator.interface",
+        "../../ropeLabelMaker/ropeLabelMaker",
+        "./constants",
+        "../../../utils/stringUtils",
+        "../../../interfaces/enhancedGenerator.interface"
+      ],
+      "importedBy": [
+        "shared/modules/renderers/dataGeneratorRobloxRenderer.ts",
+        "shared/modules/renderers/unifiedDataRenderer.ts"
+      ],
+      "category": "shared",
+      "purpose": "general"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/renderers/simpleDataRenderer.ts",
+      "relativePath": "shared/modules/renderers/simpleDataRenderer.ts",
+      "lines": 173,
+      "size": 5067,
+      "imports": 2,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "SimpleDataRenderer",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../../interfaces/simpleDataGenerator.interface",
+        "../hexagonMaker"
+      ],
+      "importedBy": [
+        "server/services/testSimpleDataGenerator.service.ts"
+      ],
+      "category": "shared",
+      "purpose": "renderer"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/renderers/unifiedDataRenderer.ts",
+      "relativePath": "shared/modules/renderers/unifiedDataRenderer.ts",
+      "lines": 886,
+      "size": 33402,
+      "imports": 5,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "UnifiedDataRenderer",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../hexagonMaker",
+        "../../interfaces/simpleDataGenerator.interface",
+        "../../interfaces/enhancedGenerator.interface",
+        "./dataGeneratorRobloxRendererUtils/constants",
+        "./dataGeneratorRobloxRendererUtils/ropeCreator"
+      ],
+      "importedBy": [
+        "server/services/configGUIServer.service.ts"
+      ],
+      "category": "shared",
+      "purpose": "renderer"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/ropeLabelMaker/constants.ts",
+      "relativePath": "shared/modules/ropeLabelMaker/constants.ts",
+      "lines": 39,
+      "size": 706,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "ROPE_LABEL_CONSTANTS",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/modules/ropeLabelMaker/utilities.ts"
+      ],
+      "category": "shared",
+      "purpose": "constants"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/ropeLabelMaker/index.ts",
+      "relativePath": "shared/modules/ropeLabelMaker/index.ts",
+      "lines": 12,
+      "size": 253,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "createRopeLabel",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [],
+      "category": "shared",
+      "purpose": "module-export"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/ropeLabelMaker/interfaces.ts",
+      "relativePath": "shared/modules/ropeLabelMaker/interfaces.ts",
+      "lines": 49,
+      "size": 911,
+      "imports": 0,
+      "exports": 4,
+      "exportDetails": [
+        {
+          "name": "RopeLabelProps",
+          "type": "named"
+        },
+        {
+          "name": "RopeLabelConfig",
+          "type": "named"
+        },
+        {
+          "name": "ParsedRelation",
+          "type": "named"
+        },
+        {
+          "name": "RopeLabelOptions",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/modules/ropeLabelMaker/ropeLabelMaker.ts",
+        "shared/modules/ropeLabelMaker/utilities.ts"
+      ],
+      "category": "shared",
+      "purpose": "type-definitions"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/ropeLabelMaker/ropeLabelMaker.ts",
+      "relativePath": "shared/modules/ropeLabelMaker/ropeLabelMaker.ts",
+      "lines": 40,
+      "size": 971,
+      "imports": 3,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "createRopeLabel",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../labelGroupMaker",
+        "./interfaces",
+        "./utilities"
+      ],
+      "importedBy": [
+        "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts"
+      ],
+      "category": "shared",
+      "purpose": "component-maker"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/ropeLabelMaker/utilities.ts",
+      "relativePath": "shared/modules/ropeLabelMaker/utilities.ts",
+      "lines": 88,
+      "size": 2460,
+      "imports": 2,
+      "exports": 4,
+      "exportDetails": [
+        {
+          "name": "parseRelationName",
+          "type": "named"
+        },
+        {
+          "name": "formatNodeName",
+          "type": "named"
+        },
+        {
+          "name": "calculateLabelPosition",
+          "type": "named"
+        },
+        {
+          "name": "validateRelationFormat",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "./constants",
+        "./interfaces"
+      ],
+      "importedBy": [
+        "shared/modules/ropeLabelMaker/ropeLabelMaker.ts"
+      ],
+      "category": "shared",
+      "purpose": "utilities"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/TextBoxMaker.ts",
+      "relativePath": "shared/modules/TextBoxMaker.ts",
+      "lines": 98,
+      "size": 2870,
+      "imports": 0,
+      "exports": 2,
+      "exportDetails": [
+        {
+          "name": "createTextBox",
+          "type": "named"
+        },
+        {
+          "name": "createTextBoxWithCustomStyling",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/modules/barMaker/barMaker.ts",
+        "shared/modules/labelBlockMaker/utilities.ts",
+        "shared/modules/labelGroupMaker.ts"
+      ],
+      "category": "shared",
+      "purpose": "component-maker"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/modules/toolData.ts",
+      "relativePath": "shared/modules/toolData.ts",
+      "lines": 74,
+      "size": 1528,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "toolData",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [],
+      "category": "shared",
+      "purpose": "data"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/services/dataGenerator/simpleDataGenerator.service.ts",
+      "relativePath": "shared/services/dataGenerator/simpleDataGenerator.service.ts",
+      "lines": 480,
+      "size": 16070,
+      "imports": 1,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "SimpleDataGeneratorService",
+          "type": "named"
+        }
+      ],
+      "importDetails": [
+        "../../interfaces/simpleDataGenerator.interface"
+      ],
+      "importedBy": [
+        "server/services/testSimpleDataGenerator.service.ts",
+        "shared/modules/renderers/dataGeneratorRobloxRenderer.ts"
+      ],
+      "category": "shared",
+      "purpose": "service"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/types/index.ts",
+      "relativePath": "shared/types/index.ts",
+      "lines": 14,
+      "size": 300,
+      "imports": 0,
+      "exports": 0,
+      "exportDetails": [],
+      "importDetails": [],
+      "importedBy": [],
+      "category": "shared",
+      "purpose": "module-export"
+    },
+    {
+      "path": "/Users/__projects/roblox-mapper-002-multi/vscode/src/shared/utils/stringUtils.ts",
+      "relativePath": "shared/utils/stringUtils.ts",
+      "lines": 22,
+      "size": 548,
+      "imports": 0,
+      "exports": 1,
+      "exportDetails": [
+        {
+          "name": "padNumber",
+          "type": "named"
+        }
+      ],
+      "importDetails": [],
+      "importedBy": [
+        "shared/modules/barMaker/utilities.ts",
+        "shared/modules/hexStackMaker/utilities.ts",
+        "shared/modules/hexagonMaker/utilities.ts",
+        "shared/modules/labelBlockMaker/labelBlockMaker.ts",
+        "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts"
+      ],
+      "category": "shared",
+      "purpose": "general"
+    }
+  ]
+}
