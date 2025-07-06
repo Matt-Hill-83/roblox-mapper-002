@@ -87,3 +87,10 @@
    2. ✅ [CLD6] R6.2.2: "Show connectors" checkbox (default: checked/true)
    3. ✅ [CLD6] R6.2.3: "Allow same level links" checkbox (default: checked/true) - When checked, nodes are allowed to create links with other nodes on the same layer
 3. ✅ [CLD6] R6.3: Changes to checkbox states shall update the visualization immediately without requiring regeneration
+
+- gui improvements
+  --- input for link diameter
+  --- update init gui config to match values in image
+  --- min value for all fields should be 0.1
+
+  - add checkbox called rand X - this will give each node a 50% chance of having their X value offset by 20 units when created.

@@ -58,26 +58,80 @@
 
 ## T151: Implement Quit Game Shortcut
 
-**Status**: NOT STARTED
+**Status**: COMPLETED
 **Priority**: Low
 **Description**: Allow users to quit the game by pressing Esc then P
 
 ### Tasks:
 
-1. 🔲 [CLD5] T151.1: Create keyboard input handler
+1. ✅ [CLD6] T151.1: Create keyboard input handler
 
-   1. 🔲 [CLD5] T151.1.1: Create new client service for keyboard shortcuts
-   2. 🔲 [CLD5] T151.1.2: Detect Esc key press
-   3. 🔲 [CLD5] T151.1.3: Start timeout for P key after Esc
-   4. 🔲 [CLD5] T151.1.4: Clear timeout if different key pressed
+   1. ✅ [CLD6] T151.1.1: Create new client service for keyboard shortcuts
+   2. ✅ [CLD6] T151.1.2: Detect Esc key press
+   3. ✅ [CLD6] T151.1.3: Start timeout for P key after Esc
+   4. ✅ [CLD6] T151.1.4: Clear timeout if different key pressed
 
-2. 🔲 [CLD5] T151.2: Implement quit functionality
-   1. 🔲 [CLD5] T151.2.1: Show confirmation dialog when Esc+P detected
-   2. 🔲 [CLD5] T151.2.2: Quit game if confirmed
-   3. 🔲 [CLD5] T151.2.3: Cancel on dialog dismiss or timeout
+2. ✅ [CLD6] T151.2: Implement quit functionality
+   1. ✅ [CLD6] T151.2.1: Show confirmation dialog when Esc+P detected
+   2. ✅ [CLD6] T151.2.2: Quit game if confirmed
+   3. ✅ [CLD6] T151.2.3: Cancel on dialog dismiss or timeout
 
 ### Technical Notes:
 
 - Use UserInputService for keyboard detection
 - Consider 1-2 second window for P after Esc
 - Show visual feedback when Esc pressed
+
+## T152: Implement Visualization Control Checkboxes
+
+**Status**: COMPLETED
+**Priority**: High
+**Description**: Add checkboxes to control visualization options for links and labels
+
+### Tasks:
+
+1. ✅ [CLD6] T152.1: Add checkbox section to GUI
+   1. ✅ [CLD6] T152.1.1: Create visualization controls component
+   2. ✅ [CLD6] T152.1.2: Position checkboxes in bottom-right corner
+   3. ✅ [CLD6] T152.1.3: Style checkboxes with proper sizing and spacing
+
+2. ✅ [CLD6] T152.2: Create checkbox components
+   1. ✅ [CLD6] T152.2.1: "Show link labels" checkbox (default: checked/true)
+   2. ✅ [CLD6] T152.2.2: "Show connectors" checkbox (default: checked/true)
+   3. ✅ [CLD6] T152.2.3: "Create same-layer links" checkbox (default: checked/true)
+
+3. ✅ [CLD6] T152.3: Add visualization flags to interfaces
+   1. ✅ [CLD6] T152.3.1: Create VisualizationOptions interface
+   2. ✅ [CLD6] T152.3.2: Add visualization field to EnhancedGeneratorConfig
+   3. ✅ [CLD6] T152.3.3: Update all default configs with visualization options
+
+4. ✅ [CLD6] T152.4: Implement real-time visualization updates
+   1. ✅ [CLD6] T152.4.1: Handle checkbox state changes
+   2. ✅ [CLD6] T152.4.2: Trigger immediate config update on change
+   3. ✅ [CLD6] T152.4.3: Update status message on visualization change
+
+5. ✅ [CLD6] T152.5: Update renderer to respect visualization flags
+   1. ✅ [CLD6] T152.5.1: Modify rope creator to check showConnectors flag
+   2. ✅ [CLD6] T152.5.2: Modify rope creator to check showLinkLabels flag
+   3. ✅ [CLD6] T152.5.3: Modify data generator to check allowSameLevelLinks during generation
+   4. ✅ [CLD6] T152.5.4: Update incremental update logic to respect same flags
+
+### Additional Changes:
+
+6. ✅ [CLD6] T152.6: Update default values
+   1. ✅ [CLD6] T152.6.1: Change default number of node types from 3 to 4
+   2. ✅ [CLD6] T152.6.2: Change default number of link types from 1 to 3
+   3. ✅ [CLD6] T152.6.3: Update all checkbox defaults to true
+
+7. ✅ [CLD6] T152.7: Remove debug print statements
+   1. ✅ [CLD6] T152.7.1: Remove prints from textBoxMaker
+   2. ✅ [CLD6] T152.7.2: Remove prints from hexagonMaker
+   3. ✅ [CLD6] T152.7.3: Remove prints from labelGroupMaker
+
+### Technical Notes:
+
+- "Show connectors" controls rope visibility
+- "Show link labels" controls label visibility on ropes
+- "Create same-layer links" controls data generation, not just display
+- Checkboxes positioned to avoid overlapping with other UI elements
+- All visualization options require immediate update without full regeneration
