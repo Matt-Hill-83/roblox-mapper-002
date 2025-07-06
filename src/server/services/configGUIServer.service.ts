@@ -1,17 +1,17 @@
 import { ReplicatedStorage } from "@rbxts/services";
-import { GeneratorConfig } from "../../shared/interfaces/simpleDataGenerator.interface";
 import { EnhancedGeneratorConfig } from "../../shared/interfaces/enhancedGenerator.interface";
-import { DataGeneratorRobloxRenderer } from "../../shared/modules/renderers/dataGeneratorRobloxRenderer";
-import { generateEnhancedData, convertEnhancedConfig } from "../../shared/modules/enhancedDataGenerator";
+import { UnifiedDataRenderer } from "../../shared/modules/renderers/unifiedDataRenderer";
 
 export class ConfigGUIServerService {
   private remoteEvent: RemoteEvent;
-  private dataGeneratorRenderer: DataGeneratorRobloxRenderer;
+  private unifiedRenderer: UnifiedDataRenderer;
   private myStuffFolder: Folder;
+  private origin: Vector3;
 
-  constructor(myStuffFolder: Folder) {
-    this.dataGeneratorRenderer = new DataGeneratorRobloxRenderer();
+  constructor(myStuffFolder: Folder, origin?: Vector3) {
+    this.unifiedRenderer = new UnifiedDataRenderer();
     this.myStuffFolder = myStuffFolder;
+    this.origin = origin || new Vector3(0, 0, 0);
 
     // Create or get RemoteEvent
     let remoteEvent = ReplicatedStorage.FindFirstChild("ConfigGUIRemote") as RemoteEvent;
@@ -33,39 +33,15 @@ export class ConfigGUIServerService {
     this.remoteEvent.OnServerEvent.Connect((player: Player, ...args: unknown[]) => {
       const [eventType, data] = args;
       
-      if (eventType === "regenerate" && typeIs(data, "table")) {
-        const config = data as Partial<GeneratorConfig>;
-        print(`📡 Received regenerate request from ${player.Name}`);
-        
-        // Validate the config
-        if (this.validateConfig(config)) {
-          // Clear existing visualization
-          this.clearVisualization();
-          
-          // Regenerate with new config using DataGeneratorRobloxRenderer
-          this.dataGeneratorRenderer.renderGeneratedData(this.myStuffFolder, config as GeneratorConfig);
-          
-          // Send success response
-          this.remoteEvent.FireClient(player, "regenerateSuccess", config);
-        } else {
-          // Send error response
-          this.remoteEvent.FireClient(player, "regenerateError", "Invalid configuration");
-        }
-      } else if (eventType === "regenerateEnhanced" && typeIs(data, "table")) {
+      // We only handle enhanced mode now with the unified renderer
+      if (eventType === "regenerateEnhanced" && typeIs(data, "table")) {
         const enhancedConfig = data as EnhancedGeneratorConfig;
         print(`📡 Received enhanced regenerate request from ${player.Name}`);
         
         // Validate the enhanced config
         if (this.validateEnhancedConfig(enhancedConfig)) {
-          // Clear existing visualization
-          this.clearVisualization();
-          
-          // Generate data using enhanced generator
-          const generatorInput = convertEnhancedConfig(enhancedConfig);
-          const cluster = generateEnhancedData(generatorInput);
-          
-          // Use the data generator renderer to render the cluster with pre-calculated positions
-          this.dataGeneratorRenderer.renderPrePositionedCluster(cluster, this.myStuffFolder);
+          // Use unified renderer which handles everything
+          this.unifiedRenderer.renderEnhancedData(this.myStuffFolder, enhancedConfig, this.origin);
           
           // Send success response
           this.remoteEvent.FireClient(player, "regenerateSuccess", enhancedConfig);
@@ -75,34 +51,6 @@ export class ConfigGUIServerService {
         }
       }
     });
-  }
-
-  /**
-   * Validates the configuration from client
-   */
-  private validateConfig(config: Partial<GeneratorConfig>): boolean {
-    // Check if all required fields are present and valid
-    const requiredFields: Array<keyof GeneratorConfig> = [
-      "numLevel1Nodes", "numLevel2Nodes", "numLevel3Nodes", 
-      "childrenPerNode", "numNodeTypes", "numLinkTypes"
-    ];
-
-    for (const field of requiredFields) {
-      const value = config[field];
-      if (value === undefined || !typeIs(value, "number") || value < 1) {
-        return false;
-      }
-    }
-
-    // Additional validation for specific fields
-    if (config.numLevel1Nodes && config.numLevel1Nodes > 10) return false;
-    if (config.numLevel2Nodes && config.numLevel2Nodes > 50) return false;
-    if (config.numLevel3Nodes && config.numLevel3Nodes > 100) return false;
-    if (config.childrenPerNode && config.childrenPerNode > 10) return false;
-    if (config.numNodeTypes && config.numNodeTypes > 10) return false;
-    if (config.numLinkTypes && config.numLinkTypes > 10) return false;
-
-    return true;
   }
 
   /**
@@ -131,25 +79,5 @@ export class ConfigGUIServerService {
     }
     
     return true;
-  }
-  
-  /**
-   * Clears the existing visualization
-   */
-  private clearVisualization(): void {
-    // Clear all children in myStuffFolder
-    const children = this.myStuffFolder.GetChildren();
-    children.forEach(child => {
-      if (child.Name !== "KeepMe") { // Don't delete any placeholder objects
-        child.Destroy();
-      }
-    });
-  }
-
-  /**
-   * Sends initial config to a player
-   */
-  public sendInitialConfig(player: Player, config: GeneratorConfig): void {
-    this.remoteEvent.FireClient(player, "initialConfig", config);
   }
 }

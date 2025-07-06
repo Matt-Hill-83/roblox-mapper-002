@@ -1,4 +1,5 @@
 import { ConfigGUIServerService } from "../configGUIServer.service";
+import { GraphInitializerService } from "../graphInitializer.service";
 import { makeOriginBlock } from "../../../shared/modules/makeOriginBlock";
 
 // Origin configuration for 3D positioning
@@ -10,8 +11,13 @@ const ORIGIN = {
 
 export class GameService {
   private configGUIServer?: ConfigGUIServerService;
+  private graphInitializer: GraphInitializerService;
   private myStuffFolder!: Folder;
   private gameStarted = false; // Flag to prevent duplicate initialization
+  
+  constructor() {
+    this.graphInitializer = new GraphInitializerService();
+  }
 
   public startGame(): void {
     if (this.gameStarted) {
@@ -43,9 +49,18 @@ export class GameService {
       });
     }
 
-    // Initialize the configuration GUI server
-    this.configGUIServer = new ConfigGUIServerService(this.myStuffFolder);
+    // Initialize the configuration GUI server with origin
+    this.configGUIServer = new ConfigGUIServerService(
+      this.myStuffFolder, 
+      new Vector3(ORIGIN.x, ORIGIN.y, ORIGIN.z)
+    );
     print(`🎮 GUI Server initialized: ${this.configGUIServer !== undefined}`);
+    
+    // Set up graph initializer with the GUI server
+    this.graphInitializer.setConfigGUIServer(this.configGUIServer);
+    
+    // Initialize the graph with default configuration
+    this.graphInitializer.initializeGraph();
 
     print("✅ GameService.startGame() completed");
   }

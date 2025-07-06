@@ -6,6 +6,7 @@ interface LayerGridProps {
   onLayerUpdate: (layers: LayerConfig[]) => void;
   nodeTypes: string[];
   linkTypes: string[];
+  initialLayers?: LayerConfig[];
 }
 
 interface LayerRow {
@@ -17,7 +18,8 @@ export function createLayerGrid({
   parent,
   onLayerUpdate,
   nodeTypes,
-  linkTypes
+  linkTypes,
+  initialLayers
 }: LayerGridProps): Frame {
   const layers: LayerRow[] = [];
   
@@ -133,9 +135,48 @@ export function createLayerGrid({
 
   addButton.MouseButton1Click.Connect(addLayer);
 
-  // Add initial layers
-  for (let i = 0; i < 3; i++) {
-    addLayer();
+  // Add initial layers from config or default to 3 empty layers
+  print(`🔍 LayerGrid: initialLayers = ${initialLayers ? tostring(initialLayers.size()) : "undefined"}`);
+  if (initialLayers && initialLayers.size() > 0) {
+    print(`✅ Creating ${initialLayers.size()} layers from initial config`);
+    initialLayers.forEach((layerConfig) => {
+      print(`  - Layer ${layerConfig.layerNumber}: ${layerConfig.numNodes} nodes, ${layerConfig.connectionsPerNode} connections`);
+      const row = createLayerRow({
+        parent: scrollFrame,
+        config: layerConfig,
+        nodeTypes,
+        linkTypes,
+        onUpdate: (updatedConfig) => {
+          const index = layers.findIndex(r => r.config.layerNumber === updatedConfig.layerNumber);
+          if (index >= 0) {
+            layers[index].config = updatedConfig;
+            notifyLayerChange();
+          }
+        },
+        onDelete: () => {
+          const index = layers.findIndex(r => r.config.layerNumber === layerConfig.layerNumber);
+          if (index >= 0) {
+            layers[index].frame.Destroy();
+            layers.remove(index);
+            // Renumber remaining layers
+            layers.forEach((row, idx) => {
+              row.config.layerNumber = idx + 1;
+              updateLayerNumber(row.frame, idx + 1);
+            });
+            updateCanvasSize();
+            notifyLayerChange();
+          }
+        }
+      });
+      layers.push({ frame: row, config: layerConfig });
+    });
+    updateCanvasSize();
+  } else {
+    print("❌ No initial layers provided, creating 3 empty layers");
+    // Default to 3 empty layers
+    for (let i = 0; i < 3; i++) {
+      addLayer();
+    }
   }
 
   return gridContainer;

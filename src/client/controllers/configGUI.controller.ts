@@ -1,8 +1,6 @@
 import { ReplicatedStorage } from "@rbxts/services";
 import { ConfigGUIService } from "../services/configGui";
-import { GeneratorConfig } from "../../shared/interfaces/simpleDataGenerator.interface";
 import { EnhancedGeneratorConfig } from "../../shared/interfaces/enhancedGenerator.interface";
-import { config001 } from "../../shared/configs/simpleDataGeneratorConfigs";
 
 export class ConfigGUIController {
   private guiService?: ConfigGUIService;
@@ -21,24 +19,9 @@ export class ConfigGUIController {
     // Set up event listeners
     this.setupEventListeners();
 
-    // Create GUI with default config
-    const defaultConfig: GeneratorConfig = {
-      numLevel1Nodes: 1,
-      numLevel2Nodes: 1,
-      numLevel3Nodes: 1,
-      childrenPerNode: 3,
-      numNodeTypes: config001.numNodeTypes || 2,
-      numLinkTypes: config001.numLinkTypes || 3,
-    };
-
-    this.guiService = new ConfigGUIService({
-      initialConfig: defaultConfig,
-      onConfigChange: (newConfig) => this.onConfigChange(newConfig),
-      onEnhancedConfigChange: (enhancedConfig) =>
-        this.onEnhancedConfigChange(enhancedConfig),
-      mode: "enhanced", // Start in enhanced mode
-    });
-    this.guiService.createGUI();
+    // Wait for initial config from server before creating GUI
+    print("🕰️ Waiting for initial configuration from server...");
+    // The GUI will be created when we receive the initial config
   }
 
   /**
@@ -49,28 +32,52 @@ export class ConfigGUIController {
 
     this.remoteEvent.OnClientEvent.Connect(
       (eventType: string, data?: unknown) => {
+        print(`🔔 Client received event: ${eventType}`);
+        
         if (eventType === "initialConfig" && typeIs(data, "table")) {
-          const config = data as GeneratorConfig;
-          if (this.guiService) {
-            this.guiService.updateConfig(config);
+          // Check if it's an enhanced config (has layers property)
+          const configData = data as { layers?: unknown };
+          if (configData.layers) {
+            const enhancedConfig = data as EnhancedGeneratorConfig;
+            print(`📄 Received enhanced config with ${enhancedConfig.layers.size()} layers`);
+            
+            if (!this.guiService) {
+              // First time receiving config - create GUI with initial values
+              print("🎆 Creating GUI with server configuration");
+              print(`   - Node types: ${enhancedConfig.numNodeTypes}`);
+              print(`   - Link types: ${enhancedConfig.numLinkTypes}`);
+              print(`   - Layers: ${enhancedConfig.layers.size()}`);
+              
+              this.guiService = new ConfigGUIService({
+                onEnhancedConfigChange: (config) =>
+                  this.onEnhancedConfigChange(config),
+                initialConfig: enhancedConfig,
+              });
+              this.guiService.createGUI();
+            } else {
+              // GUI already exists - just update it
+              this.guiService.updateEnhancedConfig(enhancedConfig);
+            }
+          } else {
+            // Simple mode no longer supported
           }
         } else if (eventType === "regenerateSuccess") {
           print("✅ Regeneration successful!");
         } else if (eventType === "regenerateError") {
           warn("❌ Regeneration failed:", data);
+        } else if (eventType === "triggerGeneration" && typeIs(data, "table")) {
+          // Automatic generation triggered by server
+          print("🚀 Auto-generating graph from server trigger...");
+          const enhancedConfig = data as EnhancedGeneratorConfig;
+          if (this.guiService) {
+            // Update the GUI with the config
+            this.guiService.updateEnhancedConfig(enhancedConfig);
+            // Trigger generation
+            this.onEnhancedConfigChange(enhancedConfig);
+          }
         }
       }
     );
-  }
-
-  /**
-   * Handles configuration changes from the GUI
-   */
-  private onConfigChange(config: GeneratorConfig): void {
-    if (this.remoteEvent) {
-      print("📤 Sending regenerate request to server...");
-      this.remoteEvent.FireServer("regenerate", config);
-    }
   }
 
   /**

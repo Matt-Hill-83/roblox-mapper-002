@@ -95,34 +95,146 @@
 - Need to preserve enhanced mode's layer-based positioning while adopting the better rendering
 
 ## T133: Graph Initializer (R3)
-**Status**: TODO
+**Status**: COMPLETED
 **Priority**: Medium
 **Description**: Create a service that initializes the graph with default configuration on game startup
 
 ### Tasks:
 
-1. ⬜ T133.1: Create graph initialization service (R3.1)
-   1. ⬜ T133.1.1: Create graphInitializer.service.ts in server/services
-   2. ⬜ T133.1.2: Define interface for initialization parameters
-   3. ⬜ T133.1.3: Implement service class with initialization method
+1. ✅ [CLD4] T133.1: Create graph initialization service (R3.1)
+   1. ✅ [CLD4] T133.1.1: Create graphInitializer.service.ts in server/services
+   2. ✅ [CLD4] T133.1.2: Define interface for initialization parameters
+   3. ✅ [CLD4] T133.1.3: Implement service class with initialization method
 
-2. ⬜ T133.2: Integrate with game.service startup (R3.2)
-   1. ⬜ T133.2.1: Import GraphInitializerService in game.service.ts
-   2. ⬜ T133.2.2: Create instance during game startup
-   3. ⬜ T133.2.3: Call initialization after GUI server is ready
+2. ✅ [CLD4] T133.2: Integrate with game.service startup (R3.2)
+   1. ✅ [CLD4] T133.2.1: Import GraphInitializerService in game.service.ts
+   2. ✅ [CLD4] T133.2.2: Create instance during game startup
+   3. ✅ [CLD4] T133.2.3: Call initialization after GUI server is ready
 
-3. ⬜ T133.3: Pass configuration to GUI (R3.3)
-   1. ⬜ T133.3.1: Define initial position for graph bottom center (R3.3.1)
-   2. ⬜ T133.3.2: Create default graph configuration object (R3.3.2)
-   3. ⬜ T133.3.3: Pass configuration through remote event to GUI
+3. ✅ [CLD4] T133.3: Pass configuration to GUI (R3.3)
+   1. ✅ [CLD4] T133.3.1: Define initial position for graph bottom center (R3.3.1)
+   2. ✅ [CLD4] T133.3.2: Create default graph configuration object (R3.3.2)
+   3. ✅ [CLD4] T133.3.3: Pass configuration through remote event to GUI
 
-4. ⬜ T133.4: Trigger automatic generation (R3.4)
-   1. ⬜ T133.4.1: Send generation request after GUI receives configuration
-   2. ⬜ T133.4.2: Ensure generation uses passed position parameter
-   3. ⬜ T133.4.3: Test automatic generation on game startup
+4. ✅ [CLD4] T133.4: Trigger automatic generation (R3.4)
+   1. ✅ [CLD4] T133.4.1: Send generation request after GUI receives configuration
+   2. ✅ [CLD4] T133.4.2: Ensure generation uses passed position parameter
+   3. ✅ [CLD4] T133.4.3: Test automatic generation on game startup
 
 ### Technical Notes:
 - Should coordinate with ConfigGUIServerService
 - Initial position affects where the graph origin appears
 - Default configuration should create a reasonable starter graph
 - Consider making initial generation optional via configuration
+
+## T134: Populate GUI with Default Values (R3 Enhancement)
+**Status**: TODO
+**Priority**: High
+**Description**: Modify the system so that default values from GraphInitializerService populate the GUI on startup
+
+### Tasks:
+
+1. ⬜ T134.1: Update GraphInitializerService to send config before GUI creation
+   1. ⬜ T134.1.1: Modify initialization timing to send config immediately on player join
+   2. ⬜ T134.1.2: Store default configuration in ReplicatedStorage for client access
+   3. ⬜ T134.1.3: Remove the wait delays that might cause timing issues
+
+2. ⬜ T134.2: Update ConfigGUIController to use server defaults
+   1. ⬜ T134.2.1: Wait for initial configuration from server before creating GUI
+   2. ⬜ T134.2.2: Use server-provided config as initial values instead of hardcoded defaults
+   3. ⬜ T134.2.3: Handle timeout case if server config doesn't arrive
+
+3. ⬜ T134.3: Synchronize GUI state with server defaults
+   1. ⬜ T134.3.1: Ensure enhanced mode layers match server configuration
+   2. ⬜ T134.3.2: Update global settings (node/link types) from server config
+   3. ⬜ T134.3.3: Display correct values in all input fields and dropdowns
+
+4. ⬜ T134.4: Remove automatic generation on startup
+   1. ⬜ T134.4.1: Remove the "triggerGeneration" event from GraphInitializerService
+   2. ⬜ T134.4.2: Let user manually trigger first generation via GUI
+   3. ⬜ T134.4.3: Update status to show "Ready" instead of auto-generating
+
+5. ⬜ T134.5: Test and verify synchronization
+   1. ⬜ T134.5.1: Verify GUI shows server default values on startup
+   2. ⬜ T134.5.2: Test with multiple players joining at different times
+   3. ⬜ T134.5.3: Ensure no duplicate generation or timing conflicts
+
+### Technical Notes:
+- Current issue: GUI creates with hardcoded defaults before receiving server config
+- Solution: Make GUI wait for server config or access shared default values
+- Alternative: Store defaults in ReplicatedStorage that both client and server can access
+- Consider using Attributes or Configuration objects for shared defaults
+
+## T135: Create Unified Layer-Based Renderer with Swim Lanes
+**Status**: COMPLETED
+**Priority**: High
+**Description**: Create a unified renderer that properly handles layer-based configuration with swim lane positioning
+
+### Tasks:
+
+1. ✅ [CLD4] T135.1: Create new UnifiedDataRenderer
+   1. ✅ [CLD4] T135.1.1: Create unifiedDataRenderer.ts in shared/modules/renderers
+   2. ✅ [CLD4] T135.1.2: Import best parts from DataGeneratorRobloxRenderer (colors, rendering)
+   3. ✅ [CLD4] T135.1.3: Import swim lane positioning algorithm
+   4. ✅ [CLD4] T135.1.4: Design to accept layer-based input natively
+
+2. ✅ [CLD4] T135.2: Implement layer-aware data generation
+   1. ✅ [CLD4] T135.2.1: Generate nodes based on layer configuration (not fixed hierarchy)
+   2. ✅ [CLD4] T135.2.2: Use color system from SimpleDataGeneratorService
+   3. ✅ [CLD4] T135.2.3: Create relationships based on connections per node
+   4. ✅ [CLD4] T135.2.4: Support arbitrary number of layers
+
+3. ✅ [CLD4] T135.3: Implement swim lane positioning for layers
+   1. ✅ [CLD4] T135.3.1: Adapt calculateSwimLanePositions to work with layers
+   2. ✅ [CLD4] T135.3.2: Position nodes in columns based on relationships
+   3. ✅ [CLD4] T135.3.3: Handle inter-layer connections properly
+   4. ✅ [CLD4] T135.3.4: Maintain visual hierarchy while using swim lanes
+
+4. ✅ [CLD4] T135.4: Update server to use unified renderer
+   1. ✅ [CLD4] T135.4.1: Replace both DataGeneratorRobloxRenderer and enhancedDataGenerator
+   2. ✅ [CLD4] T135.4.2: Use UnifiedDataRenderer for all generation
+   3. ✅ [CLD4] T135.4.3: Remove mode-specific code paths
+   4. ✅ [CLD4] T135.4.4: Simplify to single generation method
+
+5. ✅ [CLD4] T135.5: Clean up and remove old code
+   1. ✅ [CLD4] T135.5.1: Remove simple/enhanced mode distinction
+   2. ✅ [CLD4] T135.5.2: Remove old generator imports
+   3. ✅ [CLD4] T135.5.3: Update GUI to remove mode selection
+   4. ✅ [CLD4] T135.5.4: Test unified system thoroughly
+
+### Technical Notes:
+- This is a proper architectural solution, not a patch
+- Combines the flexibility of layers with swim lane positioning
+- Uses the good color system from SimpleDataGeneratorService
+- Maintains clean separation of concerns
+- No hacky conversions between incompatible data models
+
+## T136: Fix Initial GUI Population and Group Positioning
+**Status**: COMPLETED
+**Priority**: High
+**Description**: Fix GUI to show initial configuration values and position group bottom center at origin
+
+### Tasks:
+
+1. ✅ [CLD4] T136.1: Fix GUI initial value population
+   1. ✅ [CLD4] T136.1.1: Update GraphInitializerService to wait for GUI creation
+   2. ✅ [CLD4] T136.1.2: Ensure initial config is sent after GUI is ready
+   3. ✅ [CLD4] T136.1.3: Update ConfigGUIController to wait for initial config before creating GUI
+   4. ✅ [CLD4] T136.1.4: Test that GUI shows server default values on startup
+
+2. ✅ [CLD4] T136.2: Position group bottom center at origin
+   1. ✅ [CLD4] T136.2.1: Calculate bounding box of all nodes after swim lane positioning
+   2. ✅ [CLD4] T136.2.2: Find the lowest Y position (bottom of group)
+   3. ✅ [CLD4] T136.2.3: Calculate center X position of group
+   4. ✅ [CLD4] T136.2.4: Offset all node positions so bottom center aligns with origin (0,0,0)
+
+3. ✅ [CLD4] T136.3: Pass origin configuration to renderer
+   1. ✅ [CLD4] T136.3.1: Add origin parameter to UnifiedDataRenderer.renderEnhancedData
+   2. ✅ [CLD4] T136.3.2: Update ConfigGUIServerService to pass origin from config
+   3. ✅ [CLD4] T136.3.3: Use origin as the reference point for bottom center alignment
+
+### Technical Notes:
+- GUI issue: Currently GUI creates before receiving initial config from server
+- Position issue: Nodes are positioned relative to BASE_Y but not centered on origin
+- Origin should be the bottom center of the entire node group
+- Need to calculate group bounds after swim lane positioning

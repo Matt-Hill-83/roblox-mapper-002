@@ -38,52 +38,9 @@
 
 ## R3: Graph Initializer
 
-1. ⬜ R3.1: The system shall provide a graph initialization service
-2. ⬜ R3.2: The initializer shall run during game startup from game.service
-3. ⬜ R3.3: The initializer shall pass configuration to the GUI:
-   1. ⬜ R3.3.1: Initial position for bottom center of graph
-   2. ⬜ R3.3.2: Default graph configuration
-4. ⬜ R3.4: The initializer shall trigger automatic graph generation on startup
-
-## GUI Mockup
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│ Generator Configuration                                    [X]  │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│ Global Settings                                                 │
-│ ┌─────────────────────────────────────────────────────────┐   │
-│ │ Number of Node Types:  [2    ▼]                          │   │
-│ │ Number of Link Types:  [2    ▼]                          │   │
-│ └─────────────────────────────────────────────────────────┘   │
-│                                                                 │
-│ ┌──────────────────────────────────────────────────────────┐   │
-│ │ Layer │ # Nodes │ Connections/Node │ Del                 │   │
-│ ├───────┼─────────┼──────────────────┼─────────────────────┤   │
-│ │   1   │ [3    ] │ [2            ]  │ [X]                 │   │
-│ ├───────┼─────────┼──────────────────┼─────────────────────┤   │
-│ │   2   │ [6    ] │ [3            ]  │ [X]                 │   │
-│ ├───────┼─────────┼──────────────────┼─────────────────────┤   │
-│ │   3   │ [9    ] │ [1            ]  │ [X]                 │   │
-│ ├───────┼─────────┼──────────────────┼─────────────────────┤   │
-│ │   4   │ [12   ] │ [2            ]  │ [X]                 │   │
-│ └──────────────────────────────────────────────────────────┘   │
-│                                                                 │
-│ [+] Add Layer                                                   │
-│                                                                 │
-│ ┌─────────────────┐  ┌─────────────────┐                      │
-│ │   Regenerate    │  │     Clear       │                      │
-│ └─────────────────┘  └─────────────────┘                      │
-│                                                                 │
-│ Status: Regeneration complete                                   │
-└─────────────────────────────────────────────────────────────────┘
-
-Legend:
-- [    ] = Text input field
-- [  ▼] = Dropdown selection
-- [X] = Delete button for removing a layer
-- [+] Add Layer = Button to add a new layer row
-- Layer numbers are auto-generated
-
-```
+1. ✅ [CLD4] R3.1: The system shall provide a graph initialization service
+2. ✅ [CLD4] R3.2: The initializer shall run during game startup from game.service
+3. ✅ [CLD4] R3.3: The initializer shall pass configuration to the GUI:
+   1. ✅ [CLD4] R3.3.1: Initial position for bottom center of graph
+   2. ✅ [CLD4] R3.3.2: Default graph configuration
+4. ✅ [CLD4] R3.4: The initializer shall trigger automatic graph generation on startup

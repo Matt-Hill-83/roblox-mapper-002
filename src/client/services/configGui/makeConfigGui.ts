@@ -9,38 +9,40 @@
  */
 
 import { Players } from "@rbxts/services";
-import { GeneratorConfig } from "../../../shared/interfaces/simpleDataGenerator.interface";
 import { GUI_CONSTANTS } from "./constants";
 import { GUIState, EnhancedGeneratorConfig, ConfigGUIServiceOptions } from "./interfaces";
-import { validateAndUpdateInput } from "./utilities";
 import { createMainFrame } from "./components/frame";
 import { createTitle } from "./components/title";
-import { createInputFields } from "./components/inputFields";
-import { createRegenerateButton } from "./components/regenerateButton";
 import { createGlobalSettings } from "./components/globalSettings";
 import { createLayerGrid } from "./components/layerGrid";
 import { createStatusArea, updateStatus } from "./components/status";
 
 export class ConfigGUIService {
   private state: GUIState;
-  private onConfigChange?: (config: GeneratorConfig) => void;
   private onEnhancedConfigChange?: (config: EnhancedGeneratorConfig) => void;
 
   constructor(options: ConfigGUIServiceOptions) {
+    print("🏗️ ConfigGUIService constructor called");
+    print(`   - Initial config provided: ${options.initialConfig ? "Yes" : "No"}`);
+    if (options.initialConfig) {
+      print(`   - Node types: ${options.initialConfig.numNodeTypes}`);
+      print(`   - Link types: ${options.initialConfig.numLinkTypes}`);
+      print(`   - Layers: ${options.initialConfig.layers.size()}`);
+      options.initialConfig.layers.forEach((layer, idx) => {
+        print(`     Layer ${idx + 1}: ${layer.numNodes} nodes, ${layer.connectionsPerNode} connections`);
+      });
+    }
+    
     this.state = {
       isVisible: false,
-      mode: options.mode || "simple",
-      currentConfig: { ...options.initialConfig },
-      enhancedConfig: {
+      enhancedConfig: options.initialConfig || {
         numNodeTypes: 3,
         numLinkTypes: 3,
         layers: []
       },
-      inputs: new Map(),
       layerRows: []
     };
     
-    this.onConfigChange = options.onConfigChange;
     this.onEnhancedConfigChange = options.onEnhancedConfigChange;
   }
 
@@ -57,53 +59,23 @@ export class ConfigGUIService {
     this.state.gui.ResetOnSpawn = false;
     this.state.gui.Parent = playerGui;
 
-    // Create main frame with appropriate size based on mode
-    const frameSize = this.state.mode === "enhanced" 
-      ? new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH, 0, GUI_CONSTANTS.FRAME.ENHANCED_HEIGHT)
-      : new UDim2(0, GUI_CONSTANTS.FRAME.WIDTH, 0, GUI_CONSTANTS.FRAME.HEIGHT);
-    
+    // Create main frame
+    const frameSize = new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH, 0, GUI_CONSTANTS.FRAME.ENHANCED_HEIGHT);
     this.state.configFrame = createMainFrame(this.state.gui, frameSize);
 
     // Add title
     createTitle(this.state.configFrame);
 
-    if (this.state.mode === "simple") {
-      // Create simple mode UI
-      this.createSimpleUI();
-    } else {
-      // Create enhanced mode UI
-      this.createEnhancedUI();
-    }
+    // Create unified UI
+    this.createUnifiedUI();
 
     this.state.isVisible = true;
   }
 
   /**
-   * Creates the simple mode UI
+   * Creates the unified UI
    */
-  private createSimpleUI(): void {
-    if (!this.state.configFrame) return;
-    
-    // Create input fields
-    createInputFields({
-      configFrame: this.state.configFrame,
-      currentConfig: this.state.currentConfig,
-      inputs: this.state.inputs,
-      validateAndUpdateInput: (input, key, min, max) => 
-        validateAndUpdateInput(input, this.state.currentConfig, key, min, max)
-    });
-
-    // Create regenerate button
-    createRegenerateButton({
-      configFrame: this.state.configFrame,
-      onRegenerateClick: () => this.onRegenerateClick()
-    });
-  }
-
-  /**
-   * Creates the enhanced mode UI
-   */
-  private createEnhancedUI(): void {
+  private createUnifiedUI(): void {
     if (!this.state.configFrame) return;
     
     // Create global settings
@@ -125,7 +97,8 @@ export class ConfigGUIService {
     const nodeTypes = this.generateTypeArray("Type", this.state.enhancedConfig.numNodeTypes);
     const linkTypes = this.generateTypeArray("Link", this.state.enhancedConfig.numLinkTypes);
 
-    // Create layer grid
+    // Create layer grid with initial layers
+    print(`🎯 Creating layer grid with ${this.state.enhancedConfig.layers.size()} initial layers`);
     createLayerGrid({
       parent: this.state.configFrame,
       onLayerUpdate: (layers) => {
@@ -133,7 +106,8 @@ export class ConfigGUIService {
         this.updateStatus(`${layers.size()} layers configured`);
       },
       nodeTypes,
-      linkTypes
+      linkTypes,
+      initialLayers: this.state.enhancedConfig.layers
     });
 
     // Create action buttons
@@ -170,7 +144,7 @@ export class ConfigGUIService {
     regenerateCorner.CornerRadius = new UDim(0, 4);
     regenerateCorner.Parent = regenerateButton;
 
-    regenerateButton.MouseButton1Click.Connect(() => this.onEnhancedRegenerateClick());
+    regenerateButton.MouseButton1Click.Connect(() => this.onRegenerateClick());
 
     // Clear button
     const clearButton = new Instance("TextButton");
@@ -213,22 +187,9 @@ export class ConfigGUIService {
   }
 
   /**
-   * Handles regenerate button click in simple mode
+   * Handles regenerate button click
    */
   private onRegenerateClick(): void {
-    if (this.onConfigChange) {
-      // Gather all current values
-      const newConfig: GeneratorConfig = { ...this.state.currentConfig };
-      
-      // Trigger the callback
-      this.onConfigChange(newConfig);
-    }
-  }
-
-  /**
-   * Handles regenerate button click in enhanced mode
-   */
-  private onEnhancedRegenerateClick(): void {
     if (this.state.enhancedConfig.layers.size() === 0) {
       this.updateStatus("No layers configured!", true);
       return;
@@ -262,29 +223,16 @@ export class ConfigGUIService {
   }
 
   /**
-   * Updates the displayed configuration
+   * Updates the enhanced configuration
    */
-  public updateConfig(config: GeneratorConfig): void {
-    this.state.currentConfig = { ...config };
+  public updateEnhancedConfig(config: EnhancedGeneratorConfig): void {
+    this.state.enhancedConfig = { ...config };
     
-    // Update all input fields
-    this.state.inputs.forEach((input, key) => {
-      input.Text = tostring(config[key]);
-    });
-  }
-
-  /**
-   * Sets the GUI mode
-   */
-  public setMode(mode: "simple" | "enhanced"): void {
-    if (this.state.mode !== mode) {
-      this.state.mode = mode;
-      
-      // Recreate the GUI
-      if (this.state.gui) {
-        this.destroy();
-        this.createGUI();
-      }
+    // If GUI is visible, update the display
+    if (this.state.configFrame) {
+      // Recreate the GUI to reflect new configuration
+      this.state.configFrame.Destroy();
+      this.createGUI();
     }
   }
 
@@ -303,7 +251,6 @@ export class ConfigGUIService {
       this.state.gui.Destroy();
       this.state.gui = undefined;
       this.state.configFrame = undefined;
-      this.state.inputs.clear();
       this.state.isVisible = false;
     }
   }
