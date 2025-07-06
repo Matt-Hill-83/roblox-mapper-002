@@ -3,7 +3,7 @@
  */
 
 import { Cluster, Link } from "../../../shared/interfaces/simpleDataGenerator.interface";
-import { RopeLabelService } from "../../../shared/modules/ropeLabelService";
+import { createRopeLabel } from "../../../shared/modules/ropeLabelMaker";
 import { RENDERER_CONSTANTS } from "./constants";
 import { padNumber } from "../../../shared/utils/stringUtils";
 
@@ -38,7 +38,7 @@ export function createRopeConnectors(context: RopeCreationContext): void {
         rope.Parent = targetCenterCube || linksFolder;
         
         // Create rope label
-        createRopeLabel(
+        createLabelForRope(
           sourceHex, 
           targetHex, 
           link, 
@@ -133,7 +133,7 @@ function createRope(
 /**
  * Create rope label
  */
-function createRopeLabel(
+function createLabelForRope(
   sourceHex: Model,
   targetHex: Model,
   link: Link,
@@ -142,17 +142,16 @@ function createRopeLabel(
   labelParent: Instance,
   ropeIndex: number
 ): void {
-  const ropeLabelService = RopeLabelService.getInstance();
   const relationName = `${getNodeName(sourceHex)}_${link.type}_${getNodeName(targetHex)}`;
   
-  ropeLabelService.createLabel(
+  createRopeLabel({
     ropeIndex,
-    link.type,
+    relationTypeName: link.type,
     sourceAttachment,
     targetAttachment,
-    labelParent,
+    parent: labelParent,
     relationName
-  );
+  });
 }
 
 /**
