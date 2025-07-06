@@ -53,6 +53,7 @@ export function makeBar({
   bar.TopSurface = finalProps.TopSurface as unknown as Enum.SurfaceType;
   bar.BottomSurface = finalProps.BottomSurface as unknown as Enum.SurfaceType;
   bar.Transparency = finalProps.Transparency;
+  bar.CastShadow = false;
 
   const frontAttachment = makeAttachment(
     "FrontAttachment",

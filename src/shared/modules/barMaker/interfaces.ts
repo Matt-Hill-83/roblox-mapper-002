@@ -26,7 +26,7 @@ export const defaultProps: BarProps = {
   Size: BAR_CONSTANTS.DEFAULT_SIZE,
   Anchored: true,
   Color: BAR_CONSTANTS.DEFAULT_COLOR,
-  Material: "Concrete",
+  Material: "SmoothPlastic",
   Shape: "Block",
   TopSurface: "Smooth",
   BottomSurface: "Smooth",

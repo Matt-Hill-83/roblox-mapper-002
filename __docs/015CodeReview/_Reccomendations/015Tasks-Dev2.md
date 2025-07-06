@@ -6,21 +6,25 @@ This task list is derived from the code review recommendations assigned to Dev2.
 
 ## Tasks
 
-### Enhanced Input Validation (High Priority)
+### T4: Implement Rendering Optimizations (Medium Priority)
 
-1. ⬛ T1: Add string length validation
+7. ⬛ T14: Disable shadows on graph parts
 
-   1. ⬛ Implement validateNodeName() with 50 char limit
-   2. ⬛ Add validation to all string inputs
-   3. ⬛ Create comprehensive string validation utils
-   4. ⬛ Add unit tests for edge cases
+   1. ⬛ Find all part creation locations
+   2. ⬛ Add part.CastShadow = false to each
+   3. ⬛ Test visual appearance
 
-2. ⬛ T3: Add injection attack prevention
+8. ⬛ T15: Optimize materials
 
-   1. ⬛ Create pattern matcher for malicious inputs
-   2. ⬛ Block special characters (<>\"'&)
-   3. ⬛ Implement sanitization functions
-   4. ⬛ Test with known injection patterns
+   1. ⬛ Replace all materials with SmoothPlastic
+   2. ⬛ Remove unnecessary material properties
+   3. ⬛ Document material choices
+
+9. ⬛ T16: Optimize transparency
+
+   1. ⬛ Set Transparency = 0 where possible
+   2. ⬛ Remove unnecessary transparency effects
+   3. ⬛ Test visual impact
 
 ### Type Safety Improvements (Medium Priority)
 
@@ -52,20 +56,6 @@ This task list is derived from the code review recommendations assigned to Dev2.
    4. ⬛ Add runtime validation where needed
 
 ### Code Cleanup (Low Priority)
-
-1. ⬛ T10: Audit colorPicker.controller.ts
-
-   1. ⬛ Check if controller is actually used
-   2. ⬛ If used, add proper imports
-   3. ⬛ If unused, delete file
-   4. ⬛ Document decision
-
-2. ⬛ T11: Audit animationTestGUI.controller.ts
-
-   1. ⬛ Check if controller is actually used
-   2. ⬛ If used, add proper imports
-   3. ⬛ If unused, delete file
-   4. ⬛ Document decision
 
 3. ⬛ T12: Document entry point orphans
 
@@ -117,28 +107,3 @@ This task list is derived from the code review recommendations assigned to Dev2.
    1. ✅ Update UnifiedDataRenderer to use new modules
    2. ✅ Test all functionality
    3. ✅ Ensure no regressions
-
-   ### T4: Implement Rendering Optimizations (Medium Priority)
-
-7. ⬛ T14: Disable shadows on graph parts
-
-   1. ⬛ Find all part creation locations
-   2. ⬛ Add part.CastShadow = false to each
-   3. ⬛ Test visual appearance
-
-8. ⬛ T15: Optimize materials
-
-   1. ⬛ Replace all materials with SmoothPlastic
-   2. ⬛ Remove unnecessary material properties
-   3. ⬛ Document material choices
-
-9. ⬛ T16: Optimize transparency
-
-   1. ⬛ Set Transparency = 0 where possible
-   2. ⬛ Remove unnecessary transparency effects
-   3. ⬛ Test visual impact
-
-10. ⬛ T17: Batch operations
-    1. ⬛ Implement batch part creation
-    2. ⬛ Implement bulk parenting
-    3. ⬛ Measure performance improvement

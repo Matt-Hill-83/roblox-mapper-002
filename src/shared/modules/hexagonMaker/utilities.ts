@@ -34,6 +34,7 @@ export function createCenterCube(
     HEXAGON_CONSTANTS.CENTER_CUBE.COLOR_RGB[1],
     HEXAGON_CONSTANTS.CENTER_CUBE.COLOR_RGB[2]
   );
+  centerCube.CastShadow = false;
   
   return centerCube;
 }

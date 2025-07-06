@@ -43,6 +43,7 @@ export function makeLabelBlock({
   block.Anchored = finalProps.Anchored!;
   block.TopSurface = Enum.SurfaceType.Smooth;
   block.BottomSurface = Enum.SurfaceType.Smooth;
+  block.CastShadow = false;
   
   // Handle Color specially since it needs RGB conversion
   if (finalProps.Color) {

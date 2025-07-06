@@ -6,7 +6,7 @@ export const LABEL_BLOCK_CONSTANTS = {
   // Default block properties
   DEFAULT_SIZE: 8,
   DEFAULT_COLOR: [0.5, 0.5, 0.5] as [number, number, number],
-  DEFAULT_MATERIAL: "Concrete",
+  DEFAULT_MATERIAL: "SmoothPlastic",
   DEFAULT_TRANSPARENCY: 0,
   DEFAULT_ANCHORED: true,
   

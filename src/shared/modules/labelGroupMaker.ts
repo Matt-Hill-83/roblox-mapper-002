@@ -34,7 +34,7 @@ export function createLabelGroup({
   const defaultProps = {
     size: new Vector3(1, 1, 3),
     brickColor: new BrickColor("Institutional white"),
-    material: Enum.Material.Concrete,
+    material: Enum.Material.SmoothPlastic,
     transparency: 0,
     spacing: 0.1,
   };
@@ -92,6 +92,7 @@ export function createLabelGroup({
     cube.Shape = Enum.PartType.Block;
     cube.Anchored = false; // Unanchored so it can follow the rope
     cube.CanCollide = false;
+    cube.CastShadow = false;
 
     // Position the block along the rope direction
     const blockPosition = midpoint.add(direction.mul(positions[i]));
@@ -137,6 +138,7 @@ export function createLabelGroup({
   midpointPart.Anchored = false; // Unanchored to follow rope physics
   midpointPart.CanCollide = false;
   midpointPart.Position = midpoint;
+  midpointPart.CastShadow = false;
   midpointPart.Parent = parent;
 
   const ropeAttachment = new Instance("Attachment");

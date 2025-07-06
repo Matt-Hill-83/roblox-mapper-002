@@ -32,7 +32,7 @@ export function makeOriginBlock({
       Size: size,
       Color: [0.3, 0.3, 0.3], // Dark gray
       Transparency: 0.2,
-      Material: "Concrete",
+      Material: "SmoothPlastic",
       CanCollide: false,
       CastShadow: false,
     },
