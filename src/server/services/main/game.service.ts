@@ -1,7 +1,7 @@
 import { ConfigGUIServerService } from "../configGUIServer.service";
 import { GraphInitializerService } from "../graphInitializer.service";
 import { makeOriginBlock } from "../../../shared/modules/makeOriginBlock";
-import { initializeDev2Features } from "./dev2features";
+// import { initializeDev2Features } from "./dev2features";
 
 // Origin configuration for 3D positioning
 const ORIGIN = {
@@ -64,7 +64,7 @@ export class GameService {
     this.graphInitializer.initializeGraph();
 
     // Initialize dev2 features
-    initializeDev2Features(this.myStuffFolder);
+    // initializeDev2Features(this.myStuffFolder);
 
     print("✅ GameService.startGame() completed");
   }

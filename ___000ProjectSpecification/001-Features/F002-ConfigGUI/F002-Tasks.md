@@ -128,36 +128,36 @@
 - Consider making initial generation optional via configuration
 
 ## T134: Populate GUI with Default Values (R3 Enhancement)
-**Status**: TODO
+**Status**: COMPLETED
 **Priority**: High
 **Description**: Modify the system so that default values from GraphInitializerService populate the GUI on startup
 
 ### Tasks:
 
-1. ⬜ T134.1: Update GraphInitializerService to send config before GUI creation
-   1. ⬜ T134.1.1: Modify initialization timing to send config immediately on player join
-   2. ⬜ T134.1.2: Store default configuration in ReplicatedStorage for client access
-   3. ⬜ T134.1.3: Remove the wait delays that might cause timing issues
+1. ✅ [CLD5] T134.1: Update GraphInitializerService to send config before GUI creation
+   1. ✅ [CLD5] T134.1.1: Modify initialization timing to send config immediately on player join
+   2. ✅ [CLD5] T134.1.2: Store default configuration in ReplicatedStorage for client access
+   3. ✅ [CLD5] T134.1.3: Remove the wait delays that might cause timing issues
 
-2. ⬜ T134.2: Update ConfigGUIController to use server defaults
-   1. ⬜ T134.2.1: Wait for initial configuration from server before creating GUI
-   2. ⬜ T134.2.2: Use server-provided config as initial values instead of hardcoded defaults
-   3. ⬜ T134.2.3: Handle timeout case if server config doesn't arrive
+2. ✅ [CLD5] T134.2: Update ConfigGUIController to use server defaults
+   1. ✅ [CLD5] T134.2.1: Wait for initial configuration from server before creating GUI
+   2. ✅ [CLD5] T134.2.2: Use server-provided config as initial values instead of hardcoded defaults
+   3. ✅ [CLD5] T134.2.3: Handle timeout case if server config doesn't arrive
 
-3. ⬜ T134.3: Synchronize GUI state with server defaults
-   1. ⬜ T134.3.1: Ensure enhanced mode layers match server configuration
-   2. ⬜ T134.3.2: Update global settings (node/link types) from server config
-   3. ⬜ T134.3.3: Display correct values in all input fields and dropdowns
+3. ✅ [CLD5] T134.3: Synchronize GUI state with server defaults
+   1. ✅ [CLD5] T134.3.1: Ensure enhanced mode layers match server configuration
+   2. ✅ [CLD5] T134.3.2: Update global settings (node/link types) from server config
+   3. ✅ [CLD5] T134.3.3: Display correct values in all input fields and dropdowns
 
-4. ⬜ T134.4: Remove automatic generation on startup
-   1. ⬜ T134.4.1: Remove the "triggerGeneration" event from GraphInitializerService
-   2. ⬜ T134.4.2: Let user manually trigger first generation via GUI
-   3. ⬜ T134.4.3: Update status to show "Ready" instead of auto-generating
+4. ✅ [CLD5] T134.4: Remove automatic generation on startup
+   1. ✅ [CLD5] T134.4.1: Remove the "triggerGeneration" event from GraphInitializerService
+   2. ✅ [CLD5] T134.4.2: Let user manually trigger first generation via GUI
+   3. ✅ [CLD5] T134.4.3: Update status to show "Ready" instead of auto-generating
 
-5. ⬜ T134.5: Test and verify synchronization
-   1. ⬜ T134.5.1: Verify GUI shows server default values on startup
-   2. ⬜ T134.5.2: Test with multiple players joining at different times
-   3. ⬜ T134.5.3: Ensure no duplicate generation or timing conflicts
+5. ✅ [CLD5] T134.5: Test and verify synchronization
+   1. ✅ [CLD5] T134.5.1: Verify GUI shows server default values on startup
+   2. ✅ [CLD5] T134.5.2: Test with multiple players joining at different times
+   3. ✅ [CLD5] T134.5.3: Ensure no duplicate generation or timing conflicts
 
 ### Technical Notes:
 - Current issue: GUI creates with hardcoded defaults before receiving server config
@@ -285,21 +285,26 @@
 - **KNOWN ISSUE**: New nodes are created at 0,0,0 instead of proper positions
 
 ## T141: Fix Update Button - Nodes Created at 0,0,0
-**Status**: TODO
+**Status**: COMPLETED
 **Priority**: High
 **Description**: Fix the issue where new nodes created by the Update button appear at origin instead of proper swim lane positions
 
 ### Tasks:
 
-1. ⬜ T141.1: Debug position calculation in performIncrementalUpdate
-   1. ⬜ T141.1.1: Investigate why new nodes don't get swim lane positions
-   2. ⬜ T141.1.2: Ensure calculateLayerSwimLanePositions is called properly
-   3. ⬜ T141.1.3: Verify position assignment to new hexagons
+1. ✅ [CLD5] T141.1: Debug position calculation in performIncrementalUpdate
+   1. ✅ [CLD5] T141.1.1: Investigate why new nodes don't get swim lane positions
+   2. ✅ [CLD5] T141.1.2: Ensure calculateLayerSwimLanePositions is called properly
+   3. ✅ [CLD5] T141.1.3: Verify position assignment to new hexagons
 
-2. ⬜ T141.2: Fix position update logic
-   1. ⬜ T141.2.1: Ensure all nodes (new and existing) participate in positioning
-   2. ⬜ T141.2.2: Update hexagon positions after swim lane calculation
-   3. ⬜ T141.2.3: Test with various update scenarios
+2. ✅ [CLD5] T141.2: Fix position update logic
+   1. ✅ [CLD5] T141.2.1: Ensure all nodes (new and existing) participate in positioning
+   2. ✅ [CLD5] T141.2.2: Update hexagon positions after swim lane calculation
+   3. ✅ [CLD5] T141.2.3: Test with various update scenarios
+
+### Technical Notes:
+- Issue was that hexagons were created before swim lane positioning was calculated
+- Fixed by delaying hexagon creation for new nodes until after positioning
+- Existing nodes keep their hexagons and just update positions
 
 ## T142: Initialize New Layer with Values from Row Above
 **Status**: COMPLETED

@@ -38,6 +38,9 @@ export function makeHexagon({
   const centerCube = createCenterCube(centerPosition, hexIndex, stackIndex);
   centerCube.Parent = hexModel;
   
+  // Set the center cube as the primary part for positioning
+  hexModel.PrimaryPart = centerCube;
+  
   createCenterAttachment(centerCube, hexIndex, stackIndex);
 
   // Create 3 bars rotated 60 degrees apart

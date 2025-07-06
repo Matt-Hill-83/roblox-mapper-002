@@ -60,3 +60,13 @@
 
 5. 🔲 [CLD5] R2.7: When a user adds a new layer, the row values in the GUI table shall be initialized to match the row above it.
 6. 🔲 [CLD5] R2.8: The two dropdowns for node and link types shall be replaced with number entry boxes, consistent with the table input style.
+
+7. 🔲 [CLD5] R2.9: The GUI shall provide controls to configure the following parameters:
+
+   1. 🔲 Node height
+   2. 🔲 Node radius
+   3. 🔲 Layer spacing
+   4. 🔲 Node spacing
+   5. 🔲 Swimlane spacing
+
+8. 🔲 [CLD5] R2.10: The system shall allow the user to quit the game by pressing Esc, then P.

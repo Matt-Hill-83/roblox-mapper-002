@@ -61,7 +61,8 @@ export class UnifiedDataRenderer {
     this.calculateLayerSwimLanePositions(cluster, config.layers.size());
     
     // Adjust positions to center bottom at origin
-    this.centerBottomAtOrigin(cluster, origin || new Vector3(0, 0, 0));
+    const targetOrigin = origin || new Vector3(0, 0, 0);
+    this.centerBottomAtOrigin(cluster, targetOrigin);
     
     // Render the cluster
     this.renderCluster(cluster, parentFolder);
@@ -253,14 +254,24 @@ export class UnifiedDataRenderer {
     const offsetY = origin.Y - minY; // Bottom of group at origin Y
     const offsetZ = origin.Z;
     
+    // Ensure nodes stay above ground level (minimum Y = 5)
+    const minFinalY = minY + offsetY;
+    const groundClearanceAdjustment = minFinalY < 5 ? 5 - minFinalY : 0;
+    const finalOffsetY = offsetY + groundClearanceAdjustment;
+    
+    // Debug ground clearance only if adjustment needed
+    if (groundClearanceAdjustment > 0) {
+      print(`🎯 Ground clearance applied: +${groundClearanceAdjustment} (final Y will be ${minFinalY + groundClearanceAdjustment})`);
+    }
+    
     // Apply offsets to all nodes
     cluster.groups[0].nodes.forEach(node => {
       node.position.x += offsetX;
-      node.position.y += offsetY;
+      node.position.y += finalOffsetY;
       node.position.z += offsetZ;
     });
     
-    print(`🎯 Group centered at origin: offset (${offsetX}, ${offsetY}, ${offsetZ})`);
+    print(`✅ Positioned ${cluster.groups[0].nodes.size()} nodes with swim lanes`);
   }
   
   /**
@@ -533,13 +544,13 @@ export class UnifiedDataRenderer {
     const updatedNodeToHexagon = new Map<string, Model>();
     const allNodes: Node[] = [];
     const nodesByLayer = new Map<number, Node[]>();
+    const newNodesToCreate: Node[] = []; // Track new nodes that need hexagons
     
     newConfig.layers.forEach((newLayer, layerIndex) => {
       const layerNum = layerIndex + 1;
       const currentLayerNodes = currentNodesByLayer.get(layerNum) || [];
       const layerNodes: Node[] = [];
       
-      print(`📊 Updating layer ${layerNum}: ${currentLayerNodes.size()} -> ${newLayer.numNodes} nodes`);
       
       // Handle node count changes
       if (newLayer.numNodes > currentLayerNodes.size()) {
@@ -557,10 +568,7 @@ export class UnifiedDataRenderer {
             const node = this.createNewNode(newConfig, i, layerNum, newLayer);
             allNodes.push(node);
             layerNodes.push(node);
-            
-            // Create hexagon for new node
-            const hexagon = this.createSingleHexagon(node, nodesFolder);
-            updatedNodeToHexagon.set(node.uuid, hexagon);
+            newNodesToCreate.push(node); // Mark for hexagon creation after positioning
           }
         }
       } else if (newLayer.numNodes < currentLayerNodes.size()) {
@@ -612,11 +620,30 @@ export class UnifiedDataRenderer {
     this.calculateLayerSwimLanePositions(cluster, newConfig.layers.size());
     this.centerBottomAtOrigin(cluster, origin);
     
-    // Update hexagon positions
+    // Create hexagons for new nodes now that they have positions
+    newNodesToCreate.forEach(node => {
+      const hexagon = this.createSingleHexagon(node, nodesFolder);
+      updatedNodeToHexagon.set(node.uuid, hexagon);
+    });
+    
+    // Update hexagon positions by moving all parts manually to preserve anchoring
     allNodes.forEach(node => {
       const hexagon = updatedNodeToHexagon.get(node.uuid);
       if (hexagon && node.position) {
-        hexagon.SetPrimaryPartCFrame(new CFrame(node.position.x, node.position.y, node.position.z));
+        const currentPos = hexagon.PrimaryPart?.Position || new Vector3(0, 0, 0);
+        const targetPos = new Vector3(node.position.x, node.position.y, node.position.z);
+        const offset = targetPos.sub(currentPos);
+        
+        print(`🔧 Updating hexagon ${hexagon.Name} position from (${currentPos.X}, ${currentPos.Y}, ${currentPos.Z}) to (${targetPos.X}, ${targetPos.Y}, ${targetPos.Z})`);
+        
+        // Move all parts manually to preserve anchoring
+        hexagon.GetChildren().forEach(part => {
+          if (part.IsA("BasePart")) {
+            const oldPos = part.Position;
+            part.Position = part.Position.add(offset);
+            print(`  📍 Part ${part.Name}: Anchored=${part.Anchored}, Position (${oldPos.X}, ${oldPos.Y}, ${oldPos.Z}) -> (${part.Position.X}, ${part.Position.Y}, ${part.Position.Z})`);
+          }
+        });
       }
     });
     
@@ -707,6 +734,10 @@ export class UnifiedDataRenderer {
       attachmentNames: ["top", "bottom", "left", "right", "front", "back"]
     };
     
+    // Add level property for swim lane algorithm
+    const nodeWithLevel = node as Node & { level: number };
+    nodeWithLevel.level = layerNum;
+    
     // Add nodeType property for compatibility
     const nodeWithType = node as Node & { nodeType: string };
     nodeWithType.nodeType = nodeTypeName;
@@ -729,13 +760,17 @@ export class UnifiedDataRenderer {
     const color = COLOR_PALETTES.NODE_COLORS[nodeTypeIndex % COLOR_PALETTES.NODE_COLORS.size()];
     
     const node: Node = {
-      uuid: `node_${this.nodeIdCounter++}`,
+      uuid: `node_${layerNum}_${nodeIndex}`,
       name: `${nodeTypeName} ${nodeIndex + 1}`,
       type: nodeTypeName as "People" | "Animals",
       position: { x: 0, y: 0, z: 0 }, // Will be set by swim lane positioning
       color: color,
       attachmentNames: ["top", "bottom", "left", "right", "front", "back"]
     };
+    
+    // Add level property for swim lane algorithm
+    const nodeWithLevel = node as Node & { level: number };
+    nodeWithLevel.level = layerNum;
     
     // Add nodeType property for compatibility
     const nodeWithType = node as Node & { nodeType: string };
