@@ -1,16 +1,16 @@
 import { ReplicatedStorage } from "@rbxts/services";
 import { GeneratorConfig } from "../../shared/interfaces/simpleDataGenerator.interface";
 import { EnhancedGeneratorConfig } from "../../shared/interfaces/enhancedGenerator.interface";
-import { TestSimpleDataGeneratorService } from "./testSimpleDataGenerator.service";
+import { DataGeneratorRobloxRenderer } from "../../shared/modules/renderers/dataGeneratorRobloxRenderer";
 import { generateEnhancedData, convertEnhancedConfig } from "../../shared/modules/enhancedDataGenerator";
 
 export class ConfigGUIServerService {
   private remoteEvent: RemoteEvent;
-  private testGenerator: TestSimpleDataGeneratorService;
+  private dataGeneratorRenderer: DataGeneratorRobloxRenderer;
   private myStuffFolder: Folder;
 
-  constructor(testGenerator: TestSimpleDataGeneratorService, myStuffFolder: Folder) {
-    this.testGenerator = testGenerator;
+  constructor(myStuffFolder: Folder) {
+    this.dataGeneratorRenderer = new DataGeneratorRobloxRenderer();
     this.myStuffFolder = myStuffFolder;
 
     // Create or get RemoteEvent
@@ -39,8 +39,11 @@ export class ConfigGUIServerService {
         
         // Validate the config
         if (this.validateConfig(config)) {
-          // Regenerate with new config
-          this.testGenerator.regenerateWithConfig(this.myStuffFolder, config);
+          // Clear existing visualization
+          this.clearVisualization();
+          
+          // Regenerate with new config using DataGeneratorRobloxRenderer
+          this.dataGeneratorRenderer.renderGeneratedData(this.myStuffFolder, config as GeneratorConfig);
           
           // Send success response
           this.remoteEvent.FireClient(player, "regenerateSuccess", config);
@@ -61,8 +64,8 @@ export class ConfigGUIServerService {
           const generatorInput = convertEnhancedConfig(enhancedConfig);
           const cluster = generateEnhancedData(generatorInput);
           
-          // Use the test generator to render the cluster (skip layout since positions are pre-calculated)
-          this.testGenerator.renderCluster(this.myStuffFolder, cluster, true);
+          // Use the data generator renderer to render the cluster with pre-calculated positions
+          this.dataGeneratorRenderer.renderPrePositionedCluster(cluster, this.myStuffFolder);
           
           // Send success response
           this.remoteEvent.FireClient(player, "regenerateSuccess", enhancedConfig);

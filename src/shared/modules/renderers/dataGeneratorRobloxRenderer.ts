@@ -71,6 +71,20 @@ export class DataGeneratorRobloxRenderer {
   }
   
   /**
+   * Renders a pre-positioned cluster (skips swim lane positioning)
+   * Used by enhanced mode where positions are already calculated
+   */
+  public renderPrePositionedCluster(cluster: Cluster, parentFolder: Folder): void {
+    print("🎯 Rendering pre-positioned cluster...");
+    
+    // Render the cluster directly without calculating positions
+    this.renderCluster(cluster, parentFolder);
+    
+    // Print summary
+    this.dataGenerator.printClusterSummary(cluster);
+  }
+  
+  /**
    * Creates hexagons for all nodes in the cluster
    */
   private createHexagons(cluster: Cluster, nodesFolder: Folder): Map<string, Model> {

@@ -53,3 +53,43 @@
    3. ✅ [CLD3] T131.5.3: Implement status message display area (R2.6)
    4. ✅ [CLD3] T131.5.4: Add status updates for user actions
    5. ✅ [CLD3] T131.5.5: Implement error handling and validation messages
+
+## T132: Swap Data Generators to Use DataGeneratorRobloxRenderer with GUI
+**Status**: COMPLETED
+**Priority**: High
+**Description**: Replace the current test generator with DataGeneratorRobloxRenderer which has swim lane positioning and better colors
+
+### Tasks:
+
+1. ✅ [CLD4] T132.1: Update ConfigGUIServerService to use DataGeneratorRobloxRenderer
+   1. ✅ [CLD4] T132.1.1: Import DataGeneratorRobloxRenderer in configGUIServer.service.ts
+   2. ✅ [CLD4] T132.1.2: Replace TestSimpleDataGeneratorService with DataGeneratorRobloxRenderer
+   3. ✅ [CLD4] T132.1.3: Update constructor to create DataGeneratorRobloxRenderer instance instead of receiving testGenerator
+   4. ✅ [CLD4] T132.1.4: Remove testGenerator parameter from ConfigGUIServerService constructor
+
+2. ✅ [CLD4] T132.2: Update simple mode regeneration to use DataGeneratorRobloxRenderer
+   1. ✅ [CLD4] T132.2.1: Replace `testGenerator.regenerateWithConfig()` with `dataGeneratorRenderer.renderGeneratedData()`
+   2. ✅ [CLD4] T132.2.2: Pass the configuration object directly to renderGeneratedData
+   3. ✅ [CLD4] T132.2.3: Ensure proper clearing of existing visualization before regeneration
+
+3. ✅ [CLD4] T132.3: Update enhanced mode to use DataGeneratorRobloxRenderer with custom positions
+   1. ✅ [CLD4] T132.3.1: Create a new method in DataGeneratorRobloxRenderer to accept pre-positioned cluster data
+   2. ✅ [CLD4] T132.3.2: Method should skip the swim lane positioning when positions are already provided
+   3. ✅ [CLD4] T132.3.3: Update enhanced mode to use this new method instead of testGenerator.renderCluster
+
+4. ✅ [CLD4] T132.4: Update GameService to not pass testGenerator
+   1. ✅ [CLD4] T132.4.1: Remove testGenerator parameter when creating ConfigGUIServerService
+   2. ✅ [CLD4] T132.4.2: Remove the TestSimpleDataGeneratorService import and instance from GameService
+   3. ✅ [CLD4] T132.4.3: Clean up any unused imports
+
+5. ✅ [CLD4] T132.5: Ensure consistent visualization between modes
+   1. ✅ [CLD4] T132.5.1: Verify simple mode uses swim lane positioning from DataGeneratorRobloxRenderer
+   2. ✅ [CLD4] T132.5.2: Verify enhanced mode respects the layer-based positions from enhancedDataGenerator
+   3. ✅ [CLD4] T132.5.3: Test switching between simple and enhanced modes maintains visual consistency
+   4. ✅ [CLD4] T132.5.4: Ensure both modes use the same color schemes and node/link rendering
+
+### Technical Notes:
+- DataGeneratorRobloxRenderer already has swim lane positioning logic
+- It uses SimpleDataGeneratorService internally which has better node/link generation
+- The renderer creates proper folder structure and uses consistent styling
+- Need to preserve enhanced mode's layer-based positioning while adopting the better rendering

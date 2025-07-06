@@ -1,4 +1,3 @@
-import { TestSimpleDataGeneratorService } from "../testSimpleDataGenerator.service";
 import { ConfigGUIServerService } from "../configGUIServer.service";
 import { makeOriginBlock } from "../../../shared/modules/makeOriginBlock";
 
@@ -10,7 +9,6 @@ const ORIGIN = {
 };
 
 export class GameService {
-  private testSimpleDataGenerator = new TestSimpleDataGeneratorService();
   private configGUIServer?: ConfigGUIServerService;
   private myStuffFolder!: Folder;
   private gameStarted = false; // Flag to prevent duplicate initialization
@@ -46,10 +44,7 @@ export class GameService {
     }
 
     // Initialize the configuration GUI server
-    this.configGUIServer = new ConfigGUIServerService(
-      this.testSimpleDataGenerator,
-      this.myStuffFolder
-    );
+    this.configGUIServer = new ConfigGUIServerService(this.myStuffFolder);
     print(`🎮 GUI Server initialized: ${this.configGUIServer !== undefined}`);
 
     print("✅ GameService.startGame() completed");
