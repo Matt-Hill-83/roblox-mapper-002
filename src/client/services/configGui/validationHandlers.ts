@@ -82,21 +82,8 @@ export function validateLayerConfig(layer: LayerConfig, layerNumber: number): Va
     };
   }
 
-  // Validate node type is selected
-  if (!layer.nodeType || layer.nodeType === "") {
-    return {
-      isValid: false,
-      error: `Layer ${layerNumber}: Node type must be selected`
-    };
-  }
-
-  // Validate link type is selected (if connections > 0)
-  if (layer.connectionsPerNode > 0 && (!layer.linkType || layer.linkType === "")) {
-    return {
-      isValid: false,
-      error: `Layer ${layerNumber}: Link type must be selected when connections > 0`
-    };
-  }
+  // Node type and link type are optional - they will be auto-generated if not specified
+  // No validation needed for these fields
 
   return { isValid: true };
 }
