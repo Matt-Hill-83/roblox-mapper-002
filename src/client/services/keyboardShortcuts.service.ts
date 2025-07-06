@@ -1,22 +1,23 @@
-import { UserInputService } from "@rbxts/services";
-import { Players } from "@rbxts/services";
+import { UserInputService, Players } from "@rbxts/services";
+import { BaseService } from "../../shared/services/base/BaseService";
 
 const KEYBOARD_CONSTANTS = {
     ESC_TIMEOUT: 2000, // 2 seconds to press P after Esc
     CONFIRMATION_TIMEOUT: 5000, // 5 seconds to confirm quit
 };
 
-export class KeyboardShortcutsService {
+export class KeyboardShortcutsService extends BaseService {
     private escPressed = false;
     private escPressTime = 0;
     private confirmationGui?: ScreenGui;
 
     constructor() {
+        super("KeyboardShortcutsService");
         this.setupInputHandlers();
     }
 
     private setupInputHandlers(): void {
-        UserInputService.InputBegan.Connect((input, gameProcessed) => {
+        const inputConnection = UserInputService.InputBegan.Connect((input, gameProcessed) => {
             // Ignore input if GUI is capturing it
             if (gameProcessed) return;
 
@@ -33,6 +34,9 @@ export class KeyboardShortcutsService {
                 this.escPressed = false;
             }
         });
+        
+        // Add connection to be managed
+        this.addConnection(inputConnection);
     }
 
     private handleEscapePress(): void {
@@ -58,6 +62,9 @@ export class KeyboardShortcutsService {
         feedbackGui.Name = "EscapeFeedback";
         feedbackGui.ResetOnSpawn = false;
         feedbackGui.Parent = playerGui;
+        
+        // Track this instance for cleanup
+        this.addInstance(feedbackGui);
 
         const feedbackFrame = new Instance("Frame");
         feedbackFrame.Size = new UDim2(0, 200, 0, 50);
@@ -97,6 +104,9 @@ export class KeyboardShortcutsService {
         this.confirmationGui.Name = "QuitConfirmation";
         this.confirmationGui.ResetOnSpawn = false;
         this.confirmationGui.Parent = playerGui;
+        
+        // Track this instance for cleanup
+        this.addInstance(this.confirmationGui);
 
         const backgroundFrame = new Instance("Frame");
         backgroundFrame.Size = new UDim2(1, 0, 1, 0);
@@ -157,16 +167,18 @@ export class KeyboardShortcutsService {
         cancelButton.Parent = buttonContainer;
 
         // Handle button clicks
-        confirmButton.MouseButton1Click.Connect(() => {
+        const confirmConnection = confirmButton.MouseButton1Click.Connect(() => {
             this.quitGame();
         });
+        this.addConnection(confirmConnection);
 
-        cancelButton.MouseButton1Click.Connect(() => {
+        const cancelConnection = cancelButton.MouseButton1Click.Connect(() => {
             if (this.confirmationGui) {
                 this.confirmationGui.Destroy();
                 this.confirmationGui = undefined;
             }
         });
+        this.addConnection(cancelConnection);
 
         // Auto-dismiss after timeout
         task.wait(KEYBOARD_CONSTANTS.CONFIRMATION_TIMEOUT / 1000);
@@ -184,10 +196,13 @@ export class KeyboardShortcutsService {
         }
     }
 
-    public destroy(): void {
+    protected onDestroy(): void {
+        // Clean up confirmation GUI if it exists
         if (this.confirmationGui) {
             this.confirmationGui.Destroy();
             this.confirmationGui = undefined;
         }
+        
+        print("[KeyboardShortcutsService] Cleaned up");
     }
 }
