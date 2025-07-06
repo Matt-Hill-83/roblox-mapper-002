@@ -92,5 +92,15 @@ export const GUI_CONSTANTS = {
     HEIGHT: 30,
     SPACING: 10,
     WIDTH: 120
+  },
+  
+  // Validation limits
+  VALIDATION: {
+    MAX_LAYERS: 10,
+    MAX_NODES_PER_LAYER: 30,
+    MAX_CONNECTIONS_PER_NODE: 5,
+    MAX_TOTAL_NODES: 200,
+    MAX_TOTAL_CONNECTIONS: 500,
+    MAX_STRING_LENGTH: 50
   }
 };
