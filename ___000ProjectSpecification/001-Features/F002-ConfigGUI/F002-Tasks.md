@@ -141,3 +141,23 @@
 - Format should be human-readable and potentially copy-pasteable
 - Consider JSON-like format for easy parsing
 - Include all configuration values, even defaults
+
+## T166: Reduce Origin Block Font Size
+
+**Status**: COMPLETED
+**Priority**: Low
+**Description**: Reduce the font size on the origin block by 25% for better visual balance
+
+### Tasks:
+
+1. ✅ [CLD11] T166.1: Update origin block text size
+   1. ✅ [CLD11] T166.1.1: Locate makeOriginBlock function
+   2. ✅ [CLD11] T166.1.2: Identify current font size setting
+   3. ✅ [CLD11] T166.1.3: Reduce font size by 25%
+   4. ✅ [CLD11] T166.1.4: Test visibility at new size
+
+### Technical Notes:
+
+- Origin block is the reference cube at the center of the visualization
+- Font size reduction should maintain readability
+- Affects axis labels (X, Y, Z) on the origin block
