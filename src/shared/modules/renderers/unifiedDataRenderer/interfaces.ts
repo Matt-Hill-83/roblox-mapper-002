@@ -17,7 +17,7 @@ export interface IDataGenerator {
  */
 export interface IPositionCalculator {
   calculateLayerSwimLanePositions(cluster: Cluster, config: EnhancedGeneratorConfig): void;
-  centerBottomAtOrigin(cluster: Cluster, origin: Vector3): void;
+  centerBottomAtOrigin(cluster: Cluster, origin: Vector3, config?: EnhancedGeneratorConfig): void;
 }
 
 /**

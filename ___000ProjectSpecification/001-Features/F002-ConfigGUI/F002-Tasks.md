@@ -42,6 +42,7 @@
 ### Tasks:
 
 1. ✅ [CLD11] T162.1: Reduce console width
+
    1. ✅ [CLD11] T162.1.1: Update console frame width to 50% of current size (650px → 325px)
    2. ✅ [CLD11] T162.1.2: Adjust text sizing for readability at new width (using TextScaled)
    3. ✅ [CLD11] T162.1.3: Test text wrapping and overflow behavior
@@ -62,22 +63,23 @@
 
 ## T163: Add Z Offset Input for Random Z Function
 
-**Status**: NOT STARTED
+**Status**: COMPLETED
 **Priority**: Medium
 **Description**: Add numeric input field to control the Z offset amount when Random Z is enabled
 
 ### Tasks:
 
-1. 🔲 [CLD11] T163.1: Add Z offset input field
-   1. 🔲 [CLD11] T163.1.1: Add "Z Offset" numeric input to visualization controls
-   2. 🔲 [CLD11] T163.1.2: Position near Random Z checkbox
-   3. 🔲 [CLD11] T163.1.3: Set default value to 20
-   4. 🔲 [CLD11] T163.1.4: Add validation (min: 0, max: 100)
+1. ✅ [CLD11] T163.1: Add Z offset input field
 
-2. 🔲 [CLD11] T163.2: Update interfaces and logic
-   1. 🔲 [CLD11] T163.2.1: Add zOffsetAmount field to VisualizationOptions
-   2. 🔲 [CLD11] T163.2.2: Update random offset logic to use configurable amount
-   3. 🔲 [CLD11] T163.2.3: Apply offset as +/- zOffsetAmount instead of fixed 20
+   1. ✅ [CLD11] T163.1.1: Add "Z Offset" numeric input to visualization controls
+   2. ✅ [CLD11] T163.1.2: Position near Random Z checkbox
+   3. ✅ [CLD11] T163.1.3: Set default value to 20
+   4. ✅ [CLD11] T163.1.4: Add validation (min: 0, max: 100)
+
+2. ✅ [CLD11] T163.2: Update interfaces and logic
+   1. ✅ [CLD11] T163.2.1: Add zOffsetAmount field to VisualizationOptions
+   2. ✅ [CLD11] T163.2.2: Update random offset logic to use configurable amount
+   3. ✅ [CLD11] T163.2.3: Apply offset as +/- zOffsetAmount instead of fixed 20
 
 ### Technical Notes:
 
@@ -86,21 +88,22 @@
 
 ## T164: Add Y Offset Input for Origin
 
-**Status**: NOT STARTED
+**Status**: COMPLETED
 **Priority**: Medium
 **Description**: Add numeric input to control the Y (vertical) offset of the origin/starting position
 
 ### Tasks:
 
-1. 🔲 [CLD11] T164.1: Add origin Y offset input
-   1. 🔲 [CLD11] T164.1.1: Add "Origin Y Offset" input to Global Settings
-   2. 🔲 [CLD11] T164.1.2: Set default value to 0
-   3. 🔲 [CLD11] T164.1.3: Add validation (min: -100, max: 100)
+1. ✅ [CLD11] T164.1: Add origin Y offset input
 
-2. 🔲 [CLD11] T164.2: Implement origin offset logic
-   1. 🔲 [CLD11] T164.2.1: Add originYOffset to SpacingConfig interface
-   2. 🔲 [CLD11] T164.2.2: Apply offset to origin position calculation
-   3. 🔲 [CLD11] T164.2.3: Update all node positioning to account for offset
+   1. ✅ [CLD11] T164.1.1: Add "Origin Y Offset" input to Global Settings
+   2. ✅ [CLD11] T164.1.2: Set default value to 0
+   3. ✅ [CLD11] T164.1.3: Add validation (min: -100, max: 100)
+
+2. ✅ [CLD11] T164.2: Implement origin offset logic
+   1. ✅ [CLD11] T164.2.1: Add originYOffset to SpacingConfig interface
+   2. ✅ [CLD11] T164.2.2: Apply offset to origin position calculation
+   3. ✅ [CLD11] T164.2.3: Update all node positioning to account for offset
 
 ### Technical Notes:
 
@@ -116,11 +119,13 @@
 ### Tasks:
 
 1. 🔲 [CLD11] T165.1: Create export button
+
    1. 🔲 [CLD11] T165.1.1: Add "Export Config" button to GUI
    2. 🔲 [CLD11] T165.1.2: Position button in action buttons area
    3. 🔲 [CLD11] T165.1.3: Style consistently with other buttons
 
 2. 🔲 [CLD11] T165.2: Implement export functionality
+
    1. 🔲 [CLD11] T165.2.1: Clear console output before writing
    2. 🔲 [CLD11] T165.2.2: Format configuration data as readable text
    3. 🔲 [CLD11] T165.2.3: Include all settings: spacing, layers, visualization options
@@ -136,23 +141,3 @@
 - Format should be human-readable and potentially copy-pasteable
 - Consider JSON-like format for easy parsing
 - Include all configuration values, even defaults
-
-## T166: Reduce Origin Block Font Size
-
-**Status**: NOT STARTED
-**Priority**: Low
-**Description**: Reduce the font size on the origin block by 25% for better visual balance
-
-### Tasks:
-
-1. 🔲 [CLD11] T166.1: Update origin block text size
-   1. 🔲 [CLD11] T166.1.1: Locate makeOriginBlock function
-   2. 🔲 [CLD11] T166.1.2: Identify current font size setting
-   3. 🔲 [CLD11] T166.1.3: Reduce font size by 25%
-   4. 🔲 [CLD11] T166.1.4: Test visibility at new size
-
-### Technical Notes:
-
-- Origin block is the reference cube at the center of the visualization
-- Font size reduction should maintain readability
-- Affects axis labels (X, Y, Z) on the origin block

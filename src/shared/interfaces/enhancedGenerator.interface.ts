@@ -20,6 +20,7 @@ export interface SpacingConfig {
   nodeSpacing: number;
   swimlaneSpacing: number;
   linkDiameter: number;
+  originYOffset?: number;
 }
 
 // Visualization control options

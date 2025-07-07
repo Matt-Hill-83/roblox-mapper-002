@@ -13,7 +13,7 @@ export class PositionCalculator implements IPositionCalculator {
   /**
    * Centers the bottom of the group at the specified origin
    */
-  public centerBottomAtOrigin(cluster: Cluster, origin: Vector3): void {
+  public centerBottomAtOrigin(cluster: Cluster, origin: Vector3, config?: EnhancedGeneratorConfig): void {
     if (cluster.groups[0].nodes.size() === 0) return;
     
     // Find bounding box
@@ -22,7 +22,10 @@ export class PositionCalculator implements IPositionCalculator {
     // Calculate offsets to center bottom at origin
     const centerX = (bounds.minX + bounds.maxX) / 2;
     const offsetX = origin.X - centerX;
-    const offsetY = origin.Y - bounds.minY; // Bottom of group at origin Y
+    
+    // Apply origin Y offset if configured
+    const yOffset = config?.spacing?.originYOffset || 0;
+    const offsetY = origin.Y - bounds.minY + yOffset; // Bottom of group at origin Y + offset
     const offsetZ = origin.Z;
     
     // Ensure nodes stay above ground level (minimum Y = 5)

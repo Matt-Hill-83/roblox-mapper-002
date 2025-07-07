@@ -38,7 +38,7 @@ export class UnifiedDataRenderer {
     
     // Adjust positions to center bottom at origin
     const targetOrigin = origin || new Vector3(0, 0, 0);
-    this.positionCalculator.centerBottomAtOrigin(cluster, targetOrigin);
+    this.positionCalculator.centerBottomAtOrigin(cluster, targetOrigin, config);
     
     // Render the cluster
     this.nodeRenderer.renderCluster(cluster, parentFolder, config);

@@ -21,7 +21,8 @@ const SPACING_FIELDS: SpacingField[] = [
   { label: "Layer Spacing:", field: "layerSpacing", min: 0.1, max: 200, default: GUI_CONSTANTS.SPACING_DEFAULTS.LAYER_SPACING },
   { label: "Node Spacing:", field: "nodeSpacing", min: 0.1, max: 100, default: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_SPACING },
   { label: "Swimlane Spacing:", field: "swimlaneSpacing", min: 0.1, max: 100, default: GUI_CONSTANTS.SPACING_DEFAULTS.SWIMLANE_SPACING },
-  { label: "Link Diameter:", field: "linkDiameter", min: 0.1, max: 10, default: GUI_CONSTANTS.SPACING_DEFAULTS.LINK_DIAMETER }
+  { label: "Link Diameter:", field: "linkDiameter", min: 0.1, max: 10, default: GUI_CONSTANTS.SPACING_DEFAULTS.LINK_DIAMETER },
+  { label: "Origin Y Offset:", field: "originYOffset", min: -100, max: 100, default: 0 }
 ];
 
 export function createSpacingControls({
@@ -58,7 +59,7 @@ export function createSpacingControls({
     input.BackgroundColor3 = new Color3(0.25, 0.25, 0.25);
     input.BorderSizePixel = 0;
     input.Font = GUI_CONSTANTS.TYPOGRAPHY.INPUT_FONT;
-    input.Text = tostring(spacing[fieldDef.field]);
+    input.Text = tostring(spacing[fieldDef.field] ?? fieldDef.default);
     input.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
     input.TextScaled = true;
     input.Parent = parent;
@@ -76,7 +77,7 @@ export function createSpacingControls({
         input.Text = tostring(value);
       } else {
         // Revert to current value
-        input.Text = tostring(spacing[fieldDef.field]);
+        input.Text = tostring(spacing[fieldDef.field] ?? fieldDef.default);
       }
     });
   });
