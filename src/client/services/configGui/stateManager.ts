@@ -7,7 +7,7 @@
 
 import { GUIState, EnhancedGeneratorConfig } from "./interfaces";
 import { GUI_CONSTANTS } from "./constants";
-import type { SpacingConfig, VisualizationOptions } from "../../../shared/interfaces/enhancedGenerator.interface";
+import type { SpacingConfig, VisualizationOptions, AxisMapping } from "../../../shared/interfaces/enhancedGenerator.interface";
 
 export class GUIStateManager {
   private state: GUIState;
@@ -33,6 +33,12 @@ export class GUIStateManager {
       zOffsetAmount: 5
     };
     
+    // Initialize axis mapping with defaults
+    const defaultAxisMapping: AxisMapping = {
+      xAxis: "type",
+      zAxis: "petType"
+    };
+    
     this.state = {
       isVisible: false,
       enhancedConfig: initialConfig || {
@@ -40,7 +46,8 @@ export class GUIStateManager {
         numLinkTypes: 3,
         layers: [],
         spacing: defaultSpacing,
-        visualization: defaultVisualization
+        visualization: defaultVisualization,
+        axisMapping: defaultAxisMapping
       },
       layerRows: []
     };
@@ -53,6 +60,11 @@ export class GUIStateManager {
     // Ensure visualization is always defined
     if (!this.state.enhancedConfig.visualization) {
       this.state.enhancedConfig.visualization = defaultVisualization;
+    }
+    
+    // Ensure axis mapping is always defined
+    if (!this.state.enhancedConfig.axisMapping) {
+      this.state.enhancedConfig.axisMapping = defaultAxisMapping;
     }
   }
 
@@ -182,6 +194,20 @@ export class GUIStateManager {
    */
   public updateEnhancedConfig(config: EnhancedGeneratorConfig): void {
     this.state.enhancedConfig = { ...config };
+    this.notifyListeners();
+  }
+  
+  /**
+   * Updates axis mapping
+   */
+  public updateAxisMapping(axis: "xAxis" | "zAxis", value: string): void {
+    if (!this.state.enhancedConfig.axisMapping) {
+      this.state.enhancedConfig.axisMapping = {
+        xAxis: "type",
+        zAxis: "petType"
+      };
+    }
+    this.state.enhancedConfig.axisMapping[axis] = value;
     this.notifyListeners();
   }
 

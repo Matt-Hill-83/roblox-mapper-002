@@ -10,13 +10,15 @@ import { DataGenerator } from "./core/dataGenerator";
 import { PositionCalculator } from "./core/positionCalculator";
 import { NodeRenderer } from "./rendering/nodeRenderer";
 import { UpdateManager } from "./rendering/updateManager";
-import { createFlatBlocks, calculateBlockDimensions, createSwimLaneBlock, FLAT_BLOCK_DEFAULTS } from "../flatBlockCreator";
+import { LabelRenderer } from "./rendering/labelRenderer";
+import { createFlatBlocks, calculateBlockDimensions, createSwimLaneBlock, createZAxisShadowBlocks, FLAT_BLOCK_DEFAULTS } from "../flatBlockCreator";
 
 export class UnifiedDataRenderer {
   private dataGenerator: DataGenerator;
   private positionCalculator: PositionCalculator;
   private nodeRenderer: NodeRenderer;
   private updateManager: UpdateManager;
+  private labelRenderer: LabelRenderer;
   private currentConfig?: EnhancedGeneratorConfig;
 
   constructor() {
@@ -24,6 +26,7 @@ export class UnifiedDataRenderer {
     this.positionCalculator = new PositionCalculator();
     this.nodeRenderer = new NodeRenderer();
     this.updateManager = new UpdateManager();
+    this.labelRenderer = new LabelRenderer();
   }
 
   /**
@@ -72,6 +75,12 @@ export class UnifiedDataRenderer {
     
     // Create swimlane blocks
     this.createSwimLaneBlocks(cluster, blocks.shadow, targetOrigin, blockDimensions, config);
+    
+    // Create Z-axis shadow blocks
+    this.createZAxisSwimLaneBlocks(cluster, blocks.platform, config);
+    
+    // Create labels for swimlanes
+    this.createSwimLaneLabels(cluster, parentFolder, config);
     
     // Render the cluster
     this.nodeRenderer.renderCluster(cluster, parentFolder, config);
@@ -126,15 +135,19 @@ export class UnifiedDataRenderer {
    * Creates blocks under each swimlane
    */
   private createSwimLaneBlocks(cluster: Cluster, shadowBlock: Part, origin: Vector3, shadowDimensions: { width: number; depth: number }, config: EnhancedGeneratorConfig): void {
-    // Organize nodes by type to determine swimlanes
+    // Use axis mapping if available
+    const xAxisProperty = config.axisMapping?.xAxis || "type";
+    
+    // Organize nodes by x-axis property to determine swimlanes
     const nodesByType = new Map<string, Node[]>();
     const typeBounds = new Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>();
     
-    // Group nodes by type and calculate bounds for each type
+    // Group nodes by x-axis property and calculate bounds
     cluster.groups[0].nodes.forEach(node => {
-      if (!nodesByType.has(node.type)) {
-        nodesByType.set(node.type, []);
-        typeBounds.set(node.type, {
+      const propertyValue = this.getNodePropertyValue(node, xAxisProperty);
+      if (!nodesByType.has(propertyValue)) {
+        nodesByType.set(propertyValue, []);
+        typeBounds.set(propertyValue, {
           minX: math.huge,
           maxX: -math.huge,
           minZ: math.huge,
@@ -142,9 +155,9 @@ export class UnifiedDataRenderer {
         });
       }
       
-      nodesByType.get(node.type)!.push(node);
+      nodesByType.get(propertyValue)!.push(node);
       
-      const bounds = typeBounds.get(node.type)!;
+      const bounds = typeBounds.get(propertyValue)!;
       bounds.minX = math.min(bounds.minX, node.position.x);
       bounds.maxX = math.max(bounds.maxX, node.position.x);
       bounds.minZ = math.min(bounds.minZ, node.position.z);
@@ -193,5 +206,130 @@ export class UnifiedDataRenderer {
     });
     
     print(`✅ Created ${nodesByType.size()} swimlane blocks`);
+  }
+  
+  /**
+   * Get property value from node
+   */
+  private getNodePropertyValue(node: Node, propertyName: string): string {
+    if (propertyName === "type") {
+      return node.type;
+    } else if (propertyName === "age") {
+      const age = node.properties?.age;
+      if (age !== undefined) {
+        // Group ages into ranges
+        if (age < 20) return "0-19";
+        if (age < 40) return "20-39";
+        if (age < 60) return "40-59";
+        if (age < 80) return "60-79";
+        return "80+";
+      }
+      return "Unknown";
+    } else if (node.properties && propertyName in node.properties) {
+      // Type-safe property access
+      if (propertyName === "petType") {
+        return node.properties.petType || "None";
+      } else if (propertyName === "petColor") {
+        return node.properties.petColor || "None";
+      }
+      return "None";
+    }
+    return "Unknown";
+  }
+  
+  /**
+   * Creates labels for X and Z axis swimlanes
+   */
+  private createSwimLaneLabels(cluster: Cluster, parentFolder: Folder, config?: EnhancedGeneratorConfig): void {
+    // Use axis mapping if available
+    const xAxisProperty = config?.axisMapping?.xAxis || "type";
+    const zAxisProperty = config?.axisMapping?.zAxis || "petType";
+    
+    // Organize nodes by x-axis property for X-axis labels
+    const nodesByXProperty = new Map<string, Node[]>();
+    const xPropertyBounds = new Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>();
+    
+    // Organize nodes by z-axis property for Z-axis labels
+    const nodesByZProperty = new Map<string, Node[]>();
+    const zPropertyBounds = new Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>();
+    
+    // Group nodes by x and z properties
+    cluster.groups[0].nodes.forEach(node => {
+      // Group by x-axis property
+      const xValue = this.getNodePropertyValue(node, xAxisProperty);
+      if (!nodesByXProperty.has(xValue)) {
+        nodesByXProperty.set(xValue, []);
+        xPropertyBounds.set(xValue, {
+          minX: math.huge,
+          maxX: -math.huge,
+          minZ: math.huge,
+          maxZ: -math.huge
+        });
+      }
+      nodesByXProperty.get(xValue)!.push(node);
+      const xBounds = xPropertyBounds.get(xValue)!;
+      xBounds.minX = math.min(xBounds.minX, node.position.x);
+      xBounds.maxX = math.max(xBounds.maxX, node.position.x);
+      xBounds.minZ = math.min(xBounds.minZ, node.position.z);
+      xBounds.maxZ = math.max(xBounds.maxZ, node.position.z);
+      
+      // Group by z-axis property
+      const zValue = this.getNodePropertyValue(node, zAxisProperty);
+      if (!nodesByZProperty.has(zValue)) {
+        nodesByZProperty.set(zValue, []);
+        zPropertyBounds.set(zValue, {
+          minX: math.huge,
+          maxX: -math.huge,
+          minZ: math.huge,
+          maxZ: -math.huge
+        });
+      }
+      nodesByZProperty.get(zValue)!.push(node);
+      const zBounds = zPropertyBounds.get(zValue)!;
+      zBounds.minX = math.min(zBounds.minX, node.position.x);
+      zBounds.maxX = math.max(zBounds.maxX, node.position.x);
+      zBounds.minZ = math.min(zBounds.minZ, node.position.z);
+      zBounds.maxZ = math.max(zBounds.maxZ, node.position.z);
+    });
+    
+    // Create labels
+    this.labelRenderer.createXAxisLabels(nodesByXProperty, xPropertyBounds, parentFolder, 0);
+    this.labelRenderer.createZAxisLabels(zPropertyBounds, parentFolder, 0);
+  }
+  
+  /**
+   * Creates Z-axis shadow blocks for property swimlanes
+   */
+  private createZAxisSwimLaneBlocks(cluster: Cluster, parent: Part, config?: EnhancedGeneratorConfig): void {
+    // Use axis mapping if available
+    const zAxisProperty = config?.axisMapping?.zAxis || "petType";
+    
+    // Organize nodes by z-axis property
+    const nodesByProperty = new Map<string, Node[]>();
+    const propertyBounds = new Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>();
+    
+    cluster.groups[0].nodes.forEach(node => {
+      const propertyValue = this.getNodePropertyValue(node, zAxisProperty);
+      if (!nodesByProperty.has(propertyValue)) {
+        nodesByProperty.set(propertyValue, []);
+        propertyBounds.set(propertyValue, {
+          minX: math.huge,
+          maxX: -math.huge,
+          minZ: math.huge,
+          maxZ: -math.huge
+        });
+      }
+      
+      nodesByProperty.get(propertyValue)!.push(node);
+      
+      const bounds = propertyBounds.get(propertyValue)!;
+      bounds.minX = math.min(bounds.minX, node.position.x);
+      bounds.maxX = math.max(bounds.maxX, node.position.x);
+      bounds.minZ = math.min(bounds.minZ, node.position.z);
+      bounds.maxZ = math.max(bounds.maxZ, node.position.z);
+    });
+    
+    // Create Z-axis shadow blocks
+    createZAxisShadowBlocks(nodesByProperty, propertyBounds, parent, 0.5);
   }
 }

@@ -32,6 +32,12 @@ export interface VisualizationOptions {
   zOffsetAmount?: number;
 }
 
+// Axis mapping configuration
+export interface AxisMapping {
+  xAxis: string; // Property name for X-axis grouping
+  zAxis: string; // Property name for Z-axis grouping
+}
+
 // Enhanced configuration that includes layers
 export interface EnhancedGeneratorConfig {
   numNodeTypes: number;
@@ -39,4 +45,5 @@ export interface EnhancedGeneratorConfig {
   layers: LayerConfig[];
   spacing?: SpacingConfig; // Optional for backward compatibility
   visualization?: VisualizationOptions; // Optional for backward compatibility
+  axisMapping?: AxisMapping; // Optional for backward compatibility
 }

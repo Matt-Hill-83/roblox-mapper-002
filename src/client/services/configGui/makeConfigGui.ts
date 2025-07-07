@@ -17,6 +17,7 @@ import { createNodeTypesSection } from "./components/nodeTypesSection";
 import { createLayerGrid } from "./components/layerGrid";
 import { createStatusArea } from "./components/status";
 import { createVisualizationControls } from "./components/visualizationControls";
+import { createAxisMappingControls } from "./components/axisMappingControls";
 import { GUIStateManager } from "./stateManager";
 import { GUIEventHandlers } from "./eventHandlers";
 import { ComponentFactory } from "./componentFactory";
@@ -130,6 +131,17 @@ export class ConfigGUIService {
 
     // Create action buttons
     this.createActionButtons(parentFrame);
+    
+    // Create axis mapping controls
+    createAxisMappingControls({
+      parent: parentFrame,
+      axisMapping: config.axisMapping!,
+      onAxisMappingChange: (axis, value) => {
+        this.stateManager.updateAxisMapping(axis, value);
+        // Trigger re-render with new axis mapping
+        this.eventHandlers.handleRegenerateClick();
+      }
+    });
 
     // Create visualization controls (positioned to the right of buttons)
     createVisualizationControls({

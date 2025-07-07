@@ -64,10 +64,14 @@ export class PositionCalculator implements IPositionCalculator {
     const spacing = this.getSpacingConfig(config);
     const numLayers = config.layers.size();
     
-    // Organize nodes by layer and type
-    const { nodesByTypeAndLayer, typeCounters } = this.organizeNodes(cluster);
+    // Use axis mapping if available, otherwise default to type/petType
+    const xAxisProperty = config.axisMapping?.xAxis || "type";
+    const zAxisProperty = config.axisMapping?.zAxis || "petType";
     
-    // Sort types by count
+    // Organize nodes by layer and x-axis property
+    const { nodesByTypeAndLayer, typeCounters } = this.organizeNodesByProperty(cluster, xAxisProperty);
+    
+    // Sort values by count
     const sortedTypes = this.sortTypesByCount(typeCounters);
     
     // Calculate type column positions
@@ -79,13 +83,15 @@ export class PositionCalculator implements IPositionCalculator {
     );
     
     // Assign positions to each node
-    this.assignNodePositions(
+    this.assignNodePositionsWithProperties(
       sortedTypes,
       nodesByTypeAndLayer,
       typeXPositions,
       numLayers,
       spacing,
-      config
+      config,
+      xAxisProperty,
+      zAxisProperty
     );
   }
 
@@ -135,9 +141,38 @@ export class PositionCalculator implements IPositionCalculator {
   }
 
   /**
-   * Organize nodes by layer and type
+   * Get property value from node
    */
-  private organizeNodes(cluster: Cluster) {
+  private getNodePropertyValue(node: Node, propertyName: string): string {
+    if (propertyName === "type") {
+      return node.type;
+    } else if (propertyName === "age") {
+      const age = node.properties?.age;
+      if (age !== undefined) {
+        // Group ages into ranges
+        if (age < 20) return "0-19";
+        if (age < 40) return "20-39";
+        if (age < 60) return "40-59";
+        if (age < 80) return "60-79";
+        return "80+";
+      }
+      return "Unknown";
+    } else if (node.properties && propertyName in node.properties) {
+      // Type-safe property access
+      if (propertyName === "petType") {
+        return node.properties.petType || "None";
+      } else if (propertyName === "petColor") {
+        return node.properties.petColor || "None";
+      }
+      return "None";
+    }
+    return "Unknown";
+  }
+
+  /**
+   * Organize nodes by layer and property
+   */
+  private organizeNodesByProperty(cluster: Cluster, propertyName: string) {
     const nodesByLayer = new Map<number, Node[]>();
     const typeCounters = new Map<string, number>();
     const nodesByTypeAndLayer = new Map<string, Node[]>();
@@ -155,22 +190,25 @@ export class PositionCalculator implements IPositionCalculator {
       });
     });
     
-    // Then organize by type and layer
+    // Then organize by property and layer
     nodesByLayer.forEach((nodes, layer) => {
       nodes.forEach(node => {
-        const key = `${node.type}-${layer}`;
+        const propertyValue = this.getNodePropertyValue(node, propertyName);
+        const key = `${propertyValue}-${layer}`;
+        
         if (!nodesByTypeAndLayer.has(key)) {
           nodesByTypeAndLayer.set(key, []);
         }
         nodesByTypeAndLayer.get(key)!.push(node);
         
-        // Track total count per type
-        typeCounters.set(node.type, (typeCounters.get(node.type) || 0) + 1);
+        // Track total count per property value
+        typeCounters.set(propertyValue, (typeCounters.get(propertyValue) || 0) + 1);
       });
     });
     
     return { nodesByLayer, nodesByTypeAndLayer, typeCounters };
   }
+
 
   /**
    * Sort types by count (descending)
@@ -224,39 +262,45 @@ export class PositionCalculator implements IPositionCalculator {
     return typeXPositions;
   }
 
+
   /**
-   * Assign positions to each node
+   * Assign positions to nodes with property-based positioning
    */
-  private assignNodePositions(
+  private assignNodePositionsWithProperties(
     sortedTypes: string[],
     nodesByTypeAndLayer: Map<string, Node[]>,
     typeXPositions: Map<string, number>,
     numLayers: number,
     spacing: SpacingConfig,
-    config: EnhancedGeneratorConfig
+    config: EnhancedGeneratorConfig,
+    xAxisProperty: string,
+    zAxisProperty: string
   ): void {
     const typeNodeCounters = new Map<string, number>();
     sortedTypes.forEach(nodeType => typeNodeCounters.set(nodeType, 0));
+    
+    // Create Z position mapping for the z-axis property
+    const zPositionMap = this.createPropertyPositionMap(nodesByTypeAndLayer, zAxisProperty);
     
     for (let layer = 1; layer <= numLayers; layer++) {
       // Invert Y so layer 1 is at top
       const layerY = RENDERER_CONSTANTS.POSITIONING.BASE_Y + 
                     (numLayers - layer) * spacing.layerSpacing;
       
-      sortedTypes.forEach(nodeType => {
-        const key = `${nodeType}-${layer}`;
+      sortedTypes.forEach(xValue => {
+        const key = `${xValue}-${layer}`;
         const nodes = nodesByTypeAndLayer.get(key) || [];
         
         // Sort nodes alphabetically within type-layer group
         table.sort(nodes, (a, b) => a.name < b.name);
         
         nodes.forEach((node, index) => {
-          const baseX = typeXPositions.get(nodeType)!;
+          const baseX = typeXPositions.get(xValue)!;
           
           // Find max nodes of this type for centering
           let maxNodesForType = 0;
           for (let checkLayer = 1; checkLayer <= numLayers; checkLayer++) {
-            const checkKey = `${nodeType}-${checkLayer}`;
+            const checkKey = `${xValue}-${checkLayer}`;
             const checkNodes = nodesByTypeAndLayer.get(checkKey) || [];
             maxNodesForType = math.max(maxNodesForType, checkNodes.size());
           }
@@ -267,69 +311,50 @@ export class PositionCalculator implements IPositionCalculator {
           const centeringOffset = (laneWidth - nodesWidth) / 2;
           
           const x = baseX + centeringOffset + index * spacing.nodeSpacing;
-          let z = 0;
           
-          // Position based on pet type instead of random offset
-          const petType = node.properties?.petType;
-          if (petType) {
-            z = this.calculatePetTypeZPosition(petType);
-          } else if (config.visualization?.randomZOffset) {
-            // Fallback to random Z offset if no pet type
-            const offsetAmount = config.visualization.zOffsetAmount || 5;
-            z = this.calculateRandomZOffset(node.uuid, offsetAmount);
-          }
+          // Get Z position based on z-axis property
+          const zValue = this.getNodePropertyValue(node, zAxisProperty);
+          const z = zPositionMap.get(zValue) || 0;
           
           // Update node position
           node.position = { x, y: layerY, z };
           
           // Add type number for labeling
-          const typeCounter = typeNodeCounters.get(nodeType)! + 1;
-          typeNodeCounters.set(nodeType, typeCounter);
+          const typeCounter = typeNodeCounters.get(xValue)! + 1;
+          typeNodeCounters.set(xValue, typeCounter);
           const paddedNumber = typeCounter < 10 ? `0${typeCounter}` : `${typeCounter}`;
           const nodeWithType = node as Node & { typeNumber?: string };
-          nodeWithType.typeNumber = `${nodeType.lower()}${paddedNumber}`;
+          nodeWithType.typeNumber = `${xValue.lower()}${paddedNumber}`;
         });
       });
     }
   }
-
+  
   /**
-   * Calculate Z position based on pet type
+   * Create position mapping for a property
    */
-  private calculatePetTypeZPosition(petType: string): number {
-    // Create a mapping of pet types to Z positions
-    const petTypeZPositions: { [key: string]: number } = {
-      "Dog": -15,
-      "Cat": -10,
-      "Bird": -5,
-      "Fish": 0,
-      "None": 5,
-      "Hamster": 10,
-      "Rabbit": 15
-    };
+  private createPropertyPositionMap(nodesByTypeAndLayer: Map<string, Node[]>, propertyName: string): Map<string, number> {
+    const uniqueValues = new Set<string>();
     
-    // Return the Z position for the pet type, or 0 if not found
-    return petTypeZPositions[petType] || 0;
+    // Collect all unique values for the property
+    nodesByTypeAndLayer.forEach(nodes => {
+      nodes.forEach(node => {
+        const value = this.getNodePropertyValue(node, propertyName);
+        uniqueValues.add(value);
+      });
+    });
+    
+    // Sort values and assign positions
+    const sortedValues = [...uniqueValues].sort();
+    const positionMap = new Map<string, number>();
+    
+    sortedValues.forEach((value, index) => {
+      // Position values 5 units apart on the Z axis
+      positionMap.set(value, (index - sortedValues.size() / 2) * 5);
+    });
+    
+    return positionMap;
   }
 
-  /**
-   * Calculate random Z offset for a node
-   */
-  private calculateRandomZOffset(uuid: string, offsetAmount: number): number {
-    // Use node UUID as seed for deterministic randomness
-    let seed = 0;
-    for (let i = 0; i < uuid.size(); i++) {
-      seed += string.byte(uuid, i + 1)[0];
-    }
-    math.randomseed(seed);
-    
-    // 50% chance to offset
-    if (math.random() < 0.5) {
-      // 50% chance for +offsetAmount or -offsetAmount
-      const offsetDirection = math.random() < 0.5 ? -1 : 1;
-      return offsetDirection * offsetAmount;
-    }
-    
-    return 0;
-  }
+
 }

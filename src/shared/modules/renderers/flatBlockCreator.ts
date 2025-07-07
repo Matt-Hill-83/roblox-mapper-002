@@ -213,6 +213,73 @@ export function calculateBlockDimensions(
 }
 
 /**
+ * Creates Z-axis shadow blocks for pet type swimlanes
+ * @param nodesByProperty Nodes grouped by property value
+ * @param propertyBounds Bounds for each property value
+ * @param parent Parent instance for the blocks
+ * @param yPosition Y position for the blocks
+ */
+export function createZAxisShadowBlocks(
+  nodesByProperty: Map<string, any[]>,
+  propertyBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
+  parent: Instance,
+  yPosition: number = 0.5
+): void {
+  let blockIndex = 0;
+  
+  nodesByProperty.forEach((nodes, propertyValue) => {
+    const bounds = propertyBounds.get(propertyValue)!;
+    
+    // Calculate block dimensions
+    const blockWidth = bounds.maxX - bounds.minX + 5; // Add padding
+    const blockDepth = bounds.maxZ - bounds.minZ + 5;
+    const centerX = (bounds.minX + bounds.maxX) / 2;
+    const centerZ = (bounds.minZ + bounds.maxZ) / 2;
+    
+    // Create the block
+    const block = new Instance("Part");
+    block.Name = `ZAxisShadowBlock_${propertyValue}`;
+    block.Size = new Vector3(blockWidth, 2, blockDepth);
+    block.Position = new Vector3(centerX, yPosition, centerZ);
+    
+    // Set appearance
+    block.Material = Enum.Material.ForceField;
+    block.Transparency = 0.8;
+    
+    // Use different colors for different property values
+    const colors = [
+      new Color3(0.8, 0.2, 0.2), // Red
+      new Color3(0.2, 0.8, 0.2), // Green
+      new Color3(0.2, 0.2, 0.8), // Blue
+      new Color3(0.8, 0.8, 0.2), // Yellow
+      new Color3(0.8, 0.2, 0.8), // Magenta
+      new Color3(0.2, 0.8, 0.8), // Cyan
+      new Color3(0.5, 0.5, 0.5), // Gray
+    ];
+    
+    block.Color = colors[blockIndex % colors.size()];
+    block.TopSurface = Enum.SurfaceType.Smooth;
+    block.BottomSurface = Enum.SurfaceType.Smooth;
+    
+    // Set physics
+    block.Anchored = true;
+    block.CanCollide = false;
+    block.CastShadow = false;
+    
+    // Parent the block
+    block.Parent = parent;
+    
+    print(`🟦 Created Z-axis shadow block for ${propertyValue}:`);
+    print(`   - Position: (${centerX}, ${yPosition}, ${centerZ})`);
+    print(`   - Size: ${blockWidth} x 2 x ${blockDepth}`);
+    
+    blockIndex++;
+  });
+  
+  print(`✅ Created ${nodesByProperty.size()} Z-axis shadow blocks`);
+}
+
+/**
  * Creates a block under a swimlane
  * @param config Configuration for the swimlane block
  * @returns The created swimlane block

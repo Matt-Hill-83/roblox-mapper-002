@@ -30,8 +30,19 @@
    - Y-axis continues to represent parent-child relationships
    - No user control over Y-axis property
 
-## Technical Constraints
+## new features
 
-- Must integrate with existing unified data renderer
-- Performance must remain acceptable for graphs up to 1000 nodes
-- Changes should not break existing functionality
+7. gui that shows a node's properties when you click on it.
+- in upper right of screen
+- click to appear, click to close
+
+8. config gui
+- let the user assign what property the node textbox background color belongs to
+- let the user assign what property the node textbox border color belongs to
+
+9. node properties, add
+- country of birth
+- country of residence
+
+10. add ability to toggle y axis between layer, and and one of the properties
+- add vertical walls around platform and show swimlane shadows on the walls
