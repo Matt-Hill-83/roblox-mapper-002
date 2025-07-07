@@ -9,7 +9,7 @@ import { DataGenerator } from "./core/dataGenerator";
 import { PositionCalculator } from "./core/positionCalculator";
 import { NodeRenderer } from "./rendering/nodeRenderer";
 import { UpdateManager } from "./rendering/updateManager";
-import { createFlatBlock, calculateBlockDimensions } from "../flatBlockCreator";
+import { createFlatBlocks, calculateBlockDimensions } from "../flatBlockCreator";
 
 export class UnifiedDataRenderer {
   private dataGenerator: DataGenerator;
@@ -31,7 +31,14 @@ export class UnifiedDataRenderer {
   public renderEnhancedData(parentFolder: Folder, config: EnhancedGeneratorConfig, origin?: Vector3): void {
     print("🎯 Unified renderer: Starting enhanced data generation...");
     
-    // Delete any existing flat block
+    // Delete any existing platform and shadow blocks
+    const existingPlatform = parentFolder.FindFirstChild("PlatformBlock");
+    if (existingPlatform) {
+      existingPlatform.Destroy();
+      print("🗑️ Deleted existing platform block");
+    }
+    
+    // Also check for legacy flat block
     const existingBlock = parentFolder.FindFirstChild("FlatBlockFoundation");
     if (existingBlock) {
       existingBlock.Destroy();
@@ -54,8 +61,8 @@ export class UnifiedDataRenderer {
     // Calculate block dimensions based on actual node tree bounds
     const blockDimensions = calculateBlockDimensions(bounds, 0); // No padding
     
-    // Create flat block foundation with calculated dimensions
-    createFlatBlock({
+    // Create platform and shadow blocks with calculated dimensions
+    createFlatBlocks({
       origin: targetOrigin,
       parent: parentFolder,
       width: blockDimensions.width,
