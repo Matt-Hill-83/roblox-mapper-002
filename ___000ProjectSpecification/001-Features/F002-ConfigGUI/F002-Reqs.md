@@ -64,3 +64,8 @@
    2. 🔲 [CLD11] R12.3.2: Layer configuration for each layer
    3. 🔲 [CLD11] R12.3.3: Visualization options and checkbox states
    4. 🔲 [CLD11] R12.3.4: Timestamp of export
+
+- give checkbox section a title and move the following section lower by 2x the font height. The y are overlapping
+- within the gui, make each section collapsable
+
+- create a new section that has a list of all the
