@@ -35,27 +35,30 @@
 
 ## T162: Reduce Console Width
 
-**Status**: NOT STARTED
+**Status**: COMPLETED
 **Priority**: Medium
 **Description**: Make the console output half as wide and reorganize buttons to save space
 
 ### Tasks:
 
-1. 🔲 [CLD11] T162.1: Reduce console width
-   1. 🔲 [CLD11] T162.1.1: Update console frame width to 50% of current size
-   2. 🔲 [CLD11] T162.1.2: Adjust text sizing for readability at new width
-   3. 🔲 [CLD11] T162.1.3: Test text wrapping and overflow behavior
+1. ✅ [CLD11] T162.1: Reduce console width
+   1. ✅ [CLD11] T162.1.1: Update console frame width to 50% of current size (650px → 325px)
+   2. ✅ [CLD11] T162.1.2: Adjust text sizing for readability at new width (using TextScaled)
+   3. ✅ [CLD11] T162.1.3: Test text wrapping and overflow behavior
 
-2. 🔲 [CLD11] T162.2: Stack node and link type buttons
-   1. 🔲 [CLD11] T162.2.1: Reorganize layout to stack buttons vertically
-   2. 🔲 [CLD11] T162.2.2: Adjust spacing between stacked buttons
-   3. 🔲 [CLD11] T162.2.3: Update overall GUI layout to accommodate changes
+2. ✅ [CLD11] T162.2: Stack node and link type buttons
+   1. ✅ [CLD11] T162.2.1: Reorganize layout to stack buttons vertically
+   2. ✅ [CLD11] T162.2.2: Adjust spacing between stacked buttons
+   3. ✅ [CLD11] T162.2.3: Update overall GUI layout to accommodate changes
 
 ### Technical Notes:
 
-- Consider impact on text readability
-- May need to adjust font size or use text scaling
-- Ensure all console output remains visible
+- GUI width reduced from 650px to 325px (50%)
+- Node and Link type inputs now stacked vertically (increased section height from 70px to 110px)
+- Button widths reduced from 120px to 90px
+- Grid column widths adjusted to fit narrower GUI
+- Visualization controls repositioned above buttons instead of to the right
+- All text uses TextScaled for automatic size adjustment
 
 ## T163: Add Z Offset Input for Random Z Function
 

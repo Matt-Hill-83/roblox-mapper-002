@@ -15,10 +15,10 @@ export function createNodeTypesSection({
   onNodeTypesChange,
   onLinkTypesChange
 }: NodeTypesSectionProps): Frame {
-  // Create container
+  // Create container - increased height for vertical stacking
   const container = new Instance("Frame");
   container.Name = "NodeTypesSection";
-  container.Size = new UDim2(1, -20, 0, GUI_CONSTANTS.ENHANCED.NODE_LINK_TYPES_HEIGHT);
+  container.Size = new UDim2(1, -20, 0, 110); // Increased height for stacked layout
   container.Position = new UDim2(0, 10, 0, 40 + GUI_CONSTANTS.ENHANCED.GLOBAL_SETTINGS_HEIGHT + 10);
   container.BackgroundColor3 = new Color3(0.15, 0.15, 0.15);
   container.BorderSizePixel = 0;
@@ -79,10 +79,10 @@ export function createNodeTypesSection({
     }
   });
 
-  // Link types setting
+  // Link types setting - now positioned below node types
   const linkTypesLabel = new Instance("TextLabel");
   linkTypesLabel.Size = new UDim2(0, 150, 0, 25);
-  linkTypesLabel.Position = new UDim2(0, 260, 0, 35);
+  linkTypesLabel.Position = new UDim2(0, 10, 0, 70); // Moved down
   linkTypesLabel.BackgroundTransparency = 1;
   linkTypesLabel.Font = GUI_CONSTANTS.TYPOGRAPHY.LABEL_FONT;
   linkTypesLabel.Text = "Number of Link Types:";
@@ -91,11 +91,11 @@ export function createNodeTypesSection({
   linkTypesLabel.TextXAlignment = Enum.TextXAlignment.Left;
   linkTypesLabel.Parent = container;
 
-  // Link types input box
+  // Link types input box - now positioned below node types
   const linkTypesInput = new Instance("TextBox");
   linkTypesInput.Name = "LinkTypesInput";
   linkTypesInput.Size = new UDim2(0, 60, 0, 25);
-  linkTypesInput.Position = new UDim2(0, 415, 0, 35);
+  linkTypesInput.Position = new UDim2(0, 165, 0, 70); // Same X as node types, moved down Y
   linkTypesInput.BackgroundColor3 = new Color3(0.25, 0.25, 0.25);
   linkTypesInput.BorderSizePixel = 0;
   linkTypesInput.Font = GUI_CONSTANTS.TYPOGRAPHY.INPUT_FONT;
