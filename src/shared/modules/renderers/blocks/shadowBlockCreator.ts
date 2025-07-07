@@ -35,7 +35,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       size: new Vector3(width + buffer, height, depth + buffer),
       position: new Vector3(
         origin.X,
-        height / 2,
+        height / 2 + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET, // Raised by 0.1 to prevent z-fighting
         origin.Z
       ),
       material: BLOCK_CONSTANTS.MATERIALS.SHADOW,

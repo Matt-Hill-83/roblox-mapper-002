@@ -105,10 +105,10 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   shadowBlock.CastShadow = false;
   shadowBlock.Transparency = 0; // Fully opaque
   
-  // Position shadow block - same position as platform
+  // Position shadow block - 0.1 units above platform to prevent z-fighting
   shadowBlock.Position = new Vector3(
     origin.X,
-    height / 2, // Bottom at Y=0, so center is at height/2
+    height / 2 + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET, // Raised by 0.1 to prevent z-fighting
     origin.Z
   );
   
