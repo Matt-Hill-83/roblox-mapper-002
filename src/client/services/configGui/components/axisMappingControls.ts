@@ -3,7 +3,7 @@ import type { AxisMapping } from "../../../../shared/interfaces/enhancedGenerato
 
 interface AxisMappingControlsProps {
   parent: Frame;
-  axisMapping: AxisMapping;
+  axisMapping?: AxisMapping;
   onAxisMappingChange: (axis: "xAxis" | "zAxis", value: string) => void;
 }
 
@@ -15,6 +15,12 @@ export function createAxisMappingControls({
   axisMapping,
   onAxisMappingChange
 }: AxisMappingControlsProps): Frame {
+  // Provide default axis mapping if not provided
+  const mapping = axisMapping || {
+    xAxis: "type",
+    zAxis: "petType"
+  };
+  
   // Create container
   const container = new Instance("Frame");
   container.Name = "AxisMappingControls";
@@ -45,7 +51,7 @@ export function createAxisMappingControls({
     parent: container,
     label: "X-Axis Property:",
     position: new UDim2(0, 10, 0, 30),
-    currentValue: axisMapping.xAxis,
+    currentValue: mapping.xAxis,
     onValueChange: (value) => onAxisMappingChange("xAxis", value)
   });
 
@@ -54,7 +60,7 @@ export function createAxisMappingControls({
     parent: container,
     label: "Z-Axis Property:",
     position: new UDim2(0.5, 10, 0, 30),
-    currentValue: axisMapping.zAxis,
+    currentValue: mapping.zAxis,
     onValueChange: (value) => onAxisMappingChange("zAxis", value)
   });
 

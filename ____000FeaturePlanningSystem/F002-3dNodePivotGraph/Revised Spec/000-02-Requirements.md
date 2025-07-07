@@ -46,3 +46,5 @@
 
 10. add ability to toggle y axis between layer, and and one of the properties
 - add vertical walls around platform and show swimlane shadows on the walls
+
+- every node needs to be connected to at least one other node

@@ -135,7 +135,7 @@ export class ConfigGUIService {
     // Create axis mapping controls
     createAxisMappingControls({
       parent: parentFrame,
-      axisMapping: config.axisMapping!,
+      axisMapping: config.axisMapping,
       onAxisMappingChange: (axis, value) => {
         this.stateManager.updateAxisMapping(axis, value);
         // Trigger re-render with new axis mapping
