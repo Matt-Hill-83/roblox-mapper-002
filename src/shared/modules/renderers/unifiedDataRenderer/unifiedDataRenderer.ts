@@ -225,8 +225,8 @@ export class UnifiedDataRenderer {
       const blockWidth = swimlaneWidth;
       const blockDepth = swimlaneDepth;
       
-      // Fixed Y position for all swimlane blocks
-      const blockYPosition = 1.5 + FLAT_BLOCK_DEFAULTS.zFightingFix;
+      // Fixed Y position for all swimlane blocks - raised above shadow block
+      const blockYPosition = 1.5 + FLAT_BLOCK_DEFAULTS.zFightingFix * 2; // 0.2 above base to prevent z-fighting with shadow block
       
       // Get the color from the first node of this type
       const nodeColor = nodes[0].color;
@@ -354,8 +354,8 @@ export class UnifiedDataRenderer {
       bounds.maxZ = math.max(bounds.maxZ, node.position.z);
     });
     
-    // Create Z-axis shadow blocks (raised by 0.1 for visibility)
-    createZAxisShadowBlocks(nodesByProperty, propertyBounds, parent, 0.6, swimlaneBlocks);
+    // Create Z-axis shadow blocks at 2.4 to be clearly visible above all other blocks
+    createZAxisShadowBlocks(nodesByProperty, propertyBounds, parent, 2.4, swimlaneBlocks);
     return swimlaneBlocks;
   }
   

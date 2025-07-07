@@ -104,7 +104,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       position: new Vector3(dimensions.position.X, yPosition, dimensions.position.Z),
       material: BLOCK_CONSTANTS.MATERIALS.SWIMLANE,
       color: this.getColorFromArray(BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS, colorIndex),
-      transparency: BLOCK_CONSTANTS.TRANSPARENCY.FORCE_FIELD,
+      transparency: BLOCK_CONSTANTS.TRANSPARENCY.OPAQUE,
       canCollide: false
     });
 

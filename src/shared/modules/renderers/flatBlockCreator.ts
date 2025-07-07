@@ -248,7 +248,7 @@ export function createZAxisShadowBlocks(
     
     // Set appearance
     block.Material = BLOCK_CONSTANTS.MATERIALS.SHADOW;
-    block.Transparency = BLOCK_CONSTANTS.TRANSPARENCY.FORCE_FIELD;
+    block.Transparency = BLOCK_CONSTANTS.TRANSPARENCY.OPAQUE;
     
     // Use different colors for different property values
     const colors = BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS;

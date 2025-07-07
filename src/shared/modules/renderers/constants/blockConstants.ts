@@ -39,7 +39,7 @@ export const BLOCK_CONSTANTS = {
   MATERIALS: {
     SHADOW: Enum.Material.Concrete,
     PLATFORM: Enum.Material.Plastic,
-    SWIMLANE: Enum.Material.ForceField,
+    SWIMLANE: Enum.Material.Concrete,
   },
   POSITIONING: {
     MIN_GROUND_CLEARANCE: 5,

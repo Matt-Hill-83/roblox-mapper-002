@@ -3,8 +3,8 @@
  * Creates text labels for X and Z axis swimlanes
  */
 
-import { Node } from "../../../../interfaces/simpleDataGenerator.interface";
 import { LABEL_CONSTANTS } from "../../constants/labelConstants";
+import { Node } from "../../../../interfaces/simpleDataGenerator.interface";
 import { POSITION_CONSTANTS } from "../../constants/positionConstants";
 
 export interface LabelConfig {
@@ -119,7 +119,7 @@ export class LabelRenderer {
     textLabel.TextStrokeColor3 = LABEL_CONSTANTS.COLORS.SHADOW;
     textLabel.Parent = billboardGui;
     
-    print(`🏷️ Created label: ${text} at (${position.X}, ${position.Y}, ${position.Z})`);
+    
   }
   
   /**

@@ -112,7 +112,7 @@ export function createWallSwimlanes(
         shadow.Position = new Vector3(wall.Position.X, shadowY, wall.Position.Z);
       }
       
-      shadow.Material = Enum.Material.ForceField;
+      shadow.Material = Enum.Material.Concrete;
       shadow.Color = colors.get(propertyValue) || new Color3(0.5, 0.5, 0.5);
       shadow.Transparency = 0.8;
       shadow.Anchored = true;

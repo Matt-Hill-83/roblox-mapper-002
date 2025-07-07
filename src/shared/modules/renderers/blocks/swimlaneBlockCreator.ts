@@ -112,7 +112,7 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
         ),
         material: BLOCK_CONSTANTS.MATERIALS.SWIMLANE,
         color: this.getColorFromArray(BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS, colorIndex),
-        transparency: BLOCK_CONSTANTS.TRANSPARENCY.SEMI_TRANSPARENT,
+        transparency: BLOCK_CONSTANTS.TRANSPARENCY.OPAQUE,
         canCollide: false
       });
 
