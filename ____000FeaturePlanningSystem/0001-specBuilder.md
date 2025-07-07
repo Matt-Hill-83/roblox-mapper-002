@@ -4,7 +4,11 @@ In the existing roblox game, as part of the node creation process, create a larg
 |----------------------------------------------------------------------|
 Features:
 
-- centered at the origin
+- centered at the origin defined in game.env
+- 5 units high
+- concrete
+- light blue
+- anchored
 
 |----------------------------------------------------------------------|
 
@@ -66,7 +70,6 @@ Step 2. - Break Spec into Smaller Files
    1. Create a folder called: "Revised Spec"
    2. Divide the information in the Input doc into the following 3 docs and place them in the new folder
       1. 000-01-Summary.md
-         1. include ascii representation of gui here
       2. 000--02-Requirements.md
       3. 000-03-Tasks.md
    3. (The purpose is to isolate the tasks and make them easier to review and execute)
