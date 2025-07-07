@@ -79,11 +79,16 @@ export class UnifiedDataRenderer {
     // Create Z-axis shadow blocks and collect them
     const zAxisSwimlaneBlocks = this.createZAxisSwimLaneBlocks(cluster, blocks.platform, config);
     
-    // Create labels for swimlanes with the block references
-    this.createSwimLaneLabels(cluster, parentFolder, config, xAxisSwimlaneBlocks, zAxisSwimlaneBlocks);
-    
-    // Render the cluster
+    // Render the cluster first
     this.nodeRenderer.renderCluster(cluster, parentFolder, config);
+    
+    // Create labels for swimlanes after rendering (so GraphMaker folder exists)
+    const graphMakerFolder = parentFolder.FindFirstChild("GraphMaker") as Folder;
+    if (graphMakerFolder) {
+      this.createSwimLaneLabels(cluster, graphMakerFolder, config, xAxisSwimlaneBlocks, zAxisSwimlaneBlocks);
+    } else {
+      print("⚠️ GraphMaker folder not found for labels");
+    }
     
     print(`✅ Unified renderer: Complete! Created ${cluster.groups[0].nodes.size()} nodes with swim lanes`);
     

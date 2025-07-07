@@ -36,7 +36,7 @@ export class LabelRenderer {
       
       this.createLabel({
         text: typeName,
-        position: new Vector3(centerX, yPosition + 10, centerZ),
+        position: new Vector3(centerX, yPosition + 15, centerZ),
         parent: parent
       });
       
@@ -65,7 +65,7 @@ export class LabelRenderer {
       
       this.createLabel({
         text: value,
-        position: new Vector3(centerX, yPosition + 10, centerZ),
+        position: new Vector3(centerX, yPosition + 15, centerZ),
         parent: parent
       });
       
@@ -94,19 +94,23 @@ export class LabelRenderer {
     
     // Create BillboardGui
     const billboardGui = new Instance("BillboardGui");
-    billboardGui.Size = new UDim2(0, 200, 0, 50);
-    billboardGui.StudsOffset = new Vector3(0, 2, 0);
+    billboardGui.Size = new UDim2(0, 600, 0, 150);
+    billboardGui.StudsOffset = new Vector3(0, 5, 0);
     billboardGui.AlwaysOnTop = true;
+    billboardGui.LightInfluence = 0;
     billboardGui.Parent = labelPart;
     
-    // Create TextLabel
+    // Create TextLabel with background
     const textLabel = new Instance("TextLabel");
     textLabel.Size = new UDim2(1, 0, 1, 0);
-    textLabel.BackgroundTransparency = 1;
+    textLabel.BackgroundTransparency = 0.5;
+    textLabel.BackgroundColor3 = new Color3(0, 0, 0);
     textLabel.Text = text;
     textLabel.TextColor3 = color;
     textLabel.TextScaled = true;
-    textLabel.Font = Enum.Font.SourceSans;
+    textLabel.Font = Enum.Font.SourceSansBold;
+    textLabel.TextStrokeTransparency = 0;
+    textLabel.TextStrokeColor3 = new Color3(0, 0, 0);
     textLabel.Parent = billboardGui;
     
     print(`🏷️ Created label: ${text} at (${position.X}, ${position.Y}, ${position.Z})`);

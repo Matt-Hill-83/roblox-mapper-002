@@ -7,6 +7,7 @@ import {
   createCenterAttachment,
   calculateBarDimensions
 } from "./utilities";
+import { createTextBox } from "../TextBoxMaker";
 
 export function makeHexagon({
   id = 1,
@@ -51,11 +52,14 @@ export function makeHexagon({
       ...barProps, // Spread any custom bar properties
     };
 
+    // Slightly raise the first bar to avoid z-fighting with the top label
+    const yOffset = i === 0 ? 0.001 : 0;
+    
     const bar = makeBar({
       id: `${id}_bar${i + 1}`,
       position: {
         x: centerPosition[0],
-        y: centerPosition[1],
+        y: centerPosition[1] + yOffset,
         z: centerPosition[2],
       },
       rotation: { x: 0, y: rotation, z: 0 },
@@ -67,6 +71,15 @@ export function makeHexagon({
     });
 
     bar.Parent = hexModel;
+    
+    // Add top label on the first bar only
+    if (i === 0 && labels.size() > 0) {
+      createTextBox({
+        part: bar,
+        face: Enum.NormalId.Top,
+        text: labels[0], // Use the first label (node name)
+      });
+    }
   }
 
   return hexModel;
