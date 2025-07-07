@@ -8,10 +8,8 @@
 6. ✅ R6: Block creation must be integrated into existing node creation process
 7. ✅ R7: Block should be positioned below all nodes in the tree
 
-## New
-
-- create platform block
-- The shadow block (which we already created) should be created concident with the Platform Block.
-- the platform block should be the shadow block's parent
-- the platform block should be the same y dimension as the shadow block - 0.1 unit, to prevent z-fighting issues
-- the platform block should be light green
+8. ✅ R8: Create platform block as parent of shadow block
+9. ✅ R9: Platform block must be light green color
+10. ✅ R10: Platform block Y dimension must be shadow block height - 0.1 units (prevent z-fighting)
+11. ✅ R11: Shadow block must be parented to platform block
+12. ✅ R12: Platform and shadow blocks must be coincident in position

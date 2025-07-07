@@ -12,12 +12,23 @@ export interface FlatBlockConfig {
   color?: Color3;
 }
 
-const FLAT_BLOCK_DEFAULTS = {
+export interface SwimLaneBlockConfig {
+  position: Vector3;
+  width: number;
+  depth: number;
+  height: number;
+  color: Color3;
+  typeName: string;
+  parent: Instance;
+}
+
+export const FLAT_BLOCK_DEFAULTS = {
   height: 3,  // Changed from 5 to 3 units as requested
   width: 200,  // Large enough to extend beyond typical node trees
   depth: 200,
   shadowColor: new Color3(0.5, 0.7, 1), // Light blue for shadow block
   platformColor: new Color3(0.5, 1, 0.5), // Light green for platform block
+  zFightingFix: 0.1, // Vertical offset to prevent Z-fighting between overlapping blocks
 };
 
 /**
@@ -38,13 +49,12 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   const platformBlock = new Instance("Part");
   platformBlock.Name = "PlatformBlock";
   
-  // Set platform size - 0.1 units thinner to prevent Z-fighting
-  const platformHeight = height - 0.1;
+  // Platform has same height as shadow block but positioned 0.1 lower
   // Platform has fixed size of 100x100 in X,Z dimensions
-  platformBlock.Size = new Vector3(100, platformHeight, 100);
+  platformBlock.Size = new Vector3(100, height, 100);
   
   // Set platform material and appearance
-  platformBlock.Material = Enum.Material.Grass;
+  platformBlock.Material = Enum.Material.Concrete;
   platformBlock.Color = FLAT_BLOCK_DEFAULTS.platformColor;
   platformBlock.TopSurface = Enum.SurfaceType.Smooth;
   platformBlock.BottomSurface = Enum.SurfaceType.Smooth;
@@ -54,10 +64,10 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   platformBlock.CanCollide = true;
   platformBlock.CastShadow = false;
   
-  // Position platform block
+  // Position platform block - zFightingFix units lower than shadow block
   platformBlock.Position = new Vector3(
     origin.X,
-    platformHeight / 2, // Bottom at Y=0, so center is at height/2
+    (height / 2) - FLAT_BLOCK_DEFAULTS.zFightingFix, // zFightingFix units lower than shadow block
     origin.Z
   );
   
@@ -68,8 +78,8 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   const shadowBlock = new Instance("Part");
   shadowBlock.Name = "ShadowBlock";
   
-  // Set shadow size
-  shadowBlock.Size = new Vector3(width, height, depth);
+  // Set shadow size with 1 unit buffer on all sides
+  shadowBlock.Size = new Vector3(width + 2, height, depth + 2);
   
   // Set shadow material and appearance
   shadowBlock.Material = Enum.Material.Concrete;
@@ -94,11 +104,11 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   
   print(`🟩 Created platform block:`);
   print(`   - Position: (${platformBlock.Position.X}, ${platformBlock.Position.Y}, ${platformBlock.Position.Z})`);
-  print(`   - Size: 100 x ${platformHeight} x 100 (W x H x D)`);
+  print(`   - Size: 100 x ${height} x 100 (W x H x D)`);
   
   print(`🟦 Created shadow block:`);
   print(`   - Position: (${shadowBlock.Position.X}, ${shadowBlock.Position.Y}, ${shadowBlock.Position.Z})`);
-  print(`   - Size: ${width} x ${height} x ${depth} (W x H x D)`);
+  print(`   - Size: ${width + 2} x ${height} x ${depth + 2} (W x H x D)`);
   print(`   - Parent: ${shadowBlock.Parent?.Name}`);
   
   return { platform: platformBlock, shadow: shadowBlock };
@@ -189,4 +199,45 @@ export function calculateBlockDimensions(
     width: finalWidth,
     depth: finalDepth,
   };
+}
+
+/**
+ * Creates a block under a swimlane
+ * @param config Configuration for the swimlane block
+ * @returns The created swimlane block
+ */
+export function createSwimLaneBlock(config: SwimLaneBlockConfig): Part {
+  const { position, width, depth, height, color, typeName, parent } = config;
+  
+  // Create swimlane block
+  const swimLaneBlock = new Instance("Part");
+  swimLaneBlock.Name = `SwimLaneBlock_${typeName}`;
+  
+  // Set size
+  swimLaneBlock.Size = new Vector3(width, height, depth);
+  
+  // Set material and appearance
+  swimLaneBlock.Material = Enum.Material.Neon;
+  swimLaneBlock.Color = color;
+  swimLaneBlock.TopSurface = Enum.SurfaceType.Smooth;
+  swimLaneBlock.BottomSurface = Enum.SurfaceType.Smooth;
+  swimLaneBlock.Transparency = 0.5; // Semi-transparent
+  
+  // Set physics properties
+  swimLaneBlock.Anchored = true;
+  swimLaneBlock.CanCollide = false; // Don't interfere with player movement
+  swimLaneBlock.CastShadow = false;
+  
+  // Position the block
+  swimLaneBlock.Position = position;
+  
+  // Parent to shadow block
+  swimLaneBlock.Parent = parent;
+  
+  print(`🏊 Created swimlane block for ${typeName}:`);
+  print(`   - Position: (${position.X}, ${position.Y}, ${position.Z})`);
+  print(`   - Size: ${width} x ${height} x ${depth}`);
+  print(`   - Color: (${color.R}, ${color.G}, ${color.B})`);
+  
+  return swimLaneBlock;
 }

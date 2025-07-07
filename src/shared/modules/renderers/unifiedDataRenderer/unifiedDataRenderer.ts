@@ -5,11 +5,12 @@
  */
 
 import { EnhancedGeneratorConfig } from "../../../interfaces/enhancedGenerator.interface";
+import { Cluster, Node } from "../../../interfaces/simpleDataGenerator.interface";
 import { DataGenerator } from "./core/dataGenerator";
 import { PositionCalculator } from "./core/positionCalculator";
 import { NodeRenderer } from "./rendering/nodeRenderer";
 import { UpdateManager } from "./rendering/updateManager";
-import { createFlatBlocks, calculateBlockDimensions } from "../flatBlockCreator";
+import { createFlatBlocks, calculateBlockDimensions, createSwimLaneBlock, FLAT_BLOCK_DEFAULTS } from "../flatBlockCreator";
 
 export class UnifiedDataRenderer {
   private dataGenerator: DataGenerator;
@@ -62,12 +63,15 @@ export class UnifiedDataRenderer {
     const blockDimensions = calculateBlockDimensions(bounds, 0); // No padding
     
     // Create platform and shadow blocks with calculated dimensions
-    createFlatBlocks({
+    const blocks = createFlatBlocks({
       origin: targetOrigin,
       parent: parentFolder,
       width: blockDimensions.width,
       depth: blockDimensions.depth,
     });
+    
+    // Create swimlane blocks
+    this.createSwimLaneBlocks(cluster, blocks.shadow, targetOrigin, blockDimensions);
     
     // Render the cluster
     this.nodeRenderer.renderCluster(cluster, parentFolder, config);
@@ -116,5 +120,65 @@ export class UnifiedDataRenderer {
     this.currentConfig = config;
     
     print("✅ Incremental update complete!");
+  }
+
+  /**
+   * Creates blocks under each swimlane
+   */
+  private createSwimLaneBlocks(cluster: Cluster, shadowBlock: Part, origin: Vector3, shadowDimensions: { width: number; depth: number }): void {
+    // Organize nodes by type to determine swimlanes
+    const nodesByType = new Map<string, Node[]>();
+    const typeBounds = new Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>();
+    
+    // Group nodes by type and calculate bounds for each type
+    cluster.groups[0].nodes.forEach(node => {
+      if (!nodesByType.has(node.type)) {
+        nodesByType.set(node.type, []);
+        typeBounds.set(node.type, {
+          minX: math.huge,
+          maxX: -math.huge,
+          minZ: math.huge,
+          maxZ: -math.huge
+        });
+      }
+      
+      nodesByType.get(node.type)!.push(node);
+      
+      const bounds = typeBounds.get(node.type)!;
+      bounds.minX = math.min(bounds.minX, node.position.x);
+      bounds.maxX = math.max(bounds.maxX, node.position.x);
+      bounds.minZ = math.min(bounds.minZ, node.position.z);
+      bounds.maxZ = math.max(bounds.maxZ, node.position.z);
+    });
+    
+    // Create a block for each swimlane
+    nodesByType.forEach((nodes, typeName) => {
+      const bounds = typeBounds.get(typeName)!;
+      
+      // Calculate swimlane center position
+      const centerX = (bounds.minX + bounds.maxX) / 2;
+      const centerZ = (bounds.minZ + bounds.maxZ) / 2;
+      
+      // Use shadow dimensions without buffer for swimlane width/depth
+      const blockWidth = shadowDimensions.width; // Shadow width without buffer
+      const blockDepth = shadowDimensions.depth; // Shadow depth without buffer
+      
+      // Get the color from the first node of this type
+      const nodeColor = nodes[0].color;
+      const color = new Color3(nodeColor[0], nodeColor[1], nodeColor[2]);
+      
+      // Create swimlane block positioned zFightingFix units higher than shadow block
+      createSwimLaneBlock({
+        position: new Vector3(centerX, 1.5 + FLAT_BLOCK_DEFAULTS.zFightingFix, centerZ), // zFightingFix higher than shadow
+        width: blockWidth,
+        depth: blockDepth,
+        height: 3,
+        color: color,
+        typeName: typeName,
+        parent: shadowBlock
+      });
+    });
+    
+    print(`✅ Created ${nodesByType.size()} swimlane blocks`);
   }
 }
