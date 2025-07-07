@@ -8,19 +8,22 @@ Player vs. computer
 
 |----------------------------------------------------------------------|
 
-|----------------------------------------------------------------------|
-note to AI Agent:
-This file is a set of instrctions that you will follow in order to help plan a feature.
-Following the instructions will create a final product that is a folder containing a set of documents that will be used one of more AI agents.
+1. Note to AI Agent:
+   1. This file is a set of instrctions that you will follow in order to help plan a feature.
+   2. Following the instructions will create a final product that is a folder containing a set of documents that will be used one of more AI agents.
+   3. Follow each Step.
+      1. After you complete the Step, ask the user the User Question provided for that task.
+      2. The user will possibly make some edits, and direct you to do the next Step.
+      3. Do not perform any Step unless told to.
+      4. When told to run this file, assume the Summary and Features above have been updated to reflect current needs.
+      5. Output
+         1. A sample of the final output folder can be found here.
+            1. Sample Output:
+            2. ./F000-TicTacToe (example)
+      6. User Message
+         1. Hyperlink all file and folder names when outputting the User Message
+         2. Do not add your own extemporaneous commentary or fluff
 
-Follow each Step.
-After you complete the Step, ask the user the User Question provided for that task.
-The user will possibly make some edits, and direct you to do the next Step.
-Do not perform any Step unless told to.
-When told to run this file, assume the Summary and Features above have been updated to reflect current needs.
-A sample of the final output folder can be found here.
-Sample Output:
-./F000-TicTacToe (example)
 |----------------------------------------------------------------------|
 
 Step 1. - Create Single Spec Document
@@ -47,6 +50,7 @@ Step 1. - Create Single Spec Document
    5. <output names>
    6. Make any changes, ask me to update it, and tell me when you are ready for
    7. Step 2 <step name>
+   8. (or just type "Yes".)
 
 |----------------------------------------------------------------------|
 Step 2. - Break Spec into Smaller Files
