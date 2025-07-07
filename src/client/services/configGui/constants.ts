@@ -3,7 +3,7 @@ export const GUI_CONSTANTS = {
   FRAME: {
     WIDTH: 350,
     HEIGHT: 285,
-    ENHANCED_WIDTH: 650,
+    ENHANCED_WIDTH: 325, // Reduced from 650 to 50%
     ENHANCED_HEIGHT: 0, // Will be calculated as 90% of screen height
     ENHANCED_HEIGHT_SCALE: 0.9, // 90% of screen height
     POSITION: new UDim2(0, 10, 0, 10), // Upper left corner
@@ -62,17 +62,17 @@ export const GUI_CONSTANTS = {
   // Enhanced mode configuration
   ENHANCED: {
     GLOBAL_SETTINGS_HEIGHT: 210, // Increased to accommodate spacing controls including link diameter
-    NODE_LINK_TYPES_HEIGHT: 70, // New section for node/link types
+    NODE_LINK_TYPES_HEIGHT: 110, // Increased for vertical stacking of node/link types
     GRID_HEADER_HEIGHT: 30,
     GRID_ROW_HEIGHT: 30,
     GRID_PADDING: 10,
     COLUMN_WIDTHS: {
-      LAYER: 60,
-      NODES: 80,
-      CONNECTIONS: 100,
-      NODE_TYPE: 100,
-      LINK_TYPE: 100,
-      DELETE: 50
+      LAYER: 30, // Reduced for narrower GUI
+      NODES: 40, // Reduced for narrower GUI
+      CONNECTIONS: 50, // Reduced for narrower GUI
+      NODE_TYPE: 60, // Reduced for narrower GUI
+      LINK_TYPE: 60, // Reduced for narrower GUI
+      DELETE: 30 // Reduced for narrower GUI
     },
     MAX_LAYERS: 10,
     DROPDOWN_ITEMS: 10
@@ -92,7 +92,7 @@ export const GUI_CONSTANTS = {
   BUTTON: {
     HEIGHT: 30,
     SPACING: 10,
-    WIDTH: 120
+    WIDTH: 90 // Reduced from 120 to fit narrower GUI
   },
   
   // Validation limits

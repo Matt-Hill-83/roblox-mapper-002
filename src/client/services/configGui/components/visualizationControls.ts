@@ -25,12 +25,12 @@ export function createVisualizationControls({
   visualization,
   onVisualizationChange
 }: VisualizationControlsProps): Frame {
-  // Create container that will be positioned inline with buttons
+  // Create container - now positioned above the buttons due to narrower width
   const container = new Instance("Frame");
   container.Name = "VisualizationControls";
-  container.Size = new UDim2(0, 200, 0, 120);
-  // Position to the right of the buttons
-  container.Position = new UDim2(1, -210, 1, -130);
+  container.Size = new UDim2(1, -20, 0, 120);
+  // Position above the buttons
+  container.Position = new UDim2(0, 10, 1, -200);
   container.BackgroundColor3 = new Color3(0.15, 0.15, 0.15);
   container.BorderSizePixel = 0;
   container.Parent = parent;
