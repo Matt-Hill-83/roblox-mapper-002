@@ -16,7 +16,7 @@ export class GameService extends BaseService {
   private graphInitializer: GraphInitializerService;
   private myStuffFolder!: Folder;
   private gameStarted = false; // Flag to prevent duplicate initialization
-  
+
   constructor() {
     super("GameService");
     this.graphInitializer = new GraphInitializerService();
@@ -56,23 +56,24 @@ export class GameService extends BaseService {
 
     // Initialize the configuration GUI server with origin
     this.configGUIServer = new ConfigGUIServerService(
-      this.myStuffFolder, 
+      this.myStuffFolder,
       new Vector3(ORIGIN.x, ORIGIN.y, ORIGIN.z)
     );
     print(`🎮 GUI Server initialized: ${this.configGUIServer !== undefined}`);
-    
+
     // Set up graph initializer with the GUI server
     this.graphInitializer.setConfigGUIServer(this.configGUIServer);
-    
+
     // Initialize the graph with default configuration
     this.graphInitializer.initializeGraph();
 
     // Initialize dev2 features
-    initializeDev2Features(this.myStuffFolder);
-
+    if (false) {
+      initializeDev2Features(this.myStuffFolder);
+    }
     print("✅ GameService.startGame() completed");
   }
-  
+
   /**
    * Custom cleanup logic
    */
@@ -82,12 +83,14 @@ export class GameService extends BaseService {
       this.configGUIServer.destroy();
       this.configGUIServer = undefined;
     }
-    
-    const initializer = this.graphInitializer as unknown as { destroy?: () => void };
+
+    const initializer = this.graphInitializer as unknown as {
+      destroy?: () => void;
+    };
     if (initializer.destroy) {
       initializer.destroy();
     }
-    
+
     print("[GameService] Cleaned up");
   }
 }
