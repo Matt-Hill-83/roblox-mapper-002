@@ -112,29 +112,29 @@
 
 ## T165: Add Export Config Button
 
-**Status**: NOT STARTED
+**Status**: COMPLETED
 **Priority**: High
 **Description**: Add button to output current configuration to console in a readable format
 
 ### Tasks:
 
-1. 🔲 [CLD11] T165.1: Create export button
+1. ✅ [CLD11] T165.1: Create export button
 
-   1. 🔲 [CLD11] T165.1.1: Add "Export Config" button to GUI
-   2. 🔲 [CLD11] T165.1.2: Position button in action buttons area
-   3. 🔲 [CLD11] T165.1.3: Style consistently with other buttons
+   1. ✅ [CLD11] T165.1.1: Add "Export Config" button to GUI
+   2. ✅ [CLD11] T165.1.2: Position button in action buttons area
+   3. ✅ [CLD11] T165.1.3: Style consistently with other buttons
 
-2. 🔲 [CLD11] T165.2: Implement export functionality
+2. ✅ [CLD11] T165.2: Implement export functionality
 
-   1. 🔲 [CLD11] T165.2.1: Clear console output before writing
-   2. 🔲 [CLD11] T165.2.2: Format configuration data as readable text
-   3. 🔲 [CLD11] T165.2.3: Include all settings: spacing, layers, visualization options
-   4. 🔲 [CLD11] T165.2.4: Output to console with proper formatting
+   1. ✅ [CLD11] T165.2.1: Clear console output before writing
+   2. ✅ [CLD11] T165.2.2: Format configuration data as readable text
+   3. ✅ [CLD11] T165.2.3: Include all settings: spacing, layers, visualization options
+   4. ✅ [CLD11] T165.2.4: Output to console with proper formatting
 
-3. 🔲 [CLD11] T165.3: Add formatting options
-   1. 🔲 [CLD11] T165.3.1: Use indentation for nested properties
-   2. 🔲 [CLD11] T165.3.2: Group related settings together
-   3. 🔲 [CLD11] T165.3.3: Include timestamp in output
+3. ✅ [CLD11] T165.3: Add formatting options
+   1. ✅ [CLD11] T165.3.1: Use indentation for nested properties
+   2. ✅ [CLD11] T165.3.2: Group related settings together
+   3. ✅ [CLD11] T165.3.3: Include timestamp in output
 
 ### Technical Notes:
 

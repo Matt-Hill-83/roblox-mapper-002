@@ -185,6 +185,15 @@ export class ConfigGUIService {
       parent: parent,
       onClick: () => this.eventHandlers.handleClearClick(() => this.createGUI())
     });
+
+    // Export Config button
+    ComponentFactory.createButton({
+      name: "ExportConfigButton",
+      text: "Export",
+      position: new UDim2(0, 10 + (GUI_CONSTANTS.BUTTON.WIDTH + GUI_CONSTANTS.BUTTON.SPACING) * 3, buttonYScale, buttonYOffset),
+      parent: parent,
+      onClick: () => this.eventHandlers.handleExportConfigClick()
+    });
   }
 
 
