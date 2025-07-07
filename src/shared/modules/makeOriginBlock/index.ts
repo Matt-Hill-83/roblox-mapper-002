@@ -113,7 +113,7 @@ export const makeOriginBlock: IMakerFunction<OriginBlockConfig, Part> = (config)
       },
     },
     textBoxOverrides: {
-      textSize: 100, // Maximum font size in Roblox
+      textSize: 75, // Reduced by 25% from 100 for better visual balance
       font: Enum.Font.SourceSansBold,
       borderSizePixel: 10, // Wider borders for better visibility
     },
