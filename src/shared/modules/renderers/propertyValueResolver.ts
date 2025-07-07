@@ -22,7 +22,9 @@ export class PropertyValueResolver {
       ["firstName", (node) => this.extractFirstName(node)],
       ["lastName", (node) => this.extractLastName(node)],
       ["fullName", (node) => this.extractFullName(node)],
-      ["animalType", (node) => this.extractAnimalType(node)]
+      ["animalType", (node) => this.extractAnimalType(node)],
+      ["countryOfBirth", (node) => this.extractCountryOfBirth(node)],
+      ["countryOfResidence", (node) => this.extractCountryOfResidence(node)]
     ]);
   }
   
@@ -135,6 +137,26 @@ export class PropertyValueResolver {
     // Type-safe property access
     const properties = node.properties as { animalType?: string };
     return properties.animalType || "None";
+  }
+  
+  /**
+   * Extract country of birth
+   */
+  private extractCountryOfBirth(node: Node): string {
+    if (!isPersonNode(node)) {
+      return "Unknown";
+    }
+    return node.properties.countryOfBirth || "Unknown";
+  }
+  
+  /**
+   * Extract country of residence
+   */
+  private extractCountryOfResidence(node: Node): string {
+    if (!isPersonNode(node)) {
+      return "Unknown";
+    }
+    return node.properties.countryOfResidence || "Unknown";
   }
   
   /**

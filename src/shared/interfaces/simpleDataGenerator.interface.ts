@@ -20,6 +20,8 @@ export interface Node {
     petColor?: string;
     firstName?: string;
     lastName?: string;
+    countryOfBirth?: string;
+    countryOfResidence?: string;
     
     // For Animals nodes
     animalType?: string;  // Now supports 10 different animal types

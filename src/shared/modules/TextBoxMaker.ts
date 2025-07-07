@@ -3,6 +3,9 @@ interface TextBoxConfig {
   face: Enum.NormalId;
   text: string;
   parent?: Instance;
+  backgroundColor?: Color3;
+  borderColor?: Color3;
+  textColor?: Color3;
 }
 
 export function createTextBox({
@@ -10,6 +13,9 @@ export function createTextBox({
   face,
   text,
   parent,
+  backgroundColor,
+  borderColor,
+  textColor
 }: TextBoxConfig): TextBox {
   // Create the SurfaceGui
   const surfaceGui = new Instance("SurfaceGui");
@@ -19,8 +25,8 @@ export function createTextBox({
   surfaceGui.PixelsPerStud = 50;
   surfaceGui.Parent = part;
 
-  // Get block color from part for background matching
-  const blockColor = [part.Color.R, part.Color.G, part.Color.B];
+  // Use provided background color or default to part color
+  const bgColor = backgroundColor || part.Color;
 
   // Create the TextBox with barMaker styling
   const textBox = new Instance("TextBox");
@@ -29,13 +35,10 @@ export function createTextBox({
   textBox.TextScaled = true; // Scale text to fit within bounds
   textBox.Font = Enum.Font.SourceSans;
   textBox.Size = new UDim2(1, 0, 1, 0);
-  textBox.BackgroundColor3 = Color3.fromRGB(
-    blockColor[0] * 255,
-    blockColor[1] * 255,
-    blockColor[2] * 255
-  );
-  textBox.TextColor3 = Color3.fromRGB(0, 0, 0);
+  textBox.BackgroundColor3 = bgColor;
+  textBox.TextColor3 = textColor || new Color3(0, 0, 0);
   textBox.BorderSizePixel = 2; // Reduced from 10 to prevent overflow
+  textBox.BorderColor3 = borderColor || new Color3(0, 0, 0);
   textBox.BorderMode = Enum.BorderMode.Inset; // Keep border inside the TextBox bounds
   textBox.TextWrapped = true; // Allow wrapping in addition to scaling
   textBox.Parent = surfaceGui;

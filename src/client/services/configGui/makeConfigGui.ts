@@ -18,9 +18,12 @@ import { createLayerGrid } from "./components/layerGrid";
 import { createStatusArea } from "./components/status";
 import { createVisualizationControls } from "./components/visualizationControls";
 import { createAxisMappingControls } from "./components/axisMappingControls";
+import { createVisualCustomizationControls } from "./components/visualCustomizationControls";
+import { createYAxisControls } from "./components/yAxisControls";
 import { GUIStateManager } from "./stateManager";
 import { GUIEventHandlers } from "./eventHandlers";
 import { ComponentFactory } from "./componentFactory";
+import { GuiLayoutManager, COMPONENT_HEIGHTS } from "./guiLayout";
 
 export class ConfigGUIService {
   private stateManager: GUIStateManager;
@@ -91,14 +94,21 @@ export class ConfigGUIService {
     
     const config = this.stateManager.getEnhancedConfig();
     
+    // Create layout manager
+    const layoutManager = new GuiLayoutManager(parentFrame);
+    
+    // Create scrolling frame for content
+    const scrollFrame = layoutManager.createScrollingFrame();
+    
     // Create global settings with spacing controls
-    createGlobalSettings({
-      parent: parentFrame,
+    const globalSettings = createGlobalSettings({
+      parent: scrollFrame,
       spacing: config.spacing!,
       onSpacingChange: (field, value) => {
         this.eventHandlers.handleSpacingChange(field, value);
       }
     });
+    globalSettings.Position = layoutManager.getNextPosition(COMPONENT_HEIGHTS.GLOBAL_SETTINGS);
 
     // Create node/link types section
     createNodeTypesSection({
@@ -119,8 +129,8 @@ export class ConfigGUIService {
 
     // Create layer grid with initial layers
     print(`🎯 Creating layer grid with ${config.layers.size()} initial layers`);
-    createLayerGrid({
-      parent: parentFrame,
+    const layerGrid = createLayerGrid({
+      parent: scrollFrame,
       onLayerUpdate: (layers) => {
         this.eventHandlers.handleLayerUpdate(layers);
       },
@@ -128,13 +138,17 @@ export class ConfigGUIService {
       linkTypes,
       initialLayers: config.layers
     });
+    layerGrid.Position = layoutManager.getNextPosition(
+      COMPONENT_HEIGHTS.LAYER_GRID_HEADER + 
+      (config.layers.size() * COMPONENT_HEIGHTS.LAYER_ROW) + 50
+    );
 
-    // Create action buttons
-    this.createActionButtons(parentFrame);
+    // Add spacing before controls section
+    layoutManager.addSpacing(20);
     
     // Create axis mapping controls
-    createAxisMappingControls({
-      parent: parentFrame,
+    const axisMapping = createAxisMappingControls({
+      parent: scrollFrame,
       axisMapping: config.axisMapping,
       onAxisMappingChange: (axis, value) => {
         this.stateManager.updateAxisMapping(axis, value);
@@ -142,17 +156,55 @@ export class ConfigGUIService {
         this.eventHandlers.handleRegenerateClick();
       }
     });
+    axisMapping.Position = layoutManager.getNextPosition(COMPONENT_HEIGHTS.AXIS_MAPPING);
+    
+    // Create visual customization controls
+    const visualCustomization = createVisualCustomizationControls({
+      parent: scrollFrame,
+      visualMapping: config.visualMapping,
+      onVisualMappingChange: (mapping, value) => {
+        this.stateManager.updateVisualMapping(mapping, value);
+        // Trigger re-render with new visual mapping
+        this.eventHandlers.handleRegenerateClick();
+      }
+    });
+    visualCustomization.Position = layoutManager.getNextPosition(COMPONENT_HEIGHTS.VISUAL_CUSTOMIZATION);
+    
+    // Create Y-axis controls
+    const yAxisControls = createYAxisControls({
+      parent: scrollFrame,
+      useLayerForYAxis: config.yAxisConfig?.useLayer !== false, // Default to true
+      yAxisProperty: config.yAxisConfig?.property,
+      onYAxisModeChange: (useLayer) => {
+        this.stateManager.updateYAxisConfig({ useLayer });
+        // Trigger re-render with new Y-axis mode
+        this.eventHandlers.handleRegenerateClick();
+      },
+      onYAxisPropertyChange: (property) => {
+        this.stateManager.updateYAxisConfig({ useLayer: false, property });
+        // Trigger re-render with new Y-axis property
+        this.eventHandlers.handleRegenerateClick();
+      }
+    });
+    yAxisControls.Position = layoutManager.getNextPosition(COMPONENT_HEIGHTS.Y_AXIS_CONTROLS);
 
-    // Create visualization controls (positioned to the right of buttons)
-    createVisualizationControls({
-      parent: parentFrame,
+    // Create visualization controls
+    const visualizationControls = createVisualizationControls({
+      parent: scrollFrame,
       visualization: config.visualization!,
       onVisualizationChange: (field, value) => {
         this.eventHandlers.handleVisualizationChange(field, value);
       }
     });
+    visualizationControls.Position = layoutManager.getNextPosition(COMPONENT_HEIGHTS.VISUALIZATION_CONTROLS);
 
-    // Create status area
+    // Update scrolling frame canvas size
+    layoutManager.updateCanvasSize(scrollFrame);
+    
+    // Create action buttons (outside scrolling frame)
+    this.createActionButtons(parentFrame);
+    
+    // Create status area (outside scrolling frame)
     const statusLabel = createStatusArea({
       parent: parentFrame
     });

@@ -16,6 +16,7 @@ import { AnimationTestGUIController } from "./controllers/animationTestGUI.contr
 // import { ColorPickerController } from "./controllers/_orphaned/colorPicker.controller";
 import { Players } from "@rbxts/services";
 import { KeyboardShortcutsService } from "./services/keyboardShortcuts.service";
+import { NodePropertiesInspectorService } from "./services/nodePropertiesInspector/nodePropertiesInspector.service";
 
 // Disable the default Roblox chat
 const starterGui = game.GetService("StarterGui");
@@ -45,4 +46,8 @@ animationTestController.initialize();
 // Initialize keyboard shortcuts service
 new KeyboardShortcutsService();
 
-print("🎮 Client initialized with Configuration GUI, Animation Test GUI, and Keyboard Shortcuts");
+// Initialize node properties inspector
+const nodeInspector = NodePropertiesInspectorService.getInstance();
+nodeInspector.initialize();
+
+print("🎮 Client initialized with Configuration GUI, Animation Test GUI, Keyboard Shortcuts, and Node Properties Inspector");

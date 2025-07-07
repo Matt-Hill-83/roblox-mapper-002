@@ -38,6 +38,18 @@ export interface AxisMapping {
   zAxis: string; // Property name for Z-axis grouping
 }
 
+// Visual mapping configuration for node colors
+export interface VisualMapping {
+  backgroundColor: string; // Property name for background color mapping
+  borderColor: string; // Property name for border color mapping
+}
+
+// Y-axis configuration
+export interface YAxisConfig {
+  useLayer: boolean; // true = use layer hierarchy, false = use property
+  property?: string; // Property name when not using layer
+}
+
 // Enhanced configuration that includes layers
 export interface EnhancedGeneratorConfig {
   numNodeTypes: number;
@@ -46,4 +58,6 @@ export interface EnhancedGeneratorConfig {
   spacing?: SpacingConfig; // Optional for backward compatibility
   visualization?: VisualizationOptions; // Optional for backward compatibility
   axisMapping?: AxisMapping; // Optional for backward compatibility
+  visualMapping?: VisualMapping; // Optional for visual property mapping
+  yAxisConfig?: YAxisConfig; // Optional for Y-axis configuration
 }

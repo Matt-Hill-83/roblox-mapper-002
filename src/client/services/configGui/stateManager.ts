@@ -210,6 +210,28 @@ export class GUIStateManager {
     this.state.enhancedConfig.axisMapping[axis] = value;
     this.notifyListeners();
   }
+  
+  /**
+   * Updates visual mapping
+   */
+  public updateVisualMapping(mapping: "backgroundColor" | "borderColor", value: string): void {
+    if (!this.state.enhancedConfig.visualMapping) {
+      this.state.enhancedConfig.visualMapping = {
+        backgroundColor: "type",
+        borderColor: "none"
+      };
+    }
+    this.state.enhancedConfig.visualMapping[mapping] = value;
+    this.notifyListeners();
+  }
+  
+  /**
+   * Updates Y-axis configuration
+   */
+  public updateYAxisConfig(config: { useLayer: boolean; property?: string }): void {
+    this.state.enhancedConfig.yAxisConfig = config;
+    this.notifyListeners();
+  }
 
   /**
    * Subscribes to state changes

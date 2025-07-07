@@ -55,5 +55,17 @@ export const LAST_NAMES = [
   "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"
 ];
 
+// Country lists for person nodes
+export const COUNTRIES_OF_BIRTH = [
+  "United States", "Canada", "United Kingdom", "Germany", "France",
+  "Japan", "China", "India", "Brazil", "Australia"
+];
+
+export const COUNTRIES_OF_RESIDENCE = [
+  "United States", "Canada", "United Kingdom", "Germany", "France",
+  "Japan", "China", "India", "Brazil", "Australia",
+  "Mexico", "Spain", "Italy", "Netherlands", "Sweden"
+];
+
 // Default attachments for nodes
 export const DEFAULT_ATTACHMENTS = ["top", "bottom", "left", "right", "front", "back"];

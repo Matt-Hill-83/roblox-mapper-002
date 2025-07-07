@@ -1,35 +1,32 @@
 import { GUI_CONSTANTS } from "../constants";
-import type { AxisMapping } from "../../../../shared/interfaces/enhancedGenerator.interface";
 
-interface AxisMappingControlsProps {
+interface YAxisControlsProps {
   parent: Frame;
-  axisMapping?: AxisMapping;
-  onAxisMappingChange: (axis: "xAxis" | "zAxis", value: string) => void;
+  useLayerForYAxis: boolean;
+  yAxisProperty?: string;
+  onYAxisModeChange: (useLayer: boolean) => void;
+  onYAxisPropertyChange: (property: string) => void;
 }
 
-// Available properties for axis mapping
-const AVAILABLE_PROPERTIES = ["type", "petType", "petColor", "age", "firstName", "lastName", "countryOfBirth", "countryOfResidence"];
+// Available properties for Y-axis mapping (excluding layer)
+const Y_AXIS_PROPERTIES = ["type", "petType", "petColor", "age", "firstName", "lastName", "countryOfBirth", "countryOfResidence"];
 
-export function createAxisMappingControls({
+export function createYAxisControls({
   parent,
-  axisMapping,
-  onAxisMappingChange
-}: AxisMappingControlsProps): Frame {
-  // Provide default axis mapping if not provided
-  const mapping = axisMapping || {
-    xAxis: "type",
-    zAxis: "petType"
-  };
-  
+  useLayerForYAxis,
+  yAxisProperty,
+  onYAxisModeChange,
+  onYAxisPropertyChange
+}: YAxisControlsProps): Frame {
   // Create container WITHOUT clipping for dropdowns to show
   const container = new Instance("Frame");
-  container.Name = "AxisMappingControls";
+  container.Name = "YAxisControls";
   container.Size = new UDim2(1, -20, 0, 80);
   container.Position = new UDim2(0, 0, 0, 0); // Position will be set by layout manager
   container.BackgroundColor3 = new Color3(0.15, 0.15, 0.15);
   container.BorderSizePixel = 0;
-  container.ClipsDescendants = false; // Disable clipping so dropdowns can extend outside
-  container.ZIndex = 2; // Ensure container is above other elements
+  container.ClipsDescendants = false; // Disable clipping so dropdowns can extend
+  container.ZIndex = 2;
   container.Parent = parent;
 
   const containerCorner = new Instance("UICorner");
@@ -42,55 +39,100 @@ export function createAxisMappingControls({
   title.Position = new UDim2(0, 10, 0, 5);
   title.BackgroundTransparency = 1;
   title.Font = GUI_CONSTANTS.TYPOGRAPHY.TITLE_FONT;
-  title.Text = "Axis Property Mapping";
+  title.Text = "Y-Axis Configuration";
   title.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
   title.TextSize = 16;
   title.TextXAlignment = Enum.TextXAlignment.Left;
   title.Parent = container;
 
-  // X-Axis dropdown
-  createAxisDropdown({
-    parent: container,
-    label: "X-Axis Property:",
-    position: new UDim2(0, 10, 0, 30),
-    currentValue: mapping.xAxis,
-    onValueChange: (value) => onAxisMappingChange("xAxis", value)
+  // Toggle frame
+  const toggleFrame = new Instance("Frame");
+  toggleFrame.Size = new UDim2(0.5, -20, 0, 40);
+  toggleFrame.Position = new UDim2(0, 10, 0, 30);
+  toggleFrame.BackgroundTransparency = 1;
+  toggleFrame.Parent = container;
+
+  // Toggle label
+  const toggleLabel = new Instance("TextLabel");
+  toggleLabel.Size = new UDim2(0.6, 0, 0, 20);
+  toggleLabel.Position = new UDim2(0, 0, 0, 0);
+  toggleLabel.BackgroundTransparency = 1;
+  toggleLabel.Font = GUI_CONSTANTS.TYPOGRAPHY.LABEL_FONT;
+  toggleLabel.Text = "Use Layer:";
+  toggleLabel.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
+  toggleLabel.TextSize = 14;
+  toggleLabel.TextXAlignment = Enum.TextXAlignment.Left;
+  toggleLabel.Parent = toggleFrame;
+
+  // Toggle checkbox
+  const checkbox = new Instance("TextButton");
+  checkbox.Size = new UDim2(0, 25, 0, 25);
+  checkbox.Position = new UDim2(0.6, 0, 0, -2);
+  checkbox.BackgroundColor3 = useLayerForYAxis 
+    ? GUI_CONSTANTS.COLORS.BUTTON.DEFAULT 
+    : new Color3(0.3, 0.3, 0.3);
+  checkbox.BorderSizePixel = 2;
+  checkbox.BorderColor3 = new Color3(0.5, 0.5, 0.5);
+  checkbox.Text = useLayerForYAxis ? "✓" : "";
+  checkbox.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
+  checkbox.TextScaled = true;
+  checkbox.Font = GUI_CONSTANTS.TYPOGRAPHY.BUTTON_FONT;
+  checkbox.Parent = toggleFrame;
+
+  const checkboxCorner = new Instance("UICorner");
+  checkboxCorner.CornerRadius = new UDim(0, 4);
+  checkboxCorner.Parent = checkbox;
+
+  // Property dropdown (only visible when not using layer)
+  const dropdownFrame = new Instance("Frame");
+  dropdownFrame.Size = new UDim2(0.5, -20, 0, 40);
+  dropdownFrame.Position = new UDim2(0.5, 10, 0, 30);
+  dropdownFrame.BackgroundTransparency = 1;
+  dropdownFrame.Visible = !useLayerForYAxis;
+  dropdownFrame.Parent = container;
+
+  // Property dropdown
+  createYAxisDropdown({
+    parent: dropdownFrame,
+    label: "Y-Axis Property:",
+    currentValue: yAxisProperty || "type",
+    onValueChange: onYAxisPropertyChange
   });
 
-  // Z-Axis dropdown
-  createAxisDropdown({
-    parent: container,
-    label: "Z-Axis Property:",
-    position: new UDim2(0.5, 10, 0, 30),
-    currentValue: mapping.zAxis,
-    onValueChange: (value) => onAxisMappingChange("zAxis", value)
+  // Toggle handler
+  checkbox.MouseButton1Click.Connect(() => {
+    const newUseLayer = !useLayerForYAxis;
+    
+    // Update checkbox appearance
+    checkbox.BackgroundColor3 = newUseLayer 
+      ? GUI_CONSTANTS.COLORS.BUTTON.DEFAULT 
+      : new Color3(0.3, 0.3, 0.3);
+    checkbox.Text = newUseLayer ? "✓" : "";
+    
+    // Toggle dropdown visibility
+    dropdownFrame.Visible = !newUseLayer;
+    
+    // Notify parent
+    onYAxisModeChange(newUseLayer);
+    print(`📈 Y-axis mode changed: Use Layer Hierarchy = ${newUseLayer}`);
   });
 
   return container;
 }
 
-interface AxisDropdownProps {
+interface YAxisDropdownProps {
   parent: Frame;
   label: string;
-  position: UDim2;
   currentValue: string;
   onValueChange: (value: string) => void;
 }
 
-function createAxisDropdown({
+function createYAxisDropdown({
   parent,
   label,
-  position,
   currentValue,
   onValueChange
-}: AxisDropdownProps): void {
-  // Container for label and dropdown
-  const dropdownContainer = new Instance("Frame");
-  dropdownContainer.Size = new UDim2(0.5, -20, 0, 40);
-  dropdownContainer.Position = position;
-  dropdownContainer.BackgroundTransparency = 1;
-  dropdownContainer.Parent = parent;
-
+}: YAxisDropdownProps): void {
   // Label
   const dropdownLabel = new Instance("TextLabel");
   dropdownLabel.Size = new UDim2(1, 0, 0, 20);
@@ -101,7 +143,7 @@ function createAxisDropdown({
   dropdownLabel.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
   dropdownLabel.TextSize = 14;
   dropdownLabel.TextXAlignment = Enum.TextXAlignment.Left;
-  dropdownLabel.Parent = dropdownContainer;
+  dropdownLabel.Parent = parent;
 
   // Dropdown button
   const dropdownButton = new Instance("TextButton");
@@ -113,7 +155,7 @@ function createAxisDropdown({
   dropdownButton.Text = currentValue + " ▼";
   dropdownButton.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
   dropdownButton.TextSize = 14;
-  dropdownButton.Parent = dropdownContainer;
+  dropdownButton.Parent = parent;
 
   const buttonCorner = new Instance("UICorner");
   buttonCorner.CornerRadius = new UDim(0, 4);
@@ -122,13 +164,13 @@ function createAxisDropdown({
   // Dropdown list container (hidden by default) - opens upward
   const dropdownList = new Instance("Frame");
   const itemHeight = 25;
-  const maxItems = 6; // Show max 6 items before scrolling
-  const actualHeight = math.min(AVAILABLE_PROPERTIES.size() * itemHeight, maxItems * itemHeight);
+  const maxItems = 6;
+  const actualHeight = math.min(Y_AXIS_PROPERTIES.size() * itemHeight, maxItems * itemHeight);
   dropdownList.Size = new UDim2(1, 0, 0, actualHeight);
   dropdownList.Position = new UDim2(0, 0, 0, -actualHeight - 5); // Position above button with gap
   dropdownList.BackgroundColor3 = new Color3(0.1, 0.1, 0.1); // Darker background
   dropdownList.BorderSizePixel = 1;
-  dropdownList.BorderColor3 = new Color3(0.3, 0.3, 0.3); // Add border for visibility
+  dropdownList.BorderColor3 = new Color3(0.3, 0.3, 0.3);
   dropdownList.Visible = false;
   dropdownList.ZIndex = 5;
   dropdownList.Parent = dropdownButton;
@@ -138,7 +180,7 @@ function createAxisDropdown({
   listCorner.Parent = dropdownList;
 
   // Create scrolling frame for dropdown options if needed
-  const needsScroll = AVAILABLE_PROPERTIES.size() > maxItems;
+  const needsScroll = Y_AXIS_PROPERTIES.size() > maxItems;
   const optionParent = needsScroll ? new Instance("ScrollingFrame") : dropdownList;
   
   if (needsScroll && optionParent.IsA("ScrollingFrame")) {
@@ -148,20 +190,20 @@ function createAxisDropdown({
     optionParent.BorderSizePixel = 0;
     optionParent.ScrollBarThickness = 4;
     optionParent.ScrollBarImageColor3 = new Color3(0.5, 0.5, 0.5);
-    optionParent.CanvasSize = new UDim2(0, 0, 0, AVAILABLE_PROPERTIES.size() * itemHeight);
+    optionParent.CanvasSize = new UDim2(0, 0, 0, Y_AXIS_PROPERTIES.size() * itemHeight);
     optionParent.Parent = dropdownList;
   }
 
   // Create option buttons
-  AVAILABLE_PROPERTIES.forEach((property, index) => {
+  Y_AXIS_PROPERTIES.forEach((property, index) => {
     const optionButton = new Instance("TextButton");
     optionButton.Size = new UDim2(1, needsScroll ? -10 : 0, 0, itemHeight);
     optionButton.Position = new UDim2(0, 0, 0, index * itemHeight);
     optionButton.BackgroundColor3 = new Color3(0.1, 0.1, 0.1);
-    optionButton.BackgroundTransparency = 0; // Solid background
+    optionButton.BackgroundTransparency = 0;
     optionButton.Font = GUI_CONSTANTS.TYPOGRAPHY.INPUT_FONT;
     optionButton.Text = property;
-    optionButton.TextColor3 = new Color3(0.9, 0.9, 0.9); // Brighter text
+    optionButton.TextColor3 = new Color3(0.9, 0.9, 0.9);
     optionButton.TextSize = 14;
     optionButton.TextXAlignment = Enum.TextXAlignment.Center;
     optionButton.BorderSizePixel = 0;
@@ -170,7 +212,7 @@ function createAxisDropdown({
     // Hover effect
     optionButton.MouseEnter.Connect(() => {
       optionButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
-      optionButton.TextColor3 = new Color3(1, 1, 1); // Even brighter on hover
+      optionButton.TextColor3 = new Color3(1, 1, 1);
     });
 
     optionButton.MouseLeave.Connect(() => {
@@ -183,37 +225,30 @@ function createAxisDropdown({
       dropdownButton.Text = property + " ▼";
       dropdownList.Visible = false;
       onValueChange(property);
-      print(`🎯 Axis mapping changed: ${label.sub(1, -2)} = "${property}"`);
+      print(`📊 Y-axis property changed: "${property}"`);
     });
   });
 
-  // Create a connection variable to track the close handler
+  // Toggle dropdown
   let closeConnection: RBXScriptConnection | undefined;
   
-  // Toggle dropdown
   dropdownButton.MouseButton1Click.Connect(() => {
     const isOpening = !dropdownList.Visible;
     dropdownList.Visible = isOpening;
     
-    // If opening, set up the close handler
     if (isOpening) {
-      // Disconnect previous handler if it exists
       if (closeConnection) {
         closeConnection.Disconnect();
       }
       
-      // Wait a frame to avoid immediate closing
       game.GetService("RunService").Heartbeat.Wait();
       
-      // Set up new close handler
       const userInputService = game.GetService("UserInputService");
       closeConnection = userInputService.InputBegan.Connect((input, gameProcessed) => {
         if (input.UserInputType === Enum.UserInputType.MouseButton1 && !gameProcessed) {
-          // Check if click is outside the dropdown
           const mouse = game.GetService("Players").LocalPlayer.GetMouse();
           const target = mouse.Target;
           
-          // Close if clicking outside dropdown area
           if (!target || !target.IsDescendantOf(dropdownButton)) {
             dropdownList.Visible = false;
             if (closeConnection) {
@@ -224,7 +259,6 @@ function createAxisDropdown({
         }
       });
     } else if (closeConnection) {
-      // If closing, disconnect the handler
       closeConnection.Disconnect();
       closeConnection = undefined;
     }

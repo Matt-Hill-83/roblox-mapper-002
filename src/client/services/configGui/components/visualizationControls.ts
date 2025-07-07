@@ -30,7 +30,7 @@ export function createVisualizationControls({
   container.Name = "VisualizationControls";
   container.Size = new UDim2(1, -20, 0, 120);
   // Position above the buttons
-  container.Position = new UDim2(0, 10, 1, -200);
+  container.Position = new UDim2(0, 0, 0, 0); // Position will be set by layout manager
   container.BackgroundColor3 = new Color3(0.15, 0.15, 0.15);
   container.BorderSizePixel = 0;
   container.Parent = parent;

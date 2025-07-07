@@ -11,7 +11,15 @@ import { PositionCalculator } from "./core/positionCalculator";
 import { NodeRenderer } from "./rendering/nodeRenderer";
 import { UpdateManager } from "./rendering/updateManager";
 import { LabelRenderer } from "./rendering/labelRenderer";
-import { createFlatBlocks, calculateBlockDimensions, createSwimLaneBlock, createZAxisShadowBlocks, FLAT_BLOCK_DEFAULTS } from "../flatBlockCreator";
+import { 
+  createFlatBlocksAdapter as createFlatBlocks, 
+  calculateBlockDimensionsAdapter as calculateBlockDimensions, 
+  createSwimLaneBlockAdapter as createSwimLaneBlock, 
+  createZAxisShadowBlocksAdapter as createZAxisShadowBlocks, 
+  FLAT_BLOCK_DEFAULTS 
+} from "../blockCreatorAdapter";
+import { createVerticalWalls, createWallSwimlanes } from "../verticalWallCreator";
+import { PropertyValueResolver } from "../propertyValueResolver";
 
 export class UnifiedDataRenderer {
   private dataGenerator: DataGenerator;
@@ -19,6 +27,7 @@ export class UnifiedDataRenderer {
   private nodeRenderer: NodeRenderer;
   private updateManager: UpdateManager;
   private labelRenderer: LabelRenderer;
+  private propertyResolver: PropertyValueResolver;
   private currentConfig?: EnhancedGeneratorConfig;
 
   constructor() {
@@ -27,6 +36,7 @@ export class UnifiedDataRenderer {
     this.nodeRenderer = new NodeRenderer();
     this.updateManager = new UpdateManager();
     this.labelRenderer = new LabelRenderer();
+    this.propertyResolver = new PropertyValueResolver();
   }
 
   /**
@@ -78,6 +88,24 @@ export class UnifiedDataRenderer {
     
     // Create Z-axis shadow blocks and collect them
     const zAxisSwimlaneBlocks = this.createZAxisSwimLaneBlocks(cluster, blocks.platform, config);
+    
+    // Create vertical walls if Y-axis is property-based
+    if (config.yAxisConfig && !config.yAxisConfig.useLayer) {
+      const wallHeight = this.calculateWallHeight(cluster);
+      const walls = createVerticalWalls({
+        platformBounds: {
+          minX: targetOrigin.X - blockDimensions.width / 2,
+          maxX: targetOrigin.X + blockDimensions.width / 2,
+          minZ: targetOrigin.Z - blockDimensions.depth / 2,
+          maxZ: targetOrigin.Z + blockDimensions.depth / 2
+        },
+        height: wallHeight,
+        parent: blocks.platform
+      });
+      
+      // Add swimlane shadows on walls
+      this.createYAxisWallSwimlanes(cluster, walls, config);
+    }
     
     // Render the cluster first
     this.nodeRenderer.renderCluster(cluster, parentFolder, config);
@@ -157,7 +185,7 @@ export class UnifiedDataRenderer {
     
     // Group nodes by x-axis property and calculate bounds
     cluster.groups[0].nodes.forEach(node => {
-      const propertyValue = this.getNodePropertyValue(node, xAxisProperty);
+      const propertyValue = this.propertyResolver.getPropertyValue(node, xAxisProperty);
       if (!nodesByType.has(propertyValue)) {
         nodesByType.set(propertyValue, []);
         typeBounds.set(propertyValue, {
@@ -225,38 +253,6 @@ export class UnifiedDataRenderer {
     return swimlaneBlocks;
   }
   
-  /**
-   * Get property value from node
-   */
-  private getNodePropertyValue(node: Node, propertyName: string): string {
-    if (propertyName === "type") {
-      return node.type;
-    } else if (propertyName === "age") {
-      const age = node.properties?.age;
-      if (age !== undefined) {
-        // Group ages into ranges
-        if (age < 20) return "0-19";
-        if (age < 40) return "20-39";
-        if (age < 60) return "40-59";
-        if (age < 80) return "60-79";
-        return "80+";
-      }
-      return "Unknown";
-    } else if (node.properties && propertyName in node.properties) {
-      // Type-safe property access
-      if (propertyName === "petType") {
-        return node.properties.petType || "None";
-      } else if (propertyName === "petColor") {
-        return node.properties.petColor || "None";
-      } else if (propertyName === "firstName") {
-        return node.properties.firstName || "None";
-      } else if (propertyName === "lastName") {
-        return node.properties.lastName || "None";
-      }
-      return "None";
-    }
-    return "Unknown";
-  }
   
   /**
    * Creates labels for X and Z axis swimlanes
@@ -284,7 +280,7 @@ export class UnifiedDataRenderer {
     // Group nodes by x and z properties
     cluster.groups[0].nodes.forEach(node => {
       // Group by x-axis property
-      const xValue = this.getNodePropertyValue(node, xAxisProperty);
+      const xValue = this.propertyResolver.getPropertyValue(node, xAxisProperty);
       if (!nodesByXProperty.has(xValue)) {
         nodesByXProperty.set(xValue, []);
         xPropertyBounds.set(xValue, {
@@ -302,7 +298,7 @@ export class UnifiedDataRenderer {
       xBounds.maxZ = math.max(xBounds.maxZ, node.position.z);
       
       // Group by z-axis property
-      const zValue = this.getNodePropertyValue(node, zAxisProperty);
+      const zValue = this.propertyResolver.getPropertyValue(node, zAxisProperty);
       if (!nodesByZProperty.has(zValue)) {
         nodesByZProperty.set(zValue, []);
         zPropertyBounds.set(zValue, {
@@ -338,7 +334,7 @@ export class UnifiedDataRenderer {
     const propertyBounds = new Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>();
     
     cluster.groups[0].nodes.forEach(node => {
-      const propertyValue = this.getNodePropertyValue(node, zAxisProperty);
+      const propertyValue = this.propertyResolver.getPropertyValue(node, zAxisProperty);
       if (!nodesByProperty.has(propertyValue)) {
         nodesByProperty.set(propertyValue, []);
         propertyBounds.set(propertyValue, {
@@ -361,5 +357,48 @@ export class UnifiedDataRenderer {
     // Create Z-axis shadow blocks (raised by 0.1 for visibility)
     createZAxisShadowBlocks(nodesByProperty, propertyBounds, parent, 0.6, swimlaneBlocks);
     return swimlaneBlocks;
+  }
+  
+  /**
+   * Calculate wall height based on cluster bounds
+   */
+  private calculateWallHeight(cluster: Cluster): number {
+    let maxY = 0;
+    cluster.groups[0].nodes.forEach(node => {
+      maxY = math.max(maxY, node.position.y);
+    });
+    return maxY + 10; // Add some padding
+  }
+  
+  /**
+   * Create Y-axis swimlane shadows on walls
+   */
+  private createYAxisWallSwimlanes(cluster: Cluster, walls: Part[], config: EnhancedGeneratorConfig): void {
+    if (!config.yAxisConfig || config.yAxisConfig.useLayer) return;
+    
+    const yAxisProperty = config.yAxisConfig.property || "type";
+    const propertyGroups = new Map<string, { minY: number; maxY: number }>();
+    const propertyColors = new Map<string, Color3>();
+    
+    // Group nodes by Y-axis property and find bounds
+    cluster.groups[0].nodes.forEach(node => {
+      const propertyValue = this.propertyResolver.getPropertyValue(node, yAxisProperty);
+      
+      if (!propertyGroups.has(propertyValue)) {
+        propertyGroups.set(propertyValue, {
+          minY: math.huge,
+          maxY: -math.huge
+        });
+        // Use node color for the property
+        propertyColors.set(propertyValue, new Color3(node.color[0], node.color[1], node.color[2]));
+      }
+      
+      const bounds = propertyGroups.get(propertyValue)!;
+      bounds.minY = math.min(bounds.minY, node.position.y);
+      bounds.maxY = math.max(bounds.maxY, node.position.y);
+    });
+    
+    // Create swimlane shadows on walls
+    createWallSwimlanes(walls, propertyGroups, propertyColors);
   }
 }

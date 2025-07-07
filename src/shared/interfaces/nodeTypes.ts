@@ -15,6 +15,8 @@ export interface PersonProperties {
   petColor: string;
   firstName: string;
   lastName: string;
+  countryOfBirth: string;
+  countryOfResidence: string;
 }
 
 export interface AnimalProperties {
@@ -38,7 +40,7 @@ export function isValidNodeType(nodeType: string): nodeType is NodeType {
 }
 
 // Axis property names
-export type AxisPropertyName = "type" | "age" | "petType" | "petColor" | "firstName" | "lastName";
+export type AxisPropertyName = "type" | "age" | "petType" | "petColor" | "firstName" | "lastName" | "countryOfBirth" | "countryOfResidence";
 
 export const AXIS_PROPERTIES: readonly AxisPropertyName[] = [
   "type",
@@ -46,5 +48,7 @@ export const AXIS_PROPERTIES: readonly AxisPropertyName[] = [
   "petType",
   "petColor",
   "firstName",
-  "lastName"
+  "lastName",
+  "countryOfBirth",
+  "countryOfResidence"
 ] as const;

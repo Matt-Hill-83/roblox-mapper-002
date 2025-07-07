@@ -14,28 +14,28 @@ export class GraphInitializerService {
     layers: [
       {
         layerNumber: 1,
-        numNodes: 1,
-        connectionsPerNode: 1,
+        numNodes: 4,  // Test with more nodes in first layer
+        connectionsPerNode: 0,  // Test with no intra-layer connections
       },
       {
         layerNumber: 2,
-        numNodes: 3,
-        connectionsPerNode: 2,
+        numNodes: 8,
+        connectionsPerNode: 1,
       },
       {
         layerNumber: 3,
-        numNodes: 9,
-        connectionsPerNode: 1,
+        numNodes: 12,
+        connectionsPerNode: 0,  // Test sparse connectivity
       },
       {
         layerNumber: 4,
-        numNodes: 27,
-        connectionsPerNode: 1,
+        numNodes: 16,
+        connectionsPerNode: 2,
       },
       {
         layerNumber: 5,
-        numNodes: 36,
-        connectionsPerNode: 1,
+        numNodes: 20,
+        connectionsPerNode: 0,  // Test last layer with no connections
       },
     ],
     spacing: {
@@ -49,7 +49,7 @@ export class GraphInitializerService {
     visualization: {
       showLinkLabels: false,
       showConnectors: true,
-      allowSameLevelLinks: false,
+      allowSameLevelLinks: true,  // Enable same-level links for testing
       randomZOffset: false,
     },
   };

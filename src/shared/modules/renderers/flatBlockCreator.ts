@@ -3,6 +3,9 @@
  * Creates a large flat block under the node tree for visual foundation
  */
 
+import { BLOCK_CONSTANTS } from "./constants/blockConstants";
+import { POSITION_CONSTANTS } from "./constants/positionConstants";
+
 export interface FlatBlockConfig {
   origin: Vector3;
   parent: Instance;
@@ -23,12 +26,12 @@ export interface SwimLaneBlockConfig {
 }
 
 export const FLAT_BLOCK_DEFAULTS = {
-  height: 3,  // Changed from 5 to 3 units as requested
-  width: 200,  // Large enough to extend beyond typical node trees
-  depth: 200,
-  shadowColor: new Color3(0.5, 0.7, 1), // Light blue for shadow block
-  platformColor: new Color3(0.5, 1, 0.5), // Light green for platform block
-  zFightingFix: 0.1, // Vertical offset to prevent Z-fighting between overlapping blocks
+  height: BLOCK_CONSTANTS.DIMENSIONS.DEFAULT_HEIGHT,
+  width: BLOCK_CONSTANTS.DIMENSIONS.DEFAULT_WIDTH,
+  depth: BLOCK_CONSTANTS.DIMENSIONS.DEFAULT_DEPTH,
+  shadowColor: BLOCK_CONSTANTS.COLORS.SHADOW,
+  platformColor: BLOCK_CONSTANTS.COLORS.PLATFORM,
+  zFightingFix: BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET,
 };
 
 /**
@@ -51,7 +54,7 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   
   // Platform has same height as shadow block but positioned 0.1 lower
   // Platform has fixed size of 100x100 in X,Z dimensions
-  platformBlock.Size = new Vector3(100, height, 100);
+  platformBlock.Size = new Vector3(BLOCK_CONSTANTS.DIMENSIONS.PLATFORM_SIZE, height, BLOCK_CONSTANTS.DIMENSIONS.PLATFORM_SIZE);
   
   // Set platform material and appearance
   platformBlock.Material = Enum.Material.Concrete;
@@ -87,8 +90,8 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   const shadowBlock = new Instance("Part");
   shadowBlock.Name = "GroupShadowBlock";
   
-  // Set shadow size with 1 unit buffer on all sides
-  shadowBlock.Size = new Vector3(width + 2, height, depth + 2);
+  // Set shadow size with buffer on all sides
+  shadowBlock.Size = new Vector3(width + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER, height, depth + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER);
   
   // Set shadow material and appearance
   shadowBlock.Material = Enum.Material.Concrete;
@@ -102,10 +105,10 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   shadowBlock.CastShadow = false;
   shadowBlock.Transparency = 0; // Fully opaque
   
-  // Position shadow block - same position as platform
+  // Position shadow block - 0.1 units above platform to prevent z-fighting
   shadowBlock.Position = new Vector3(
     origin.X,
-    height / 2, // Bottom at Y=0, so center is at height/2
+    height / 2 + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET, // Raised by 0.1 to prevent z-fighting
     origin.Z
   );
   
@@ -196,7 +199,7 @@ export function calculateBlockDimensions(
   const depth = nodeDepth + padding * 2;
   
   // Ensure minimum size
-  const minSize = 1;
+  const minSize = BLOCK_CONSTANTS.DIMENSIONS.MIN_BLOCK_SIZE;
   const finalWidth = math.max(width, minSize);
   const finalDepth = math.max(depth, minSize);
   
@@ -232,31 +235,23 @@ export function createZAxisShadowBlocks(
     const bounds = propertyBounds.get(propertyValue)!;
     
     // Calculate block dimensions
-    const blockWidth = bounds.maxX - bounds.minX + 5; // Add padding
-    const blockDepth = bounds.maxZ - bounds.minZ + 5;
+    const blockWidth = bounds.maxX - bounds.minX + POSITION_CONSTANTS.Z_AXIS_SPACING; // Add padding
+    const blockDepth = bounds.maxZ - bounds.minZ + POSITION_CONSTANTS.Z_AXIS_SPACING;
     const centerX = (bounds.minX + bounds.maxX) / 2;
     const centerZ = (bounds.minZ + bounds.maxZ) / 2;
     
     // Create the block
     const block = new Instance("Part");
     block.Name = `ZAxisShadowBlock_${propertyValue}`;
-    block.Size = new Vector3(blockWidth, 2, blockDepth);
+    block.Size = new Vector3(blockWidth, BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BLOCK_HEIGHT, blockDepth);
     block.Position = new Vector3(centerX, yPosition, centerZ);
     
     // Set appearance
-    block.Material = Enum.Material.ForceField;
-    block.Transparency = 0.8;
+    block.Material = BLOCK_CONSTANTS.MATERIALS.SHADOW;
+    block.Transparency = BLOCK_CONSTANTS.TRANSPARENCY.FORCE_FIELD;
     
     // Use different colors for different property values
-    const colors = [
-      new Color3(0.8, 0.2, 0.2), // Red
-      new Color3(0.2, 0.8, 0.2), // Green
-      new Color3(0.2, 0.2, 0.8), // Blue
-      new Color3(0.8, 0.8, 0.2), // Yellow
-      new Color3(0.8, 0.2, 0.8), // Magenta
-      new Color3(0.2, 0.8, 0.8), // Cyan
-      new Color3(0.5, 0.5, 0.5), // Gray
-    ];
+    const colors = BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS;
     
     block.Color = colors[blockIndex % colors.size()];
     block.TopSurface = Enum.SurfaceType.Smooth;
@@ -301,7 +296,7 @@ export function createSwimLaneBlock(config: SwimLaneBlockConfig): Part {
   swimLaneBlock.Size = new Vector3(width, height, depth);
   
   // Set material and appearance
-  swimLaneBlock.Material = Enum.Material.Concrete;
+  swimLaneBlock.Material = BLOCK_CONSTANTS.MATERIALS.SWIMLANE;
   swimLaneBlock.Color = color;
   swimLaneBlock.TopSurface = Enum.SurfaceType.Smooth;
   swimLaneBlock.BottomSurface = Enum.SurfaceType.Smooth;

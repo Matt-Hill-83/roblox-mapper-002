@@ -10,6 +10,7 @@ import { INodeRenderer, SpacingConfig } from "../interfaces";
 import { makeHexagon } from "../../../hexagonMaker";
 import { createRopeConnectors } from "../../dataGeneratorRobloxRendererUtils/ropeCreator";
 import { RENDERER_CONSTANTS } from "../../dataGeneratorRobloxRendererUtils/constants";
+import { getNodeBackgroundColor, getNodeBorderColor } from "../utils/colorMapper";
 
 export class NodeRenderer implements INodeRenderer {
   /**
@@ -67,7 +68,7 @@ export class NodeRenderer implements INodeRenderer {
     
     cluster.groups.forEach(group => {
       group.nodes.forEach(node => {
-        const hexagon = this.createSingleHexagon(node, hexIndex, spacing);
+        const hexagon = this.createSingleHexagon(node, hexIndex, spacing, config);
         hexagon.Parent = nodesFolder;
         nodeToHexagon.set(node.uuid, hexagon);
         hexIndex++;
@@ -80,11 +81,15 @@ export class NodeRenderer implements INodeRenderer {
   /**
    * Create a single hexagon for a node
    */
-  private createSingleHexagon(node: Node, hexIndex: number, spacing: SpacingConfig): Model {
+  private createSingleHexagon(node: Node, hexIndex: number, spacing: SpacingConfig, config?: EnhancedGeneratorConfig): Model {
     const WIDTH = spacing.nodeRadius * 2; // Diameter from radius
     const HEIGHT = spacing.nodeHeight;
     
     const labels = this.createNodeLabels(node);
+    
+    // Get colors based on visual mapping
+    const backgroundColor = getNodeBackgroundColor(node, config?.visualMapping);
+    const borderColor = getNodeBorderColor(node, config?.visualMapping);
     
     const hexagon = makeHexagon({
       id: hexIndex,
@@ -92,9 +97,12 @@ export class NodeRenderer implements INodeRenderer {
       width: WIDTH,
       height: HEIGHT,
       barProps: {
-        Color: node.color,
+        Color: [backgroundColor.R, backgroundColor.G, backgroundColor.B],
         Material: Enum.Material.SmoothPlastic, // Performance optimization
-        CastShadow: false // Performance optimization
+        CastShadow: false, // Performance optimization
+        // Store visual customization for bars to use
+        BackgroundColor: backgroundColor,
+        BorderColor: borderColor
       },
       labels: labels,
       stackIndex: 1,
@@ -104,6 +112,34 @@ export class NodeRenderer implements INodeRenderer {
     
     // Set hexagon name based on UUID pattern
     this.setHexagonName(hexagon, node.uuid);
+    
+    // Store node properties as attributes for the inspector
+    hexagon.SetAttribute("nodeName", node.name);
+    hexagon.SetAttribute("nodeType", node.type);
+    
+    if (node.properties) {
+      if (node.properties.age !== undefined) {
+        hexagon.SetAttribute("age", node.properties.age);
+      }
+      if (node.properties.petType) {
+        hexagon.SetAttribute("petType", node.properties.petType);
+      }
+      if (node.properties.petColor) {
+        hexagon.SetAttribute("petColor", node.properties.petColor);
+      }
+      if (node.properties.firstName) {
+        hexagon.SetAttribute("firstName", node.properties.firstName);
+      }
+      if (node.properties.lastName) {
+        hexagon.SetAttribute("lastName", node.properties.lastName);
+      }
+      if (node.properties.countryOfBirth) {
+        hexagon.SetAttribute("countryOfBirth", node.properties.countryOfBirth);
+      }
+      if (node.properties.countryOfResidence) {
+        hexagon.SetAttribute("countryOfResidence", node.properties.countryOfResidence);
+      }
+    }
     
     return hexagon;
   }

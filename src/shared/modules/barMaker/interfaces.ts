@@ -9,6 +9,8 @@ export interface BarProps {
   TopSurface: string;
   BottomSurface: string;
   Transparency: number;
+  BackgroundColor?: Color3;
+  BorderColor?: Color3;
 }
 
 export interface BarConfig {
