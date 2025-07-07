@@ -1,9 +1,8 @@
 ## R5: Additional Features
 
-1. 🔲 [CLD5] R5.1: When a user adds a new layer, the row values in the GUI table shall be initialized to match the row above it
+1. ✅ [CLD5] R5.1: When a user adds a new layer, the row values in the GUI table shall be initialized to match the row above it
 2. ✅ [CLD5] R5.2: The system shall allow the user to quit the game by pressing Esc, then P
-3. 🔲 [CLD5] R5.3: The GUI shall allow Tab key to advance to the next input field
-4. ✅ [CLD5] R5.4: The GUI shall use the following default values (as shown in the image):
+3. ✅ [CLD5] R5.4: The GUI shall use the following default values (as shown in the image):
    1. ✅ [CLD5] R5.4.1: Node Height: 1
    2. ✅ [CLD5] R5.4.2: Node Radius: 2
    3. ✅ [CLD5] R5.4.3: Layer Spacing: 4
@@ -39,3 +38,29 @@
 ## R9: Link Color Fix
 
 1. ✅ [CLD9] R9.1: Link types shall display with their assigned colors instead of all appearing red
+
+## R10: Console and Layout Improvements
+
+1. 🔲 [CLD11] R10.1: The console output shall be reduced to half its current width
+2. 🔲 [CLD11] R10.2: Node type and link type buttons shall be stacked vertically to save horizontal space
+
+## R11: Additional Input Controls
+
+1. 🔲 [CLD11] R11.1: The GUI shall include a numeric input field for Z offset amount used by the Random Z function
+   1. 🔲 [CLD11] R11.1.1: Default value shall be 20
+   2. 🔲 [CLD11] R11.1.2: Valid range shall be 0 to 100
+   3. 🔲 [CLD11] R11.1.3: Input shall be positioned near the Random Z checkbox
+2. 🔲 [CLD11] R11.2: The GUI shall include a numeric input field for Y offset of the origin position
+   1. 🔲 [CLD11] R11.2.1: Default value shall be 0
+   2. 🔲 [CLD11] R11.2.2: Valid range shall be -100 to 100
+   3. 🔲 [CLD11] R11.2.3: Input shall be in the Global Settings section
+
+## R12: Configuration Export
+
+1. 🔲 [CLD11] R12.1: The GUI shall include an "Export Config" button that outputs the current configuration to the console
+2. 🔲 [CLD11] R12.2: The export function shall clear the console before outputting configuration data
+3. 🔲 [CLD11] R12.3: The exported configuration shall include all settings in a human-readable format
+   1. 🔲 [CLD11] R12.3.1: Spacing configuration values
+   2. 🔲 [CLD11] R12.3.2: Layer configuration for each layer
+   3. 🔲 [CLD11] R12.3.3: Visualization options and checkbox states
+   4. 🔲 [CLD11] R12.3.4: Timestamp of export
