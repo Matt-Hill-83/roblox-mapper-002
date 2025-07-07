@@ -29,7 +29,8 @@ export class GUIStateManager {
       showLinkLabels: false,
       showConnectors: true,
       allowSameLevelLinks: false,
-      randomZOffset: false
+      randomZOffset: false,
+      zOffsetAmount: 5
     };
     
     this.state = {

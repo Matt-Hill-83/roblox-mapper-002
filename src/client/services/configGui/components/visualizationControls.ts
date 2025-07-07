@@ -136,7 +136,7 @@ export function createVisualizationControls({
   zOffsetInput.BackgroundColor3 = new Color3(0.25, 0.25, 0.25);
   zOffsetInput.BorderSizePixel = 0;
   zOffsetInput.Font = GUI_CONSTANTS.TYPOGRAPHY.INPUT_FONT;
-  zOffsetInput.Text = tostring(visualization.zOffsetAmount || 20);
+  zOffsetInput.Text = tostring(visualization.zOffsetAmount || 5);
   zOffsetInput.TextColor3 = visualization.randomZOffset ? GUI_CONSTANTS.COLORS.TEXT : new Color3(0.5, 0.5, 0.5);
   zOffsetInput.TextScaled = true;
   zOffsetInput.TextEditable = visualization.randomZOffset;
@@ -155,7 +155,7 @@ export function createVisualizationControls({
       zOffsetInput.Text = tostring(value);
     } else {
       // Reset to current value if invalid
-      zOffsetInput.Text = tostring(visualization.zOffsetAmount || 20);
+      zOffsetInput.Text = tostring(visualization.zOffsetAmount || 5);
     }
   });
   

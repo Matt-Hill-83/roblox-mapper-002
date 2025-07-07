@@ -167,20 +167,18 @@ export class UnifiedDataRenderer {
       const swimlaneWidth = nodeSpacing === 0 ? hexagonWidth : nodeSpacing + hexagonWidth;
       const swimlaneDepth = (bounds.maxZ - bounds.minZ) + hexagonWidth;
       
-      // Add progressive sizing: each swimlane is 0.2 wider than the previous
-      const progressiveWidthIncrease = swimlaneIndex * 0.2;
-      const blockWidth = swimlaneWidth + progressiveWidthIncrease;
-      const blockDepth = swimlaneDepth + progressiveWidthIncrease;
+      // Use actual swimlane dimensions without progressive sizing
+      const blockWidth = swimlaneWidth;
+      const blockDepth = swimlaneDepth;
       
-      // Progressive height: each swimlane is 0.1 higher than the previous
-      const progressiveHeightIncrease = swimlaneIndex * 0.1;
-      const blockYPosition = 1.5 + FLAT_BLOCK_DEFAULTS.zFightingFix + progressiveHeightIncrease;
+      // Fixed Y position for all swimlane blocks
+      const blockYPosition = 1.5 + FLAT_BLOCK_DEFAULTS.zFightingFix;
       
       // Get the color from the first node of this type
       const nodeColor = nodes[0].color;
       const color = new Color3(nodeColor[0], nodeColor[1], nodeColor[2]);
       
-      // Create swimlane block with progressive sizing
+      // Create swimlane block
       createSwimLaneBlock({
         position: new Vector3(centerX, blockYPosition, centerZ),
         width: blockWidth,

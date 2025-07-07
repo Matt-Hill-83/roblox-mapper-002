@@ -22,21 +22,21 @@ Create a multi-layered block system positioned under the node tree as part of th
     └──┴─────┴──┴─────┴──┴─────┴──┴─────┴────┘
          │         │         │         │
     ╔════╧════╦════╧════╦════╧════╦════╧════╗
-    ║ People  ║ Animals ║Buildings║Vehicles ║  ← Swimlane Blocks (Semi-transparent)
-    ║ (Blue)  ║(Orange) ║ (Green) ║(Magenta)║    Height: 3 units
-    ╚═════════╩═════════╩═════════╩═════════╝    Parent: Shadow Block
+    ║ People  ║ Animals ║Buildings║Vehicles ║  ← Swimlane Shadow Blocks (Opaque)
+    ║ (Blue)  ║(Orange) ║ (Green) ║(Magenta)║    Height: 3 units, Y: 1.6
+    ╚═════════╩═════════╩═════════╩═════════╝    Parent: Group Shadow Block
          │         │         │         │
     ┏━━━━┷━━━━━━━━┷━━━━━━━━┷━━━━━━━━┷━━━━━┓
-    ┃                                       ┃  ← Shadow Block (Light Blue)
-    ┃         SHADOW BLOCK                  ┃    Height: 3 units
+    ┃                                       ┃  ← Group Shadow Block (Light Blue)
+    ┃      GROUP SHADOW BLOCK               ┃    Height: 3 units, Y: 1.5
     ┃      (Node bounds + 2 buffer)         ┃    Parent: Platform Block
     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
                       │
     ╔═══════════════════════════════════════╗
     ║          PLATFORM BLOCK                ║  ← Platform Block (Light Green)
-    ║            100 x 100                   ║    Height: 3 units
-    ║                                        ║    Y Position: 0.1 lower than shadow
-    ╚════════════════════════════════════════╝    Material: Concrete
+    ║            100 x 100                   ║    Height: 3 units, Y: 1.4
+    ║         Material: Concrete             ║    (0.1 lower than group shadow)
+    ╚════════════════════════════════════════╝    Collision: Enabled
     ═══════════════════════════════════════════  ← Ground (Y = 0)
 ```
 
@@ -56,17 +56,18 @@ Create a multi-layered block system positioned under the node tree as part of th
 - Color: Light blue (0.5, 0.7, 1)
 - Parent: Platform Block
 
-### Swimlane Blocks (Top Layer)
+### Swimlane Shadow Blocks (Top Layer)
 - One block per node type (People, Animals, Buildings, etc.)
-- Dynamic size: Matches actual swimlane bounds + padding
+- Dynamic size: Matches actual swimlane bounds (using config nodeRadius for hexagon width)
 - Height: 3 units
-- Material: Neon (semi-transparent, 0.5 transparency)
+- Material: Concrete (fully opaque, 0 transparency)
 - Colors: Match node type colors
-- Parent: Shadow Block
+- Parent: Group Shadow Block
+- Y Position: 1.6 (0.1 units above group shadow block to prevent Z-fighting)
 
 ## Technical Details
 - All blocks are anchored (physics disabled)
-- Platform and Shadow blocks have collision enabled
-- Swimlane blocks have collision disabled
+- Platform and Group Shadow blocks have collision enabled
+- Swimlane Shadow blocks have collision disabled
 - Entire block system is deleted and recreated on regenerate
 - Blocks positioned at ground level (Y = 0)
