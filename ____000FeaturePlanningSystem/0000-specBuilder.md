@@ -1,10 +1,10 @@
 |----------------------------------------------------------------------|
 Summary:
-Create a tic tac toe game in TS that runs on the command line in nodejs.
+In the existing roblox game, as part of the node creation process, create a large flat block under the node tree.
 |----------------------------------------------------------------------|
 Features:
-X's should be red and O's should be blue.
-Player vs. computer
+
+- centered at the origin
 
 |----------------------------------------------------------------------|
 
