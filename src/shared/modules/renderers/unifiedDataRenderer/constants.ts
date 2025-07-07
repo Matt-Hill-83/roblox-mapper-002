@@ -32,10 +32,17 @@ export const COLOR_PALETTES = {
 };
 
 // Node type names
-export const NODE_TYPE_NAMES = ["People", "Animals", "Buildings", "Vehicles", "Plants", "Minerals", "Technology", "Food", "Tools", "Weather"];
+// export const NODE_TYPE_NAMES = ["People", "Animals", "Buildings", "Vehicles", "Plants", "Minerals", "Technology", "Food", "Tools", "Weather"];
+export const NODE_TYPE_NAMES = ["man", "woman", "child", "grandparent"];
 
 // Default animal types for Animals nodes
 export const ANIMAL_TYPES = ["Dog", "Cat", "Bird", "Fish", "Horse", "Rabbit", "Snake", "Bear", "Hamster", "Lizard"];
+
+// Pet types for people nodes
+export const PET_TYPES = ["Dog", "Cat", "Bird", "Fish", "None", "Hamster", "Rabbit"];
+
+// Pet colors for people nodes
+export const PET_COLORS = ["Brown", "Black", "White", "Gray", "Orange", "Golden", "Spotted"];
 
 // Default attachments for nodes
 export const DEFAULT_ATTACHMENTS = ["top", "bottom", "left", "right", "front", "back"];

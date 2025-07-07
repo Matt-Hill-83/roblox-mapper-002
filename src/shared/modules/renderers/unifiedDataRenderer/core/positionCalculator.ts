@@ -269,9 +269,13 @@ export class PositionCalculator implements IPositionCalculator {
           const x = baseX + centeringOffset + index * spacing.nodeSpacing;
           let z = 0;
           
-          // Apply random Z offset if enabled
-          if (config.visualization?.randomZOffset) {
-            const offsetAmount = config.visualization.zOffsetAmount || 20;
+          // Position based on pet type instead of random offset
+          const petType = node.properties?.petType;
+          if (petType) {
+            z = this.calculatePetTypeZPosition(petType);
+          } else if (config.visualization?.randomZOffset) {
+            // Fallback to random Z offset if no pet type
+            const offsetAmount = config.visualization.zOffsetAmount || 5;
             z = this.calculateRandomZOffset(node.uuid, offsetAmount);
           }
           
@@ -287,6 +291,25 @@ export class PositionCalculator implements IPositionCalculator {
         });
       });
     }
+  }
+
+  /**
+   * Calculate Z position based on pet type
+   */
+  private calculatePetTypeZPosition(petType: string): number {
+    // Create a mapping of pet types to Z positions
+    const petTypeZPositions: { [key: string]: number } = {
+      "Dog": -15,
+      "Cat": -10,
+      "Bird": -5,
+      "Fish": 0,
+      "None": 5,
+      "Hamster": 10,
+      "Rabbit": 15
+    };
+    
+    // Return the Z position for the pet type, or 0 if not found
+    return petTypeZPositions[petType] || 0;
   }
 
   /**

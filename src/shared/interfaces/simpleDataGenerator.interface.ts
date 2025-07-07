@@ -3,7 +3,7 @@
 export interface Node {
   uuid: string;           // e.g., "h-1234", persistent across spatial configurations
   name: string;           // Node name
-  type: "People" | "Animals";  // Node type
+  type: string;  // Node type (now supports "man", "woman", "child", etc.)
   color: [number, number, number];  // RGB color values (0-1 range)
   position: {
     x: number;
@@ -14,8 +14,10 @@ export interface Node {
   
   // Type-specific properties
   properties?: {
-    // For People nodes
+    // For People nodes (man, woman, child)
     age?: number;
+    petType?: string;
+    petColor?: string;
     
     // For Animals nodes
     animalType?: string;  // Now supports 10 different animal types

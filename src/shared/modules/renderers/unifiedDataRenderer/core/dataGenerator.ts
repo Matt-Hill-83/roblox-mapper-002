@@ -7,7 +7,7 @@
 import { Cluster, Node, Link, Group } from "../../../../interfaces/simpleDataGenerator.interface";
 import { EnhancedGeneratorConfig, LayerConfig } from "../../../../interfaces/enhancedGenerator.interface";
 import { IDataGenerator } from "../interfaces";
-import { COLOR_PALETTES, NODE_TYPE_NAMES, ANIMAL_TYPES, DEFAULT_ATTACHMENTS } from "../constants";
+import { COLOR_PALETTES, NODE_TYPE_NAMES, ANIMAL_TYPES, DEFAULT_ATTACHMENTS, PET_TYPES, PET_COLORS } from "../constants";
 
 export class DataGenerator implements IDataGenerator {
   private linkIdCounter = 0;
@@ -81,7 +81,7 @@ export class DataGenerator implements IDataGenerator {
     const node: Node = {
       uuid: `node_${layerNumber}_${index}`,
       name: `${nodeTypeName} ${layerNumber}-${index + 1}`,
-      type: nodeTypeName as "People" | "Animals",
+      type: nodeTypeName as any, // Now supports "man", "woman", "child"
       color,
       position: { x: 0, y: 0, z: 0 }, // Will be calculated by swim lanes
       attachmentNames: DEFAULT_ATTACHMENTS,
@@ -101,8 +101,24 @@ export class DataGenerator implements IDataGenerator {
    * Add type-specific properties to node
    */
   private addTypeSpecificProperties(node: Node, nodeTypeName: string): void {
-    if (nodeTypeName === "People") {
-      node.properties = { age: math.random(18, 80) };
+    if (nodeTypeName === "man" || nodeTypeName === "woman") {
+      node.properties = { 
+        age: math.random(18, 80),
+        petType: PET_TYPES[math.random(0, PET_TYPES.size() - 1)],
+        petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)]
+      };
+    } else if (nodeTypeName === "child") {
+      node.properties = { 
+        age: math.random(5, 17),
+        petType: PET_TYPES[math.random(0, PET_TYPES.size() - 1)],
+        petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)]
+      };
+    } else if (nodeTypeName === "grandparent") {
+      node.properties = { 
+        age: math.random(65, 95),
+        petType: PET_TYPES[math.random(0, PET_TYPES.size() - 1)],
+        petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)]
+      };
     } else if (nodeTypeName === "Animals") {
       node.properties = { 
         animalType: ANIMAL_TYPES[math.random(0, ANIMAL_TYPES.size() - 1)] 
