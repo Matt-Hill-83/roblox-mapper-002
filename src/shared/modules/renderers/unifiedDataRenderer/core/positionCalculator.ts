@@ -251,7 +251,8 @@ export class PositionCalculator implements IPositionCalculator {
           
           // Apply random Z offset if enabled
           if (config.visualization?.randomZOffset) {
-            z = this.calculateRandomZOffset(node.uuid);
+            const offsetAmount = config.visualization.zOffsetAmount || 20;
+            z = this.calculateRandomZOffset(node.uuid, offsetAmount);
           }
           
           // Update node position
@@ -271,7 +272,7 @@ export class PositionCalculator implements IPositionCalculator {
   /**
    * Calculate random Z offset for a node
    */
-  private calculateRandomZOffset(uuid: string): number {
+  private calculateRandomZOffset(uuid: string, offsetAmount: number): number {
     // Use node UUID as seed for deterministic randomness
     let seed = 0;
     for (let i = 0; i < uuid.size(); i++) {
@@ -281,9 +282,9 @@ export class PositionCalculator implements IPositionCalculator {
     
     // 50% chance to offset
     if (math.random() < 0.5) {
-      // 50% chance for +20 or -20
+      // 50% chance for +offsetAmount or -offsetAmount
       const offsetDirection = math.random() < 0.5 ? -1 : 1;
-      return offsetDirection * 20;
+      return offsetDirection * offsetAmount;
     }
     
     return 0;

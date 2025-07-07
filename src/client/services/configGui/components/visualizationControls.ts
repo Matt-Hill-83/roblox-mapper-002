@@ -4,7 +4,7 @@ import type { VisualizationOptions } from "../../../../shared/interfaces/enhance
 interface VisualizationControlsProps {
   parent: Frame;
   visualization: VisualizationOptions;
-  onVisualizationChange: (field: keyof VisualizationOptions, value: boolean) => void;
+  onVisualizationChange: (field: keyof VisualizationOptions, value: boolean | number) => void;
 }
 
 interface CheckboxField {
@@ -80,7 +80,7 @@ export function createVisualizationControls({
     checkmark.Text = "✓";
     checkmark.TextColor3 = GUI_CONSTANTS.COLORS.SUCCESS;
     checkmark.TextScaled = true;
-    checkmark.Visible = visualization[fieldDef.field];
+    checkmark.Visible = visualization[fieldDef.field] as boolean;
     checkmark.Parent = checkbox;
 
     // Create label
@@ -97,12 +97,67 @@ export function createVisualizationControls({
 
     // Handle checkbox click
     checkbox.MouseButton1Click.Connect(() => {
-      const newValue = !visualization[fieldDef.field];
-      visualization[fieldDef.field] = newValue;
+      const newValue = !(visualization[fieldDef.field] as boolean);
+      (visualization as any)[fieldDef.field] = newValue;
       checkmark.Visible = newValue;
       onVisualizationChange(fieldDef.field, newValue);
+      
+      // Update Z offset input visibility if this is the randomZOffset checkbox
+      if (fieldDef.field === "randomZOffset") {
+        const zOffsetInput = container.FindFirstChild("ZOffsetInput") as TextBox;
+        if (zOffsetInput) {
+          zOffsetInput.TextEditable = newValue;
+          zOffsetInput.TextColor3 = newValue ? GUI_CONSTANTS.COLORS.TEXT : new Color3(0.5, 0.5, 0.5);
+        }
+      }
     });
   });
 
+  // Add Z offset input field after the Random Z checkbox
+  const zOffsetY = startY + (CHECKBOX_FIELDS.size() * (rowHeight + spacing_between)) + 5;
+  
+  // Create Z offset label
+  const zOffsetLabel = new Instance("TextLabel");
+  zOffsetLabel.Size = new UDim2(0, 60, 0, rowHeight);
+  zOffsetLabel.Position = new UDim2(0, 10, 0, zOffsetY);
+  zOffsetLabel.BackgroundTransparency = 1;
+  zOffsetLabel.Font = GUI_CONSTANTS.TYPOGRAPHY.LABEL_FONT;
+  zOffsetLabel.Text = "Z Offset:";
+  zOffsetLabel.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
+  zOffsetLabel.TextSize = 14;
+  zOffsetLabel.TextXAlignment = Enum.TextXAlignment.Left;
+  zOffsetLabel.Parent = container;
+  
+  // Create Z offset input
+  const zOffsetInput = new Instance("TextBox");
+  zOffsetInput.Name = "ZOffsetInput";
+  zOffsetInput.Size = new UDim2(0, 50, 0, rowHeight);
+  zOffsetInput.Position = new UDim2(0, 75, 0, zOffsetY);
+  zOffsetInput.BackgroundColor3 = new Color3(0.25, 0.25, 0.25);
+  zOffsetInput.BorderSizePixel = 0;
+  zOffsetInput.Font = GUI_CONSTANTS.TYPOGRAPHY.INPUT_FONT;
+  zOffsetInput.Text = tostring(visualization.zOffsetAmount || 20);
+  zOffsetInput.TextColor3 = visualization.randomZOffset ? GUI_CONSTANTS.COLORS.TEXT : new Color3(0.5, 0.5, 0.5);
+  zOffsetInput.TextScaled = true;
+  zOffsetInput.TextEditable = visualization.randomZOffset;
+  zOffsetInput.Parent = container;
+  
+  const zOffsetCorner = new Instance("UICorner");
+  zOffsetCorner.CornerRadius = new UDim(0, 4);
+  zOffsetCorner.Parent = zOffsetInput;
+  
+  // Handle Z offset input changes
+  zOffsetInput.FocusLost.Connect(() => {
+    const value = tonumber(zOffsetInput.Text);
+    if (value && value >= 0 && value <= 100) {
+      visualization.zOffsetAmount = value;
+      onVisualizationChange("zOffsetAmount", value);
+      zOffsetInput.Text = tostring(value);
+    } else {
+      // Reset to current value if invalid
+      zOffsetInput.Text = tostring(visualization.zOffsetAmount || 20);
+    }
+  });
+  
   return container;
 }
