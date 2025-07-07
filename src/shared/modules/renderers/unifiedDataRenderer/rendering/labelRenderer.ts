@@ -17,37 +17,50 @@ export class LabelRenderer {
   private defaultColor = new Color3(1, 1, 1); // White
   
   /**
-   * Create labels for X-axis swimlanes
+   * Create labels for X-axis swimlanes with SurfaceGui
    */
   public createXAxisLabels(
     nodesByType: Map<string, Node[]>,
     typeBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
     parent: Instance,
-    yPosition: number = 0
+    yPosition: number = 0,
+    swimlaneBlocks?: Map<string, Part>
   ): void {
     nodesByType.forEach((nodes, typeName) => {
       const bounds = typeBounds.get(typeName)!;
+      const swimlaneBlock = swimlaneBlocks?.get(typeName);
+      
+      // Always create floating label
       const centerX = (bounds.minX + bounds.maxX) / 2;
-      const centerZ = bounds.minZ - 5; // Position label in front of swimlane
+      const centerZ = bounds.minZ - 5;
       
       this.createLabel({
         text: typeName,
         position: new Vector3(centerX, yPosition + 10, centerZ),
         parent: parent
       });
+      
+      // Also create surface label if block is available
+      if (swimlaneBlock) {
+        this.createSurfaceLabel(swimlaneBlock, typeName, "Front");
+      }
     });
   }
   
   /**
-   * Create labels for Z-axis swimlanes
+   * Create labels for Z-axis swimlanes with SurfaceGui
    */
   public createZAxisLabels(
     propertyValues: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
     parent: Instance,
-    yPosition: number = 0
+    yPosition: number = 0,
+    swimlaneBlocks?: Map<string, Part>
   ): void {
     propertyValues.forEach((bounds, value) => {
-      const centerX = bounds.minX - 5; // Position label to the left of swimlane
+      const swimlaneBlock = swimlaneBlocks?.get(value);
+      
+      // Always create floating label
+      const centerX = bounds.minX - 5;
       const centerZ = (bounds.minZ + bounds.maxZ) / 2;
       
       this.createLabel({
@@ -55,6 +68,11 @@ export class LabelRenderer {
         position: new Vector3(centerX, yPosition + 10, centerZ),
         parent: parent
       });
+      
+      // Also create surface label if block is available
+      if (swimlaneBlock) {
+        this.createSurfaceLabel(swimlaneBlock, value, "Left");
+      }
     });
   }
   
@@ -121,5 +139,39 @@ export class LabelRenderer {
     });
     
     print(`✅ Created ${valuePositions.size()} labels for ${propertyName} on ${axis} axis`);
+  }
+  
+  /**
+   * Create a SurfaceGui label on a part
+   */
+  private createSurfaceLabel(part: Part, text: string, face: "Front" | "Left"): void {
+    // Create SurfaceGui
+    const surfaceGui = new Instance("SurfaceGui");
+    surfaceGui.Name = `Label_${text}`;
+    surfaceGui.Face = face === "Front" ? Enum.NormalId.Front : Enum.NormalId.Left;
+    surfaceGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud;
+    surfaceGui.PixelsPerStud = 50;
+    surfaceGui.Parent = part;
+    
+    // Create Frame for background
+    const frame = new Instance("Frame");
+    frame.Size = new UDim2(1, 0, 1, 0);
+    frame.BackgroundColor3 = new Color3(0, 0, 0);
+    frame.BackgroundTransparency = 0.3;
+    frame.BorderSizePixel = 0;
+    frame.Parent = surfaceGui;
+    
+    // Create TextLabel
+    const textLabel = new Instance("TextLabel");
+    textLabel.Size = new UDim2(0.9, 0, 0.9, 0);
+    textLabel.Position = new UDim2(0.05, 0, 0.05, 0);
+    textLabel.BackgroundTransparency = 1;
+    textLabel.Font = Enum.Font.SourceSansBold;
+    textLabel.Text = text;
+    textLabel.TextColor3 = this.defaultColor;
+    textLabel.TextScaled = true;
+    textLabel.Parent = frame;
+    
+    print(`🏷️ Created SurfaceGui label: ${text} on ${face} face`);
   }
 }

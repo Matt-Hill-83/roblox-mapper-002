@@ -3,7 +3,7 @@ export const GUI_CONSTANTS = {
   FRAME: {
     WIDTH: 350,
     HEIGHT: 285,
-    ENHANCED_WIDTH: 325, // Reduced from 650 to 50%
+    ENHANCED_WIDTH: 650, // Doubled from 325
     ENHANCED_HEIGHT: 0, // Will be calculated as 90% of screen height
     ENHANCED_HEIGHT_SCALE: 0.9, // 90% of screen height
     POSITION: new UDim2(0, 10, 0, 10), // Upper left corner

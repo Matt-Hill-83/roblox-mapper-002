@@ -74,13 +74,13 @@ export class UnifiedDataRenderer {
     });
     
     // Create swimlane blocks
-    this.createSwimLaneBlocks(cluster, blocks.shadow, targetOrigin, blockDimensions, config);
+    const xAxisSwimlaneBlocks = this.createSwimLaneBlocks(cluster, blocks.shadow, targetOrigin, blockDimensions, config);
     
-    // Create Z-axis shadow blocks
-    this.createZAxisSwimLaneBlocks(cluster, blocks.platform, config);
+    // Create Z-axis shadow blocks and collect them
+    const zAxisSwimlaneBlocks = this.createZAxisSwimLaneBlocks(cluster, blocks.platform, config);
     
-    // Create labels for swimlanes
-    this.createSwimLaneLabels(cluster, parentFolder, config);
+    // Create labels for swimlanes with the block references
+    this.createSwimLaneLabels(cluster, parentFolder, config, xAxisSwimlaneBlocks, zAxisSwimlaneBlocks);
     
     // Render the cluster
     this.nodeRenderer.renderCluster(cluster, parentFolder, config);
@@ -134,7 +134,8 @@ export class UnifiedDataRenderer {
   /**
    * Creates blocks under each swimlane
    */
-  private createSwimLaneBlocks(cluster: Cluster, shadowBlock: Part, origin: Vector3, shadowDimensions: { width: number; depth: number }, config: EnhancedGeneratorConfig): void {
+  private createSwimLaneBlocks(cluster: Cluster, shadowBlock: Part, origin: Vector3, shadowDimensions: { width: number; depth: number }, config: EnhancedGeneratorConfig): Map<string, Part> {
+    const swimlaneBlocks = new Map<string, Part>();
     // Use axis mapping if available
     const xAxisProperty = config.axisMapping?.xAxis || "type";
     
@@ -192,7 +193,7 @@ export class UnifiedDataRenderer {
       const color = new Color3(nodeColor[0], nodeColor[1], nodeColor[2]);
       
       // Create swimlane block
-      createSwimLaneBlock({
+      const swimlaneBlock = createSwimLaneBlock({
         position: new Vector3(centerX, blockYPosition, centerZ),
         width: blockWidth,
         depth: blockDepth,
@@ -202,10 +203,14 @@ export class UnifiedDataRenderer {
         parent: shadowBlock
       });
       
+      // Store the block in the map
+      swimlaneBlocks.set(typeName, swimlaneBlock);
+      
       swimlaneIndex++;
     });
     
     print(`✅ Created ${nodesByType.size()} swimlane blocks`);
+    return swimlaneBlocks;
   }
   
   /**
@@ -240,7 +245,13 @@ export class UnifiedDataRenderer {
   /**
    * Creates labels for X and Z axis swimlanes
    */
-  private createSwimLaneLabels(cluster: Cluster, parentFolder: Folder, config?: EnhancedGeneratorConfig): void {
+  private createSwimLaneLabels(
+    cluster: Cluster,
+    parentFolder: Folder,
+    config?: EnhancedGeneratorConfig,
+    xAxisBlocks?: Map<string, Part>,
+    zAxisBlocks?: Map<string, Part>
+  ): void {
     // Use axis mapping if available
     const xAxisProperty = config?.axisMapping?.xAxis || "type";
     const zAxisProperty = config?.axisMapping?.zAxis || "petType";
@@ -292,15 +303,16 @@ export class UnifiedDataRenderer {
       zBounds.maxZ = math.max(zBounds.maxZ, node.position.z);
     });
     
-    // Create labels
-    this.labelRenderer.createXAxisLabels(nodesByXProperty, xPropertyBounds, parentFolder, 0);
-    this.labelRenderer.createZAxisLabels(zPropertyBounds, parentFolder, 0);
+    // Create labels with swimlane blocks if available
+    this.labelRenderer.createXAxisLabels(nodesByXProperty, xPropertyBounds, parentFolder, 0, xAxisBlocks);
+    this.labelRenderer.createZAxisLabels(zPropertyBounds, parentFolder, 0, zAxisBlocks);
   }
   
   /**
    * Creates Z-axis shadow blocks for property swimlanes
    */
-  private createZAxisSwimLaneBlocks(cluster: Cluster, parent: Part, config?: EnhancedGeneratorConfig): void {
+  private createZAxisSwimLaneBlocks(cluster: Cluster, parent: Part, config?: EnhancedGeneratorConfig): Map<string, Part> {
+    const swimlaneBlocks = new Map<string, Part>();
     // Use axis mapping if available
     const zAxisProperty = config?.axisMapping?.zAxis || "petType";
     
@@ -329,7 +341,8 @@ export class UnifiedDataRenderer {
       bounds.maxZ = math.max(bounds.maxZ, node.position.z);
     });
     
-    // Create Z-axis shadow blocks
-    createZAxisShadowBlocks(nodesByProperty, propertyBounds, parent, 0.5);
+    // Create Z-axis shadow blocks (raised by 0.1 for visibility)
+    createZAxisShadowBlocks(nodesByProperty, propertyBounds, parent, 0.6, swimlaneBlocks);
+    return swimlaneBlocks;
   }
 }

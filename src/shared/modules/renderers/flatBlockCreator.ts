@@ -223,7 +223,8 @@ export function createZAxisShadowBlocks(
   nodesByProperty: Map<string, any[]>,
   propertyBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
   parent: Instance,
-  yPosition: number = 0.5
+  yPosition: number = 0.5,
+  blocksMap?: Map<string, Part>
 ): void {
   let blockIndex = 0;
   
@@ -268,6 +269,11 @@ export function createZAxisShadowBlocks(
     
     // Parent the block
     block.Parent = parent;
+    
+    // Store in map if provided
+    if (blocksMap) {
+      blocksMap.set(propertyValue, block);
+    }
     
     print(`🟦 Created Z-axis shadow block for ${propertyValue}:`);
     print(`   - Position: (${centerX}, ${yPosition}, ${centerZ})`);
