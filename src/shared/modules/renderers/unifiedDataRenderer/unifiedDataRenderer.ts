@@ -71,7 +71,7 @@ export class UnifiedDataRenderer {
     });
     
     // Create swimlane blocks
-    this.createSwimLaneBlocks(cluster, blocks.shadow, targetOrigin, blockDimensions);
+    this.createSwimLaneBlocks(cluster, blocks.shadow, targetOrigin, blockDimensions, config);
     
     // Render the cluster
     this.nodeRenderer.renderCluster(cluster, parentFolder, config);
@@ -125,7 +125,7 @@ export class UnifiedDataRenderer {
   /**
    * Creates blocks under each swimlane
    */
-  private createSwimLaneBlocks(cluster: Cluster, shadowBlock: Part, origin: Vector3, shadowDimensions: { width: number; depth: number }): void {
+  private createSwimLaneBlocks(cluster: Cluster, shadowBlock: Part, origin: Vector3, shadowDimensions: { width: number; depth: number }, config: EnhancedGeneratorConfig): void {
     // Organize nodes by type to determine swimlanes
     const nodesByType = new Map<string, Node[]>();
     const typeBounds = new Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>();
@@ -151,7 +151,8 @@ export class UnifiedDataRenderer {
       bounds.maxZ = math.max(bounds.maxZ, node.position.z);
     });
     
-    // Create a block for each swimlane
+    // Create a block for each swimlane with progressive sizing
+    let swimlaneIndex = 0;
     nodesByType.forEach((nodes, typeName) => {
       const bounds = typeBounds.get(typeName)!;
       
@@ -159,17 +160,29 @@ export class UnifiedDataRenderer {
       const centerX = (bounds.minX + bounds.maxX) / 2;
       const centerZ = (bounds.minZ + bounds.maxZ) / 2;
       
-      // Use shadow dimensions without buffer for swimlane width/depth
-      const blockWidth = shadowDimensions.width; // Shadow width without buffer
-      const blockDepth = shadowDimensions.depth; // Shadow depth without buffer
+      // Calculate actual swimlane dimensions based on node bounds
+      // Get hexagon width from config (nodeRadius * 2)
+      const hexagonWidth = (config.spacing?.nodeRadius || 0.25) * 2;
+      const nodeSpacing = bounds.maxX - bounds.minX;
+      const swimlaneWidth = nodeSpacing === 0 ? hexagonWidth : nodeSpacing + hexagonWidth;
+      const swimlaneDepth = (bounds.maxZ - bounds.minZ) + hexagonWidth;
+      
+      // Add progressive sizing: each swimlane is 0.2 wider than the previous
+      const progressiveWidthIncrease = swimlaneIndex * 0.2;
+      const blockWidth = swimlaneWidth + progressiveWidthIncrease;
+      const blockDepth = swimlaneDepth + progressiveWidthIncrease;
+      
+      // Progressive height: each swimlane is 0.1 higher than the previous
+      const progressiveHeightIncrease = swimlaneIndex * 0.1;
+      const blockYPosition = 1.5 + FLAT_BLOCK_DEFAULTS.zFightingFix + progressiveHeightIncrease;
       
       // Get the color from the first node of this type
       const nodeColor = nodes[0].color;
       const color = new Color3(nodeColor[0], nodeColor[1], nodeColor[2]);
       
-      // Create swimlane block positioned zFightingFix units higher than shadow block
+      // Create swimlane block with progressive sizing
       createSwimLaneBlock({
-        position: new Vector3(centerX, 1.5 + FLAT_BLOCK_DEFAULTS.zFightingFix, centerZ), // zFightingFix higher than shadow
+        position: new Vector3(centerX, blockYPosition, centerZ),
         width: blockWidth,
         depth: blockDepth,
         height: 3,
@@ -177,6 +190,8 @@ export class UnifiedDataRenderer {
         typeName: typeName,
         parent: shadowBlock
       });
+      
+      swimlaneIndex++;
     });
     
     print(`✅ Created ${nodesByType.size()} swimlane blocks`);

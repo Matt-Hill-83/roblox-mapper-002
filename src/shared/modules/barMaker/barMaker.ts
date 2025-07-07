@@ -1,7 +1,8 @@
-import { createTextBox } from "../TextBoxMaker";
 import { BarConfig, defaultProps } from "./interfaces";
-import { BAR_CONSTANTS } from "./constants";
-import { makeAttachment, makeCircle, generateBarName, generateAttachmentName } from "./utilities";
+import { generateAttachmentName, generateBarName, makeAttachment, } from "./utilities";
+
+// import { BAR_CONSTANTS } from "./constants";
+import { createTextBox } from "../TextBoxMaker";
 
 export function makeBar({
   id,
@@ -22,14 +23,14 @@ export function makeBar({
   const frontFaceOffset = barLength / 2;
   const backFaceOffset = -barLength / 2;
 
-  const radY = (rotation.y * math.pi) / 180;
-  const cosY = math.cos(radY);
-  const sinY = math.sin(radY);
+  // const radY = (rotation.y * math.pi) / 180;
+  // const cosY = math.cos(radY);
+  // const sinY = math.sin(radY);
 
-  const frontX = position.x + sinY * frontFaceOffset;
-  const frontZ = position.z + cosY * frontFaceOffset;
-  const backX = position.x + sinY * backFaceOffset;
-  const backZ = position.z + cosY * backFaceOffset;
+  // const frontX = position.x + sinY * frontFaceOffset;
+  // const frontZ = position.z + cosY * frontFaceOffset;
+  // const backX = position.x + sinY * backFaceOffset;
+  // const backZ = position.z + cosY * backFaceOffset;
 
   const blockColor = finalProps.Color;
 
@@ -81,23 +82,23 @@ export function makeBar({
     text: label,
   });
 
-  const frontCircle = makeCircle(
-    "FrontCircle",
-    frontX,
-    position.y,
-    frontZ,
-    BAR_CONSTANTS.FRONT_CIRCLE_COLOR
-  );
-  const backCircle = makeCircle(
-    "BackCircle",
-    backX,
-    position.y,
-    backZ,
-    BAR_CONSTANTS.BACK_CIRCLE_COLOR
-  );
+  // const frontCircle = makeCircle(
+  //   "FrontCircle",
+  //   frontX,
+  //   position.y,
+  //   frontZ,
+  //   BAR_CONSTANTS.FRONT_CIRCLE_COLOR
+  // );
+  // const backCircle = makeCircle(
+  //   "BackCircle",
+  //   backX,
+  //   position.y,
+  //   backZ,
+  //   BAR_CONSTANTS.BACK_CIRCLE_COLOR
+  // );
 
-  frontCircle.Parent = bar;
-  backCircle.Parent = bar;
+  // frontCircle.Parent = bar;
+  // backCircle.Parent = bar;
 
   return bar;
 }

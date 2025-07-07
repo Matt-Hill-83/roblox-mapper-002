@@ -1,2 +1,7 @@
 {
+    "[markdown]": {
+        "editor.formatOnSave": false,
+        "editor.autoIndent": "none",
+        "files.trimTrailingWhitespace": false
+    }
 }
