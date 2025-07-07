@@ -17,7 +17,7 @@ export function createGlobalSettings({
   const container = new Instance("Frame");
   container.Name = "GlobalSettings";
   container.Size = new UDim2(1, -20, 0, GUI_CONSTANTS.ENHANCED.GLOBAL_SETTINGS_HEIGHT);
-  container.Position = new UDim2(0, 10, 0, 40);
+  container.Position = new UDim2(0, 0, 0, 0); // Position will be set by layout manager
   container.BackgroundColor3 = new Color3(0.15, 0.15, 0.15);
   container.BorderSizePixel = 0;
   container.Parent = parent;

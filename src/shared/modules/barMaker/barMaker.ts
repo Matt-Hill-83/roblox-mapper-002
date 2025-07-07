@@ -70,16 +70,27 @@ export function makeBar({
   frontAttachment.Parent = bar;
   backAttachment.Parent = bar;
 
+  // Get custom colors if provided
+  const backgroundColor = finalProps.BackgroundColor as Color3 | undefined || bar.Color;
+  const borderColor = finalProps.BorderColor as Color3 | undefined;
+  const textColor = borderColor; // Use border color for text for contrast
+  
   createTextBox({
     part: bar,
     face: Enum.NormalId.Front,
     text: label,
+    backgroundColor: backgroundColor,
+    borderColor: borderColor,
+    textColor: textColor
   });
 
   createTextBox({
     part: bar,
     face: Enum.NormalId.Back,
     text: label,
+    backgroundColor: backgroundColor,
+    borderColor: borderColor,
+    textColor: textColor
   });
 
   // const frontCircle = makeCircle(

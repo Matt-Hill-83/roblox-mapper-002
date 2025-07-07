@@ -7,7 +7,7 @@
 import { Cluster, Node, Link, Group } from "../../../../interfaces/simpleDataGenerator.interface";
 import { EnhancedGeneratorConfig, LayerConfig } from "../../../../interfaces/enhancedGenerator.interface";
 import { IDataGenerator } from "../interfaces";
-import { COLOR_PALETTES, NODE_TYPE_NAMES, ANIMAL_TYPES, DEFAULT_ATTACHMENTS, PET_TYPES, PET_COLORS, FIRST_NAMES, LAST_NAMES } from "../constants";
+import { COLOR_PALETTES, NODE_TYPE_NAMES, ANIMAL_TYPES, DEFAULT_ATTACHMENTS, PET_TYPES, PET_COLORS, FIRST_NAMES, LAST_NAMES, COUNTRIES_OF_BIRTH, COUNTRIES_OF_RESIDENCE } from "../constants";
 
 export class DataGenerator implements IDataGenerator {
   private linkIdCounter = 0;
@@ -40,7 +40,27 @@ export class DataGenerator implements IDataGenerator {
         config,
         allLinks
       );
+      
+      // Add backward connections for first layer (connecting to second layer)
+      if (layer.layerNumber === 1 && nextLayerNodes) {
+        nextLayerNodes.forEach(nextNode => {
+          // Ensure each node in layer 2 connects back to at least one node in layer 1
+          const hasBackwardConnection = allLinks.some(link => 
+            link.targetNodeUuid === nextNode.uuid && 
+            currentLayerNodes.some(n => n.uuid === link.sourceNodeUuid)
+          );
+          
+          if (!hasBackwardConnection) {
+            const sourceNode = currentLayerNodes[math.random(0, currentLayerNodes.size() - 1)];
+            const link = this.createLink(sourceNode, nextNode, config);
+            allLinks.push(link);
+          }
+        });
+      }
     });
+
+    // Ensure all nodes have at least one connection
+    this.ensureNodeConnectivity(allNodes, allLinks, config);
 
     // Create a single group containing all nodes
     const mainGroup: Group = {
@@ -107,7 +127,9 @@ export class DataGenerator implements IDataGenerator {
         petType: PET_TYPES[math.random(0, PET_TYPES.size() - 1)],
         petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)],
         firstName: FIRST_NAMES[math.random(0, FIRST_NAMES.size() - 1)],
-        lastName: LAST_NAMES[math.random(0, LAST_NAMES.size() - 1)]
+        lastName: LAST_NAMES[math.random(0, LAST_NAMES.size() - 1)],
+        countryOfBirth: COUNTRIES_OF_BIRTH[math.random(0, COUNTRIES_OF_BIRTH.size() - 1)],
+        countryOfResidence: COUNTRIES_OF_RESIDENCE[math.random(0, COUNTRIES_OF_RESIDENCE.size() - 1)]
       };
     } else if (nodeTypeName === "child") {
       node.properties = { 
@@ -115,7 +137,9 @@ export class DataGenerator implements IDataGenerator {
         petType: PET_TYPES[math.random(0, PET_TYPES.size() - 1)],
         petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)],
         firstName: FIRST_NAMES[math.random(0, FIRST_NAMES.size() - 1)],
-        lastName: LAST_NAMES[math.random(0, LAST_NAMES.size() - 1)]
+        lastName: LAST_NAMES[math.random(0, LAST_NAMES.size() - 1)],
+        countryOfBirth: COUNTRIES_OF_BIRTH[math.random(0, COUNTRIES_OF_BIRTH.size() - 1)],
+        countryOfResidence: COUNTRIES_OF_RESIDENCE[math.random(0, COUNTRIES_OF_RESIDENCE.size() - 1)]
       };
     } else if (nodeTypeName === "grandparent") {
       node.properties = { 
@@ -123,7 +147,9 @@ export class DataGenerator implements IDataGenerator {
         petType: PET_TYPES[math.random(0, PET_TYPES.size() - 1)],
         petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)],
         firstName: FIRST_NAMES[math.random(0, FIRST_NAMES.size() - 1)],
-        lastName: LAST_NAMES[math.random(0, LAST_NAMES.size() - 1)]
+        lastName: LAST_NAMES[math.random(0, LAST_NAMES.size() - 1)],
+        countryOfBirth: COUNTRIES_OF_BIRTH[math.random(0, COUNTRIES_OF_BIRTH.size() - 1)],
+        countryOfResidence: COUNTRIES_OF_RESIDENCE[math.random(0, COUNTRIES_OF_RESIDENCE.size() - 1)]
       };
     } else if (nodeTypeName === "Animals") {
       node.properties = { 
@@ -157,6 +183,15 @@ export class DataGenerator implements IDataGenerator {
         this.generateInterLayerLink(
           sourceNode,
           nextLayerNodes,
+          config,
+          allLinks
+        );
+      } else if (layer.connectionsPerNode > 0 && currentLayerNodes.size() > 1) {
+        // For the last layer, ensure at least some connections within the layer
+        this.generateIntraLayerLinks(
+          sourceNode,
+          currentLayerNodes,
+          { ...layer, connectionsPerNode: math.max(1, layer.connectionsPerNode) },
           config,
           allLinks
         );
@@ -202,10 +237,29 @@ export class DataGenerator implements IDataGenerator {
     config: EnhancedGeneratorConfig,
     allLinks: Link[]
   ): void {
-    // Connect to one random node in the next layer
-    const targetNode = nextLayerNodes[math.random(0, nextLayerNodes.size() - 1)];
-    const link = this.createLink(sourceNode, targetNode, config);
-    allLinks.push(link);
+    if (nextLayerNodes.size() === 0) return;
+    
+    // Prefer connecting to nodes of the same type
+    const sameTypeNodes = nextLayerNodes.filter(n => n.type === sourceNode.type);
+    const candidateNodes = sameTypeNodes.size() > 0 ? sameTypeNodes : nextLayerNodes;
+    
+    // Connect to at least one node, potentially more for better connectivity
+    const numConnections = math.min(2, candidateNodes.size()); // Connect to up to 2 nodes
+    const shuffled = this.shuffleArray([...candidateNodes]);
+    
+    for (let i = 0; i < numConnections; i++) {
+      const targetNode = shuffled[i];
+      // Check if this link already exists
+      const linkExists = allLinks.some(link => 
+        (link.sourceNodeUuid === sourceNode.uuid && link.targetNodeUuid === targetNode.uuid) ||
+        (link.sourceNodeUuid === targetNode.uuid && link.targetNodeUuid === sourceNode.uuid)
+      );
+      
+      if (!linkExists) {
+        const link = this.createLink(sourceNode, targetNode, config);
+        allLinks.push(link);
+      }
+    }
   }
 
   /**
@@ -235,5 +289,69 @@ export class DataGenerator implements IDataGenerator {
       [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+  }
+  
+  /**
+   * Ensure all nodes have at least one connection
+   */
+  private ensureNodeConnectivity(nodes: Node[], links: Link[], config: EnhancedGeneratorConfig): void {
+    // Create a map to track connections per node
+    const nodeConnections = new Map<string, number>();
+    nodes.forEach(node => nodeConnections.set(node.uuid, 0));
+    
+    // Count existing connections
+    links.forEach(link => {
+      nodeConnections.set(link.sourceNodeUuid, (nodeConnections.get(link.sourceNodeUuid) || 0) + 1);
+      nodeConnections.set(link.targetNodeUuid, (nodeConnections.get(link.targetNodeUuid) || 0) + 1);
+    });
+    
+    // Find isolated nodes
+    const isolatedNodes: Node[] = [];
+    nodeConnections.forEach((count, uuid) => {
+      if (count === 0) {
+        const node = nodes.find(n => n.uuid === uuid);
+        if (node) isolatedNodes.push(node);
+      }
+    });
+    
+    if (isolatedNodes.size() > 0) {
+      print(`⚠️ Found ${isolatedNodes.size()} isolated nodes, creating fallback connections`);
+      
+      // Create fallback connections
+      isolatedNodes.forEach(isolatedNode => {
+        // Find a suitable connection target
+        const targetNode = this.findConnectionTarget(isolatedNode, nodes);
+        if (targetNode) {
+          const fallbackLink: Link = {
+            uuid: `link_fallback_${this.linkIdCounter++}`,
+            type: "Fallback",
+            sourceNodeUuid: isolatedNode.uuid,
+            targetNodeUuid: targetNode.uuid,
+            color: [0.5, 0.5, 0.5] // Gray color for fallback links
+          };
+          links.push(fallbackLink);
+          print(`🔗 Created fallback connection: ${isolatedNode.name} -> ${targetNode.name}`);
+        }
+      });
+    }
+  }
+  
+  /**
+   * Find a suitable connection target for an isolated node
+   */
+  private findConnectionTarget(isolatedNode: Node, allNodes: Node[]): Node | undefined {
+    // Try to connect to a node of the same type first
+    const sameTypeNodes = allNodes.filter(n => n.type === isolatedNode.type && n.uuid !== isolatedNode.uuid);
+    if (sameTypeNodes.size() > 0) {
+      return sameTypeNodes[math.random(0, sameTypeNodes.size() - 1)];
+    }
+    
+    // Otherwise, connect to any other node
+    const otherNodes = allNodes.filter(n => n.uuid !== isolatedNode.uuid);
+    if (otherNodes.size() > 0) {
+      return otherNodes[math.random(0, otherNodes.size() - 1)];
+    }
+    
+    return undefined;
   }
 }

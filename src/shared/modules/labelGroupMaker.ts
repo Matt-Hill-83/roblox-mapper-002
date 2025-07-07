@@ -1,4 +1,6 @@
 import { createTextBox } from "./TextBoxMaker";
+import { LABEL_CONSTANTS } from "./renderers/constants/labelConstants";
+import { BLOCK_CONSTANTS } from "./renderers/constants/blockConstants";
 
 interface LabelGroupConfig {
   ropeIndex: number;
@@ -35,7 +37,7 @@ export function createLabelGroup({
     size: new Vector3(1, 1, 3),
     brickColor: new BrickColor("Institutional white"),
     material: Enum.Material.SmoothPlastic,
-    transparency: 0,
+    transparency: BLOCK_CONSTANTS.TRANSPARENCY.OPAQUE,
     spacing: 0.1,
   };
 
@@ -133,8 +135,8 @@ export function createLabelGroup({
   // Create attachment at rope midpoint (invisible part for positioning)
   const midpointPart = new Instance("Part");
   midpointPart.Name = `ropeAnchor${padNumber(ropeIndex, 3)}`;
-  midpointPart.Size = new Vector3(0.1, 0.1, 0.1);
-  midpointPart.Transparency = 1; // Invisible
+  midpointPart.Size = new Vector3(LABEL_CONSTANTS.SIZES.PART_SIZE, LABEL_CONSTANTS.SIZES.PART_SIZE, LABEL_CONSTANTS.SIZES.PART_SIZE);
+  midpointPart.Transparency = LABEL_CONSTANTS.TRANSPARENCY.PART; // Invisible
   midpointPart.Anchored = false; // Unanchored to follow rope physics
   midpointPart.CanCollide = false;
   midpointPart.Position = midpoint;

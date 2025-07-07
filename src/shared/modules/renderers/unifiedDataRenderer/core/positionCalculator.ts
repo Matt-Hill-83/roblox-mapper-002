@@ -8,8 +8,15 @@ import { Cluster, Node } from "../../../../interfaces/simpleDataGenerator.interf
 import { EnhancedGeneratorConfig } from "../../../../interfaces/enhancedGenerator.interface";
 import { IPositionCalculator, SpacingConfig } from "../interfaces";
 import { RENDERER_CONSTANTS } from "../../dataGeneratorRobloxRendererUtils/constants";
+import { PropertyValueResolver } from "../../propertyValueResolver";
+import { POSITION_CONSTANTS } from "../../constants/positionConstants";
 
 export class PositionCalculator implements IPositionCalculator {
+  private propertyResolver: PropertyValueResolver;
+
+  constructor() {
+    this.propertyResolver = new PropertyValueResolver();
+  }
   /**
    * Get bounds of the cluster (public method for external use)
    */
@@ -41,9 +48,9 @@ export class PositionCalculator implements IPositionCalculator {
     const offsetY = origin.Y - bounds.minY + yOffset; // Bottom of group at origin Y + offset
     const offsetZ = origin.Z;
     
-    // Ensure nodes stay above ground level (minimum Y = 5)
+    // Ensure nodes stay above ground level
     const minFinalY = bounds.minY + offsetY;
-    const groundClearanceAdjustment = minFinalY < 5 ? 5 - minFinalY : 0;
+    const groundClearanceAdjustment = minFinalY < POSITION_CONSTANTS.MIN_GROUND_CLEARANCE ? POSITION_CONSTANTS.MIN_GROUND_CLEARANCE - minFinalY : 0;
     const finalOffsetY = offsetY + groundClearanceAdjustment;
     
     // Debug ground clearance only if adjustment needed
@@ -140,34 +147,6 @@ export class PositionCalculator implements IPositionCalculator {
     };
   }
 
-  /**
-   * Get property value from node
-   */
-  private getNodePropertyValue(node: Node, propertyName: string): string {
-    if (propertyName === "type") {
-      return node.type;
-    } else if (propertyName === "age") {
-      const age = node.properties?.age;
-      if (age !== undefined) {
-        // Group ages into ranges
-        if (age < 20) return "0-19";
-        if (age < 40) return "20-39";
-        if (age < 60) return "40-59";
-        if (age < 80) return "60-79";
-        return "80+";
-      }
-      return "Unknown";
-    } else if (node.properties && propertyName in node.properties) {
-      // Type-safe property access
-      if (propertyName === "petType") {
-        return node.properties.petType || "None";
-      } else if (propertyName === "petColor") {
-        return node.properties.petColor || "None";
-      }
-      return "None";
-    }
-    return "Unknown";
-  }
 
   /**
    * Organize nodes by layer and property
@@ -193,7 +172,7 @@ export class PositionCalculator implements IPositionCalculator {
     // Then organize by property and layer
     nodesByLayer.forEach((nodes, layer) => {
       nodes.forEach(node => {
-        const propertyValue = this.getNodePropertyValue(node, propertyName);
+        const propertyValue = this.propertyResolver.getPropertyValue(node, propertyName);
         const key = `${propertyValue}-${layer}`;
         
         if (!nodesByTypeAndLayer.has(key)) {
@@ -282,6 +261,13 @@ export class PositionCalculator implements IPositionCalculator {
     // Create Z position mapping for the z-axis property
     const zPositionMap = this.createPropertyPositionMap(nodesByTypeAndLayer, zAxisProperty);
     
+    // Check if Y-axis should use property-based positioning
+    const useLayerForY = !config.yAxisConfig || config.yAxisConfig.useLayer;
+    const yAxisProperty = config.yAxisConfig?.property || "type";
+    
+    // Create Y position mapping if using property-based Y-axis
+    const yPositionMap = useLayerForY ? undefined : this.createPropertyPositionMap(nodesByTypeAndLayer, yAxisProperty);
+    
     for (let layer = 1; layer <= numLayers; layer++) {
       // Invert Y so layer 1 is at top
       const layerY = RENDERER_CONSTANTS.POSITIONING.BASE_Y + 
@@ -313,11 +299,16 @@ export class PositionCalculator implements IPositionCalculator {
           const x = baseX + centeringOffset + index * spacing.nodeSpacing;
           
           // Get Z position based on z-axis property
-          const zValue = this.getNodePropertyValue(node, zAxisProperty);
+          const zValue = this.propertyResolver.getPropertyValue(node, zAxisProperty);
           const z = zPositionMap.get(zValue) || 0;
           
+          // Get Y position based on Y-axis configuration
+          const y = useLayerForY 
+            ? layerY 
+            : (yPositionMap!.get(this.propertyResolver.getPropertyValue(node, yAxisProperty)) || 0) * spacing.layerSpacing + RENDERER_CONSTANTS.POSITIONING.BASE_Y;
+          
           // Update node position
-          node.position = { x, y: layerY, z };
+          node.position = { x, y, z };
           
           // Add type number for labeling
           const typeCounter = typeNodeCounters.get(xValue)! + 1;
@@ -339,7 +330,7 @@ export class PositionCalculator implements IPositionCalculator {
     // Collect all unique values for the property
     nodesByTypeAndLayer.forEach(nodes => {
       nodes.forEach(node => {
-        const value = this.getNodePropertyValue(node, propertyName);
+        const value = this.propertyResolver.getPropertyValue(node, propertyName);
         uniqueValues.add(value);
       });
     });
@@ -349,8 +340,8 @@ export class PositionCalculator implements IPositionCalculator {
     const positionMap = new Map<string, number>();
     
     sortedValues.forEach((value, index) => {
-      // Position values 5 units apart on the Z axis
-      positionMap.set(value, (index - sortedValues.size() / 2) * 5);
+      // Position values apart on the Z axis
+      positionMap.set(value, (index - sortedValues.size() / 2) * POSITION_CONSTANTS.Z_AXIS_SPACING);
     });
     
     return positionMap;

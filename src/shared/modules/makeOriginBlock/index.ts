@@ -4,6 +4,7 @@
 
 import { makeLabelBlock } from "../labelBlockMaker";
 import { IVisualMakerConfig, IMakerFunction } from "../../interfaces/IMaker";
+import { BLOCK_CONSTANTS } from "../renderers/constants/blockConstants";
 
 /**
  * Configuration for origin block creation
@@ -29,7 +30,7 @@ const ORIGIN_BLOCK_DEFAULTS = {
   offset: { x: 0, y: 0, z: 0 },
   blockSize: 4,
   castShadow: false,
-  transparency: 0.2,
+  transparency: BLOCK_CONSTANTS.TRANSPARENCY.SEMI_TRANSPARENT * 0.4, // 0.2
   material: Enum.Material.SmoothPlastic,
 } as const;
 

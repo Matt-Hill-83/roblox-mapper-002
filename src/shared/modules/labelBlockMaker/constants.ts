@@ -2,12 +2,14 @@
  * Constants for label block creation
  */
 
+import { BLOCK_CONSTANTS } from "../renderers/constants/blockConstants";
+
 export const LABEL_BLOCK_CONSTANTS = {
   // Default block properties
   DEFAULT_SIZE: 8,
   DEFAULT_COLOR: [0.5, 0.5, 0.5] as [number, number, number],
   DEFAULT_MATERIAL: "SmoothPlastic",
-  DEFAULT_TRANSPARENCY: 0,
+  DEFAULT_TRANSPARENCY: BLOCK_CONSTANTS.TRANSPARENCY.OPAQUE,
   DEFAULT_ANCHORED: true,
   
   // Formatting

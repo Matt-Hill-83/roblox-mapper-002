@@ -4,6 +4,8 @@
  */
 
 import { Node } from "../../../../interfaces/simpleDataGenerator.interface";
+import { LABEL_CONSTANTS } from "../../constants/labelConstants";
+import { POSITION_CONSTANTS } from "../../constants/positionConstants";
 
 export interface LabelConfig {
   text: string;
@@ -14,7 +16,7 @@ export interface LabelConfig {
 }
 
 export class LabelRenderer {
-  private defaultColor = new Color3(1, 1, 1); // White
+  private defaultColor = LABEL_CONSTANTS.COLORS.DEFAULT_TEXT;
   
   /**
    * Create labels for X-axis swimlanes with SurfaceGui
@@ -34,11 +36,11 @@ export class LabelRenderer {
       // Always create floating label
       const centerX = (bounds.minX + bounds.maxX) / 2;
       // Use platform edge if available, otherwise use node bounds
-      const labelZ = platformBounds ? platformBounds.minZ - 8 : bounds.minZ - 8;
+      const labelZ = platformBounds ? platformBounds.minZ - LABEL_CONSTANTS.OFFSETS.PLATFORM_EDGE_OFFSET : bounds.minZ - LABEL_CONSTANTS.OFFSETS.PLATFORM_EDGE_OFFSET;
       
       this.createLabel({
         text: typeName,
-        position: new Vector3(centerX, yPosition + 2, labelZ),
+        position: new Vector3(centerX, yPosition + LABEL_CONSTANTS.OFFSETS.POSITION_OFFSET, labelZ),
         parent: parent
       });
       
@@ -64,12 +66,12 @@ export class LabelRenderer {
       
       // Always create floating label
       // Use platform edge if available, otherwise use node bounds
-      const labelX = platformBounds ? platformBounds.minX - 8 : bounds.minX - 8;
+      const labelX = platformBounds ? platformBounds.minX - LABEL_CONSTANTS.OFFSETS.PLATFORM_EDGE_OFFSET : bounds.minX - LABEL_CONSTANTS.OFFSETS.PLATFORM_EDGE_OFFSET;
       const centerZ = (bounds.minZ + bounds.maxZ) / 2;
       
       this.createLabel({
         text: value,
-        position: new Vector3(labelX, yPosition + 2, centerZ),
+        position: new Vector3(labelX, yPosition + LABEL_CONSTANTS.OFFSETS.POSITION_OFFSET, centerZ),
         parent: parent
       });
       
@@ -88,17 +90,17 @@ export class LabelRenderer {
     
     // Create part to hold the label
     const labelPart = new Instance("Part");
-    labelPart.Name = `Label_${text}`;
-    labelPart.Size = new Vector3(0.1, 0.1, 0.1);
+    labelPart.Name = `${LABEL_CONSTANTS.NAMES.LABEL_PREFIX}${text}`;
+    labelPart.Size = new Vector3(LABEL_CONSTANTS.SIZES.PART_SIZE, LABEL_CONSTANTS.SIZES.PART_SIZE, LABEL_CONSTANTS.SIZES.PART_SIZE);
     labelPart.Position = position;
-    labelPart.Transparency = 1;
+    labelPart.Transparency = LABEL_CONSTANTS.TRANSPARENCY.PART;
     labelPart.CanCollide = false;
     labelPart.Anchored = true;
     labelPart.Parent = parent;
     
     // Create BillboardGui
     const billboardGui = new Instance("BillboardGui");
-    billboardGui.Size = new UDim2(0, 100, 0, 25);  // Half the size
+    billboardGui.Size = new UDim2(0, LABEL_CONSTANTS.SIZES.BILLBOARD_WIDTH, 0, LABEL_CONSTANTS.SIZES.BILLBOARD_HEIGHT);
     billboardGui.StudsOffset = new Vector3(0, 0, 0);
     billboardGui.AlwaysOnTop = true;
     billboardGui.LightInfluence = 0;
@@ -107,14 +109,14 @@ export class LabelRenderer {
     // Create TextLabel with background
     const textLabel = new Instance("TextLabel");
     textLabel.Size = new UDim2(1, 0, 1, 0);
-    textLabel.BackgroundTransparency = 0.7;
-    textLabel.BackgroundColor3 = new Color3(0, 0, 0);
+    textLabel.BackgroundTransparency = LABEL_CONSTANTS.TRANSPARENCY.BACKGROUND;
+    textLabel.BackgroundColor3 = LABEL_CONSTANTS.COLORS.DEFAULT_BACKGROUND;
     textLabel.Text = text;
     textLabel.TextColor3 = color;
     textLabel.TextScaled = true;
-    textLabel.Font = Enum.Font.SourceSans;
-    textLabel.TextStrokeTransparency = 0.5;
-    textLabel.TextStrokeColor3 = new Color3(0, 0, 0);
+    textLabel.Font = LABEL_CONSTANTS.FORMATTING.FONT;
+    textLabel.TextStrokeTransparency = LABEL_CONSTANTS.TRANSPARENCY.TEXT_STROKE;
+    textLabel.TextStrokeColor3 = LABEL_CONSTANTS.COLORS.SHADOW;
     textLabel.Parent = billboardGui;
     
     print(`🏷️ Created label: ${text} at (${position.X}, ${position.Y}, ${position.Z})`);
@@ -134,9 +136,9 @@ export class LabelRenderer {
       let labelPosition: Vector3;
       
       if (axis === "X") {
-        labelPosition = new Vector3(position, basePosition.Y + 10, basePosition.Z - 5);
+        labelPosition = new Vector3(position, basePosition.Y + 10, basePosition.Z - POSITION_CONSTANTS.Z_AXIS_SPACING);
       } else {
-        labelPosition = new Vector3(basePosition.X - 5, basePosition.Y + 10, position);
+        labelPosition = new Vector3(basePosition.X - POSITION_CONSTANTS.Z_AXIS_SPACING, basePosition.Y + 10, position);
       }
       
       this.createLabel({
@@ -155,26 +157,26 @@ export class LabelRenderer {
   private createSurfaceLabel(part: Part, text: string, face: "Front" | "Left"): void {
     // Create SurfaceGui
     const surfaceGui = new Instance("SurfaceGui");
-    surfaceGui.Name = `Label_${text}`;
+    surfaceGui.Name = `${LABEL_CONSTANTS.NAMES.SURFACE_GUI_PREFIX}${text}`;
     surfaceGui.Face = face === "Front" ? Enum.NormalId.Front : Enum.NormalId.Left;
     surfaceGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud;
-    surfaceGui.PixelsPerStud = 50;
+    surfaceGui.PixelsPerStud = LABEL_CONSTANTS.FORMATTING.SURFACE_GUI_PIXELS_PER_STUD;
     surfaceGui.Parent = part;
     
     // Create Frame for background
     const frame = new Instance("Frame");
     frame.Size = new UDim2(1, 0, 1, 0);
-    frame.BackgroundColor3 = new Color3(0, 0, 0);
+    frame.BackgroundColor3 = LABEL_CONSTANTS.COLORS.DEFAULT_BACKGROUND;
     frame.BackgroundTransparency = 0.3;
     frame.BorderSizePixel = 0;
     frame.Parent = surfaceGui;
     
     // Create TextLabel
     const textLabel = new Instance("TextLabel");
-    textLabel.Size = new UDim2(0.9, 0, 0.9, 0);
-    textLabel.Position = new UDim2(0.05, 0, 0.05, 0);
+    textLabel.Size = new UDim2(LABEL_CONSTANTS.SIZES.TEXT_SCALE_FACTOR, 0, LABEL_CONSTANTS.SIZES.TEXT_SCALE_FACTOR, 0);
+    textLabel.Position = new UDim2((1 - LABEL_CONSTANTS.SIZES.TEXT_SCALE_FACTOR) / 2, 0, (1 - LABEL_CONSTANTS.SIZES.TEXT_SCALE_FACTOR) / 2, 0);
     textLabel.BackgroundTransparency = 1;
-    textLabel.Font = Enum.Font.SourceSansBold;
+    textLabel.Font = LABEL_CONSTANTS.FORMATTING.FONT_BOLD;
     textLabel.Text = text;
     textLabel.TextColor3 = this.defaultColor;
     textLabel.TextScaled = true;
