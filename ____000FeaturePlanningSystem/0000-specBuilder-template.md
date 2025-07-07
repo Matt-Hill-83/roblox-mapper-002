@@ -33,17 +33,20 @@ Step 1. - Create Single Spec Document
 
    1. Read Inputs
    2. Use the "Spec Building Instructions" below to create output
+   3. The outputs should be concise and without meaningless filler content
 
 3. Outputs
    1. folder that follows the naming conventions in Sample Output
    2. file that follows this naming convention
       1. 000-TicTacToe-InitialSpec-001
 4. User Question:
-   1. I have created Step 1. <step name>
-   2. I used these inputs <Inputs names> to create these Outputs
-   3. <output names>
-   4. Make any changes, ask me to update it, and tell me when you are ready for
-   5. Step 2 <step name>
+   1. I have finished Step 1: <step name>
+   2. I used these Inputs:
+   3. <Inputs names>
+   4. to create these Outputs:
+   5. <output names>
+   6. Make any changes, ask me to update it, and tell me when you are ready for
+   7. Step 2 <step name>
 
 |----------------------------------------------------------------------|
 Step 2. - Break Spec into Smaller Files
@@ -62,14 +65,66 @@ Step 2. - Break Spec into Smaller Files
       2. 000--02-Requirements.md
       3. 000-03-Tasks.md
    3. (The purpose is to isolate the tasks and make them easier to review and execute)
+   4. The outputs should be concise and without meaningless filler content
 
 4. User Question:
-   1. I have converted the Spec <doc name> into a set of smaller docs, which can be found here: Make any changes, ask me to update them, and tell me when you are ready for step 2.
+   1. I have finished Step 2: <step name>
+   2. I used these Inputs:
+   3. <Inputs names>
+   4. to create these Outputs:
+   5. <output names>
+   6. Make any changes, ask me to update it, and tell me when you are ready for
+   7. Step 3 <step name>
 
-When told to do so:
-execute tasks, starting with task 1.
-mark each task complete before starting the next task.
-if a task fails or cannot be done, stop and wait for instructions.
+|----------------------------------------------------------------------|
+Step 3. - Execution
+
+1. Inputs
+
+   1. Output docs from previous step.
+
+2. Actions for AI Agent
+   1. Read the Task List
+   2. Execute the first task and its sub-tasks
+   3. If a task fails or cannot be completed, stop and ask the user for next steps.
+   4. When all subtasks are complete, mark them completed in the Task doc and ask the User Question
+3. Outputs
+
+   1. Any files created by doing the task
+
+4. User Question:
+   1. I have finished Step 3: <step name>
+   2. I completed these tasks:
+   3. <task list>
+   4. The following files were created:
+   5. <files list>
+   6. Shall I commit the changes?
+
+|----------------------------------------------------------------------|
+
+Step 3. - Commit code
+
+1. Inputs
+
+   1. Files Changed by executing tasks
+
+2. Actions for AI Agent
+   1. Create a commit
+      1. Include Feature name and task number in title
+      2. Describe changes in body
+      3. Do not state that an AI Agent made the commit
+3. Outputs
+
+   1. none
+
+4. User Question:
+
+   1. I have committed the changes for <task name>
+   2. Shall I execute <task name>?
+
+|----------------------------------------------------------------------|
+
+## Spec Building Instructions
 
 Use these outline conventions when creating the doc
 
@@ -87,8 +142,6 @@ Use these outline conventions when creating the doc
 
 2. ⬛ Cat Behavior
 ```
-
-## Provide a section summarizing the purpose of the feature or plan
 
 ## Core Principles
 
@@ -114,10 +167,9 @@ Organize the doc into these sections, in this order:
    2.4. read this doc and follow the conventions: 001-outline-conventions.md
 4. List of risks (if any)
 5. List of decision points (if any)
-6. Text based file/function tree
-7. A mermaid flowchart
-8. Sample objects
-9. Example code
+6. ASCII representation of GUI
+7. Text based file/function tree
+8. A mermaid flowchart
 
 ## Example Format
 
@@ -140,7 +192,9 @@ Organize the doc into these sections, in this order:
 - Decision 1: Choice made between X and Y approaches because of Z
 - Decision 2: Selected technology A over B because of C requirements
 
-## File and Function Structure
+## ASCII representation of GUI
+
+## File and Function Structure (ascii)
 
 src/
 ├── featureName/
@@ -164,25 +218,4 @@ graph TD
     MainModule -->|initializes| HelperService
     MainModule -->|creates| DataStore
     HelperService -->|processes via| DataStore
-```
-
-## Sample Objects
-
-```javascript
-// Sample object structure
-const sampleObject = {
-  property1: "value1",
-  property2: 123,
-  nestedProperty: {
-    subProperty: true,
-  },
-};
-```
-
-## Example Code
-
-```javascript
-function mainFunction() {
-  // Implementation example
-}
 ```
