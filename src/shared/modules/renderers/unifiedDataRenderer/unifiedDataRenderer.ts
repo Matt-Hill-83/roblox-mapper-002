@@ -329,6 +329,9 @@ export class UnifiedDataRenderer {
     // Use axis mapping if available
     const zAxisProperty = config?.axisMapping?.zAxis || "petType";
     
+    // First, get overall cluster bounds for uniform width
+    const clusterBounds = this.positionCalculator.getClusterBounds(cluster);
+    
     // Organize nodes by z-axis property
     const nodesByProperty = new Map<string, Node[]>();
     const propertyBounds = new Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>();
@@ -337,9 +340,10 @@ export class UnifiedDataRenderer {
       const propertyValue = this.propertyResolver.getPropertyValue(node, zAxisProperty);
       if (!nodesByProperty.has(propertyValue)) {
         nodesByProperty.set(propertyValue, []);
+        // Use cluster bounds for X (uniform width), but track individual Z bounds
         propertyBounds.set(propertyValue, {
-          minX: math.huge,
-          maxX: -math.huge,
+          minX: clusterBounds.minX,
+          maxX: clusterBounds.maxX,
           minZ: math.huge,
           maxZ: -math.huge
         });
@@ -347,9 +351,8 @@ export class UnifiedDataRenderer {
       
       nodesByProperty.get(propertyValue)!.push(node);
       
+      // Only update Z bounds for positioning
       const bounds = propertyBounds.get(propertyValue)!;
-      bounds.minX = math.min(bounds.minX, node.position.x);
-      bounds.maxX = math.max(bounds.maxX, node.position.x);
       bounds.minZ = math.min(bounds.minZ, node.position.z);
       bounds.maxZ = math.max(bounds.maxZ, node.position.z);
     });
