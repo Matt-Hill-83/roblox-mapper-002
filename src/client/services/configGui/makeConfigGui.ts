@@ -11,8 +11,7 @@
 import { Players } from "@rbxts/services";
 import { GUI_CONSTANTS } from "./constants";
 import { EnhancedGeneratorConfig, ConfigGUIServiceOptions } from "./interfaces";
-import { createMainFrame } from "./components/frame";
-import { createTitle } from "./components/title";
+import { createCollapsibleFrame } from "./components/collapsibleFrame";
 import { createGlobalSettings } from "./components/globalSettings";
 import { createNodeTypesSection } from "./components/nodeTypesSection";
 import { createLayerGrid } from "./components/layerGrid";
@@ -64,16 +63,19 @@ export class ConfigGUIService {
     gui.Parent = playerGui;
     this.stateManager.setGUI(gui);
 
-    // Create main frame - use 90% of screen height
+    // Create collapsible main frame - use 90% of screen height
     const frameSize = new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH, GUI_CONSTANTS.FRAME.ENHANCED_HEIGHT_SCALE, 0);
-    const configFrame = createMainFrame(gui, frameSize);
-    this.stateManager.setConfigFrame(configFrame);
+    const collapsibleFrame = createCollapsibleFrame({
+      parent: gui,
+      size: frameSize,
+      title: "Graph Configuration"
+    });
+    
+    // Store the main frame
+    this.stateManager.setConfigFrame(collapsibleFrame.frame);
 
-    // Add title
-    createTitle(configFrame);
-
-    // Create unified UI
-    this.createUnifiedUI();
+    // Create unified UI in the content frame
+    this.createUnifiedUI(collapsibleFrame.contentFrame);
 
     this.stateManager.setVisible(true);
   }
@@ -81,15 +83,16 @@ export class ConfigGUIService {
   /**
    * Creates the unified UI
    */
-  private createUnifiedUI(): void {
+  private createUnifiedUI(contentFrame?: Frame): void {
     const state = this.stateManager.getState();
-    if (!state.configFrame) return;
+    const parentFrame = contentFrame || state.configFrame;
+    if (!parentFrame) return;
     
     const config = this.stateManager.getEnhancedConfig();
     
     // Create global settings with spacing controls
     createGlobalSettings({
-      parent: state.configFrame,
+      parent: parentFrame,
       spacing: config.spacing!,
       onSpacingChange: (field, value) => {
         this.eventHandlers.handleSpacingChange(field, value);
@@ -98,7 +101,7 @@ export class ConfigGUIService {
 
     // Create node/link types section
     createNodeTypesSection({
-      parent: state.configFrame,
+      parent: parentFrame,
       numNodeTypes: config.numNodeTypes,
       numLinkTypes: config.numLinkTypes,
       onNodeTypesChange: (value) => {
@@ -116,7 +119,7 @@ export class ConfigGUIService {
     // Create layer grid with initial layers
     print(`🎯 Creating layer grid with ${config.layers.size()} initial layers`);
     createLayerGrid({
-      parent: state.configFrame,
+      parent: parentFrame,
       onLayerUpdate: (layers) => {
         this.eventHandlers.handleLayerUpdate(layers);
       },
@@ -126,11 +129,11 @@ export class ConfigGUIService {
     });
 
     // Create action buttons
-    this.createActionButtons();
+    this.createActionButtons(parentFrame);
 
     // Create visualization controls (positioned to the right of buttons)
     createVisualizationControls({
-      parent: state.configFrame,
+      parent: parentFrame,
       visualization: config.visualization!,
       onVisualizationChange: (field, value) => {
         this.eventHandlers.handleVisualizationChange(field, value);
@@ -139,7 +142,7 @@ export class ConfigGUIService {
 
     // Create status area
     const statusLabel = createStatusArea({
-      parent: state.configFrame
+      parent: parentFrame
     });
     this.stateManager.setStatusLabel(statusLabel);
   }
