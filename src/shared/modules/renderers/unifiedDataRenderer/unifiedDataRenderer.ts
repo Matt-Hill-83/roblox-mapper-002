@@ -9,6 +9,7 @@ import { DataGenerator } from "./core/dataGenerator";
 import { PositionCalculator } from "./core/positionCalculator";
 import { NodeRenderer } from "./rendering/nodeRenderer";
 import { UpdateManager } from "./rendering/updateManager";
+import { createFlatBlock, calculateBlockDimensions } from "../flatBlockCreator";
 
 export class UnifiedDataRenderer {
   private dataGenerator: DataGenerator;
@@ -30,6 +31,13 @@ export class UnifiedDataRenderer {
   public renderEnhancedData(parentFolder: Folder, config: EnhancedGeneratorConfig, origin?: Vector3): void {
     print("🎯 Unified renderer: Starting enhanced data generation...");
     
+    // Delete any existing flat block
+    const existingBlock = parentFolder.FindFirstChild("FlatBlockFoundation");
+    if (existingBlock) {
+      existingBlock.Destroy();
+      print("🗑️ Deleted existing flat block foundation");
+    }
+    
     // Generate the cluster data
     const cluster = this.dataGenerator.generateClusterFromLayers(config);
     
@@ -39,6 +47,20 @@ export class UnifiedDataRenderer {
     // Adjust positions to center bottom at origin
     const targetOrigin = origin || new Vector3(0, 0, 0);
     this.positionCalculator.centerBottomAtOrigin(cluster, targetOrigin, config);
+    
+    // Get bounds after positioning
+    const bounds = this.positionCalculator.getClusterBounds(cluster);
+    
+    // Calculate block dimensions based on actual node tree bounds
+    const blockDimensions = calculateBlockDimensions(bounds, 0); // No padding
+    
+    // Create flat block foundation with calculated dimensions
+    createFlatBlock({
+      origin: targetOrigin,
+      parent: parentFolder,
+      width: blockDimensions.width,
+      depth: blockDimensions.depth,
+    });
     
     // Render the cluster
     this.nodeRenderer.renderCluster(cluster, parentFolder, config);

@@ -11,6 +11,19 @@ import { RENDERER_CONSTANTS } from "../../dataGeneratorRobloxRendererUtils/const
 
 export class PositionCalculator implements IPositionCalculator {
   /**
+   * Get bounds of the cluster (public method for external use)
+   */
+  public getClusterBounds(cluster: Cluster): { minX: number, maxX: number, minY: number, minZ: number, maxZ: number } {
+    const bounds = this.calculateBounds(cluster);
+    print(`🔍 Cluster bounds calculated:`);
+    print(`   - X: [${bounds.minX}, ${bounds.maxX}]`);
+    print(`   - Y: [${bounds.minY}]`);
+    print(`   - Z: [${bounds.minZ}, ${bounds.maxZ}]`);
+    print(`   - Total nodes: ${cluster.groups[0].nodes.size()}`);
+    return bounds;
+  }
+
+  /**
    * Centers the bottom of the group at the specified origin
    */
   public centerBottomAtOrigin(cluster: Cluster, origin: Vector3, config?: EnhancedGeneratorConfig): void {
@@ -79,18 +92,22 @@ export class PositionCalculator implements IPositionCalculator {
   /**
    * Calculate bounds of the cluster
    */
-  private calculateBounds(cluster: Cluster): { minX: number, maxX: number, minY: number } {
+  private calculateBounds(cluster: Cluster): { minX: number, maxX: number, minY: number, minZ: number, maxZ: number } {
     let minX = math.huge;
     let maxX = -math.huge;
     let minY = math.huge;
+    let minZ = math.huge;
+    let maxZ = -math.huge;
     
     cluster.groups[0].nodes.forEach(node => {
       minX = math.min(minX, node.position.x);
       maxX = math.max(maxX, node.position.x);
       minY = math.min(minY, node.position.y);
+      minZ = math.min(minZ, node.position.z);
+      maxZ = math.max(maxZ, node.position.z);
     });
     
-    return { minX, maxX, minY };
+    return { minX, maxX, minY, minZ, maxZ };
   }
 
   /**
