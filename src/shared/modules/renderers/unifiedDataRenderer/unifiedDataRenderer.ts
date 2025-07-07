@@ -85,7 +85,14 @@ export class UnifiedDataRenderer {
     // Create labels for swimlanes after rendering (so GraphMaker folder exists)
     const graphMakerFolder = parentFolder.FindFirstChild("GraphMaker") as Folder;
     if (graphMakerFolder) {
-      this.createSwimLaneLabels(cluster, graphMakerFolder, config, xAxisSwimlaneBlocks, zAxisSwimlaneBlocks);
+      // Pass platform bounds for consistent label positioning
+      const platformBounds = {
+        minX: targetOrigin.X - blockDimensions.width / 2,
+        maxX: targetOrigin.X + blockDimensions.width / 2,
+        minZ: targetOrigin.Z - blockDimensions.depth / 2,
+        maxZ: targetOrigin.Z + blockDimensions.depth / 2
+      };
+      this.createSwimLaneLabels(cluster, graphMakerFolder, config, xAxisSwimlaneBlocks, zAxisSwimlaneBlocks, platformBounds);
     } else {
       print("⚠️ GraphMaker folder not found for labels");
     }
@@ -255,7 +262,8 @@ export class UnifiedDataRenderer {
     parentFolder: Folder,
     config?: EnhancedGeneratorConfig,
     xAxisBlocks?: Map<string, Part>,
-    zAxisBlocks?: Map<string, Part>
+    zAxisBlocks?: Map<string, Part>,
+    platformBounds?: { minX: number; maxX: number; minZ: number; maxZ: number }
   ): void {
     // Use axis mapping if available
     const xAxisProperty = config?.axisMapping?.xAxis || "type";
@@ -309,8 +317,8 @@ export class UnifiedDataRenderer {
     });
     
     // Create labels with swimlane blocks if available
-    this.labelRenderer.createXAxisLabels(nodesByXProperty, xPropertyBounds, parentFolder, 0, xAxisBlocks);
-    this.labelRenderer.createZAxisLabels(zPropertyBounds, parentFolder, 0, zAxisBlocks);
+    this.labelRenderer.createXAxisLabels(nodesByXProperty, xPropertyBounds, parentFolder, 0, xAxisBlocks, platformBounds);
+    this.labelRenderer.createZAxisLabels(zPropertyBounds, parentFolder, 0, zAxisBlocks, platformBounds);
   }
   
   /**

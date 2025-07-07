@@ -24,7 +24,8 @@ export class LabelRenderer {
     typeBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
     parent: Instance,
     yPosition: number = 0,
-    swimlaneBlocks?: Map<string, Part>
+    swimlaneBlocks?: Map<string, Part>,
+    platformBounds?: { minX: number; maxX: number; minZ: number; maxZ: number }
   ): void {
     nodesByType.forEach((nodes, typeName) => {
       const bounds = typeBounds.get(typeName)!;
@@ -32,11 +33,12 @@ export class LabelRenderer {
       
       // Always create floating label
       const centerX = (bounds.minX + bounds.maxX) / 2;
-      const centerZ = bounds.minZ - 5;
+      // Use platform edge if available, otherwise use node bounds
+      const labelZ = platformBounds ? platformBounds.minZ - 8 : bounds.minZ - 8;
       
       this.createLabel({
         text: typeName,
-        position: new Vector3(centerX, yPosition + 15, centerZ),
+        position: new Vector3(centerX, yPosition + 2, labelZ),
         parent: parent
       });
       
@@ -54,18 +56,20 @@ export class LabelRenderer {
     propertyValues: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
     parent: Instance,
     yPosition: number = 0,
-    swimlaneBlocks?: Map<string, Part>
+    swimlaneBlocks?: Map<string, Part>,
+    platformBounds?: { minX: number; maxX: number; minZ: number; maxZ: number }
   ): void {
     propertyValues.forEach((bounds, value) => {
       const swimlaneBlock = swimlaneBlocks?.get(value);
       
       // Always create floating label
-      const centerX = bounds.minX - 5;
+      // Use platform edge if available, otherwise use node bounds
+      const labelX = platformBounds ? platformBounds.minX - 8 : bounds.minX - 8;
       const centerZ = (bounds.minZ + bounds.maxZ) / 2;
       
       this.createLabel({
         text: value,
-        position: new Vector3(centerX, yPosition + 15, centerZ),
+        position: new Vector3(labelX, yPosition + 2, centerZ),
         parent: parent
       });
       
@@ -94,8 +98,8 @@ export class LabelRenderer {
     
     // Create BillboardGui
     const billboardGui = new Instance("BillboardGui");
-    billboardGui.Size = new UDim2(0, 600, 0, 150);
-    billboardGui.StudsOffset = new Vector3(0, 5, 0);
+    billboardGui.Size = new UDim2(0, 100, 0, 25);  // Half the size
+    billboardGui.StudsOffset = new Vector3(0, 0, 0);
     billboardGui.AlwaysOnTop = true;
     billboardGui.LightInfluence = 0;
     billboardGui.Parent = labelPart;
@@ -103,13 +107,13 @@ export class LabelRenderer {
     // Create TextLabel with background
     const textLabel = new Instance("TextLabel");
     textLabel.Size = new UDim2(1, 0, 1, 0);
-    textLabel.BackgroundTransparency = 0.5;
+    textLabel.BackgroundTransparency = 0.7;
     textLabel.BackgroundColor3 = new Color3(0, 0, 0);
     textLabel.Text = text;
     textLabel.TextColor3 = color;
     textLabel.TextScaled = true;
-    textLabel.Font = Enum.Font.SourceSansBold;
-    textLabel.TextStrokeTransparency = 0;
+    textLabel.Font = Enum.Font.SourceSans;
+    textLabel.TextStrokeTransparency = 0.5;
     textLabel.TextStrokeColor3 = new Color3(0, 0, 0);
     textLabel.Parent = billboardGui;
     
