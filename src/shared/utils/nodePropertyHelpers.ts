@@ -82,6 +82,6 @@ export function resolvePropertyValue(node: Node, propertyName: string): string {
   }
   
   // Handle other properties
-  const value = getNodeProperty(node, propertyName as any);
+  const value = getNodeProperty(node, propertyName as keyof (PersonProperties & AnimalProperties));
   return value !== undefined ? tostring(value) : "Unknown";
 }

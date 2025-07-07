@@ -132,7 +132,9 @@ export class PropertyValueResolver {
     if (node.type !== "Animals" || !node.properties) {
       return "None";
     }
-    return (node.properties as any).animalType || "None";
+    // Type-safe property access
+    const properties = node.properties as { animalType?: string };
+    return properties.animalType || "None";
   }
   
   /**

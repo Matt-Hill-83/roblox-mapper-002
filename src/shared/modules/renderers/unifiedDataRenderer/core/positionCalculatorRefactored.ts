@@ -10,7 +10,6 @@ import { Cluster, Node } from "../../../../interfaces/simpleDataGenerator.interf
 import { EnhancedGeneratorConfig } from "../../../../interfaces/enhancedGenerator.interface";
 import { IPositionCalculator, SpacingConfig } from "../interfaces";
 import { RENDERER_CONSTANTS } from "../../dataGeneratorRobloxRendererUtils/constants";
-import { POSITION_CONSTANTS } from "../../constants/positionConstants";
 import { PropertyValueResolver } from "../../propertyValueResolver";
 import { BoundsCalculator } from "./boundsCalculator";
 import { NodeOrganizer } from "./nodeOrganizer";
