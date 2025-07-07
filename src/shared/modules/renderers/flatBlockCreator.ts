@@ -57,7 +57,7 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   platformBlock.Size = new Vector3(BLOCK_CONSTANTS.DIMENSIONS.PLATFORM_SIZE, height, BLOCK_CONSTANTS.DIMENSIONS.PLATFORM_SIZE);
   
   // Set platform material and appearance
-  platformBlock.Material = Enum.Material.Concrete;
+  platformBlock.Material = BLOCK_CONSTANTS.MATERIALS.PLATFORM;
   platformBlock.Color = FLAT_BLOCK_DEFAULTS.platformColor;
   platformBlock.TopSurface = Enum.SurfaceType.Smooth;
   platformBlock.BottomSurface = Enum.SurfaceType.Smooth;
@@ -94,7 +94,7 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   shadowBlock.Size = new Vector3(width + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER, height, depth + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER);
   
   // Set shadow material and appearance
-  shadowBlock.Material = Enum.Material.Concrete;
+  shadowBlock.Material = BLOCK_CONSTANTS.MATERIALS.SHADOW;
   shadowBlock.Color = FLAT_BLOCK_DEFAULTS.shadowColor;
   shadowBlock.TopSurface = Enum.SurfaceType.Smooth;
   shadowBlock.BottomSurface = Enum.SurfaceType.Smooth;
@@ -151,7 +151,7 @@ export function createFlatBlock(config: FlatBlockConfig): Part {
   block.Size = new Vector3(width, height, depth);
   
   // Set material and appearance
-  block.Material = Enum.Material.Concrete;
+  block.Material = BLOCK_CONSTANTS.MATERIALS.SHADOW;
   block.Color = color;
   block.TopSurface = Enum.SurfaceType.Smooth;
   block.BottomSurface = Enum.SurfaceType.Smooth;

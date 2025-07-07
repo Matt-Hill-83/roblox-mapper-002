@@ -37,7 +37,7 @@ export const BLOCK_CONSTANTS = {
     FORCE_FIELD: 0.8,
   },
   MATERIALS: {
-    SHADOW: Enum.Material.ForceField,
+    SHADOW: Enum.Material.Concrete,
     PLATFORM: Enum.Material.Plastic,
     SWIMLANE: Enum.Material.ForceField,
   },
