@@ -112,14 +112,20 @@ export class NodeRenderer implements INodeRenderer {
    * Create labels for a node
    */
   private createNodeLabels(node: Node): string[] {
+    // For person nodes, use full name if available
+    const isPersonNode = ["man", "woman", "child", "grandparent"].includes(node.type);
+    const fullName = isPersonNode && node.properties?.firstName && node.properties?.lastName
+      ? `${node.properties.firstName} ${node.properties.lastName}`
+      : node.name;
+    
     const labels: string[] = [
-      node.name,
+      fullName,
       node.type,
       (node as Node & { typeNumber?: string }).typeNumber || ""
     ];
     
     // Add type-specific properties
-    if (node.type === "People" && node.properties?.age) {
+    if (isPersonNode && node.properties?.age) {
       labels.push(`Age: ${node.properties.age}`);
     } else if (node.type === "Animals" && node.properties?.animalType) {
       labels.push(node.properties.animalType);

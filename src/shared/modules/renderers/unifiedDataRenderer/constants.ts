@@ -44,5 +44,16 @@ export const PET_TYPES = ["Dog", "Cat", "Bird", "Fish", "None", "Hamster", "Rabb
 // Pet colors for people nodes
 export const PET_COLORS = ["Brown", "Black", "White", "Gray", "Orange", "Golden", "Spotted"];
 
+// Name lists for person nodes
+export const FIRST_NAMES = [
+  "James", "Mary", "John", "Patricia", "Robert",
+  "Jennifer", "Michael", "Linda", "William", "Elizabeth"
+];
+
+export const LAST_NAMES = [
+  "Smith", "Johnson", "Williams", "Brown", "Jones",
+  "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"
+];
+
 // Default attachments for nodes
 export const DEFAULT_ATTACHMENTS = ["top", "bottom", "left", "right", "front", "back"];

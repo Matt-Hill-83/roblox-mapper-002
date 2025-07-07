@@ -8,7 +8,7 @@ interface AxisMappingControlsProps {
 }
 
 // Available properties for axis mapping
-const AVAILABLE_PROPERTIES = ["type", "petType", "petColor", "age"];
+const AVAILABLE_PROPERTIES = ["type", "petType", "petColor", "age", "firstName", "lastName"];
 
 export function createAxisMappingControls({
   parent,
@@ -162,17 +162,46 @@ function createAxisDropdown({
     });
   });
 
+  // Create a connection variable to track the close handler
+  let closeConnection: RBXScriptConnection | undefined;
+  
   // Toggle dropdown
   dropdownButton.MouseButton1Click.Connect(() => {
-    dropdownList.Visible = !dropdownList.Visible;
-  });
-
-  // Close dropdown when clicking elsewhere
-  const userInputService = game.GetService("UserInputService");
-  userInputService.InputBegan.Connect((input) => {
-    if (input.UserInputType === Enum.UserInputType.MouseButton1) {
-      wait(0.1); // Small delay to prevent immediate closing
-      dropdownList.Visible = false;
+    const isOpening = !dropdownList.Visible;
+    dropdownList.Visible = isOpening;
+    
+    // If opening, set up the close handler
+    if (isOpening) {
+      // Disconnect previous handler if it exists
+      if (closeConnection) {
+        closeConnection.Disconnect();
+      }
+      
+      // Wait a frame to avoid immediate closing
+      game.GetService("RunService").Heartbeat.Wait();
+      
+      // Set up new close handler
+      const userInputService = game.GetService("UserInputService");
+      closeConnection = userInputService.InputBegan.Connect((input, gameProcessed) => {
+        if (input.UserInputType === Enum.UserInputType.MouseButton1 && !gameProcessed) {
+          // Check if click is outside the dropdown
+          const mouse = game.GetService("Players").LocalPlayer.GetMouse();
+          const target = mouse.Target;
+          
+          // Close if clicking outside dropdown area
+          if (!target || !target.IsDescendantOf(dropdownButton)) {
+            dropdownList.Visible = false;
+            if (closeConnection) {
+              closeConnection.Disconnect();
+              closeConnection = undefined;
+            }
+          }
+        }
+      });
+    } else if (closeConnection) {
+      // If closing, disconnect the handler
+      closeConnection.Disconnect();
+      closeConnection = undefined;
     }
   });
 }

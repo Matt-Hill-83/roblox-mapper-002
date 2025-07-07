@@ -248,6 +248,10 @@ export class UnifiedDataRenderer {
         return node.properties.petType || "None";
       } else if (propertyName === "petColor") {
         return node.properties.petColor || "None";
+      } else if (propertyName === "firstName") {
+        return node.properties.firstName || "None";
+      } else if (propertyName === "lastName") {
+        return node.properties.lastName || "None";
       }
       return "None";
     }

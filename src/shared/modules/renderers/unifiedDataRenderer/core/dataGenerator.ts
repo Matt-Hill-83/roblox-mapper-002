@@ -7,7 +7,7 @@
 import { Cluster, Node, Link, Group } from "../../../../interfaces/simpleDataGenerator.interface";
 import { EnhancedGeneratorConfig, LayerConfig } from "../../../../interfaces/enhancedGenerator.interface";
 import { IDataGenerator } from "../interfaces";
-import { COLOR_PALETTES, NODE_TYPE_NAMES, ANIMAL_TYPES, DEFAULT_ATTACHMENTS, PET_TYPES, PET_COLORS } from "../constants";
+import { COLOR_PALETTES, NODE_TYPE_NAMES, ANIMAL_TYPES, DEFAULT_ATTACHMENTS, PET_TYPES, PET_COLORS, FIRST_NAMES, LAST_NAMES } from "../constants";
 
 export class DataGenerator implements IDataGenerator {
   private linkIdCounter = 0;
@@ -105,19 +105,25 @@ export class DataGenerator implements IDataGenerator {
       node.properties = { 
         age: math.random(18, 80),
         petType: PET_TYPES[math.random(0, PET_TYPES.size() - 1)],
-        petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)]
+        petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)],
+        firstName: FIRST_NAMES[math.random(0, FIRST_NAMES.size() - 1)],
+        lastName: LAST_NAMES[math.random(0, LAST_NAMES.size() - 1)]
       };
     } else if (nodeTypeName === "child") {
       node.properties = { 
         age: math.random(5, 17),
         petType: PET_TYPES[math.random(0, PET_TYPES.size() - 1)],
-        petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)]
+        petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)],
+        firstName: FIRST_NAMES[math.random(0, FIRST_NAMES.size() - 1)],
+        lastName: LAST_NAMES[math.random(0, LAST_NAMES.size() - 1)]
       };
     } else if (nodeTypeName === "grandparent") {
       node.properties = { 
         age: math.random(65, 95),
         petType: PET_TYPES[math.random(0, PET_TYPES.size() - 1)],
-        petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)]
+        petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)],
+        firstName: FIRST_NAMES[math.random(0, FIRST_NAMES.size() - 1)],
+        lastName: LAST_NAMES[math.random(0, LAST_NAMES.size() - 1)]
       };
     } else if (nodeTypeName === "Animals") {
       node.properties = { 
