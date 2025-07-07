@@ -78,6 +78,13 @@ export class ConfigGUIServerService extends BaseService {
           print("✅ GraphMaker folder deleted");
         }
         
+        // Delete the flat block foundation
+        const flatBlock = this.projectRootFolder.FindFirstChild("FlatBlockFoundation");
+        if (flatBlock) {
+          flatBlock.Destroy();
+          print("✅ Flat block foundation deleted");
+        }
+        
         // Send success response
         this.remoteEvent.FireClient(player, "clearSuccess");
       } else if (eventType === "updateEnhanced" && typeIs(data, "table")) {

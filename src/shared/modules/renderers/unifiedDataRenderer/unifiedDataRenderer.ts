@@ -9,6 +9,7 @@ import { DataGenerator } from "./core/dataGenerator";
 import { PositionCalculator } from "./core/positionCalculator";
 import { NodeRenderer } from "./rendering/nodeRenderer";
 import { UpdateManager } from "./rendering/updateManager";
+import { createFlatBlock } from "../flatBlockCreator";
 
 export class UnifiedDataRenderer {
   private dataGenerator: DataGenerator;
@@ -30,6 +31,13 @@ export class UnifiedDataRenderer {
   public renderEnhancedData(parentFolder: Folder, config: EnhancedGeneratorConfig, origin?: Vector3): void {
     print("🎯 Unified renderer: Starting enhanced data generation...");
     
+    // Create flat block foundation first
+    const targetOrigin = origin || new Vector3(0, 0, 0);
+    createFlatBlock({
+      origin: targetOrigin,
+      parent: parentFolder,
+    });
+    
     // Generate the cluster data
     const cluster = this.dataGenerator.generateClusterFromLayers(config);
     
@@ -37,7 +45,6 @@ export class UnifiedDataRenderer {
     this.positionCalculator.calculateLayerSwimLanePositions(cluster, config);
     
     // Adjust positions to center bottom at origin
-    const targetOrigin = origin || new Vector3(0, 0, 0);
     this.positionCalculator.centerBottomAtOrigin(cluster, targetOrigin, config);
     
     // Render the cluster
