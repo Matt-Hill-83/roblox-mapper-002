@@ -63,6 +63,12 @@ export class GUIEventHandlers {
   public handlePetTypesChange(value: number): void {
     this.stateManager.setNumPetTypes(value);
     this.updateStatusMessage("Pet types updated");
+    
+    // Trigger regeneration to update swimlanes with new pet types
+    if (this.onEnhancedConfigChange) {
+      const config = this.stateManager.getEnhancedConfig();
+      this.onEnhancedConfigChange(config);
+    }
   }
 
   /**

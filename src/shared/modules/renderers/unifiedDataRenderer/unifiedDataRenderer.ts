@@ -245,7 +245,7 @@ export class UnifiedDataRenderer {
       // Shadow block is at Y = 1.6 (top at 2.1)
       // X-axis blocks should have their tops at 2.1 + SHADOW_LAYER_DISPLACEMENT
       const shadowBlockTop = BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2;
-      const blockYPosition = shadowBlockTop + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT; // Above shadow block
+      const blockYPosition = shadowBlockTop + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT + 0.1; // Above shadow block + 0.1 to avoid z-fighting
       
       // Get the color from the first node of this type
       const nodeColor = nodes[0].color;
