@@ -21,7 +21,7 @@ export class DataGenerator implements IDataGenerator {
     const nodesByLayer = new Map<number, Node[]>();
 
     // Log pet types configuration
-    const numPetTypes = config.numPetTypes || 2;
+    const numPetTypes = config.numPetTypes || 5;
     print(`🐾 Generating data with ${numPetTypes} pet types (from ${PET_TYPES.size()} available)`);
 
     // Generate nodes for each layer
@@ -127,7 +127,7 @@ export class DataGenerator implements IDataGenerator {
   private addTypeSpecificProperties(node: Node, nodeTypeName: string, config: EnhancedGeneratorConfig): void {
     if (nodeTypeName === "man" || nodeTypeName === "woman") {
       // Use only the first N pet types based on config
-      const numPetTypes = config.numPetTypes || 2;
+      const numPetTypes = config.numPetTypes || 5;
       const maxPetTypeIndex = math.min(numPetTypes - 1, PET_TYPES.size() - 1);
       
       node.properties = { 
@@ -141,7 +141,7 @@ export class DataGenerator implements IDataGenerator {
       };
     } else if (nodeTypeName === "child") {
       // Use only the first N pet types based on config
-      const numPetTypes = config.numPetTypes || 2;
+      const numPetTypes = config.numPetTypes || 5;
       const maxPetTypeIndex = math.min(numPetTypes - 1, PET_TYPES.size() - 1);
       
       node.properties = { 
@@ -155,7 +155,7 @@ export class DataGenerator implements IDataGenerator {
       };
     } else if (nodeTypeName === "grandparent") {
       // Use only the first N pet types based on config
-      const numPetTypes = config.numPetTypes || 2;
+      const numPetTypes = config.numPetTypes || 5;
       const maxPetTypeIndex = math.min(numPetTypes - 1, PET_TYPES.size() - 1);
       
       node.properties = { 

@@ -1,7 +1,6 @@
-// Legacy exports (deprecated)
-export { makeHexStack } from "./hexStackMakerAdapter";
-export type { HexStackConfig } from "./interfaces";
-
-// Standardized exports
-export { makeHexStackStandardized } from "./makeHexStackStandardized";
+// Main exports
+export { makeHexStack } from "./hexStackMaker";
 export type { IHexStackMakerConfig } from "./standardizedInterfaces";
+
+// Legacy type for reference (can be removed in future)
+export type { HexStackConfig } from "./interfaces";

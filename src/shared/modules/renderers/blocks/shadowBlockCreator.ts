@@ -67,6 +67,21 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     propertyName?: string,
     origin?: Vector3
   ): void {
+    // First, calculate the collective bounds of all pet lanes
+    let collectiveMinZ = math.huge;
+    let collectiveMaxZ = -math.huge;
+    
+    propertyBounds.forEach((bounds) => {
+      collectiveMinZ = math.min(collectiveMinZ, bounds.minZ);
+      collectiveMaxZ = math.max(collectiveMaxZ, bounds.maxZ);
+    });
+    
+    // Calculate the center of the collective pet lanes
+    const collectiveCenter = (collectiveMinZ + collectiveMaxZ) / 2;
+    
+    // The group shadow block is centered at Z=0, so we need to offset the pet lanes
+    const offsetZ = 0 - collectiveCenter;
+    
     let blockIndex = 0;
     
     nodesByProperty.forEach((nodes, propertyValue) => {
@@ -75,8 +90,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
         warn(`[ShadowBlockCreator] No bounds found for property value: ${propertyValue}`);
         return;
       }
-      
-      const block = this.createZAxisBlock(propertyValue, bounds, yPosition, blockIndex, propertyName, origin);
+      const block = this.createZAxisBlock(propertyValue, bounds, yPosition, blockIndex, propertyName, offsetZ);
       block.Parent = parent;
       
       if (blocksMap) {
@@ -86,7 +100,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       blockIndex++;
     });
     
-    this.debug(`Created ${nodesByProperty.size()} Z-axis shadow blocks`);
+    this.debug(`Created ${nodesByProperty.size()} Z-axis shadow blocks (centered at Z=0)`);
   }
 
   /**
@@ -98,7 +112,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     yPosition: number,
     colorIndex: number,
     propertyName?: string,
-    origin?: Vector3
+    offsetZ: number = 0
   ): Part {
     const dimensions = this.calculateBlockDimensions(bounds, BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER);
     
@@ -106,10 +120,13 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       ? `ZAxis_SwimLaneShadow_${propertyName}_${propertyValue}`
       : `ZAxis_SwimLaneShadow_${propertyValue}`;
     
+    // Apply the offset to center the collection of pet lanes
+    const adjustedZPosition = dimensions.position.Z + offsetZ;
+    
     const block = this.createBlock({
       name: blockName,
       size: new Vector3(dimensions.size.X, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, dimensions.size.Z),
-      position: new Vector3(origin?.X || 0, yPosition, dimensions.position.Z), // Use origin.X to align with group shadow block
+      position: new Vector3(0, yPosition, adjustedZPosition), // Center at X=0 and apply Z offset
       material: BLOCK_CONSTANTS.MATERIALS.SWIMLANE,
       color: this.getColorFromArray(BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS, colorIndex),
       transparency: BLOCK_CONSTANTS.TRANSPARENCY.OPAQUE,
@@ -122,9 +139,8 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     this.addSurfaceLabelsToAllFaces(block, propertyValue);
 
     this.debug(`Created Z-axis shadow block for ${propertyValue}:`);
-    this.debug(`   - Position: (${origin?.X || 0}, ${yPosition}, ${dimensions.position.Z})`);
+    this.debug(`   - Position: (0, ${yPosition}, ${adjustedZPosition})`);
     this.debug(`   - Size: ${dimensions.size.X} x ${BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS} x ${dimensions.size.Z}`);
-    this.debug(`   - Using origin.X: ${origin?.X || 0} for alignment`);
 
     return block;
   }

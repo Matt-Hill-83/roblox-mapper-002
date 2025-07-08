@@ -375,14 +375,12 @@ export class UpdateManager implements IUpdateManager {
     
     const hexagon = makeHexagon({
       id: this.nodeIdCounter++,
-      centerPosition: [node.position.x, node.position.y, node.position.z],
+      position: new Vector3(node.position.x, node.position.y, node.position.z),
       width: WIDTH,
       height: HEIGHT,
-      barProps: {
-        Color: node.color,
-        Material: Enum.Material.SmoothPlastic,
-        CastShadow: false
-      },
+      barColor: new Color3(node.color[0], node.color[1], node.color[2]),
+      barMaterial: Enum.Material.SmoothPlastic,
+      castShadow: false,
       labels: labels,
       stackIndex: 1,
       hexIndex: this.nodeIdCounter,

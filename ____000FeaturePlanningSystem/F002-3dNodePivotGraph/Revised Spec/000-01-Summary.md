@@ -18,3 +18,88 @@ The graph will display nodes organized in a 3D grid where:
 - Z-axis: User-selected property (default: pet type)
 
 Users can pivot the visualization by selecting different properties for X and Z axes via dropdown menus in the GUI.
+
+## Platform and Shadow Block Layout (Top-Down View)
+
+```
+Looking down from above:
+
+Z axis ↑
+       │
+       │  ┌─────────────────┬─────────────────┐
+       │  │                 │                 │
+       │  │    Cat Lane     │    Cat Lane     │
+       │  │    (Pink)       │    (Pink)       │
+       │  │                 │                 │
+       │  ├─────────────────┼─────────────────┤
+       │  │                 │                 │
+       │  │    Dog Lane     │    Dog Lane     │
+       │  │   (Yellow)      │   (Yellow)      │
+       │  │                 │                 │
+       │  └─────────────────┴─────────────────┘
+       │       Man (Blue)      Woman (Pink)
+       └────────────────────────────────────────→ X axis
+
+Each cell shows the overlap of:
+- Z-axis swimlane (horizontal bands: Cat/Dog)
+- X-axis swimlane (vertical bands: Man/Woman)
+
+The blue group shadow block sits beneath all swimlanes,
+and the grey platform block is at the base.
+```
+
+### Top View
+
+```
+                                          Platform
+              ┌───────────────────────────────────────────────────────────────────────┐
+              │                                                                       │
+              │                            Group Shadow                               │
+              │      ┌───────────────────────────────────────────────────────────┐    │
+              │      │                  Swimlane Shadows with End Caps           │    │
+              │      │                                                           │    │
+              │      │                 1        2        3        4              │    │
+              │      │               ┌───┐    ┌───┐    ┌───┐    ┌───┐            │    │
+              │      │               └───┘    └───┘    └───┘    └───┘            │    │
+              │      │               ┌───┐    ┌───┐    ┌───┐    ┌───┐            │    │
+              │      │               │   │    │   │    │   │    │   │            │    │
+              │      │      ┌─┐ ┌────┼───┼────┼───┼────┼───┼────┼───┼────┐ ┌─┐   │    │
+              │      │      │ │ │    │   │    │   │  Bird  │    │   │    │ │ │ 4 │    │
+              │      │      └─┘ └────┼───┼────┼───┼────┼───┼────┼───┼────┘ └─┘   │    │
+              │      │               │   │    │   │    │   │    │   │            │    │
+              │      │      ┌─┐ ┌────┼───┼────┼───┼────┼───┼────┼───┼────┐ ┌─┐   │    │
+              │      │      │ │ │    │   │    │   │  Fish  │    │   │    │ │ │ 3 │    │
+              │      │      └─┘ └────┼───┼────┼───┼────┼───┼────┼───┼────┘ └─┘   │    │
+              │      │               │   │    │   │    │   │    │   │            │    │
+              │      │      ┌─┐ ┌────┼───┼────┼───┼────┼───┼────┼───┼────┐ ┌─┐   │    │
+              │      │      │ │ │    │   │    │   │  Dog   │    │   │    │ │ │ 2 │    │
+              │      │      └─┘ └────┼───┼────┼───┼────┼───┼────┼───┼────┘ └─┘   │    │
+              │      │               │   │    │   │    │   │    │   │            │    │
+              │      │      ┌─┐ ┌────┼───┼────┼───┼────┼───┼────┼───┼────┐ ┌─┐   │    │
+              │      │      │ │ │    │   │    │   │  Cat   │    │   │    │ │ │ 1 │    │
+              │      │      └─┘ └────┼───┼────┼───┼────┼───┼────┼───┼────┘ └─┘   │    │
+              │      │               │   │    │   │    │   │    │   │            │    │
+              │      │               └───┘    └───┘    └───┘    └───┘            │    │
+              │      │               ┌───┐    ┌───┐    ┌───┐    ┌───┐            │    │
+              │      │               └───┘    └───┘    └───┘    └───┘            │    │
+              │      └───────────────────────────────────────────────────────────┘    │
+              │                                                                       │
+              └───────────────────────────────────────────────────────────────────────┘
+```
+
+### Layer Stack (Side View)
+```
+Side view showing vertical layers:
+
+Y axis ↑
+       │
+       │  [Nodes/Hexagons at various heights]
+       │  ─────────────────────────────────────
+       │  [Z-axis swimlanes: Cat, Dog]
+       │  ─────────────────────────────────────
+       │  [X-axis swimlanes: Man, Woman]  
+       │  ─────────────────────────────────────
+       │  [Group Shadow Block (Blue)]
+       │  ─────────────────────────────────────
+       └─ [Platform Block (Grey)] ──────────────→ X/Z plane
+```

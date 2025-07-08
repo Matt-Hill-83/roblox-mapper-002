@@ -32,30 +32,35 @@
 
 ## New Feature Requirements
 
-7. ⬛ **R7**: Node Properties Inspector GUI
+7. ⬛ **R7**: Add Endcaps to Swimlane Shadows
+   - ⬛ Create endcaps 1 unit wide matching swimlane dimensions
+   - ⬛ Maintain 1 unit gap between endcap and swimlane shadow
+   - ⬛ Add swimlane name labels on all sides of endcap
+
+8. ⬛ **R8**: Node Properties Inspector GUI
    - ⬛ Display node properties when clicking on a node
    - ⬛ Position in upper right of screen
    - ⬛ Click to show/hide functionality
    - ⬛ Show all node properties in a formatted list
 
-8. ⬛ **R8**: Advanced Node Visual Customization
+9. ⬛ **R9**: Advanced Node Visual Customization
    - ⬛ Add dropdown to assign node textbox background color to a property
    - ⬛ Add dropdown to assign node textbox border color to a property
    - ⬛ Update node rendering based on selected property mappings
 
-9. ⬛ **R9**: Add Geographic Properties
-   - ⬛ Add countryOfBirth property to person nodes
-   - ⬛ Add countryOfResidence property to person nodes
-   - ⬛ Create list of countries for random assignment
-   - ⬛ Add to available axis properties
+10. ⬛ **R10**: Add Geographic Properties
+    - ⬛ Add countryOfBirth property to person nodes
+    - ⬛ Add countryOfResidence property to person nodes
+    - ⬛ Create list of countries for random assignment
+    - ⬛ Add to available axis properties
 
-10. ⬛ **R10**: Y-Axis Toggle Feature
+11. ⬛ **R11**: Y-Axis Toggle Feature
     - ⬛ Add toggle to switch Y-axis between layer and properties
     - ⬛ Create vertical walls around platform
     - ⬛ Display swimlane shadows on vertical walls
     - ⬛ Update positioning logic for property-based Y-axis
 
-11. ⬛ **R11**: Node Connectivity Requirement
+12. ⬛ **R12**: Node Connectivity Requirement
     - ⬛ Ensure every node has at least one connection
     - ⬛ Update data generator to validate connectivity
     - ⬛ Add fallback connection creation for isolated nodes

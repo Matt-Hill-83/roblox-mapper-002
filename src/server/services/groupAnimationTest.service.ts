@@ -7,7 +7,7 @@
  */
 
 import { TweenService, ReplicatedStorage } from "@rbxts/services";
-import { makeHexagon } from "../../shared/modules/hexagonMaker/hexagonMaker";
+import { makeHexagon } from "../../shared/modules/hexagonMaker";
 
 // Hexagon configuration constants
 const HEXAGON_CONFIG = {
@@ -104,12 +104,10 @@ export class GroupAnimationTestService {
       
       const hexagon = makeHexagon({
         id: colorName === "red" ? 100 + i : 200 + i,
-        centerPosition: position,
+        position: new Vector3(position[0], position[1], position[2]),
         width: HEXAGON_CONFIG.WIDTH,
         height: HEXAGON_CONFIG.HEIGHT,
-        barProps: {
-          Color: color
-        },
+        barColor: new Color3(color[0], color[1], color[2]),
         labels: [`${colorName}-Front`, `${colorName}-Left`, `${colorName}-Right`],
         stackIndex: colorName === "red" ? 1 : 2,
         hexIndex: i + 1

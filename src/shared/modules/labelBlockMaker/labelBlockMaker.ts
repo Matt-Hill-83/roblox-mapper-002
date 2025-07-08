@@ -1,33 +1,47 @@
 /**
- * Main label block part creation logic
+ * Standardized label block maker following IMaker pattern
  */
 
-import { 
-  TextBoxProps, 
-  LabelConfig, 
-  LabelBlockConfig, 
-  defaultProps 
-} from "./interfaces";
+import { ILabelBlockMakerConfig } from "./standardizedInterfaces";
 import { createLabelsForBlock } from "./utilities";
 import { LABEL_BLOCK_CONSTANTS } from "./constants";
 import { padNumber } from "../../utils/stringUtils";
 
-export function makeLabelBlock({
-  id,
-  position = { x: 0, y: 0, z: 0 },
-  rotation = { x: 0, y: 0, z: 0 },
-  props = {},
-  labels = {},
-  textBoxOverrides = {},
-  parent,
-}: LabelBlockConfig): Part {
-  const finalProps = {
-    ...defaultProps,
-    ...props,
-  };
+/**
+ * Default values for label block properties
+ */
+const LABEL_BLOCK_DEFAULTS = {
+  size: 4,
+  color: new Color3(0.5, 0.5, 0.5),
+  material: Enum.Material.SmoothPlastic,
+  transparency: 0,
+  anchored: true,
+  castShadow: false,
+  position: new Vector3(0, 0, 0),
+  rotation: new Vector3(0, 0, 0),
+};
 
-  const size = finalProps.Size!;
-  const blockColor = finalProps.Color!;
+/**
+ * Creates a label block part with standardized configuration
+ * @param config - Standardized label block configuration
+ * @returns The created label block part
+ */
+export function makeLabelBlock(config: ILabelBlockMakerConfig): Part {
+  // Extract configuration with defaults
+  const {
+    id = 1,
+    position = LABEL_BLOCK_DEFAULTS.position,
+    rotation = LABEL_BLOCK_DEFAULTS.rotation,
+    size = LABEL_BLOCK_DEFAULTS.size,
+    color = LABEL_BLOCK_DEFAULTS.color,
+    material = LABEL_BLOCK_DEFAULTS.material,
+    transparency = LABEL_BLOCK_DEFAULTS.transparency,
+    anchored = LABEL_BLOCK_DEFAULTS.anchored,
+    castShadow = LABEL_BLOCK_DEFAULTS.castShadow,
+    labels = {},
+    textBoxOverrides = {},
+    parent,
+  } = config;
 
   // Create the cube part
   const block = new Instance("Part");
@@ -36,90 +50,45 @@ export function makeLabelBlock({
     LABEL_BLOCK_CONSTANTS.PAD_LENGTH
   )}`;
   
-  // Apply default properties first
+  // Apply properties
   block.Size = new Vector3(size, size, size);
-  block.Position = new Vector3(position.x, position.y, position.z);
-  block.Orientation = new Vector3(rotation.x, rotation.y, rotation.z);
-  block.Anchored = finalProps.Anchored!;
+  block.Position = position;
+  block.Orientation = rotation;
+  block.Anchored = anchored;
   block.TopSurface = Enum.SurfaceType.Smooth;
   block.BottomSurface = Enum.SurfaceType.Smooth;
-  block.CastShadow = false;
+  block.CastShadow = castShadow;
+  block.Color = color;
+  block.Material = material;
+  block.Transparency = transparency;
   
-  // Handle Color specially since it needs RGB conversion
-  if (finalProps.Color) {
-    block.Color = Color3.fromRGB(
-      blockColor[0] * 255,
-      blockColor[1] * 255,
-      blockColor[2] * 255
-    );
-  }
+  // Apply any additional properties that might be passed
+  // (removed the generic property application for type safety)
   
-  // Apply all other properties from finalProps
-  for (const [key, value] of pairs(finalProps)) {
-    // Skip properties we've already handled
-    if (key === "Size" || key === "Color" || key === "Anchored") continue;
-    
-    // Try to apply the property to the block
-    try {
-      (block as unknown as Record<string, unknown>)[key] = value;
-    } catch (e) {
-      // Property may not exist or be writable, skip it
-    }
-  }
-
-  // Use face mapping from constants
-  const faceMap = LABEL_BLOCK_CONSTANTS.FACE_MAP as [keyof LabelConfig, Enum.NormalId][];
-
-  // Create labels using utility function
-  createLabelsForBlock(block, labels, textBoxOverrides, faceMap);
-
   // Set parent if provided
   if (parent) {
     block.Parent = parent;
   }
-
-  // Count labels manually for Lua compatibility
-  let labelCount = 0;
-  for (const [_, config] of pairs(labels)) {
-    if ((config as TextBoxProps).text) {
-      labelCount++;
-    }
+  
+  // Add labels to each face
+  // Check if labels object has any entries
+  const labelKeys = [];
+  for (const [key] of pairs(labels)) {
+    labelKeys.push(key);
   }
-  print(`✅ Created label block "${block.Name}" with ${labelCount} labels`);
-
+  
+  if (labels && labelKeys.size() > 0) {
+    // Create face mapping
+    const faceMap: [keyof typeof labels, Enum.NormalId][] = [
+      ["front", Enum.NormalId.Front],
+      ["back", Enum.NormalId.Back],
+      ["left", Enum.NormalId.Left],
+      ["right", Enum.NormalId.Right],
+      ["top", Enum.NormalId.Top],
+      ["bottom", Enum.NormalId.Bottom],
+    ];
+    createLabelsForBlock(block, labels as any, textBoxOverrides, faceMap);
+  }
+  
   return block;
-}
-
-// Helper function to create a label block with the same text on all faces
-export function makeLabelBlockAllFaces({
-  id,
-  position,
-  rotation,
-  props,
-  text,
-  textProps = {},
-  textBoxOverrides,
-  parent,
-}: Omit<LabelBlockConfig, "labels"> & {
-  text: string;
-  textProps?: Omit<TextBoxProps, "text">;
-}): Part {
-  const labels: LabelConfig = {
-    top: { text, ...textProps },
-    bottom: { text, ...textProps },
-    front: { text, ...textProps },
-    back: { text, ...textProps },
-    left: { text, ...textProps },
-    right: { text, ...textProps },
-  };
-
-  return makeLabelBlock({
-    id,
-    position,
-    rotation,
-    props,
-    labels,
-    textBoxOverrides,
-    parent,
-  });
 }

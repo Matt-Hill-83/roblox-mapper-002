@@ -115,7 +115,7 @@ export class ConfigGUIService {
       parent: parentFrame,
       numNodeTypes: config.numNodeTypes,
       numLinkTypes: config.numLinkTypes,
-      numPetTypes: config.numPetTypes || 2,
+      numPetTypes: config.numPetTypes || 5,
       onNodeTypesChange: (value) => {
         this.eventHandlers.handleNodeTypesChange(value);
       },
