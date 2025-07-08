@@ -100,18 +100,18 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       const block = this.createZAxisBlock(propertyValue, bounds, yPosition, blockIndex, propertyName, offsetZ);
       block.Parent = parent;
       
-      if (blocksMap) {
-        blocksMap.set(propertyValue, block);
-      }
-      
-      // Create endcaps for Z-axis swimlane
-      this.endcapCreator.createEndcaps({
+      // Create swimlane model with endcaps
+      this.endcapCreator.createSwimlaneWithEndcaps({
         swimlaneBlock: block,
         swimlaneName: propertyValue,
         parent: parent,
         gap: 1,
         isZAxis: true
       });
+      
+      if (blocksMap) {
+        blocksMap.set(propertyValue, block);
+      }
       
       blockIndex++;
     });

@@ -12,6 +12,7 @@ export interface EndcapConfig {
   parent: Instance;
   gap?: number;
   isZAxis?: boolean;
+  color?: Color3;
 }
 
 export class EndcapBlockCreator extends BaseBlockCreator {
@@ -19,19 +20,28 @@ export class EndcapBlockCreator extends BaseBlockCreator {
   private readonly DEFAULT_GAP = 1;
 
   /**
-   * Create endcaps for a swimlane
+   * Create endcaps for a swimlane and wrap everything in a model
    */
-  public createEndcaps(config: EndcapConfig): { left: Part; right: Part } {
+  public createSwimlaneWithEndcaps(config: EndcapConfig): Model {
     const {
       swimlaneBlock,
       swimlaneName,
       parent,
       gap = this.DEFAULT_GAP,
-      isZAxis = false
+      isZAxis = false,
+      color = swimlaneBlock.Color // Use swimlane color by default
     } = config;
 
     const swimlanePos = swimlaneBlock.Position;
     const swimlaneSize = swimlaneBlock.Size;
+
+    // Create a model to contain the swimlane and its endcaps
+    const swimlaneModel = new Instance("Model");
+    swimlaneModel.Name = `${swimlaneName}_Swimlane`;
+    swimlaneModel.Parent = parent;
+
+    // Parent the swimlane block to the model
+    swimlaneBlock.Parent = swimlaneModel;
 
     // Calculate endcap dimensions
     const endcapWidth = this.ENDCAP_WIDTH;
@@ -78,26 +88,28 @@ export class EndcapBlockCreator extends BaseBlockCreator {
     }
 
     // Create left/front endcap
-    const leftEndcap = this.createEndcapBlock(
+    this.createEndcapBlock(
       `${swimlaneName}_${isZAxis ? 'Left' : 'Front'}Endcap`,
       endcapSize,
       leftPos,
       swimlaneName,
-      parent,
-      isZAxis
+      swimlaneModel, // Parent to the model
+      isZAxis,
+      color
     );
 
     // Create right/back endcap
-    const rightEndcap = this.createEndcapBlock(
+    this.createEndcapBlock(
       `${swimlaneName}_${isZAxis ? 'Right' : 'Back'}Endcap`,
       endcapSize,
       rightPos,
       swimlaneName,
-      parent,
-      isZAxis
+      swimlaneModel, // Parent to the model
+      isZAxis,
+      color
     );
 
-    return { left: leftEndcap, right: rightEndcap };
+    return swimlaneModel;
   }
 
   /**
@@ -109,15 +121,16 @@ export class EndcapBlockCreator extends BaseBlockCreator {
     position: Vector3,
     label: string,
     parent: Instance,
-    isZAxis: boolean
+    isZAxis: boolean,
+    color: Color3
   ): Part {
     // Create the endcap block
     const endcap = this.createBlock({
       name: name,
       size: size,
       position: position,
-      material: Enum.Material.Neon,
-      color: new Color3(0.2, 0.2, 0.2), // Dark gray
+      material: Enum.Material.Concrete,
+      color: color, // Use swimlane color
       transparency: 0.3,
       canCollide: false
     });
@@ -162,7 +175,7 @@ export class EndcapBlockCreator extends BaseBlockCreator {
       const frame = new Instance("Frame");
       frame.Size = new UDim2(1, 0, 1, 0);
       frame.BackgroundColor3 = new Color3(0.1, 0.1, 0.1);
-      frame.BackgroundTransparency = 0.5;
+      frame.BackgroundTransparency = 1; // Fully transparent background
       frame.BorderSizePixel = 0;
       frame.Parent = surfaceGui;
 
@@ -173,7 +186,7 @@ export class EndcapBlockCreator extends BaseBlockCreator {
       textLabel.BackgroundTransparency = 1;
       textLabel.Font = Enum.Font.SourceSansBold;
       textLabel.Text = text;
-      textLabel.TextColor3 = new Color3(1, 1, 1); // White text
+      textLabel.TextColor3 = new Color3(0, 0, 0); // Black text
       textLabel.TextScaled = true;
       textLabel.Parent = frame;
     });

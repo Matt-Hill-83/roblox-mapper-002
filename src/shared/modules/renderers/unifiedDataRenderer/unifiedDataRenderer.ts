@@ -273,17 +273,17 @@ export class UnifiedDataRenderer {
         propertyName: xAxisProperty
       });
       
-      // Store the block in the map
-      swimlaneBlocks.set(typeName, swimlaneBlock);
-      
-      // Create endcaps for this swimlane
-      this.endcapCreator.createEndcaps({
+      // Create swimlane model with endcaps
+      this.endcapCreator.createSwimlaneWithEndcaps({
         swimlaneBlock: swimlaneBlock,
         swimlaneName: typeName,
         parent: parent,
         gap: 1,
         isZAxis: false
       });
+      
+      // Store the block in the map (still store the block, not the model)
+      swimlaneBlocks.set(typeName, swimlaneBlock);
       
       swimlaneIndex++;
     });
