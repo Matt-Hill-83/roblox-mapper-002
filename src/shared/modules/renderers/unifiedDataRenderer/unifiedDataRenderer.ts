@@ -69,6 +69,18 @@ export class UnifiedDataRenderer {
     const targetOrigin = origin || new Vector3(0, 0, 0);
     this.positionCalculator.centerBottomAtOrigin(cluster, targetOrigin, config);
     
+    // Calculate Z-axis centering offset for pet lanes
+    const zAxisProperty = config?.axisMapping?.zAxis || "petType";
+    const petLaneOffset = this.calculatePetLaneZOffset(cluster, zAxisProperty);
+    
+    // Apply the pet lane centering offset to all nodes
+    if (petLaneOffset !== 0) {
+      cluster.groups[0].nodes.forEach(node => {
+        node.position.z += petLaneOffset;
+      });
+      print(`🎯 Applied pet lane centering offset: ${petLaneOffset} to all nodes`);
+    }
+    
     // Get bounds after positioning
     const bounds = this.positionCalculator.getClusterBounds(cluster);
     
@@ -84,7 +96,6 @@ export class UnifiedDataRenderer {
     });
     
     // Create Z-axis swimlanes model
-    const zAxisProperty = config?.axisMapping?.zAxis || "petType";
     const zAxisModel = new Instance("Model");
     zAxisModel.Name = `ZAxis_SwimLanes_${zAxisProperty}`;
     zAxisModel.Parent = blocks.shadow; // Parent to GroupShadowBlock
@@ -380,6 +391,45 @@ export class UnifiedDataRenderer {
     const zAxisYPosition = xAxisYPosition + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT; // Above X-axis
     createZAxisShadowBlocks(nodesByProperty, propertyBounds, parent, zAxisYPosition, swimlaneBlocks, zAxisProperty);
     return swimlaneBlocks;
+  }
+  
+  /**
+   * Calculate the Z-axis offset needed to center pet lanes
+   */
+  private calculatePetLaneZOffset(cluster: Cluster, zAxisProperty: string): number {
+    // Organize nodes by z-axis property and find bounds
+    const propertyBounds = new Map<string, { minZ: number; maxZ: number }>();
+    
+    cluster.groups[0].nodes.forEach(node => {
+      const propertyValue = this.propertyResolver.getPropertyValue(node, zAxisProperty);
+      if (!propertyBounds.has(propertyValue)) {
+        propertyBounds.set(propertyValue, {
+          minZ: math.huge,
+          maxZ: -math.huge
+        });
+      }
+      
+      const bounds = propertyBounds.get(propertyValue)!;
+      bounds.minZ = math.min(bounds.minZ, node.position.z);
+      bounds.maxZ = math.max(bounds.maxZ, node.position.z);
+    });
+    
+    // Calculate collective bounds of all pet lanes
+    let collectiveMinZ = math.huge;
+    let collectiveMaxZ = -math.huge;
+    
+    propertyBounds.forEach((bounds) => {
+      collectiveMinZ = math.min(collectiveMinZ, bounds.minZ);
+      collectiveMaxZ = math.max(collectiveMaxZ, bounds.maxZ);
+    });
+    
+    // Calculate the center of the collective pet lanes
+    const collectiveCenter = (collectiveMinZ + collectiveMaxZ) / 2;
+    
+    // The group shadow block is centered at Z=0, so we need to offset the pet lanes
+    const offsetZ = 0 - collectiveCenter;
+    
+    return offsetZ;
   }
   
   /**
