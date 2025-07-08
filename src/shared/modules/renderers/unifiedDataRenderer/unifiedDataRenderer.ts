@@ -10,7 +10,7 @@ import { DataGenerator } from "./core/dataGenerator";
 import { PositionCalculator } from "./core/positionCalculator";
 import { NodeRenderer } from "./rendering/nodeRenderer";
 import { UpdateManager } from "./rendering/updateManager";
-import { LabelRenderer } from "./rendering/labelRenderer";
+// import { LabelRenderer } from "./rendering/labelRenderer"; // Disabled per T17
 import { 
   createFlatBlocksAdapter as createFlatBlocks, 
   calculateBlockDimensionsAdapter as calculateBlockDimensions, 
@@ -27,7 +27,7 @@ export class UnifiedDataRenderer {
   private positionCalculator: PositionCalculator;
   private nodeRenderer: NodeRenderer;
   private updateManager: UpdateManager;
-  private labelRenderer: LabelRenderer;
+  // private labelRenderer: LabelRenderer; // Disabled per T17
   private propertyResolver: PropertyValueResolver;
   private endcapCreator: EndcapBlockCreator;
   private currentConfig?: EnhancedGeneratorConfig;
@@ -37,7 +37,7 @@ export class UnifiedDataRenderer {
     this.positionCalculator = new PositionCalculator();
     this.nodeRenderer = new NodeRenderer();
     this.updateManager = new UpdateManager();
-    this.labelRenderer = new LabelRenderer();
+    // this.labelRenderer = new LabelRenderer(); // Disabled per T17
     this.propertyResolver = new PropertyValueResolver();
     this.endcapCreator = new EndcapBlockCreator();
   }
@@ -104,7 +104,8 @@ export class UnifiedDataRenderer {
     zAxisModel.Parent = blocks.shadow; // Parent to GroupShadowBlock
     
     // Create Z-axis shadow blocks first (they go below X-axis)
-    const zAxisSwimlaneBlocks = this.createZAxisSwimLaneBlocks(cluster, zAxisModel, targetOrigin, config);
+    // Create Z-axis swimlane blocks (labels disabled per T17)
+    this.createZAxisSwimLaneBlocks(cluster, zAxisModel, targetOrigin, config);
     
     // Create X-axis swimlanes model
     const xAxisProperty = config?.axisMapping?.xAxis || "type";
@@ -113,7 +114,8 @@ export class UnifiedDataRenderer {
     xAxisModel.Parent = blocks.shadow;
     
     // Create X-axis swimlane blocks (they go above Z-axis)
-    const xAxisSwimlaneBlocks = this.createSwimLaneBlocks(cluster, xAxisModel, targetOrigin, blockDimensions, config);
+    // Create X-axis swimlane blocks (labels disabled per T17)
+    this.createSwimLaneBlocks(cluster, xAxisModel, targetOrigin, blockDimensions, config);
     
     // Create vertical walls if Y-axis is property-based
     if (config.yAxisConfig && !config.yAxisConfig.useLayer) {
@@ -136,20 +138,8 @@ export class UnifiedDataRenderer {
     // Render the cluster first
     this.nodeRenderer.renderCluster(cluster, parentFolder, config);
     
-    // Create labels for swimlanes after rendering (so GraphMaker folder exists)
-    const graphMakerFolder = parentFolder.FindFirstChild("GraphMaker") as Folder;
-    if (graphMakerFolder) {
-      // Pass platform bounds for consistent label positioning
-      const platformBounds = {
-        minX: targetOrigin.X - blockDimensions.width / 2,
-        maxX: targetOrigin.X + blockDimensions.width / 2,
-        minZ: targetOrigin.Z - blockDimensions.depth / 2,
-        maxZ: targetOrigin.Z + blockDimensions.depth / 2
-      };
-      this.createSwimLaneLabels(cluster, graphMakerFolder, config, xAxisSwimlaneBlocks, zAxisSwimlaneBlocks, platformBounds);
-    } else {
-      print("⚠️ GraphMaker folder not found for labels");
-    }
+    // Swimlane labels disabled per T17
+    // Labels are now provided by endcaps on the swimlanes
     
     print(`✅ Unified renderer: Complete! Created ${cluster.groups[0].nodes.size()} nodes with swim lanes`);
     
@@ -295,7 +285,9 @@ export class UnifiedDataRenderer {
   
   /**
    * Creates labels for X and Z axis swimlanes
+   * DISABLED: Per T17 - swimlane labels removed, using endcaps instead
    */
+  /*
   private createSwimLaneLabels(
     cluster: Cluster,
     parentFolder: Folder,
@@ -359,6 +351,7 @@ export class UnifiedDataRenderer {
     this.labelRenderer.createXAxisLabels(nodesByXProperty, xPropertyBounds, parentFolder, 0, xAxisBlocks, platformBounds);
     this.labelRenderer.createZAxisLabels(zPropertyBounds, parentFolder, 0, zAxisBlocks, platformBounds);
   }
+  */
   
   /**
    * Creates Z-axis shadow blocks for property swimlanes

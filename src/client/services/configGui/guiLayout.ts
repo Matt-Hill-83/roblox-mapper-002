@@ -50,7 +50,7 @@ export class GuiLayoutManager {
   public createScrollingFrame(): Frame {
     const scrollFrame = new Instance("ScrollingFrame");
     scrollFrame.Name = "ContentScrollFrame";
-    scrollFrame.Size = new UDim2(1, 0, 1, -110); // Leave space for buttons at bottom
+    scrollFrame.Size = new UDim2(1, 0, 1, -120); // Leave more space for buttons at bottom
     scrollFrame.Position = new UDim2(0, 0, 0, 40); // Start after title
     scrollFrame.BackgroundTransparency = 1;
     scrollFrame.BorderSizePixel = 0;
@@ -78,7 +78,7 @@ export class GuiLayoutManager {
  */
 export const COMPONENT_HEIGHTS = {
   GLOBAL_SETTINGS: GUI_CONSTANTS.ENHANCED.GLOBAL_SETTINGS_HEIGHT,
-  NODE_TYPES: GUI_CONSTANTS.ENHANCED.NODE_LINK_TYPES_HEIGHT,
+  NODE_TYPES: 145, // Increased for 3 rows (node types, link types, pet types)
   LAYER_GRID_HEADER: GUI_CONSTANTS.ENHANCED.GRID_HEADER_HEIGHT,
   LAYER_ROW: GUI_CONSTANTS.ENHANCED.GRID_ROW_HEIGHT,
   AXIS_MAPPING: 120, // Height for axis mapping controls

@@ -25,6 +25,7 @@ export interface SpacingConfig {
 
 // Visualization control options
 export interface VisualizationOptions {
+  showNodes: boolean;
   showLinkLabels: boolean;
   showConnectors: boolean;
   allowSameLevelLinks: boolean;

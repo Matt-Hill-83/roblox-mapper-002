@@ -41,17 +41,22 @@ export class NodeRenderer implements INodeRenderer {
     linksFolder.Name = "Links";
     linksFolder.Parent = clusterFolder;
     
-    // Create hexagons for all nodes
-    const nodeToHexagon = this.createHexagons(cluster, nodesFolder, config);
+    // Create hexagons for all nodes if showNodes is true
+    const showNodes = config?.visualization?.showNodes !== false; // Default to true
+    const nodeToHexagon = showNodes 
+      ? this.createHexagons(cluster, nodesFolder, config)
+      : new Map<string, Model>();
     
-    // Create links/ropes for relationships
-    createRopeConnectors({
-      cluster,
-      nodeToHexagon,
-      linksFolder,
-      visualization: config?.visualization,
-      linkDiameter: config?.spacing?.linkDiameter
-    });
+    // Create links/ropes for relationships only if nodes are shown and connectors are enabled
+    if (showNodes && config?.visualization?.showConnectors !== false) {
+      createRopeConnectors({
+        cluster,
+        nodeToHexagon,
+        linksFolder,
+        visualization: config?.visualization,
+        linkDiameter: config?.spacing?.linkDiameter
+      });
+    }
     
     print(`📊 Created ${nodeToHexagon.size()} hexagons and ${cluster.relations.size()} connections`);
   }

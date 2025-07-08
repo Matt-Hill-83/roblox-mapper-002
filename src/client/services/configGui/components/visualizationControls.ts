@@ -14,6 +14,7 @@ interface CheckboxField {
 }
 
 const CHECKBOX_FIELDS: CheckboxField[] = [
+  { label: "Show nodes", field: "showNodes", default: true },
   { label: "Show link labels", field: "showLinkLabels", default: false },
   { label: "Show connectors", field: "showConnectors", default: true },
   { label: "Create same-layer links", field: "allowSameLevelLinks", default: false },
@@ -28,7 +29,7 @@ export function createVisualizationControls({
   // Create container - now positioned above the buttons due to narrower width
   const container = new Instance("Frame");
   container.Name = "VisualizationControls";
-  container.Size = new UDim2(1, -20, 0, 120);
+  container.Size = new UDim2(1, 0, 1, 0); // Use full size of parent
   // Position above the buttons
   container.Position = new UDim2(0, 0, 0, 0); // Position will be set by layout manager
   container.BackgroundColor3 = new Color3(0.15, 0.15, 0.15);
@@ -39,23 +40,41 @@ export function createVisualizationControls({
   containerCorner.CornerRadius = new UDim(0, 4);
   containerCorner.Parent = container;
 
-  const rowHeight = 20;
-  const checkboxSize = 16;
-  const labelOffset = 25;
-  const startY = 5;
-  const spacing_between = 2;
+  const rowHeight = 30;
+  const checkboxSize = 20;
+  const labelOffset = 30;
+  const startY = 20;
+  const spacing_between = 10;
+  const columnsPerRow = 2;
+  const columnWidth = (1 / columnsPerRow);
 
-  // Remove title - checkboxes are self-explanatory in this compact layout
+  // Add title
+  const title = new Instance("TextLabel");
+  title.Name = "Title";
+  title.Size = new UDim2(1, -20, 0, 20);
+  title.Position = new UDim2(0, 10, 0, 0);
+  title.BackgroundTransparency = 1;
+  title.Text = "Visualization Options";
+  title.TextColor3 = new Color3(0.9, 0.9, 0.9);
+  title.TextScaled = false;
+  title.TextSize = 14;
+  title.Font = Enum.Font.SourceSansBold;
+  title.TextXAlignment = Enum.TextXAlignment.Left;
+  title.Parent = container;
 
   CHECKBOX_FIELDS.forEach((fieldDef, index) => {
-    const yPos = startY + (index * (rowHeight + spacing_between));
+    const row = math.floor(index / columnsPerRow);
+    const col = index % columnsPerRow;
+    const xPos = col * columnWidth;
+    const yPos = startY + (row * (rowHeight + spacing_between));
 
     // Create checkbox frame
     const checkboxFrame = new Instance("Frame");
-    checkboxFrame.Size = new UDim2(1, -20, 0, rowHeight);
-    checkboxFrame.Position = new UDim2(0, 10, 0, yPos);
+    checkboxFrame.Name = `${fieldDef.field}Frame`;
+    checkboxFrame.Size = new UDim2(columnWidth, -10, 0, rowHeight);
+    checkboxFrame.Position = new UDim2(xPos, 10, 0, yPos);
     checkboxFrame.BackgroundTransparency = 1;
-    checkboxFrame.Parent = parent;
+    checkboxFrame.Parent = container;
 
     // Create checkbox button
     const checkbox = new Instance("TextButton");

@@ -47,6 +47,7 @@ export class GraphInitializerService {
       linkDiameter: 0.1,
     },
     visualization: {
+      showNodes: true,
       showLinkLabels: false,
       showConnectors: true,
       allowSameLevelLinks: true,  // Enable same-level links for testing

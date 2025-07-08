@@ -26,6 +26,7 @@ export class GUIStateManager {
     
     // Initialize visualization options with defaults
     const defaultVisualization: VisualizationOptions = {
+      showNodes: true,
       showLinkLabels: false,
       showConnectors: true,
       allowSameLevelLinks: false,
@@ -180,6 +181,7 @@ export class GUIStateManager {
     };
     
     const defaultVisualization: VisualizationOptions = {
+      showNodes: true,
       showLinkLabels: false,
       showConnectors: true,
       allowSameLevelLinks: false,

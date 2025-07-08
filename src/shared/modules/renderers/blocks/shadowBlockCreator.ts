@@ -152,7 +152,8 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     block.CastShadow = false;
 
     // Add surface labels to all faces
-    this.addSurfaceLabelsToAllFaces(block, propertyValue);
+    // DISABLED: Removing labels from swimlane shadow blocks per T17
+    // this.addSurfaceLabelsToAllFaces(block, propertyValue);
 
     this.debug(`Created Z-axis shadow block for ${propertyValue}:`);
     this.debug(`   - Position: (0, ${yPosition}, ${adjustedZPosition})`);
@@ -163,7 +164,9 @@ export class ShadowBlockCreator extends BaseBlockCreator {
 
   /**
    * Add surface labels to all faces of a block
+   * DISABLED: Per T17 - swimlane labels removed, using endcaps instead
    */
+  /*
   private addSurfaceLabelsToAllFaces(block: Part, text: string): void {
     const faces: Enum.NormalId[] = [
       Enum.NormalId.Front,
@@ -203,4 +206,5 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       textLabel.Parent = frame;
     });
   }
+  */
 }

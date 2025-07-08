@@ -67,19 +67,29 @@ export class ConfigGUIService {
     gui.Parent = playerGui;
     this.stateManager.setGUI(gui);
 
-    // Create collapsible main frame - use 90% of screen height
-    const frameSize = new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH, GUI_CONSTANTS.FRAME.ENHANCED_HEIGHT_SCALE, 0);
+    // Create collapsible main frame - reduced height to make room for visualization controls
+    const mainFrameSize = new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH, 0.65, 0);
     const collapsibleFrame = createCollapsibleFrame({
       parent: gui,
-      size: frameSize,
-      title: "Graph Configuration"
+      size: mainFrameSize,
+      title: "Graph Configuration",
+      position: new UDim2(0, 10, 0, 10)
     });
     
     // Store the main frame
     this.stateManager.setConfigFrame(collapsibleFrame.frame);
 
+    // Create visualization controls in a separate collapsible frame
+    const vizFrameSize = new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH, 0, 200);
+    const vizCollapsibleFrame = createCollapsibleFrame({
+      parent: gui,
+      size: vizFrameSize,
+      title: "Visualization Controls",
+      position: new UDim2(0, 10, 0.65, 20) // Position below main frame
+    });
+
     // Create unified UI in the content frame
-    this.createUnifiedUI(collapsibleFrame.contentFrame);
+    this.createUnifiedUI(collapsibleFrame.contentFrame, vizCollapsibleFrame.contentFrame);
 
     this.stateManager.setVisible(true);
   }
@@ -87,7 +97,7 @@ export class ConfigGUIService {
   /**
    * Creates the unified UI
    */
-  private createUnifiedUI(contentFrame?: Frame): void {
+  private createUnifiedUI(contentFrame?: Frame, vizContentFrame?: Frame): void {
     const state = this.stateManager.getState();
     const parentFrame = contentFrame || state.configFrame;
     if (!parentFrame) return;
@@ -111,8 +121,8 @@ export class ConfigGUIService {
     globalSettings.Position = layoutManager.getNextPosition(COMPONENT_HEIGHTS.GLOBAL_SETTINGS);
 
     // Create node/link types section
-    createNodeTypesSection({
-      parent: parentFrame,
+    const nodeTypesSection = createNodeTypesSection({
+      parent: scrollFrame,
       numNodeTypes: config.numNodeTypes,
       numLinkTypes: config.numLinkTypes,
       numPetTypes: config.numPetTypes || 5,
@@ -126,6 +136,7 @@ export class ConfigGUIService {
         this.eventHandlers.handlePetTypesChange(value);
       }
     });
+    nodeTypesSection.Position = layoutManager.getNextPosition(COMPONENT_HEIGHTS.NODE_TYPES);
 
     // Generate node and link type arrays
     const nodeTypes = this.eventHandlers.generateTypeArray("Type", config.numNodeTypes);
@@ -192,15 +203,18 @@ export class ConfigGUIService {
     });
     yAxisControls.Position = layoutManager.getNextPosition(COMPONENT_HEIGHTS.Y_AXIS_CONTROLS);
 
-    // Create visualization controls
-    const visualizationControls = createVisualizationControls({
-      parent: scrollFrame,
-      visualization: config.visualization!,
-      onVisualizationChange: (field, value) => {
-        this.eventHandlers.handleVisualizationChange(field, value);
-      }
-    });
-    visualizationControls.Position = layoutManager.getNextPosition(COMPONENT_HEIGHTS.VISUALIZATION_CONTROLS);
+    // Move visualization controls to separate frame
+    if (vizContentFrame) {
+      const visualizationControls = createVisualizationControls({
+        parent: vizContentFrame,
+        visualization: config.visualization!,
+        onVisualizationChange: (field, value) => {
+          this.eventHandlers.handleVisualizationChange(field, value);
+        }
+      });
+      visualizationControls.Position = new UDim2(0, 10, 0, 10);
+      visualizationControls.Size = new UDim2(1, -20, 1, -20);
+    }
 
     // Update scrolling frame canvas size
     layoutManager.updateCanvasSize(scrollFrame);

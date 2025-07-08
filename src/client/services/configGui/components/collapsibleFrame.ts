@@ -13,6 +13,7 @@ export interface CollapsibleFrameOptions {
   size?: UDim2;
   collapsedSize?: UDim2;
   title?: string;
+  position?: UDim2;
 }
 
 export interface CollapsibleFrameResult {
@@ -32,7 +33,8 @@ export function createCollapsibleFrame(options: CollapsibleFrameOptions): Collap
     parent,
     size = new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH, GUI_CONSTANTS.FRAME.ENHANCED_HEIGHT_SCALE, 0),
     collapsedSize = new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH, 0, 40),
-    title = "Configuration GUI"
+    title = "Configuration GUI",
+    position = GUI_CONSTANTS.FRAME.POSITION
   } = options;
 
   let isCollapsed = true; // Start collapsed
@@ -41,7 +43,7 @@ export function createCollapsibleFrame(options: CollapsibleFrameOptions): Collap
   const mainFrame = new Instance("Frame");
   mainFrame.Name = GUI_CONSTANTS.NAMES.MAIN_FRAME;
   mainFrame.Size = collapsedSize; // Start with collapsed size
-  mainFrame.Position = GUI_CONSTANTS.FRAME.POSITION;
+  mainFrame.Position = position;
   mainFrame.BackgroundColor3 = GUI_CONSTANTS.COLORS.BACKGROUND;
   mainFrame.BorderSizePixel = 0;
   mainFrame.ClipsDescendants = true;
