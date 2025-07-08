@@ -4,7 +4,7 @@
  */
 
 // Legacy function signature for backward compatibility
-import { makeLabelBlockStandardized } from "./labelBlockMaker";
+import { makeLabelBlock } from "./labelBlockMaker";
 
 export interface OriginBlockConfig {
   origin: { x: number; y: number; z: number };
@@ -26,7 +26,7 @@ export function makeOriginBlock({
   orientationFolder.Name = "OrientationReference";
   orientationFolder.Parent = parent;
 
-  const block = makeLabelBlockStandardized({
+  const block = makeLabelBlock({
     id: "orientation-ref",
     text: "ORIENT", // Required text field
     position: new Vector3(

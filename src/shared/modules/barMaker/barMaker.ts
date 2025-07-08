@@ -1,61 +1,72 @@
-import { BarConfig, defaultProps } from "./interfaces";
-import { generateAttachmentName, generateBarName, makeAttachment, } from "./utilities";
+/**
+ * Standardized bar maker following IMaker pattern
+ */
 
-// import { BAR_CONSTANTS } from "./constants";
+import { IBarMakerConfig } from "./standardizedInterfaces";
+import { generateAttachmentName, generateBarName, makeAttachment } from "./utilities";
 import { createTextLabel } from "../TextLabelMaker";
 
-export function makeBar({
-  id,
-  position = { x: 0, y: 0, z: 0 },
-  rotation = { x: 0, y: -30, z: 0 },
-  props = {},
-  label = "Bar",
-  stackIndex = 1,
-  hexIndex = 1,
-  barIndex = 1,
-}: BarConfig): Part {
-  const finalProps = {
-    ...defaultProps,
-    ...props,
-  };
+/**
+ * Default values for bar properties
+ */
+const BAR_DEFAULTS = {
+  size: new Vector3(0.5, 0.5, 4),
+  color: new Color3(0.5, 0.5, 0.5),
+  material: Enum.Material.SmoothPlastic,
+  transparency: 0,
+  anchored: true,
+  topSurface: Enum.SurfaceType.Smooth,
+  bottomSurface: Enum.SurfaceType.Smooth,
+  rotation: new Vector3(0, -30, 0),
+};
 
-  const barLength = finalProps.Size[2];
+/**
+ * Creates a bar part with standardized configuration
+ * @param config - Standardized bar configuration
+ * @returns The created bar part
+ */
+export function makeBar(config: IBarMakerConfig): Part {
+  // Extract configuration with defaults
+  const {
+    position = new Vector3(0, 0, 0),
+    rotation = BAR_DEFAULTS.rotation,
+    size = BAR_DEFAULTS.size,
+    color = BAR_DEFAULTS.color,
+    material = BAR_DEFAULTS.material,
+    transparency = BAR_DEFAULTS.transparency,
+    anchored = BAR_DEFAULTS.anchored,
+    topSurface = BAR_DEFAULTS.topSurface,
+    bottomSurface = BAR_DEFAULTS.bottomSurface,
+    label = "Bar",
+    stackIndex = 1,
+    hexIndex = 1,
+    barIndex = 1,
+    backgroundColor,
+    borderColor,
+    textColor,
+    parent,
+    castShadow = false,
+  } = config;
+
+  const barLength = typeIs(size, "Vector3") ? size.Z : size[2];
   const frontFaceOffset = barLength / 2;
   const backFaceOffset = -barLength / 2;
-
-  // const radY = (rotation.y * math.pi) / 180;
-  // const cosY = math.cos(radY);
-  // const sinY = math.sin(radY);
-
-  // const frontX = position.x + sinY * frontFaceOffset;
-  // const frontZ = position.z + cosY * frontFaceOffset;
-  // const backX = position.x + sinY * backFaceOffset;
-  // const backZ = position.z + cosY * backFaceOffset;
-
-  const blockColor = finalProps.Color;
 
   const barName = generateBarName(stackIndex, hexIndex, barIndex);
   const bar = new Instance("Part");
   bar.Name = barName;
-  bar.Size = new Vector3(
-    finalProps.Size[0],
-    finalProps.Size[1],
-    finalProps.Size[2]
-  );
-  bar.Position = new Vector3(position.x, position.y, position.z);
-  bar.Orientation = new Vector3(rotation.x, rotation.y, rotation.z);
-  bar.Anchored = finalProps.Anchored;
-  bar.Color = Color3.fromRGB(
-    blockColor[0] * 255,
-    blockColor[1] * 255,
-    blockColor[2] * 255
-  );
-  bar.Material = finalProps.Material as unknown as Enum.Material;
-  bar.TopSurface = finalProps.TopSurface as unknown as Enum.SurfaceType;
-  bar.BottomSurface = finalProps.BottomSurface as unknown as Enum.SurfaceType;
-  bar.Transparency = finalProps.Transparency;
-  bar.CastShadow = false;
+  bar.Size = typeIs(size, "Vector3") ? size : new Vector3(size[0], size[1], size[2]);
+  bar.Position = position;
+  bar.Orientation = rotation;
+  bar.Anchored = anchored;
+  bar.Color = typeIs(color, "Color3") ? color : new Color3(color[0], color[1], color[2]);
+  bar.Material = material;
+  bar.TopSurface = topSurface;
+  bar.BottomSurface = bottomSurface;
+  bar.Transparency = transparency;
+  bar.CastShadow = castShadow;
 
+  // Create attachments
   const frontAttachment = makeAttachment(
     "FrontAttachment",
     frontFaceOffset,
@@ -70,46 +81,29 @@ export function makeBar({
   frontAttachment.Parent = bar;
   backAttachment.Parent = bar;
 
-  // Get custom colors if provided
-  const backgroundColor = finalProps.BackgroundColor as Color3 | undefined || bar.Color;
-  const borderColor = finalProps.BorderColor as Color3 | undefined;
-  const textColor = borderColor; // Use border color for text for contrast
-  
+  // Create labels
   createTextLabel({
     part: bar,
     face: Enum.NormalId.Front,
     text: label,
-    backgroundColor: backgroundColor,
+    backgroundColor: backgroundColor || (typeIs(color, "Color3") ? color : new Color3(color[0], color[1], color[2])),
     borderColor: borderColor,
-    textColor: textColor
+    textColor: textColor || borderColor,
   });
 
   createTextLabel({
     part: bar,
     face: Enum.NormalId.Back,
     text: label,
-    backgroundColor: backgroundColor,
+    backgroundColor: backgroundColor || (typeIs(color, "Color3") ? color : new Color3(color[0], color[1], color[2])),
     borderColor: borderColor,
-    textColor: textColor
+    textColor: textColor || borderColor,
   });
 
-  // const frontCircle = makeCircle(
-  //   "FrontCircle",
-  //   frontX,
-  //   position.y,
-  //   frontZ,
-  //   BAR_CONSTANTS.FRONT_CIRCLE_COLOR
-  // );
-  // const backCircle = makeCircle(
-  //   "BackCircle",
-  //   backX,
-  //   position.y,
-  //   backZ,
-  //   BAR_CONSTANTS.BACK_CIRCLE_COLOR
-  // );
-
-  // frontCircle.Parent = bar;
-  // backCircle.Parent = bar;
+  // Set parent if provided
+  if (parent) {
+    bar.Parent = parent;
+  }
 
   return bar;
 }

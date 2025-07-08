@@ -7,7 +7,7 @@
 import { Cluster, Node } from "../../../../interfaces/simpleDataGenerator.interface";
 import { EnhancedGeneratorConfig } from "../../../../interfaces/enhancedGenerator.interface";
 import { INodeRenderer, SpacingConfig } from "../interfaces";
-import { makeHexagonStandardized } from "../../../hexagonMaker";
+import { makeHexagon } from "../../../hexagonMaker";
 import { createRopeConnectors } from "../../dataGeneratorRobloxRendererUtils/ropeCreator";
 import { RENDERER_CONSTANTS } from "../../dataGeneratorRobloxRendererUtils/constants";
 import { getNodeBackgroundColor } from "../utils/colorMapper";
@@ -91,7 +91,7 @@ export class NodeRenderer implements INodeRenderer {
     const backgroundColor = getNodeBackgroundColor(node, config?.visualMapping);
     // const borderColor = getNodeBorderColor(node, config?.visualMapping); // Not used in standardized version
     
-    const hexagon = makeHexagonStandardized({
+    const hexagon = makeHexagon({
       id: hexIndex,
       position: new Vector3(node.position.x, node.position.y, node.position.z),
       width: WIDTH,

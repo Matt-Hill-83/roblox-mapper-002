@@ -3,16 +3,14 @@
  * Exports all public APIs for creating label blocks
  */
 
-// Legacy exports (deprecated)
-export { makeLabelBlock } from "./labelBlockMakerAdapter";
-export { makeLabelBlockAllFaces } from "./labelBlockMaker";
+// Main exports
+export { makeLabelBlock } from "./labelBlockMaker";
+export type { ILabelBlockMakerConfig } from "./standardizedInterfaces";
+
+// Legacy types for reference (can be removed in future)
 export type { 
   TextBoxProps, 
   LabelConfig, 
   LabelBlockProps, 
   LabelBlockConfig 
 } from "./interfaces";
-
-// Standardized exports
-export { makeLabelBlockStandardized } from "./makeLabelBlockStandardized";
-export type { ILabelBlockMakerConfig } from "./standardizedInterfaces";

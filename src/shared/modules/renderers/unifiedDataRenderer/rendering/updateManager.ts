@@ -7,7 +7,7 @@
 import { Cluster, Node, Link, Group } from "../../../../interfaces/simpleDataGenerator.interface";
 import { EnhancedGeneratorConfig, LayerConfig } from "../../../../interfaces/enhancedGenerator.interface";
 import { IUpdateManager } from "../interfaces";
-import { makeHexagonStandardized } from "../../../hexagonMaker";
+import { makeHexagon } from "../../../hexagonMaker";
 import { createRopeConnectors } from "../../dataGeneratorRobloxRendererUtils/ropeCreator";
 import { RENDERER_CONSTANTS } from "../../dataGeneratorRobloxRendererUtils/constants";
 import { COLOR_PALETTES, NODE_TYPE_NAMES, ANIMAL_TYPES, DEFAULT_ATTACHMENTS } from "../constants";
@@ -373,7 +373,7 @@ export class UpdateManager implements IUpdateManager {
       labels.push(node.properties.animalType);
     }
     
-    const hexagon = makeHexagonStandardized({
+    const hexagon = makeHexagon({
       id: this.nodeIdCounter++,
       position: new Vector3(node.position.x, node.position.y, node.position.z),
       width: WIDTH,

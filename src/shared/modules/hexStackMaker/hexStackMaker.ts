@@ -1,20 +1,40 @@
+/**
+ * Standardized hex stack maker following IMaker pattern
+ */
+
 import { makeHexagon } from "../hexagonMaker";
-import { HexStackConfig } from "./interfaces";
+import { IHexStackMakerConfig } from "./standardizedInterfaces";
 import { HEX_STACK_CONSTANTS } from "./constants";
 import { generateStackName, calculateLevelPosition } from "./utilities";
 
-export function makeHexStack({
-  id = 1,
-  centerPosition = HEX_STACK_CONSTANTS.DEFAULT_CENTER_POSITION,
-  width = HEX_STACK_CONSTANTS.DEFAULT_WIDTH,
-  height = HEX_STACK_CONSTANTS.DEFAULT_HEIGHT,
-  count = HEX_STACK_CONSTANTS.DEFAULT_COUNT,
-  colors = [],
-  stackIndex = 1,
-}: HexStackConfig): Model {
+/**
+ * Default color palette as Color3 array
+ */
+const DEFAULT_COLOR_PALETTE = HEX_STACK_CONSTANTS.DEFAULT_COLOR_PALETTE.map(
+  color => new Color3(color[0], color[1], color[2])
+);
+
+/**
+ * Creates a hex stack model with standardized configuration
+ * @param config - Standardized hex stack configuration
+ * @returns The created hex stack model
+ */
+export function makeHexStack(config: IHexStackMakerConfig): Model {
+  // Extract configuration with defaults
+  const {
+    id = 1,
+    position = new Vector3(0, 0, 0),
+    width = HEX_STACK_CONSTANTS.DEFAULT_WIDTH,
+    height = HEX_STACK_CONSTANTS.DEFAULT_HEIGHT,
+    count = HEX_STACK_CONSTANTS.DEFAULT_COUNT,
+    colors = DEFAULT_COLOR_PALETTE,
+    stackIndex = 1,
+    parent,
+  } = config;
+
   print(`⬢ Generating hex stack with ${count} hexagons...`);
 
-  const colorPalette = colors.size() > 0 ? colors : HEX_STACK_CONSTANTS.DEFAULT_COLOR_PALETTE;
+  const colorPalette = colors.size() > 0 ? colors : DEFAULT_COLOR_PALETTE;
   const hexagons: Model[] = [];
 
   // Create the stack model
@@ -25,24 +45,31 @@ export function makeHexStack({
 
   // Create stacked hexagons
   for (let level = 0; level < count; level++) {
-    const levelPosition = calculateLevelPosition(centerPosition, level, height);
+    const levelPosition = calculateLevelPosition(
+      [position.X, position.Y, position.Z], // Convert to array for compatibility
+      level,
+      height
+    );
     const levelColor = colorPalette[level % colorPalette.size()];
 
-    // Create a hexagon for this level
+    // Create a hexagon for this level using standardized version
     const hexModel = makeHexagon({
-      id: `${id}_level${level + 1}` as unknown as number,
-      centerPosition: levelPosition,
+      id: `${id}_level${level + 1}`,
+      position: new Vector3(levelPosition[0], levelPosition[1], levelPosition[2]),
       width: width,
       height: height,
-      barProps: {
-        Color: levelColor,
-      },
+      barColor: levelColor,
       stackIndex: stackIndex,
       hexIndex: level + 1,
+      parent: stackModel,
     });
 
-    hexModel.Parent = stackModel;
     hexagons.push(hexModel);
+  }
+
+  // Set parent if provided
+  if (parent) {
+    stackModel.Parent = parent;
   }
 
   return stackModel;

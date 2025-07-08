@@ -7,7 +7,7 @@
  */
 
 import { TweenService, ReplicatedStorage } from "@rbxts/services";
-import { makeHexagonStandardized } from "../../shared/modules/hexagonMaker";
+import { makeHexagon } from "../../shared/modules/hexagonMaker";
 
 // Hexagon configuration constants
 const HEXAGON_CONFIG = {
@@ -102,7 +102,7 @@ export class GroupAnimationTestService {
         basePosition.Z
       ];
       
-      const hexagon = makeHexagonStandardized({
+      const hexagon = makeHexagon({
         id: colorName === "red" ? 100 + i : 200 + i,
         position: new Vector3(position[0], position[1], position[2]),
         width: HEXAGON_CONFIG.WIDTH,
