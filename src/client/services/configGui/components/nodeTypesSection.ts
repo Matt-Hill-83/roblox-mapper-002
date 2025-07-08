@@ -14,7 +14,7 @@ export function createNodeTypesSection({
   parent,
   numNodeTypes,
   numLinkTypes,
-  numPetTypes = 2,
+  numPetTypes = 5,
   onNodeTypesChange,
   onLinkTypesChange,
   onPetTypesChange
