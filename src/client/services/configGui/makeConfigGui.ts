@@ -67,8 +67,8 @@ export class ConfigGUIService {
     gui.Parent = playerGui;
     this.stateManager.setGUI(gui);
 
-    // Create collapsible main frame - reduced height to make room for visualization controls
-    const mainFrameSize = new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH, 0.65, 0);
+    // Create collapsible main frame - full height
+    const mainFrameSize = new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH, 0.9, 0);
     const collapsibleFrame = createCollapsibleFrame({
       parent: gui,
       size: mainFrameSize,
@@ -79,13 +79,13 @@ export class ConfigGUIService {
     // Store the main frame
     this.stateManager.setConfigFrame(collapsibleFrame.frame);
 
-    // Create visualization controls in a separate collapsible frame
-    const vizFrameSize = new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH, 0, 200);
+    // Create visualization controls on the right side
+    const vizFrameSize = new UDim2(0, 300, 0, 200);
     const vizCollapsibleFrame = createCollapsibleFrame({
       parent: gui,
       size: vizFrameSize,
       title: "Visualization Controls",
-      position: new UDim2(0, 10, 0.65, 20) // Position below main frame
+      position: new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH + 20, 0, 10) // Position to the right
     });
 
     // Create unified UI in the content frame

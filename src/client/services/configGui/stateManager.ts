@@ -7,7 +7,7 @@
 
 import { GUIState, EnhancedGeneratorConfig } from "./interfaces";
 import { GUI_CONSTANTS } from "./constants";
-import type { SpacingConfig, VisualizationOptions, AxisMapping } from "../../../shared/interfaces/enhancedGenerator.interface";
+import type { SpacingConfig, VisualizationOptions, AxisMapping, VisualMapping, YAxisConfig } from "../../../shared/interfaces/enhancedGenerator.interface";
 
 export class GUIStateManager {
   private state: GUIState;
@@ -40,6 +40,18 @@ export class GUIStateManager {
       zAxis: "petType"
     };
     
+    // Initialize visual mapping with defaults
+    const defaultVisualMapping: VisualMapping = {
+      backgroundColor: "None",
+      borderColor: "None"
+    };
+    
+    // Initialize Y-axis config with defaults
+    const defaultYAxisConfig: YAxisConfig = {
+      useLayer: true,
+      property: undefined
+    };
+    
     this.state = {
       isVisible: false,
       enhancedConfig: initialConfig || {
@@ -48,7 +60,10 @@ export class GUIStateManager {
         layers: [],
         spacing: defaultSpacing,
         visualization: defaultVisualization,
-        axisMapping: defaultAxisMapping
+        axisMapping: defaultAxisMapping,
+        visualMapping: defaultVisualMapping,
+        yAxisConfig: defaultYAxisConfig,
+        numPetTypes: 5
       },
       layerRows: []
     };
@@ -66,6 +81,21 @@ export class GUIStateManager {
     // Ensure axis mapping is always defined
     if (!this.state.enhancedConfig.axisMapping) {
       this.state.enhancedConfig.axisMapping = defaultAxisMapping;
+    }
+    
+    // Ensure visual mapping is always defined
+    if (!this.state.enhancedConfig.visualMapping) {
+      this.state.enhancedConfig.visualMapping = defaultVisualMapping;
+    }
+    
+    // Ensure Y-axis config is always defined
+    if (!this.state.enhancedConfig.yAxisConfig) {
+      this.state.enhancedConfig.yAxisConfig = defaultYAxisConfig;
+    }
+    
+    // Ensure numPetTypes is always defined
+    if (!this.state.enhancedConfig.numPetTypes) {
+      this.state.enhancedConfig.numPetTypes = 5;
     }
   }
 
