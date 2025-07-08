@@ -148,7 +148,7 @@ export class LabelRenderer {
       });
     });
     
-    print(`✅ Created ${valuePositions.size()} labels for ${propertyName} on ${axis} axis`);
+
   }
   
   /**
@@ -182,6 +182,6 @@ export class LabelRenderer {
     textLabel.TextScaled = true;
     textLabel.Parent = frame;
     
-    print(`🏷️ Created SurfaceGui label: ${text} on ${face} face`);
+    
   }
 }

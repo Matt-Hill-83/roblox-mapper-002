@@ -15,11 +15,11 @@ import {
   createFlatBlocksAdapter as createFlatBlocks, 
   calculateBlockDimensionsAdapter as calculateBlockDimensions, 
   createSwimLaneBlockAdapter as createSwimLaneBlock, 
-  createZAxisShadowBlocksAdapter as createZAxisShadowBlocks, 
-  FLAT_BLOCK_DEFAULTS 
+  createZAxisShadowBlocksAdapter as createZAxisShadowBlocks
 } from "../blockCreatorAdapter";
 import { createVerticalWalls, createWallSwimlanes } from "../verticalWallCreator";
 import { PropertyValueResolver } from "../propertyValueResolver";
+import { BLOCK_CONSTANTS } from "../constants/blockConstants";
 
 export class UnifiedDataRenderer {
   private dataGenerator: DataGenerator;
@@ -225,8 +225,8 @@ export class UnifiedDataRenderer {
       const blockWidth = swimlaneWidth;
       const blockDepth = swimlaneDepth;
       
-      // Fixed Y position for all swimlane blocks - raised above shadow block
-      const blockYPosition = 1.5 + FLAT_BLOCK_DEFAULTS.zFightingFix * 2; // 0.2 above base to prevent z-fighting with shadow block
+      // Fixed Y position for all swimlane blocks - properly elevated
+      const blockYPosition = BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET * 2 + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2; // Above shadow block
       
       // Get the color from the first node of this type
       const nodeColor = nodes[0].color;
@@ -237,7 +237,7 @@ export class UnifiedDataRenderer {
         position: new Vector3(centerX, blockYPosition, centerZ),
         width: blockWidth,
         depth: blockDepth,
-        height: 3,
+        height: BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS,
         color: color,
         typeName: typeName,
         parent: shadowBlock
@@ -357,8 +357,9 @@ export class UnifiedDataRenderer {
       bounds.maxZ = math.max(bounds.maxZ, node.position.z);
     });
     
-    // Create Z-axis shadow blocks at 2.4 to be clearly visible above all other blocks
-    createZAxisShadowBlocks(nodesByProperty, propertyBounds, parent, 2.4, swimlaneBlocks);
+    // Create Z-axis shadow blocks at proper elevation
+    const zAxisYPosition = BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS * 2 + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET * 3; // Above X-axis swimlanes
+    createZAxisShadowBlocks(nodesByProperty, propertyBounds, parent, zAxisYPosition, swimlaneBlocks);
     return swimlaneBlocks;
   }
   

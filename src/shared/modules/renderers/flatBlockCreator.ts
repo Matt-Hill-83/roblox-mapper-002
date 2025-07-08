@@ -43,7 +43,6 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   const {
     origin,
     parent,
-    height = FLAT_BLOCK_DEFAULTS.height,
     width = FLAT_BLOCK_DEFAULTS.width,
     depth = FLAT_BLOCK_DEFAULTS.depth,
   } = config;
@@ -52,9 +51,9 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   const platformBlock = new Instance("Part");
   platformBlock.Name = "PlatformBlock";
   
-  // Platform has same height as shadow block but positioned 0.1 lower
+  // Platform has uniform shadow thickness for consistency
   // Platform has fixed size of 100x100 in X,Z dimensions
-  platformBlock.Size = new Vector3(BLOCK_CONSTANTS.DIMENSIONS.PLATFORM_SIZE, height, BLOCK_CONSTANTS.DIMENSIONS.PLATFORM_SIZE);
+  platformBlock.Size = new Vector3(BLOCK_CONSTANTS.DIMENSIONS.PLATFORM_SIZE, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, BLOCK_CONSTANTS.DIMENSIONS.PLATFORM_SIZE);
   
   // Set platform material and appearance
   platformBlock.Material = BLOCK_CONSTANTS.MATERIALS.PLATFORM;
@@ -76,10 +75,10 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   platformBlock.CastShadow = false;
   platformBlock.Transparency = 0; // Fully opaque
   
-  // Position platform block - zFightingFix units lower than shadow block
+  // Position platform block at base level
   platformBlock.Position = new Vector3(
     origin.X,
-    (height / 2) - FLAT_BLOCK_DEFAULTS.zFightingFix, // zFightingFix units lower than shadow block
+    BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2, // Center at ground level with uniform thickness
     origin.Z
   );
   
@@ -90,8 +89,8 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   const shadowBlock = new Instance("Part");
   shadowBlock.Name = "GroupShadowBlock";
   
-  // Set shadow size with buffer on all sides
-  shadowBlock.Size = new Vector3(width + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER, height, depth + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER);
+  // Set shadow size with buffer on all sides and uniform thickness
+  shadowBlock.Size = new Vector3(width + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, depth + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER);
   
   // Set shadow material and appearance
   shadowBlock.Material = BLOCK_CONSTANTS.MATERIALS.SHADOW;
@@ -105,10 +104,10 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   shadowBlock.CastShadow = false;
   shadowBlock.Transparency = 0; // Fully opaque
   
-  // Position shadow block - 0.1 units above platform to prevent z-fighting
+  // Position shadow block - 0.1 units above platform
   shadowBlock.Position = new Vector3(
     origin.X,
-    height / 2 + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET, // Raised by 0.1 to prevent z-fighting
+    BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2 + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2, // 0.1 above platform
     origin.Z
   );
   
@@ -117,11 +116,11 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   
   print(`🟩 Created platform block:`);
   print(`   - Position: (${platformBlock.Position.X}, ${platformBlock.Position.Y}, ${platformBlock.Position.Z})`);
-  print(`   - Size: 100 x ${height} x 100 (W x H x D)`);
+  print(`   - Size: 100 x ${BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS} x 100 (W x H x D)`);
   
   print(`🟦 Created shadow block:`);
   print(`   - Position: (${shadowBlock.Position.X}, ${shadowBlock.Position.Y}, ${shadowBlock.Position.Z})`);
-  print(`   - Size: ${width + 2} x ${height} x ${depth + 2} (W x H x D)`);
+  print(`   - Size: ${width + 2} x ${BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS} x ${depth + 2} (W x H x D)`);
   print(`   - Parent: ${shadowBlock.Parent?.Name}`);
   
   return { platform: platformBlock, shadow: shadowBlock };
@@ -243,7 +242,7 @@ export function createZAxisShadowBlocks(
     // Create the block
     const block = new Instance("Part");
     block.Name = `ZAxisShadowBlock_${propertyValue}`;
-    block.Size = new Vector3(blockWidth, BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BLOCK_HEIGHT, blockDepth);
+    block.Size = new Vector3(blockWidth, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, blockDepth);
     block.Position = new Vector3(centerX, yPosition, centerZ);
     
     // Set appearance

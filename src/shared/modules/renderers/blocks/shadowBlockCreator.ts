@@ -100,8 +100,8 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     
     const block = this.createBlock({
       name: `ZAxisShadowBlock_${propertyValue}`,
-      size: new Vector3(dimensions.size.X, BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BLOCK_HEIGHT, dimensions.size.Z),
-      position: new Vector3(dimensions.position.X, yPosition, dimensions.position.Z),
+      size: new Vector3(dimensions.size.X, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, dimensions.size.Z),
+      position: new Vector3(dimensions.position.X, yPosition + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2, dimensions.position.Z),
       material: BLOCK_CONSTANTS.MATERIALS.SWIMLANE,
       color: this.getColorFromArray(BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS, colorIndex),
       transparency: BLOCK_CONSTANTS.TRANSPARENCY.OPAQUE,
@@ -111,8 +111,8 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     block.CastShadow = false;
 
     this.debug(`Created Z-axis shadow block for ${propertyValue}:`);
-    this.debug(`   - Position: (${dimensions.position.X}, ${yPosition}, ${dimensions.position.Z})`);
-    this.debug(`   - Size: ${dimensions.size.X} x ${BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BLOCK_HEIGHT} x ${dimensions.size.Z}`);
+    this.debug(`   - Position: (${dimensions.position.X}, ${yPosition + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2}, ${dimensions.position.Z})`);
+    this.debug(`   - Size: ${dimensions.size.X} x ${BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS} x ${dimensions.size.Z}`);
 
     return block;
   }
