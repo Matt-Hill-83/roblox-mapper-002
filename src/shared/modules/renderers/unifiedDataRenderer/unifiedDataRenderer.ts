@@ -278,7 +278,7 @@ export class UnifiedDataRenderer {
         swimlaneBlock: swimlaneBlock,
         swimlaneName: typeName,
         parent: parent,
-        gap: 1,
+        gap: 2, // Increased gap for person endcaps
         isZAxis: false
       });
       

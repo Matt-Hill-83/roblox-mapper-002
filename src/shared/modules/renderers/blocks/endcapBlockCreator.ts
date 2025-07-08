@@ -143,7 +143,7 @@ export class EndcapBlockCreator extends BaseBlockCreator {
     print(`   - Label: ${label}`);
 
     // Add labels to all faces
-    this.addLabelsToAllFaces(endcap, label);
+    this.addLabelsToAllFaces(endcap, label, isZAxis);
 
     endcap.Parent = parent;
     return endcap;
@@ -152,7 +152,7 @@ export class EndcapBlockCreator extends BaseBlockCreator {
   /**
    * Add surface labels to all faces of the endcap
    */
-  private addLabelsToAllFaces(block: Part, text: string): void {
+  private addLabelsToAllFaces(block: Part, text: string, isZAxis: boolean): void {
     const faces: Enum.NormalId[] = [
       Enum.NormalId.Front,
       Enum.NormalId.Back,
@@ -188,6 +188,12 @@ export class EndcapBlockCreator extends BaseBlockCreator {
       textLabel.Text = text;
       textLabel.TextColor3 = new Color3(0, 0, 0); // Black text
       textLabel.TextScaled = true;
+      
+      // Rotate text on top face for X-axis swimlanes (person endcaps)
+      if (face === Enum.NormalId.Top && !isZAxis) {
+        textLabel.Rotation = 90;
+      }
+      
       textLabel.Parent = frame;
     });
   }
