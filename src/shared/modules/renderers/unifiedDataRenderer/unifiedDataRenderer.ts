@@ -237,8 +237,11 @@ export class UnifiedDataRenderer {
       const blockWidth = swimlaneWidth;
       const blockDepth = swimlaneDepth;
       
-      // Fixed Y position for X-axis swimlane blocks
-      const blockYPosition = BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET * 2; // Above shadow block
+      // Fixed Y position for X-axis swimlane blocks - use SHADOW_LAYER_DISPLACEMENT above shadow block
+      // Shadow block is at Y = 1.6 (top at 2.1)
+      // X-axis blocks should have their tops at 2.1 + SHADOW_LAYER_DISPLACEMENT
+      const shadowBlockTop = BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2;
+      const blockYPosition = shadowBlockTop + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT; // Above shadow block
       
       // Get the color from the first node of this type
       const nodeColor = nodes[0].color;
@@ -371,8 +374,9 @@ export class UnifiedDataRenderer {
     });
     
     // Create Z-axis shadow blocks at proper elevation - tops above X-axis tops
-    // X-axis blocks are positioned at this Y coordinate
-    const xAxisYPosition = BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET * 2;
+    // X-axis blocks are positioned at blockYPosition from createSwimLaneBlocks
+    const shadowBlockTop = BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2;
+    const xAxisYPosition = shadowBlockTop + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT;
     const zAxisYPosition = xAxisYPosition + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT; // Above X-axis
     createZAxisShadowBlocks(nodesByProperty, propertyBounds, parent, zAxisYPosition, swimlaneBlocks, zAxisProperty);
     return swimlaneBlocks;
