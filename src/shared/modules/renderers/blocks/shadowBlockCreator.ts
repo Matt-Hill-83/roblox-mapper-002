@@ -63,7 +63,8 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     propertyBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
     parent: Instance,
     yPosition: number = 0.5,
-    blocksMap?: Map<string, Part>
+    blocksMap?: Map<string, Part>,
+    propertyName?: string
   ): void {
     let blockIndex = 0;
     
@@ -74,7 +75,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
         return;
       }
       
-      const block = this.createZAxisBlock(propertyValue, bounds, yPosition, blockIndex);
+      const block = this.createZAxisBlock(propertyValue, bounds, yPosition, blockIndex, propertyName);
       block.Parent = parent;
       
       if (blocksMap) {
@@ -94,12 +95,17 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     propertyValue: string,
     bounds: { minX: number; maxX: number; minZ: number; maxZ: number },
     yPosition: number,
-    colorIndex: number
+    colorIndex: number,
+    propertyName?: string
   ): Part {
     const dimensions = this.calculateBlockDimensions(bounds, BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER);
     
+    const blockName = propertyName 
+      ? `ZAxis_SwimLaneShadow_${propertyName}_${propertyValue}`
+      : `ZAxis_SwimLaneShadow_${propertyValue}`;
+    
     const block = this.createBlock({
-      name: `ZAxisShadowBlock_${propertyValue}`,
+      name: blockName,
       size: new Vector3(dimensions.size.X, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, dimensions.size.Z),
       position: new Vector3(dimensions.position.X, yPosition, dimensions.position.Z),
       material: BLOCK_CONSTANTS.MATERIALS.SWIMLANE,
@@ -146,7 +152,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       const frame = new Instance("Frame");
       frame.Size = new UDim2(1, 0, 1, 0);
       frame.BackgroundColor3 = new Color3(0, 0, 0);
-      frame.BackgroundTransparency = 0.3;
+      frame.BackgroundTransparency = 1; // Fully transparent background
       frame.BorderSizePixel = 0;
       frame.Parent = surfaceGui;
 
@@ -157,7 +163,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       textLabel.BackgroundTransparency = 1;
       textLabel.Font = Enum.Font.SourceSansBold;
       textLabel.Text = text;
-      textLabel.TextColor3 = new Color3(1, 1, 1);
+      textLabel.TextColor3 = new Color3(0, 0, 0); // Black text
       textLabel.TextScaled = true;
       textLabel.Parent = frame;
     });

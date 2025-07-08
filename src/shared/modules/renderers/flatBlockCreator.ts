@@ -23,6 +23,7 @@ export interface SwimLaneBlockConfig {
   color: Color3;
   typeName: string;
   parent: Instance;
+  propertyName?: string;
 }
 
 export const FLAT_BLOCK_DEFAULTS = {

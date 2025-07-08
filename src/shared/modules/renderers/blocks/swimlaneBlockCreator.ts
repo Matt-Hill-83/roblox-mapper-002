@@ -15,6 +15,7 @@ export interface SwimLaneBlockConfig {
   color: Color3;
   typeName: string;
   parent: Instance;
+  propertyName?: string;
 }
 
 export class SwimLaneBlockCreator extends BaseBlockCreator {
@@ -22,10 +23,14 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
    * Create a swimlane shadow block
    */
   public createSwimLaneBlock(config: SwimLaneBlockConfig): Part {
-    const { position, width, depth, height, color, typeName, parent } = config;
+    const { position, width, depth, height, color, typeName, parent, propertyName } = config;
+    
+    const blockName = propertyName 
+      ? `XAxis_SwimLaneShadow_${propertyName}_${typeName}`
+      : `XAxis_SwimLaneShadow_${typeName}`;
     
     const swimLaneBlock = this.createBlock({
-      name: `SwimlaneShadowBlock_${typeName}`,
+      name: blockName,
       size: new Vector3(width, height, depth),
       position: position,
       material: BLOCK_CONSTANTS.MATERIALS.PLATFORM,
@@ -155,7 +160,7 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
       const frame = new Instance("Frame");
       frame.Size = new UDim2(1, 0, 1, 0);
       frame.BackgroundColor3 = new Color3(0, 0, 0);
-      frame.BackgroundTransparency = 0.3;
+      frame.BackgroundTransparency = 1; // Fully transparent background
       frame.BorderSizePixel = 0;
       frame.Parent = surfaceGui;
 
@@ -166,7 +171,7 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
       textLabel.BackgroundTransparency = 1;
       textLabel.Font = Enum.Font.SourceSansBold;
       textLabel.Text = text;
-      textLabel.TextColor3 = new Color3(1, 1, 1);
+      textLabel.TextColor3 = new Color3(0, 0, 0); // Black text
       textLabel.TextScaled = true;
       textLabel.Parent = frame;
     });

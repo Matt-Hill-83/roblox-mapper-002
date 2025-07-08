@@ -15,7 +15,7 @@ export const BLOCK_CONSTANTS = {
     MIN_BLOCK_SIZE: 1,
     LABEL_Y_OFFSET: 0.001, // Prevents z-fighting with labels
     UNIFORM_SHADOW_THICKNESS: 1.0, // Uniform thickness for all shadow layers
-    SHADOW_LAYER_DISPLACEMENT: 1, // Vertical displacement between shadow layer tops
+    SHADOW_LAYER_DISPLACEMENT: 2, // Vertical displacement between shadow layer tops
   },
   COLORS: {
     SHADOW: new Color3(0.5, 0.7, 1),

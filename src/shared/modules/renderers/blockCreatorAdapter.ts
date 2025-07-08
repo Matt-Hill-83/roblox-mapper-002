@@ -103,14 +103,16 @@ export function createZAxisShadowBlocksAdapter(
   propertyBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
   parent: Instance,
   yPosition: number = 0.5,
-  blocksMap?: Map<string, Part>
+  blocksMap?: Map<string, Part>,
+  propertyName?: string
 ): void {
   shadowCreator.createZAxisShadowBlocks(
     nodesByProperty,
     propertyBounds,
     parent,
     yPosition,
-    blocksMap
+    blocksMap,
+    propertyName
   );
 }
 
@@ -125,7 +127,8 @@ export function createSwimLaneBlockAdapter(config: SwimLaneBlockConfig): Part {
     height: config.height,
     color: config.color,
     typeName: config.typeName,
-    parent: config.parent
+    parent: config.parent,
+    propertyName: config.propertyName
   });
 }
 
