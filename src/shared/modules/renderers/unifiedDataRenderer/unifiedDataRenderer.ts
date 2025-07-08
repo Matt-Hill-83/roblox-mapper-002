@@ -224,7 +224,8 @@ export class UnifiedDataRenderer {
       
       // Calculate swimlane center position
       const centerX = (bounds.minX + bounds.maxX) / 2;
-      const centerZ = (bounds.minZ + bounds.maxZ) / 2;
+      // Use the origin Z (center of shadow block) for all X-axis swimlanes
+      const centerZ = origin.Z;
       
       // Calculate actual swimlane dimensions based on node bounds
       // Get hexagon width from config (nodeRadius * 2)
