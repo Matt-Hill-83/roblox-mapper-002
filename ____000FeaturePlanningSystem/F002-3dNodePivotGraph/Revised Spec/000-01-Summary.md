@@ -22,46 +22,45 @@ Users can pivot the visualization by selecting different properties for X and Z 
 ## Platform and Shadow Block Layout (Top-Down View)
 
 ```
-┌─────────────────────────────────────────────┐
-│                                             │
-│  ┌─────────────┐       ┌─────────────┐     │
-│  │   Cat Lane  │       │   Dog Lane  │     │  ← Z-axis swimlane shadows
-│  │   (Pink)    │       │   (Yellow)  │     │     (Pet types)
-│  └─────────────┘       └─────────────┘     │
-│                                             │
-│  ┌──────────────────────────────────────┐  │
-│  │                                      │  │
-│  │  ┌────────┐  ┌────────┐            │  │
-│  │  │  Man   │  │ Woman  │            │  │  ← X-axis swimlane blocks
-│  │  │ (Blue) │  │ (Pink) │            │  │     (Node types)
-│  │  └────────┘  └────────┘            │  │
-│  │                                      │  │
-│  └──────────────────────────────────────┘  │
-│                                             │
-│               Group Shadow Block            │  ← Main shadow block
-│                   (Blue)                    │     (All nodes)
-└─────────────────────────────────────────────┘
-                Platform Block
-                   (Grey)
+Looking down from above:
 
-Legend:
-- Platform Block: Base platform at ground level
-- Group Shadow Block: Blue shadow representing all nodes
-- X-axis swimlanes: Colored blocks for each node type (Man, Woman)
-- Z-axis swimlanes: Colored blocks for each pet type (Cat, Dog)
-- All swimlane blocks are centered over the group shadow
+Z axis ↑
+       │
+       │  ┌─────────────────┬─────────────────┐
+       │  │                 │                 │
+       │  │    Cat Lane     │    Cat Lane     │
+       │  │    (Pink)       │    (Pink)       │
+       │  │                 │                 │
+       │  ├─────────────────┼─────────────────┤
+       │  │                 │                 │
+       │  │    Dog Lane     │    Dog Lane     │
+       │  │   (Yellow)      │   (Yellow)      │
+       │  │                 │                 │
+       │  └─────────────────┴─────────────────┘
+       │       Man (Blue)      Woman (Pink)
+       └────────────────────────────────────────→ X axis
+
+Each cell shows the overlap of:
+- Z-axis swimlane (horizontal bands: Cat/Dog)
+- X-axis swimlane (vertical bands: Man/Woman)
+
+The blue group shadow block sits beneath all swimlanes,
+and the grey platform block is at the base.
 ```
 
 ### Layer Stack (Side View)
 ```
-Y ↑
-  │  Nodes (hexagons at various heights)
-  │  ─────────────────────────────────────
-  │  Z-axis swimlane shadows (Pet types)
-  │  ─────────────────────────────────────
-  │  X-axis swimlane blocks (Node types)
-  │  ─────────────────────────────────────
-  │  Group Shadow Block
-  │  ─────────────────────────────────────
-  └─ Platform Block ────────────────────► X/Z
+Side view showing vertical layers:
+
+Y axis ↑
+       │
+       │  [Nodes/Hexagons at various heights]
+       │  ─────────────────────────────────────
+       │  [Z-axis swimlanes: Cat, Dog]
+       │  ─────────────────────────────────────
+       │  [X-axis swimlanes: Man, Woman]  
+       │  ─────────────────────────────────────
+       │  [Group Shadow Block (Blue)]
+       │  ─────────────────────────────────────
+       └─ [Platform Block (Grey)] ──────────────→ X/Z plane
 ```
