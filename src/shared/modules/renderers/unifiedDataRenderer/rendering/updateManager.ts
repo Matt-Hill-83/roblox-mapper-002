@@ -7,7 +7,7 @@
 import { Cluster, Node, Link, Group } from "../../../../interfaces/simpleDataGenerator.interface";
 import { EnhancedGeneratorConfig, LayerConfig } from "../../../../interfaces/enhancedGenerator.interface";
 import { IUpdateManager } from "../interfaces";
-import { makeHexagon } from "../../../hexagonMaker";
+import { makeHexagonStandardized } from "../../../hexagonMaker";
 import { createRopeConnectors } from "../../dataGeneratorRobloxRendererUtils/ropeCreator";
 import { RENDERER_CONSTANTS } from "../../dataGeneratorRobloxRendererUtils/constants";
 import { COLOR_PALETTES, NODE_TYPE_NAMES, ANIMAL_TYPES, DEFAULT_ATTACHMENTS } from "../constants";
@@ -373,16 +373,14 @@ export class UpdateManager implements IUpdateManager {
       labels.push(node.properties.animalType);
     }
     
-    const hexagon = makeHexagon({
+    const hexagon = makeHexagonStandardized({
       id: this.nodeIdCounter++,
-      centerPosition: [node.position.x, node.position.y, node.position.z],
+      position: new Vector3(node.position.x, node.position.y, node.position.z),
       width: WIDTH,
       height: HEIGHT,
-      barProps: {
-        Color: node.color,
-        Material: Enum.Material.SmoothPlastic,
-        CastShadow: false
-      },
+      barColor: new Color3(node.color[0], node.color[1], node.color[2]),
+      barMaterial: Enum.Material.SmoothPlastic,
+      castShadow: false,
       labels: labels,
       stackIndex: 1,
       hexIndex: this.nodeIdCounter,

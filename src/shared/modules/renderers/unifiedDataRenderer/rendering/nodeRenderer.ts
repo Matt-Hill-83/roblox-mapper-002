@@ -7,10 +7,10 @@
 import { Cluster, Node } from "../../../../interfaces/simpleDataGenerator.interface";
 import { EnhancedGeneratorConfig } from "../../../../interfaces/enhancedGenerator.interface";
 import { INodeRenderer, SpacingConfig } from "../interfaces";
-import { makeHexagon } from "../../../hexagonMaker";
+import { makeHexagonStandardized } from "../../../hexagonMaker";
 import { createRopeConnectors } from "../../dataGeneratorRobloxRendererUtils/ropeCreator";
 import { RENDERER_CONSTANTS } from "../../dataGeneratorRobloxRendererUtils/constants";
-import { getNodeBackgroundColor, getNodeBorderColor } from "../utils/colorMapper";
+import { getNodeBackgroundColor } from "../utils/colorMapper";
 
 export class NodeRenderer implements INodeRenderer {
   /**
@@ -89,21 +89,16 @@ export class NodeRenderer implements INodeRenderer {
     
     // Get colors based on visual mapping
     const backgroundColor = getNodeBackgroundColor(node, config?.visualMapping);
-    const borderColor = getNodeBorderColor(node, config?.visualMapping);
+    // const borderColor = getNodeBorderColor(node, config?.visualMapping); // Not used in standardized version
     
-    const hexagon = makeHexagon({
+    const hexagon = makeHexagonStandardized({
       id: hexIndex,
-      centerPosition: [node.position.x, node.position.y, node.position.z],
+      position: new Vector3(node.position.x, node.position.y, node.position.z),
       width: WIDTH,
       height: HEIGHT,
-      barProps: {
-        Color: [backgroundColor.R, backgroundColor.G, backgroundColor.B],
-        Material: Enum.Material.SmoothPlastic, // Performance optimization
-        CastShadow: false, // Performance optimization
-        // Store visual customization for bars to use
-        BackgroundColor: backgroundColor,
-        BorderColor: borderColor
-      },
+      barColor: backgroundColor,
+      barMaterial: Enum.Material.SmoothPlastic, // Performance optimization
+      castShadow: false, // Performance optimization
       labels: labels,
       stackIndex: 1,
       hexIndex: hexIndex,

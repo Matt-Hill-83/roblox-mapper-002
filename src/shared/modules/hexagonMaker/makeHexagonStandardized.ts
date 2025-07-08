@@ -2,7 +2,7 @@
  * Standardized hexagon maker following IMaker pattern
  */
 
-import { makeBar } from "../barMaker/barMakerAdapter";
+import { makeBarStandardized } from "../barMaker";
 import { HEXAGON_CONSTANTS } from "./constants";
 import {
   generateHexagonName,
@@ -72,20 +72,14 @@ export function makeHexagonStandardized(config: IHexagonMakerConfig): Model {
     // Slightly raise the first bar to avoid z-fighting with the top label
     const yOffset = i === 0 ? 0.001 : 0;
     
-    const bar = makeBar({
+    const bar = makeBarStandardized({
       id: `${id}_bar${i + 1}`,
-      position: {
-        x: position.X,
-        y: position.Y + yOffset,
-        z: position.Z,
-      },
-      rotation: { x: 0, y: rotation, z: 0 },
-      props: {
-        Size: [dimensions.barLength, dimensions.barHeight, dimensions.barWidth],
-        Color: [barColor.R, barColor.G, barColor.B],
-        Material: barMaterial.Name,
-        Transparency: barTransparency,
-      },
+      position: new Vector3(position.X, position.Y + yOffset, position.Z),
+      rotation: new Vector3(0, rotation, 0),
+      size: new Vector3(dimensions.barLength, dimensions.barHeight, dimensions.barWidth),
+      color: barColor,
+      material: barMaterial,
+      transparency: barTransparency,
       label: labels[i] || `Bar${i + 1}`,
       stackIndex: stackIndex,
       hexIndex: hexIndex,

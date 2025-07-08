@@ -4,7 +4,7 @@
  */
 
 // Legacy function signature for backward compatibility
-import { makeLabelBlock } from "./labelBlockMaker";
+import { makeLabelBlockStandardized } from "./labelBlockMaker";
 
 export interface OriginBlockConfig {
   origin: { x: number; y: number; z: number };
@@ -26,21 +26,20 @@ export function makeOriginBlock({
   orientationFolder.Name = "OrientationReference";
   orientationFolder.Parent = parent;
 
-  const block = makeLabelBlock({
+  const block = makeLabelBlockStandardized({
     id: "orientation-ref",
-    position: {
-      x: origin.x + offset.x,
-      y: origin.y + offset.y,
-      z: origin.z + offset.z,
-    },
-    props: {
-      Size: size,
-      Color: [0.3, 0.3, 0.3], // Dark gray
-      Transparency: 0.2,
-      Material: "SmoothPlastic",
-      CanCollide: false,
-      CastShadow: false,
-    },
+    text: "ORIENT", // Required text field
+    position: new Vector3(
+      origin.x + offset.x,
+      origin.y + offset.y,
+      origin.z + offset.z
+    ),
+    size: size,
+    color: new Color3(0.3, 0.3, 0.3), // Dark gray
+    transparency: 0.2,
+    material: Enum.Material.SmoothPlastic,
+    anchored: true,
+    castShadow: false,
     labels: {
       front: {
         text: "FRONT",
