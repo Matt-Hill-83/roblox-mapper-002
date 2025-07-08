@@ -131,7 +131,7 @@ export class EndcapBlockCreator extends BaseBlockCreator {
       position: position,
       material: Enum.Material.Concrete,
       color: color, // Use swimlane color
-      transparency: 0.3,
+      transparency: 0,
       canCollide: false
     });
 
