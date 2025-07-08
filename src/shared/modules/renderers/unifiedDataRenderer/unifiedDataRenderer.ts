@@ -384,11 +384,11 @@ export class UnifiedDataRenderer {
       bounds.maxZ = math.max(bounds.maxZ, node.position.z);
     });
     
-    // Create Z-axis shadow blocks at proper elevation - tops above X-axis tops
+    // Create Z-axis shadow blocks at same elevation as X-axis blocks
     // X-axis blocks are positioned at blockYPosition from createSwimLaneBlocks
     const shadowBlockTop = BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2;
     const xAxisYPosition = shadowBlockTop + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT;
-    const zAxisYPosition = xAxisYPosition + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT; // Above X-axis
+    const zAxisYPosition = xAxisYPosition; // Same height as X-axis
     createZAxisShadowBlocks(nodesByProperty, propertyBounds, parent, zAxisYPosition, swimlaneBlocks, zAxisProperty);
     return swimlaneBlocks;
   }

@@ -32,7 +32,13 @@
 
 ## New Feature Requirements
 
-7. ⬛ **R7**: Node Properties Inspector GUI
+
+7. Add endcaps to each swimlane shadow
+    1. each endcap should be 1 unit wide and match the other dimensions of the swimlane
+    2. keep a 1 unit gap between teh endcap and the swimlane shadow
+    3. put the swimlane name in a label on all sides of the endcap
+
+8. ⬛ **R7**: Node Properties Inspector GUI
    - ⬛ Display node properties when clicking on a node
    - ⬛ Position in upper right of screen
    - ⬛ Click to show/hide functionality
