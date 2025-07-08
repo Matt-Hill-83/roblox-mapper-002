@@ -20,6 +20,7 @@ import {
 import { createVerticalWalls, createWallSwimlanes } from "../verticalWallCreator";
 import { PropertyValueResolver } from "../propertyValueResolver";
 import { BLOCK_CONSTANTS } from "../constants/blockConstants";
+import { EndcapBlockCreator } from "../blocks/endcapBlockCreator";
 
 export class UnifiedDataRenderer {
   private dataGenerator: DataGenerator;
@@ -28,6 +29,7 @@ export class UnifiedDataRenderer {
   private updateManager: UpdateManager;
   private labelRenderer: LabelRenderer;
   private propertyResolver: PropertyValueResolver;
+  private endcapCreator: EndcapBlockCreator;
   private currentConfig?: EnhancedGeneratorConfig;
 
   constructor() {
@@ -37,6 +39,7 @@ export class UnifiedDataRenderer {
     this.updateManager = new UpdateManager();
     this.labelRenderer = new LabelRenderer();
     this.propertyResolver = new PropertyValueResolver();
+    this.endcapCreator = new EndcapBlockCreator();
   }
 
   /**
@@ -272,6 +275,15 @@ export class UnifiedDataRenderer {
       
       // Store the block in the map
       swimlaneBlocks.set(typeName, swimlaneBlock);
+      
+      // Create endcaps for this swimlane
+      this.endcapCreator.createEndcaps({
+        swimlaneBlock: swimlaneBlock,
+        swimlaneName: typeName,
+        parent: parent,
+        gap: 1,
+        isZAxis: false
+      });
       
       swimlaneIndex++;
     });

@@ -6,6 +6,7 @@
 
 import { BaseBlockCreator } from "./baseBlockCreator";
 import { BLOCK_CONSTANTS } from "../constants/blockConstants";
+import { EndcapBlockCreator } from "./endcapBlockCreator";
 
 export interface ShadowBlockConfig {
   origin: Vector3;
@@ -17,6 +18,12 @@ export interface ShadowBlockConfig {
 }
 
 export class ShadowBlockCreator extends BaseBlockCreator {
+  private endcapCreator: EndcapBlockCreator;
+
+  constructor() {
+    super();
+    this.endcapCreator = new EndcapBlockCreator();
+  }
   /**
    * Create a group shadow block
    */
@@ -96,6 +103,15 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       if (blocksMap) {
         blocksMap.set(propertyValue, block);
       }
+      
+      // Create endcaps for Z-axis swimlane
+      this.endcapCreator.createEndcaps({
+        swimlaneBlock: block,
+        swimlaneName: propertyValue,
+        parent: parent,
+        gap: 1,
+        isZAxis: true
+      });
       
       blockIndex++;
     });
