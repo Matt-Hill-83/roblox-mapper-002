@@ -125,6 +125,7 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   print(`   - Position: (${shadowBlock.Position.X}, ${shadowBlock.Position.Y}, ${shadowBlock.Position.Z})`);
   print(`   - Size: ${width + 2} x ${BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS} x ${depth + 2} (W x H x D)`);
   print(`   - Parent: ${shadowBlock.Parent?.Name}`);
+  print(`   - Centered at origin.X = ${origin.X}`);
   
   return { platform: platformBlock, shadow: shadowBlock };
 }
@@ -229,7 +230,8 @@ export function createZAxisShadowBlocks(
   propertyBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
   parent: Instance,
   yPosition: number = 0.5,
-  blocksMap?: Map<string, Part>
+  blocksMap?: Map<string, Part>,
+  origin?: Vector3
 ): void {
   let blockIndex = 0;
   
@@ -239,7 +241,7 @@ export function createZAxisShadowBlocks(
     // Calculate block dimensions
     const blockWidth = bounds.maxX - bounds.minX + POSITION_CONSTANTS.Z_AXIS_SPACING; // Add padding
     const blockDepth = bounds.maxZ - bounds.minZ + POSITION_CONSTANTS.Z_AXIS_SPACING;
-    const centerX = (bounds.minX + bounds.maxX) / 2;
+    const centerX = origin?.X || 0; // Use origin.X for alignment with group shadow block
     const centerZ = (bounds.minZ + bounds.maxZ) / 2;
     
     // Create the block
@@ -275,11 +277,13 @@ export function createZAxisShadowBlocks(
     print(`🟦 Created Z-axis shadow block for ${propertyValue}:`);
     print(`   - Position: (${centerX}, ${yPosition}, ${centerZ})`);
     print(`   - Size: ${blockWidth} x 2 x ${blockDepth}`);
+    print(`   - Using origin.X: ${origin?.X || 0} for alignment`);
     
     blockIndex++;
   });
   
   print(`✅ Created ${nodesByProperty.size()} Z-axis shadow blocks`);
+  print(`   - All blocks centered at X=${origin?.X || 0} to align with group shadow block`);
 }
 
 /**

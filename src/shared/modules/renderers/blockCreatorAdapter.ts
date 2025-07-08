@@ -104,7 +104,8 @@ export function createZAxisShadowBlocksAdapter(
   parent: Instance,
   yPosition: number = 0.5,
   blocksMap?: Map<string, Part>,
-  propertyName?: string
+  propertyName?: string,
+  origin?: Vector3
 ): void {
   shadowCreator.createZAxisShadowBlocks(
     nodesByProperty,
@@ -112,7 +113,8 @@ export function createZAxisShadowBlocksAdapter(
     parent,
     yPosition,
     blocksMap,
-    propertyName
+    propertyName,
+    origin
   );
 }
 

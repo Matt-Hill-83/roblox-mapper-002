@@ -64,7 +64,8 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     parent: Instance,
     yPosition: number = 0.5,
     blocksMap?: Map<string, Part>,
-    propertyName?: string
+    propertyName?: string,
+    origin?: Vector3
   ): void {
     let blockIndex = 0;
     
@@ -75,7 +76,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
         return;
       }
       
-      const block = this.createZAxisBlock(propertyValue, bounds, yPosition, blockIndex, propertyName);
+      const block = this.createZAxisBlock(propertyValue, bounds, yPosition, blockIndex, propertyName, origin);
       block.Parent = parent;
       
       if (blocksMap) {
@@ -96,7 +97,8 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     bounds: { minX: number; maxX: number; minZ: number; maxZ: number },
     yPosition: number,
     colorIndex: number,
-    propertyName?: string
+    propertyName?: string,
+    origin?: Vector3
   ): Part {
     const dimensions = this.calculateBlockDimensions(bounds, BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER);
     
@@ -107,7 +109,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     const block = this.createBlock({
       name: blockName,
       size: new Vector3(dimensions.size.X, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, dimensions.size.Z),
-      position: new Vector3(0, yPosition, dimensions.position.Z), // Center at X=0 to align with group shadow block
+      position: new Vector3(origin?.X || 0, yPosition, dimensions.position.Z), // Use origin.X to align with group shadow block
       material: BLOCK_CONSTANTS.MATERIALS.SWIMLANE,
       color: this.getColorFromArray(BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS, colorIndex),
       transparency: BLOCK_CONSTANTS.TRANSPARENCY.OPAQUE,
@@ -120,8 +122,9 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     this.addSurfaceLabelsToAllFaces(block, propertyValue);
 
     this.debug(`Created Z-axis shadow block for ${propertyValue}:`);
-    this.debug(`   - Position: (0, ${yPosition}, ${dimensions.position.Z})`);
+    this.debug(`   - Position: (${origin?.X || 0}, ${yPosition}, ${dimensions.position.Z})`);
     this.debug(`   - Size: ${dimensions.size.X} x ${BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS} x ${dimensions.size.Z}`);
+    this.debug(`   - Using origin.X: ${origin?.X || 0} for alignment`);
 
     return block;
   }

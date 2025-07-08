@@ -90,7 +90,7 @@ export class UnifiedDataRenderer {
     zAxisModel.Parent = blocks.shadow; // Parent to GroupShadowBlock
     
     // Create Z-axis shadow blocks first (they go below X-axis)
-    const zAxisSwimlaneBlocks = this.createZAxisSwimLaneBlocks(cluster, zAxisModel, config);
+    const zAxisSwimlaneBlocks = this.createZAxisSwimLaneBlocks(cluster, zAxisModel, targetOrigin, config);
     
     // Create X-axis swimlanes model
     const xAxisProperty = config?.axisMapping?.xAxis || "type";
@@ -340,7 +340,7 @@ export class UnifiedDataRenderer {
   /**
    * Creates Z-axis shadow blocks for property swimlanes
    */
-  private createZAxisSwimLaneBlocks(cluster: Cluster, parent: Instance, config?: EnhancedGeneratorConfig): Map<string, Part> {
+  private createZAxisSwimLaneBlocks(cluster: Cluster, parent: Instance, targetOrigin: Vector3, config?: EnhancedGeneratorConfig): Map<string, Part> {
     const swimlaneBlocks = new Map<string, Part>();
     // Use axis mapping if available
     const zAxisProperty = config?.axisMapping?.zAxis || "petType";
@@ -378,7 +378,7 @@ export class UnifiedDataRenderer {
     const shadowBlockTop = BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2;
     const xAxisYPosition = shadowBlockTop + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT;
     const zAxisYPosition = xAxisYPosition + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT; // Above X-axis
-    createZAxisShadowBlocks(nodesByProperty, propertyBounds, parent, zAxisYPosition, swimlaneBlocks, zAxisProperty);
+    createZAxisShadowBlocks(nodesByProperty, propertyBounds, parent, zAxisYPosition, swimlaneBlocks, zAxisProperty, targetOrigin);
     return swimlaneBlocks;
   }
   
