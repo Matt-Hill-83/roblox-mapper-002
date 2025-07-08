@@ -73,7 +73,7 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   platformBlock.Anchored = true;
   platformBlock.CanCollide = true;
   platformBlock.CastShadow = false;
-  platformBlock.Transparency = 0; // Fully opaque
+  platformBlock.Transparency = 1; // Fully transparent
   
   // Position platform block at base level
   platformBlock.Position = new Vector3(
@@ -107,7 +107,7 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   // Position shadow block - 0.1 units above platform
   shadowBlock.Position = new Vector3(
     origin.X,
-    BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2 + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2, // 0.1 above platform
+    BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2, // 0.1 above platform top
     origin.Z
   );
   
@@ -117,6 +117,8 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   print(`🟩 Created platform block:`);
   print(`   - Position: (${platformBlock.Position.X}, ${platformBlock.Position.Y}, ${platformBlock.Position.Z})`);
   print(`   - Size: 100 x ${BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS} x 100 (W x H x D)`);
+  print(`   - Transparency: ${platformBlock.Transparency}`);
+  print(`   - Color: (${platformBlock.Color.R}, ${platformBlock.Color.G}, ${platformBlock.Color.B})`);
   
   print(`🟦 Created shadow block:`);
   print(`   - Position: (${shadowBlock.Position.X}, ${shadowBlock.Position.Y}, ${shadowBlock.Position.Z})`);

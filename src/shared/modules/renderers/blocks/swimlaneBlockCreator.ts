@@ -37,6 +37,9 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
     swimLaneBlock.CastShadow = false;
     swimLaneBlock.Parent = parent;
 
+    // Add surface labels to all faces
+    this.addSurfaceLabelsToAllFaces(swimLaneBlock, typeName);
+
     this.debug(`Created swimlane shadow block for ${typeName}:`);
     this.debug(`   - Position: (${position.X}, ${position.Y}, ${position.Z})`);
     this.debug(`   - Size: ${width} x ${height} x ${depth} (W x H x D)`);
@@ -124,5 +127,48 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
     });
 
     return xAxisBlocks;
+  }
+
+  /**
+   * Add surface labels to all faces of a block
+   */
+  private addSurfaceLabelsToAllFaces(block: Part, text: string): void {
+    const faces: Enum.NormalId[] = [
+      Enum.NormalId.Front,
+      Enum.NormalId.Back,
+      Enum.NormalId.Left,
+      Enum.NormalId.Right,
+      Enum.NormalId.Top,
+      Enum.NormalId.Bottom
+    ];
+
+    faces.forEach(face => {
+      // Create SurfaceGui
+      const surfaceGui = new Instance("SurfaceGui");
+      surfaceGui.Name = `SurfaceGui_${face.Name}`;
+      surfaceGui.Face = face;
+      surfaceGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud;
+      surfaceGui.PixelsPerStud = 50;
+      surfaceGui.Parent = block;
+
+      // Create Frame for background
+      const frame = new Instance("Frame");
+      frame.Size = new UDim2(1, 0, 1, 0);
+      frame.BackgroundColor3 = new Color3(0, 0, 0);
+      frame.BackgroundTransparency = 0.3;
+      frame.BorderSizePixel = 0;
+      frame.Parent = surfaceGui;
+
+      // Create TextLabel
+      const textLabel = new Instance("TextLabel");
+      textLabel.Size = new UDim2(0.9, 0, 0.9, 0);
+      textLabel.Position = new UDim2(0.05, 0, 0.05, 0);
+      textLabel.BackgroundTransparency = 1;
+      textLabel.Font = Enum.Font.SourceSansBold;
+      textLabel.Text = text;
+      textLabel.TextColor3 = new Color3(1, 1, 1);
+      textLabel.TextScaled = true;
+      textLabel.Parent = frame;
+    });
   }
 }

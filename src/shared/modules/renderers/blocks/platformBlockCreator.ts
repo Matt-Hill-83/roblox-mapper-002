@@ -36,8 +36,8 @@ export class PlatformBlockCreator extends BaseBlockCreator {
       ),
       material: BLOCK_CONSTANTS.MATERIALS.PLATFORM,
       color: BLOCK_CONSTANTS.COLORS.PLATFORM,
-      transparency: BLOCK_CONSTANTS.TRANSPARENCY.OPAQUE,
-      canCollide: true
+      transparency: 1, // Fully transparent
+      canCollide: false
     });
 
     // Additional platform-specific properties
@@ -47,6 +47,8 @@ export class PlatformBlockCreator extends BaseBlockCreator {
     this.debug(`Created platform block:`);
     this.debug(`   - Position: (${platformBlock.Position.X}, ${platformBlock.Position.Y}, ${platformBlock.Position.Z})`);
     this.debug(`   - Size: ${size} x ${height} x ${size} (W x H x D)`);
+    this.debug(`   - Transparency: ${platformBlock.Transparency}`);
+    this.debug(`   - Color: (${platformBlock.Color.R}, ${platformBlock.Color.G}, ${platformBlock.Color.B})`);
 
     return platformBlock;
   }

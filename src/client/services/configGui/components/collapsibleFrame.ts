@@ -35,12 +35,12 @@ export function createCollapsibleFrame(options: CollapsibleFrameOptions): Collap
     title = "Configuration GUI"
   } = options;
 
-  let isCollapsed = false;
+  let isCollapsed = true; // Start collapsed
   
   // Create main container frame
   const mainFrame = new Instance("Frame");
   mainFrame.Name = GUI_CONSTANTS.NAMES.MAIN_FRAME;
-  mainFrame.Size = size;
+  mainFrame.Size = collapsedSize; // Start with collapsed size
   mainFrame.Position = GUI_CONSTANTS.FRAME.POSITION;
   mainFrame.BackgroundColor3 = GUI_CONSTANTS.COLORS.BACKGROUND;
   mainFrame.BorderSizePixel = 0;
@@ -79,7 +79,7 @@ export function createCollapsibleFrame(options: CollapsibleFrameOptions): Collap
   // Create toggle button
   const toggleButton = ComponentFactory.createButton({
     name: "ToggleButton",
-    text: "−", // Minus sign for expanded state
+    text: "+", // Plus sign for collapsed state
     position: new UDim2(1, -40, 0, 5),
     size: new UDim2(0, 30, 0, 30),
     parent: headerFrame,
@@ -96,6 +96,7 @@ export function createCollapsibleFrame(options: CollapsibleFrameOptions): Collap
   contentFrame.Size = new UDim2(1, 0, 1, -40);
   contentFrame.Position = new UDim2(0, 0, 0, 40);
   contentFrame.BackgroundTransparency = 1;
+  contentFrame.Visible = false; // Start hidden since we're collapsed
   contentFrame.Parent = mainFrame;
   
   // Create tween info for smooth animation

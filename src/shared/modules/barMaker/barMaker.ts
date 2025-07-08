@@ -2,7 +2,7 @@ import { BarConfig, defaultProps } from "./interfaces";
 import { generateAttachmentName, generateBarName, makeAttachment, } from "./utilities";
 
 // import { BAR_CONSTANTS } from "./constants";
-import { createTextBox } from "../TextBoxMaker";
+import { createTextLabel } from "../TextLabelMaker";
 
 export function makeBar({
   id,
@@ -75,7 +75,7 @@ export function makeBar({
   const borderColor = finalProps.BorderColor as Color3 | undefined;
   const textColor = borderColor; // Use border color for text for contrast
   
-  createTextBox({
+  createTextLabel({
     part: bar,
     face: Enum.NormalId.Front,
     text: label,
@@ -84,7 +84,7 @@ export function makeBar({
     textColor: textColor
   });
 
-  createTextBox({
+  createTextLabel({
     part: bar,
     face: Enum.NormalId.Back,
     text: label,

@@ -23,26 +23,25 @@ export class LabelRenderer {
    */
   public createXAxisLabels(
     nodesByType: Map<string, Node[]>,
-    typeBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
-    parent: Instance,
-    yPosition: number = 0,
+    _typeBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
+    _parent: Instance,
+    _yPosition: number = 0,
     swimlaneBlocks?: Map<string, Part>,
-    platformBounds?: { minX: number; maxX: number; minZ: number; maxZ: number }
+    _platformBounds?: { minX: number; maxX: number; minZ: number; maxZ: number }
   ): void {
-    nodesByType.forEach((nodes, typeName) => {
-      const bounds = typeBounds.get(typeName)!;
+    nodesByType.forEach((_nodes, typeName) => {
+      // const bounds = typeBounds.get(typeName)!;
       const swimlaneBlock = swimlaneBlocks?.get(typeName);
       
-      // Always create floating label
-      const centerX = (bounds.minX + bounds.maxX) / 2;
-      // Use platform edge if available, otherwise use node bounds
-      const labelZ = platformBounds ? platformBounds.minZ - LABEL_CONSTANTS.OFFSETS.PLATFORM_EDGE_OFFSET : bounds.minZ - LABEL_CONSTANTS.OFFSETS.PLATFORM_EDGE_OFFSET;
-      
-      this.createLabel({
-        text: typeName,
-        position: new Vector3(centerX, yPosition + LABEL_CONSTANTS.OFFSETS.POSITION_OFFSET, labelZ),
-        parent: parent
-      });
+      // Floating labels disabled
+      // const centerX = (bounds.minX + bounds.maxX) / 2;
+      // const labelZ = platformBounds ? platformBounds.minZ - LABEL_CONSTANTS.OFFSETS.PLATFORM_EDGE_OFFSET : bounds.minZ - LABEL_CONSTANTS.OFFSETS.PLATFORM_EDGE_OFFSET;
+      // 
+      // this.createLabel({
+      //   text: typeName,
+      //   position: new Vector3(centerX, yPosition + LABEL_CONSTANTS.OFFSETS.POSITION_OFFSET, labelZ),
+      //   parent: parent
+      // });
       
       // Also create surface label if block is available
       if (swimlaneBlock) {
@@ -56,24 +55,23 @@ export class LabelRenderer {
    */
   public createZAxisLabels(
     propertyValues: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
-    parent: Instance,
-    yPosition: number = 0,
+    _parent: Instance,
+    _yPosition: number = 0,
     swimlaneBlocks?: Map<string, Part>,
-    platformBounds?: { minX: number; maxX: number; minZ: number; maxZ: number }
+    _platformBounds?: { minX: number; maxX: number; minZ: number; maxZ: number }
   ): void {
-    propertyValues.forEach((bounds, value) => {
+    propertyValues.forEach((_bounds, value) => {
       const swimlaneBlock = swimlaneBlocks?.get(value);
       
-      // Always create floating label
-      // Use platform edge if available, otherwise use node bounds
-      const labelX = platformBounds ? platformBounds.minX - LABEL_CONSTANTS.OFFSETS.PLATFORM_EDGE_OFFSET : bounds.minX - LABEL_CONSTANTS.OFFSETS.PLATFORM_EDGE_OFFSET;
-      const centerZ = (bounds.minZ + bounds.maxZ) / 2;
-      
-      this.createLabel({
-        text: value,
-        position: new Vector3(labelX, yPosition + LABEL_CONSTANTS.OFFSETS.POSITION_OFFSET, centerZ),
-        parent: parent
-      });
+      // Floating labels disabled
+      // const labelX = platformBounds ? platformBounds.minX - LABEL_CONSTANTS.OFFSETS.PLATFORM_EDGE_OFFSET : bounds.minX - LABEL_CONSTANTS.OFFSETS.PLATFORM_EDGE_OFFSET;
+      // const centerZ = (bounds.minZ + bounds.maxZ) / 2;
+      // 
+      // this.createLabel({
+      //   text: value,
+      //   position: new Vector3(labelX, yPosition + LABEL_CONSTANTS.OFFSETS.POSITION_OFFSET, centerZ),
+      //   parent: parent
+      // });
       
       // Also create surface label if block is available
       if (swimlaneBlock) {
@@ -126,7 +124,7 @@ export class LabelRenderer {
    * Create labels for property-based swimlanes
    */
   public createPropertyLabels(
-    propertyName: string,
+    _propertyName: string,
     valuePositions: Map<string, number>,
     axis: "X" | "Z",
     parent: Instance,

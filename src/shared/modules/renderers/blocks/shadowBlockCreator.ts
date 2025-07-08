@@ -24,7 +24,6 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     const {
       origin,
       parent,
-      height = BLOCK_CONSTANTS.DIMENSIONS.DEFAULT_HEIGHT,
       width = BLOCK_CONSTANTS.DIMENSIONS.DEFAULT_WIDTH,
       depth = BLOCK_CONSTANTS.DIMENSIONS.DEFAULT_DEPTH,
       buffer = BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER
@@ -32,10 +31,10 @@ export class ShadowBlockCreator extends BaseBlockCreator {
 
     const shadowBlock = this.createBlock({
       name: "GroupShadowBlock",
-      size: new Vector3(width + buffer, height, depth + buffer),
+      size: new Vector3(width + buffer, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, depth + buffer),
       position: new Vector3(
         origin.X,
-        height / 2 + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET, // Raised by 0.1 to prevent z-fighting
+        BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2 + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET, // Raised by 0.1 to prevent z-fighting
         origin.Z
       ),
       material: BLOCK_CONSTANTS.MATERIALS.SHADOW,
@@ -49,7 +48,8 @@ export class ShadowBlockCreator extends BaseBlockCreator {
 
     this.debug(`Created shadow block:`);
     this.debug(`   - Position: (${shadowBlock.Position.X}, ${shadowBlock.Position.Y}, ${shadowBlock.Position.Z})`);
-    this.debug(`   - Size: ${width + buffer} x ${height} x ${depth + buffer} (W x H x D)`);
+    this.debug(`   - Size: ${width + buffer} x ${BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS} x ${depth + buffer} (W x H x D)`);
+    this.debug(`   - Actual Y Height: ${shadowBlock.Size.Y}`);
     this.debug(`   - Parent: ${shadowBlock.Parent?.Name}`);
 
     return shadowBlock;
@@ -101,7 +101,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     const block = this.createBlock({
       name: `ZAxisShadowBlock_${propertyValue}`,
       size: new Vector3(dimensions.size.X, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, dimensions.size.Z),
-      position: new Vector3(dimensions.position.X, yPosition + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2, dimensions.position.Z),
+      position: new Vector3(dimensions.position.X, yPosition, dimensions.position.Z),
       material: BLOCK_CONSTANTS.MATERIALS.SWIMLANE,
       color: this.getColorFromArray(BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS, colorIndex),
       transparency: BLOCK_CONSTANTS.TRANSPARENCY.OPAQUE,
@@ -110,10 +110,56 @@ export class ShadowBlockCreator extends BaseBlockCreator {
 
     block.CastShadow = false;
 
+    // Add surface labels to all faces
+    this.addSurfaceLabelsToAllFaces(block, propertyValue);
+
     this.debug(`Created Z-axis shadow block for ${propertyValue}:`);
-    this.debug(`   - Position: (${dimensions.position.X}, ${yPosition + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2}, ${dimensions.position.Z})`);
+    this.debug(`   - Position: (${dimensions.position.X}, ${yPosition}, ${dimensions.position.Z})`);
     this.debug(`   - Size: ${dimensions.size.X} x ${BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS} x ${dimensions.size.Z}`);
 
     return block;
+  }
+
+  /**
+   * Add surface labels to all faces of a block
+   */
+  private addSurfaceLabelsToAllFaces(block: Part, text: string): void {
+    const faces: Enum.NormalId[] = [
+      Enum.NormalId.Front,
+      Enum.NormalId.Back,
+      Enum.NormalId.Left,
+      Enum.NormalId.Right,
+      Enum.NormalId.Top,
+      Enum.NormalId.Bottom
+    ];
+
+    faces.forEach(face => {
+      // Create SurfaceGui
+      const surfaceGui = new Instance("SurfaceGui");
+      surfaceGui.Name = `SurfaceGui_${face.Name}`;
+      surfaceGui.Face = face;
+      surfaceGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud;
+      surfaceGui.PixelsPerStud = 50;
+      surfaceGui.Parent = block;
+
+      // Create Frame for background
+      const frame = new Instance("Frame");
+      frame.Size = new UDim2(1, 0, 1, 0);
+      frame.BackgroundColor3 = new Color3(0, 0, 0);
+      frame.BackgroundTransparency = 0.3;
+      frame.BorderSizePixel = 0;
+      frame.Parent = surfaceGui;
+
+      // Create TextLabel
+      const textLabel = new Instance("TextLabel");
+      textLabel.Size = new UDim2(0.9, 0, 0.9, 0);
+      textLabel.Position = new UDim2(0.05, 0, 0.05, 0);
+      textLabel.BackgroundTransparency = 1;
+      textLabel.Font = Enum.Font.SourceSansBold;
+      textLabel.Text = text;
+      textLabel.TextColor3 = new Color3(1, 1, 1);
+      textLabel.TextScaled = true;
+      textLabel.Parent = frame;
+    });
   }
 }
