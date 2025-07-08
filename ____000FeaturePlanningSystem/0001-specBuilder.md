@@ -1,17 +1,11 @@
 |----------------------------------------------------------------------|
 Summary:
-3dNodePivotGraph
-We want to upgrade the existing graph layout so that it functions similarly to a pivot table.
-Curently the y axis is used to depict the hierarchical relationships.  we will leave that for now.
-The x and z axes now represent the the node type and the petType
-We want the user to be able which properties are represented on x and z in the gui
-for example, they could change the z axis to represent petColor
+Gui with dropdown test
 |----------------------------------------------------------------------|
 Features:
-- add the property pet color to each person
-- add labels to each swim lane
-- add swim shadow blocks under the z axis swimlanes
-- modify the gui with a dropdown picker that lets the user select which property each axis will represent.
+- create a simple gui with a dropdown
+- the options are a,b,c
+- when you select one it gets printed to the console
 
 |----------------------------------------------------------------------|
 
