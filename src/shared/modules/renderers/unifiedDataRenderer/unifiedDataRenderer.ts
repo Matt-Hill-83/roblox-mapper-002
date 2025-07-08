@@ -232,11 +232,10 @@ export class UnifiedDataRenderer {
       const hexagonWidth = (config.spacing?.nodeRadius || 0.25) * 2;
       const nodeSpacing = bounds.maxX - bounds.minX;
       const swimlaneWidth = nodeSpacing === 0 ? hexagonWidth : nodeSpacing + hexagonWidth;
-      const swimlaneDepth = (bounds.maxZ - bounds.minZ) + hexagonWidth;
       
-      // Use actual swimlane dimensions without progressive sizing
+      // Use shadow block dimensions for depth to match group shadow block
       const blockWidth = swimlaneWidth;
-      const blockDepth = swimlaneDepth;
+      const blockDepth = shadowDimensions.depth + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER;
       
       // Fixed Y position for X-axis swimlane blocks - use SHADOW_LAYER_DISPLACEMENT above shadow block
       // Shadow block is at Y = 1.6 (top at 2.1)
