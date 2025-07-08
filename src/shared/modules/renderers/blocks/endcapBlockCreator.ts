@@ -187,7 +187,8 @@ export class EndcapBlockCreator extends BaseBlockCreator {
       textLabel.Font = Enum.Font.SourceSansBold;
       textLabel.Text = text;
       textLabel.TextColor3 = new Color3(0, 0, 0); // Black text
-      textLabel.TextScaled = true;
+      textLabel.TextScaled = false;
+      textLabel.TextSize = 24; // Fixed text size for consistency
       
       // Rotate text on top face for X-axis swimlanes (person endcaps)
       if (face === Enum.NormalId.Top && !isZAxis) {
