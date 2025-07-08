@@ -6,6 +6,9 @@
  */
 
 import { GUI_CONSTANTS } from "./constants";
+import { createDropdown } from "./components/dropdown";
+import { createFrame } from "./components/frame";
+import { createTitle } from "./components/title";
 
 export interface ButtonOptions {
   name: string;
@@ -45,6 +48,23 @@ export interface FrameOptions {
   parent: GuiObject;
   backgroundColor?: Color3;
   borderSizePixel?: number;
+}
+
+export interface DropdownOptions {
+  name: string;
+  items: string[];
+  defaultValue: string;
+  position: UDim2;
+  size?: UDim2;
+  parent: Frame;
+  onChange: (value: string) => void;
+}
+
+export interface TitleOptions {
+  text: string;
+  parent: Frame;
+  position?: UDim2;
+  size?: UDim2;
 }
 
 export class ComponentFactory {
@@ -186,18 +206,38 @@ export class ComponentFactory {
   }
 
   /**
-   * Creates a dropdown button (placeholder for full dropdown implementation)
+   * Creates a full dropdown with item selection
    */
-  public static createDropdownButton(options: ButtonOptions & { items?: string[] }): TextButton {
-    const dropdown = this.createButton({
-      ...options,
-      text: options.text + " ▼"
+  public static createDropdown(options: DropdownOptions): TextButton {
+    return createDropdown({
+      parent: options.parent,
+      position: options.position,
+      size: options.size || new UDim2(0, 100, 0, GUI_CONSTANTS.INPUT.HEIGHT),
+      items: options.items,
+      defaultValue: options.defaultValue,
+      onChange: options.onChange
     });
-
-    // Note: Full dropdown implementation would require additional UI elements
-    // This is a simplified version that can be expanded later
-
-    return dropdown;
+  }
+  
+  /**
+   * Creates a styled frame using the modular component
+   */
+  public static createStyledFrame(options: FrameOptions): Frame {
+    return createFrame({
+      name: options.name,
+      parent: options.parent,
+      position: options.position,
+      size: options.size,
+      backgroundColor: options.backgroundColor,
+      borderSizePixel: options.borderSizePixel
+    });
+  }
+  
+  /**
+   * Creates a title component
+   */
+  public static createTitle(options: TitleOptions): TextLabel {
+    return createTitle(options);
   }
 
   /**

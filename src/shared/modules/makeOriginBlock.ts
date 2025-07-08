@@ -1,14 +1,12 @@
 /**
- * Legacy export - redirects to standardized implementation
- * @deprecated Use the standardized version from makeOriginBlock/index.ts
+ * Origin Block Module
+ * Creates a labeled orientation reference block
  */
-export { makeOriginBlock, type OriginBlockConfig } from "./makeOriginBlock/index";
-export { validateOriginBlockConfig, getOriginBlockDefaults } from "./makeOriginBlock/index";
 
 // Legacy function signature for backward compatibility
 import { makeLabelBlock } from "./labelBlockMaker";
 
-interface LegacyOriginBlockConfig {
+export interface OriginBlockConfig {
   origin: { x: number; y: number; z: number };
   parent: Instance;
   offset?: { x: number; y: number; z: number };
@@ -16,14 +14,14 @@ interface LegacyOriginBlockConfig {
 }
 
 /**
- * @deprecated Legacy implementation - use makeOriginBlock from ./makeOriginBlock/index.ts
+ * Creates an orientation reference block with labeled faces
  */
-export function makeOriginBlockLegacy({
+export function makeOriginBlock({
   origin,
   parent,
   offset = { x: 0, y: 0, z: 0 },
   size = 4
-}: LegacyOriginBlockConfig): Part {
+}: OriginBlockConfig): Part {
   const orientationFolder = new Instance("Folder");
   orientationFolder.Name = "OrientationReference";
   orientationFolder.Parent = parent;
