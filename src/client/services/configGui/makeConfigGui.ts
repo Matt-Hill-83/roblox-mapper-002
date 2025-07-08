@@ -115,11 +115,15 @@ export class ConfigGUIService {
       parent: parentFrame,
       numNodeTypes: config.numNodeTypes,
       numLinkTypes: config.numLinkTypes,
+      numPetTypes: config.numPetTypes || 2,
       onNodeTypesChange: (value) => {
         this.eventHandlers.handleNodeTypesChange(value);
       },
       onLinkTypesChange: (value) => {
         this.eventHandlers.handleLinkTypesChange(value);
+      },
+      onPetTypesChange: (value) => {
+        this.eventHandlers.handlePetTypesChange(value);
       }
     });
 

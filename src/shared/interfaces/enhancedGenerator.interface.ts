@@ -54,6 +54,7 @@ export interface YAxisConfig {
 export interface EnhancedGeneratorConfig {
   numNodeTypes: number;
   numLinkTypes: number;
+  numPetTypes?: number; // Number of pet types for Z-axis grouping (default: 2)
   layers: LayerConfig[];
   spacing?: SpacingConfig; // Optional for backward compatibility
   visualization?: VisualizationOptions; // Optional for backward compatibility

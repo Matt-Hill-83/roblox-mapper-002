@@ -131,6 +131,14 @@ export class GUIStateManager {
   }
 
   /**
+   * Updates the number of pet types
+   */
+  public setNumPetTypes(value: number): void {
+    this.state.enhancedConfig.numPetTypes = value;
+    this.notifyListeners();
+  }
+
+  /**
    * Updates the layers configuration
    */
   public setLayers(layers: EnhancedGeneratorConfig["layers"]): void {

@@ -20,6 +20,10 @@ export class DataGenerator implements IDataGenerator {
     const allLinks: Link[] = [];
     const nodesByLayer = new Map<number, Node[]>();
 
+    // Log pet types configuration
+    const numPetTypes = config.numPetTypes || 2;
+    print(`🐾 Generating data with ${numPetTypes} pet types (from ${PET_TYPES.size()} available)`);
+
     // Generate nodes for each layer
     config.layers.forEach((layer) => {
       const layerNodes = this.generateLayerNodes(layer, config);
@@ -112,7 +116,7 @@ export class DataGenerator implements IDataGenerator {
     nodeWithLevel.level = layerNumber;
 
     // Add type-specific properties
-    this.addTypeSpecificProperties(node, nodeTypeName);
+    this.addTypeSpecificProperties(node, nodeTypeName, config);
 
     return node;
   }
@@ -120,11 +124,15 @@ export class DataGenerator implements IDataGenerator {
   /**
    * Add type-specific properties to node
    */
-  private addTypeSpecificProperties(node: Node, nodeTypeName: string): void {
+  private addTypeSpecificProperties(node: Node, nodeTypeName: string, config: EnhancedGeneratorConfig): void {
     if (nodeTypeName === "man" || nodeTypeName === "woman") {
+      // Use only the first N pet types based on config
+      const numPetTypes = config.numPetTypes || 2;
+      const maxPetTypeIndex = math.min(numPetTypes - 1, PET_TYPES.size() - 1);
+      
       node.properties = { 
         age: math.random(18, 80),
-        petType: PET_TYPES[math.random(0, PET_TYPES.size() - 1)],
+        petType: PET_TYPES[math.random(0, maxPetTypeIndex)],
         petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)],
         firstName: FIRST_NAMES[math.random(0, FIRST_NAMES.size() - 1)],
         lastName: LAST_NAMES[math.random(0, LAST_NAMES.size() - 1)],
@@ -132,9 +140,13 @@ export class DataGenerator implements IDataGenerator {
         countryOfResidence: COUNTRIES_OF_RESIDENCE[math.random(0, COUNTRIES_OF_RESIDENCE.size() - 1)]
       };
     } else if (nodeTypeName === "child") {
+      // Use only the first N pet types based on config
+      const numPetTypes = config.numPetTypes || 2;
+      const maxPetTypeIndex = math.min(numPetTypes - 1, PET_TYPES.size() - 1);
+      
       node.properties = { 
         age: math.random(5, 17),
-        petType: PET_TYPES[math.random(0, PET_TYPES.size() - 1)],
+        petType: PET_TYPES[math.random(0, maxPetTypeIndex)],
         petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)],
         firstName: FIRST_NAMES[math.random(0, FIRST_NAMES.size() - 1)],
         lastName: LAST_NAMES[math.random(0, LAST_NAMES.size() - 1)],
@@ -142,9 +154,13 @@ export class DataGenerator implements IDataGenerator {
         countryOfResidence: COUNTRIES_OF_RESIDENCE[math.random(0, COUNTRIES_OF_RESIDENCE.size() - 1)]
       };
     } else if (nodeTypeName === "grandparent") {
+      // Use only the first N pet types based on config
+      const numPetTypes = config.numPetTypes || 2;
+      const maxPetTypeIndex = math.min(numPetTypes - 1, PET_TYPES.size() - 1);
+      
       node.properties = { 
         age: math.random(65, 95),
-        petType: PET_TYPES[math.random(0, PET_TYPES.size() - 1)],
+        petType: PET_TYPES[math.random(0, maxPetTypeIndex)],
         petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)],
         firstName: FIRST_NAMES[math.random(0, FIRST_NAMES.size() - 1)],
         lastName: LAST_NAMES[math.random(0, LAST_NAMES.size() - 1)],

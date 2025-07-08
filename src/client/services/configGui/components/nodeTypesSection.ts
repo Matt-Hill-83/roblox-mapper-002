@@ -4,21 +4,25 @@ interface NodeTypesSectionProps {
   parent: Frame;
   numNodeTypes: number;
   numLinkTypes: number;
+  numPetTypes?: number;
   onNodeTypesChange: (value: number) => void;
   onLinkTypesChange: (value: number) => void;
+  onPetTypesChange?: (value: number) => void;
 }
 
 export function createNodeTypesSection({
   parent,
   numNodeTypes,
   numLinkTypes,
+  numPetTypes = 2,
   onNodeTypesChange,
-  onLinkTypesChange
+  onLinkTypesChange,
+  onPetTypesChange
 }: NodeTypesSectionProps): Frame {
-  // Create container - increased height for vertical stacking
+  // Create container - increased height for pet types
   const container = new Instance("Frame");
   container.Name = "NodeTypesSection";
-  container.Size = new UDim2(1, -20, 0, 110); // Increased height for stacked layout
+  container.Size = new UDim2(1, -20, 0, 145); // Increased height for 3 rows
   container.Position = new UDim2(0, 0, 0, 0); // Position will be set by layout manager
   container.BackgroundColor3 = new Color3(0.15, 0.15, 0.15);
   container.BorderSizePixel = 0;
@@ -116,6 +120,48 @@ export function createNodeTypesSection({
       linkTypesInput.Text = tostring(math.floor(value));
     } else {
       linkTypesInput.Text = tostring(numLinkTypes);
+    }
+  });
+
+  // Pet types setting - positioned below link types
+  const petTypesLabel = new Instance("TextLabel");
+  petTypesLabel.Size = new UDim2(0, 150, 0, 25);
+  petTypesLabel.Position = new UDim2(0, 10, 0, 105); // Below link types
+  petTypesLabel.BackgroundTransparency = 1;
+  petTypesLabel.Font = GUI_CONSTANTS.TYPOGRAPHY.LABEL_FONT;
+  petTypesLabel.Text = "Number of Pet Types:";
+  petTypesLabel.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
+  petTypesLabel.TextScaled = true;
+  petTypesLabel.TextXAlignment = Enum.TextXAlignment.Left;
+  petTypesLabel.Parent = container;
+
+  // Pet types input box
+  const petTypesInput = new Instance("TextBox");
+  petTypesInput.Name = "PetTypesInput";
+  petTypesInput.Size = new UDim2(0, 60, 0, 25);
+  petTypesInput.Position = new UDim2(0, 165, 0, 105); // Same X alignment
+  petTypesInput.BackgroundColor3 = new Color3(0.25, 0.25, 0.25);
+  petTypesInput.BorderSizePixel = 0;
+  petTypesInput.Font = GUI_CONSTANTS.TYPOGRAPHY.INPUT_FONT;
+  petTypesInput.Text = tostring(numPetTypes);
+  petTypesInput.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
+  petTypesInput.TextScaled = true;
+  petTypesInput.Parent = container;
+
+  const petTypesCorner = new Instance("UICorner");
+  petTypesCorner.CornerRadius = new UDim(0, 4);
+  petTypesCorner.Parent = petTypesInput;
+
+  // Input validation
+  petTypesInput.FocusLost.Connect(() => {
+    const value = tonumber(petTypesInput.Text);
+    if (value && value >= 1 && value <= GUI_CONSTANTS.ENHANCED.DROPDOWN_ITEMS) {
+      if (onPetTypesChange) {
+        onPetTypesChange(math.floor(value));
+      }
+      petTypesInput.Text = tostring(math.floor(value));
+    } else {
+      petTypesInput.Text = tostring(numPetTypes);
     }
   });
 

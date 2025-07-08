@@ -58,6 +58,14 @@ export class GUIEventHandlers {
   }
 
   /**
+   * Handles pet types change
+   */
+  public handlePetTypesChange(value: number): void {
+    this.stateManager.setNumPetTypes(value);
+    this.updateStatusMessage("Pet types updated");
+  }
+
+  /**
    * Handles layer updates
    */
   public handleLayerUpdate(layers: EnhancedGeneratorConfig["layers"]): void {
