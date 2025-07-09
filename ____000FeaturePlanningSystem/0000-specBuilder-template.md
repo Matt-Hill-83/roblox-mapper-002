@@ -107,7 +107,7 @@ Step 3. - Execution
 
 |----------------------------------------------------------------------|
 
-Step 3. - Commit code
+Step 4. - Commit code
 
 1. Inputs
 
@@ -128,35 +128,35 @@ Step 3. - Commit code
       1. I have committed the changes for <task name>
       2. Shall I execute <task name>?
    2. After final commit:
-      1. All tasks are committed.  Shall I peform a Code Audit?
+      1. All tasks are committed. Shall I peform a Code Audit?
 
 |----------------------------------------------------------------------|
-Step 4. - Code Audit
+Step 5. - Code Audit
 
 1. Inputs
 
    1. None
 
 2. Actions for AI Agent
-   1. After all tasks are completed and commited, create a doc titled
+
+   1. After all tasks are completed and commited, create an Audit Plan doc titled
       1. "F000-04-TicTacToe-CodeAudit-001.md", that contains the following sections
          1. Table of files involved in feature
-             1. file name
-             2. number of lines
-             3. is New
+            1. file name
+            2. number of lines
+            3. is New
          2. mermaid diagram showing relationships between all files
          3. Quality Audit that identifies any areas where the code can be improved
          4. Code Improvement Task List
-          
 
 3. Outputs
 
-   1. none
+   1. Audit Doc
 
 4. User Question:
 
-   1. I have committed the changes for <task name>
-   2. Shall I execute <task name>?
+   1. I have created an Audit Plan <doc name>
+   2. Shall I execute it?
 
 |----------------------------------------------------------------------|
 

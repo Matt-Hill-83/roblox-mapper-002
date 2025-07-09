@@ -18,7 +18,6 @@ import { createLayerGrid } from "./components/layerGrid";
 import { createStatusArea } from "./components/status";
 import { createVisualizationControls } from "./components/visualizationControls";
 import { createAxisMappingControls } from "./components/axisMappingControls";
-import { createYAxisControls } from "./components/yAxisControls";
 import { GUIStateManager } from "./stateManager";
 import { GUIEventHandlers } from "./eventHandlers";
 import { ComponentFactory } from "./componentFactory";
@@ -183,13 +182,13 @@ export class ConfigGUIService {
 
     // Move advanced controls to separate frame
     if (advancedContentFrame) {
-      let yPosition = 10;
-      
       // Create axis mapping dropdowns as separate GUIs
       createAxisMappingControls({
         parent: advancedContentFrame, // Not actually used since dropdowns are separate GUIs
         axisMapping: config.axisMapping,
         visualMapping: config.visualMapping,
+        useLayerForYAxis: config.yAxisConfig?.useLayer !== false, // Default to true
+        yAxisProperty: config.yAxisConfig?.property,
         onAxisMappingChange: (axis, value) => {
           this.stateManager.updateAxisMapping(axis, value);
           // Trigger re-render with new axis mapping
@@ -199,14 +198,7 @@ export class ConfigGUIService {
           this.stateManager.updateVisualMapping(mapping, value);
           // Trigger re-render with new visual mapping
           this.eventHandlers.handleRegenerateClick();
-        }
-      });
-      
-      // Create Y-axis controls
-      const yAxisControls = createYAxisControls({
-        parent: advancedContentFrame,
-        useLayerForYAxis: config.yAxisConfig?.useLayer !== false, // Default to true
-        yAxisProperty: config.yAxisConfig?.property,
+        },
         onYAxisModeChange: (useLayer) => {
           this.stateManager.updateYAxisConfig({ useLayer });
           // Trigger re-render with new Y-axis mode
@@ -218,8 +210,6 @@ export class ConfigGUIService {
           this.eventHandlers.handleRegenerateClick();
         }
       });
-      yAxisControls.Position = new UDim2(0, 10, 0, yPosition);
-      yAxisControls.Size = new UDim2(1, -20, 0, COMPONENT_HEIGHTS.Y_AXIS_CONTROLS);
     }
 
     // Update scrolling frame canvas size
