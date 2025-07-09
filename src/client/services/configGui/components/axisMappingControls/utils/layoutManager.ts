@@ -64,7 +64,11 @@ export function createButton(parent: Frame, name: string, text: string, position
  */
 export function applyCornerRadius(object: GuiObject, radius: number | UDim): void {
   const corner = new Instance("UICorner");
-  corner.CornerRadius = radius instanceof UDim ? radius : new UDim(0, radius);
+  if (typeIs(radius, "UDim")) {
+    corner.CornerRadius = radius;
+  } else {
+    corner.CornerRadius = new UDim(0, radius);
+  }
   corner.Parent = object;
 }
 

@@ -42,44 +42,44 @@ export function makeOriginBlock({
     castShadow: false,
     labels: {
       front: {
-        text: "FRONT",
+        text: "FRONT\nX-Y",
         textColor: new Color3(0, 0, 0.8), // Dark blue text
         backgroundColor: new Color3(0.5, 0.5, 0.8), // Medium blue background
         borderColor: new Color3(0, 0, 0.3), // Very dark blue border
       },
       back: {
-        text: "BACK",
+        text: "BACK\nX-Y",
         textColor: new Color3(0, 0, 0.8), // Dark blue text
         backgroundColor: new Color3(0.5, 0.5, 0.8), // Medium blue background
         borderColor: new Color3(0, 0, 0.3), // Very dark blue border
       },
       left: {
-        text: "LEFT",
+        text: "LEFT\nZ-Y",
         textColor: new Color3(0.8, 0, 0), // Dark red text
         backgroundColor: new Color3(0.8, 0.5, 0.5), // Medium red background
         borderColor: new Color3(0.3, 0, 0), // Very dark red border
       },
       right: {
-        text: "RIGHT",
+        text: "RIGHT\nZ-Y",
         textColor: new Color3(0.8, 0, 0), // Dark red text
         backgroundColor: new Color3(0.8, 0.5, 0.5), // Medium red background
         borderColor: new Color3(0.3, 0, 0), // Very dark red border
       },
       top: {
-        text: "TOP",
+        text: "TOP\nX-Y",
         textColor: new Color3(0, 0.8, 0), // Dark green text
         backgroundColor: new Color3(0.5, 0.8, 0.5), // Medium green background
         borderColor: new Color3(0, 0.3, 0), // Very dark green border
       },
       bottom: {
-        text: "BOTTOM",
+        text: "BOTTOM\nX-Y",
         textColor: new Color3(0, 0.8, 0), // Dark green text
         backgroundColor: new Color3(0.5, 0.8, 0.5), // Medium green background
         borderColor: new Color3(0, 0.3, 0), // Very dark green border
       },
     },
     textBoxOverrides: {
-      textSize: 100, // Maximum font size in Roblox
+      textSize: 50, // Reduced by 50% from 100
       font: Enum.Font.SourceSansBold,
       borderSizePixel: 10, // Wider borders for better visibility
     },

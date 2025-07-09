@@ -176,3 +176,28 @@ graph TD
     RadioButton -->|uses| Constants
     Layout -->|uses| Constants
 ```
+
+## Files Changed During Implementation
+
+### Modified Files
+1. `/src/client/services/configGui/components/axisMappingControls.ts` - Converted to facade (555 → 4 lines)
+
+### New Files Created
+1. `/src/client/services/configGui/components/axisMappingControls/index.ts` - Module exports
+2. `/src/client/services/configGui/components/axisMappingControls/axisMappingControls.ts` - Main orchestrator
+3. `/src/client/services/configGui/components/axisMappingControls/constants.ts` - Configuration values
+4. `/src/client/services/configGui/components/axisMappingControls/types.ts` - Type definitions
+5. `/src/client/services/configGui/components/axisMappingControls/components/dropdown.ts` - Reusable dropdown
+6. `/src/client/services/configGui/components/axisMappingControls/components/radioButton.ts` - Reusable radio button
+7. `/src/client/services/configGui/components/axisMappingControls/components/axisMappingSection.ts` - X/Z axis controls
+8. `/src/client/services/configGui/components/axisMappingControls/components/visualCustomizationSection.ts` - Color controls
+9. `/src/client/services/configGui/components/axisMappingControls/components/yAxisConfigSection.ts` - Y-axis configuration
+10. `/src/client/services/configGui/components/axisMappingControls/utils/layoutManager.ts` - UI creation utilities
+11. `/src/client/services/configGui/components/axisMappingControls/utils/screenGuiManager.ts` - ScreenGui singleton
+
+### Documentation Files
+1. `/____000FeaturePlanningSystem/F005-RefactorAxisMappingControls/000-RefactorAxisMappingControls-InitialSpec-001.md` - Initial specification
+2. `/____000FeaturePlanningSystem/F005-RefactorAxisMappingControls/Revised Spec/000-01-Summary.md` - Summary document
+3. `/____000FeaturePlanningSystem/F005-RefactorAxisMappingControls/Revised Spec/000-02-Requirements.md` - Requirements document
+4. `/____000FeaturePlanningSystem/F005-RefactorAxisMappingControls/Revised Spec/000-03-Tasks.md` - Task list
+5. `/____000FeaturePlanningSystem/F005-RefactorAxisMappingControls/RefactoringReport.md` - Final report

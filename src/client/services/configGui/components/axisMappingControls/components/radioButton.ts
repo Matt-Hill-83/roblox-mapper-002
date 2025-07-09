@@ -66,7 +66,7 @@ export function createRadioButton({
   });
 
   // Store reference to inner circle for external updates
-  (container as any).InnerCircle = innerCircle;
+  (container as unknown as { InnerCircle: Frame }).InnerCircle = innerCircle;
 
   return container;
 }
@@ -75,7 +75,7 @@ export function createRadioButton({
  * Updates the selected state of a radio button
  */
 export function updateRadioButtonState(radioContainer: Frame, selected: boolean): void {
-  const innerCircle = (radioContainer as any).InnerCircle as Frame | undefined;
+  const innerCircle = (radioContainer as unknown as { InnerCircle?: Frame }).InnerCircle;
   if (innerCircle) {
     innerCircle.Visible = selected;
   }

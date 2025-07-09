@@ -1,7 +1,7 @@
 |----------------------------------------------------------------------|
 Summary:
-Create a plan to refactor this file and break it into smaller files
-client/services/configGui/components/axisMappingControls.ts
+Create a plan to review how colors are used through the roblox part of the codebase and provide reccommendatinos for improvement.
+/Users/__projects/roblox-mapper-002-multi/vscode/_webapp/src
 |----------------------------------------------------------------------|
 Features:
 
