@@ -96,6 +96,9 @@ export class ConfigGUIService {
       title: "Advanced Controls",
       position: new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH + 20, 0, 220) // Below viz controls
     });
+    
+    // Default advanced controls to open
+    advancedCollapsibleFrame.setCollapsed(false);
 
     // Create unified UI in the content frames
     this.createUnifiedUI(collapsibleFrame.contentFrame, vizCollapsibleFrame.contentFrame, advancedCollapsibleFrame.contentFrame);
