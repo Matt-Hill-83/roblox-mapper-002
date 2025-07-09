@@ -4,9 +4,10 @@ This document traces how shadow blocks in the Roblox visualization get their col
 
 ## Overview
 
-There are two types of shadow blocks:
+There are three types of shadow blocks:
 1. **Group Shadow Blocks** - Always use a fixed light blue color
 2. **Z-Axis Shadow Blocks (Pet Lanes)** - Use sequential colors from Z_AXIS_COLORS array
+3. **X-Axis Swimlane Blocks (Person Types)** - Also use sequential colors from Z_AXIS_COLORS array
 
 ## Color Flow Diagram (Mermaid)
 
@@ -23,11 +24,14 @@ flowchart TD
     %% Adapters
     flatBlockAdapter[createFlatBlocksAdapter<br/>Group shadows]
     zAxisAdapter[createZAxisShadowBlocksAdapter<br/>Pet lane shadows]
+    xAxisAdapter[Direct call to<br/>SwimLaneBlockCreator]
     
     %% Creators
     shadowCreator[ShadowBlockCreator]
+    swimlaneCreator[SwimLaneBlockCreator]
     groupMethod[createGroupShadowBlock<br/>Fixed color]
     zAxisMethod[createZAxisShadowBlocks<br/>Sequential colors]
+    xAxisMethod[createXAxisSwimLaneBlocks<br/>Sequential colors]
     
     %% Color Assignment
     colorIndex[Color Index<br/>0, 1, 2, 3...]
@@ -36,25 +40,32 @@ flowchart TD
     %% Final Blocks
     groupShadow[Group Shadow Block<br/>Light Blue 0.5, 0.7, 1]
     petLaneShadows[Pet Lane Shadows<br/>Sequential Z_AXIS_COLORS]
+    personSwimlanes[Person Swimlanes<br/>Sequential Z_AXIS_COLORS]
     
     %% Connections
     gameService --> unifiedRenderer
     unifiedRenderer --> flatBlockAdapter
     unifiedRenderer --> zAxisAdapter
+    unifiedRenderer --> xAxisAdapter
     
     flatBlockAdapter --> shadowCreator
     zAxisAdapter --> shadowCreator
+    xAxisAdapter --> swimlaneCreator
     
     shadowCreator --> groupMethod
     shadowCreator --> zAxisMethod
+    swimlaneCreator --> xAxisMethod
     
     blockConstants --> groupMethod
     groupMethod --> groupShadow
     
     robloxColors --> zAxisMethod
+    robloxColors --> xAxisMethod
     zAxisMethod --> colorIndex
+    xAxisMethod --> colorIndex
     colorIndex --> modulo
     modulo --> petLaneShadows
+    modulo --> personSwimlanes
     
     %% Styling - All light backgrounds with black text
     classDef dataSource fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#000
@@ -65,15 +76,16 @@ flowchart TD
     
     class robloxColors,blockConstants dataSource
     class gameService,unifiedRenderer service
-    class flatBlockAdapter,zAxisAdapter adapter
-    class shadowCreator,groupMethod,zAxisMethod creator
-    class groupShadow,petLaneShadows output
+    class flatBlockAdapter,zAxisAdapter,xAxisAdapter adapter
+    class shadowCreator,swimlaneCreator,groupMethod,zAxisMethod,xAxisMethod creator
+    class groupShadow,petLaneShadows,personSwimlanes output
 ```
 
 ## Sequential Color Assignment
 
-The Z-axis shadow blocks (pet lanes) get their colors through sequential assignment:
+Both Z-axis shadow blocks (pet lanes) and X-axis swimlanes (person types) get their colors through sequential assignment from the same Z_AXIS_COLORS array:
 
+### Pet Lanes (Z-axis)
 ```
 Property Values: ["dog", "cat", "bird", "fish", "none"]
 Color Assignment:
@@ -82,6 +94,16 @@ Color Assignment:
   - bird → Z_AXIS_COLORS[2] (Teal)
   - fish → Z_AXIS_COLORS[3] (Blue)
   - none → Z_AXIS_COLORS[4] (Navy)
+```
+
+### Person Swimlanes (X-axis)
+```
+Type Values: ["man", "woman", "child", "grandparent"]
+Color Assignment:
+  - man         → Z_AXIS_COLORS[0] (Green)
+  - woman       → Z_AXIS_COLORS[1] (Darker Green)
+  - child       → Z_AXIS_COLORS[2] (Teal)
+  - grandparent → Z_AXIS_COLORS[3] (Blue)
 ```
 
 ## Color Arrays
@@ -108,11 +130,12 @@ SHADOW: new Color3(0.5, 0.7, 1) // Light Blue
 
 ## Key Points
 
-1. **Two Color Sources**: Fixed color for group shadows, array for pet lane shadows
+1. **Two Color Sources**: Fixed color for group shadows, Z_AXIS_COLORS array for both pet lanes and person swimlanes
 2. **Sequential Assignment**: Colors assigned in order, wrapping around with modulo
 3. **No Semantic Mapping**: Colors not chosen based on property meaning
-4. **X_AXIS_COLORS Unused**: Defined but never referenced in code
+4. **X_AXIS_COLORS Unused**: Defined but never referenced in code - both X and Z axis use Z_AXIS_COLORS
 5. **Centralized Definition**: All colors defined in constants files
+6. **Person Type Colors Not Used for Swimlanes**: Person nodes have their own colors, but their swimlanes use Z_AXIS_COLORS
 
 ## DrawIO Source
 

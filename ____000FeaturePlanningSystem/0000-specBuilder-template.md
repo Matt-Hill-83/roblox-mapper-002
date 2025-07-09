@@ -46,8 +46,9 @@ Step 1. - Create Single Spec Document
 
 3. Outputs
    1. folder that follows the naming conventions in Sample Output
-   2. file that follows this naming convention
-      1. 000-TicTacToe-InitialSpec-001
+   2. files that follow this naming convention
+      1. 000-00a-TicTacToe-InitialSpec-001.md
+      2. 000-00b-TicTacToe-InitialSpec-001.drawio
 4. User Question:
    1. I have finished Step 1: <step name>
    2. I used these Inputs:
@@ -63,7 +64,7 @@ Step 2. - Break Spec into Smaller Files
 
 1. Inputs
 
-   1. Output doc from Step 1. Example: "F000-00-TicTacToe-InitialSpec-001"
+   1. Output docs from Step 1. Example: "F000-00-TicTacToe-InitialSpec-001"
 
 2. Actions for AI Agent
    1. Read the Inputs and Create the Outputs
