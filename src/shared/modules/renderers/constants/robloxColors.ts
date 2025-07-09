@@ -23,25 +23,24 @@ export const Z_AXIS_COLORS: Color3[] = [
   new Color3(1.0, 0.6549, 0.3608), // Base 14 saturated 200%
 ];
 export const X_AXIS_COLORS: Color3[] = [
-  new Color3(0.6, 0.0, 0.0), // Hue 1
-  new Color3(0.6, 0.2, 0.0), // Hue 2
-  new Color3(0.6, 0.4, 0.0), // Hue 3
+  new Color3(0.0, 0.4, 0.4), // Hue 9
+  new Color3(0.2, 0.4, 0.0), // Hue 6
+  new Color3(0.8, 0.4, 0.0), // Hue 19
   new Color3(0.6, 0.6, 0.0), // Hue 4
   new Color3(0.4, 0.6, 0.0), // Hue 5
-  new Color3(0.2, 0.4, 0.0), // Hue 6
+  new Color3(0.6, 0.2, 0.0), // Hue 2
   new Color3(0.0, 0.4, 0.0), // Hue 7
+  new Color3(0.4, 0.0, 0.4), // Hue 13
   new Color3(0.0, 0.4, 0.2), // Hue 8
-  new Color3(0.0, 0.4, 0.4), // Hue 9
   new Color3(0.0, 0.2, 0.4), // Hue 10
   new Color3(0.0, 0.0, 0.4), // Hue 11
+  new Color3(0.6, 0.0, 0.0), // Hue 1
   new Color3(0.2, 0.0, 0.4), // Hue 12
-  new Color3(0.4, 0.0, 0.4), // Hue 13
   new Color3(0.6, 0.0, 0.4), // Hue 14
   new Color3(0.8, 0.0, 0.4), // Hue 15
   new Color3(0.8, 0.0, 0.2), // Hue 16
   new Color3(0.8, 0.0, 0.0), // Hue 17
   new Color3(0.8, 0.2, 0.0), // Hue 18
-  new Color3(0.8, 0.4, 0.0), // Hue 19
   new Color3(0.8, 0.6, 0.0), // Hue 20
 ];
 
@@ -53,9 +52,9 @@ export const X_AXIS_COLORS: Color3[] = [
 // Index 3: grandparent (Yellow)
 // Index 4: Animals (Orange) - if needed
 export const personColors: Color3[] = [
-  new Color3(0.2, 0.4, 0.8),      // Blue
-  new Color3(0.8, 0.2, 0.8),      // Magenta
-  new Color3(0.2, 0.8, 0.2),      // Green
-  new Color3(0.8, 0.8, 0.2),      // Yellow
-  new Color3(0.8, 0.4, 0.2),      // Orange
+  new Color3(0.0, 0.4, 0.4), // Hue 9
+  new Color3(0.2, 0.4, 0.0), // Hue 6
+  new Color3(0.8, 0.4, 0.0), // Hue 19
+  new Color3(0.6, 0.6, 0.0), // Hue 4
+  new Color3(0.4, 0.6, 0.0), // Hue 5
 ];
