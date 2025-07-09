@@ -35,299 +35,202 @@ export function createAxisMappingControls({
     axisDropdownGUI.Parent = playerGui;
   }
   
-  // Create the X-axis dropdown
-  createXAxisDropdownServiceStyle({
-    parent: parent, // This will be overridden inside the function
-    label: "X-Axis Property:",
-    position: new UDim2(0, 10, 0, 30),
-    currentValue: mapping.xAxis,
-    onValueChange: (value) => onAxisMappingChange("xAxis", value)
-  });
-
-  // Create the Z-axis dropdown
-  createZAxisDropdownServiceStyle({
-    parent: parent, // This will be overridden inside the function
-    label: "Z-Axis Property:",
-    position: new UDim2(0.5, 10, 0, 30),
-    currentValue: mapping.zAxis,
-    onValueChange: (value) => onAxisMappingChange("zAxis", value)
+  // Create a single compact frame for both axis controls
+  createCompactAxisControls({
+    gui: axisDropdownGUI,
+    xAxisValue: mapping.xAxis,
+    zAxisValue: mapping.zAxis,
+    onXAxisChange: (value) => onAxisMappingChange("xAxis", value),
+    onZAxisChange: (value) => onAxisMappingChange("zAxis", value)
   });
 }
 
-interface AxisDropdownProps {
-  parent: Frame;
-  label: string;
-  position: UDim2;
-  currentValue: string;
-  onValueChange: (value: string) => void;
+interface CompactAxisControlsProps {
+  gui: ScreenGui;
+  xAxisValue: string;
+  zAxisValue: string;
+  onXAxisChange: (value: string) => void;
+  onZAxisChange: (value: string) => void;
 }
 
-// X-Axis dropdown using DropdownGuiService pattern
-function createXAxisDropdownServiceStyle({
-  parent,
-  label,
-  position,
-  currentValue,
-  onValueChange
-}: AxisDropdownProps): void {
-  // Use the shared AxisDropdownGUI
-  if (!axisDropdownGUI) return;
-
-  // Create main frame positioned on the left
+// Create compact axis controls
+function createCompactAxisControls({
+  gui,
+  xAxisValue,
+  zAxisValue,
+  onXAxisChange,
+  onZAxisChange
+}: CompactAxisControlsProps): void {
+  // Create main container frame
   const mainFrame = new Instance("Frame");
-  mainFrame.Name = "XAxisDropdownFrame";
-  mainFrame.Size = new UDim2(0, 200, 0, 80); // Reduced height
-  mainFrame.Position = new UDim2(0, 10, 0.5, -40); // Left side, centered vertically
+  mainFrame.Name = "AxisControlsFrame";
+  mainFrame.Size = new UDim2(0, 200, 0, 70); // Compact height
+  mainFrame.Position = new UDim2(0, 10, 0.5, -35); // Centered vertically
   mainFrame.BackgroundColor3 = new Color3(0.2, 0.2, 0.2);
   mainFrame.BorderSizePixel = 0;
-  mainFrame.Parent = axisDropdownGUI;
+  mainFrame.Parent = gui;
 
   const frameCorner = new Instance("UICorner");
   frameCorner.CornerRadius = new UDim(0, 8);
   frameCorner.Parent = mainFrame;
 
-  // Title
-  const titleLabel = new Instance("TextLabel");
-  titleLabel.Name = "TitleLabel";
-  titleLabel.Text = "X-Axis Dropdown";
-  titleLabel.Position = new UDim2(0, 0, 0, 5);
-  titleLabel.Size = new UDim2(1, 0, 0, 30);
-  titleLabel.BackgroundTransparency = 1;
-  titleLabel.TextColor3 = new Color3(1, 1, 1);
-  titleLabel.Font = Enum.Font.SourceSansBold;
-  titleLabel.TextScaled = false;
-  titleLabel.TextSize = 18;
-  titleLabel.Parent = mainFrame;
+  // X-axis row
+  const xAxisLabel = new Instance("TextLabel");
+  xAxisLabel.Name = "XAxisLabel";
+  xAxisLabel.Text = "x-axis:";
+  xAxisLabel.Position = new UDim2(0, 10, 0, 10);
+  xAxisLabel.Size = new UDim2(0, 50, 0, 20);
+  xAxisLabel.BackgroundTransparency = 1;
+  xAxisLabel.TextColor3 = new Color3(0.8, 0.8, 0.8);
+  xAxisLabel.Font = Enum.Font.SourceSans;
+  xAxisLabel.TextSize = 14;
+  xAxisLabel.TextXAlignment = Enum.TextXAlignment.Left;
+  xAxisLabel.Parent = mainFrame;
 
-  // Dropdown button (DropdownGuiService style)
-  const dropdownButton = new Instance("TextButton");
-  dropdownButton.Name = "XAxisDropdownButton";
-  dropdownButton.Size = new UDim2(1, -20, 0, 30);
-  dropdownButton.Position = new UDim2(0, 10, 0, 40);
-  dropdownButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
-  dropdownButton.BorderSizePixel = 0;
-  dropdownButton.Font = Enum.Font.SourceSans;
-  dropdownButton.Text = currentValue + " ▼";
-  dropdownButton.TextColor3 = new Color3(1, 1, 1);
-  dropdownButton.TextSize = 16;
-  dropdownButton.TextScaled = false;
-  dropdownButton.Parent = mainFrame;
+  const xAxisButton = new Instance("TextButton");
+  xAxisButton.Name = "XAxisButton";
+  xAxisButton.Text = xAxisValue;
+  xAxisButton.Position = new UDim2(0, 65, 0, 10);
+  xAxisButton.Size = new UDim2(0, 125, 0, 20);
+  xAxisButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
+  xAxisButton.BorderSizePixel = 0;
+  xAxisButton.TextColor3 = new Color3(1, 1, 1);
+  xAxisButton.Font = Enum.Font.SourceSans;
+  xAxisButton.TextSize = 14;
+  xAxisButton.Parent = mainFrame;
 
-  const buttonCorner = new Instance("UICorner");
-  buttonCorner.CornerRadius = new UDim(0, 4);
-  buttonCorner.Parent = dropdownButton;
+  const xButtonCorner = new Instance("UICorner");
+  xButtonCorner.CornerRadius = new UDim(0, 4);
+  xButtonCorner.Parent = xAxisButton;
 
-  // Add hover effect
-  dropdownButton.MouseEnter.Connect(() => {
-    dropdownButton.BackgroundColor3 = new Color3(0.35, 0.35, 0.35);
-  });
+  // Z-axis row
+  const zAxisLabel = new Instance("TextLabel");
+  zAxisLabel.Name = "ZAxisLabel";
+  zAxisLabel.Text = "z-axis:";
+  zAxisLabel.Position = new UDim2(0, 10, 0, 40);
+  zAxisLabel.Size = new UDim2(0, 50, 0, 20);
+  zAxisLabel.BackgroundTransparency = 1;
+  zAxisLabel.TextColor3 = new Color3(0.8, 0.8, 0.8);
+  zAxisLabel.Font = Enum.Font.SourceSans;
+  zAxisLabel.TextSize = 14;
+  zAxisLabel.TextXAlignment = Enum.TextXAlignment.Left;
+  zAxisLabel.Parent = mainFrame;
 
-  dropdownButton.MouseLeave.Connect(() => {
-    dropdownButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
-  });
+  const zAxisButton = new Instance("TextButton");
+  zAxisButton.Name = "ZAxisButton";
+  zAxisButton.Text = zAxisValue;
+  zAxisButton.Position = new UDim2(0, 65, 0, 40);
+  zAxisButton.Size = new UDim2(0, 125, 0, 20);
+  zAxisButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
+  zAxisButton.BorderSizePixel = 0;
+  zAxisButton.TextColor3 = new Color3(1, 1, 1);
+  zAxisButton.Font = Enum.Font.SourceSans;
+  zAxisButton.TextSize = 14;
+  zAxisButton.Parent = mainFrame;
 
-  // Create options frame (DropdownGuiService style) - position below the frame
-  const optionsFrame = new Instance("Frame");
-  optionsFrame.Name = "XAxisOptionsFrame";
-  optionsFrame.Position = new UDim2(0, 0, 1, 5); // Below the frame
-  optionsFrame.Size = new UDim2(1, 0, 0, math.min(AVAILABLE_PROPERTIES.size() * 30, 180));
-  optionsFrame.BackgroundColor3 = new Color3(0.25, 0.25, 0.25);
-  optionsFrame.BorderSizePixel = 0;
-  optionsFrame.Visible = false;
-  optionsFrame.Parent = mainFrame;
+  const zButtonCorner = new Instance("UICorner");
+  zButtonCorner.CornerRadius = new UDim(0, 4);
+  zButtonCorner.Parent = zAxisButton;
 
-  const optionsCorner = new Instance("UICorner");
-  optionsCorner.CornerRadius = new UDim(0, 4);
-  optionsCorner.Parent = optionsFrame;
-
-  // Create option buttons
-  let isDropdownOpen = false;
+  // Create dropdown functionality for X-axis
+  createDropdownForButton(xAxisButton, xAxisValue, onXAxisChange, mainFrame, true);
   
-  AVAILABLE_PROPERTIES.forEach((property, index) => {
-    const optionButton = new Instance("TextButton");
-    optionButton.Name = `Option_${property}`;
-    optionButton.Text = property;
-    optionButton.Position = new UDim2(0, 5, 0, index * 30 + 5);
-    optionButton.Size = new UDim2(1, -10, 0, 25);
-    optionButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
-    optionButton.TextColor3 = new Color3(1, 1, 1);
-    optionButton.Font = Enum.Font.SourceSans;
-    optionButton.TextScaled = false;
-    optionButton.TextSize = 16;
-    optionButton.BorderSizePixel = 0;
-    optionButton.Parent = optionsFrame;
+  // Create dropdown functionality for Z-axis
+  createDropdownForButton(zAxisButton, zAxisValue, onZAxisChange, mainFrame, false);
+}
 
-    // Add corner radius
-    const optionCorner = new Instance("UICorner");
-    optionCorner.CornerRadius = new UDim(0, 4);
-    optionCorner.Parent = optionButton;
+function createDropdownForButton(
+  button: TextButton, 
+  currentValue: string, 
+  onChange: (value: string) => void,
+  parent: Frame,
+  isXAxis: boolean
+): void {
+  let isOpen = false;
+  let optionsFrame: Frame | undefined;
 
-    // Add hover effect
-    optionButton.MouseEnter.Connect(() => {
-      optionButton.BackgroundColor3 = new Color3(0.35, 0.35, 0.35);
-    });
+  button.MouseButton1Click.Connect(() => {
+    if (!isOpen) {
+      // Create options frame
+      optionsFrame = new Instance("Frame");
+      optionsFrame.Name = isXAxis ? "XAxisOptions" : "ZAxisOptions";
+      optionsFrame.Position = new UDim2(0, isXAxis ? 65 : 65, 0, isXAxis ? 30 : 60);
+      optionsFrame.Size = new UDim2(0, 125, 0, math.min(AVAILABLE_PROPERTIES.size() * 20, 160));
+      optionsFrame.BackgroundColor3 = new Color3(0.25, 0.25, 0.25);
+      optionsFrame.BorderSizePixel = 0;
+      optionsFrame.ZIndex = 10;
+      optionsFrame.Parent = parent;
 
-    optionButton.MouseLeave.Connect(() => {
-      optionButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
-    });
+      const optionsCorner = new Instance("UICorner");
+      optionsCorner.CornerRadius = new UDim(0, 4);
+      optionsCorner.Parent = optionsFrame;
 
-    // Click handler
-    optionButton.MouseButton1Click.Connect(() => {
-      dropdownButton.Text = property + " ▼";
-      optionsFrame.Visible = false;
-      isDropdownOpen = false;
-      onValueChange(property);
-    });
+      // Create scrolling frame if needed
+      const scrollFrame = new Instance("ScrollingFrame");
+      scrollFrame.Size = new UDim2(1, 0, 1, 0);
+      scrollFrame.Position = new UDim2(0, 0, 0, 0);
+      scrollFrame.BackgroundTransparency = 1;
+      scrollFrame.BorderSizePixel = 0;
+      scrollFrame.ScrollBarThickness = 4;
+      scrollFrame.CanvasSize = new UDim2(0, 0, 0, AVAILABLE_PROPERTIES.size() * 20);
+      scrollFrame.Parent = optionsFrame;
+
+      // Create option buttons
+      AVAILABLE_PROPERTIES.forEach((property, index) => {
+        const optionButton = new Instance("TextButton");
+        optionButton.Name = `Option_${property}`;
+        optionButton.Text = property;
+        optionButton.Position = new UDim2(0, 0, 0, index * 20);
+        optionButton.Size = new UDim2(1, -4, 0, 20);
+        optionButton.BackgroundTransparency = 1;
+        optionButton.TextColor3 = new Color3(0.9, 0.9, 0.9);
+        optionButton.Font = Enum.Font.SourceSans;
+        optionButton.TextSize = 14;
+        optionButton.BorderSizePixel = 0;
+        optionButton.ZIndex = 100;
+        optionButton.Parent = scrollFrame;
+
+        // Hover effect
+        optionButton.MouseEnter.Connect(() => {
+          optionButton.BackgroundTransparency = 0;
+          optionButton.BackgroundColor3 = new Color3(0.35, 0.35, 0.35);
+        });
+
+        optionButton.MouseLeave.Connect(() => {
+          optionButton.BackgroundTransparency = 1;
+        });
+
+        // Selection
+        optionButton.MouseButton1Click.Connect(() => {
+          button.Text = property;
+          onChange(property);
+          if (optionsFrame) {
+            optionsFrame.Destroy();
+            optionsFrame = undefined;
+          }
+          isOpen = false;
+        });
+      });
+
+      isOpen = true;
+    } else {
+      // Close dropdown
+      if (optionsFrame) {
+        optionsFrame.Destroy();
+        optionsFrame = undefined;
+      }
+      isOpen = false;
+    }
   });
 
-  // Toggle dropdown on button click
-  dropdownButton.MouseButton1Click.Connect(() => {
-    isDropdownOpen = !isDropdownOpen;
-    optionsFrame.Visible = isDropdownOpen;
-  });
-
-  // Close dropdown when clicking elsewhere
-  const userInputService = game.GetService("UserInputService");
-  userInputService.InputBegan.Connect((input) => {
-    if (input.UserInputType === Enum.UserInputType.MouseButton1 && isDropdownOpen) {
-      wait(0.1); // Small delay to allow button clicks to register
-      isDropdownOpen = false;
-      optionsFrame.Visible = false;
+  // Close when clicking elsewhere
+  game.GetService("UserInputService").InputBegan.Connect((input) => {
+    if (input.UserInputType === Enum.UserInputType.MouseButton1 && isOpen && optionsFrame) {
+      wait(0.1);
+      optionsFrame.Destroy();
+      optionsFrame = undefined;
+      isOpen = false;
     }
   });
 }
 
-// Z-Axis dropdown using DropdownGuiService pattern
-function createZAxisDropdownServiceStyle({
-  parent,
-  label,
-  position,
-  currentValue,
-  onValueChange
-}: AxisDropdownProps): void {
-  // Use the shared AxisDropdownGUI
-  if (!axisDropdownGUI) return;
-
-  // Create main frame positioned on the right
-  const mainFrame = new Instance("Frame");
-  mainFrame.Name = "ZAxisDropdownFrame";
-  mainFrame.Size = new UDim2(0, 200, 0, 80); // Reduced height
-  mainFrame.Position = new UDim2(0, 220, 0.5, -40); // Right side (10 + 200 + 10 spacing), centered vertically
-  mainFrame.BackgroundColor3 = new Color3(0.2, 0.2, 0.2);
-  mainFrame.BorderSizePixel = 0;
-  mainFrame.Parent = axisDropdownGUI;
-
-  const frameCorner = new Instance("UICorner");
-  frameCorner.CornerRadius = new UDim(0, 8);
-  frameCorner.Parent = mainFrame;
-
-  // Title
-  const titleLabel = new Instance("TextLabel");
-  titleLabel.Name = "TitleLabel";
-  titleLabel.Text = "Z-Axis Dropdown";
-  titleLabel.Position = new UDim2(0, 0, 0, 5);
-  titleLabel.Size = new UDim2(1, 0, 0, 30);
-  titleLabel.BackgroundTransparency = 1;
-  titleLabel.TextColor3 = new Color3(1, 1, 1);
-  titleLabel.Font = Enum.Font.SourceSansBold;
-  titleLabel.TextScaled = false;
-  titleLabel.TextSize = 18;
-  titleLabel.Parent = mainFrame;
-
-  // Dropdown button (DropdownGuiService style)
-  const dropdownButton = new Instance("TextButton");
-  dropdownButton.Name = "ZAxisDropdownButton";
-  dropdownButton.Size = new UDim2(1, -20, 0, 30);
-  dropdownButton.Position = new UDim2(0, 10, 0, 40);
-  dropdownButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
-  dropdownButton.BorderSizePixel = 0;
-  dropdownButton.Font = Enum.Font.SourceSans;
-  dropdownButton.Text = currentValue + " ▼";
-  dropdownButton.TextColor3 = new Color3(1, 1, 1);
-  dropdownButton.TextSize = 16;
-  dropdownButton.TextScaled = false;
-  dropdownButton.Parent = mainFrame;
-
-  const buttonCorner = new Instance("UICorner");
-  buttonCorner.CornerRadius = new UDim(0, 4);
-  buttonCorner.Parent = dropdownButton;
-
-  // Add hover effect
-  dropdownButton.MouseEnter.Connect(() => {
-    dropdownButton.BackgroundColor3 = new Color3(0.35, 0.35, 0.35);
-  });
-
-  dropdownButton.MouseLeave.Connect(() => {
-    dropdownButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
-  });
-
-  // Create options frame (DropdownGuiService style) - position below the frame
-  const optionsFrame = new Instance("Frame");
-  optionsFrame.Name = "ZAxisOptionsFrame";
-  optionsFrame.Position = new UDim2(0, 0, 1, 5); // Below the frame
-  optionsFrame.Size = new UDim2(1, 0, 0, math.min(AVAILABLE_PROPERTIES.size() * 30, 180));
-  optionsFrame.BackgroundColor3 = new Color3(0.25, 0.25, 0.25);
-  optionsFrame.BorderSizePixel = 0;
-  optionsFrame.Visible = false;
-  optionsFrame.Parent = mainFrame;
-
-  const optionsCorner = new Instance("UICorner");
-  optionsCorner.CornerRadius = new UDim(0, 4);
-  optionsCorner.Parent = optionsFrame;
-
-  // Create option buttons
-  let isDropdownOpen = false;
-  
-  AVAILABLE_PROPERTIES.forEach((property, index) => {
-    const optionButton = new Instance("TextButton");
-    optionButton.Name = `Option_${property}`;
-    optionButton.Text = property;
-    optionButton.Position = new UDim2(0, 5, 0, index * 30 + 5);
-    optionButton.Size = new UDim2(1, -10, 0, 25);
-    optionButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
-    optionButton.TextColor3 = new Color3(1, 1, 1);
-    optionButton.Font = Enum.Font.SourceSans;
-    optionButton.TextScaled = false;
-    optionButton.TextSize = 16;
-    optionButton.BorderSizePixel = 0;
-    optionButton.Parent = optionsFrame;
-
-    // Add corner radius
-    const optionCorner = new Instance("UICorner");
-    optionCorner.CornerRadius = new UDim(0, 4);
-    optionCorner.Parent = optionButton;
-
-    // Add hover effect
-    optionButton.MouseEnter.Connect(() => {
-      optionButton.BackgroundColor3 = new Color3(0.35, 0.35, 0.35);
-    });
-
-    optionButton.MouseLeave.Connect(() => {
-      optionButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
-    });
-
-    // Click handler
-    optionButton.MouseButton1Click.Connect(() => {
-      dropdownButton.Text = property + " ▼";
-      optionsFrame.Visible = false;
-      isDropdownOpen = false;
-      onValueChange(property);
-    });
-  });
-
-  // Toggle dropdown on button click
-  dropdownButton.MouseButton1Click.Connect(() => {
-    isDropdownOpen = !isDropdownOpen;
-    optionsFrame.Visible = isDropdownOpen;
-  });
-
-  // Close dropdown when clicking elsewhere
-  const userInputService = game.GetService("UserInputService");
-  userInputService.InputBegan.Connect((input) => {
-    if (input.UserInputType === Enum.UserInputType.MouseButton1 && isDropdownOpen) {
-      wait(0.1); // Small delay to allow button clicks to register
-      isDropdownOpen = false;
-      optionsFrame.Visible = false;
-    }
-  });
-}
