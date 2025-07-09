@@ -124,6 +124,37 @@ Step 3. - Commit code
 
 4. User Question:
 
+   1. After each commit:
+      1. I have committed the changes for <task name>
+      2. Shall I execute <task name>?
+   2. After final commit:
+      1. All tasks are committed.  Shall I peform a Code Audit?
+
+|----------------------------------------------------------------------|
+Step 4. - Code Audit
+
+1. Inputs
+
+   1. None
+
+2. Actions for AI Agent
+   1. After all tasks are completed and commited, create a doc titled
+      1. "F000-04-TicTacToe-CodeAudit-001.md", that contains the following sections
+         1. Table of files involved in feature
+             1. file name
+             2. number of lines
+             3. is New
+         2. mermaid diagram showing relationships between all files
+         3. Quality Audit that identifies any areas where the code can be improved
+         4. Code Improvement Task List
+          
+
+3. Outputs
+
+   1. none
+
+4. User Question:
+
    1. I have committed the changes for <task name>
    2. Shall I execute <task name>?
 

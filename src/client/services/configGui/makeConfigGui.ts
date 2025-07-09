@@ -182,20 +182,7 @@ export class ConfigGUIService {
 
     // Move advanced controls to separate frame
     if (advancedContentFrame) {
-      // Add a debug label that stays visible
-      const debugLabel = new Instance("TextLabel");
-      debugLabel.Size = new UDim2(1, -20, 0, 50);
-      debugLabel.Position = new UDim2(0, 10, 0, 10);
-      debugLabel.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
-      debugLabel.BackgroundTransparency = 0;
-      debugLabel.Text = "Debug: Advanced Controls Frame Active";
-      debugLabel.TextColor3 = new Color3(1, 1, 1);
-      debugLabel.TextScaled = true;
-      debugLabel.BorderSizePixel = 1;
-      debugLabel.BorderColor3 = new Color3(1, 0, 0);
-      debugLabel.Parent = advancedContentFrame;
-      
-      let yPosition = 70;
+      let yPosition = 10;
       
       // Create axis mapping controls
       const axisMapping = createAxisMappingControls({

@@ -53,6 +53,19 @@ export class GraphInitializerService {
       allowSameLevelLinks: true,  // Enable same-level links for testing
       randomZOffset: false,
     },
+    axisMapping: {
+      xAxis: "type",
+      zAxis: "petType",
+    },
+    visualMapping: {
+      backgroundColor: "None",
+      borderColor: "None",
+    },
+    yAxisConfig: {
+      useLayer: true,
+      property: undefined,
+    },
+    numPetTypes: 5,
   };
 
   private readonly DEFAULT_POSITION = { x: 0, y: 0, z: 0 };
