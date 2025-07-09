@@ -135,13 +135,6 @@ export class EndcapBlockCreator extends BaseBlockCreator {
       canCollide: false
     });
 
-    // Add debug print statements
-    print(`🔚 Creating endcap: ${name}`);
-    print(`   - Position: (${string.format("%.2f", position.X)}, ${string.format("%.2f", position.Y)}, ${string.format("%.2f", position.Z)})`);
-    print(`   - Size: ${string.format("%.2f", size.X)} x ${string.format("%.2f", size.Y)} x ${string.format("%.2f", size.Z)} (W x H x D)`);
-    print(`   - Axis: ${isZAxis ? 'Z-axis' : 'X-axis'}`);
-    print(`   - Label: ${label}`);
-
     // Add labels to all faces
     this.addLabelsToAllFaces(endcap, label, isZAxis);
 
