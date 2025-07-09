@@ -57,8 +57,8 @@ export class GraphInitializerService {
       zAxis: "petType",
     },
     visualMapping: {
-      backgroundColor: "None",
-      borderColor: "None",
+      backgroundColor: "none",
+      borderColor: "none",
     },
     yAxisConfig: {
       useLayer: true,

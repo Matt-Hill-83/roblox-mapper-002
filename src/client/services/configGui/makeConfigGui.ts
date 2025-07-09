@@ -18,7 +18,6 @@ import { createLayerGrid } from "./components/layerGrid";
 import { createStatusArea } from "./components/status";
 import { createVisualizationControls } from "./components/visualizationControls";
 import { createAxisMappingControls } from "./components/axisMappingControls";
-import { createVisualCustomizationControls } from "./components/visualCustomizationControls";
 import { createYAxisControls } from "./components/yAxisControls";
 import { GUIStateManager } from "./stateManager";
 import { GUIEventHandlers } from "./eventHandlers";
@@ -190,26 +189,18 @@ export class ConfigGUIService {
       createAxisMappingControls({
         parent: advancedContentFrame, // Not actually used since dropdowns are separate GUIs
         axisMapping: config.axisMapping,
+        visualMapping: config.visualMapping,
         onAxisMappingChange: (axis, value) => {
           this.stateManager.updateAxisMapping(axis, value);
           // Trigger re-render with new axis mapping
           this.eventHandlers.handleRegenerateClick();
-        }
-      });
-      
-      // Create visual customization controls
-      const visualCustomization = createVisualCustomizationControls({
-        parent: advancedContentFrame,
-        visualMapping: config.visualMapping,
+        },
         onVisualMappingChange: (mapping, value) => {
           this.stateManager.updateVisualMapping(mapping, value);
           // Trigger re-render with new visual mapping
           this.eventHandlers.handleRegenerateClick();
         }
       });
-      visualCustomization.Position = new UDim2(0, 10, 0, yPosition);
-      visualCustomization.Size = new UDim2(1, -20, 0, COMPONENT_HEIGHTS.VISUAL_CUSTOMIZATION);
-      yPosition += COMPONENT_HEIGHTS.VISUAL_CUSTOMIZATION + 10;
       
       // Create Y-axis controls
       const yAxisControls = createYAxisControls({
