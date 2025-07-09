@@ -10,6 +10,9 @@ interface AxisMappingControlsProps {
 // Available properties for axis mapping
 const AVAILABLE_PROPERTIES = ["type", "petType", "petColor", "age", "firstName", "lastName", "countryOfBirth", "countryOfResidence"];
 
+// Store reference to the shared GUI
+let axisDropdownGUI: ScreenGui | undefined;
+
 export function createAxisMappingControls({
   parent,
   axisMapping,
@@ -21,7 +24,18 @@ export function createAxisMappingControls({
     zAxis: "petType"
   };
   
-  // Create the X-axis dropdown as a separate GUI
+  // Create or get the shared AxisDropdownGUI
+  const player = Players.LocalPlayer;
+  const playerGui = player.WaitForChild("PlayerGui") as PlayerGui;
+  
+  if (!axisDropdownGUI) {
+    axisDropdownGUI = new Instance("ScreenGui");
+    axisDropdownGUI.Name = "AxisDropdownGUI";
+    axisDropdownGUI.ResetOnSpawn = false;
+    axisDropdownGUI.Parent = playerGui;
+  }
+  
+  // Create the X-axis dropdown
   createXAxisDropdownServiceStyle({
     parent: parent, // This will be overridden inside the function
     label: "X-Axis Property:",
@@ -30,7 +44,7 @@ export function createAxisMappingControls({
     onValueChange: (value) => onAxisMappingChange("xAxis", value)
   });
 
-  // Create the Z-axis dropdown as a separate GUI
+  // Create the Z-axis dropdown
   createZAxisDropdownServiceStyle({
     parent: parent, // This will be overridden inside the function
     label: "Z-Axis Property:",
@@ -56,23 +70,17 @@ function createXAxisDropdownServiceStyle({
   currentValue,
   onValueChange
 }: AxisDropdownProps): void {
-  const player = Players.LocalPlayer;
-  const playerGui = player.WaitForChild("PlayerGui") as PlayerGui;
+  // Use the shared AxisDropdownGUI
+  if (!axisDropdownGUI) return;
 
-  // Create a separate ScreenGui for the X-axis dropdown
-  const gui = new Instance("ScreenGui");
-  gui.Name = "XAxisDropdownGUI";
-  gui.ResetOnSpawn = false;
-  gui.Parent = playerGui;
-
-  // Create main frame positioned near the dropdown test
+  // Create main frame positioned at top of the GUI
   const mainFrame = new Instance("Frame");
   mainFrame.Name = "XAxisDropdownFrame";
   mainFrame.Size = new UDim2(0, 200, 0, 280); // Increased height to accommodate dropdown
-  mainFrame.Position = new UDim2(0, 10, 0.5, 90); // Position below the dropdown test
+  mainFrame.Position = new UDim2(0, 10, 0.5, -150); // Upper position
   mainFrame.BackgroundColor3 = new Color3(0.2, 0.2, 0.2);
   mainFrame.BorderSizePixel = 0;
-  mainFrame.Parent = gui;
+  mainFrame.Parent = axisDropdownGUI;
 
   const frameCorner = new Instance("UICorner");
   frameCorner.CornerRadius = new UDim(0, 8);
@@ -197,23 +205,17 @@ function createZAxisDropdownServiceStyle({
   currentValue,
   onValueChange
 }: AxisDropdownProps): void {
-  const player = Players.LocalPlayer;
-  const playerGui = player.WaitForChild("PlayerGui") as PlayerGui;
+  // Use the shared AxisDropdownGUI
+  if (!axisDropdownGUI) return;
 
-  // Create a separate ScreenGui for the Z-axis dropdown
-  const gui = new Instance("ScreenGui");
-  gui.Name = "ZAxisDropdownGUI";
-  gui.ResetOnSpawn = false;
-  gui.Parent = playerGui;
-
-  // Create main frame positioned below X-axis dropdown
+  // Create main frame positioned below X-axis frame
   const mainFrame = new Instance("Frame");
   mainFrame.Name = "ZAxisDropdownFrame";
   mainFrame.Size = new UDim2(0, 200, 0, 280); // Same size as X-axis
-  mainFrame.Position = new UDim2(0, 10, 0.5, 380); // Position below X-axis dropdown
+  mainFrame.Position = new UDim2(0, 10, 0.5, 140); // Position below X-axis dropdown
   mainFrame.BackgroundColor3 = new Color3(0.2, 0.2, 0.2);
   mainFrame.BorderSizePixel = 0;
-  mainFrame.Parent = gui;
+  mainFrame.Parent = axisDropdownGUI;
 
   const frameCorner = new Instance("UICorner");
   frameCorner.CornerRadius = new UDim(0, 8);
