@@ -43,37 +43,31 @@ export function createDropdownTestControls(options: DropdownTestControlsOptions)
     "Performance Test"
   ];
 
-  // Create dropdown for test selection
-  const dropdownFrame = new Instance("Frame");
-  dropdownFrame.Name = "TestDropdownContainer";
-  dropdownFrame.BackgroundTransparency = 1;
-  dropdownFrame.Position = new UDim2(0, 0, 0, 25);
-  dropdownFrame.Size = new UDim2(1, 0, 0, 30);
-  dropdownFrame.Parent = frame;
-
-  // Create the dropdown button
+  // Create the dropdown button directly in the main frame
   const dropdownButton = new Instance("TextButton");
   dropdownButton.Name = "TestDropdownButton";
   dropdownButton.Text = "Select Test Option";
-  dropdownButton.Size = new UDim2(1, -10, 1, 0);
-  dropdownButton.Position = new UDim2(0, 5, 0, 0);
+  dropdownButton.Size = new UDim2(1, -10, 0, 30);
+  dropdownButton.Position = new UDim2(0, 5, 0, 25);
   dropdownButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
   dropdownButton.TextColor3 = new Color3(1, 1, 1);
   dropdownButton.Font = Enum.Font.SourceSans;
   dropdownButton.TextSize = 14;
-  dropdownButton.Parent = dropdownFrame;
+  dropdownButton.Parent = frame;
 
-  // Create dropdown list (initially hidden)
-  const dropdownList = new Instance("Frame");
+  // Create dropdown list attached to button (initially hidden)
+  const dropdownList = new Instance("ScrollingFrame");
   dropdownList.Name = "TestDropdownList";
   dropdownList.BackgroundColor3 = new Color3(0.25, 0.25, 0.25);
   dropdownList.BorderSizePixel = 1;
   dropdownList.BorderColor3 = new Color3(0.4, 0.4, 0.4);
-  dropdownList.Position = new UDim2(0, 5, 1, 0);
-  dropdownList.Size = new UDim2(1, -10, 0, testOptions.size() * 25);
+  dropdownList.Position = new UDim2(0, 0, 1, 0);
+  dropdownList.Size = new UDim2(1, 0, 0, math.min(testOptions.size() * 25, 150)); // Max height of 150
+  dropdownList.CanvasSize = new UDim2(0, 0, 0, testOptions.size() * 25);
+  dropdownList.ScrollBarThickness = 4;
   dropdownList.Visible = false;
-  dropdownList.ZIndex = 10;
-  dropdownList.Parent = dropdownFrame;
+  dropdownList.ZIndex = 100; // Ensure it's on top
+  dropdownList.Parent = dropdownButton;
 
   // Create UIListLayout for dropdown items
   const listLayout = new Instance("UIListLayout");

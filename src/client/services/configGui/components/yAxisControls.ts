@@ -160,43 +160,32 @@ function createYAxisDropdown({
   buttonCorner.CornerRadius = new UDim(0, 4);
   buttonCorner.Parent = dropdownButton;
 
-  // Dropdown list container (hidden by default) - opens upward
-  const dropdownList = new Instance("Frame");
+  // Dropdown list - always use ScrollingFrame for consistency
   const itemHeight = 25;
   const maxItems = 6;
   const actualHeight = math.min(Y_AXIS_PROPERTIES.size() * itemHeight, maxItems * itemHeight);
+  
+  const dropdownList = new Instance("ScrollingFrame");
   dropdownList.Size = new UDim2(1, 0, 0, actualHeight);
   dropdownList.Position = new UDim2(0, 0, 0, -actualHeight - 5); // Position above button with gap
-  dropdownList.BackgroundColor3 = new Color3(0.1, 0.1, 0.1); // Darker background
+  dropdownList.BackgroundColor3 = new Color3(0.1, 0.1, 0.1);
   dropdownList.BorderSizePixel = 1;
   dropdownList.BorderColor3 = new Color3(0.3, 0.3, 0.3);
+  dropdownList.ScrollBarThickness = 4;
+  dropdownList.ScrollBarImageColor3 = new Color3(0.5, 0.5, 0.5);
+  dropdownList.CanvasSize = new UDim2(0, 0, 0, Y_AXIS_PROPERTIES.size() * itemHeight);
   dropdownList.Visible = false;
-  dropdownList.ZIndex = 5;
+  dropdownList.ZIndex = 100; // Higher z-index
   dropdownList.Parent = dropdownButton;
 
   const listCorner = new Instance("UICorner");
   listCorner.CornerRadius = new UDim(0, 4);
   listCorner.Parent = dropdownList;
 
-  // Create scrolling frame for dropdown options if needed
-  const needsScroll = Y_AXIS_PROPERTIES.size() > maxItems;
-  const optionParent = needsScroll ? new Instance("ScrollingFrame") : dropdownList;
-  
-  if (needsScroll && optionParent.IsA("ScrollingFrame")) {
-    optionParent.Size = new UDim2(1, 0, 1, 0);
-    optionParent.Position = new UDim2(0, 0, 0, 0);
-    optionParent.BackgroundTransparency = 1;
-    optionParent.BorderSizePixel = 0;
-    optionParent.ScrollBarThickness = 4;
-    optionParent.ScrollBarImageColor3 = new Color3(0.5, 0.5, 0.5);
-    optionParent.CanvasSize = new UDim2(0, 0, 0, Y_AXIS_PROPERTIES.size() * itemHeight);
-    optionParent.Parent = dropdownList;
-  }
-
   // Create option buttons
   Y_AXIS_PROPERTIES.forEach((property, index) => {
     const optionButton = new Instance("TextButton");
-    optionButton.Size = new UDim2(1, needsScroll ? -10 : 0, 0, itemHeight);
+    optionButton.Size = new UDim2(1, -10, 0, itemHeight); // Always account for scrollbar
     optionButton.Position = new UDim2(0, 0, 0, index * itemHeight);
     optionButton.BackgroundColor3 = new Color3(0.1, 0.1, 0.1);
     optionButton.BackgroundTransparency = 0;
@@ -206,7 +195,7 @@ function createYAxisDropdown({
     optionButton.TextSize = 14;
     optionButton.TextXAlignment = Enum.TextXAlignment.Center;
     optionButton.BorderSizePixel = 0;
-    optionButton.Parent = optionParent;
+    optionButton.Parent = dropdownList; // Parent directly to dropdownList
 
     // Hover effect
     optionButton.MouseEnter.Connect(() => {

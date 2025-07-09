@@ -84,78 +84,60 @@ function createVisualDropdown({
   currentValue,
   onValueChange
 }: VisualDropdownProps): void {
-  // Container for label and dropdown
-  const dropdownContainer = new Instance("Frame");
-  dropdownContainer.Size = new UDim2(0.5, -20, 0, 40);
-  dropdownContainer.Position = position;
-  dropdownContainer.BackgroundTransparency = 1;
-  dropdownContainer.Parent = parent;
-
-  // Label
+  // Label directly in parent
   const dropdownLabel = new Instance("TextLabel");
-  dropdownLabel.Size = new UDim2(1, 0, 0, 20);
-  dropdownLabel.Position = new UDim2(0, 0, 0, 0);
+  dropdownLabel.Size = new UDim2(0.5, -20, 0, 20);
+  dropdownLabel.Position = position;
   dropdownLabel.BackgroundTransparency = 1;
   dropdownLabel.Font = GUI_CONSTANTS.TYPOGRAPHY.LABEL_FONT;
   dropdownLabel.Text = label;
   dropdownLabel.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
   dropdownLabel.TextSize = 14;
   dropdownLabel.TextXAlignment = Enum.TextXAlignment.Left;
-  dropdownLabel.Parent = dropdownContainer;
+  dropdownLabel.Parent = parent;
 
-  // Dropdown button
+  // Dropdown button directly in parent
   const dropdownButton = new Instance("TextButton");
-  dropdownButton.Size = new UDim2(1, 0, 0, 25);
-  dropdownButton.Position = new UDim2(0, 0, 0, 20);
+  dropdownButton.Size = new UDim2(0.5, -20, 0, 25);
+  dropdownButton.Position = new UDim2(position.X.Scale, position.X.Offset, 0, position.Y.Offset + 20);
   dropdownButton.BackgroundColor3 = new Color3(0.25, 0.25, 0.25);
   dropdownButton.BorderSizePixel = 0;
   dropdownButton.Font = GUI_CONSTANTS.TYPOGRAPHY.INPUT_FONT;
   dropdownButton.Text = currentValue + " ▼";
   dropdownButton.TextColor3 = GUI_CONSTANTS.COLORS.TEXT;
   dropdownButton.TextSize = 14;
-  dropdownButton.Parent = dropdownContainer;
+  dropdownButton.Parent = parent;
 
   const buttonCorner = new Instance("UICorner");
   buttonCorner.CornerRadius = new UDim(0, 4);
   buttonCorner.Parent = dropdownButton;
 
-  // Dropdown list container (hidden by default) - opens upward
-  const dropdownList = new Instance("Frame");
+  // Dropdown list - always use ScrollingFrame for consistency
   const itemHeight = 25;
   const maxItems = 6;
   const actualHeight = math.min(VISUAL_PROPERTIES.size() * itemHeight, maxItems * itemHeight);
+  
+  const dropdownList = new Instance("ScrollingFrame");
   dropdownList.Size = new UDim2(1, 0, 0, actualHeight);
   dropdownList.Position = new UDim2(0, 0, 0, -actualHeight - 5); // Position above button with gap
-  dropdownList.BackgroundColor3 = new Color3(0.1, 0.1, 0.1); // Darker background
+  dropdownList.BackgroundColor3 = new Color3(0.1, 0.1, 0.1);
   dropdownList.BorderSizePixel = 1;
   dropdownList.BorderColor3 = new Color3(0.3, 0.3, 0.3);
+  dropdownList.ScrollBarThickness = 4;
+  dropdownList.ScrollBarImageColor3 = new Color3(0.5, 0.5, 0.5);
+  dropdownList.CanvasSize = new UDim2(0, 0, 0, VISUAL_PROPERTIES.size() * itemHeight);
   dropdownList.Visible = false;
-  dropdownList.ZIndex = 5;
+  dropdownList.ZIndex = 100; // Higher z-index
   dropdownList.Parent = dropdownButton;
 
   const listCorner = new Instance("UICorner");
   listCorner.CornerRadius = new UDim(0, 4);
   listCorner.Parent = dropdownList;
 
-  // Create scrolling frame for dropdown options if needed
-  const needsScroll = VISUAL_PROPERTIES.size() > maxItems;
-  const optionParent = needsScroll ? new Instance("ScrollingFrame") : dropdownList;
-  
-  if (needsScroll && optionParent.IsA("ScrollingFrame")) {
-    optionParent.Size = new UDim2(1, 0, 1, 0);
-    optionParent.Position = new UDim2(0, 0, 0, 0);
-    optionParent.BackgroundTransparency = 1;
-    optionParent.BorderSizePixel = 0;
-    optionParent.ScrollBarThickness = 4;
-    optionParent.ScrollBarImageColor3 = new Color3(0.5, 0.5, 0.5);
-    optionParent.CanvasSize = new UDim2(0, 0, 0, VISUAL_PROPERTIES.size() * itemHeight);
-    optionParent.Parent = dropdownList;
-  }
-
   // Create option buttons
   VISUAL_PROPERTIES.forEach((property, index) => {
     const optionButton = new Instance("TextButton");
-    optionButton.Size = new UDim2(1, needsScroll ? -10 : 0, 0, itemHeight);
+    optionButton.Size = new UDim2(1, -10, 0, itemHeight); // Always account for scrollbar
     optionButton.Position = new UDim2(0, 0, 0, index * itemHeight);
     optionButton.BackgroundColor3 = new Color3(0.1, 0.1, 0.1);
     optionButton.BackgroundTransparency = 0;
@@ -165,7 +147,7 @@ function createVisualDropdown({
     optionButton.TextSize = 14;
     optionButton.TextXAlignment = Enum.TextXAlignment.Center;
     optionButton.BorderSizePixel = 0;
-    optionButton.Parent = optionParent;
+    optionButton.Parent = dropdownList; // Parent directly to dropdownList
 
     // Hover effect
     optionButton.MouseEnter.Connect(() => {
