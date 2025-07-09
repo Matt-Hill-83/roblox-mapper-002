@@ -17,7 +17,7 @@ import { createNodeTypesSection } from "./components/nodeTypesSection";
 import { createLayerGrid } from "./components/layerGrid";
 import { createStatusArea } from "./components/status";
 import { createVisualizationControls } from "./components/visualizationControls";
-import { createAxisMappingControls } from "./components/axisMappingControls";
+import { createAxisMappingControls } from "./components/axisMappingControls/index";
 import { GUIStateManager } from "./stateManager";
 import { GUIEventHandlers } from "./eventHandlers";
 import { ComponentFactory } from "./componentFactory";
@@ -176,22 +176,22 @@ export class ConfigGUIService {
       visualMapping: config.visualMapping,
       useLayerForYAxis: config.yAxisConfig?.useLayer !== false, // Default to true
       yAxisProperty: config.yAxisConfig?.property,
-      onAxisMappingChange: (axis, value) => {
+      onAxisMappingChange: (axis: "xAxis" | "zAxis", value: string) => {
         this.stateManager.updateAxisMapping(axis, value);
         // Trigger re-render with new axis mapping
         this.eventHandlers.handleRegenerateClick();
       },
-      onVisualMappingChange: (mapping, value) => {
+      onVisualMappingChange: (mapping: "backgroundColor" | "borderColor", value: string) => {
         this.stateManager.updateVisualMapping(mapping, value);
         // Trigger re-render with new visual mapping
         this.eventHandlers.handleRegenerateClick();
       },
-      onYAxisModeChange: (useLayer) => {
+      onYAxisModeChange: (useLayer: boolean) => {
         this.stateManager.updateYAxisConfig({ useLayer });
         // Trigger re-render with new Y-axis mode
         this.eventHandlers.handleRegenerateClick();
       },
-      onYAxisPropertyChange: (property) => {
+      onYAxisPropertyChange: (property: string) => {
         this.stateManager.updateYAxisConfig({ useLayer: false, property });
         // Trigger re-render with new Y-axis property
         this.eventHandlers.handleRegenerateClick();
