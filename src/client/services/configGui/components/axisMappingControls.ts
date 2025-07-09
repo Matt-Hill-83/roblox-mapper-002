@@ -110,7 +110,7 @@ function createCompactAxisControls({
   const mainFrame = new Instance("Frame");
   mainFrame.Name = "AxisControlsFrame";
   mainFrame.Size = new UDim2(0, 300, 0, 250); // Increased height for Y-axis section
-  mainFrame.Position = new UDim2(0, 10, 0.5, -125); // Centered vertically
+  mainFrame.Position = new UDim2(1, -310, 0.5, -125); // Right side, centered vertically
   mainFrame.BackgroundColor3 = new Color3(0.2, 0.2, 0.2);
   mainFrame.BorderSizePixel = 0;
   mainFrame.Parent = gui;
