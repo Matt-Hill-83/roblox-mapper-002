@@ -3,6 +3,8 @@
  * Part of F002 refactoring to eliminate magic numbers
  */
 
+import { Z_AXIS_COLORS } from "./robloxColors";
+
 export const BLOCK_CONSTANTS = {
   DIMENSIONS: {
     DEFAULT_HEIGHT: 3,
@@ -20,18 +22,7 @@ export const BLOCK_CONSTANTS = {
   COLORS: {
     SHADOW: new Color3(0.5, 0.7, 1),
     PLATFORM: new Color3(0.5, 0, 0.5), // Purple
-    Z_AXIS_COLORS: [
-      new Color3(0.8, 0.2, 0.2), // Red
-      new Color3(0.2, 0.8, 0.2), // Green
-      new Color3(0.2, 0.2, 0.8), // Blue
-      new Color3(0.8, 0.8, 0.2), // Yellow
-      new Color3(0.8, 0.2, 0.8), // Magenta
-      new Color3(0.2, 0.8, 0.8), // Cyan
-      new Color3(0.6, 0.3, 0.1), // Brown
-      new Color3(1, 0.5, 0),     // Orange
-      new Color3(0.5, 0, 0.5),   // Purple
-      new Color3(0, 0.5, 0),     // Dark Green
-    ],
+    Z_AXIS_COLORS: Z_AXIS_COLORS,
   },
   TRANSPARENCY: {
     OPAQUE: 0,
