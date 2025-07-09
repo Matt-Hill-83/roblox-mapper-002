@@ -89,7 +89,7 @@ export class ConfigGUIService {
     });
 
     // Create advanced controls in upper right
-    const advancedFrameSize = new UDim2(0, 300, 0, 380); // Height for 3 controls without dropdown test
+    const advancedFrameSize = new UDim2(0, 300, 0, 260); // Height for 2 controls (visual customization + y-axis)
     const advancedCollapsibleFrame = createCollapsibleFrame({
       parent: gui,
       size: advancedFrameSize,
@@ -186,9 +186,9 @@ export class ConfigGUIService {
     if (advancedContentFrame) {
       let yPosition = 10;
       
-      // Create axis mapping controls
-      const axisMapping = createAxisMappingControls({
-        parent: advancedContentFrame,
+      // Create axis mapping dropdowns as separate GUIs
+      createAxisMappingControls({
+        parent: advancedContentFrame, // Not actually used since dropdowns are separate GUIs
         axisMapping: config.axisMapping,
         onAxisMappingChange: (axis, value) => {
           this.stateManager.updateAxisMapping(axis, value);
@@ -196,9 +196,6 @@ export class ConfigGUIService {
           this.eventHandlers.handleRegenerateClick();
         }
       });
-      axisMapping.Position = new UDim2(0, 10, 0, yPosition);
-      axisMapping.Size = new UDim2(1, -20, 0, COMPONENT_HEIGHTS.AXIS_MAPPING);
-      yPosition += COMPONENT_HEIGHTS.AXIS_MAPPING + 10;
       
       // Create visual customization controls
       const visualCustomization = createVisualCustomizationControls({
