@@ -31,18 +31,30 @@ export function createSpacingControls({
   onSpacingChange
 }: SpacingControlsProps): void {
   const rowHeight = 25;
-  const labelWidth = 120;
-  const inputWidth = 60;
+  const labelWidth = 100;
+  const inputWidth = 50;
   const startY = 35;
   const spacing_between = 5;
+  const columnGap = 20;
+  
+  // Calculate column positions
+  const col1X = 10;
+  const col2X = col1X + labelWidth + inputWidth + columnGap;
+  
+  // Determine rows per column
+  const itemsPerColumn = math.ceil(SPACING_FIELDS.size() / 2);
 
   SPACING_FIELDS.forEach((fieldDef, index) => {
-    const yPos = startY + (index * (rowHeight + spacing_between));
+    // Determine column and row
+    const column = index < itemsPerColumn ? 0 : 1;
+    const rowIndex = column === 0 ? index : index - itemsPerColumn;
+    const yPos = startY + (rowIndex * (rowHeight + spacing_between));
+    const xPos = column === 0 ? col1X : col2X;
 
     // Create label
     const label = new Instance("TextLabel");
     label.Size = new UDim2(0, labelWidth, 0, rowHeight);
-    label.Position = new UDim2(0, 10, 0, yPos);
+    label.Position = new UDim2(0, xPos, 0, yPos);
     label.BackgroundTransparency = 1;
     label.Font = GUI_CONSTANTS.TYPOGRAPHY.LABEL_FONT;
     label.Text = fieldDef.label;
@@ -55,7 +67,7 @@ export function createSpacingControls({
     const input = new Instance("TextBox");
     input.Name = `${fieldDef.field}Input`;
     input.Size = new UDim2(0, inputWidth, 0, rowHeight);
-    input.Position = new UDim2(0, labelWidth + 15, 0, yPos);
+    input.Position = new UDim2(0, xPos + labelWidth + 5, 0, yPos);
     input.BackgroundColor3 = new Color3(0.25, 0.25, 0.25);
     input.BorderSizePixel = 0;
     input.Font = GUI_CONSTANTS.TYPOGRAPHY.INPUT_FONT;

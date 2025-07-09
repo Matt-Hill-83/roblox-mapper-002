@@ -61,7 +61,7 @@ export const GUI_CONSTANTS = {
   
   // Enhanced mode configuration
   ENHANCED: {
-    GLOBAL_SETTINGS_HEIGHT: 240, // Increased to accommodate spacing controls including link diameter and origin Y offset
+    GLOBAL_SETTINGS_HEIGHT: 140, // Reduced height due to 2-column layout
     NODE_LINK_TYPES_HEIGHT: 110, // Increased for vertical stacking of node/link types
     GRID_HEADER_HEIGHT: 30,
     GRID_ROW_HEIGHT: 30,
