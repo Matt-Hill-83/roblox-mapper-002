@@ -151,27 +151,20 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
       surfaceGui.PixelsPerStud = 50;
       surfaceGui.Parent = block;
 
-      // Create Frame for background
-      const frame = new Instance("Frame");
-      frame.Size = new UDim2(1, 0, 1, 0);
-      frame.BackgroundColor3 = new Color3(0, 0, 0);
-      frame.BackgroundTransparency = 1; // Fully transparent background
-      frame.BorderSizePixel = 0;
-      frame.Parent = surfaceGui;
-
-      // Create TextLabel
+      // Create TextLabel directly in SurfaceGui
       const textLabel = new Instance("TextLabel");
-      textLabel.Size = new UDim2(0.9, 0, 0.9, 0);
-      textLabel.Position = new UDim2(0.05, 0, 0.05, 0);
+      textLabel.Size = new UDim2(1, 0, 1, 0); // Full size as requested
+      textLabel.Position = new UDim2(0, 0, 0, 0);
       textLabel.BackgroundTransparency = 0; // Opaque background to show border
       textLabel.BackgroundColor3 = new Color3(1, 1, 1); // White background
       textLabel.BorderSizePixel = 10; // 10px border
       textLabel.BorderColor3 = new Color3(0, 0, 0); // Black border
+      textLabel.BorderMode = Enum.BorderMode.Inset; // Internal border so it doesn't overflow
       textLabel.Font = Enum.Font.SourceSansBold;
       textLabel.Text = text;
       textLabel.TextColor3 = new Color3(0, 0, 0); // Black text
       textLabel.TextScaled = true;
-      textLabel.Parent = frame;
+      textLabel.Parent = surfaceGui;
     });
   }
 }
