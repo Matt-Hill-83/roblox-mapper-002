@@ -1,10 +1,10 @@
 |----------------------------------------------------------------------|
 Summary:
-In the existing roblox game, as part of the node creation process, create a large flat block under the node tree.
+Build a simple tic-tac-toe game that runs in the terminal with nodejs.
 |----------------------------------------------------------------------|
 Features:
 
-- centered at the origin
+- use different colors for x's and o's
 
 |----------------------------------------------------------------------|
 
