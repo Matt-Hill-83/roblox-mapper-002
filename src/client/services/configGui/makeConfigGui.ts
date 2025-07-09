@@ -20,7 +20,6 @@ import { createVisualizationControls } from "./components/visualizationControls"
 import { createAxisMappingControls } from "./components/axisMappingControls";
 import { createVisualCustomizationControls } from "./components/visualCustomizationControls";
 import { createYAxisControls } from "./components/yAxisControls";
-import { createDropdownTestControls } from "./components/dropdownTestControls";
 import { GUIStateManager } from "./stateManager";
 import { GUIEventHandlers } from "./eventHandlers";
 import { ComponentFactory } from "./componentFactory";
@@ -31,6 +30,7 @@ export class ConfigGUIService {
   private eventHandlers: GUIEventHandlers;
 
   constructor(options: ConfigGUIServiceOptions) {
+    print("[ConfigGUIService] Constructor called");
     
     // Initialize state manager
     this.stateManager = new GUIStateManager(options.initialConfig);
@@ -48,14 +48,23 @@ export class ConfigGUIService {
    * Creates and displays the configuration GUI
    */
   public createGUI(): void {
+    print("[ConfigGUIService] createGUI() called");
     const player = Players.LocalPlayer;
     const playerGui = player.WaitForChild("PlayerGui") as PlayerGui;
+
+    // Check if GUI already exists
+    const existingGui = playerGui.FindFirstChild(GUI_CONSTANTS.NAMES.SCREEN_GUI);
+    if (existingGui) {
+      print(`[ConfigGUIService] WARNING: Found existing GUI named ${GUI_CONSTANTS.NAMES.SCREEN_GUI}, destroying it first`);
+      existingGui.Destroy();
+    }
 
     // Create ScreenGui
     const gui = new Instance("ScreenGui");
     gui.Name = GUI_CONSTANTS.NAMES.SCREEN_GUI;
     gui.ResetOnSpawn = false;
     gui.Parent = playerGui;
+    print(`[ConfigGUIService] Created new ScreenGui: ${gui.Name}`);
     this.stateManager.setGUI(gui);
 
     // Create collapsible main frame - full height
@@ -79,13 +88,13 @@ export class ConfigGUIService {
       position: new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH + 20, 0, 10) // Position to the right
     });
 
-    // Create advanced controls below visualization controls
-    const advancedFrameSize = new UDim2(0, 300, 0, 480); // Increased height for dropdown test
+    // Create advanced controls in upper right
+    const advancedFrameSize = new UDim2(0, 300, 0, 260); // Height for 2 controls (visual customization + y-axis)
     const advancedCollapsibleFrame = createCollapsibleFrame({
       parent: gui,
       size: advancedFrameSize,
       title: "Advanced Controls",
-      position: new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH + 20, 0, 220) // Below viz controls
+      position: new UDim2(1, -310, 0, 10) // Upper right corner
     });
     
     // Default advanced controls to open
@@ -177,9 +186,9 @@ export class ConfigGUIService {
     if (advancedContentFrame) {
       let yPosition = 10;
       
-      // Create axis mapping controls
-      const axisMapping = createAxisMappingControls({
-        parent: advancedContentFrame,
+      // Create axis mapping dropdowns as separate GUIs
+      createAxisMappingControls({
+        parent: advancedContentFrame, // Not actually used since dropdowns are separate GUIs
         axisMapping: config.axisMapping,
         onAxisMappingChange: (axis, value) => {
           this.stateManager.updateAxisMapping(axis, value);
@@ -187,9 +196,6 @@ export class ConfigGUIService {
           this.eventHandlers.handleRegenerateClick();
         }
       });
-      axisMapping.Position = new UDim2(0, 10, 0, yPosition);
-      axisMapping.Size = new UDim2(1, -20, 0, COMPONENT_HEIGHTS.AXIS_MAPPING);
-      yPosition += COMPONENT_HEIGHTS.AXIS_MAPPING + 10;
       
       // Create visual customization controls
       const visualCustomization = createVisualCustomizationControls({
@@ -223,18 +229,6 @@ export class ConfigGUIService {
       });
       yAxisControls.Position = new UDim2(0, 10, 0, yPosition);
       yAxisControls.Size = new UDim2(1, -20, 0, COMPONENT_HEIGHTS.Y_AXIS_CONTROLS);
-      yPosition += COMPONENT_HEIGHTS.Y_AXIS_CONTROLS + 10;
-      
-      // Create dropdown test controls
-      const dropdownTestControls = createDropdownTestControls({
-        parent: advancedContentFrame,
-        onTestOptionChange: (value) => {
-          // Could trigger specific test behaviors based on the selected option
-          // Status updates should be done through the statusLabel, not stateManager
-        }
-      });
-      dropdownTestControls.Position = new UDim2(0, 10, 0, yPosition);
-      dropdownTestControls.Size = new UDim2(1, -20, 0, COMPONENT_HEIGHTS.DROPDOWN_TEST_CONTROLS);
     }
 
     // Update scrolling frame canvas size
@@ -304,11 +298,13 @@ export class ConfigGUIService {
    * Updates the enhanced configuration
    */
   public updateEnhancedConfig(config: EnhancedGeneratorConfig): void {
+    print("[ConfigGUIService] updateEnhancedConfig called");
     this.stateManager.updateEnhancedConfig(config);
     
     // If GUI is visible, update the display
     const state = this.stateManager.getState();
     if (state.configFrame) {
+      print("[ConfigGUIService] Destroying and recreating GUI in updateEnhancedConfig");
       // Recreate the GUI to reflect new configuration
       state.configFrame.Destroy();
       this.createGUI();

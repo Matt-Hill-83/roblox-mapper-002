@@ -17,7 +17,6 @@ import { AnimationTestGUIController } from "./controllers/animationTestGUI.contr
 import { Players } from "@rbxts/services";
 import { KeyboardShortcutsService } from "./services/keyboardShortcuts.service";
 import { NodePropertiesInspectorService } from "./services/nodePropertiesInspector/nodePropertiesInspector.service";
-import { DropdownGuiService } from "./services/dropdownGui";
 
 // Disable the default Roblox chat
 const starterGui = game.GetService("StarterGui");
@@ -50,8 +49,4 @@ new KeyboardShortcutsService();
 // Initialize node properties inspector
 const nodeInspector = NodePropertiesInspectorService.getInstance();
 nodeInspector.initialize();
-
-// Initialize dropdown GUI service
-const dropdownGuiService = new DropdownGuiService();
-dropdownGuiService.initialize();
 
