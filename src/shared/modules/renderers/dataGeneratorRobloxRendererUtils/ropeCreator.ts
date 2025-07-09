@@ -162,6 +162,9 @@ function createRope(
   beam.TextureLength = 1;
   beam.TextureMode = Enum.TextureMode.Static;
   
+  // Set material to Concrete
+  beam.Material = Enum.Material.Concrete;
+  
   // Note: Beams don't cast shadows by default (performance benefit)
   
   return beam;
