@@ -24,13 +24,9 @@ export class GameService extends BaseService {
 
   public startGame(): void {
     if (this.gameStarted) {
-      print(
-        "⚠️ GameService.startGame() already called, skipping duplicate call"
-      );
       return;
     }
 
-    print("🎮 GameService.startGame() called");
     this.gameStarted = true;
 
     // Create or find the MyStuff folder at the start
@@ -59,7 +55,6 @@ export class GameService extends BaseService {
       this.myStuffFolder,
       new Vector3(ORIGIN.x, ORIGIN.y, ORIGIN.z)
     );
-    print(`🎮 GUI Server initialized: ${this.configGUIServer !== undefined}`);
 
     // Set up graph initializer with the GUI server
     this.graphInitializer.setConfigGUIServer(this.configGUIServer);
@@ -71,7 +66,6 @@ export class GameService extends BaseService {
     if (false) {
       initializeDev2Features(this.myStuffFolder);
     }
-    print("✅ GameService.startGame() completed");
   }
 
   /**
@@ -91,6 +85,5 @@ export class GameService extends BaseService {
       initializer.destroy();
     }
 
-    print("[GameService] Cleaned up");
   }
 }

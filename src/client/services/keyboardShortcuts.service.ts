@@ -203,6 +203,5 @@ export class KeyboardShortcutsService extends BaseService {
             this.confirmationGui = undefined;
         }
         
-        print("[KeyboardShortcutsService] Cleaned up");
     }
 }

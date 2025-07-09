@@ -36,8 +36,6 @@ export class BlockDimensionCalculator {
     const finalWidth = math.max(width, BLOCK_CONSTANTS.DIMENSIONS.MIN_BLOCK_SIZE);
     const finalDepth = math.max(depth, BLOCK_CONSTANTS.DIMENSIONS.MIN_BLOCK_SIZE);
     
-    this.logDimensionCalculation(nodeBounds, nodeWidth, nodeDepth, width, depth, finalWidth, finalDepth);
-    
     return {
       width: finalWidth,
       depth: finalDepth,
@@ -105,22 +103,4 @@ export class BlockDimensionCalculator {
     return { minX, maxX, minZ, maxZ };
   }
 
-  /**
-   * Log dimension calculation details
-   */
-  private logDimensionCalculation(
-    nodeBounds: NodeBounds,
-    nodeWidth: number,
-    nodeDepth: number,
-    width: number,
-    depth: number,
-    finalWidth: number,
-    finalDepth: number
-  ): void {
-    print(`📏 Calculating block dimensions:`);
-    print(`   - Node bounds: X[${nodeBounds.minX}, ${nodeBounds.maxX}] Z[${nodeBounds.minZ}, ${nodeBounds.maxZ}]`);
-    print(`   - Node size: ${nodeWidth} x ${nodeDepth} (W x D)`);
-    print(`   - With padding: ${width} x ${depth}`);
-    print(`   - Final size: ${finalWidth} x ${finalDepth}`);
-  }
 }

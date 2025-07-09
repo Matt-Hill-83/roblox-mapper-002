@@ -183,7 +183,6 @@ function createVisualDropdown({
       dropdownButton.Text = property + " ▼";
       dropdownList.Visible = false;
       onValueChange(property);
-      print(`🎨 Visual mapping changed: ${label.sub(1, -2)} = "${property}"`);
     });
   });
 

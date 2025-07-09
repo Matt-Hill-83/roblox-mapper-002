@@ -31,16 +31,6 @@ export class ConfigGUIService {
   private eventHandlers: GUIEventHandlers;
 
   constructor(options: ConfigGUIServiceOptions) {
-    print("🏗️ ConfigGUIService constructor called");
-    print(`   - Initial config provided: ${options.initialConfig ? "Yes" : "No"}`);
-    if (options.initialConfig) {
-      print(`   - Node types: ${options.initialConfig.numNodeTypes}`);
-      print(`   - Link types: ${options.initialConfig.numLinkTypes}`);
-      print(`   - Layers: ${options.initialConfig.layers.size()}`);
-      options.initialConfig.layers.forEach((layer, idx) => {
-        print(`     Layer ${idx + 1}: ${layer.numNodes} nodes, ${layer.connectionsPerNode} connections`);
-      });
-    }
     
     // Initialize state manager
     this.stateManager = new GUIStateManager(options.initialConfig);
@@ -156,7 +146,6 @@ export class ConfigGUIService {
     const linkTypes = this.eventHandlers.generateTypeArray("Link", config.numLinkTypes);
 
     // Create layer grid with initial layers
-    print(`🎯 Creating layer grid with ${config.layers.size()} initial layers`);
     const layerGrid = createLayerGrid({
       parent: scrollFrame,
       onLayerUpdate: (layers) => {
@@ -240,7 +229,6 @@ export class ConfigGUIService {
       const dropdownTestControls = createDropdownTestControls({
         parent: advancedContentFrame,
         onTestOptionChange: (value) => {
-          print(`[ConfigGUI] Dropdown test option changed to: ${value}`);
           // Could trigger specific test behaviors based on the selected option
           this.stateManager.setStatus(`Test option selected: ${value}`);
         }

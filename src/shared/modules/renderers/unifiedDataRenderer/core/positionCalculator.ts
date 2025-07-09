@@ -22,11 +22,6 @@ export class PositionCalculator implements IPositionCalculator {
    */
   public getClusterBounds(cluster: Cluster): { minX: number, maxX: number, minY: number, minZ: number, maxZ: number } {
     const bounds = this.calculateBounds(cluster);
-    print(`🔍 Cluster bounds calculated:`);
-    print(`   - X: [${bounds.minX}, ${bounds.maxX}]`);
-    print(`   - Y: [${bounds.minY}]`);
-    print(`   - Z: [${bounds.minZ}, ${bounds.maxZ}]`);
-    print(`   - Total nodes: ${cluster.groups[0].nodes.size()}`);
     return bounds;
   }
 
@@ -53,15 +48,10 @@ export class PositionCalculator implements IPositionCalculator {
     const groundClearanceAdjustment = minFinalY < POSITION_CONSTANTS.MIN_GROUND_CLEARANCE ? POSITION_CONSTANTS.MIN_GROUND_CLEARANCE - minFinalY : 0;
     const finalOffsetY = offsetY + groundClearanceAdjustment;
     
-    // Debug ground clearance only if adjustment needed
-    if (groundClearanceAdjustment > 0) {
-      print(`🎯 Ground clearance applied: +${groundClearanceAdjustment} (final Y will be ${minFinalY + groundClearanceAdjustment})`);
-    }
+    // Apply ground clearance if needed
     
     // Apply offsets to all nodes
     this.applyOffsets(cluster, offsetX, finalOffsetY, offsetZ);
-    
-    print(`✅ Positioned ${cluster.groups[0].nodes.size()} nodes with swim lanes`);
   }
 
   /**

@@ -44,7 +44,6 @@ export class GroupAnimationTestService {
    * Runs the animation test
    */
   public runTest(parentFolder: Folder): void {
-    print("🎬 Starting Group Animation Test...");
     
     // Cleanup any previous test
     this.cleanup();
@@ -80,7 +79,6 @@ export class GroupAnimationTestService {
       "blue"
     );
     
-    print("✅ Animation test ready!");
   }
 
   /**
@@ -130,7 +128,6 @@ export class GroupAnimationTestService {
     this.remoteEvent.OnServerEvent.Connect((player: Player, ...args: unknown[]) => {
       const eventType = args[0] as string;
       if (eventType === "triggerAnimation" && !this.isAnimating) {
-        print(`🎯 Animation triggered by ${player.Name}`);
         this.startAnimation();
       }
     });
@@ -142,7 +139,6 @@ export class GroupAnimationTestService {
   private startAnimation(): void {
     if (this.isAnimating) return;
     
-    print("🚀 Starting block animation...");
     
     // Notify all clients that animation started
     if (this.remoteEvent) {
@@ -203,7 +199,6 @@ export class GroupAnimationTestService {
         if (this.remoteEvent) {
           this.remoteEvent.FireAllClients("animationCompleted");
         }
-        print("✅ Animation complete!");
       });
     }
   }

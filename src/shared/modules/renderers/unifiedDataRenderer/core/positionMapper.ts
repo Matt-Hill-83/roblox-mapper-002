@@ -139,7 +139,6 @@ export class PositionMapper {
       : 0;
     
     if (groundClearanceAdjustment > 0) {
-      print(`🎯 Ground clearance applied: +${groundClearanceAdjustment} (final Y will be ${minFinalY + groundClearanceAdjustment})`);
     }
     
     return offsetY + groundClearanceAdjustment;

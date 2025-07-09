@@ -183,7 +183,6 @@ function createAxisDropdown({
       dropdownButton.Text = property + " ▼";
       dropdownList.Visible = false;
       onValueChange(property);
-      print(`🎯 Axis mapping changed: ${label.sub(1, -2)} = "${property}"`);
     });
   });
 

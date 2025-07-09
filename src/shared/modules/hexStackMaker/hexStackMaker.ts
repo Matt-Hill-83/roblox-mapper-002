@@ -32,7 +32,6 @@ export function makeHexStack(config: IHexStackMakerConfig): Model {
     parent,
   } = config;
 
-  print(`⬢ Generating hex stack with ${count} hexagons...`);
 
   const colorPalette = colors.size() > 0 ? colors : DEFAULT_COLOR_PALETTE;
   const hexagons: Model[] = [];
@@ -41,7 +40,6 @@ export function makeHexStack(config: IHexStackMakerConfig): Model {
   const stackModel = new Instance("Model");
   const stackName = generateStackName(stackIndex);
   stackModel.Name = stackName;
-  print(`Created stack with name: ${stackName}`);
 
   // Create stacked hexagons
   for (let level = 0; level < count; level++) {

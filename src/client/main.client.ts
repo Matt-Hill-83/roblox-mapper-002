@@ -55,4 +55,3 @@ nodeInspector.initialize();
 const dropdownGuiService = new DropdownGuiService();
 dropdownGuiService.initialize();
 
-print("🎮 Client initialized with Configuration GUI, Animation Test GUI, Keyboard Shortcuts, Node Properties Inspector, and Dropdown GUI");

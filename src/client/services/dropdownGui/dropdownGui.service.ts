@@ -15,7 +15,6 @@ export class DropdownGuiService extends BaseService {
   }
 
   public initialize(): void {
-    print("[DropdownGuiService] Initializing...");
     this.createGUI();
   }
 
@@ -46,7 +45,6 @@ export class DropdownGuiService extends BaseService {
     this.optionsFrame.Visible = false;
     this.optionsFrame.Parent = this.mainFrame;
 
-    print("[DropdownGuiService] GUI created successfully");
   }
 
   private createMainFrame(): Frame {
@@ -174,7 +172,6 @@ export class DropdownGuiService extends BaseService {
     this.isDropdownOpen = !this.isDropdownOpen;
     this.optionsFrame.Visible = this.isDropdownOpen;
     
-    print(`[DropdownGuiService] Dropdown ${this.isDropdownOpen ? "opened" : "closed"}`);
   }
 
   private selectOption(option: string): void {
@@ -185,8 +182,6 @@ export class DropdownGuiService extends BaseService {
       this.dropdownButton.Text = this.currentSelection + " ▼";
     }
 
-    // Print to console
-    print(`[DropdownGuiService] Selected option: ${option}`);
 
     // Hide dropdown
     this.isDropdownOpen = false;
@@ -201,6 +196,5 @@ export class DropdownGuiService extends BaseService {
       this.gui = undefined;
     }
     
-    print("[DropdownGuiService] Destroyed");
   }
 }

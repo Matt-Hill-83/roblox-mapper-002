@@ -22,7 +22,6 @@ export class DataGenerator implements IDataGenerator {
 
     // Log pet types configuration
     const numPetTypes = config.numPetTypes || 5;
-    print(`🐾 Generating data with ${numPetTypes} pet types (from ${PET_TYPES.size()} available)`);
 
     // Generate nodes for each layer
     config.layers.forEach((layer) => {
@@ -331,8 +330,6 @@ export class DataGenerator implements IDataGenerator {
     });
     
     if (isolatedNodes.size() > 0) {
-      print(`⚠️ Found ${isolatedNodes.size()} isolated nodes, creating fallback connections`);
-      
       // Create fallback connections
       isolatedNodes.forEach(isolatedNode => {
         // Find a suitable connection target
@@ -346,7 +343,6 @@ export class DataGenerator implements IDataGenerator {
             color: [0.5, 0.5, 0.5] // Gray color for fallback links
           };
           links.push(fallbackLink);
-          print(`🔗 Created fallback connection: ${isolatedNode.name} -> ${targetNode.name}`);
         }
       });
     }

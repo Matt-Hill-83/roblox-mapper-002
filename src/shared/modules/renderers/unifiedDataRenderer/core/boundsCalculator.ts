@@ -150,10 +150,5 @@ export class BoundsCalculator {
    * Log bounds information
    */
   private logBounds(bounds: Bounds, nodeCount: number): void {
-    print(`🔍 Bounds calculated:`);
-    print(`   - X: [${bounds.minX}, ${bounds.maxX}]`);
-    print(`   - Y: [${bounds.minY}]`);
-    print(`   - Z: [${bounds.minZ}, ${bounds.maxZ}]`);
-    print(`   - Total nodes: ${nodeCount}`);
   }
 }

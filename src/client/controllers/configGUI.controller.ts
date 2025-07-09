@@ -26,7 +26,6 @@ export class ConfigGUIController extends BaseService {
     this.setupEventListeners();
 
     // Wait for initial config from server before creating GUI
-    print("🕰️ Waiting for initial configuration from server...");
     // The GUI will be created when we receive the initial config
   }
 
@@ -38,21 +37,15 @@ export class ConfigGUIController extends BaseService {
 
     const eventConnection = this.remoteEvent.OnClientEvent.Connect(
       (eventType: string, data?: unknown) => {
-        print(`🔔 Client received event: ${eventType}`);
         
         if (eventType === "initialConfig" && typeIs(data, "table")) {
           // Check if it's an enhanced config (has layers property)
           const configData = data as { layers?: unknown };
           if (configData.layers) {
             const enhancedConfig = data as EnhancedGeneratorConfig;
-            print(`📄 Received enhanced config with ${enhancedConfig.layers.size()} layers`);
             
             if (!this.guiService) {
               // First time receiving config - create GUI with initial values
-              print("🎆 Creating GUI with server configuration");
-              print(`   - Node types: ${enhancedConfig.numNodeTypes}`);
-              print(`   - Link types: ${enhancedConfig.numLinkTypes}`);
-              print(`   - Layers: ${enhancedConfig.layers.size()}`);
               
               this.guiService = new ConfigGUIService({
                 onEnhancedConfigChange: (config) =>
@@ -70,16 +63,13 @@ export class ConfigGUIController extends BaseService {
             // Simple mode no longer supported
           }
         } else if (eventType === "regenerateSuccess") {
-          print("✅ Regeneration successful!");
         } else if (eventType === "regenerateError") {
           warn("❌ Regeneration failed:", data);
         } else if (eventType === "updateSuccess") {
-          print("✅ Update successful!");
         } else if (eventType === "updateError") {
           warn("❌ Update failed:", data);
         } else if (eventType === "triggerGeneration" && typeIs(data, "table")) {
           // Automatic generation triggered by server
-          print("🚀 Auto-generating graph from server trigger...");
           const enhancedConfig = data as EnhancedGeneratorConfig;
           if (this.guiService) {
             // Update the GUI with the config
@@ -104,7 +94,6 @@ export class ConfigGUIController extends BaseService {
       const validationResult = validateEnhancedGeneratorConfig(config);
       
       if (validationResult.isValid && validationResult.sanitizedConfig) {
-        print("📤 Sending enhanced regenerate request to server...");
         this.remoteEvent.FireServer("regenerateEnhanced", validationResult.sanitizedConfig);
       } else {
         // Show validation errors in GUI
@@ -123,7 +112,6 @@ export class ConfigGUIController extends BaseService {
    */
   private onClearRequest(): void {
     if (this.remoteEvent) {
-      print("🗑️ Sending clear request to server...");
       this.remoteEvent.FireServer("clearGraph");
     }
   }
@@ -137,7 +125,6 @@ export class ConfigGUIController extends BaseService {
       const validationResult = validateEnhancedGeneratorConfig(config);
       
       if (validationResult.isValid && validationResult.sanitizedConfig) {
-        print("🔄 Sending update request to server...");
         this.remoteEvent.FireServer("updateEnhanced", validationResult.sanitizedConfig);
       } else {
         // Show validation errors in GUI
@@ -160,6 +147,5 @@ export class ConfigGUIController extends BaseService {
       this.guiService = undefined;
     }
     
-    print("[ConfigGUIController] Cleaned up");
   }
 }

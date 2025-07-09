@@ -58,7 +58,6 @@ export class NodeRenderer implements INodeRenderer {
       });
     }
     
-    print(`📊 Created ${nodeToHexagon.size()} hexagons and ${cluster.relations.size()} connections`);
   }
 
   /**

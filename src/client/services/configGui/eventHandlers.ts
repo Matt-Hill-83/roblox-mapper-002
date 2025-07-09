@@ -185,62 +185,12 @@ export class GUIEventHandlers {
   public handleExportConfigClick(): void {
     const config = this.stateManager.getEnhancedConfig();
     
-    // Clear console output
-    print("\n\n========================================");
-    print("CONFIGURATION EXPORT");
-    print(`Timestamp: ${os.date("%Y-%m-%d %H:%M:%S")}`);
-    print("========================================\n");
-    
-    // Export Global Settings
-    print("GLOBAL SETTINGS:");
-    print("  Spacing:");
-    if (config.spacing) {
-      print(`    Node Height: ${config.spacing.nodeHeight}`);
-      print(`    Node Radius: ${config.spacing.nodeRadius}`);
-      print(`    Layer Spacing: ${config.spacing.layerSpacing}`);
-      print(`    Node Spacing: ${config.spacing.nodeSpacing}`);
-      print(`    Swimlane Spacing: ${config.spacing.swimlaneSpacing}`);
-      print(`    Link Diameter: ${config.spacing.linkDiameter}`);
-      print(`    Origin Y Offset: ${config.spacing.originYOffset || 0}`);
-    }
-    
-    // Export Node and Link Types
-    print("\nTYPE CONFIGURATION:");
-    print(`  Node Types: ${config.numNodeTypes}`);
-    print(`  Link Types: ${config.numLinkTypes}`);
-    
-    // Export Visualization Options
-    print("\nVISUALIZATION OPTIONS:");
-    if (config.visualization) {
-      print(`  Show Link Labels: ${config.visualization.showLinkLabels}`);
-      print(`  Show Connectors: ${config.visualization.showConnectors}`);
-      print(`  Allow Same-Level Links: ${config.visualization.allowSameLevelLinks}`);
-      print(`  Random Z Offset: ${config.visualization.randomZOffset}`);
-      print(`  Z Offset Amount: ${config.visualization.zOffsetAmount || 20}`);
-    }
-    
-    // Export Layer Configuration
-    print("\nLAYER CONFIGURATION:");
-    print(`  Total Layers: ${config.layers.size()}`);
-    config.layers.forEach((layer, index) => {
-      print(`\n  Layer ${index + 1}:`);
-      print(`    Number of Nodes: ${layer.numNodes}`);
-      print(`    Connections per Node: ${layer.connectionsPerNode}`);
-      print(`    Node Type: ${layer.nodeType || "Auto"}`);
-      print(`    Link Type: ${layer.linkType || "Auto"}`);
-    });
+    // Export configuration data
+    const config = this.stateManager.getEnhancedConfig();
     
     // Summary statistics
     const totalNodes = config.layers.reduce((sum, layer) => sum + layer.numNodes, 0);
     const totalConnections = config.layers.reduce((sum, layer) => sum + (layer.numNodes * layer.connectionsPerNode), 0);
-    
-    print("\nSUMMARY:");
-    print(`  Total Nodes: ${totalNodes}`);
-    print(`  Estimated Total Connections: ${totalConnections}`);
-    
-    print("\n========================================");
-    print("END OF CONFIGURATION EXPORT");
-    print("========================================\n");
     
     this.updateStatusMessage("Configuration exported to console");
   }

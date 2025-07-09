@@ -61,7 +61,6 @@ export class UpdateManager implements IUpdateManager {
       linkDiameter: newConfig.spacing?.linkDiameter
     });
     
-    print(`📊 Updated ${allNodes.size()} nodes and ${allLinks.size()} connections`);
   }
 
   /**

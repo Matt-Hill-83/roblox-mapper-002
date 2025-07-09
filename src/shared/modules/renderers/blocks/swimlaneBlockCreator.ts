@@ -45,10 +45,6 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
     // Add surface labels to all faces
     this.addSurfaceLabelsToAllFaces(swimLaneBlock, typeName);
 
-    this.debug(`Created swimlane shadow block for ${typeName}:`);
-    this.debug(`   - Position: (${position.X}, ${position.Y}, ${position.Z})`);
-    this.debug(`   - Size: ${width} x ${height} x ${depth} (W x H x D)`);
-    this.debug(`   - Color: (${color.R}, ${color.G}, ${color.B})`);
 
     return swimLaneBlock;
   }
@@ -88,7 +84,6 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
       colorIndex++;
     });
 
-    this.debug(`Created ${swimLaneBlocks.size()} swimlane blocks`);
     return swimLaneBlocks;
   }
 

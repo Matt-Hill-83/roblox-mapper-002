@@ -52,7 +52,6 @@ export class PropertyValueResolver {
    */
   public registerExtractor(propertyName: string, extractor: PropertyExtractor): void {
     this.propertyExtractors.set(propertyName, extractor);
-    print(`[PropertyValueResolver] Registered extractor for property: ${propertyName}`);
   }
   
   /**

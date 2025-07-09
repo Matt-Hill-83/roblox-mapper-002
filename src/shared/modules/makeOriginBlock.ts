@@ -86,7 +86,6 @@ export function makeOriginBlock({
     parent: orientationFolder,
   });
 
-  print("🧭 Created orientation reference block");
   
   return block;
 }

@@ -83,10 +83,4 @@ export abstract class BaseBlockCreator {
     return colors[index % colors.size()];
   }
   
-  /**
-   * Print debug information
-   */
-  protected debug(message: string, ...args: unknown[]): void {
-    print(`[BaseBlockCreator] ${message}`, ...args);
-  }
 }

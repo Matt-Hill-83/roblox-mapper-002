@@ -29,7 +29,6 @@ export class AnimationTestGUIController {
    * Initializes the animation test GUI
    */
   public initialize(): void {
-    print("🎮 Initializing Animation Test GUI...");
     
     // Wait for remote event
     const remoteEvent = ReplicatedStorage.WaitForChild("AnimationTestRemote", 5) as RemoteEvent | undefined;
@@ -118,7 +117,6 @@ export class AnimationTestGUIController {
     // Parent to PlayerGui
     this.gui.Parent = playerGui;
     
-    print("✅ Animation Test GUI created");
   }
 
   /**

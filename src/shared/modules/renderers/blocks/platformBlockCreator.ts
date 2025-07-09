@@ -44,11 +44,6 @@ export class PlatformBlockCreator extends BaseBlockCreator {
     platformBlock.CastShadow = false;
     platformBlock.Parent = parent;
 
-    this.debug(`Created platform block:`);
-    this.debug(`   - Position: (${platformBlock.Position.X}, ${platformBlock.Position.Y}, ${platformBlock.Position.Z})`);
-    this.debug(`   - Size: ${size} x ${height} x ${size} (W x H x D)`);
-    this.debug(`   - Transparency: ${platformBlock.Transparency}`);
-    this.debug(`   - Color: (${platformBlock.Color.R}, ${platformBlock.Color.G}, ${platformBlock.Color.B})`);
 
     return platformBlock;
   }
@@ -66,6 +61,5 @@ export class PlatformBlockCreator extends BaseBlockCreator {
     texture.StudsPerTileV = 10;
     texture.Parent = platformBlock;
 
-    this.debug(`Added texture to platform block: ${textureId}`);
   }
 }

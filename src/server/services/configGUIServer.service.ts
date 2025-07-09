@@ -47,7 +47,6 @@ export class ConfigGUIServerService extends BaseService {
       
       // We only handle enhanced mode now with the unified renderer
       if (eventType === "regenerateEnhanced" && typeIs(data, "table")) {
-        print(`📡 Received enhanced regenerate request from ${player.Name}`);
         
         // Use comprehensive validation
         const validationResult = validateEnhancedGeneratorConfig(data);
@@ -69,26 +68,22 @@ export class ConfigGUIServerService extends BaseService {
           this.remoteEvent.FireClient(player, "regenerateError", errorMessage);
         }
       } else if (eventType === "clearGraph") {
-        print(`🗑️ Received clear graph request from ${player.Name}`);
         
         // Delete the GraphMaker folder
         const graphMakerFolder = this.projectRootFolder.FindFirstChild("GraphMaker");
         if (graphMakerFolder) {
           graphMakerFolder.Destroy();
-          print("✅ GraphMaker folder deleted");
         }
         
         // Delete the flat block foundation
         const flatBlock = this.projectRootFolder.FindFirstChild("FlatBlockFoundation");
         if (flatBlock) {
           flatBlock.Destroy();
-          print("✅ Flat block foundation deleted");
         }
         
         // Send success response
         this.remoteEvent.FireClient(player, "clearSuccess");
       } else if (eventType === "updateEnhanced" && typeIs(data, "table")) {
-        print(`🔄 Received update request from ${player.Name}`);
         
         // Use comprehensive validation
         const validationResult = validateEnhancedGeneratorConfig(data);
@@ -129,6 +124,5 @@ export class ConfigGUIServerService extends BaseService {
       }
     }
     
-    print("[ConfigGUIServerService] Cleaned up");
   }
 }

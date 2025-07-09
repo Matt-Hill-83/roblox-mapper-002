@@ -153,11 +153,8 @@ export function createLayerGrid({
   addButton.MouseButton1Click.Connect(addLayer);
 
   // Add initial layers from config or default to 3 empty layers
-  print(`🔍 LayerGrid: initialLayers = ${initialLayers ? tostring(initialLayers.size()) : "undefined"}`);
   if (initialLayers && initialLayers.size() > 0) {
-    print(`✅ Creating ${initialLayers.size()} layers from initial config`);
     initialLayers.forEach((layerConfig) => {
-      print(`  - Layer ${layerConfig.layerNumber}: ${layerConfig.numNodes} nodes, ${layerConfig.connectionsPerNode} connections`);
       const row = createLayerRow({
         parent: scrollFrame,
         config: layerConfig,
@@ -189,7 +186,6 @@ export function createLayerGrid({
     });
     updateCanvasSize();
   } else {
-    print("❌ No initial layers provided, creating 3 empty layers");
     // Default to 3 empty layers
     for (let i = 0; i < 3; i++) {
       addLayer();

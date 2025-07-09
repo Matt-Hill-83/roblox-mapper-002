@@ -46,20 +46,17 @@ export class UnifiedDataRenderer {
    * Main entry point - renders data based on enhanced configuration
    */
   public renderEnhancedData(parentFolder: Folder, config: EnhancedGeneratorConfig, origin?: Vector3): void {
-    print("🎯 Unified renderer: Starting enhanced data generation...");
     
     // Delete any existing platform and shadow blocks
     const existingPlatform = parentFolder.FindFirstChild("PlatformBlock");
     if (existingPlatform) {
       existingPlatform.Destroy();
-      print("🗑️ Deleted existing platform block");
     }
     
     // Also check for legacy flat block
     const existingBlock = parentFolder.FindFirstChild("FlatBlockFoundation");
     if (existingBlock) {
       existingBlock.Destroy();
-      print("🗑️ Deleted existing flat block foundation");
     }
     
     // Generate the cluster data
@@ -81,7 +78,6 @@ export class UnifiedDataRenderer {
       cluster.groups[0].nodes.forEach(node => {
         node.position.z += petLaneOffset;
       });
-      print(`🎯 Applied pet lane centering offset: ${petLaneOffset} to all nodes`);
     }
     
     // Get bounds after positioning
@@ -141,7 +137,6 @@ export class UnifiedDataRenderer {
     // Swimlane labels disabled per T17
     // Labels are now provided by endcaps on the swimlanes
     
-    print(`✅ Unified renderer: Complete! Created ${cluster.groups[0].nodes.size()} nodes with swim lanes`);
     
     // Store current configuration for update comparison
     this.currentConfig = config;
@@ -151,12 +146,10 @@ export class UnifiedDataRenderer {
    * Updates existing data incrementally based on configuration changes
    */
   public updateEnhancedData(parentFolder: Folder, config: EnhancedGeneratorConfig, origin?: Vector3): void {
-    print("🔄 Unified renderer: Starting incremental update...");
     
     // Find GraphMaker folder
     const graphMakerFolder = parentFolder.FindFirstChild("GraphMaker");
     if (!graphMakerFolder || !this.currentConfig) {
-      print("⚠️ No existing graph found, performing full render");
       this.renderEnhancedData(parentFolder, config, origin);
       return;
     }
@@ -164,7 +157,6 @@ export class UnifiedDataRenderer {
     // Find nodes and links folders
     const clusterFolder = graphMakerFolder.FindFirstChild("UnifiedDataCluster");
     if (!clusterFolder) {
-      print("⚠️ No cluster folder found, performing full render");
       this.renderEnhancedData(parentFolder, config, origin);
       return;
     }
@@ -173,7 +165,6 @@ export class UnifiedDataRenderer {
     const linksFolder = clusterFolder.FindFirstChild("Links") as Folder;
     
     if (!nodesFolder || !linksFolder) {
-      print("⚠️ Missing folders, performing full render");
       this.renderEnhancedData(parentFolder, config, origin);
       return;
     }
@@ -184,7 +175,6 @@ export class UnifiedDataRenderer {
     // Update stored configuration
     this.currentConfig = config;
     
-    print("✅ Incremental update complete!");
   }
 
   /**
@@ -278,7 +268,6 @@ export class UnifiedDataRenderer {
       swimlaneIndex++;
     });
     
-    print(`✅ Created ${nodesByType.size()} swimlane blocks`);
     return swimlaneBlocks;
   }
   

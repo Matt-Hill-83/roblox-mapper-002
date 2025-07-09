@@ -115,17 +115,7 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   // Parent shadow block to platform block
   shadowBlock.Parent = platformBlock;
   
-  print(`🟩 Created platform block:`);
-  print(`   - Position: (${platformBlock.Position.X}, ${platformBlock.Position.Y}, ${platformBlock.Position.Z})`);
-  print(`   - Size: 100 x ${BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS} x 100 (W x H x D)`);
-  print(`   - Transparency: ${platformBlock.Transparency}`);
-  print(`   - Color: (${platformBlock.Color.R}, ${platformBlock.Color.G}, ${platformBlock.Color.B})`);
   
-  print(`🟦 Created shadow block:`);
-  print(`   - Position: (${shadowBlock.Position.X}, ${shadowBlock.Position.Y}, ${shadowBlock.Position.Z})`);
-  print(`   - Size: ${width + 2} x ${BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS} x ${depth + 2} (W x H x D)`);
-  print(`   - Parent: ${shadowBlock.Parent?.Name}`);
-  print(`   - Centered at origin.X = ${origin.X}`);
   
   return { platform: platformBlock, shadow: shadowBlock };
 }
@@ -177,10 +167,6 @@ export function createFlatBlock(config: FlatBlockConfig): Part {
   // Parent the block
   block.Parent = parent;
   
-  print(`🟦 Created flat block foundation:`);
-  print(`   - Position: (${block.Position.X}, ${block.Position.Y}, ${block.Position.Z})`);
-  print(`   - Size: ${width} x ${height} x ${depth} (W x H x D)`);
-  print(`   - Origin was: (${origin.X}, ${origin.Y}, ${origin.Z})`);
   
   return block;
 }
@@ -206,11 +192,6 @@ export function calculateBlockDimensions(
   const finalWidth = math.max(width, minSize);
   const finalDepth = math.max(depth, minSize);
   
-  print(`📏 Calculating block dimensions:`);
-  print(`   - Node bounds: X[${nodeBounds.minX}, ${nodeBounds.maxX}] Z[${nodeBounds.minZ}, ${nodeBounds.maxZ}]`);
-  print(`   - Node size: ${nodeWidth} x ${nodeDepth} (W x D)`);
-  print(`   - With padding: ${width} x ${depth}`);
-  print(`   - Final size: ${finalWidth} x ${finalDepth}`);
   
   return {
     width: finalWidth,
@@ -274,16 +255,10 @@ export function createZAxisShadowBlocks(
       blocksMap.set(propertyValue, block);
     }
     
-    print(`🟦 Created Z-axis shadow block for ${propertyValue}:`);
-    print(`   - Position: (${centerX}, ${yPosition}, ${centerZ})`);
-    print(`   - Size: ${blockWidth} x 2 x ${blockDepth}`);
-    print(`   - Using origin.X: ${origin?.X || 0} for alignment`);
     
     blockIndex++;
   });
   
-  print(`✅ Created ${nodesByProperty.size()} Z-axis shadow blocks`);
-  print(`   - All blocks centered at X=${origin?.X || 0} to align with group shadow block`);
 }
 
 /**
@@ -319,10 +294,6 @@ export function createSwimLaneBlock(config: SwimLaneBlockConfig): Part {
   // Parent to shadow block
   swimLaneBlock.Parent = parent;
   
-  print(`🏊 Created swimlane shadow block for ${typeName}:`);
-  print(`   - Position: (${position.X}, ${position.Y}, ${position.Z})`);
-  print(`   - Size: ${width} x ${height} x ${depth} (W x H x D)`);
-  print(`   - Color: (${color.R}, ${color.G}, ${color.B})`);
   
   return swimLaneBlock;
 }

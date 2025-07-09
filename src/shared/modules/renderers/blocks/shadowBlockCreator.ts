@@ -53,11 +53,6 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     shadowBlock.CastShadow = false;
     shadowBlock.Parent = parent;
 
-    this.debug(`Created shadow block:`);
-    this.debug(`   - Position: (${shadowBlock.Position.X}, ${shadowBlock.Position.Y}, ${shadowBlock.Position.Z})`);
-    this.debug(`   - Size: ${width + buffer} x ${BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS} x ${depth + buffer} (W x H x D)`);
-    this.debug(`   - Actual Y Height: ${shadowBlock.Size.Y}`);
-    this.debug(`   - Parent: ${shadowBlock.Parent?.Name}`);
 
     return shadowBlock;
   }
@@ -116,7 +111,6 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       blockIndex++;
     });
     
-    this.debug(`Created ${nodesByProperty.size()} Z-axis shadow blocks (centered at Z=0)`);
   }
 
   /**
@@ -155,9 +149,6 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     // DISABLED: Removing labels from swimlane shadow blocks per T17
     // this.addSurfaceLabelsToAllFaces(block, propertyValue);
 
-    this.debug(`Created Z-axis shadow block for ${propertyValue}:`);
-    this.debug(`   - Position: (0, ${yPosition}, ${adjustedZPosition})`);
-    this.debug(`   - Size: ${dimensions.size.X} x ${BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS} x ${dimensions.size.Z}`);
 
     return block;
   }

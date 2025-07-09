@@ -161,7 +161,6 @@ export abstract class BaseService implements IService {
     // Mark as destroyed
     this.isDestroyed = true;
     
-    print(`[${this.serviceName}] Service destroyed. Cleaned up ${this.getConnectionCount()} connections and ${this.getInstanceCount()} instances.`);
   }
 
   /**

@@ -114,7 +114,6 @@ export function createYAxisControls({
     
     // Notify parent
     onYAxisModeChange(newUseLayer);
-    print(`📈 Y-axis mode changed: Use Layer Hierarchy = ${newUseLayer}`);
   });
 
   return container;
@@ -225,7 +224,6 @@ function createYAxisDropdown({
       dropdownButton.Text = property + " ▼";
       dropdownList.Visible = false;
       onValueChange(property);
-      print(`📊 Y-axis property changed: "${property}"`);
     });
   });
 

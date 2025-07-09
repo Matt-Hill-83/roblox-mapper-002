@@ -34,7 +34,6 @@ export class ColorsTestService {
    * Runs the color test
    */
   public runTest(parentFolder: Folder): void {
-    print("🎨 Starting Colors Test...");
     
     // Cleanup any previous test
     this.cleanup();
@@ -47,7 +46,6 @@ export class ColorsTestService {
     // Create blocks for each color
     this.createColorBlocks();
     
-    print(`✅ Created ${this.blocks.size()} color test blocks`);
   }
 
   /**
@@ -70,7 +68,6 @@ export class ColorsTestService {
         const block = this.createBlock(brickColor, position, colorData.name);
         this.blocks.push(block);
         
-        print(`✅ Created block: ${colorData.name} (BrickColor ${colorData.number})`);
       } else {
         warn(`❌ Failed to create BrickColor: ${colorData.name} (${colorData.number})`);
       }
