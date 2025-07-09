@@ -1,8 +1,7 @@
 |----------------------------------------------------------------------|
 Summary:
-Create a plan to produce a full audit of code quality and best practices for all code in:
-/Users/__projects/roblox-mapper-002-multi/cursor/src
-|----------------------------------------------------------------------|
+Create a plan to review how colors are used through the roblox part of the codebase and provide reccommendatinos for improvement.
+/Users/__projects/roblox-mapper-002-multi/vscode/_webapp/src|----------------------------------------------------------------------|
 Features:
 
 output will be a report with:
