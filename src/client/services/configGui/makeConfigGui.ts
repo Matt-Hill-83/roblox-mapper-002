@@ -79,13 +79,13 @@ export class ConfigGUIService {
       position: new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH + 20, 0, 10) // Position to the right
     });
 
-    // Create advanced controls below visualization controls
-    const advancedFrameSize = new UDim2(0, 300, 0, 480); // Increased height for dropdown test
+    // Create advanced controls in upper right (twice as tall)
+    const advancedFrameSize = new UDim2(0, 300, 0, 960); // Doubled height
     const advancedCollapsibleFrame = createCollapsibleFrame({
       parent: gui,
       size: advancedFrameSize,
       title: "Advanced Controls",
-      position: new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH + 20, 0, 220) // Below viz controls
+      position: new UDim2(1, -310, 0, 10) // Upper right corner
     });
     
     // Default advanced controls to open
@@ -228,7 +228,7 @@ export class ConfigGUIService {
       // Create dropdown test controls
       const dropdownTestControls = createDropdownTestControls({
         parent: advancedContentFrame,
-        onTestOptionChange: (value) => {
+        onTestOptionChange: (_value) => {
           // Could trigger specific test behaviors based on the selected option
           // Status updates should be done through the statusLabel, not stateManager
         }
