@@ -169,7 +169,8 @@ export class EndcapBlockCreator extends BaseBlockCreator {
       frame.Size = new UDim2(1, 0, 1, 0);
       frame.BackgroundColor3 = new Color3(0.1, 0.1, 0.1);
       frame.BackgroundTransparency = 1; // Fully transparent background
-      frame.BorderSizePixel = 0;
+      frame.BorderSizePixel = 5;
+      frame.BorderColor3 = new Color3(0, 0, 0); // Black border
       frame.Parent = surfaceGui;
 
       // Create TextLabel
@@ -181,7 +182,7 @@ export class EndcapBlockCreator extends BaseBlockCreator {
       textLabel.Text = text;
       textLabel.TextColor3 = new Color3(0, 0, 0); // Black text
       textLabel.TextScaled = false;
-      textLabel.TextSize = 24; // Fixed text size for consistency
+      textLabel.TextSize = 36; // Increased by 50% from 24
       
       // Rotate text on top face for X-axis swimlanes (person endcaps)
       if (face === Enum.NormalId.Top && !isZAxis) {
