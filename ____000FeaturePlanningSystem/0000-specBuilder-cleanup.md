@@ -1,7 +1,7 @@
 |----------------------------------------------------------------------|
 Summary:
-Create a plan to refactor this file and break it into smaller files
-client/services/configGui/components/axisMappingControls.ts
+Create a plan to produce a full audit of code quality and best practices for all code in:
+/Users/__projects/roblox-mapper-002-multi/cursor/src
 |----------------------------------------------------------------------|
 Features:
 
