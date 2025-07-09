@@ -31,6 +31,7 @@ export class ConfigGUIService {
   private eventHandlers: GUIEventHandlers;
 
   constructor(options: ConfigGUIServiceOptions) {
+    print("[ConfigGUIService] Constructor called");
     
     // Initialize state manager
     this.stateManager = new GUIStateManager(options.initialConfig);
@@ -48,14 +49,23 @@ export class ConfigGUIService {
    * Creates and displays the configuration GUI
    */
   public createGUI(): void {
+    print("[ConfigGUIService] createGUI() called");
     const player = Players.LocalPlayer;
     const playerGui = player.WaitForChild("PlayerGui") as PlayerGui;
+
+    // Check if GUI already exists
+    const existingGui = playerGui.FindFirstChild(GUI_CONSTANTS.NAMES.SCREEN_GUI);
+    if (existingGui) {
+      print(`[ConfigGUIService] WARNING: Found existing GUI named ${GUI_CONSTANTS.NAMES.SCREEN_GUI}, destroying it first`);
+      existingGui.Destroy();
+    }
 
     // Create ScreenGui
     const gui = new Instance("ScreenGui");
     gui.Name = GUI_CONSTANTS.NAMES.SCREEN_GUI;
     gui.ResetOnSpawn = false;
     gui.Parent = playerGui;
+    print(`[ConfigGUIService] Created new ScreenGui: ${gui.Name}`);
     this.stateManager.setGUI(gui);
 
     // Create collapsible main frame - full height
@@ -304,11 +314,13 @@ export class ConfigGUIService {
    * Updates the enhanced configuration
    */
   public updateEnhancedConfig(config: EnhancedGeneratorConfig): void {
+    print("[ConfigGUIService] updateEnhancedConfig called");
     this.stateManager.updateEnhancedConfig(config);
     
     // If GUI is visible, update the display
     const state = this.stateManager.getState();
     if (state.configFrame) {
+      print("[ConfigGUIService] Destroying and recreating GUI in updateEnhancedConfig");
       // Recreate the GUI to reflect new configuration
       state.configFrame.Destroy();
       this.createGUI();
