@@ -1,10 +1,16 @@
 |----------------------------------------------------------------------|
 Summary:
-In the existing roblox game, as part of the node creation process, create a large flat block under the node tree.
+Create a plan to produce a full audit of code quality and best practices for all code in:
+/Users/__projects/roblox-mapper-002-multi/cursor/src
 |----------------------------------------------------------------------|
 Features:
 
-- centered at the origin
+output will be a report with:
+-- summary
+-- table
+-- diagrams
+--- reccomendatinos
+
 
 |----------------------------------------------------------------------|
 
