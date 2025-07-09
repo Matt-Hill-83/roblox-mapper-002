@@ -20,7 +20,6 @@ import { createVisualizationControls } from "./components/visualizationControls"
 import { createAxisMappingControls } from "./components/axisMappingControls";
 import { createVisualCustomizationControls } from "./components/visualCustomizationControls";
 import { createYAxisControls } from "./components/yAxisControls";
-import { createDropdownTestControls } from "./components/dropdownTestControls";
 import { GUIStateManager } from "./stateManager";
 import { GUIEventHandlers } from "./eventHandlers";
 import { ComponentFactory } from "./componentFactory";
@@ -89,8 +88,8 @@ export class ConfigGUIService {
       position: new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH + 20, 0, 10) // Position to the right
     });
 
-    // Create advanced controls in upper right (twice as tall)
-    const advancedFrameSize = new UDim2(0, 300, 0, 960); // Doubled height
+    // Create advanced controls in upper right
+    const advancedFrameSize = new UDim2(0, 300, 0, 380); // Height for 3 controls without dropdown test
     const advancedCollapsibleFrame = createCollapsibleFrame({
       parent: gui,
       size: advancedFrameSize,
@@ -233,18 +232,6 @@ export class ConfigGUIService {
       });
       yAxisControls.Position = new UDim2(0, 10, 0, yPosition);
       yAxisControls.Size = new UDim2(1, -20, 0, COMPONENT_HEIGHTS.Y_AXIS_CONTROLS);
-      yPosition += COMPONENT_HEIGHTS.Y_AXIS_CONTROLS + 10;
-      
-      // Create dropdown test controls
-      const dropdownTestControls = createDropdownTestControls({
-        parent: advancedContentFrame,
-        onTestOptionChange: (_value) => {
-          // Could trigger specific test behaviors based on the selected option
-          // Status updates should be done through the statusLabel, not stateManager
-        }
-      });
-      dropdownTestControls.Position = new UDim2(0, 10, 0, yPosition);
-      dropdownTestControls.Size = new UDim2(1, -20, 0, COMPONENT_HEIGHTS.DROPDOWN_TEST_CONTROLS);
     }
 
     // Update scrolling frame canvas size
