@@ -156,7 +156,7 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
       textLabel.Size = new UDim2(1, 0, 1, 0); // Full size as requested
       textLabel.Position = new UDim2(0, 0, 0, 0);
       textLabel.BackgroundTransparency = 0; // Opaque background to show border
-      textLabel.BackgroundColor3 = new Color3(1, 1, 1); // White background
+      textLabel.BackgroundColor3 = block.Color; // Same color as the underlying block
       textLabel.BorderSizePixel = 10; // 10px border
       textLabel.BorderColor3 = new Color3(0, 0, 0); // Black border
       textLabel.BorderMode = Enum.BorderMode.Inset; // Internal border so it doesn't overflow
