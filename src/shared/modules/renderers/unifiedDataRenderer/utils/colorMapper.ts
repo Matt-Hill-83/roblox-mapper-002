@@ -5,16 +5,24 @@
 
 import { Node } from "../../../../interfaces/simpleDataGenerator.interface";
 import { VisualMapping } from "../../../../interfaces/enhancedGenerator.interface";
+import { personColors } from "../../constants/robloxColors";
+import { NODE_TYPE_NAMES } from "../constants";
+
+// Create type color mapping from personColors array
+const typeColorMapping: { [key: string]: Color3 } = {};
+NODE_TYPE_NAMES.forEach((typeName, index) => {
+  if (index < personColors.size()) {
+    typeColorMapping[typeName] = personColors[index];
+  }
+});
+// Add Animals if not in NODE_TYPE_NAMES
+if (!typeColorMapping["Animals"] && personColors.size() > NODE_TYPE_NAMES.size()) {
+  typeColorMapping["Animals"] = personColors[NODE_TYPE_NAMES.size()];
+}
 
 // Define color palettes for different properties
 const COLOR_SCHEMES = {
-  type: {
-    man: new Color3(0.2, 0.4, 0.8),      // Blue
-    woman: new Color3(0.8, 0.2, 0.8),    // Magenta
-    child: new Color3(0.2, 0.8, 0.2),    // Green
-    grandparent: new Color3(0.8, 0.8, 0.2), // Yellow
-    Animals: new Color3(0.8, 0.4, 0.2)   // Orange
-  },
+  type: typeColorMapping,
   petType: {
     Dog: new Color3(0.6, 0.4, 0.2),      // Brown
     Cat: new Color3(0.5, 0.5, 0.5),      // Gray

@@ -18,8 +18,6 @@ import { createLayerGrid } from "./components/layerGrid";
 import { createStatusArea } from "./components/status";
 import { createVisualizationControls } from "./components/visualizationControls";
 import { createAxisMappingControls } from "./components/axisMappingControls";
-import { createVisualCustomizationControls } from "./components/visualCustomizationControls";
-import { createYAxisControls } from "./components/yAxisControls";
 import { GUIStateManager } from "./stateManager";
 import { GUIEventHandlers } from "./eventHandlers";
 import { ComponentFactory } from "./componentFactory";
@@ -88,20 +86,9 @@ export class ConfigGUIService {
       position: new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH + 20, 0, 10) // Position to the right
     });
 
-    // Create advanced controls in upper right
-    const advancedFrameSize = new UDim2(0, 300, 0, 260); // Height for 2 controls (visual customization + y-axis)
-    const advancedCollapsibleFrame = createCollapsibleFrame({
-      parent: gui,
-      size: advancedFrameSize,
-      title: "Advanced Controls",
-      position: new UDim2(1, -310, 0, 10) // Upper right corner
-    });
-    
-    // Default advanced controls to open
-    advancedCollapsibleFrame.setCollapsed(false);
 
     // Create unified UI in the content frames
-    this.createUnifiedUI(collapsibleFrame.contentFrame, vizCollapsibleFrame.contentFrame, advancedCollapsibleFrame.contentFrame);
+    this.createUnifiedUI(collapsibleFrame.contentFrame, vizCollapsibleFrame.contentFrame);
 
     this.stateManager.setVisible(true);
   }
@@ -109,7 +96,7 @@ export class ConfigGUIService {
   /**
    * Creates the unified UI
    */
-  private createUnifiedUI(contentFrame?: Frame, vizContentFrame?: Frame, advancedContentFrame?: Frame): void {
+  private createUnifiedUI(contentFrame?: Frame, vizContentFrame?: Frame): void {
     const state = this.stateManager.getState();
     const parentFrame = contentFrame || state.configFrame;
     if (!parentFrame) return;
@@ -182,54 +169,34 @@ export class ConfigGUIService {
       visualizationControls.Size = new UDim2(1, -20, 1, -20);
     }
 
-    // Move advanced controls to separate frame
-    if (advancedContentFrame) {
-      let yPosition = 10;
-      
-      // Create axis mapping dropdowns as separate GUIs
-      createAxisMappingControls({
-        parent: advancedContentFrame, // Not actually used since dropdowns are separate GUIs
-        axisMapping: config.axisMapping,
-        onAxisMappingChange: (axis, value) => {
-          this.stateManager.updateAxisMapping(axis, value);
-          // Trigger re-render with new axis mapping
-          this.eventHandlers.handleRegenerateClick();
-        }
-      });
-      
-      // Create visual customization controls
-      const visualCustomization = createVisualCustomizationControls({
-        parent: advancedContentFrame,
-        visualMapping: config.visualMapping,
-        onVisualMappingChange: (mapping, value) => {
-          this.stateManager.updateVisualMapping(mapping, value);
-          // Trigger re-render with new visual mapping
-          this.eventHandlers.handleRegenerateClick();
-        }
-      });
-      visualCustomization.Position = new UDim2(0, 10, 0, yPosition);
-      visualCustomization.Size = new UDim2(1, -20, 0, COMPONENT_HEIGHTS.VISUAL_CUSTOMIZATION);
-      yPosition += COMPONENT_HEIGHTS.VISUAL_CUSTOMIZATION + 10;
-      
-      // Create Y-axis controls
-      const yAxisControls = createYAxisControls({
-        parent: advancedContentFrame,
-        useLayerForYAxis: config.yAxisConfig?.useLayer !== false, // Default to true
-        yAxisProperty: config.yAxisConfig?.property,
-        onYAxisModeChange: (useLayer) => {
-          this.stateManager.updateYAxisConfig({ useLayer });
-          // Trigger re-render with new Y-axis mode
-          this.eventHandlers.handleRegenerateClick();
-        },
-        onYAxisPropertyChange: (property) => {
-          this.stateManager.updateYAxisConfig({ useLayer: false, property });
-          // Trigger re-render with new Y-axis property
-          this.eventHandlers.handleRegenerateClick();
-        }
-      });
-      yAxisControls.Position = new UDim2(0, 10, 0, yPosition);
-      yAxisControls.Size = new UDim2(1, -20, 0, COMPONENT_HEIGHTS.Y_AXIS_CONTROLS);
-    }
+    // Create axis mapping dropdowns as separate GUIs
+    createAxisMappingControls({
+      parent: parentFrame, // Not actually used since dropdowns are separate GUIs
+      axisMapping: config.axisMapping,
+      visualMapping: config.visualMapping,
+      useLayerForYAxis: config.yAxisConfig?.useLayer !== false, // Default to true
+      yAxisProperty: config.yAxisConfig?.property,
+      onAxisMappingChange: (axis, value) => {
+        this.stateManager.updateAxisMapping(axis, value);
+        // Trigger re-render with new axis mapping
+        this.eventHandlers.handleRegenerateClick();
+      },
+      onVisualMappingChange: (mapping, value) => {
+        this.stateManager.updateVisualMapping(mapping, value);
+        // Trigger re-render with new visual mapping
+        this.eventHandlers.handleRegenerateClick();
+      },
+      onYAxisModeChange: (useLayer) => {
+        this.stateManager.updateYAxisConfig({ useLayer });
+        // Trigger re-render with new Y-axis mode
+        this.eventHandlers.handleRegenerateClick();
+      },
+      onYAxisPropertyChange: (property) => {
+        this.stateManager.updateYAxisConfig({ useLayer: false, property });
+        // Trigger re-render with new Y-axis property
+        this.eventHandlers.handleRegenerateClick();
+      }
+    });
 
     // Update scrolling frame canvas size
     layoutManager.updateCanvasSize(scrollFrame);

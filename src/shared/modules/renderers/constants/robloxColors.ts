@@ -1,0 +1,61 @@
+export const robloxColors: Color3[] = [
+  new Color3(0.8, 0.2, 0.2), // Red
+  new Color3(0.2, 0.8, 0.2), // Green
+  new Color3(0.2, 0.2, 0.8), // Blue
+  new Color3(0.8, 0.8, 0.2), // Yellow
+  new Color3(0.8, 0.2, 0.8), // Magenta
+  new Color3(0.2, 0.8, 0.8), // Cyan
+  new Color3(0.6, 0.3, 0.1), // Brown
+  new Color3(1, 0.5, 0), // Orange
+  new Color3(0.5, 0, 0.5), // Purple
+  new Color3(0, 0.5, 0), // Dark Green
+];
+
+export const Z_AXIS_COLORS: Color3[] = [
+  new Color3(0.3608, 0.7529, 0.3608), // Base 20 saturated 200%
+  new Color3(0.3608, 0.5333, 1.0), // Base 15 saturated 200%
+  new Color3(0.948, 0.7186, 0.7422), // Base 1 saturated 150%
+  new Color3(0.6431, 0.3608, 0.6471), // Base 19 saturated 200%
+  new Color3(0.3608, 0.5333, 1.0), // Base 18 saturated 200%
+  new Color3(1.0, 0.5333, 0.3608), // Base 11 saturated 200%
+  new Color3(0.9863, 0.6804, 0.7118), // Base 1 saturated 200%
+  new Color3(0.3608, 1.0, 0.5333), // Base 9 saturated 200%
+  new Color3(1.0, 0.6549, 0.3608), // Base 14 saturated 200%
+];
+export const X_AXIS_COLORS: Color3[] = [
+  new Color3(0.6, 0.0, 0.0), // Hue 1
+  new Color3(0.6, 0.2, 0.0), // Hue 2
+  new Color3(0.6, 0.4, 0.0), // Hue 3
+  new Color3(0.6, 0.6, 0.0), // Hue 4
+  new Color3(0.4, 0.6, 0.0), // Hue 5
+  new Color3(0.2, 0.4, 0.0), // Hue 6
+  new Color3(0.0, 0.4, 0.0), // Hue 7
+  new Color3(0.0, 0.4, 0.2), // Hue 8
+  new Color3(0.0, 0.4, 0.4), // Hue 9
+  new Color3(0.0, 0.2, 0.4), // Hue 10
+  new Color3(0.0, 0.0, 0.4), // Hue 11
+  new Color3(0.2, 0.0, 0.4), // Hue 12
+  new Color3(0.4, 0.0, 0.4), // Hue 13
+  new Color3(0.6, 0.0, 0.4), // Hue 14
+  new Color3(0.8, 0.0, 0.4), // Hue 15
+  new Color3(0.8, 0.0, 0.2), // Hue 16
+  new Color3(0.8, 0.0, 0.0), // Hue 17
+  new Color3(0.8, 0.2, 0.0), // Hue 18
+  new Color3(0.8, 0.4, 0.0), // Hue 19
+  new Color3(0.8, 0.6, 0.0), // Hue 20
+];
+
+// Person type colors (used for nodes themselves, not swimlanes)
+// Colors are assigned sequentially based on NODE_TYPE_NAMES order:
+// Index 0: man (Blue)
+// Index 1: woman (Magenta)
+// Index 2: child (Green)
+// Index 3: grandparent (Yellow)
+// Index 4: Animals (Orange) - if needed
+export const personColors: Color3[] = [
+  new Color3(0.2, 0.4, 0.8),      // Blue
+  new Color3(0.8, 0.2, 0.8),      // Magenta
+  new Color3(0.2, 0.8, 0.2),      // Green
+  new Color3(0.8, 0.8, 0.2),      // Yellow
+  new Color3(0.8, 0.4, 0.2),      // Orange
+];

@@ -11,74 +11,87 @@
 
 ### ASCII Depiction of Current GUIs
 
+Based on the current implementation, there are 4 separate GUI panels:
+
+#### 1. Graph Configuration (Left side)
 ```
 ┌─────────────────────────────────────────────────────────┐
 │ Graph Configuration                               [−]    │
 ├─────────────────────────────────────────────────────────┤
 │ ┌─── Global Settings ─────────────────────────────────┐ │
-│ │ Node Height:    [1.0  ] ▼  Radius: [0.5  ] ▼       │ │
-│ │ Layer Spacing: [2.0  ] ▼  Node Spacing: [1.0  ] ▼  │ │
-│ │ Swimlane Spacing: [1.0] ▼  Link Diameter: [0.5 ] ▼ │ │
-│ │ Y Origin Offset: [0.0 ] ▼                           │ │
+│ │ Node Height:    [0.5  ] ▼  Radius: [0.5  ] ▼       │ │
+│ │ Layer Spacing: [0.5  ] ▼  Node Spacing: [1.0  ] ▼  │ │
+│ │ Swimlane Spacing: [1.0] ▼  Link Diameter: [0.1 ] ▼ │ │
 │ └─────────────────────────────────────────────────────┘ │
 │                                                          │
 │ ┌─── Node/Link Types ─────────────────────────────────┐ │
-│ │ Node Types: [3] ▼  Link Types: [2] ▼  Pet Types: [5]│ │
+│ │ Node Types: [4] ▼  Link Types: [3] ▼  Pet Types: [5]│ │
 │ └─────────────────────────────────────────────────────┘ │
 │                                                          │
 │ ┌─── Layer Configuration (Scrollable) ────────────────┐ │
 │ │ Layer │ Nodes │ Conn │ Node Type │ Link Type │ [X] │ │
-│ │   1   │  10   │  2   │   Auto    │   Auto    │     │ │
-│ │   2   │  20   │  3   │   Auto    │   Auto    │     │ │
-│ │   3   │  15   │  2   │   Auto    │   Auto    │     │ │
+│ │   1   │  4    │  0   │   Auto    │   Auto    │     │ │
+│ │   2   │  8    │  1   │   Auto    │   Auto    │     │ │
+│ │   3   │  12   │  0   │   Auto    │   Auto    │     │ │
+│ │   4   │  16   │  2   │   Auto    │   Auto    │     │ │
+│ │   5   │  20   │  0   │   Auto    │   Auto    │     │ │
 │ │ [+ Add Layer]                                        │ │
-│ └─────────────────────────────────────────────────────┘ │
-│                                                          │
-│ ┌─── Axis Mapping ────────────────────────────────────┐ │
-│ │ X Axis (Left/Right): [type        ] ▼               │ │
-│ │ Z Axis (Forward/Back): [petType   ] ▼               │ │
-│ └─────────────────────────────────────────────────────┘ │
-│                                                          │
-│ ┌─── Visual Customization ────────────────────────────┐ │
-│ │ Node Background Color: [None      ] ▼               │ │
-│ │ Node Border Color: [None          ] ▼               │ │
-│ └─────────────────────────────────────────────────────┘ │
-│                                                          │
-│ ┌─── Y-Axis Configuration ────────────────────────────┐ │
-│ │ ◉ Use Layer for Y Position                          │ │
-│ │ ○ Use Property: [Select Property  ] ▼               │ │
 │ └─────────────────────────────────────────────────────┘ │
 │                                                          │
 │ [Regenerate] [Update] [Clear] [Export]                  │
 │                                                          │
 │ Status: Ready                                            │
 └─────────────────────────────────────────────────────────┘
+```
 
+#### 2. Visualization Controls (Right side top)
+```
 ┌─────────────────────────────────────────────────────────┐
-│ Visualization Controls                            [+]    │
+│ Visualization Controls                            [−]    │
 ├─────────────────────────────────────────────────────────┤
-│ ☑ Show nodes          ☑ Show link labels               │
-│ ☑ Show connectors     ☐ Create same-layer links        │
-│ ☐ Rand Z                                                │
-│ Z Offset: [5]                                           │
-└─────────────────────────────────────────────────────────┘
+│ ☑ Show nodes          ☐ Show link labels               │
+│ ☑ Show connectors     ☑ Create same-layer links        │
+└─────────────────────────────────────────────────────┘
+```
 
+#### 3. Compact Axis Controls (Right side center)
+```
+┌─────────────────────────────────────────────────────────┐
+│ Axis Mapping                                            │
+│ x-axis: [type      ] ▼     z-axis: [petType    ] ▼     │
+│                                                          │
+│ Visual Customization                                     │
+│ background: [none  ] ▼     border: [none       ] ▼     │
+│                                                          │
+│ Y-Axis Configuration                                     │
+│ ◉ Use Layer for Y Position                              │
+│ ○ Use Property: [Select Property                ] ▼     │
+└─────────────────────────────────────────────────────────┘
+```
+
+#### 4. Node Properties Inspector (Dynamic - appears on node click)
+```
 ┌─────────────────────────────────┐
-│ Node Properties Inspector   [X] │
+│ Node Properties           [X]   │
 ├─────────────────────────────────┤
-│ Node: man 2-3                   │
+│ Node: grandpa1Node1             │
 │ ─────────────────────────────── │
-│ UUID: node_2_3                  │
-│ Type: man                       │
-│ Color: [0.2, 0.4, 0.8]         │
+│ id: grandpa1Node1               │
+│ UUID: node_1_1                  │
+│ Type: grandpa1                  │
+│ Layer: 1                        │
 │ Properties:                     │
-│   • age: 42                     │
-│   • petType: dog                │
-│   • petColor: brown             │
-│   • firstName: John             │
-│   • lastName: Smith             │
-│   • countryOfBirth: USA         │
-│   • countryOfResidence: Canada │
+│   • age: None                   │
+│   • petType: iguana             │
+│   • petColor: purple            │
+│   • firstName: Sofia            │
+│   • lastName: Garcia            │
+│   • countryOfBirth: Brazil     │
+│   • countryOfResidence: Mexico │
+│                                 │
+│ Connections:                    │
+│   • Links to 4 nodes            │
+│   • Links from 0 nodes          │
 └─────────────────────────────────┘
 ```
 
@@ -195,18 +208,32 @@ graph TB
 
 ### 2. **Component Hierarchy**
 ```
-ScreenGui
-├── ConfigFrame (Collapsible)
-│   ├── Global Settings
-│   ├── Node/Link Types
-│   ├── Layer Grid (Scrollable)
-│   ├── Axis Mapping
-│   ├── Visual Customization
-│   ├── Y-Axis Controls
-│   ├── Action Buttons
-│   └── Status Area
-└── Visualization Controls (Collapsible)
-    └── Checkboxes & Options
+PlayerGui
+├── ConfigurationGUI (ScreenGui)
+│   ├── Graph Configuration (Collapsible Frame - Left side)
+│   │   ├── Global Settings
+│   │   ├── Node/Link Types
+│   │   ├── Layer Grid (Scrollable)
+│   │   ├── Action Buttons
+│   │   └── Status Area
+│   └── Visualization Controls (Collapsible Frame - Right side top)
+│       └── Checkboxes & Options
+├── AxisDropdownGUI (ScreenGui - Right side center)
+│   └── Compact Controls Frame
+│       ├── Axis Mapping Section
+│       │   ├── X-Axis Dropdown
+│       │   └── Z-Axis Dropdown
+│       ├── Visual Customization Section
+│       │   ├── Background Color Dropdown
+│       │   └── Border Color Dropdown
+│       └── Y-Axis Configuration Section
+│           ├── Radio Buttons (Use Layer / Use Property)
+│           └── Property Dropdown
+└── NodePropertiesGUI (ScreenGui - Dynamic position)
+    └── Properties Frame
+        ├── Node Info
+        ├── Properties List
+        └── Connections Info
 ```
 
 ### 3. **State Management**
