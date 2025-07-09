@@ -3,7 +3,7 @@ export const GUI_CONSTANTS = {
   FRAME: {
     WIDTH: 200,
     HEIGHT: 150,
-    POSITION: new UDim2(1, -210, 0.5, -75), // Far right of screen (10px margin)
+    POSITION: new UDim2(0, 10, 0.5, -75), // Left middle of screen (10px margin from left)
     BACKGROUND_COLOR: new Color3(0.2, 0.2, 0.2),
     CORNER_RADIUS: new UDim(0, 8)
   },
