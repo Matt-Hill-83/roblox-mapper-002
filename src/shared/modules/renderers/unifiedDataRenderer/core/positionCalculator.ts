@@ -266,7 +266,7 @@ export class PositionCalculator implements IPositionCalculator {
     const yAxisProperty = config.yAxisConfig?.property || "type";
     
     // Create Y position mapping if using property-based Y-axis
-    const yPositionMap = useLayerForY ? undefined : this.createPropertyPositionMap(nodesByTypeAndLayer, yAxisProperty);
+    const yPositionMap = useLayerForY ? undefined : this.createPropertyPositionMap(nodesByTypeAndLayer, yAxisProperty, true);
     
     for (let layer = 1; layer <= numLayers; layer++) {
       // Invert Y so layer 1 is at top
@@ -324,7 +324,7 @@ export class PositionCalculator implements IPositionCalculator {
   /**
    * Create position mapping for a property
    */
-  private createPropertyPositionMap(nodesByTypeAndLayer: Map<string, Node[]>, propertyName: string): Map<string, number> {
+  private createPropertyPositionMap(nodesByTypeAndLayer: Map<string, Node[]>, propertyName: string, isYAxis: boolean = false): Map<string, number> {
     const uniqueValues = new Set<string>();
     
     // Collect all unique values for the property
@@ -340,8 +340,13 @@ export class PositionCalculator implements IPositionCalculator {
     const positionMap = new Map<string, number>();
     
     sortedValues.forEach((value, index) => {
-      // Position values apart on the Z axis
-      positionMap.set(value, (index - sortedValues.size() / 2) * POSITION_CONSTANTS.Z_AXIS_SPACING);
+      if (isYAxis) {
+        // For Y-axis, position values vertically
+        positionMap.set(value, index);
+      } else {
+        // Position values apart on the Z axis
+        positionMap.set(value, (index - sortedValues.size() / 2) * POSITION_CONSTANTS.Z_AXIS_SPACING);
+      }
     });
     
     return positionMap;
