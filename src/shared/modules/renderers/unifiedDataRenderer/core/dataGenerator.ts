@@ -20,8 +20,7 @@ export class DataGenerator implements IDataGenerator {
     const allLinks: Link[] = [];
     const nodesByLayer = new Map<number, Node[]>();
 
-    // Log pet types configuration
-    const numPetTypes = config.numPetTypes || 5;
+    // Pet types configuration is used in addTypeSpecificProperties method
 
     // Generate nodes for each layer
     config.layers.forEach((layer) => {
