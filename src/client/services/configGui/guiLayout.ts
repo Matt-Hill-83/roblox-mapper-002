@@ -84,6 +84,7 @@ export const COMPONENT_HEIGHTS = {
   AXIS_MAPPING: 120, // Height for axis mapping controls
   VISUAL_CUSTOMIZATION: 160, // Height for visual customization
   Y_AXIS_CONTROLS: 80, // Height for Y-axis controls
+  DROPDOWN_TEST_CONTROLS: 90, // Height for dropdown test controls
   VISUALIZATION_CONTROLS: 280, // Height for visualization controls
   STATUS_AREA: 30,
   SPACING: 10

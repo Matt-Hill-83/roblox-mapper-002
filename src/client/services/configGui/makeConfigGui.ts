@@ -20,6 +20,7 @@ import { createVisualizationControls } from "./components/visualizationControls"
 import { createAxisMappingControls } from "./components/axisMappingControls";
 import { createVisualCustomizationControls } from "./components/visualCustomizationControls";
 import { createYAxisControls } from "./components/yAxisControls";
+import { createDropdownTestControls } from "./components/dropdownTestControls";
 import { GUIStateManager } from "./stateManager";
 import { GUIEventHandlers } from "./eventHandlers";
 import { ComponentFactory } from "./componentFactory";
@@ -89,7 +90,7 @@ export class ConfigGUIService {
     });
 
     // Create advanced controls below visualization controls
-    const advancedFrameSize = new UDim2(0, 300, 0, 380);
+    const advancedFrameSize = new UDim2(0, 300, 0, 480); // Increased height for dropdown test
     const advancedCollapsibleFrame = createCollapsibleFrame({
       parent: gui,
       size: advancedFrameSize,
@@ -233,6 +234,19 @@ export class ConfigGUIService {
       });
       yAxisControls.Position = new UDim2(0, 10, 0, yPosition);
       yAxisControls.Size = new UDim2(1, -20, 0, COMPONENT_HEIGHTS.Y_AXIS_CONTROLS);
+      yPosition += COMPONENT_HEIGHTS.Y_AXIS_CONTROLS + 10;
+      
+      // Create dropdown test controls
+      const dropdownTestControls = createDropdownTestControls({
+        parent: advancedContentFrame,
+        onTestOptionChange: (value) => {
+          print(`[ConfigGUI] Dropdown test option changed to: ${value}`);
+          // Could trigger specific test behaviors based on the selected option
+          this.stateManager.setStatus(`Test option selected: ${value}`);
+        }
+      });
+      dropdownTestControls.Position = new UDim2(0, 10, 0, yPosition);
+      dropdownTestControls.Size = new UDim2(1, -20, 0, COMPONENT_HEIGHTS.DROPDOWN_TEST_CONTROLS);
     }
 
     // Update scrolling frame canvas size
