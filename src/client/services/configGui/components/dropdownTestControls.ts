@@ -23,13 +23,13 @@ export function createDropdownTestControls(options: DropdownTestControlsOptions)
   frame.Parent = parent;
 
   // Create title label
-  const titleLabel = ComponentFactory.createLabel({
+  ComponentFactory.createLabel({
+    name: "DropdownTestTitle",
     parent: frame,
     text: "Dropdown Test Feature",
     position: new UDim2(0, 0, 0, 0),
     size: new UDim2(1, 0, 0, 20),
-    font: Enum.Font.SourceSansBold,
-    textSize: 16
+    font: Enum.Font.SourceSansBold
   });
 
   // Test options
@@ -130,13 +130,13 @@ export function createDropdownTestControls(options: DropdownTestControlsOptions)
   });
 
   // Add description label
-  const descLabel = ComponentFactory.createLabel({
+  ComponentFactory.createLabel({
+    name: "DropdownTestDescription",
     parent: frame,
     text: "Test various dropdown configurations",
     position: new UDim2(0, 5, 0, 60),
     size: new UDim2(1, -10, 0, 20),
-    textColor: new Color3(0.7, 0.7, 0.7),
-    textSize: 12
+    textColor: new Color3(0.7, 0.7, 0.7)
   });
 
   return frame;

@@ -230,7 +230,7 @@ export class ConfigGUIService {
         parent: advancedContentFrame,
         onTestOptionChange: (value) => {
           // Could trigger specific test behaviors based on the selected option
-          this.stateManager.setStatus(`Test option selected: ${value}`);
+          // Status updates should be done through the statusLabel, not stateManager
         }
       });
       dropdownTestControls.Position = new UDim2(0, 10, 0, yPosition);

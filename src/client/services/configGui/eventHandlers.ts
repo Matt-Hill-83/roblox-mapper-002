@@ -183,14 +183,8 @@ export class GUIEventHandlers {
    * Handles export config button click
    */
   public handleExportConfigClick(): void {
-    const config = this.stateManager.getEnhancedConfig();
-    
     // Export configuration data
-    const config = this.stateManager.getEnhancedConfig();
-    
-    // Summary statistics
-    const totalNodes = config.layers.reduce((sum, layer) => sum + layer.numNodes, 0);
-    const totalConnections = config.layers.reduce((sum, layer) => sum + (layer.numNodes * layer.connectionsPerNode), 0);
+    this.stateManager.getEnhancedConfig();
     
     this.updateStatusMessage("Configuration exported to console");
   }
