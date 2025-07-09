@@ -73,11 +73,11 @@ function createXAxisDropdownServiceStyle({
   // Use the shared AxisDropdownGUI
   if (!axisDropdownGUI) return;
 
-  // Create main frame positioned at top of the GUI
+  // Create main frame positioned on the left
   const mainFrame = new Instance("Frame");
   mainFrame.Name = "XAxisDropdownFrame";
-  mainFrame.Size = new UDim2(0, 200, 0, 280); // Increased height to accommodate dropdown
-  mainFrame.Position = new UDim2(0, 10, 0.5, -150); // Upper position
+  mainFrame.Size = new UDim2(0, 200, 0, 80); // Reduced height
+  mainFrame.Position = new UDim2(0, 10, 0.5, -40); // Left side, centered vertically
   mainFrame.BackgroundColor3 = new Color3(0.2, 0.2, 0.2);
   mainFrame.BorderSizePixel = 0;
   mainFrame.Parent = axisDropdownGUI;
@@ -126,11 +126,11 @@ function createXAxisDropdownServiceStyle({
     dropdownButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
   });
 
-  // Create options frame (DropdownGuiService style)
+  // Create options frame (DropdownGuiService style) - position below the frame
   const optionsFrame = new Instance("Frame");
   optionsFrame.Name = "XAxisOptionsFrame";
-  optionsFrame.Position = new UDim2(0, 10, 0, 75);
-  optionsFrame.Size = new UDim2(1, -20, 0, math.min(AVAILABLE_PROPERTIES.size() * 30, 180));
+  optionsFrame.Position = new UDim2(0, 0, 1, 5); // Below the frame
+  optionsFrame.Size = new UDim2(1, 0, 0, math.min(AVAILABLE_PROPERTIES.size() * 30, 180));
   optionsFrame.BackgroundColor3 = new Color3(0.25, 0.25, 0.25);
   optionsFrame.BorderSizePixel = 0;
   optionsFrame.Visible = false;
@@ -208,11 +208,11 @@ function createZAxisDropdownServiceStyle({
   // Use the shared AxisDropdownGUI
   if (!axisDropdownGUI) return;
 
-  // Create main frame positioned below X-axis frame
+  // Create main frame positioned on the right
   const mainFrame = new Instance("Frame");
   mainFrame.Name = "ZAxisDropdownFrame";
-  mainFrame.Size = new UDim2(0, 200, 0, 280); // Same size as X-axis
-  mainFrame.Position = new UDim2(0, 10, 0.5, 140); // Position below X-axis dropdown
+  mainFrame.Size = new UDim2(0, 200, 0, 80); // Reduced height
+  mainFrame.Position = new UDim2(0, 220, 0.5, -40); // Right side (10 + 200 + 10 spacing), centered vertically
   mainFrame.BackgroundColor3 = new Color3(0.2, 0.2, 0.2);
   mainFrame.BorderSizePixel = 0;
   mainFrame.Parent = axisDropdownGUI;
@@ -261,11 +261,11 @@ function createZAxisDropdownServiceStyle({
     dropdownButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
   });
 
-  // Create options frame (DropdownGuiService style)
+  // Create options frame (DropdownGuiService style) - position below the frame
   const optionsFrame = new Instance("Frame");
   optionsFrame.Name = "ZAxisOptionsFrame";
-  optionsFrame.Position = new UDim2(0, 10, 0, 75);
-  optionsFrame.Size = new UDim2(1, -20, 0, math.min(AVAILABLE_PROPERTIES.size() * 30, 180));
+  optionsFrame.Position = new UDim2(0, 0, 1, 5); // Below the frame
+  optionsFrame.Size = new UDim2(1, 0, 0, math.min(AVAILABLE_PROPERTIES.size() * 30, 180));
   optionsFrame.BackgroundColor3 = new Color3(0.25, 0.25, 0.25);
   optionsFrame.BorderSizePixel = 0;
   optionsFrame.Visible = false;
