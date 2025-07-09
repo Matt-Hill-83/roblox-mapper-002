@@ -51,7 +51,6 @@ export class GraphInitializerService {
       showLinkLabels: false,
       showConnectors: true,
       allowSameLevelLinks: true,  // Enable same-level links for testing
-      randomZOffset: false,
     },
     axisMapping: {
       xAxis: "type",

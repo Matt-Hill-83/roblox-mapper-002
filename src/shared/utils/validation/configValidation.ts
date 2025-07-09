@@ -176,7 +176,7 @@ function validateVisualizationConfig(viz: unknown): string[] {
   const vizObj = viz as Record<string, unknown>;
 
   // Validate boolean fields
-  const booleanFields = ["randomZOffset", "allowSameLevelLinks"];
+  const booleanFields = ["showNodes", "showLinkLabels", "showConnectors", "allowSameLevelLinks"];
   
   for (const field of booleanFields) {
     const value = vizObj[field];

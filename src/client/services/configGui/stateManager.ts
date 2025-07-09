@@ -29,9 +29,7 @@ export class GUIStateManager {
       showNodes: true,
       showLinkLabels: false,
       showConnectors: true,
-      allowSameLevelLinks: false,
-      randomZOffset: false,
-      zOffsetAmount: 5
+      allowSameLevelLinks: false
     };
     
     // Initialize axis mapping with defaults
@@ -214,8 +212,7 @@ export class GUIStateManager {
       showNodes: true,
       showLinkLabels: false,
       showConnectors: true,
-      allowSameLevelLinks: false,
-      randomZOffset: false
+      allowSameLevelLinks: false
     };
     
     this.state.enhancedConfig = {

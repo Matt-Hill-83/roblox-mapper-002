@@ -29,8 +29,6 @@ export interface VisualizationOptions {
   showLinkLabels: boolean;
   showConnectors: boolean;
   allowSameLevelLinks: boolean;
-  randomZOffset: boolean;
-  zOffsetAmount?: number;
 }
 
 // Axis mapping configuration
