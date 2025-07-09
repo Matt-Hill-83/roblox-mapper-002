@@ -99,7 +99,10 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
     let colorIndex = 0;
 
     typeBounds.forEach((bounds, typeName) => {
-      const dimensions = this.calculateBlockDimensions(bounds, BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER);
+      // Use larger buffer for person types (man, woman, child, grandparent)
+      const isPersonType = ["man", "woman", "child", "grandparent"].includes(typeName.lower());
+      const buffer = isPersonType ? 20 : BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER;
+      const dimensions = this.calculateBlockDimensions(bounds, BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BLOCK_HEIGHT, buffer);
       
       const block = this.createBlock({
         name: `XAxisShadowBlock_${typeName}`,
