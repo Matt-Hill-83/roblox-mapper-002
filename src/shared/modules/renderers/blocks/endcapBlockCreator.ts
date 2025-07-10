@@ -4,8 +4,8 @@
  * Part of T10: Add endcaps to swimlane shadows
  */
 
-import { BaseBlockCreator } from "./baseBlockCreator";
 import { BLOCK_CONSTANTS } from "../constants/blockConstants";
+import { BaseBlockCreator } from "./baseBlockCreator";
 
 export interface EndcapConfig {
   swimlaneBlock: Part;

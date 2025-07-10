@@ -349,12 +349,10 @@ export class UnifiedDataRenderer {
         BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS +
         BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET +
         BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2;
-      print(`[DEBUG] Z-parallel lanes: shadowBlockTop = ${shadowBlockTop}, SHADOW_LAYER_DISPLACEMENT = ${BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT}`);
       const blockYPosition =
         shadowBlockTop +
         BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT +
         BLOCK_CONSTANTS.DIMENSIONS.Z_TO_X_SHADOW_LANE_SPACING; // Above X shadow lanes to avoid z-fighting
-      print(`[DEBUG] Z-parallel lanes: calculated blockYPosition = ${blockYPosition} (Z_TO_X_SHADOW_LANE_SPACING = ${BLOCK_CONSTANTS.DIMENSIONS.Z_TO_X_SHADOW_LANE_SPACING})`);
 
       // Get color from Z_AXIS_COLORS array using swimlane index
       const colors = BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS;
@@ -604,10 +602,8 @@ export class UnifiedDataRenderer {
       BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS +
       BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET +
       BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2;
-    print(`[DEBUG] X-parallel shadow: shadowBlockTop = ${shadowBlockTop}, SHADOW_LAYER_DISPLACEMENT = ${BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT}`);
     const yPosition =
       shadowBlockTop + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT;
-    print(`[DEBUG] X-parallel shadow: calculated yPosition = ${yPosition}`);
 
     this.shadowCreator.createXParallelShadowBlocks(
       nodesByProperty,

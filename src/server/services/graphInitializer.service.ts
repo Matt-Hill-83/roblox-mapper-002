@@ -52,10 +52,7 @@ export class GraphInitializerService {
       showConnectors: true,
       allowSameLevelLinks: true,  // Enable same-level links for testing
     },
-    axisMapping: {
-      xAxis: "type",
-      zAxis: "petType",
-    },
+    // axisMapping will be determined dynamically based on discovered properties
     visualMapping: {
       backgroundColor: "none",
       borderColor: "none",
