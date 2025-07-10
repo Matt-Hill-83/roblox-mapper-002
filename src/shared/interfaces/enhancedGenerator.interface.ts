@@ -70,4 +70,5 @@ export interface EnhancedGeneratorConfig {
   axisMapping?: AxisMapping; // Deprecated: use spatialGrouping
   visualMapping?: VisualMapping; // Optional for visual property mapping
   yAxisConfig?: YAxisConfig; // Optional for Y-axis configuration
+  maxDataItems?: number; // Optional: maximum number of items to use from test data
 }

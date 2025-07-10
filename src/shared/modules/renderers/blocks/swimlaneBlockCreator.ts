@@ -198,7 +198,15 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
       Enum.NormalId.Bottom,
     ];
 
+    // Check if this is a Z-parallel block
+    const isZParallel = block.Name.match("^ZParallel_Lane_")[0] !== undefined;
+    
+
     faces.forEach((face) => {
+      // Skip Front face (red labels) for Z-parallel blocks
+      if (isZParallel && face === Enum.NormalId.Front) {
+        return;
+      }
       // Create SurfaceGui
       const surfaceGui = new Instance("SurfaceGui");
       surfaceGui.Name = `SurfaceGui_${face.Name}`;
@@ -218,7 +226,18 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
       textLabel.BorderMode = BLOCK_CONSTANTS.LABEL_STYLING.BORDER_MODE;
       textLabel.Font = BLOCK_CONSTANTS.LABEL_STYLING.FONT;
       textLabel.Text = text;
-      textLabel.TextColor3 = BLOCK_CONSTANTS.LABEL_STYLING.TEXT_COLOR;
+      
+      // Use different colors for each face (for testing)
+      const faceColors: { [key: string]: Color3 } = {
+        Front: new Color3(1, 0, 0),     // Red
+        Back: new Color3(0, 1, 0),      // Green
+        Left: new Color3(0, 0, 1),      // Blue
+        Right: new Color3(1, 1, 0),     // Yellow
+        Top: new Color3(1, 0, 1),       // Magenta
+        Bottom: new Color3(0, 1, 1),    // Cyan
+      };
+      
+      textLabel.TextColor3 = faceColors[face.Name] || new Color3(1, 1, 1); // Default to white
       textLabel.TextScaled = BLOCK_CONSTANTS.LABEL_STYLING.TEXT_SCALED;
       textLabel.Parent = surfaceGui;
     });

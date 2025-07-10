@@ -36,8 +36,8 @@ import { IDataGenerator } from "../interfaces";
 import { TEMP_HARNESS_LINKS } from "../../../../data/tempHarnessLinks";
 import { TEMP_HARNESS_TEST_DATA } from "../../../../data/tempHarnessTestData";
 
-// Maximum number of items to use from test data
-const MAX_DATA_ITEMS = 15;
+// Default maximum number of items to use from test data
+const DEFAULT_MAX_DATA_ITEMS = 100;
 
 export class DataGenerator implements IDataGenerator {
   private linkIdCounter = 0;
@@ -57,7 +57,7 @@ export class DataGenerator implements IDataGenerator {
   public generateClusterFromLayers(config: EnhancedGeneratorConfig): Cluster {
     // Use test data if enabled
     if (this.useTestData) {
-      return this.generateClusterFromTestData();
+      return this.generateClusterFromTestData(config);
     }
     const allNodes: Node[] = [];
     const allLinks: Link[] = [];
@@ -126,8 +126,8 @@ export class DataGenerator implements IDataGenerator {
       discoveredProperties: validProps,
     };
 
-    // Write first MAX_DATA_ITEMS objects to tempData.json for debugging
-    this.writeTempData(allNodes, allLinks);
+    // Write first maxDataItems objects to tempData.json for debugging
+    this.writeTempData(allNodes, allLinks, config.maxDataItems || DEFAULT_MAX_DATA_ITEMS);
 
     return cluster;
   }
@@ -490,39 +490,39 @@ export class DataGenerator implements IDataGenerator {
   }
 
   /**
-   * Write first MAX_DATA_ITEMS objects to tempData.json for debugging
+   * Write first maxDataItems objects to tempData.json for debugging
    */
-  private writeTempData(allNodes: Node[], allLinks: Link[]): void {
+  private writeTempData(allNodes: Node[], allLinks: Link[], maxDataItems: number): void {
     const first10Nodes: Node[] = [];
     const first10Links: Link[] = [];
 
-    // Get first MAX_DATA_ITEMS nodes
-    for (let i = 0; i < math.min(MAX_DATA_ITEMS, allNodes.size()); i++) {
+    // Get first maxDataItems nodes
+    for (let i = 0; i < math.min(maxDataItems, allNodes.size()); i++) {
       first10Nodes.push(allNodes[i]);
     }
 
-    // Get first MAX_DATA_ITEMS links
-    for (let i = 0; i < math.min(MAX_DATA_ITEMS, allLinks.size()); i++) {
+    // Get first maxDataItems links
+    for (let i = 0; i < math.min(maxDataItems, allLinks.size()); i++) {
       first10Links.push(allLinks[i]);
     }
 
-    first10Nodes.forEach((node, index) => {
-      if (node.properties) {
-      }
+    first10Nodes.forEach(() => {
+      // Node properties are already set
     });
 
-    first10Links.forEach((link, index) => {});
+    // Links are already processed
   }
 
   /**
    * Generate cluster from test data
    */
-  private generateClusterFromTestData(): Cluster {
-    // Convert Harness data to Node format - using only first MAX_DATA_ITEMS items
+  private generateClusterFromTestData(config?: EnhancedGeneratorConfig): Cluster {
+    const maxItems = config?.maxDataItems || DEFAULT_MAX_DATA_ITEMS;
+    // Convert Harness data to Node format - using only first maxItems items
     const harnessNodes: Node[] = [];
     let itemCount = 0;
     TEMP_HARNESS_TEST_DATA.forEach((file, index) => {
-      if (itemCount >= MAX_DATA_ITEMS) return; // Only process first MAX_DATA_ITEMS items
+      if (itemCount >= maxItems) return; // Only process first maxItems items
       itemCount++;
       const node: Node = {
         uuid: `harness_file_${index}`,
@@ -569,7 +569,7 @@ export class DataGenerator implements IDataGenerator {
     const discoveredProps = discoverNodeProperties(harnessNodes);
     const validProps = filterValidAxisProperties(harnessNodes, discoveredProps);
 
-    validProps.forEach((prop, index) => {});
+    // Properties are now discovered and available in the cluster
 
     // Create a single group containing all harness nodes
     const mainGroup: Group = {

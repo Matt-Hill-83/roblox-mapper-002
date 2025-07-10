@@ -64,6 +64,7 @@ export class GraphInitializerService {
       property: undefined,
     },
     numPetTypes: 5,
+    maxDataItems: 100, // Maximum number of items to use from test data
   };
 
   private readonly DEFAULT_POSITION = { x: 0, y: 0, z: 0 };
@@ -75,9 +76,30 @@ export class GraphInitializerService {
   }
 
   public initializeGraph(customConfig?: Partial<GraphInitConfig>): void {
+    // Merge custom config with defaults
+    const mergedDefaultConfig = {
+      ...this.DEFAULT_CONFIG,
+      ...customConfig?.defaultConfig,
+    };
+    
     const config: GraphInitConfig = {
       initialPosition: customConfig?.initialPosition || this.DEFAULT_POSITION,
-      defaultConfig: customConfig?.defaultConfig || this.DEFAULT_CONFIG,
+      defaultConfig: mergedDefaultConfig,
+    };
+
+    wait(2);
+    this.triggerGraphGeneration(config);
+  }
+
+  public initializeGraphWithMaxItems(maxDataItems: number): void {
+    const configWithMaxItems = {
+      ...this.DEFAULT_CONFIG,
+      maxDataItems,
+    };
+    
+    const config: GraphInitConfig = {
+      initialPosition: this.DEFAULT_POSITION,
+      defaultConfig: configWithMaxItems,
     };
 
     wait(2);
