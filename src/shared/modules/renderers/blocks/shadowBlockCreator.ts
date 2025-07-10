@@ -124,18 +124,25 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     propertyName?: string,
     offsetZ: number = 0
   ): Part {
-    const dimensions = this.calculateBlockDimensions(bounds, BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER);
+    // Apply different buffers for X and Z dimensions (X-parallel lanes need extra X buffer)
+    const xBuffer = BLOCK_CONSTANTS.DIMENSIONS.X_PARALLEL_LANE_BUFFER;
+    const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER;
+    
+    // Calculate dimensions with asymmetric buffers
+    const width = bounds.maxX - bounds.minX + xBuffer * 2;
+    const depth = bounds.maxZ - bounds.minZ + zBuffer * 2;
+    const centerZ = (bounds.minZ + bounds.maxZ) / 2;
     
     // Generate unique ID for the lane
     const laneId = `${propertyName || "default"}_${propertyValue}`;
     const blockName = `XParallel_Lane_${laneId}`;
     
-    // Apply the offset to center the collection of pet lanes
-    const adjustedZPosition = dimensions.position.Z + offsetZ;
+    // Apply the offset to center the collection of lanes
+    const adjustedZPosition = centerZ + offsetZ;
     
     const block = this.createBlock({
       name: blockName,
-      size: new Vector3(dimensions.size.X, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, dimensions.size.Z),
+      size: new Vector3(width, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, depth),
       position: new Vector3(0, yPosition, adjustedZPosition), // Center at X=0 and apply Z offset
       material: BLOCK_CONSTANTS.MATERIALS.SWIMLANE,
       color: this.getColorFromArray(BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS, colorIndex),

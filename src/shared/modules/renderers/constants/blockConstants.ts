@@ -12,7 +12,8 @@ export const BLOCK_CONSTANTS = {
     DEFAULT_DEPTH: 200,
     PLATFORM_SIZE: 100,
     SHADOW_BUFFER: 2,
-    Z_PARALLEL_LANE_BUFFER: 20, // Extra Z-dimension buffer for Z-parallel lanes (formerly "X-axis swimlanes")
+    Z_PARALLEL_LANE_BUFFER: 4, // Extra Z-dimension buffer for Z-parallel lanes (formerly "X-axis swimlanes")
+    X_PARALLEL_LANE_BUFFER: 4, // Extra X-dimension buffer for X-parallel lanes (formerly "Z-axis swimlanes")
     Z_FIGHTING_OFFSET: 0.1,
     SHADOW_BLOCK_HEIGHT: 2,
     MIN_BLOCK_SIZE: 1,
