@@ -220,8 +220,8 @@ export function createZAxisShadowBlocks(
     const bounds = propertyBounds.get(propertyValue)!;
     
     // Calculate block dimensions
-    const blockWidth = bounds.maxX - bounds.minX + POSITION_CONSTANTS.Z_AXIS_SPACING; // Add padding
-    const blockDepth = bounds.maxZ - bounds.minZ + POSITION_CONSTANTS.Z_AXIS_SPACING;
+    const blockWidth = bounds.maxX - bounds.minX + POSITION_CONSTANTS.Z_DIMENSION_GROUP_SPACING; // Add padding
+    const blockDepth = bounds.maxZ - bounds.minZ + POSITION_CONSTANTS.Z_DIMENSION_GROUP_SPACING;
     const centerX = origin?.X || 0; // Use origin.X for alignment with group shadow block
     const centerZ = (bounds.minZ + bounds.maxZ) / 2;
     

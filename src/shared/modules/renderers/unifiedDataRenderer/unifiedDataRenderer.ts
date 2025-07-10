@@ -230,7 +230,7 @@ export class UnifiedDataRenderer {
       const swimlaneWidth = nodeSpacing === 0 ? hexagonWidth : nodeSpacing + hexagonWidth;
       
       // Apply uniform Z-axis buffer to all X-axis swimlanes
-      const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.X_AXIS_Z_BUFFER;
+      const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.Z_PARALLEL_LANE_BUFFER;
       
       // Use shadow block dimensions for depth to match group shadow block
       const blockWidth = swimlaneWidth;

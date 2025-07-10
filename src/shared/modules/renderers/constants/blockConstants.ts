@@ -12,7 +12,7 @@ export const BLOCK_CONSTANTS = {
     DEFAULT_DEPTH: 200,
     PLATFORM_SIZE: 100,
     SHADOW_BUFFER: 2,
-    X_AXIS_Z_BUFFER: 20, // Extra Z-axis buffer for all X-axis swimlanes
+    Z_PARALLEL_LANE_BUFFER: 20, // Extra Z-dimension buffer for Z-parallel lanes (formerly "X-axis swimlanes")
     Z_FIGHTING_OFFSET: 0.1,
     SHADOW_BLOCK_HEIGHT: 2,
     MIN_BLOCK_SIZE: 1,
@@ -37,8 +37,8 @@ export const BLOCK_CONSTANTS = {
   },
   POSITIONING: {
     MIN_GROUND_CLEARANCE: 5,
-    Z_AXIS_SPACING: 5,
+    Z_DIMENSION_GROUP_SPACING: 5, // Spacing between groups along Z dimension
     LABEL_OFFSET: 8,
-    SWIMLANE_Y_OFFSET: 0.1, // Raises Z-axis swimlanes to prevent occlusion
+    X_PARALLEL_LANE_Y_OFFSET: 0.1, // Raises X-parallel lanes (formerly "Z-axis swimlanes") to prevent occlusion
   },
 };

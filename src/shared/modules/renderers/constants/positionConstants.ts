@@ -5,7 +5,7 @@
 
 export const POSITION_CONSTANTS = {
   MIN_GROUND_CLEARANCE: 5,
-  Z_AXIS_SPACING: 5,
+  Z_DIMENSION_GROUP_SPACING: 5, // Spacing between groups along Z dimension
   BASE_Y: 20, // Default base Y position for nodes
   
   AGE_RANGES: {

@@ -101,7 +101,7 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
     typeBounds.forEach((bounds, typeName) => {
       // Apply uniform buffers to all X-axis swimlanes
       const xBuffer = BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER; // Standard buffer for X dimension
-      const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.X_AXIS_Z_BUFFER; // Uniform Z buffer for all X-axis swimlanes
+      const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.Z_PARALLEL_LANE_BUFFER; // Uniform Z buffer for all Z-parallel lanes
       
       // Calculate dimensions with different buffers for X and Z
       const width = bounds.maxX - bounds.minX + xBuffer * 2;

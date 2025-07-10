@@ -335,7 +335,7 @@ export class PositionCalculator implements IPositionCalculator {
         positionMap.set(value, index);
       } else {
         // Position values apart on the Z axis
-        positionMap.set(value, (index - sortedValues.size() / 2) * POSITION_CONSTANTS.Z_AXIS_SPACING);
+        positionMap.set(value, (index - sortedValues.size() / 2) * POSITION_CONSTANTS.Z_DIMENSION_GROUP_SPACING);
       }
     });
     
