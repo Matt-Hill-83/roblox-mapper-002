@@ -12,6 +12,8 @@ import { RENDERER_CONSTANTS } from "../../dataGeneratorRobloxRendererUtils/const
 import { createRopeConnectors } from "../../dataGeneratorRobloxRendererUtils/ropeCreator";
 import { getNodeBackgroundColor } from "../utils/colorMapper";
 import { makeHexagon } from "../../../hexagonMaker";
+import { PropertyValueResolver } from "../../propertyValueResolver";
+import { getDefaultXAxis } from "../../../../constants/axisDefaults";
 
 export class NodeRenderer implements INodeRenderer {
   /**
@@ -72,10 +74,36 @@ export class NodeRenderer implements INodeRenderer {
     // Use spacing from config if provided, otherwise use defaults
     const spacing = this.getSpacingConfig(config);
     
+    // Create property resolver to group nodes
+    const propertyResolver = new PropertyValueResolver();
+    
+    // Get the X-axis property for swimlane grouping
+    const xAxisProperty = config?.axisMapping?.xAxis || getDefaultXAxis(cluster.discoveredProperties);
+    
+    // Group nodes by swimlane property
+    const nodesBySwimlane = new Map<string, Node[]>();
+    
     cluster.groups.forEach(group => {
       group.nodes.forEach(node => {
+        const propertyValue = propertyResolver.getPropertyValue(node, xAxisProperty);
+        
+        if (!nodesBySwimlane.has(propertyValue)) {
+          nodesBySwimlane.set(propertyValue, []);
+        }
+        nodesBySwimlane.get(propertyValue)!.push(node);
+      });
+    });
+    
+    // Create a Model for each swimlane group
+    nodesBySwimlane.forEach((nodes, swimlaneName) => {
+      const swimlaneModel = new Instance("Model");
+      swimlaneModel.Name = `Swimlane_${swimlaneName}`;
+      swimlaneModel.Parent = nodesFolder;
+      
+      // Create hexagons for nodes in this swimlane
+      nodes.forEach(node => {
         const hexagon = this.createSingleHexagon(node, hexIndex, spacing, config);
-        hexagon.Parent = nodesFolder;
+        hexagon.Parent = swimlaneModel;
         nodeToHexagon.set(node.uuid, hexagon);
         hexIndex++;
       });

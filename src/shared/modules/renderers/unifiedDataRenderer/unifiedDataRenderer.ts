@@ -355,6 +355,9 @@ export class UnifiedDataRenderer {
       const blockWidth = maxWidth + xBuffer * 2;
       // Use the overall Z extent for all lanes to ensure uniform Z-length
       const blockDepth = (overallMaxZ - overallMinZ) + zBuffer * 2;
+      
+      // Debug: Print width of Z-parallel swimlane
+      print(`[Z-PARALLEL LANE] ${typeName}: width=${blockWidth} (maxWidth=${maxWidth}, xBuffer=${xBuffer})`)
 
       // Fixed Y position for Z-parallel lane blocks - use SHADOW_LAYER_DISPLACEMENT above shadow block
       // Shadow block is at Y = 1.6 (top at 2.1)

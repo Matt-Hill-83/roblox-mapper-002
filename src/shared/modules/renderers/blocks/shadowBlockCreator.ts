@@ -145,6 +145,9 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     const width = bounds.maxX - bounds.minX + xBuffer * 2; // Add buffer to both ends
     // Use the correct depth for X-parallel lanes
     const depth = LAYOUT_CONSTANTS.LANE_DIMENSIONS.X_PARALLEL_LANE_DEPTH;
+    
+    // Debug: Print width of X-parallel shadow
+    print(`[X-PARALLEL SHADOW] ${propertyValue}: width=${width} (bounds=${bounds.minX} to ${bounds.maxX}, xBuffer=${xBuffer})`)
     const centerX = (bounds.minX + bounds.maxX) / 2;
     const centerZ = (bounds.minZ + bounds.maxZ) / 2;
 
