@@ -3,7 +3,7 @@
  * Part of F002 refactoring to eliminate magic numbers
  */
 
-import { Z_AXIS_COLORS, X_AXIS_COLORS } from "./robloxColors";
+import { X_AXIS_COLORS, Z_AXIS_COLORS } from "./robloxColors";
 
 export const BLOCK_CONSTANTS = {
   DIMENSIONS: {
@@ -19,7 +19,8 @@ export const BLOCK_CONSTANTS = {
     MIN_BLOCK_SIZE: 1,
     LABEL_Y_OFFSET: 0.001, // Prevents z-fighting with labels
     UNIFORM_SHADOW_THICKNESS: 1.0, // Uniform thickness for all shadow layers
-    SHADOW_LAYER_DISPLACEMENT: 0.1, // Vertical displacement between shadow layer tops
+    SHADOW_LAYER_DISPLACEMENT: 0.5, // Vertical displacement between shadow layer tops
+    Z_TO_X_SHADOW_LANE_SPACING: 0.5, // Vertical spacing between Z shadow lanes and X shadow lanes
   },
   COLORS: {
     SHADOW: new Color3(0.5, 0.7, 1),
@@ -41,7 +42,7 @@ export const BLOCK_CONSTANTS = {
     MIN_GROUND_CLEARANCE: 5,
     Z_DIMENSION_GROUP_SPACING: 5, // Spacing between groups along Z dimension
     LABEL_OFFSET: 8,
-    X_PARALLEL_LANE_Y_OFFSET: 0.1, // Raises X-parallel lanes (formerly "Z-axis swimlanes") to prevent occlusion
+    X_PARALLEL_LANE_Y_OFFSET: 1, // Raises X-parallel lanes (formerly "Z-axis swimlanes") to prevent occlusion
   },
   LABEL_STYLING: {
     BORDER_SIZE_PIXEL: 5, // Unified border width for all block labels

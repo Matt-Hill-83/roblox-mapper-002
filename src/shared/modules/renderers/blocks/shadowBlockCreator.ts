@@ -155,6 +155,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     // Apply the offset to center the collection of lanes
     const adjustedZPosition = centerZ + offsetZ;
 
+    print(`[DEBUG] createXParallelBlock: yPosition = ${yPosition}, centerX = ${centerX}, adjustedZPosition = ${adjustedZPosition}`);
     const block = this.createBlock({
       name: blockName,
       size: new Vector3(
