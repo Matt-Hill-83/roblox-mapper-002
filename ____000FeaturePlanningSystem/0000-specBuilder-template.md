@@ -1,26 +1,14 @@
 
-Just do a Code Audit?: true
+Just do a Code Audit?: false
 |----------------------------------------------------------------------|
 Summary:
-F007 - harness code categorization
-Instead of using fake data for this project, I would like to start analyzing real data.
-So instead of the people data we are currently using, I want to analyze this repo: https://github.com/harness/harness
-and create a set of 100 json objects from the repo data.
-Right now, it doesn't matter what properties we use.
+build a tic tac toe game
 
 |----------------------------------------------------------------------|
 Requirements:
-  - create scripts to look through the files in the repo  and identify some interesting properties about each file, for example
-- which service it belongs to
-- is type of component is it
-
-ideally I want 200 File objects with about 5 different properties each.
-And each property should have at least 5 different categories.
-
-- first scan the data
-- the look at the results an come up with a json object
-- then rescan the data and create json objects for each file.
-│  
+  - runs in node
+- use ts
+- different colors for x's, and o's
 
 
 
