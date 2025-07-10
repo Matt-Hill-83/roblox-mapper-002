@@ -266,7 +266,11 @@ export class GUIStateManager {
     if (properties.size() >= 2 && this.state.enhancedConfig.axisMapping) {
       const currentMapping = this.state.enhancedConfig.axisMapping;
       
-      // Only update if current values are the hardcoded defaults
+      // Always set Y-axis if we have 3+ properties and it's not already set
+      const shouldUpdateYAxis = properties.size() >= 3 && 
+                               (!currentMapping.yAxis || currentMapping.yAxis === "none");
+      
+      // Only update X,Z if current values are the hardcoded defaults
       if (isUsingLegacyDefaults(currentMapping.xAxis, currentMapping.zAxis)) {
         this.state.enhancedConfig.axisMapping = {
           xAxis: getDefaultXAxis(properties),
@@ -275,11 +279,21 @@ export class GUIStateManager {
           xGroupingProperty: getDefaultXAxis(properties),
           zGroupingProperty: getDefaultZAxis(properties)
         };
+      } else if (shouldUpdateYAxis) {
+        // Update only Y-axis if X,Z are already properly set
+        this.state.enhancedConfig.axisMapping = {
+          ...currentMapping,
+          yAxis: properties[2] // Set to 3rd property
+        };
         
+        print(`[GUIStateManager] Updated Y-axis to discovered property: ${properties[2]}`);
+      }
+      
+      if (isUsingLegacyDefaults(currentMapping.xAxis, currentMapping.zAxis) || shouldUpdateYAxis) {
         print(`[GUIStateManager] Updated axis mapping to discovered properties:`);
-        print(`  X-axis: ${properties[0]}`);
-        print(`  Z-axis: ${properties[1]}`);
-        print(`  Y-axis: ${properties.size() >= 3 ? properties[2] : "none"}`);
+        print(`  X-axis: ${this.state.enhancedConfig.axisMapping.xAxis}`);
+        print(`  Z-axis: ${this.state.enhancedConfig.axisMapping.zAxis}`);
+        print(`  Y-axis: ${this.state.enhancedConfig.axisMapping.yAxis}`);
       }
     }
     

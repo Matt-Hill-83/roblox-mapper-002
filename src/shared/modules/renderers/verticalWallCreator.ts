@@ -28,20 +28,7 @@ export function createVerticalWalls(config: VerticalWallConfig): Part[] {
   const centerX = (platformBounds.minX + platformBounds.maxX) / 2;
   const centerZ = (platformBounds.minZ + platformBounds.maxZ) / 2;
   
-  // Front wall (negative Z)
-  const frontWall = new Instance("Part");
-  frontWall.Name = "VerticalWall_Front";
-  frontWall.Size = new Vector3(platformWidth + wallThickness * 2, height, wallThickness);
-  frontWall.Position = new Vector3(centerX, height / 2, platformBounds.minZ - wallThickness / 2);
-  frontWall.Material = Enum.Material.Glass;
-  frontWall.Color = wallColor;
-  frontWall.Transparency = wallTransparency;
-  frontWall.Anchored = true;
-  frontWall.CanCollide = false;
-  frontWall.Parent = parent;
-  walls.push(frontWall);
-  
-  // Back wall (positive Z)
+  // Back wall (positive Z) - keep only back and right walls
   const backWall = new Instance("Part");
   backWall.Name = "VerticalWall_Back";
   backWall.Size = new Vector3(platformWidth + wallThickness * 2, height, wallThickness);
@@ -53,19 +40,6 @@ export function createVerticalWalls(config: VerticalWallConfig): Part[] {
   backWall.CanCollide = false;
   backWall.Parent = parent;
   walls.push(backWall);
-  
-  // Left wall (negative X)
-  const leftWall = new Instance("Part");
-  leftWall.Name = "VerticalWall_Left";
-  leftWall.Size = new Vector3(wallThickness, height, platformDepth);
-  leftWall.Position = new Vector3(platformBounds.minX - wallThickness / 2, height / 2, centerZ);
-  leftWall.Material = Enum.Material.Glass;
-  leftWall.Color = wallColor;
-  leftWall.Transparency = wallTransparency;
-  leftWall.Anchored = true;
-  leftWall.CanCollide = false;
-  leftWall.Parent = parent;
-  walls.push(leftWall);
   
   // Right wall (positive X)
   const rightWall = new Instance("Part");

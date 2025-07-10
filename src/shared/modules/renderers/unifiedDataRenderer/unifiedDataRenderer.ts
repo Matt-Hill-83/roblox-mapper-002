@@ -17,7 +17,7 @@ import { UpdateManager } from "./rendering/updateManager";
 import { PlatformBlockCreator } from "../blocks/platformBlockCreator";
 import { ShadowBlockCreator } from "../blocks/shadowBlockCreator";
 import { SwimLaneBlockCreator } from "../blocks/swimlaneBlockCreator";
-import { createVerticalWalls, createWallSwimlanes, createFarZEdgeWall, createFarXEdgeWall } from "../verticalWallCreator";
+import { createVerticalWalls, createFarZEdgeWall, createFarXEdgeWall } from "../verticalWallCreator";
 import { PropertyValueResolver } from "../propertyValueResolver";
 import { BLOCK_CONSTANTS } from "../constants/blockConstants";
 import { LAYOUT_CONSTANTS } from "../constants/layoutConstants";
@@ -779,7 +779,7 @@ export class UnifiedDataRenderer {
       bounds.maxY = math.max(bounds.maxY, node.position.y);
     });
 
-    // Create swimlane shadows on walls
-    createWallSwimlanes(walls, propertyGroups, propertyColors);
+    // Create swimlane shadows on walls - DISABLED: remove child walls inside walls
+    // createWallSwimlanes(walls, propertyGroups, propertyColors);
   }
 }
