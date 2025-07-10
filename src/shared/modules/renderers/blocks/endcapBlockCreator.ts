@@ -147,6 +147,11 @@ export class EndcapBlockCreator extends BaseBlockCreator {
    * Add surface labels to all faces of the endcap
    */
   private addLabelsToAllFaces(block: Part, text: string, isZAxis: boolean): void {
+    // Debug: print block dimensions
+    print(`=== ENDCAP DEBUG for ${text} ===`);
+    print(`isZAxis: ${isZAxis}`);
+    print(`Block size: X=${block.Size.X}, Y=${block.Size.Y}, Z=${block.Size.Z}`);
+    
     const faces: Enum.NormalId[] = [
       Enum.NormalId.Front,
       Enum.NormalId.Back,
@@ -157,6 +162,18 @@ export class EndcapBlockCreator extends BaseBlockCreator {
     ];
 
     faces.forEach(face => {
+      // Skip labels on short sides
+      // For Z-axis endcaps: skip Front and Back faces (these are the narrow sides)
+      // For X-axis endcaps: skip Left and Right faces (these are the narrow sides)
+      if (isZAxis && (face === Enum.NormalId.Front || face === Enum.NormalId.Back)) {
+        print(`  Skipping ${face.Name} face (narrow for Z-axis)`);
+        return;
+      }
+      if (!isZAxis && (face === Enum.NormalId.Left || face === Enum.NormalId.Right)) {
+        print(`  Skipping ${face.Name} face (narrow for X-axis)`);
+        return;
+      }
+      print(`  Adding label to ${face.Name} face`);
       // Create SurfaceGui
       const surfaceGui = new Instance("SurfaceGui");
       surfaceGui.Name = `EndcapLabel_${face.Name}`;
