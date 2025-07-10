@@ -42,25 +42,25 @@ export function makeOriginBlock({
     castShadow: false,
     labels: {
       front: {
-        text: "FRONT\nX-Y",
+        text: "FRONT\n<-- X -->",
         textColor: new Color3(0, 0, 0.8), // Dark blue text
         backgroundColor: new Color3(0.5, 0.5, 0.8), // Medium blue background
         borderColor: new Color3(0, 0, 0.3), // Very dark blue border
       },
       back: {
-        text: "BACK\nX-Y",
+        text: "BACK\n<-- X -->",
         textColor: new Color3(0, 0, 0.8), // Dark blue text
         backgroundColor: new Color3(0.5, 0.5, 0.8), // Medium blue background
         borderColor: new Color3(0, 0, 0.3), // Very dark blue border
       },
       left: {
-        text: "LEFT\nZ-Y",
+        text: "LEFT\n<-- Z -->",
         textColor: new Color3(0.8, 0, 0), // Dark red text
         backgroundColor: new Color3(0.8, 0.5, 0.5), // Medium red background
         borderColor: new Color3(0.3, 0, 0), // Very dark red border
       },
       right: {
-        text: "RIGHT\nZ-Y",
+        text: "RIGHT\n<-- Z -->",
         textColor: new Color3(0.8, 0, 0), // Dark red text
         backgroundColor: new Color3(0.8, 0.5, 0.5), // Medium red background
         borderColor: new Color3(0.3, 0, 0), // Very dark red border

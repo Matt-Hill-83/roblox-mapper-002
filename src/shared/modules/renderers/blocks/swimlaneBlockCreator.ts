@@ -100,9 +100,9 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
 
     typeBounds.forEach((bounds, typeName) => {
       // Use larger buffer for person types (man, woman, child, grandparent)
-      const isPersonType = ["man", "woman", "child", "grandparent"].includes(typeName.lower());
-      const xBuffer = isPersonType ? 20 : BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER;
-      const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER; // Always use default for Z-axis
+      const isPersonType = BLOCK_CONSTANTS.PERSON_TYPES.includes(typeName.lower());
+      const xBuffer = BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER; // Always use default for X-axis
+      const zBuffer = isPersonType ? BLOCK_CONSTANTS.DIMENSIONS.PERSON_TYPE_X_BUFFER : BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER;
       
       // Calculate dimensions with different buffers for X and Z
       const width = bounds.maxX - bounds.minX + xBuffer * 2;

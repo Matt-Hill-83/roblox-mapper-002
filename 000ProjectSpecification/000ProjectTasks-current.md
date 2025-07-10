@@ -15,4 +15,11 @@ sample format:
 +++++++++++++++++
 +++++++++++++++++
 
-- 
+## T164: Fix Person Type Buffer Dimension
+
+**Description**: Fix person type buffer being applied to wrong dimension - should apply to Z dimension (depth) not X dimension (width)
+
+1. ✅ [CLD12] T164.1: Fix buffer dimension in UnifiedDataRenderer
+   1. ✅ [CLD12] T164.1.1: Locate createSwimLaneBlocks method in unifiedDataRenderer.ts
+   2. ✅ [CLD12] T164.1.2: Change buffer application from width to depth calculation
+   3. ✅ [CLD12] T164.1.3: Verify person types: man, woman, child, grandparent

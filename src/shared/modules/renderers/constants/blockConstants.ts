@@ -12,6 +12,7 @@ export const BLOCK_CONSTANTS = {
     DEFAULT_DEPTH: 200,
     PLATFORM_SIZE: 100,
     SHADOW_BUFFER: 2,
+    PERSON_TYPE_X_BUFFER: 20, // Extra buffer for person types (man, woman, child, grandparent) - now applied to Z-axis (depth)
     Z_FIGHTING_OFFSET: 0.1,
     SHADOW_BLOCK_HEIGHT: 2,
     MIN_BLOCK_SIZE: 1,
@@ -40,4 +41,5 @@ export const BLOCK_CONSTANTS = {
     LABEL_OFFSET: 8,
     SWIMLANE_Y_OFFSET: 0.1, // Raises Z-axis swimlanes to prevent occlusion
   },
+  PERSON_TYPES: ["man", "woman", "child", "grandparent"], // Types that get extra X-axis buffer
 };
