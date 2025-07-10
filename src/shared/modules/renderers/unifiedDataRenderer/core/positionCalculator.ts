@@ -61,11 +61,11 @@ export class PositionCalculator implements IPositionCalculator {
     const spacing = this.getSpacingConfig(config);
     const numLayers = config.layers.size();
     
-    // Use axis mapping if available, otherwise default to type/petType
+    // Use spatial grouping properties if available, otherwise default to type/petType
     const xAxisProperty = config.axisMapping?.xAxis || "type";
     const zAxisProperty = config.axisMapping?.zAxis || "petType";
     
-    // Organize nodes by layer and x-axis property
+    // Organize nodes by layer and X grouping property
     const { nodesByTypeAndLayer, typeCounters } = this.organizeNodesByProperty(cluster, xAxisProperty);
     
     // Sort values by count

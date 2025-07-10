@@ -100,8 +100,8 @@ export class UnifiedDataRenderer {
     xParallelModel.Name = `XParallel_Lanes_Group`;
     xParallelModel.Parent = blocks.shadow; // Parent to GroupShadowBlock
     
-    // Create X-parallel shadow blocks first (they go below Z-parallel)
-    // Create X-parallel lane blocks (labels disabled per T17)
+    // Create X-parallel shadow blocks first (lanes running along X axis)
+    // These lanes are grouped by Z position values
     this.createXParallelLaneBlocks(cluster, xParallelModel, targetOrigin, config);
     
     // Create Z-parallel lanes model (lanes that run along Z axis)
@@ -110,8 +110,8 @@ export class UnifiedDataRenderer {
     zParallelModel.Name = `ZParallel_Lanes_Group`;
     zParallelModel.Parent = blocks.shadow;
     
-    // Create Z-parallel lane blocks (they go above X-parallel)
-    // Create Z-parallel lane blocks (labels disabled per T17)
+    // Create Z-parallel lane blocks (lanes running along Z axis)
+    // These lanes are grouped by X position values
     this.createZParallelLaneBlocks(cluster, zParallelModel, targetOrigin, blockDimensions, config);
     
     // Create vertical walls if Y-axis is property-based
@@ -187,11 +187,11 @@ export class UnifiedDataRenderer {
     // Use axis mapping if available
     const xAxisProperty = config.axisMapping?.xAxis || "type";
     
-    // Organize nodes by x-axis property to determine swimlanes
+    // Organize nodes by X grouping property to determine lane placement
     const nodesByType = new Map<string, Node[]>();
     const typeBounds = new Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>();
     
-    // Group nodes by x-axis property and calculate bounds
+    // Group nodes by X grouping property and calculate bounds
     cluster.groups[0].nodes.forEach(node => {
       const propertyValue = this.propertyResolver.getPropertyValue(node, xAxisProperty);
       if (!nodesByType.has(propertyValue)) {
@@ -229,14 +229,14 @@ export class UnifiedDataRenderer {
       const nodeSpacing = bounds.maxX - bounds.minX;
       const swimlaneWidth = nodeSpacing === 0 ? hexagonWidth : nodeSpacing + hexagonWidth;
       
-      // Apply uniform Z-axis buffer to all X-axis swimlanes
+      // Apply uniform Z-dimension buffer to all Z-parallel lanes
       const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.Z_PARALLEL_LANE_BUFFER;
       
       // Use shadow block dimensions for depth to match group shadow block
       const blockWidth = swimlaneWidth;
       const blockDepth = shadowDimensions.depth + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER + (zBuffer * 2);
       
-      // Fixed Y position for X-axis swimlane blocks - use SHADOW_LAYER_DISPLACEMENT above shadow block
+      // Fixed Y position for Z-parallel lane blocks - use SHADOW_LAYER_DISPLACEMENT above shadow block
       // Shadow block is at Y = 1.6 (top at 2.1)
       // X-axis blocks should have their tops at 2.1 + SHADOW_LAYER_DISPLACEMENT
       const shadowBlockTop = BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2;
@@ -399,8 +399,8 @@ export class UnifiedDataRenderer {
       bounds.maxZ = math.max(bounds.maxZ, node.position.z);
     });
     
-    // Create Z-axis shadow blocks at same elevation as X-axis blocks
-    // X-axis blocks are positioned at blockYPosition from createSwimLaneBlocks
+    // Create X-parallel shadow blocks at same elevation as Z-parallel blocks
+    // Z-parallel blocks are positioned at blockYPosition from createZParallelLaneBlocks
     const shadowBlockTop = BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2;
     const xAxisYPosition = shadowBlockTop + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT;
     const zAxisYPosition = xAxisYPosition; // Same height as X-axis
