@@ -257,11 +257,14 @@ export class UnifiedDataRenderer {
     
     // Find the maximum width across all swimlanes
     let maxWidth = 0;
+    print("\n[DEBUG] Z-Parallel Lane Width Calculation:");
     nodesByType.forEach((nodes, typeName) => {
       const bounds = typeBounds.get(typeName)!;
       const width = bounds.maxX - bounds.minX;
+      print(`  ${typeName}: minX=${bounds.minX}, maxX=${bounds.maxX}, width=${width}, nodeCount=${nodes.size()}`);
       maxWidth = math.max(maxWidth, width);
     });
+    print(`  Maximum width to be used: ${maxWidth}`);
     
     nodesByType.forEach((nodes, typeName) => {
       const bounds = typeBounds.get(typeName)!;
