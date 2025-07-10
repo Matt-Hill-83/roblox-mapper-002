@@ -102,6 +102,25 @@ export function validateEnhancedGeneratorConfig(
     }
   }
 
+  // Validate optional axis mapping / spatial grouping config
+  if (cfg.axisMapping || cfg.spatialGrouping) {
+    const mappingConfig = cfg.spatialGrouping || cfg.axisMapping;
+    const mappingErrors = validateAxisMappingConfig(mappingConfig);
+    if (mappingErrors.size() > 0) {
+      for (const err of mappingErrors) {
+        errors.push(err);
+      }
+    } else {
+      // Support both old and new property names
+      if (cfg.spatialGrouping) {
+        sanitized.spatialGrouping = cfg.spatialGrouping;
+      }
+      if (cfg.axisMapping) {
+        sanitized.axisMapping = cfg.axisMapping;
+      }
+    }
+  }
+
   return {
     isValid: errors.size() === 0,
     errors,
@@ -182,6 +201,40 @@ function validateVisualizationConfig(viz: unknown): string[] {
     const value = vizObj[field];
     if (value !== undefined && !typeIs(value, "boolean")) {
       errors.push(`Visualization.${field} must be a boolean`);
+    }
+  }
+
+  return errors;
+}
+
+/**
+ * Validates axis mapping / spatial grouping configuration
+ */
+function validateAxisMappingConfig(mapping: unknown): string[] {
+  const errors: string[] = [];
+
+  if (!typeIs(mapping, "table")) {
+    errors.push("Axis mapping / spatial grouping must be an object");
+    return errors;
+  }
+  
+  const mappingObj = mapping as Record<string, unknown>;
+
+  // Check for required fields (support both old and new names)
+  const hasOldNames = mappingObj["xAxis"] !== undefined && mappingObj["zAxis"] !== undefined;
+  const hasNewNames = mappingObj["xGroupingProperty"] !== undefined && mappingObj["zGroupingProperty"] !== undefined;
+  
+  if (!hasOldNames && !hasNewNames) {
+    errors.push("Axis mapping must have either xAxis/zAxis or xGroupingProperty/zGroupingProperty");
+  }
+
+  // Validate string fields
+  const stringFields = ["xAxis", "zAxis", "xGroupingProperty", "zGroupingProperty"];
+  
+  for (const field of stringFields) {
+    const value = mappingObj[field];
+    if (value !== undefined && !typeIs(value, "string")) {
+      errors.push(`AxisMapping.${field} must be a string`);
     }
   }
 

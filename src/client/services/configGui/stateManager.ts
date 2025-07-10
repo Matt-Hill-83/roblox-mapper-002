@@ -7,7 +7,7 @@
 
 import { GUIState, EnhancedGeneratorConfig } from "./interfaces";
 import { GUI_CONSTANTS } from "./constants";
-import type { SpacingConfig, VisualizationOptions, AxisMapping, VisualMapping, YAxisConfig } from "../../../shared/interfaces/enhancedGenerator.interface";
+import type { SpacingConfig, VisualizationOptions, AxisMapping, SpatialGrouping, VisualMapping, YAxisConfig } from "../../../shared/interfaces/enhancedGenerator.interface";
 
 export class GUIStateManager {
   private state: GUIState;
@@ -32,10 +32,12 @@ export class GUIStateManager {
       allowSameLevelLinks: false
     };
     
-    // Initialize axis mapping with defaults
+    // Initialize spatial grouping with defaults (using legacy interface for compatibility)
     const defaultAxisMapping: AxisMapping = {
       xAxis: "type",
-      zAxis: "petType"
+      zAxis: "petType",
+      xGroupingProperty: "type",
+      zGroupingProperty: "petType"
     };
     
     // Initialize visual mapping with defaults
@@ -235,16 +237,26 @@ export class GUIStateManager {
   }
   
   /**
-   * Updates axis mapping
+   * Updates spatial grouping (formerly axis mapping)
    */
   public updateAxisMapping(axis: "xAxis" | "zAxis", value: string): void {
     if (!this.state.enhancedConfig.axisMapping) {
       this.state.enhancedConfig.axisMapping = {
         xAxis: "type",
-        zAxis: "petType"
+        zAxis: "petType",
+        xGroupingProperty: "type",
+        zGroupingProperty: "petType"
       };
     }
+    
+    // Update both legacy and new property names for compatibility
     this.state.enhancedConfig.axisMapping[axis] = value;
+    if (axis === "xAxis") {
+      this.state.enhancedConfig.axisMapping.xGroupingProperty = value;
+    } else if (axis === "zAxis") {
+      this.state.enhancedConfig.axisMapping.zGroupingProperty = value;
+    }
+    
     this.notifyListeners();
   }
   
