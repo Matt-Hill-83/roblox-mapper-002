@@ -3,7 +3,7 @@
  * Part of F002 refactoring to eliminate magic numbers
  */
 
-import { Z_AXIS_COLORS, X_PARALLEL_LANE_COLORS } from "./robloxColors";
+import { Z_AXIS_COLORS, X_AXIS_COLORS } from "./robloxColors";
 
 export const BLOCK_CONSTANTS = {
   DIMENSIONS: {
@@ -25,7 +25,7 @@ export const BLOCK_CONSTANTS = {
     SHADOW: new Color3(0.5, 0.7, 1),
     PLATFORM: new Color3(0.5, 0, 0.5), // Purple
     Z_AXIS_COLORS: Z_AXIS_COLORS,
-    X_PARALLEL_LANE_COLORS: X_PARALLEL_LANE_COLORS,
+    X_PARALLEL_LANE_COLORS: X_AXIS_COLORS,
   },
   TRANSPARENCY: {
     OPAQUE: 0,

@@ -130,8 +130,9 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     propertyName?: string,
     offsetZ: number = 0
   ): Part {
-    // Use actual bounds for dimensions
-    const width = bounds.maxX - bounds.minX; // Use provided bounds for length
+    // Use actual bounds for dimensions with buffer
+    const xBuffer = 5; // 5 unit buffer on each side
+    const width = bounds.maxX - bounds.minX + (xBuffer * 2); // Add buffer to both ends
     // Use fixed depth of 4 units for X-parallel lanes
     const depth = 4;
     const centerX = (bounds.minX + bounds.maxX) / 2;
@@ -149,8 +150,8 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     print(`  Original centerZ: ${centerZ}`);
     print(`  Offset: ${offsetZ}`);
     print(`  Final Z position: ${adjustedZPosition}`);
-    print(`  Width (X span): ${width} from X[${bounds.minX}, ${bounds.maxX}]`);
-    print(`  Depth (Z span): ${depth} from Z[${bounds.minZ}, ${bounds.maxZ}]`);
+    print(`  Width (X span): ${width} (base: ${bounds.maxX - bounds.minX} + buffer: ${xBuffer * 2})`);
+    print(`  Depth (Z span): ${depth}`);
     
     const block = this.createBlock({
       name: blockName,
@@ -193,12 +194,13 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       surfaceGui.PixelsPerStud = 50;
       surfaceGui.Parent = block;
 
-      // Create Frame for background
+      // Create Frame for background with border
       const frame = new Instance("Frame");
       frame.Size = new UDim2(1, 0, 1, 0);
-      frame.BackgroundColor3 = new Color3(0, 0, 0);
-      frame.BackgroundTransparency = 1; // Fully transparent background
-      frame.BorderSizePixel = 0;
+      frame.BackgroundColor3 = block.Color; // Match block color
+      frame.BackgroundTransparency = 0; // Opaque background
+      frame.BorderSizePixel = 5; // 5 pixel border
+      frame.BorderColor3 = new Color3(0, 0, 0); // Black border
       frame.Parent = surfaceGui;
 
       // Create TextLabel

@@ -255,6 +255,13 @@ export class UnifiedDataRenderer {
     // Create a block for each swimlane based on actual node positions
     let swimlaneIndex = 0;
     
+    // Find the maximum width across all swimlanes
+    let maxWidth = 0;
+    nodesByType.forEach((nodes, typeName) => {
+      const bounds = typeBounds.get(typeName)!;
+      const width = bounds.maxX - bounds.minX;
+      maxWidth = math.max(maxWidth, width);
+    });
     
     nodesByType.forEach((nodes, typeName) => {
       const bounds = typeBounds.get(typeName)!;
@@ -268,17 +275,15 @@ export class UnifiedDataRenderer {
       // Calculate actual swimlane dimensions based on node bounds
       
       // Apply uniform buffer to dimensions
-      const xBuffer = 0; // No padding for X dimension - use exact node bounds
       const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.Z_PARALLEL_LANE_BUFFER;
       
-      // Calculate width based on actual node bounds
-      const nodeGroupWidth = bounds.maxX - bounds.minX;
-      const blockWidth = nodeGroupWidth + xBuffer * 2;
+      // Use the maximum width for all lanes to ensure uniform length
+      const blockWidth = maxWidth;
       const blockDepth = bounds.maxZ - bounds.minZ + zBuffer * 2;
       
       print(`[Z-Parallel Lane WIDTH] ${typeName}:`);
-      print(`  Node group width: ${nodeGroupWidth} (from X[${bounds.minX}, ${bounds.maxX}])`);
-      print(`  xBuffer: ${xBuffer} (x2 = ${xBuffer * 2} total)`);
+      print(`  Node group width: ${bounds.maxX - bounds.minX} (from X[${bounds.minX}, ${bounds.maxX}])`);
+      print(`  Using max width: ${maxWidth} (all lanes same width)`);
       print(`  Final shadow block width: ${blockWidth}`);
       
       // Fixed Y position for Z-parallel lane blocks - use SHADOW_LAYER_DISPLACEMENT above shadow block

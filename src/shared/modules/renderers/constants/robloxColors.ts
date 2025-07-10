@@ -23,6 +23,12 @@ export const Z_AXIS_COLORS: Color3[] = [
   new Color3(1.0, 0.6549, 0.3608), // Base 14 saturated 200%
 ];
 export const X_AXIS_COLORS: Color3[] = [
+  new Color3(0.3608, 0.5333, 1.0), // Base 18 saturated 200%
+  new Color3(1.0, 0.5333, 0.3608), // Base 11 saturated 200%
+  new Color3(0.9863, 0.6804, 0.7118), // Base 1 saturated 200%
+  new Color3(0.3608, 1.0, 0.5333), // Base 9 saturated 200%
+  new Color3(1.0, 0.6549, 0.3608), // Base 14 saturated 200%
+  new Color3(0.8, 0.4, 0.0), // Hue 19
   new Color3(0.0, 0.4, 0.4), // Hue 9
   new Color3(0.2, 0.4, 0.0), // Hue 6
   new Color3(0.8, 0.4, 0.0), // Hue 19
