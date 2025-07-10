@@ -199,67 +199,6 @@ export function calculateBlockDimensions(
   };
 }
 
-/**
- * Creates Z-axis shadow blocks for pet type swimlanes
- * @param nodesByProperty Nodes grouped by property value
- * @param propertyBounds Bounds for each property value
- * @param parent Parent instance for the blocks
- * @param yPosition Y position for the blocks
- */
-export function createZAxisShadowBlocks(
-  nodesByProperty: Map<string, any[]>,
-  propertyBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
-  parent: Instance,
-  yPosition: number = 0.5,
-  blocksMap?: Map<string, Part>,
-  origin?: Vector3
-): void {
-  let blockIndex = 0;
-  
-  nodesByProperty.forEach((nodes, propertyValue) => {
-    const bounds = propertyBounds.get(propertyValue)!;
-    
-    // Calculate block dimensions
-    const blockWidth = bounds.maxX - bounds.minX + POSITION_CONSTANTS.Z_DIMENSION_GROUP_SPACING; // Add padding
-    const blockDepth = bounds.maxZ - bounds.minZ + POSITION_CONSTANTS.Z_DIMENSION_GROUP_SPACING;
-    const centerX = origin?.X || 0; // Use origin.X for alignment with group shadow block
-    const centerZ = (bounds.minZ + bounds.maxZ) / 2;
-    
-    // Create the block
-    const block = new Instance("Part");
-    block.Name = `ZAxisShadowBlock_${propertyValue}`;
-    block.Size = new Vector3(blockWidth, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, blockDepth);
-    block.Position = new Vector3(centerX, yPosition, centerZ);
-    
-    // Set appearance
-    block.Material = BLOCK_CONSTANTS.MATERIALS.SHADOW;
-    block.Transparency = BLOCK_CONSTANTS.TRANSPARENCY.OPAQUE;
-    
-    // Use different colors for different property values
-    const colors = BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS;
-    
-    block.Color = colors[blockIndex % colors.size()];
-    block.TopSurface = Enum.SurfaceType.Smooth;
-    block.BottomSurface = Enum.SurfaceType.Smooth;
-    
-    // Set physics
-    block.Anchored = true;
-    block.CanCollide = false;
-    block.CastShadow = false;
-    
-    // Parent the block
-    block.Parent = parent;
-    
-    // Store in map if provided
-    if (blocksMap) {
-      blocksMap.set(propertyValue, block);
-    }
-    
-    
-    blockIndex++;
-  });
-  
-}
 
 /**
  * Creates a block under a swimlane

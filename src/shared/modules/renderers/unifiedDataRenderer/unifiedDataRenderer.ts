@@ -241,9 +241,9 @@ export class UnifiedDataRenderer {
       const shadowBlockTop = BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2;
       const blockYPosition = shadowBlockTop + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT + 0.1; // Above shadow block + 0.1 to avoid z-fighting
       
-      // Get the color from the first node of this type
-      const nodeColor = nodes[0].color;
-      const color = new Color3(nodeColor[0], nodeColor[1], nodeColor[2]);
+      // Get color from Z_AXIS_COLORS array using swimlane index
+      const colors = BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS;
+      const color = colors[swimlaneIndex % colors.size()];
       
       // Log X-axis swimlane creation
       print(`[UnifiedDataRenderer] Creating X-axis swimlane for type: ${typeName}`);
