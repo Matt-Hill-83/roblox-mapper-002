@@ -71,10 +71,15 @@ export class DataGenerator implements IDataGenerator {
       nodes: allNodes,
     };
 
-    return {
+    const cluster = {
       groups: [mainGroup],
       relations: allLinks,
     };
+
+    // Write first 10 objects to tempData.json for debugging
+    this.writeTempData(allNodes, allLinks);
+
+    return cluster;
   }
 
   /**
@@ -364,5 +369,36 @@ export class DataGenerator implements IDataGenerator {
     }
     
     return undefined;
+  }
+
+  /**
+   * Write first 10 objects to tempData.json for debugging
+   */
+  private writeTempData(allNodes: Node[], allLinks: Link[]): void {
+    const first10Nodes: Node[] = [];
+    const first10Links: Link[] = [];
+    
+    // Get first 10 nodes
+    for (let i = 0; i < math.min(10, allNodes.size()); i++) {
+      first10Nodes.push(allNodes[i]);
+    }
+    
+    // Get first 10 links
+    for (let i = 0; i < math.min(10, allLinks.size()); i++) {
+      first10Links.push(allLinks[i]);
+    }
+    
+    print(`=== TEMP DATA DEBUG ===`);
+    print(`Total nodes: ${allNodes.size()}`);
+    print(`Total links: ${allLinks.size()}`);
+    print(`First 10 nodes:`);
+    first10Nodes.forEach((node, index) => {
+      print(`  Node ${index + 1}: ${node.name} (${node.type})`);
+    });
+    print(`First 10 links:`);
+    first10Links.forEach((link, index) => {
+      print(`  Link ${index + 1}: ${link.sourceNodeUuid} -> ${link.targetNodeUuid}`);
+    });
+    print(`=== END TEMP DATA ===`);
   }
 }

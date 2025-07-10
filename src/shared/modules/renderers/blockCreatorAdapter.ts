@@ -21,7 +21,10 @@ const dimensionCalculator = new BlockDimensionCalculator();
  * Creates platform and shadow blocks using new modular creators
  * Adapter for createFlatBlocks function
  */
-export function createFlatBlocksAdapter(config: FlatBlockConfig): { platform: Part; shadow: Part } {
+export function createFlatBlocksAdapter(config: FlatBlockConfig): {
+  platform: Part;
+  shadow: Part;
+} {
   const {
     origin,
     parent,
@@ -35,7 +38,7 @@ export function createFlatBlocksAdapter(config: FlatBlockConfig): { platform: Pa
     origin,
     parent,
     height,
-    size: BLOCK_CONSTANTS.DIMENSIONS.PLATFORM_SIZE
+    size: BLOCK_CONSTANTS.DIMENSIONS.PLATFORM_SIZE,
   });
 
   // Create shadow block as child of platform
@@ -45,7 +48,7 @@ export function createFlatBlocksAdapter(config: FlatBlockConfig): { platform: Pa
     height,
     width,
     depth,
-    buffer: BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER
+    buffer: BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER,
   });
 
   return { platform, shadow };
@@ -72,16 +75,16 @@ export function createFlatBlockAdapter(config: FlatBlockConfig): Part {
     height,
     width,
     depth,
-    buffer: 0 // No buffer for legacy flat block
+    buffer: 0, // No buffer for legacy flat block
   });
 
   // Override color if specified
   if (color) {
     block.Color = color;
   }
-  
+
   block.Name = "FlatBlockFoundation";
-  
+
   return block;
 }
 
@@ -100,7 +103,10 @@ export function calculateBlockDimensionsAdapter(
  */
 export function createXParallelShadowBlocksAdapter(
   nodesByProperty: Map<string, any[]>,
-  propertyBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
+  propertyBounds: Map<
+    string,
+    { minX: number; maxX: number; minZ: number; maxZ: number }
+  >,
   parent: Instance,
   yPosition: number = 0.5,
   blocksMap?: Map<string, Part>,
@@ -122,7 +128,6 @@ export function createXParallelShadowBlocksAdapter(
  * Create swimlane block adapter
  */
 export function createSwimLaneBlockAdapter(config: SwimLaneBlockConfig): Part {
-  print("[BlockCreatorAdapter] createSwimLaneBlockAdapter called for type:", config.typeName);
   return swimlaneCreator.createSwimLaneBlock({
     position: config.position,
     width: config.width,
@@ -131,7 +136,7 @@ export function createSwimLaneBlockAdapter(config: SwimLaneBlockConfig): Part {
     color: config.color,
     typeName: config.typeName,
     parent: config.parent,
-    propertyName: config.propertyName
+    propertyName: config.propertyName,
   });
 }
 
