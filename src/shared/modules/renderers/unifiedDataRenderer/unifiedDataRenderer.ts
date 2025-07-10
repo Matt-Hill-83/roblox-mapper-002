@@ -267,12 +267,19 @@ export class UnifiedDataRenderer {
       
       // Calculate actual swimlane dimensions based on node bounds
       
-      // Apply uniform Z-dimension buffer to all Z-parallel lanes
+      // Apply uniform buffer to dimensions
+      const xBuffer = 0; // No padding for X dimension - use exact node bounds
       const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.Z_PARALLEL_LANE_BUFFER;
       
-      // Use fixed width and calculate depth based on content
-      const blockWidth = LAYOUT_CONSTANTS.LANE_DIMENSIONS.Z_PARALLEL_LANE_WIDTH;
+      // Calculate width based on actual node bounds
+      const nodeGroupWidth = bounds.maxX - bounds.minX;
+      const blockWidth = nodeGroupWidth + xBuffer * 2;
       const blockDepth = bounds.maxZ - bounds.minZ + zBuffer * 2;
+      
+      print(`[Z-Parallel Lane WIDTH] ${typeName}:`);
+      print(`  Node group width: ${nodeGroupWidth} (from X[${bounds.minX}, ${bounds.maxX}])`);
+      print(`  xBuffer: ${xBuffer} (x2 = ${xBuffer * 2} total)`);
+      print(`  Final shadow block width: ${blockWidth}`);
       
       // Fixed Y position for Z-parallel lane blocks - use SHADOW_LAYER_DISPLACEMENT above shadow block
       // Shadow block is at Y = 1.6 (top at 2.1)
