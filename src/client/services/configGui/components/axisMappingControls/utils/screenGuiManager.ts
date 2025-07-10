@@ -26,7 +26,7 @@ export function getOrCreateScreenGui(): ScreenGui {
  */
 export function refreshAxisDropdownGUI(): void {
   if (axisDropdownGUI) {
-    print("[screenGuiManager] Destroying existing AxisDropdownGUI for refresh");
+    
     axisDropdownGUI.Destroy();
     axisDropdownGUI = undefined;
   }

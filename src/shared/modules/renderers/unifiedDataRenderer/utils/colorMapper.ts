@@ -67,6 +67,9 @@ const COLOR_SCHEMES = {
     DELETE: new Color3(0.8, 0.2, 0.2),    // Red (delete)
     HEAD: new Color3(0.6, 0.6, 0.6),      // Gray (metadata)
     OPTIONS: new Color3(0.8, 0.2, 0.8),   // Purple (discovery)
+    MULTIPLE: new Color3(0.4, 0.2, 0.6),  // Dark Purple (multiple methods)
+    INTERNAL: new Color3(0.2, 0.8, 0.8),  // Cyan (internal calls)
+    UNKNOWN: new Color3(0.5, 0.5, 0.5),   // Gray (unknown method)
     default: new Color3(0.5, 0.5, 0.5)
   },
   petType: {
@@ -201,7 +204,9 @@ export function getNodeBackgroundColor(node: Node, visualMapping?: VisualMapping
   }
 
   const propertyValue = getNodePropertyValue(node, visualMapping.backgroundColor);
-  return getColorForPropertyValue(visualMapping.backgroundColor, propertyValue);
+  const mappedColor = getColorForPropertyValue(visualMapping.backgroundColor, propertyValue);
+  
+  return mappedColor;
 }
 
 /**

@@ -56,7 +56,7 @@ export class GraphInitializerService {
     // Set to undefined initially - will be updated when properties are discovered
     axisMapping: undefined,
     visualMapping: {
-      backgroundColor: "none",
+      backgroundColor: "httpMethod", // Default to httpMethod for Harness data
       borderColor: "none",
     },
     yAxisConfig: {

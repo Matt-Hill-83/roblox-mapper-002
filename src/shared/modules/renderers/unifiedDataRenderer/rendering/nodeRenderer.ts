@@ -5,19 +5,22 @@
  */
 
 import { Cluster, Node } from "../../../../interfaces/simpleDataGenerator.interface";
-import { EnhancedGeneratorConfig } from "../../../../interfaces/enhancedGenerator.interface";
 import { INodeRenderer, SpacingConfig } from "../interfaces";
-import { makeHexagon } from "../../../hexagonMaker";
-import { createRopeConnectors } from "../../dataGeneratorRobloxRendererUtils/ropeCreator";
+
+import { EnhancedGeneratorConfig } from "../../../../interfaces/enhancedGenerator.interface";
 import { RENDERER_CONSTANTS } from "../../dataGeneratorRobloxRendererUtils/constants";
+import { createRopeConnectors } from "../../dataGeneratorRobloxRendererUtils/ropeCreator";
 import { getNodeBackgroundColor } from "../utils/colorMapper";
+import { makeHexagon } from "../../../hexagonMaker";
+import { PropertyValueResolver } from "../../propertyValueResolver";
+import { getDefaultXAxis } from "../../../../constants/axisDefaults";
 
 export class NodeRenderer implements INodeRenderer {
   /**
    * Renders the cluster with positioned nodes
    */
   public renderCluster(cluster: Cluster, parentFolder: Folder, config?: EnhancedGeneratorConfig): void {
-    print("[NodeRenderer] renderCluster() called with", cluster.groups[0].nodes.size(), "nodes");
+    
     // Look for existing GraphMaker folder and delete it
     const existingGraphMaker = parentFolder.FindFirstChild("GraphMaker");
     if (existingGraphMaker) {
@@ -71,10 +74,36 @@ export class NodeRenderer implements INodeRenderer {
     // Use spacing from config if provided, otherwise use defaults
     const spacing = this.getSpacingConfig(config);
     
+    // Create property resolver to group nodes
+    const propertyResolver = new PropertyValueResolver();
+    
+    // Get the X-axis property for swimlane grouping
+    const xAxisProperty = config?.axisMapping?.xAxis || getDefaultXAxis(cluster.discoveredProperties);
+    
+    // Group nodes by swimlane property
+    const nodesBySwimlane = new Map<string, Node[]>();
+    
     cluster.groups.forEach(group => {
       group.nodes.forEach(node => {
+        const propertyValue = propertyResolver.getPropertyValue(node, xAxisProperty);
+        
+        if (!nodesBySwimlane.has(propertyValue)) {
+          nodesBySwimlane.set(propertyValue, []);
+        }
+        nodesBySwimlane.get(propertyValue)!.push(node);
+      });
+    });
+    
+    // Create a Model for each swimlane group
+    nodesBySwimlane.forEach((nodes, swimlaneName) => {
+      const swimlaneModel = new Instance("Model");
+      swimlaneModel.Name = `Swimlane_${swimlaneName}`;
+      swimlaneModel.Parent = nodesFolder;
+      
+      // Create hexagons for nodes in this swimlane
+      nodes.forEach(node => {
         const hexagon = this.createSingleHexagon(node, hexIndex, spacing, config);
-        hexagon.Parent = nodesFolder;
+        hexagon.Parent = swimlaneModel;
         nodeToHexagon.set(node.uuid, hexagon);
         hexIndex++;
       });
@@ -117,27 +146,18 @@ export class NodeRenderer implements INodeRenderer {
     hexagon.SetAttribute("nodeName", node.name);
     hexagon.SetAttribute("nodeType", node.type);
     
+    // Dynamically store all properties as attributes
     if (node.properties) {
-      if (node.properties.age !== undefined) {
-        hexagon.SetAttribute("age", node.properties.age);
-      }
-      if (node.properties.petType) {
-        hexagon.SetAttribute("petType", node.properties.petType);
-      }
-      if (node.properties.petColor) {
-        hexagon.SetAttribute("petColor", node.properties.petColor);
-      }
-      if (node.properties.firstName) {
-        hexagon.SetAttribute("firstName", node.properties.firstName);
-      }
-      if (node.properties.lastName) {
-        hexagon.SetAttribute("lastName", node.properties.lastName);
-      }
-      if (node.properties.countryOfBirth) {
-        hexagon.SetAttribute("countryOfBirth", node.properties.countryOfBirth);
-      }
-      if (node.properties.countryOfResidence) {
-        hexagon.SetAttribute("countryOfResidence", node.properties.countryOfResidence);
+      for (const [key, value] of pairs(node.properties)) {
+        if (value !== undefined) {
+          // Convert value to appropriate type for SetAttribute
+          if (typeIs(value, "string") || typeIs(value, "number") || typeIs(value, "boolean")) {
+            hexagon.SetAttribute(key as string, value);
+          } else {
+            // For complex types, convert to string
+            hexagon.SetAttribute(key as string, tostring(value));
+          }
+        }
       }
     }
     

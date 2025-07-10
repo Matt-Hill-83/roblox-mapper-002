@@ -1,26 +1,48 @@
 /**
  * Data Generator for Unified Data Renderer
- * 
+ *
  * Handles generation of nodes and links from layer configuration
  */
 
-import { ANIMAL_TYPES, COLOR_PALETTES, COUNTRIES_OF_BIRTH, COUNTRIES_OF_RESIDENCE, DEFAULT_ATTACHMENTS, FIRST_NAMES, LAST_NAMES, NODE_TYPE_NAMES, PET_COLORS, PET_TYPES } from "../constants";
-import { Cluster, Group, Link, Node } from "../../../../interfaces/simpleDataGenerator.interface";
-import { EnhancedGeneratorConfig, LayerConfig } from "../../../../interfaces/enhancedGenerator.interface";
+import {
+  ANIMAL_TYPES,
+  COLOR_PALETTES,
+  COUNTRIES_OF_BIRTH,
+  COUNTRIES_OF_RESIDENCE,
+  DEFAULT_ATTACHMENTS,
+  FIRST_NAMES,
+  LAST_NAMES,
+  NODE_TYPE_NAMES,
+  PET_COLORS,
+  PET_TYPES,
+} from "../constants";
+import {
+  Cluster,
+  Group,
+  Link,
+  Node,
+} from "../../../../interfaces/simpleDataGenerator.interface";
+import {
+  EnhancedGeneratorConfig,
+  LayerConfig,
+} from "../../../../interfaces/enhancedGenerator.interface";
 // import { TEMP_TEST_NODES, TEMP_TEST_LINKS } from "../../../../data/tempTestData";
-import { discoverNodeProperties, filterValidAxisProperties } from "../../../../utils/propertyDiscovery";
+import {
+  discoverNodeProperties,
+  filterValidAxisProperties,
+} from "../../../../utils/propertyDiscovery";
 
 import { IDataGenerator } from "../interfaces";
-import { TEMP_HARNESS_TEST_DATA } from "../../../../data/tempHarnessTestData";
 import { TEMP_HARNESS_LINKS } from "../../../../data/tempHarnessLinks";
+import { TEMP_HARNESS_TEST_DATA } from "../../../../data/tempHarnessTestData";
 
 // Maximum number of items to use from test data
-const MAX_DATA_ITEMS = 50;
+const MAX_DATA_ITEMS = 15;
 
 export class DataGenerator implements IDataGenerator {
   private linkIdCounter = 0;
   private useTestData = true; // Set to true to use temp test data
-  
+
   constructor() {
     // Keep references to prevent lint errors for methods we'll use later
     if (false) {
@@ -46,7 +68,7 @@ export class DataGenerator implements IDataGenerator {
     // Generate nodes for each layer
     config.layers.forEach((layer) => {
       const layerNodes = this.generateLayerNodes(layer, config);
-      layerNodes.forEach(node => allNodes.push(node));
+      layerNodes.forEach((node) => allNodes.push(node));
       nodesByLayer.set(layer.layerNumber, layerNodes);
     });
 
@@ -55,7 +77,7 @@ export class DataGenerator implements IDataGenerator {
     config.layers.forEach((layer) => {
       const currentLayerNodes = nodesByLayer.get(layer.layerNumber)!;
       const nextLayerNodes = nodesByLayer.get(layer.layerNumber + 1);
-      
+
       this.generateLayerLinks(
         currentLayerNodes,
         nextLayerNodes,
@@ -63,18 +85,20 @@ export class DataGenerator implements IDataGenerator {
         config,
         allLinks
       );
-      
+
       // Add backward connections for first layer (connecting to second layer)
       if (layer.layerNumber === 1 && nextLayerNodes) {
-        nextLayerNodes.forEach(nextNode => {
+        nextLayerNodes.forEach((nextNode) => {
           // Ensure each node in layer 2 connects back to at least one node in layer 1
-          const hasBackwardConnection = allLinks.some(link => 
-            link.targetNodeUuid === nextNode.uuid && 
-            currentLayerNodes.some(n => n.uuid === link.sourceNodeUuid)
+          const hasBackwardConnection = allLinks.some(
+            (link) =>
+              link.targetNodeUuid === nextNode.uuid &&
+              currentLayerNodes.some((n) => n.uuid === link.sourceNodeUuid)
           );
-          
+
           if (!hasBackwardConnection) {
-            const sourceNode = currentLayerNodes[math.random(0, currentLayerNodes.size() - 1)];
+            const sourceNode =
+              currentLayerNodes[math.random(0, currentLayerNodes.size() - 1)];
             const link = this.createLink(sourceNode, nextNode, config);
             allLinks.push(link);
           }
@@ -95,11 +119,11 @@ export class DataGenerator implements IDataGenerator {
     // Discover properties from all nodes
     const discoveredProps = discoverNodeProperties(allNodes);
     const validProps = filterValidAxisProperties(allNodes, discoveredProps);
-    
+
     const cluster = {
       groups: [mainGroup],
       relations: allLinks,
-      discoveredProperties: validProps
+      discoveredProperties: validProps,
     };
 
     // Write first MAX_DATA_ITEMS objects to tempData.json for debugging
@@ -111,26 +135,37 @@ export class DataGenerator implements IDataGenerator {
   /**
    * Generate nodes for a single layer
    */
-  private generateLayerNodes(layer: LayerConfig, config: EnhancedGeneratorConfig): Node[] {
+  private generateLayerNodes(
+    layer: LayerConfig,
+    config: EnhancedGeneratorConfig
+  ): Node[] {
     const layerNodes: Node[] = [];
-    
+
     for (let i = 0; i < layer.numNodes; i++) {
       const node = this.createNode(i, layer.layerNumber, config);
       layerNodes.push(node);
     }
-    
+
     return layerNodes;
   }
 
   /**
    * Create a single node
    */
-  private createNode(index: number, layerNumber: number, config: EnhancedGeneratorConfig): Node {
+  private createNode(
+    index: number,
+    layerNumber: number,
+    config: EnhancedGeneratorConfig
+  ): Node {
     // Cycle through node types based on config
     const nodeTypeIndex = index % config.numNodeTypes;
-    const nodeTypeName = NODE_TYPE_NAMES[math.min(nodeTypeIndex, NODE_TYPE_NAMES.size() - 1)];
-    const color = COLOR_PALETTES.NODE_COLORS[nodeTypeIndex % COLOR_PALETTES.NODE_COLORS.size()];
-    
+    const nodeTypeName =
+      NODE_TYPE_NAMES[math.min(nodeTypeIndex, NODE_TYPE_NAMES.size() - 1)];
+    const color =
+      COLOR_PALETTES.NODE_COLORS[
+        nodeTypeIndex % COLOR_PALETTES.NODE_COLORS.size()
+      ];
+
     const node: Node = {
       uuid: `node_${layerNumber}_${index}`,
       name: `${nodeTypeName} ${layerNumber}-${index + 1}`,
@@ -153,52 +188,68 @@ export class DataGenerator implements IDataGenerator {
   /**
    * Add type-specific properties to node
    */
-  private addTypeSpecificProperties(node: Node, nodeTypeName: string, config: EnhancedGeneratorConfig): void {
+  private addTypeSpecificProperties(
+    node: Node,
+    nodeTypeName: string,
+    config: EnhancedGeneratorConfig
+  ): void {
     if (nodeTypeName === "man" || nodeTypeName === "woman") {
       // Use only the first N pet types based on config
       const numPetTypes = config.numPetTypes || 5;
       const maxPetTypeIndex = math.min(numPetTypes - 1, PET_TYPES.size() - 1);
-      
-      node.properties = { 
+
+      node.properties = {
         age: math.random(18, 80),
         petType: PET_TYPES[math.random(0, maxPetTypeIndex)],
         petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)],
         firstName: FIRST_NAMES[math.random(0, FIRST_NAMES.size() - 1)],
         lastName: LAST_NAMES[math.random(0, LAST_NAMES.size() - 1)],
-        countryOfBirth: COUNTRIES_OF_BIRTH[math.random(0, COUNTRIES_OF_BIRTH.size() - 1)],
-        countryOfResidence: COUNTRIES_OF_RESIDENCE[math.random(0, COUNTRIES_OF_RESIDENCE.size() - 1)]
+        countryOfBirth:
+          COUNTRIES_OF_BIRTH[math.random(0, COUNTRIES_OF_BIRTH.size() - 1)],
+        countryOfResidence:
+          COUNTRIES_OF_RESIDENCE[
+            math.random(0, COUNTRIES_OF_RESIDENCE.size() - 1)
+          ],
       };
     } else if (nodeTypeName === "child") {
       // Use only the first N pet types based on config
       const numPetTypes = config.numPetTypes || 5;
       const maxPetTypeIndex = math.min(numPetTypes - 1, PET_TYPES.size() - 1);
-      
-      node.properties = { 
+
+      node.properties = {
         age: math.random(5, 17),
         petType: PET_TYPES[math.random(0, maxPetTypeIndex)],
         petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)],
         firstName: FIRST_NAMES[math.random(0, FIRST_NAMES.size() - 1)],
         lastName: LAST_NAMES[math.random(0, LAST_NAMES.size() - 1)],
-        countryOfBirth: COUNTRIES_OF_BIRTH[math.random(0, COUNTRIES_OF_BIRTH.size() - 1)],
-        countryOfResidence: COUNTRIES_OF_RESIDENCE[math.random(0, COUNTRIES_OF_RESIDENCE.size() - 1)]
+        countryOfBirth:
+          COUNTRIES_OF_BIRTH[math.random(0, COUNTRIES_OF_BIRTH.size() - 1)],
+        countryOfResidence:
+          COUNTRIES_OF_RESIDENCE[
+            math.random(0, COUNTRIES_OF_RESIDENCE.size() - 1)
+          ],
       };
     } else if (nodeTypeName === "grandparent") {
       // Use only the first N pet types based on config
       const numPetTypes = config.numPetTypes || 5;
       const maxPetTypeIndex = math.min(numPetTypes - 1, PET_TYPES.size() - 1);
-      
-      node.properties = { 
+
+      node.properties = {
         age: math.random(65, 95),
         petType: PET_TYPES[math.random(0, maxPetTypeIndex)],
         petColor: PET_COLORS[math.random(0, PET_COLORS.size() - 1)],
         firstName: FIRST_NAMES[math.random(0, FIRST_NAMES.size() - 1)],
         lastName: LAST_NAMES[math.random(0, LAST_NAMES.size() - 1)],
-        countryOfBirth: COUNTRIES_OF_BIRTH[math.random(0, COUNTRIES_OF_BIRTH.size() - 1)],
-        countryOfResidence: COUNTRIES_OF_RESIDENCE[math.random(0, COUNTRIES_OF_RESIDENCE.size() - 1)]
+        countryOfBirth:
+          COUNTRIES_OF_BIRTH[math.random(0, COUNTRIES_OF_BIRTH.size() - 1)],
+        countryOfResidence:
+          COUNTRIES_OF_RESIDENCE[
+            math.random(0, COUNTRIES_OF_RESIDENCE.size() - 1)
+          ],
       };
     } else if (nodeTypeName === "Animals") {
-      node.properties = { 
-        animalType: ANIMAL_TYPES[math.random(0, ANIMAL_TYPES.size() - 1)] 
+      node.properties = {
+        animalType: ANIMAL_TYPES[math.random(0, ANIMAL_TYPES.size() - 1)],
       };
     }
   }
@@ -222,7 +273,7 @@ export class DataGenerator implements IDataGenerator {
         config,
         allLinks
       );
-      
+
       // Create inter-layer connections
       if (nextLayerNodes && nextLayerNodes.size() > 0) {
         this.generateInterLayerLink(
@@ -236,7 +287,10 @@ export class DataGenerator implements IDataGenerator {
         this.generateIntraLayerLinks(
           sourceNode,
           currentLayerNodes,
-          { ...layer, connectionsPerNode: math.max(1, layer.connectionsPerNode) },
+          {
+            ...layer,
+            connectionsPerNode: math.max(1, layer.connectionsPerNode),
+          },
           config,
           allLinks
         );
@@ -254,18 +308,28 @@ export class DataGenerator implements IDataGenerator {
     config: EnhancedGeneratorConfig,
     allLinks: Link[]
   ): void {
-    const allowSameLevelLinks = config.visualization?.allowSameLevelLinks ?? true;
-    
-    if (!allowSameLevelLinks || layer.connectionsPerNode <= 0 || currentLayerNodes.size() <= 1) {
+    const allowSameLevelLinks =
+      config.visualization?.allowSameLevelLinks ?? true;
+
+    if (
+      !allowSameLevelLinks ||
+      layer.connectionsPerNode <= 0 ||
+      currentLayerNodes.size() <= 1
+    ) {
       return;
     }
 
-    const availableTargets = currentLayerNodes.filter(n => n.uuid !== sourceNode.uuid);
-    const numConnections = math.min(layer.connectionsPerNode, availableTargets.size());
-    
+    const availableTargets = currentLayerNodes.filter(
+      (n) => n.uuid !== sourceNode.uuid
+    );
+    const numConnections = math.min(
+      layer.connectionsPerNode,
+      availableTargets.size()
+    );
+
     // Randomly select target nodes
     const shuffled = this.shuffleArray([...availableTargets]);
-    
+
     for (let i = 0; i < numConnections; i++) {
       const targetNode = shuffled[i];
       const link = this.createLink(sourceNode, targetNode, config);
@@ -283,23 +347,29 @@ export class DataGenerator implements IDataGenerator {
     allLinks: Link[]
   ): void {
     if (nextLayerNodes.size() === 0) return;
-    
+
     // Prefer connecting to nodes of the same type
-    const sameTypeNodes = nextLayerNodes.filter(n => n.type === sourceNode.type);
-    const candidateNodes = sameTypeNodes.size() > 0 ? sameTypeNodes : nextLayerNodes;
-    
+    const sameTypeNodes = nextLayerNodes.filter(
+      (n) => n.type === sourceNode.type
+    );
+    const candidateNodes =
+      sameTypeNodes.size() > 0 ? sameTypeNodes : nextLayerNodes;
+
     // Connect to at least one node, potentially more for better connectivity
     const numConnections = math.min(2, candidateNodes.size()); // Connect to up to 2 nodes
     const shuffled = this.shuffleArray([...candidateNodes]);
-    
+
     for (let i = 0; i < numConnections; i++) {
       const targetNode = shuffled[i];
       // Check if this link already exists
-      const linkExists = allLinks.some(link => 
-        (link.sourceNodeUuid === sourceNode.uuid && link.targetNodeUuid === targetNode.uuid) ||
-        (link.sourceNodeUuid === targetNode.uuid && link.targetNodeUuid === sourceNode.uuid)
+      const linkExists = allLinks.some(
+        (link) =>
+          (link.sourceNodeUuid === sourceNode.uuid &&
+            link.targetNodeUuid === targetNode.uuid) ||
+          (link.sourceNodeUuid === targetNode.uuid &&
+            link.targetNodeUuid === sourceNode.uuid)
       );
-      
+
       if (!linkExists) {
         const link = this.createLink(sourceNode, targetNode, config);
         allLinks.push(link);
@@ -310,10 +380,17 @@ export class DataGenerator implements IDataGenerator {
   /**
    * Create a link between two nodes
    */
-  private createLink(sourceNode: Node, targetNode: Node, config: EnhancedGeneratorConfig): Link {
+  private createLink(
+    sourceNode: Node,
+    targetNode: Node,
+    config: EnhancedGeneratorConfig
+  ): Link {
     const linkTypeIndex = this.linkIdCounter % config.numLinkTypes;
-    const linkColor = COLOR_PALETTES.LINK_COLORS[linkTypeIndex % COLOR_PALETTES.LINK_COLORS.size()];
-    
+    const linkColor =
+      COLOR_PALETTES.LINK_COLORS[
+        linkTypeIndex % COLOR_PALETTES.LINK_COLORS.size()
+      ];
+
     const link: Link = {
       uuid: `link-${++this.linkIdCounter}`,
       type: `Link${linkTypeIndex + 1}`,
@@ -321,7 +398,7 @@ export class DataGenerator implements IDataGenerator {
       targetNodeUuid: targetNode.uuid,
       color: linkColor,
     };
-    
+
     return link;
   }
 
@@ -335,33 +412,43 @@ export class DataGenerator implements IDataGenerator {
     }
     return array;
   }
-  
+
   /**
    * Ensure all nodes have at least one connection
    */
-  private ensureNodeConnectivity(nodes: Node[], links: Link[], config: EnhancedGeneratorConfig): void {
+  private ensureNodeConnectivity(
+    nodes: Node[],
+    links: Link[],
+    config: EnhancedGeneratorConfig
+  ): void {
     // Create a map to track connections per node
     const nodeConnections = new Map<string, number>();
-    nodes.forEach(node => nodeConnections.set(node.uuid, 0));
-    
+    nodes.forEach((node) => nodeConnections.set(node.uuid, 0));
+
     // Count existing connections
-    links.forEach(link => {
-      nodeConnections.set(link.sourceNodeUuid, (nodeConnections.get(link.sourceNodeUuid) || 0) + 1);
-      nodeConnections.set(link.targetNodeUuid, (nodeConnections.get(link.targetNodeUuid) || 0) + 1);
+    links.forEach((link) => {
+      nodeConnections.set(
+        link.sourceNodeUuid,
+        (nodeConnections.get(link.sourceNodeUuid) || 0) + 1
+      );
+      nodeConnections.set(
+        link.targetNodeUuid,
+        (nodeConnections.get(link.targetNodeUuid) || 0) + 1
+      );
     });
-    
+
     // Find isolated nodes
     const isolatedNodes: Node[] = [];
     nodeConnections.forEach((count, uuid) => {
       if (count === 0) {
-        const node = nodes.find(n => n.uuid === uuid);
+        const node = nodes.find((n) => n.uuid === uuid);
         if (node) isolatedNodes.push(node);
       }
     });
-    
+
     if (isolatedNodes.size() > 0) {
       // Create fallback connections
-      isolatedNodes.forEach(isolatedNode => {
+      isolatedNodes.forEach((isolatedNode) => {
         // Find a suitable connection target
         const targetNode = this.findConnectionTarget(isolatedNode, nodes);
         if (targetNode) {
@@ -370,30 +457,35 @@ export class DataGenerator implements IDataGenerator {
             type: "Fallback",
             sourceNodeUuid: isolatedNode.uuid,
             targetNodeUuid: targetNode.uuid,
-            color: [0.5, 0.5, 0.5] // Gray color for fallback links
+            color: [0.5, 0.5, 0.5], // Gray color for fallback links
           };
           links.push(fallbackLink);
         }
       });
     }
   }
-  
+
   /**
    * Find a suitable connection target for an isolated node
    */
-  private findConnectionTarget(isolatedNode: Node, allNodes: Node[]): Node | undefined {
+  private findConnectionTarget(
+    isolatedNode: Node,
+    allNodes: Node[]
+  ): Node | undefined {
     // Try to connect to a node of the same type first
-    const sameTypeNodes = allNodes.filter(n => n.type === isolatedNode.type && n.uuid !== isolatedNode.uuid);
+    const sameTypeNodes = allNodes.filter(
+      (n) => n.type === isolatedNode.type && n.uuid !== isolatedNode.uuid
+    );
     if (sameTypeNodes.size() > 0) {
       return sameTypeNodes[math.random(0, sameTypeNodes.size() - 1)];
     }
-    
+
     // Otherwise, connect to any other node
-    const otherNodes = allNodes.filter(n => n.uuid !== isolatedNode.uuid);
+    const otherNodes = allNodes.filter((n) => n.uuid !== isolatedNode.uuid);
     if (otherNodes.size() > 0) {
       return otherNodes[math.random(0, otherNodes.size() - 1)];
     }
-    
+
     return undefined;
   }
 
@@ -403,60 +495,29 @@ export class DataGenerator implements IDataGenerator {
   private writeTempData(allNodes: Node[], allLinks: Link[]): void {
     const first10Nodes: Node[] = [];
     const first10Links: Link[] = [];
-    
+
     // Get first MAX_DATA_ITEMS nodes
     for (let i = 0; i < math.min(MAX_DATA_ITEMS, allNodes.size()); i++) {
       first10Nodes.push(allNodes[i]);
     }
-    
+
     // Get first MAX_DATA_ITEMS links
     for (let i = 0; i < math.min(MAX_DATA_ITEMS, allLinks.size()); i++) {
       first10Links.push(allLinks[i]);
     }
-    
-    print(`=== TEMP DATA DEBUG ===`);
-    print(`Total nodes: ${allNodes.size()}`);
-    print(`Total links: ${allLinks.size()}`);
-    print(`First ${MAX_DATA_ITEMS} nodes (full objects):`);
+
     first10Nodes.forEach((node, index) => {
-      print(`  Node ${index + 1}:`);
-      print(`    uuid: ${node.uuid}`);
-      print(`    name: ${node.name}`);
-      print(`    type: ${node.type}`);
-      print(`    color: [${node.color[0]}, ${node.color[1]}, ${node.color[2]}]`);
-      print(`    position: {x: ${node.position.x}, y: ${node.position.y}, z: ${node.position.z}}`);
       if (node.properties) {
-        print(`    properties: {`);
-        if (node.properties.age !== undefined) print(`      age: ${node.properties.age}`);
-        if (node.properties.petType !== undefined) print(`      petType: ${node.properties.petType}`);
-        if (node.properties.petColor !== undefined) print(`      petColor: ${node.properties.petColor}`);
-        if (node.properties.firstName !== undefined) print(`      firstName: ${node.properties.firstName}`);
-        if (node.properties.lastName !== undefined) print(`      lastName: ${node.properties.lastName}`);
-        if (node.properties.countryOfBirth !== undefined) print(`      countryOfBirth: ${node.properties.countryOfBirth}`);
-        if (node.properties.countryOfResidence !== undefined) print(`      countryOfResidence: ${node.properties.countryOfResidence}`);
-        if (node.properties.animalType !== undefined) print(`      animalType: ${node.properties.animalType}`);
-        print(`    }`);
       }
     });
-    print(`First ${MAX_DATA_ITEMS} links (full objects):`);
-    first10Links.forEach((link, index) => {
-      print(`  Link ${index + 1}:`);
-      print(`    uuid: ${link.uuid}`);
-      print(`    type: ${link.type}`);
-      print(`    sourceNodeUuid: ${link.sourceNodeUuid}`);
-      print(`    targetNodeUuid: ${link.targetNodeUuid}`);
-      print(`    color: [${link.color[0]}, ${link.color[1]}, ${link.color[2]}]`);
-    });
-    print(`=== END TEMP DATA ===`);
+
+    first10Links.forEach((link, index) => {});
   }
 
-  /** 
+  /**
    * Generate cluster from test data
    */
   private generateClusterFromTestData(): Cluster {
-    print(`=== USING HARNESS TEST DATA ===`);
-    print(`Harness files: ${TEMP_HARNESS_TEST_DATA.size()}`);
-    
     // Convert Harness data to Node format - using only first MAX_DATA_ITEMS items
     const harnessNodes: Node[] = [];
     let itemCount = 0;
@@ -481,42 +542,35 @@ export class DataGenerator implements IDataGenerator {
           apiPattern: file.apiPattern,
           apiComplexity: file.apiComplexity,
           httpMethod: file.httpMethod,
-          path: file.path
-        }
+          path: file.path,
+        },
       };
       harnessNodes.push(node);
     });
-    
+
     // Use real harness links from the link detection analysis
     // Filter to only include links between nodes we actually have
-    const nodeUuids = new Set(harnessNodes.map(node => node.uuid));
-    const validHarnessLinks = TEMP_HARNESS_LINKS.filter(link => 
-      nodeUuids.has(link.sourceNodeUuid) && nodeUuids.has(link.targetNodeUuid)
+    const nodeUuids = new Set(harnessNodes.map((node) => node.uuid));
+    const validHarnessLinks = TEMP_HARNESS_LINKS.filter(
+      (link) =>
+        nodeUuids.has(link.sourceNodeUuid) && nodeUuids.has(link.targetNodeUuid)
     );
-    
+
     // Convert to Link[] format (remove extra properties)
-    const harnessLinks: Link[] = validHarnessLinks.map(link => ({
+    const harnessLinks: Link[] = validHarnessLinks.map((link) => ({
       uuid: link.uuid,
       type: link.type,
       sourceNodeUuid: link.sourceNodeUuid,
       targetNodeUuid: link.targetNodeUuid,
-      color: link.color
+      color: link.color,
     }));
-    
-    print(`Created ${harnessNodes.size()} nodes and ${harnessLinks.size()} links from Harness data (limited to ${MAX_DATA_ITEMS})`);
-    
+
     // Discover properties from the harness nodes
     const discoveredProps = discoverNodeProperties(harnessNodes);
     const validProps = filterValidAxisProperties(harnessNodes, discoveredProps);
-    
-    print(`=== DISCOVERED PROPERTIES ===`);
-    print(`Total properties found: ${discoveredProps.size()}`);
-    print(`Valid axis properties: ${validProps.size()}`);
-    validProps.forEach((prop, index) => {
-      print(`  ${index + 1}. ${prop}`);
-    });
-    print(`=== END DISCOVERED PROPERTIES ===`);
-    
+
+    validProps.forEach((prop, index) => {});
+
     // Create a single group containing all harness nodes
     const mainGroup: Group = {
       id: "harness-group",
@@ -527,7 +581,7 @@ export class DataGenerator implements IDataGenerator {
     return {
       groups: [mainGroup],
       relations: harnessLinks,
-      discoveredProperties: validProps
+      discoveredProperties: validProps,
     };
   }
 
@@ -536,7 +590,6 @@ export class DataGenerator implements IDataGenerator {
    */
   public setUseTestData(useTestData: boolean): void {
     this.useTestData = useTestData;
-    print(`Test data mode: ${useTestData ? "ENABLED" : "DISABLED"}`);
   }
 
   /**
@@ -563,10 +616,10 @@ export class DataGenerator implements IDataGenerator {
     }
     const serviceColors: { [key: string]: [number, number, number] } = {
       platform: [0.2, 0.4, 0.8],
-      ci: [0.8, 0.4, 0.2], 
+      ci: [0.8, 0.4, 0.2],
       cd: [0.2, 0.8, 0.2],
       ce: [0.8, 0.2, 0.8],
-      core: [0.8, 0.8, 0.2]
+      core: [0.8, 0.8, 0.2],
     };
     return serviceColors[service] || [0.5, 0.5, 0.5];
   }

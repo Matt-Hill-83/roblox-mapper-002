@@ -121,6 +121,39 @@ export function validateEnhancedGeneratorConfig(
     }
   }
 
+  // Validate optional visual mapping config
+  if (cfg.visualMapping) {
+    const visualMappingErrors = validateVisualMappingConfig(cfg.visualMapping);
+    if (visualMappingErrors.size() > 0) {
+      for (const err of visualMappingErrors) {
+        errors.push(err);
+      }
+    } else {
+      sanitized.visualMapping = cfg.visualMapping;
+    }
+  }
+
+  // Validate optional Y-axis config
+  if (cfg.yAxisConfig) {
+    const yAxisErrors = validateYAxisConfig(cfg.yAxisConfig);
+    if (yAxisErrors.size() > 0) {
+      for (const err of yAxisErrors) {
+        errors.push(err);
+      }
+    } else {
+      sanitized.yAxisConfig = cfg.yAxisConfig;
+    }
+  }
+
+  // Validate optional numPetTypes
+  if (cfg.numPetTypes !== undefined) {
+    if (!typeIs(cfg.numPetTypes, "number") || cfg.numPetTypes < 1 || cfg.numPetTypes > 50) {
+      errors.push("numPetTypes must be a number between 1 and 50");
+    } else {
+      sanitized.numPetTypes = cfg.numPetTypes;
+    }
+  }
+
   return {
     isValid: errors.size() === 0,
     errors,
@@ -236,6 +269,58 @@ function validateAxisMappingConfig(mapping: unknown): string[] {
     if (value !== undefined && !typeIs(value, "string")) {
       errors.push(`AxisMapping.${field} must be a string`);
     }
+  }
+
+  return errors;
+}
+
+/**
+ * Validates visual mapping configuration
+ */
+function validateVisualMappingConfig(visualMapping: unknown): string[] {
+  const errors: string[] = [];
+
+  if (!typeIs(visualMapping, "table")) {
+    errors.push("Visual mapping must be an object");
+    return errors;
+  }
+  
+  const mappingObj = visualMapping as Record<string, unknown>;
+
+  // Validate string fields
+  const stringFields = ["backgroundColor", "borderColor"];
+  
+  for (const field of stringFields) {
+    const value = mappingObj[field];
+    if (value !== undefined && !typeIs(value, "string")) {
+      errors.push(`VisualMapping.${field} must be a string`);
+    }
+  }
+
+  return errors;
+}
+
+/**
+ * Validates Y-axis configuration
+ */
+function validateYAxisConfig(yAxisConfig: unknown): string[] {
+  const errors: string[] = [];
+
+  if (!typeIs(yAxisConfig, "table")) {
+    errors.push("Y-axis config must be an object");
+    return errors;
+  }
+  
+  const configObj = yAxisConfig as Record<string, unknown>;
+
+  // Validate boolean field
+  if (configObj["useLayer"] !== undefined && !typeIs(configObj["useLayer"], "boolean")) {
+    errors.push("YAxisConfig.useLayer must be a boolean");
+  }
+
+  // Validate string field
+  if (configObj["property"] !== undefined && !typeIs(configObj["property"], "string")) {
+    errors.push("YAxisConfig.property must be a string");
   }
 
   return errors;

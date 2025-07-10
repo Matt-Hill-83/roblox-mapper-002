@@ -38,6 +38,9 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
     // Generate unique ID for the lane
     const laneId = `${propertyName || "default"}_${typeName}`;
     const blockName = `ZParallel_Lane_${laneId}`;
+    
+    // Debug: Print width of actual swimlane
+    print(`[SWIMLANE] ${typeName}: width=${width}, depth=${depth}`)
 
     const swimLaneBlock = this.createBlock({
       name: blockName,
