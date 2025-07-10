@@ -48,7 +48,9 @@ export class PropertyValueResolver {
     
     if (extractor) {
       try {
-        return extractor(node);
+        const result = extractor(node);
+        print(`[DEBUG] PropertyValueResolver: ${propertyName} for node ${node.uuid} = ${result}`);
+        return result;
       } catch (error) {
         warn(`[PropertyValueResolver] Error extracting property ${propertyName}: ${error}`);
       }
@@ -57,10 +59,13 @@ export class PropertyValueResolver {
     // Fall back to dynamic property discovery for unknown properties
     const value = getNodePropertyValue(node, propertyName);
     if (value !== undefined) {
-      return tostring(value);
+      const result = tostring(value);
+      print(`[DEBUG] PropertyValueResolver: ${propertyName} for node ${node.uuid} = ${result} (dynamic)`);
+      return result;
     }
     
     // Final fallback
+    print(`[DEBUG] PropertyValueResolver: ${propertyName} for node ${node.uuid} = Unknown (fallback)`);
     return "Unknown";
   }
   
@@ -246,7 +251,9 @@ export class PropertyValueResolver {
    * Extract apiComplexity property (Harness)
    */
   private extractApiComplexity(node: Node): string {
-    return node.properties?.apiComplexity || "Unknown";
+    const result = node.properties?.apiComplexity || "Unknown";
+    print(`[DEBUG] extractApiComplexity for node ${node.uuid}: properties = ${node.properties ? "exists" : "null"}, apiComplexity = ${result}`);
+    return result;
   }
 
   /**
