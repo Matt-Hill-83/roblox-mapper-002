@@ -141,10 +141,10 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     offsetZ: number = 0
   ): Part {
     // Use actual bounds for dimensions with buffer
-    const xBuffer = 5; // 5 unit buffer on each side
+    const xBuffer = BLOCK_CONSTANTS.DIMENSIONS.X_PARALLEL_LANE_BUFFER;
     const width = bounds.maxX - bounds.minX + xBuffer * 2; // Add buffer to both ends
-    // Use the same width as Z-parallel lanes for consistency
-    const depth = LAYOUT_CONSTANTS.LANE_DIMENSIONS.Z_PARALLEL_LANE_WIDTH;
+    // Use the correct depth for X-parallel lanes
+    const depth = LAYOUT_CONSTANTS.LANE_DIMENSIONS.X_PARALLEL_LANE_DEPTH;
     const centerX = (bounds.minX + bounds.maxX) / 2;
     const centerZ = (bounds.minZ + bounds.maxZ) / 2;
 

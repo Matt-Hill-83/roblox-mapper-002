@@ -80,7 +80,7 @@ export function createVerticalWalls(config: VerticalWallConfig): Part[] {
   rightWall.Parent = parent;
   walls.push(rightWall);
   
-  print(`🏗️ Created ${walls.size()} vertical walls around platform`);
+  
   return walls;
 }
 
@@ -142,7 +142,7 @@ export function createWallSwimlanes(
     });
   });
   
-  print(`🎨 Created swimlane shadows on ${walls.size()} walls`);
+  
 }
 
 /**
@@ -175,7 +175,7 @@ export function createFarZEdgeWall(shadowBlock: Part, height: number): Part {
   wall.CanCollide = false;
   wall.Parent = shadowBlock.Parent;
   
-  print(`🏗️ Created far Z edge wall at position (${wallX}, ${wallY}, ${wallZ})`);
+  
   return wall;
 }
 
@@ -209,6 +209,6 @@ export function createFarXEdgeWall(shadowBlock: Part, height: number): Part {
   wall.CanCollide = false;
   wall.Parent = shadowBlock.Parent;
   
-  print(`🏗️ Created far X edge wall at position (${wallX}, ${wallY}, ${wallZ})`);
+  
   return wall;
 }

@@ -25,12 +25,12 @@ export function updateAvailableProperties(discoveredProps: string[]): void {
     // Update visual properties (include "none" option)
     _visualProperties = ["none", ...discoveredProps];
     
-    print(`[axisMappingControls] Updated available properties with ${discoveredProps.size()} discovered properties`);
+    
     discoveredProps.forEach((prop, index) => {
-      print(`  ${index + 1}. ${prop}`);
+      
     });
   } else {
-    print("[axisMappingControls] WARNING: No properties discovered, using empty arrays");
+    
     _availableProperties = [];
     _visualProperties = ["none"];
   }

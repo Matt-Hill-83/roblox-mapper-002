@@ -1,8 +1,8 @@
+import { BaseService } from "../../../shared/services/base/BaseService";
 import { ConfigGUIServerService } from "../configGUIServer.service";
 import { GraphInitializerService } from "../graphInitializer.service";
-import { makeOriginBlock } from "../../../shared/modules/makeOriginBlock";
 import { initializeDev2Features } from "./dev2features";
-import { BaseService } from "../../../shared/services/base/BaseService";
+import { makeOriginBlock } from "../../../shared/modules/makeOriginBlock";
 
 // Origin configuration for 3D positioning
 const ORIGIN = {
@@ -73,10 +73,10 @@ export class GameService extends BaseService {
   }
 
   /**
-   * Debug function to query and print information about all nodes
+   
    */
   private debugNodeInformation(): void {
-    print("========== DEBUG NODE INFORMATION ==========");
+    
     
     // Find all hexagon models (they start with "Hexagon_")
     const nodes: Model[] = [];
@@ -90,7 +90,7 @@ export class GameService extends BaseService {
     
     searchFolder(this.myStuffFolder);
     
-    print(`Found ${nodes.size()} hexagon nodes`);
+    
     
     // Sort nodes by their GUID attribute for consistent output
     nodes.sort((a, b) => {
@@ -158,10 +158,10 @@ export class GameService extends BaseService {
         nodeInfo += `, httpMethod=${httpMethod}`;
       }
       
-      print(nodeInfo);
+      
     });
     
-    print("========== END DEBUG NODE INFORMATION ==========");
+    
   }
   
   /**

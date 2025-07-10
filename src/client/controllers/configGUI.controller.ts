@@ -1,7 +1,7 @@
-import { ReplicatedStorage } from "@rbxts/services";
+import { BaseService } from "../../shared/services/base/BaseService";
 import { ConfigGUIService } from "../services/configGui";
 import { EnhancedGeneratorConfig } from "../../shared/interfaces/enhancedGenerator.interface";
-import { BaseService } from "../../shared/services/base/BaseService";
+import { ReplicatedStorage } from "@rbxts/services";
 import { validateEnhancedGeneratorConfig } from "../../shared/utils/validation";
 
 export class ConfigGUIController extends BaseService {
@@ -39,7 +39,7 @@ export class ConfigGUIController extends BaseService {
       (eventType: string, data?: unknown) => {
         
         if (eventType === "initialConfig" && typeIs(data, "table")) {
-          print("[ConfigGUIController] Received initialConfig event");
+          
           // Check if it's an enhanced config (has layers property)
           const configData = data as { layers?: unknown };
           if (configData.layers) {
@@ -47,7 +47,7 @@ export class ConfigGUIController extends BaseService {
             
             if (!this.guiService) {
               // First time receiving config - create GUI with initial values
-              print("[ConfigGUIController] Creating ConfigGUIService for first time");
+              
               
               this.guiService = new ConfigGUIService({
                 onEnhancedConfigChange: (config) =>
@@ -59,7 +59,7 @@ export class ConfigGUIController extends BaseService {
               this.guiService.createGUI();
             } else {
               // GUI already exists - just update it
-              print("[ConfigGUIController] GUI already exists, updating config");
+              
               this.guiService.updateEnhancedConfig(enhancedConfig);
             }
           } else {
@@ -72,7 +72,7 @@ export class ConfigGUIController extends BaseService {
         } else if (eventType === "updateError") {
           warn("❌ Update failed:", data);
         } else if (eventType === "triggerGeneration" && typeIs(data, "table")) {
-          print("[ConfigGUIController] Received triggerGeneration event");
+          
           // Automatic generation triggered by server
           const enhancedConfig = data as EnhancedGeneratorConfig;
           if (this.guiService) {
@@ -80,14 +80,14 @@ export class ConfigGUIController extends BaseService {
             this.onEnhancedConfigChange(enhancedConfig);
           }
         } else if (eventType === "discoveredProperties" && typeIs(data, "table")) {
-          print("[ConfigGUIController] Received discoveredProperties event");
+          
           const properties = data as string[];
-          print(`[ConfigGUIController] Properties received: ${properties.join(", ")}`);
+          
           if (this.guiService) {
-            print("[ConfigGUIController] GUI service exists, updating properties");
+            
             this.guiService.updateDiscoveredProperties(properties);
           } else {
-            print("[ConfigGUIController] WARNING: GUI service not yet created!");
+            
           }
         }
       }

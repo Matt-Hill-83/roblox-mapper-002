@@ -1,6 +1,7 @@
-import { getAvailableProperties, UI_CONSTANTS } from "../constants";
+import { UI_CONSTANTS, getAvailableProperties } from "../constants";
+import { createButton, createLabel, createSectionLabel } from "../utils/layoutManager";
+
 import { createDropdown } from "./dropdown";
-import { createSectionLabel, createLabel, createButton } from "../utils/layoutManager";
 
 interface AxisMappingSectionProps {
   parent: Frame;
@@ -25,10 +26,8 @@ export function createAxisMappingSection({
   onYAxisChange
 }: AxisMappingSectionProps): void {
   const availableProps = getAvailableProperties();
-  print(`[axisMappingSection] Creating dropdowns with ${availableProps.size()} available properties:`);
-  availableProps.forEach((prop, index) => {
-    print(`  ${index + 1}. ${prop}`);
-  });
+  
+  
   
   // Section label
   createSectionLabel(parent, "Spatial Grouping", 5);

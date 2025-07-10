@@ -5,25 +5,20 @@
  */
 
 import { Cluster, Node } from "../../../../interfaces/simpleDataGenerator.interface";
-import { EnhancedGeneratorConfig } from "../../../../interfaces/enhancedGenerator.interface";
 import { INodeRenderer, SpacingConfig } from "../interfaces";
-import { makeHexagon } from "../../../hexagonMaker";
-import { createRopeConnectors } from "../../dataGeneratorRobloxRendererUtils/ropeCreator";
+
+import { EnhancedGeneratorConfig } from "../../../../interfaces/enhancedGenerator.interface";
 import { RENDERER_CONSTANTS } from "../../dataGeneratorRobloxRendererUtils/constants";
+import { createRopeConnectors } from "../../dataGeneratorRobloxRendererUtils/ropeCreator";
 import { getNodeBackgroundColor } from "../utils/colorMapper";
+import { makeHexagon } from "../../../hexagonMaker";
 
 export class NodeRenderer implements INodeRenderer {
   /**
    * Renders the cluster with positioned nodes
    */
   public renderCluster(cluster: Cluster, parentFolder: Folder, config?: EnhancedGeneratorConfig): void {
-    print("[NodeRenderer] renderCluster() called with", cluster.groups[0].nodes.size(), "nodes");
-    print("[NodeRenderer] config exists:", config !== undefined);
-    print("[NodeRenderer] config.visualMapping:", config?.visualMapping);
-    if (config?.visualMapping) {
-      print("[NodeRenderer] visualMapping.backgroundColor:", config.visualMapping.backgroundColor);
-      print("[NodeRenderer] visualMapping.borderColor:", config.visualMapping.borderColor);
-    }
+    
     // Look for existing GraphMaker folder and delete it
     const existingGraphMaker = parentFolder.FindFirstChild("GraphMaker");
     if (existingGraphMaker) {

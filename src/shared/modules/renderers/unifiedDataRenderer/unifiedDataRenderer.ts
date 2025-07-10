@@ -283,6 +283,9 @@ export class UnifiedDataRenderer {
       { minX: number; maxX: number; minZ: number; maxZ: number }
     >();
 
+    // Get node radius from spacing config
+    const nodeRadius = config?.spacing?.nodeRadius || 0.5;
+    
     // Group nodes by X grouping property and calculate bounds
     cluster.groups[0].nodes.forEach((node) => {
       const propertyValue = this.propertyResolver.getPropertyValue(
@@ -303,10 +306,11 @@ export class UnifiedDataRenderer {
       nodesByType.get(propertyValue)!.push(node);
 
       const bounds = typeBounds.get(propertyValue)!;
-      bounds.minX = math.min(bounds.minX, node.position.x);
-      bounds.maxX = math.max(bounds.maxX, node.position.x);
-      bounds.minZ = math.min(bounds.minZ, node.position.z);
-      bounds.maxZ = math.max(bounds.maxZ, node.position.z);
+      // Account for node radius when calculating bounds
+      bounds.minX = math.min(bounds.minX, node.position.x - nodeRadius);
+      bounds.maxX = math.max(bounds.maxX, node.position.x + nodeRadius);
+      bounds.minZ = math.min(bounds.minZ, node.position.z - nodeRadius);
+      bounds.maxZ = math.max(bounds.maxZ, node.position.z + nodeRadius);
     });
 
     // Create a block for each swimlane based on actual node positions
@@ -345,9 +349,10 @@ export class UnifiedDataRenderer {
 
       // Apply uniform buffer to dimensions
       const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.Z_PARALLEL_LANE_BUFFER;
+      const xBuffer = BLOCK_CONSTANTS.DIMENSIONS.X_PARALLEL_LANE_BUFFER; // Add X buffer for width too
 
-      // Use the maximum width for all lanes to ensure uniform length
-      const blockWidth = maxWidth;
+      // Use the maximum width for all lanes to ensure uniform length, plus buffer
+      const blockWidth = maxWidth + xBuffer * 2;
       // Use the overall Z extent for all lanes to ensure uniform Z-length
       const blockDepth = (overallMaxZ - overallMinZ) + zBuffer * 2;
 
