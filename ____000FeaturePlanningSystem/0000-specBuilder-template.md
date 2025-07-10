@@ -1,22 +1,19 @@
 |----------------------------------------------------------------------|
 Summary:
-Audit and Revise Geometric Naming
-- our current codebase places items parallel to the X and Z axes in roblox
-- historically, instead of just referring to item groupings by their axis, we referred to them by the property being displayed on that axis.
-- in addition, we have labeled some axes and objects incorrectly.
-- we want to correct this.
-- this Feature will audit the code to identify where this naming is used, and create a plan to fix the naminig to be agnostic to the type of data being mapped, and instead focus on the axis upon which it is mapped.
+F006 - ReDesign Layout Construction
+
 |----------------------------------------------------------------------|
 Requirements:
-1. perform code audit of all files under:
-/Users/__projects/roblox-mapper-002-multi/cursor/src
+ > Here is how it should work:                                                                  │
+│   - first we create the x-parallel lanes.                                                      │
+│   -- their length is driven by the desire to place all nodes next to each other in a line        │
+│   parallel to to the x axis                                                                             │
+│   - then we create the z parallel lanes.  their width is driven by an arbitrary lane width     │
+│   and inter-lane spacing.
+- then we create the group shadow.                                    │
+│  
 
-2. create a report that includes:
--- summary
 
--- drawio diagrams of existing dataflow
--- list of names to be corrected
---- list of specific tasks to correct the naming and improve the codebase
 
 |----------------------------------------------------------------------|
 
@@ -92,7 +89,7 @@ Step 2. - Break Spec into Smaller Files
    4. to create these Outputs:
    5. <output names>
    6. Make any changes, ask me to update it, and tell me when you are ready for
-   7. Step 3 <step name>
+   7. Step 3 <step name> (yes)
 
 |----------------------------------------------------------------------|
 Step 3. - Execution
@@ -169,7 +166,7 @@ Step 4. - Code Audit
 4. User Question:
 
    1. I have committed the changes for <task name>
-   2. Shall I execute <task name>?
+   2. Shall I execute <task name>? (yes)
 
 |----------------------------------------------------------------------|
 
