@@ -229,9 +229,8 @@ export class UnifiedDataRenderer {
       const nodeSpacing = bounds.maxX - bounds.minX;
       const swimlaneWidth = nodeSpacing === 0 ? hexagonWidth : nodeSpacing + hexagonWidth;
       
-      // Check if this is a person type for extra buffer
-      const isPersonType = BLOCK_CONSTANTS.PERSON_TYPES.includes(typeName.lower());
-      const zBuffer = isPersonType ? BLOCK_CONSTANTS.DIMENSIONS.PERSON_TYPE_X_BUFFER : 0;
+      // Apply uniform Z-axis buffer to all X-axis swimlanes
+      const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.X_AXIS_Z_BUFFER;
       
       // Use shadow block dimensions for depth to match group shadow block
       const blockWidth = swimlaneWidth;
@@ -249,7 +248,6 @@ export class UnifiedDataRenderer {
       
       // Log X-axis swimlane creation
       print(`[UnifiedDataRenderer] Creating X-axis swimlane for type: ${typeName}`);
-      print(`  - Is Person Type: ${isPersonType}`);
       print(`  - Z Buffer Applied: ${zBuffer} (total extra depth: ${zBuffer * 2})`);
       print(`  - Block Width: ${blockWidth}`);
       print(`  - Base Shadow Depth: ${shadowDimensions.depth}`);

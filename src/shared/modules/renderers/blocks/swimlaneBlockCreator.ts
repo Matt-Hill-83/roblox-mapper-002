@@ -99,10 +99,9 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
     let colorIndex = 0;
 
     typeBounds.forEach((bounds, typeName) => {
-      // Use larger buffer for person types (man, woman, child, grandparent)
-      const isPersonType = BLOCK_CONSTANTS.PERSON_TYPES.includes(typeName.lower());
-      const xBuffer = BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER; // Always use default for X-axis
-      const zBuffer = isPersonType ? BLOCK_CONSTANTS.DIMENSIONS.PERSON_TYPE_X_BUFFER : BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER;
+      // Apply uniform buffers to all X-axis swimlanes
+      const xBuffer = BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER; // Standard buffer for X dimension
+      const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.X_AXIS_Z_BUFFER; // Uniform Z buffer for all X-axis swimlanes
       
       // Calculate dimensions with different buffers for X and Z
       const width = bounds.maxX - bounds.minX + xBuffer * 2;
@@ -120,7 +119,6 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
       // Log shadow block creation
       print(`Creating shadow block: ${blockName}`);
       print(`  - Bounds: X[${bounds.minX}, ${bounds.maxX}], Z[${bounds.minZ}, ${bounds.maxZ}]`);
-      print(`  - Is Person Type: ${isPersonType}`);
       print(`  - X Buffer: ${xBuffer}, Z Buffer: ${zBuffer}`);
       print(`  - Calculated Size: X=${width}, Y=${BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BLOCK_HEIGHT}, Z=${depth}`);
       
