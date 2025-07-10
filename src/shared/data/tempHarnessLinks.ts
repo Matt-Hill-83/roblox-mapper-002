@@ -4,7 +4,7 @@
  * Contains 1000 links between Harness repository files
  */
 
-import { Link } from "../../interfaces/simpleDataGenerator.interface";
+import { Link } from "../interfaces/simpleDataGenerator.interface";
 
 // Extended interface with additional metadata
 export interface HarnessLink extends Link {

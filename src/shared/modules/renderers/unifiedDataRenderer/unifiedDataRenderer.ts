@@ -17,7 +17,7 @@ import { UpdateManager } from "./rendering/updateManager";
 import { PlatformBlockCreator } from "../blocks/platformBlockCreator";
 import { ShadowBlockCreator } from "../blocks/shadowBlockCreator";
 import { SwimLaneBlockCreator } from "../blocks/swimlaneBlockCreator";
-import { createVerticalWalls, createWallSwimlanes, createFarZEdgeWall } from "../verticalWallCreator";
+import { createVerticalWalls, createWallSwimlanes, createFarZEdgeWall, createFarXEdgeWall } from "../verticalWallCreator";
 import { PropertyValueResolver } from "../propertyValueResolver";
 import { BLOCK_CONSTANTS } from "../constants/blockConstants";
 import { LAYOUT_CONSTANTS } from "../constants/layoutConstants";
@@ -147,9 +147,10 @@ export class UnifiedDataRenderer {
       buffer: BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER
     });
 
-    // Create vertical wall at far Z edge
+    // Create vertical walls at far Z and X edges
     const wallHeight = 20; // You can adjust this height as needed
     createFarZEdgeWall(shadow, wallHeight);
+    createFarXEdgeWall(shadow, wallHeight);
 
     // Re-parent lanes to shadow block
     xParallelModel.Parent = shadow;

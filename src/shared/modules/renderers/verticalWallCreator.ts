@@ -178,3 +178,37 @@ export function createFarZEdgeWall(shadowBlock: Part, height: number): Part {
   print(`🏗️ Created far Z edge wall at position (${wallX}, ${wallY}, ${wallZ})`);
   return wall;
 }
+
+/**
+ * Create a single vertical wall at the far X edge of a shadow block
+ * Wall is parallel to Z-axis with same depth as shadow block
+ */
+export function createFarXEdgeWall(shadowBlock: Part, height: number): Part {
+  const wallThickness = 0.5;
+  const wallColor = new Color3(0.3, 0.3, 0.3);
+  const wallTransparency = 0.7;
+  
+  // Get shadow block dimensions
+  const shadowWidth = shadowBlock.Size.X;
+  const shadowDepth = shadowBlock.Size.Z;
+  
+  // Calculate wall position at far X edge (positive X)
+  const wallX = shadowBlock.Position.X + shadowWidth / 2 + wallThickness / 2;
+  const wallY = shadowBlock.Position.Y + shadowBlock.Size.Y / 2 + height / 2; // Position above shadow block
+  const wallZ = shadowBlock.Position.Z;
+  
+  // Create the wall
+  const wall = new Instance("Part");
+  wall.Name = "FarXEdgeWall";
+  wall.Size = new Vector3(wallThickness, height, shadowDepth);
+  wall.Position = new Vector3(wallX, wallY, wallZ);
+  wall.Material = Enum.Material.Glass;
+  wall.Color = wallColor;
+  wall.Transparency = wallTransparency;
+  wall.Anchored = true;
+  wall.CanCollide = false;
+  wall.Parent = shadowBlock.Parent;
+  
+  print(`🏗️ Created far X edge wall at position (${wallX}, ${wallY}, ${wallZ})`);
+  return wall;
+}
