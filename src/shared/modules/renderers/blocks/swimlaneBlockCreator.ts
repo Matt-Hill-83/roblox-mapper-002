@@ -24,12 +24,21 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
    * Create a Z-parallel lane shadow block (runs along Z axis)
    */
   public createSwimLaneBlock(config: SwimLaneBlockConfig): Part {
-    const { position, width, depth, height, color, typeName, parent, propertyName } = config;
-    
+    const {
+      position,
+      width,
+      depth,
+      height,
+      color,
+      typeName,
+      parent,
+      propertyName,
+    } = config;
+
     // Generate unique ID for the lane
     const laneId = `${propertyName || "default"}_${typeName}`;
     const blockName = `ZParallel_Lane_${laneId}`;
-    
+
     const swimLaneBlock = this.createBlock({
       name: blockName,
       size: new Vector3(width, height, depth),
@@ -37,17 +46,14 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
       material: BLOCK_CONSTANTS.MATERIALS.PLATFORM,
       color: color,
       transparency: BLOCK_CONSTANTS.TRANSPARENCY.OPAQUE,
-      canCollide: true
+      canCollide: true,
     });
 
     swimLaneBlock.CastShadow = false;
     swimLaneBlock.Parent = parent;
-    
-    print(`[SwimLaneBlock] ${typeName} created at position: X=${position.X}, Z=${position.Z}`);
 
     // Add surface labels to all faces
     this.addSurfaceLabelsToAllFaces(swimLaneBlock, typeName);
-
 
     return swimLaneBlock;
   }
@@ -56,7 +62,10 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
    * Create Z-parallel lane blocks for multiple types
    */
   public createZParallelLaneBlocks(
-    typeBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
+    typeBounds: Map<
+      string,
+      { minX: number; maxX: number; minZ: number; maxZ: number }
+    >,
     yPosition: number,
     height: number,
     parent: Instance,
@@ -66,24 +75,35 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
     let colorIndex = 0;
 
     typeBounds.forEach((bounds, typeName) => {
-      const color = colorMap?.get(typeName) || 
-                   this.getColorFromArray(BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS, colorIndex);
-      
-      const dimensions = this.calculateBlockDimensions(bounds, BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER);
-      
+      const color =
+        colorMap?.get(typeName) ||
+        this.getColorFromArray(
+          BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS,
+          colorIndex
+        );
+
+      const dimensions = this.calculateBlockDimensions(
+        bounds,
+        BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER
+      );
+
       const config: SwimLaneBlockConfig = {
-        position: new Vector3(dimensions.position.X, yPosition, dimensions.position.Z),
+        position: new Vector3(
+          dimensions.position.X,
+          yPosition,
+          dimensions.position.Z
+        ),
         width: dimensions.size.X,
         depth: dimensions.size.Z,
         height: height,
         color: color,
         typeName: typeName,
-        parent: parent
+        parent: parent,
       };
 
       const block = this.createSwimLaneBlock(config);
       swimLaneBlocks.set(typeName, block);
-      
+
       colorIndex++;
     });
 
@@ -94,7 +114,10 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
    * Create Z-parallel lane blocks grouped by X position
    */
   public createXAxisSwimLaneBlocks(
-    typeBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
+    typeBounds: Map<
+      string,
+      { minX: number; maxX: number; minZ: number; maxZ: number }
+    >,
     parent: Instance,
     yPosition: number = 0
   ): Map<string, Part> {
@@ -105,65 +128,56 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
     typeBounds.forEach((bounds, typeName) => {
       // Use fixed width from layout constants
       const width = LAYOUT_CONSTANTS.LANE_DIMENSIONS.Z_PARALLEL_LANE_WIDTH;
-      const depth = bounds.maxZ - bounds.minZ + BLOCK_CONSTANTS.DIMENSIONS.Z_PARALLEL_LANE_BUFFER * 2;
-      
+      const depth =
+        bounds.maxZ -
+        bounds.minZ +
+        BLOCK_CONSTANTS.DIMENSIONS.Z_PARALLEL_LANE_BUFFER * 2;
+
       // Position lanes with fixed spacing
       const centerX = currentX;
       const centerZ = (bounds.minZ + bounds.maxZ) / 2;
       currentX += width + LAYOUT_CONSTANTS.LANE_SPACING.Z_PARALLEL_LANE_SPACING;
-      
+
       const blockName = `ZParallelShadowBlock_${typeName}`;
       const blockSize = new Vector3(
         width,
         BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BLOCK_HEIGHT,
         depth
       );
-      
+
       // Log shadow block creation
-      print(`Creating shadow block: ${blockName}`);
-      print(`  - Bounds: X[${bounds.minX}, ${bounds.maxX}], Z[${bounds.minZ}, ${bounds.maxZ}]`);
-      print(`  - Z Buffer: ${BLOCK_CONSTANTS.DIMENSIONS.Z_PARALLEL_LANE_BUFFER}`);
-      print(`  - Calculated Size: X=${width}, Y=${BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BLOCK_HEIGHT}, Z=${depth}`);
-      
+
       const block = this.createBlock({
         name: blockName,
         size: blockSize,
-        position: new Vector3(
-          centerX,
-          yPosition,
-          centerZ
-        ),
+        position: new Vector3(centerX, yPosition, centerZ),
         material: BLOCK_CONSTANTS.MATERIALS.SWIMLANE,
-        color: this.getColorFromArray(BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS, colorIndex),
+        color: this.getColorFromArray(
+          BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS,
+          colorIndex
+        ),
         transparency: BLOCK_CONSTANTS.TRANSPARENCY.OPAQUE,
-        canCollide: true
+        canCollide: true,
       });
 
       block.CastShadow = false;
       block.Parent = parent;
       zParallelBlocks.set(typeName, block);
-      
+
       colorIndex++;
     });
 
     // Verify all shadow blocks after creation
-    print("\n=== Verifying Shadow Blocks After Creation ===");
-    zParallelBlocks.forEach((block, typeName) => {
-      print(`Shadow block: ${block.Name}`);
-      print(`  - Type: ${typeName}`);
-      print(`  - Actual Size: X=${block.Size.X}, Y=${block.Size.Y}, Z=${block.Size.Z}`);
-      print(`  - Position: X=${block.Position.X}, Y=${block.Position.Y}, Z=${block.Position.Z}`);
-    });
-    
+    zParallelBlocks.forEach((block, typeName) => {});
+
     // Also find all shadow blocks in parent
-    print("\n=== All Shadow Blocks in Parent ===");
-    const allShadowBlocks = parent.GetChildren().filter((child): child is Part => 
-      child.IsA("Part") && child.Name.match("ShadowBlock")[0] !== undefined
-    );
-    allShadowBlocks.forEach(block => {
-      print(`Found shadow block: ${block.Name}`);
-      print(`  - Size: X=${block.Size.X}, Y=${block.Size.Y}, Z=${block.Size.Z}`);
-    });
+    const allShadowBlocks = parent
+      .GetChildren()
+      .filter(
+        (child): child is Part =>
+          child.IsA("Part") && child.Name.match("ShadowBlock")[0] !== undefined
+      );
+    allShadowBlocks.forEach((block) => {});
 
     return zParallelBlocks;
   }
@@ -178,10 +192,10 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
       Enum.NormalId.Left,
       Enum.NormalId.Right,
       Enum.NormalId.Top,
-      Enum.NormalId.Bottom
+      Enum.NormalId.Bottom,
     ];
 
-    faces.forEach(face => {
+    faces.forEach((face) => {
       // Create SurfaceGui
       const surfaceGui = new Instance("SurfaceGui");
       surfaceGui.Name = `SurfaceGui_${face.Name}`;
