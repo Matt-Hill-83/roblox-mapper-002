@@ -266,14 +266,21 @@ export class GUIStateManager {
       }
     }
     
-    // Update visual mapping to use first property as default background color
+    // Update visual mapping to use httpMethod as default background color if available
     if (properties.size() > 0 && this.state.enhancedConfig.visualMapping) {
       const currentVisualMapping = this.state.enhancedConfig.visualMapping;
       
       // Only update if background is still "None" or "none"
       if (currentVisualMapping.backgroundColor === "None" || currentVisualMapping.backgroundColor === "none") {
-        this.state.enhancedConfig.visualMapping.backgroundColor = properties[0];
-        print(`[GUIStateManager] Updated background color to first property: ${properties[0]}`);
+        // Prefer "httpMethod" if it exists in discovered properties
+        const httpMethodIndex = properties.indexOf("httpMethod");
+        if (httpMethodIndex !== -1) {
+          this.state.enhancedConfig.visualMapping.backgroundColor = "httpMethod";
+          print(`[GUIStateManager] Updated background color to httpMethod`);
+        } else {
+          this.state.enhancedConfig.visualMapping.backgroundColor = properties[0];
+          print(`[GUIStateManager] Updated background color to first property: ${properties[0]}`);
+        }
       }
     }
     

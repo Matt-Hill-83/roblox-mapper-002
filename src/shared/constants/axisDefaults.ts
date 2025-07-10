@@ -29,10 +29,10 @@ export const AXIS_DEFAULTS = {
  */
 export function getDefaultXAxis(discoveredProperties?: string[]): string {
   if (discoveredProperties && discoveredProperties.size() > 0) {
-    // Prefer "component" if it exists in discovered properties
-    const componentIndex = discoveredProperties.indexOf("component");
-    if (componentIndex !== -1) {
-      return "component";
+    // Prefer "httpMethod" if it exists in discovered properties
+    const httpMethodIndex = discoveredProperties.indexOf("httpMethod");
+    if (httpMethodIndex !== -1) {
+      return "httpMethod";
     }
     return discoveredProperties[0];
   }

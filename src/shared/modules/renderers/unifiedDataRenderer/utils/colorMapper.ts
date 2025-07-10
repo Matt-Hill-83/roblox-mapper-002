@@ -59,6 +59,16 @@ const COLOR_SCHEMES = {
     software: new Color3(0.8, 0.6, 0.2),
     default: new Color3(0.5, 0.5, 0.5)
   },
+  httpMethod: {
+    GET: new Color3(0.2, 0.8, 0.2),       // Green (safe, read-only)
+    POST: new Color3(0.2, 0.6, 0.8),      // Blue (create)
+    PUT: new Color3(0.8, 0.6, 0.2),       // Orange (update)
+    PATCH: new Color3(0.8, 0.8, 0.2),     // Yellow (partial update)
+    DELETE: new Color3(0.8, 0.2, 0.2),    // Red (delete)
+    HEAD: new Color3(0.6, 0.6, 0.6),      // Gray (metadata)
+    OPTIONS: new Color3(0.8, 0.2, 0.8),   // Purple (discovery)
+    default: new Color3(0.5, 0.5, 0.5)
+  },
   petType: {
     Dog: new Color3(0.6, 0.4, 0.2),      // Brown
     Cat: new Color3(0.5, 0.5, 0.5),      // Gray
