@@ -67,6 +67,9 @@ const COLOR_SCHEMES = {
     DELETE: new Color3(0.8, 0.2, 0.2),    // Red (delete)
     HEAD: new Color3(0.6, 0.6, 0.6),      // Gray (metadata)
     OPTIONS: new Color3(0.8, 0.2, 0.8),   // Purple (discovery)
+    MULTIPLE: new Color3(0.4, 0.2, 0.6),  // Dark Purple (multiple methods)
+    INTERNAL: new Color3(0.2, 0.8, 0.8),  // Cyan (internal calls)
+    UNKNOWN: new Color3(0.5, 0.5, 0.5),   // Gray (unknown method)
     default: new Color3(0.5, 0.5, 0.5)
   },
   petType: {
@@ -155,6 +158,20 @@ const DEFAULT_BORDER_COLOR = new Color3(0, 0, 0);
  * Get property value from node for color mapping
  */
 function getNodePropertyValue(node: Node, propertyName: string): string {
+  // Debug httpMethod lookup for first few nodes
+  if (propertyName === "httpMethod" && node.uuid.match("harness_file_[0-2]")) {
+    print(`[ColorMapper] Looking for httpMethod in node ${node.uuid}, properties=${node.properties !== undefined}`);
+    if (node.properties) {
+      const keys: string[] = [];
+      for (const [key] of pairs(node.properties)) {
+        keys.push(key as string);
+      }
+      print(`[ColorMapper] Node ${node.uuid} properties: ${keys.join(", ")}`);
+      const httpMethodValue = propertyName in node.properties ? node.properties[propertyName as keyof typeof node.properties] : undefined;
+      print(`[ColorMapper] httpMethod value: ${httpMethodValue || "undefined"}`);
+    }
+  }
+  
   if (propertyName === "type") {
     return node.type;
   } else if (propertyName === "age" && node.properties?.age !== undefined) {
@@ -195,13 +212,28 @@ function getColorForPropertyValue(propertyName: string, value: string): Color3 {
  * Get background color for a node based on visual mapping
  */
 export function getNodeBackgroundColor(node: Node, visualMapping?: VisualMapping): Color3 {
+  // Debug all nodes to see what's happening
+  if (node.uuid.match("harness_file_")) {
+    print(`[ColorMapper] Node ${node.uuid}: visualMapping=${visualMapping !== undefined}, backgroundColor=${visualMapping?.backgroundColor}`);
+  }
+  
   if (!visualMapping || visualMapping.backgroundColor === "none") {
     // Use node's default color
+    if (node.uuid.match("harness_file_")) {
+      print(`[ColorMapper] Using default color for ${node.uuid}: (${node.color[0]}, ${node.color[1]}, ${node.color[2]})`);
+    }
     return new Color3(node.color[0], node.color[1], node.color[2]);
   }
 
   const propertyValue = getNodePropertyValue(node, visualMapping.backgroundColor);
-  return getColorForPropertyValue(visualMapping.backgroundColor, propertyValue);
+  const mappedColor = getColorForPropertyValue(visualMapping.backgroundColor, propertyValue);
+  
+  // Debug first few nodes to see what's happening
+  if (node.uuid.match("harness_file_[0-2]")) {
+    print(`[ColorMapper] Node ${node.uuid}: visualMapping.backgroundColor=${visualMapping.backgroundColor}, propertyValue=${propertyValue}, mappedColor=(${mappedColor.R * 255}, ${mappedColor.G * 255}, ${mappedColor.B * 255})`);
+  }
+  
+  return mappedColor;
 }
 
 /**

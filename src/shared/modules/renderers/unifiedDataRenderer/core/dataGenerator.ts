@@ -11,11 +11,11 @@ import { EnhancedGeneratorConfig, LayerConfig } from "../../../../interfaces/enh
 import { discoverNodeProperties, filterValidAxisProperties } from "../../../../utils/propertyDiscovery";
 
 import { IDataGenerator } from "../interfaces";
-import { TEMP_HARNESS_TEST_DATA } from "../../../../data/tempHarnessTestData";
 import { TEMP_HARNESS_LINKS } from "../../../../data/tempHarnessLinks";
+import { TEMP_HARNESS_TEST_DATA } from "../../../../data/tempHarnessTestData";
 
 // Maximum number of items to use from test data
-const MAX_DATA_ITEMS = 50;
+const MAX_DATA_ITEMS = 15;
 
 export class DataGenerator implements IDataGenerator {
   private linkIdCounter = 0;

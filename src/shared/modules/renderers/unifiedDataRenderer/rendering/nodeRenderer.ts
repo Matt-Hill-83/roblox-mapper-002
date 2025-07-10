@@ -18,6 +18,12 @@ export class NodeRenderer implements INodeRenderer {
    */
   public renderCluster(cluster: Cluster, parentFolder: Folder, config?: EnhancedGeneratorConfig): void {
     print("[NodeRenderer] renderCluster() called with", cluster.groups[0].nodes.size(), "nodes");
+    print("[NodeRenderer] config exists:", config !== undefined);
+    print("[NodeRenderer] config.visualMapping:", config?.visualMapping);
+    if (config?.visualMapping) {
+      print("[NodeRenderer] visualMapping.backgroundColor:", config.visualMapping.backgroundColor);
+      print("[NodeRenderer] visualMapping.borderColor:", config.visualMapping.borderColor);
+    }
     // Look for existing GraphMaker folder and delete it
     const existingGraphMaker = parentFolder.FindFirstChild("GraphMaker");
     if (existingGraphMaker) {
@@ -117,27 +123,18 @@ export class NodeRenderer implements INodeRenderer {
     hexagon.SetAttribute("nodeName", node.name);
     hexagon.SetAttribute("nodeType", node.type);
     
+    // Dynamically store all properties as attributes
     if (node.properties) {
-      if (node.properties.age !== undefined) {
-        hexagon.SetAttribute("age", node.properties.age);
-      }
-      if (node.properties.petType) {
-        hexagon.SetAttribute("petType", node.properties.petType);
-      }
-      if (node.properties.petColor) {
-        hexagon.SetAttribute("petColor", node.properties.petColor);
-      }
-      if (node.properties.firstName) {
-        hexagon.SetAttribute("firstName", node.properties.firstName);
-      }
-      if (node.properties.lastName) {
-        hexagon.SetAttribute("lastName", node.properties.lastName);
-      }
-      if (node.properties.countryOfBirth) {
-        hexagon.SetAttribute("countryOfBirth", node.properties.countryOfBirth);
-      }
-      if (node.properties.countryOfResidence) {
-        hexagon.SetAttribute("countryOfResidence", node.properties.countryOfResidence);
+      for (const [key, value] of pairs(node.properties)) {
+        if (value !== undefined) {
+          // Convert value to appropriate type for SetAttribute
+          if (typeIs(value, "string") || typeIs(value, "number") || typeIs(value, "boolean")) {
+            hexagon.SetAttribute(key as string, value);
+          } else {
+            // For complex types, convert to string
+            hexagon.SetAttribute(key as string, tostring(value));
+          }
+        }
       }
     }
     

@@ -186,11 +186,8 @@ export class UnifiedDataRenderer {
     const xAxisProperty = config.axisMapping?.xAxis || getDefaultXAxis(cluster.discoveredProperties);
     const nodesByType = new Map<string, Node[]>();
 
-    print(`[DEBUG] Starting swimlane alignment check with X-axis property: ${xAxisProperty}`);
-    print(`[DEBUG] Available Z-parallel lanes: ${zParallelLanes.size()}`);
     
     zParallelLanes.forEach((lane, laneName) => {
-      print(`[DEBUG] Z-parallel lane: ${laneName} at position (${lane.Position.X}, ${lane.Position.Y}, ${lane.Position.Z})`);
     });
 
     cluster.groups[0].nodes.forEach((node) => {
@@ -198,7 +195,6 @@ export class UnifiedDataRenderer {
         node,
         xAxisProperty
       );
-      print(`[DEBUG] Node ${node.uuid} has ${xAxisProperty} = ${propertyValue}, position: (${node.position.x}, ${node.position.y}, ${node.position.z})`);
       
       if (!nodesByType.has(propertyValue)) {
         nodesByType.set(propertyValue, []);
@@ -206,17 +202,12 @@ export class UnifiedDataRenderer {
       nodesByType.get(propertyValue)!.push(node);
     });
 
-    print(`[DEBUG] Nodes grouped by ${xAxisProperty}:`);
     nodesByType.forEach((nodes, typeName) => {
-      print(`[DEBUG] Group ${typeName}: ${nodes.size()} nodes`);
       const swimlane = zParallelLanes.get(typeName);
       if (swimlane) {
-        print(`[DEBUG] ✅ Found matching swimlane for ${typeName}`);
         nodes.forEach((node) => {
-          print(`[DEBUG] Node ${node.uuid} should align with swimlane ${typeName}`);
         });
       } else {
-        print(`[DEBUG] ❌ No swimlane found for ${typeName}`);
       }
     });
 

@@ -298,6 +298,7 @@ export class GUIStateManager {
       }
     }
     
+    
     // Notify listeners about the changes
     this.notifyListeners();
   }
