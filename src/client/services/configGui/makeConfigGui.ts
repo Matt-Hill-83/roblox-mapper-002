@@ -1,9 +1,9 @@
 /**
  * Configuration GUI Service
- * 
+ *
  * Implements the Screen GUI specification defined in:
  * 000ProjectSpecification/002ScreenGuiSpec.md
- * 
+ *
  * This service provides the user interface for configuring the simple data generator
  * with level-based node counts and other parameters.
  */
@@ -29,17 +29,15 @@ export class ConfigGUIService {
   private eventHandlers: GUIEventHandlers;
 
   constructor(options: ConfigGUIServiceOptions) {
-    print("[ConfigGUIService] Constructor called");
-    
     // Initialize state manager
     this.stateManager = new GUIStateManager(options.initialConfig);
-    
+
     // Initialize event handlers
     this.eventHandlers = new GUIEventHandlers({
       stateManager: this.stateManager,
       onEnhancedConfigChange: options.onEnhancedConfigChange,
       onClearRequest: options.onClearRequest,
-      onUpdateRequest: options.onUpdateRequest
+      onUpdateRequest: options.onUpdateRequest,
     });
   }
 
@@ -47,14 +45,14 @@ export class ConfigGUIService {
    * Creates and displays the configuration GUI
    */
   public createGUI(): void {
-    print("[ConfigGUIService] createGUI() called");
     const player = Players.LocalPlayer;
     const playerGui = player.WaitForChild("PlayerGui") as PlayerGui;
 
     // Check if GUI already exists
-    const existingGui = playerGui.FindFirstChild(GUI_CONSTANTS.NAMES.SCREEN_GUI);
+    const existingGui = playerGui.FindFirstChild(
+      GUI_CONSTANTS.NAMES.SCREEN_GUI
+    );
     if (existingGui) {
-      print(`[ConfigGUIService] WARNING: Found existing GUI named ${GUI_CONSTANTS.NAMES.SCREEN_GUI}, destroying it first`);
       existingGui.Destroy();
     }
 
@@ -63,18 +61,22 @@ export class ConfigGUIService {
     gui.Name = GUI_CONSTANTS.NAMES.SCREEN_GUI;
     gui.ResetOnSpawn = false;
     gui.Parent = playerGui;
-    print(`[ConfigGUIService] Created new ScreenGui: ${gui.Name}`);
     this.stateManager.setGUI(gui);
 
     // Create collapsible main frame - full height
-    const mainFrameSize = new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH, 0.9, 0);
+    const mainFrameSize = new UDim2(
+      0,
+      GUI_CONSTANTS.FRAME.ENHANCED_WIDTH,
+      0.9,
+      0
+    );
     const collapsibleFrame = createCollapsibleFrame({
       parent: gui,
       size: mainFrameSize,
       title: "Graph Configuration",
-      position: new UDim2(0, 10, 0, 10)
+      position: new UDim2(0, 10, 0, 10),
     });
-    
+
     // Store the main frame
     this.stateManager.setConfigFrame(collapsibleFrame.frame);
 
@@ -84,12 +86,14 @@ export class ConfigGUIService {
       parent: gui,
       size: vizFrameSize,
       title: "Visualization Controls",
-      position: new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH + 20, 0, 10) // Position to the right
+      position: new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH + 20, 0, 10), // Position to the right
     });
 
-
     // Create unified UI in the content frames
-    this.createUnifiedUI(collapsibleFrame.contentFrame, vizCollapsibleFrame.contentFrame);
+    this.createUnifiedUI(
+      collapsibleFrame.contentFrame,
+      vizCollapsibleFrame.contentFrame
+    );
 
     this.stateManager.setVisible(true);
   }
@@ -101,24 +105,26 @@ export class ConfigGUIService {
     const state = this.stateManager.getState();
     const parentFrame = contentFrame || state.configFrame;
     if (!parentFrame) return;
-    
+
     const config = this.stateManager.getEnhancedConfig();
-    
+
     // Create layout manager
     const layoutManager = new GuiLayoutManager(parentFrame);
-    
+
     // Create scrolling frame for content
     const scrollFrame = layoutManager.createScrollingFrame();
-    
+
     // Create global settings with spacing controls
     const globalSettings = createGlobalSettings({
       parent: scrollFrame,
       spacing: config.spacing!,
       onSpacingChange: (field, value) => {
         this.eventHandlers.handleSpacingChange(field, value);
-      }
+      },
     });
-    globalSettings.Position = layoutManager.getNextPosition(COMPONENT_HEIGHTS.GLOBAL_SETTINGS);
+    globalSettings.Position = layoutManager.getNextPosition(
+      COMPONENT_HEIGHTS.GLOBAL_SETTINGS
+    );
 
     // Create node/link types section
     const nodeTypesSection = createNodeTypesSection({
@@ -134,13 +140,21 @@ export class ConfigGUIService {
       },
       onPetTypesChange: (value) => {
         this.eventHandlers.handlePetTypesChange(value);
-      }
+      },
     });
-    nodeTypesSection.Position = layoutManager.getNextPosition(COMPONENT_HEIGHTS.NODE_TYPES);
+    nodeTypesSection.Position = layoutManager.getNextPosition(
+      COMPONENT_HEIGHTS.NODE_TYPES
+    );
 
     // Generate node and link type arrays
-    const nodeTypes = this.eventHandlers.generateTypeArray("Type", config.numNodeTypes);
-    const linkTypes = this.eventHandlers.generateTypeArray("Link", config.numLinkTypes);
+    const nodeTypes = this.eventHandlers.generateTypeArray(
+      "Type",
+      config.numNodeTypes
+    );
+    const linkTypes = this.eventHandlers.generateTypeArray(
+      "Link",
+      config.numLinkTypes
+    );
 
     // Create layer grid with initial layers
     const layerGrid = createLayerGrid({
@@ -150,11 +164,12 @@ export class ConfigGUIService {
       },
       nodeTypes,
       linkTypes,
-      initialLayers: config.layers
+      initialLayers: config.layers,
     });
     layerGrid.Position = layoutManager.getNextPosition(
-      COMPONENT_HEIGHTS.LAYER_GRID_HEADER + 
-      (config.layers.size() * COMPONENT_HEIGHTS.LAYER_ROW) + 50
+      COMPONENT_HEIGHTS.LAYER_GRID_HEADER +
+        config.layers.size() * COMPONENT_HEIGHTS.LAYER_ROW +
+        50
     );
 
     // Move visualization controls to separate frame
@@ -164,7 +179,7 @@ export class ConfigGUIService {
         visualization: config.visualization!,
         onVisualizationChange: (field, value) => {
           this.eventHandlers.handleVisualizationChange(field, value);
-        }
+        },
       });
       visualizationControls.Position = new UDim2(0, 10, 0, 10);
       visualizationControls.Size = new UDim2(1, -20, 1, -20);
@@ -182,7 +197,10 @@ export class ConfigGUIService {
         // Trigger re-render with new axis mapping
         this.eventHandlers.handleRegenerateClick();
       },
-      onVisualMappingChange: (mapping: "backgroundColor" | "borderColor", value: string) => {
+      onVisualMappingChange: (
+        mapping: "backgroundColor" | "borderColor",
+        value: string
+      ) => {
         this.stateManager.updateVisualMapping(mapping, value);
         // Trigger re-render with new visual mapping
         this.eventHandlers.handleRegenerateClick();
@@ -196,18 +214,18 @@ export class ConfigGUIService {
         this.stateManager.updateYAxisConfig({ useLayer: false, property });
         // Trigger re-render with new Y-axis property
         this.eventHandlers.handleRegenerateClick();
-      }
+      },
     });
 
     // Update scrolling frame canvas size
     layoutManager.updateCanvasSize(scrollFrame);
-    
+
     // Create action buttons (outside scrolling frame)
     this.createActionButtons(parentFrame);
-    
+
     // Create status area (outside scrolling frame)
     const statusLabel = createStatusArea({
-      parent: parentFrame
+      parent: parentFrame,
     });
     this.stateManager.setStatusLabel(statusLabel);
   }
@@ -219,60 +237,73 @@ export class ConfigGUIService {
     const state = this.stateManager.getState();
     const parent = parentFrame || state.configFrame;
     if (!parent) return;
-    
+
     // Position buttons 70 pixels from bottom using scale
     const buttonYScale = 1;
     const buttonYOffset = -70;
-    
+
     // Regenerate button
     ComponentFactory.createButton({
       name: "RegenerateButton",
       text: "Regenerate",
       position: new UDim2(0, 10, buttonYScale, buttonYOffset),
       parent: parent,
-      onClick: () => this.eventHandlers.handleRegenerateClick()
+      onClick: () => this.eventHandlers.handleRegenerateClick(),
     });
 
     // Update button
     ComponentFactory.createButton({
       name: "UpdateButton",
       text: "Update",
-      position: new UDim2(0, 10 + GUI_CONSTANTS.BUTTON.WIDTH + GUI_CONSTANTS.BUTTON.SPACING, buttonYScale, buttonYOffset),
+      position: new UDim2(
+        0,
+        10 + GUI_CONSTANTS.BUTTON.WIDTH + GUI_CONSTANTS.BUTTON.SPACING,
+        buttonYScale,
+        buttonYOffset
+      ),
       parent: parent,
-      onClick: () => this.eventHandlers.handleUpdateClick()
+      onClick: () => this.eventHandlers.handleUpdateClick(),
     });
 
     // Clear button
     ComponentFactory.createButton({
       name: "ClearButton",
       text: "Clear",
-      position: new UDim2(0, 10 + (GUI_CONSTANTS.BUTTON.WIDTH + GUI_CONSTANTS.BUTTON.SPACING) * 2, buttonYScale, buttonYOffset),
+      position: new UDim2(
+        0,
+        10 + (GUI_CONSTANTS.BUTTON.WIDTH + GUI_CONSTANTS.BUTTON.SPACING) * 2,
+        buttonYScale,
+        buttonYOffset
+      ),
       parent: parent,
-      onClick: () => this.eventHandlers.handleClearClick(() => this.createGUI())
+      onClick: () =>
+        this.eventHandlers.handleClearClick(() => this.createGUI()),
     });
 
     // Export Config button
     ComponentFactory.createButton({
       name: "ExportConfigButton",
       text: "Export",
-      position: new UDim2(0, 10 + (GUI_CONSTANTS.BUTTON.WIDTH + GUI_CONSTANTS.BUTTON.SPACING) * 3, buttonYScale, buttonYOffset),
+      position: new UDim2(
+        0,
+        10 + (GUI_CONSTANTS.BUTTON.WIDTH + GUI_CONSTANTS.BUTTON.SPACING) * 3,
+        buttonYScale,
+        buttonYOffset
+      ),
       parent: parent,
-      onClick: () => this.eventHandlers.handleExportConfigClick()
+      onClick: () => this.eventHandlers.handleExportConfigClick(),
     });
   }
-
 
   /**
    * Updates the enhanced configuration
    */
   public updateEnhancedConfig(config: EnhancedGeneratorConfig): void {
-    print("[ConfigGUIService] updateEnhancedConfig called");
     this.stateManager.updateEnhancedConfig(config);
-    
+
     // If GUI is visible, update the display
     const state = this.stateManager.getState();
     if (state.configFrame) {
-      print("[ConfigGUIService] Destroying and recreating GUI in updateEnhancedConfig");
       // Recreate the GUI to reflect new configuration
       state.configFrame.Destroy();
       this.createGUI();
@@ -283,17 +314,14 @@ export class ConfigGUIService {
    * Updates the discovered properties from the data
    */
   public updateDiscoveredProperties(properties: string[]): void {
-    print(`[ConfigGUIService] updateDiscoveredProperties called with ${properties.size()} properties`);
-    properties.forEach((prop, index) => {
-      print(`  ${index + 1}. ${prop}`);
-    });
-    
+    properties.forEach((prop, index) => {});
+
     // Update the state manager with discovered properties
     this.stateManager.updateDiscoveredProperties(properties);
-    
+
     // First refresh the axis dropdown GUI to clear old dropdowns
     refreshAxisDropdownGUI();
-    
+
     // Create axis mapping controls now that we have properties
     const axisMappingConfig = this.stateManager.getAxisMappingConfig();
     if (axisMappingConfig) {
@@ -302,7 +330,6 @@ export class ConfigGUIService {
       if (currentState.enhancedConfig.axisMapping) {
         axisMappingConfig.axisMapping = currentState.enhancedConfig.axisMapping;
       }
-      print("[ConfigGUIService] Creating axis mapping controls with discovered properties");
       createAxisMappingControls(axisMappingConfig);
     }
   }
@@ -321,7 +348,7 @@ export class ConfigGUIService {
     const state = this.stateManager.getState();
     const screenGui = state.configFrame?.Parent?.Parent as ScreenGui;
     if (!screenGui) return;
-    
+
     // Create error notification
     const errorFrame = new Instance("Frame");
     errorFrame.Name = "ErrorNotification";
@@ -331,7 +358,7 @@ export class ConfigGUIService {
     errorFrame.BorderSizePixel = 2;
     errorFrame.BorderColor3 = new Color3(0.6, 0, 0);
     errorFrame.Parent = screenGui;
-    
+
     const errorText = new Instance("TextLabel");
     errorText.Text = "⚠️ " + message;
     errorText.Size = new UDim2(1, -20, 1, -20);
@@ -342,7 +369,7 @@ export class ConfigGUIService {
     errorText.TextWrapped = true;
     errorText.Font = Enum.Font.SourceSansBold;
     errorText.Parent = errorFrame;
-    
+
     // Auto-dismiss after 5 seconds
     wait(5);
     errorFrame.Destroy();
