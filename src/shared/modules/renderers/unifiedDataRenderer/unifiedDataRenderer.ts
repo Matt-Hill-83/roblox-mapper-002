@@ -160,8 +160,8 @@ export class UnifiedDataRenderer {
     zParallelModel.Parent = shadow;
     lanesParent.Destroy();
 
-    // Create vertical walls if Y-axis is property-based
-    if (config.yAxisConfig && !config.yAxisConfig.useLayer) {
+    // Create vertical walls if Y-axis property is configured
+    if (config.axisMapping?.yAxis && config.axisMapping.yAxis !== "none") {
       const wallHeight = this.calculateWallHeight(cluster);
       const shadowWidth =
         allLaneBounds.width + LAYOUT_CONSTANTS.SHADOW_PADDING.X_PADDING * 2;
@@ -742,9 +742,9 @@ export class UnifiedDataRenderer {
     walls: Part[],
     config: EnhancedGeneratorConfig
   ): void {
-    if (!config.yAxisConfig || config.yAxisConfig.useLayer) return;
+    if (!config.axisMapping?.yAxis || config.axisMapping.yAxis === "none") return;
 
-    const yAxisProperty = config.yAxisConfig.property || getDefaultXAxis(cluster.discoveredProperties);
+    const yAxisProperty = config.axisMapping.yAxis;
     const propertyGroups = new Map<string, { minY: number; maxY: number }>();
     const propertyColors = new Map<string, Color3>();
 

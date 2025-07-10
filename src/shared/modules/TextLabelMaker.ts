@@ -37,7 +37,7 @@ export function createTextLabel({
   textLabel.Size = new UDim2(1, 0, 1, 0);
   textLabel.BackgroundColor3 = bgColor;
   textLabel.TextColor3 = textColor || new Color3(0, 0, 0);
-  textLabel.BorderSizePixel = 2; // Reduced from 10 to prevent overflow
+  textLabel.BorderSizePixel = 0; // No border on hex labels
   textLabel.BorderColor3 = borderColor || new Color3(0, 0, 0);
   textLabel.BorderMode = Enum.BorderMode.Inset; // Keep border inside the TextLabel bounds
   textLabel.TextWrapped = true; // Allow wrapping in addition to scaling

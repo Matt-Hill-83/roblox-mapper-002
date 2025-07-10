@@ -254,10 +254,10 @@ export class PositionCalculator implements IPositionCalculator {
     const zPositionMap = this.createPropertyPositionMap(nodesByTypeAndLayer, zAxisProperty);
     
     // Check if Y-axis should use property-based positioning
-    // Use yAxis from axisMapping if available, otherwise fall back to yAxisConfig
+    // Use yAxis from axisMapping if available
     const yAxisFromMapping = config.axisMapping?.yAxis;
-    const useLayerForY = !yAxisFromMapping && (!config.yAxisConfig || config.yAxisConfig.useLayer);
-    const yAxisProperty = yAxisFromMapping || config.yAxisConfig?.property || "type";
+    const useLayerForY = !yAxisFromMapping || yAxisFromMapping === "none";
+    const yAxisProperty = yAxisFromMapping || "type";
     
     // Create Y position mapping if using property-based Y-axis
     const yPositionMap = useLayerForY ? undefined : this.createPropertyPositionMap(nodesByTypeAndLayer, yAxisProperty, true);

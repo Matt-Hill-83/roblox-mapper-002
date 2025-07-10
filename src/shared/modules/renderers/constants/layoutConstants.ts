@@ -20,6 +20,7 @@ export const LAYOUT_CONSTANTS = {
   SHADOW_PADDING: {
     X_PADDING: 5, // Padding on left/right of all content
     Z_PADDING: 5, // Padding on front/back of all content
+    Y_SHADOW_PADDING: 3, // Padding around Y-parallel shadow blocks
   },
   
   NODE_SPACING: {
