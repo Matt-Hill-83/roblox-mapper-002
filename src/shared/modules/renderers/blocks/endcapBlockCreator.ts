@@ -30,7 +30,7 @@ export class EndcapBlockCreator extends BaseBlockCreator {
       parent,
       gap = this.DEFAULT_GAP,
       isZAxis = false,
-      color = swimlaneBlock.Color // Use swimlane color by default
+      color = swimlaneBlock.Color, // Use swimlane color by default
     } = config;
 
     const swimlanePos = swimlaneBlock.Position;
@@ -55,42 +55,42 @@ export class EndcapBlockCreator extends BaseBlockCreator {
     if (isZAxis) {
       // Z-axis property swimlanes run in X direction, so endcaps at left and right
       endcapSize = new Vector3(endcapWidth, endcapHeight, swimlaneSize.Z);
-      
+
       // Left endcap (negative X)
       leftPos = new Vector3(
-        swimlanePos.X - (swimlaneSize.X / 2) - gap - (endcapWidth / 2),
+        swimlanePos.X - swimlaneSize.X / 2 - gap - endcapWidth / 2,
         swimlanePos.Y,
         swimlanePos.Z
       );
-      
+
       // Right endcap (positive X)
       rightPos = new Vector3(
-        swimlanePos.X + (swimlaneSize.X / 2) + gap + (endcapWidth / 2),
+        swimlanePos.X + swimlaneSize.X / 2 + gap + endcapWidth / 2,
         swimlanePos.Y,
         swimlanePos.Z
       );
     } else {
       // X-axis property swimlanes run in Z direction, so endcaps at front and back
       endcapSize = new Vector3(swimlaneSize.X, endcapHeight, endcapWidth);
-      
+
       // Front endcap (negative Z)
       leftPos = new Vector3(
         swimlanePos.X,
         swimlanePos.Y,
-        swimlanePos.Z - (swimlaneSize.Z / 2) - gap - (endcapWidth / 2)
+        swimlanePos.Z - swimlaneSize.Z / 2 - gap - endcapWidth / 2
       );
-      
+
       // Back endcap (positive Z)
       rightPos = new Vector3(
         swimlanePos.X,
         swimlanePos.Y,
-        swimlanePos.Z + (swimlaneSize.Z / 2) + gap + (endcapWidth / 2)
+        swimlanePos.Z + swimlaneSize.Z / 2 + gap + endcapWidth / 2
       );
     }
 
     // Create left/front endcap
     this.createEndcapBlock(
-      `${swimlaneName}_${isZAxis ? 'Left' : 'Front'}Endcap`,
+      `${swimlaneName}_${isZAxis ? "Left" : "Front"}Endcap`,
       endcapSize,
       leftPos,
       swimlaneName,
@@ -101,7 +101,7 @@ export class EndcapBlockCreator extends BaseBlockCreator {
 
     // Create right/back endcap
     this.createEndcapBlock(
-      `${swimlaneName}_${isZAxis ? 'Right' : 'Back'}Endcap`,
+      `${swimlaneName}_${isZAxis ? "Right" : "Back"}Endcap`,
       endcapSize,
       rightPos,
       swimlaneName,
@@ -133,7 +133,7 @@ export class EndcapBlockCreator extends BaseBlockCreator {
       material: Enum.Material.Concrete,
       color: color, // Use swimlane color
       transparency: 0,
-      canCollide: false
+      canCollide: false,
     });
 
     // Add labels to all faces
@@ -146,34 +146,36 @@ export class EndcapBlockCreator extends BaseBlockCreator {
   /**
    * Add surface labels to all faces of the endcap
    */
-  private addLabelsToAllFaces(block: Part, text: string, isZAxis: boolean): void {
-    // Debug: print block dimensions
-    print(`=== ENDCAP DEBUG for ${text} ===`);
-    print(`isZAxis: ${isZAxis}`);
-    print(`Block size: X=${block.Size.X}, Y=${block.Size.Y}, Z=${block.Size.Z}`);
-    
+  private addLabelsToAllFaces(
+    block: Part,
+    text: string,
+    isZAxis: boolean
+  ): void {
     const faces: Enum.NormalId[] = [
       Enum.NormalId.Front,
       Enum.NormalId.Back,
       Enum.NormalId.Left,
       Enum.NormalId.Right,
       Enum.NormalId.Top,
-      Enum.NormalId.Bottom
+      Enum.NormalId.Bottom,
     ];
 
-    faces.forEach(face => {
+    faces.forEach((face) => {
       // Skip labels on short sides
       // For Z-axis endcaps: skip Front and Back faces (these are the narrow sides)
       // For X-axis endcaps: skip Left and Right faces (these are the narrow sides)
-      if (isZAxis && (face === Enum.NormalId.Front || face === Enum.NormalId.Back)) {
-        print(`  Skipping ${face.Name} face (narrow for Z-axis)`);
+      if (
+        isZAxis &&
+        (face === Enum.NormalId.Front || face === Enum.NormalId.Back)
+      ) {
         return;
       }
-      if (!isZAxis && (face === Enum.NormalId.Left || face === Enum.NormalId.Right)) {
-        print(`  Skipping ${face.Name} face (narrow for X-axis)`);
+      if (
+        !isZAxis &&
+        (face === Enum.NormalId.Left || face === Enum.NormalId.Right)
+      ) {
         return;
       }
-      print(`  Adding label to ${face.Name} face`);
       // Create SurfaceGui
       const surfaceGui = new Instance("SurfaceGui");
       surfaceGui.Name = `EndcapLabel_${face.Name}`;
@@ -201,12 +203,12 @@ export class EndcapBlockCreator extends BaseBlockCreator {
       textLabel.TextColor3 = BLOCK_CONSTANTS.LABEL_STYLING.TEXT_COLOR;
       textLabel.TextScaled = false;
       textLabel.TextSize = 72; // Doubled from 36
-      
+
       // Rotate text on top face for X-axis swimlanes (person endcaps)
       if (face === Enum.NormalId.Top && !isZAxis) {
         textLabel.Rotation = 90;
       }
-      
+
       textLabel.Parent = frame;
     });
   }
