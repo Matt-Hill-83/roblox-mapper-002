@@ -23,6 +23,42 @@ if (!typeColorMapping["Animals"] && personColors.size() > NODE_TYPE_NAMES.size()
 // Define color palettes for different properties
 const COLOR_SCHEMES = {
   type: typeColorMapping,
+  // Harness properties
+  component: {
+    cd: new Color3(0.2, 0.8, 0.2),          // Green
+    ci: new Color3(0.2, 0.6, 0.8),          // Blue
+    repository: new Color3(0.8, 0.6, 0.2),  // Orange
+    api: new Color3(0.8, 0.2, 0.8),         // Purple
+    platform: new Color3(0.2, 0.4, 0.8),    // Dark Blue
+    ce: new Color3(0.8, 0.2, 0.4),          // Red
+    core: new Color3(0.8, 0.8, 0.2),        // Yellow
+    default: new Color3(0.5, 0.5, 0.5)
+  },
+  service: {
+    platform: new Color3(0.2, 0.4, 0.8),    // Dark Blue
+    ci: new Color3(0.8, 0.4, 0.2),          // Orange
+    cd: new Color3(0.2, 0.8, 0.2),          // Green
+    ce: new Color3(0.8, 0.2, 0.8),          // Purple
+    core: new Color3(0.8, 0.8, 0.2),        // Yellow
+    default: new Color3(0.5, 0.5, 0.5)
+  },
+  language: {
+    java: new Color3(0.8, 0.4, 0.2),        // Orange (Java)
+    javascript: new Color3(0.9, 0.8, 0.2),  // Yellow (JS)
+    python: new Color3(0.2, 0.4, 0.8),      // Blue (Python)
+    go: new Color3(0.2, 0.8, 0.8),          // Cyan (Go)
+    typescript: new Color3(0.2, 0.6, 0.8),  // Light Blue (TS)
+    kotlin: new Color3(0.8, 0.2, 0.8),      // Purple (Kotlin)
+    scala: new Color3(0.8, 0.2, 0.2),       // Red (Scala)
+    default: new Color3(0.5, 0.5, 0.5)
+  },
+  resourceDomain: {
+    harness: new Color3(0.2, 0.6, 0.8),
+    io: new Color3(0.8, 0.2, 0.4),
+    wings: new Color3(0.2, 0.8, 0.4),
+    software: new Color3(0.8, 0.6, 0.2),
+    default: new Color3(0.5, 0.5, 0.5)
+  },
   petType: {
     Dog: new Color3(0.6, 0.4, 0.2),      // Brown
     Cat: new Color3(0.5, 0.5, 0.5),      // Gray

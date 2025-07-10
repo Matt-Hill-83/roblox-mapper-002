@@ -4,13 +4,17 @@
  * Handles generation of nodes and links from layer configuration
  */
 
-import { Cluster, Node, Link, Group } from "../../../../interfaces/simpleDataGenerator.interface";
+import { ANIMAL_TYPES, COLOR_PALETTES, COUNTRIES_OF_BIRTH, COUNTRIES_OF_RESIDENCE, DEFAULT_ATTACHMENTS, FIRST_NAMES, LAST_NAMES, NODE_TYPE_NAMES, PET_COLORS, PET_TYPES } from "../constants";
+import { Cluster, Group, Link, Node } from "../../../../interfaces/simpleDataGenerator.interface";
 import { EnhancedGeneratorConfig, LayerConfig } from "../../../../interfaces/enhancedGenerator.interface";
-import { IDataGenerator } from "../interfaces";
-import { COLOR_PALETTES, NODE_TYPE_NAMES, ANIMAL_TYPES, DEFAULT_ATTACHMENTS, PET_TYPES, PET_COLORS, FIRST_NAMES, LAST_NAMES, COUNTRIES_OF_BIRTH, COUNTRIES_OF_RESIDENCE } from "../constants";
-import { TEMP_HARNESS_TEST_DATA } from "../../../../data/tempHarnessTestData";
 // import { TEMP_TEST_NODES, TEMP_TEST_LINKS } from "../../../../data/tempTestData";
 import { discoverNodeProperties, filterValidAxisProperties } from "../../../../utils/propertyDiscovery";
+
+import { IDataGenerator } from "../interfaces";
+import { TEMP_HARNESS_TEST_DATA } from "../../../../data/tempHarnessTestData";
+
+// Maximum number of items to use from test data
+const MAX_DATA_ITEMS = 100;
 
 export class DataGenerator implements IDataGenerator {
   private linkIdCounter = 0;
@@ -97,7 +101,7 @@ export class DataGenerator implements IDataGenerator {
       discoveredProperties: validProps
     };
 
-    // Write first 10 objects to tempData.json for debugging
+    // Write first MAX_DATA_ITEMS objects to tempData.json for debugging
     this.writeTempData(allNodes, allLinks);
 
     return cluster;
@@ -393,26 +397,26 @@ export class DataGenerator implements IDataGenerator {
   }
 
   /**
-   * Write first 10 objects to tempData.json for debugging
+   * Write first MAX_DATA_ITEMS objects to tempData.json for debugging
    */
   private writeTempData(allNodes: Node[], allLinks: Link[]): void {
     const first10Nodes: Node[] = [];
     const first10Links: Link[] = [];
     
-    // Get first 10 nodes
-    for (let i = 0; i < math.min(10, allNodes.size()); i++) {
+    // Get first MAX_DATA_ITEMS nodes
+    for (let i = 0; i < math.min(MAX_DATA_ITEMS, allNodes.size()); i++) {
       first10Nodes.push(allNodes[i]);
     }
     
-    // Get first 10 links
-    for (let i = 0; i < math.min(10, allLinks.size()); i++) {
+    // Get first MAX_DATA_ITEMS links
+    for (let i = 0; i < math.min(MAX_DATA_ITEMS, allLinks.size()); i++) {
       first10Links.push(allLinks[i]);
     }
     
     print(`=== TEMP DATA DEBUG ===`);
     print(`Total nodes: ${allNodes.size()}`);
     print(`Total links: ${allLinks.size()}`);
-    print(`First 10 nodes (full objects):`);
+    print(`First ${MAX_DATA_ITEMS} nodes (full objects):`);
     first10Nodes.forEach((node, index) => {
       print(`  Node ${index + 1}:`);
       print(`    uuid: ${node.uuid}`);
@@ -433,7 +437,7 @@ export class DataGenerator implements IDataGenerator {
         print(`    }`);
       }
     });
-    print(`First 10 links (full objects):`);
+    print(`First ${MAX_DATA_ITEMS} links (full objects):`);
     first10Links.forEach((link, index) => {
       print(`  Link ${index + 1}:`);
       print(`    uuid: ${link.uuid}`);
@@ -445,18 +449,18 @@ export class DataGenerator implements IDataGenerator {
     print(`=== END TEMP DATA ===`);
   }
 
-  /**
+  /** 
    * Generate cluster from test data
    */
   private generateClusterFromTestData(): Cluster {
     print(`=== USING HARNESS TEST DATA ===`);
     print(`Harness files: ${TEMP_HARNESS_TEST_DATA.size()}`);
     
-    // Convert Harness data to Node format - using only first 10 items
+    // Convert Harness data to Node format - using only first MAX_DATA_ITEMS items
     const harnessNodes: Node[] = [];
     let itemCount = 0;
     TEMP_HARNESS_TEST_DATA.forEach((file, index) => {
-      if (itemCount >= 10) return; // Only process first 10 items
+      if (itemCount >= MAX_DATA_ITEMS) return; // Only process first MAX_DATA_ITEMS items
       itemCount++;
       const node: Node = {
         uuid: `harness_file_${index}`,
@@ -495,7 +499,7 @@ export class DataGenerator implements IDataGenerator {
       harnessLinks.push(link);
     }
     
-    print(`Created ${harnessNodes.size()} nodes and ${harnessLinks.size()} links from Harness data (limited to 10)`);
+    print(`Created ${harnessNodes.size()} nodes and ${harnessLinks.size()} links from Harness data (limited to ${MAX_DATA_ITEMS})`);
     
     // Discover properties from the harness nodes
     const discoveredProps = discoverNodeProperties(harnessNodes);
