@@ -9,6 +9,7 @@ import { EnhancedGeneratorConfig, LayerConfig } from "../../../../interfaces/enh
 import { IDataGenerator } from "../interfaces";
 import { COLOR_PALETTES, NODE_TYPE_NAMES, ANIMAL_TYPES, DEFAULT_ATTACHMENTS, PET_TYPES, PET_COLORS, FIRST_NAMES, LAST_NAMES, COUNTRIES_OF_BIRTH, COUNTRIES_OF_RESIDENCE } from "../constants";
 import { TEMP_HARNESS_TEST_DATA } from "../../../../data/tempHarnessTestData";
+import { discoverNodeProperties, filterValidAxisProperties } from "../../../../utils/propertyDiscovery";
 
 export class DataGenerator implements IDataGenerator {
   private linkIdCounter = 0;
@@ -77,9 +78,14 @@ export class DataGenerator implements IDataGenerator {
       nodes: allNodes,
     };
 
+    // Discover properties from all nodes
+    const discoveredProps = discoverNodeProperties(allNodes);
+    const validProps = filterValidAxisProperties(allNodes, discoveredProps);
+    
     const cluster = {
       groups: [mainGroup],
       relations: allLinks,
+      discoveredProperties: validProps
     };
 
     // Write first 10 objects to tempData.json for debugging
@@ -479,6 +485,18 @@ export class DataGenerator implements IDataGenerator {
     
     print(`Created ${harnessNodes.size()} nodes and ${harnessLinks.size()} links from Harness data`);
     
+    // Discover properties from the harness nodes
+    const discoveredProps = discoverNodeProperties(harnessNodes);
+    const validProps = filterValidAxisProperties(harnessNodes, discoveredProps);
+    
+    print(`=== DISCOVERED PROPERTIES ===`);
+    print(`Total properties found: ${discoveredProps.size()}`);
+    print(`Valid axis properties: ${validProps.size()}`);
+    validProps.forEach((prop, index) => {
+      print(`  ${index + 1}. ${prop}`);
+    });
+    print(`=== END DISCOVERED PROPERTIES ===`);
+    
     // Create a single group containing all harness nodes
     const mainGroup: Group = {
       id: "harness-group",
@@ -489,6 +507,7 @@ export class DataGenerator implements IDataGenerator {
     return {
       groups: [mainGroup],
       relations: harnessLinks,
+      discoveredProperties: validProps
     };
   }
 

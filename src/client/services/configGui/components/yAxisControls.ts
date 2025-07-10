@@ -1,4 +1,5 @@
 import { GUI_CONSTANTS } from "../constants";
+import { AVAILABLE_PROPERTIES } from "./axisMappingControls/constants";
 
 interface YAxisControlsProps {
   parent: Frame;
@@ -8,8 +9,10 @@ interface YAxisControlsProps {
   onYAxisPropertyChange: (property: string) => void;
 }
 
-// Available properties for Y-axis mapping (excluding layer)
-const Y_AXIS_PROPERTIES = ["type", "petType", "petColor", "age", "firstName", "lastName", "countryOfBirth", "countryOfResidence"];
+// Y-axis properties now use the same dynamic properties as X and Z axes
+function getYAxisProperties(): string[] {
+  return AVAILABLE_PROPERTIES;
+}
 
 export function createYAxisControls({
   parent,
@@ -161,9 +164,10 @@ function createYAxisDropdown({
   buttonCorner.Parent = dropdownButton;
 
   // Dropdown list - always use ScrollingFrame for consistency
+  const yAxisProperties = getYAxisProperties();
   const itemHeight = 25;
   const maxItems = 6;
-  const actualHeight = math.min(Y_AXIS_PROPERTIES.size() * itemHeight, maxItems * itemHeight);
+  const actualHeight = math.min(yAxisProperties.size() * itemHeight, maxItems * itemHeight);
   
   const dropdownList = new Instance("ScrollingFrame");
   dropdownList.Size = new UDim2(1, 0, 0, actualHeight);
@@ -173,7 +177,7 @@ function createYAxisDropdown({
   dropdownList.BorderColor3 = new Color3(0.3, 0.3, 0.3);
   dropdownList.ScrollBarThickness = 4;
   dropdownList.ScrollBarImageColor3 = new Color3(0.5, 0.5, 0.5);
-  dropdownList.CanvasSize = new UDim2(0, 0, 0, Y_AXIS_PROPERTIES.size() * itemHeight);
+  dropdownList.CanvasSize = new UDim2(0, 0, 0, yAxisProperties.size() * itemHeight);
   dropdownList.Visible = false;
   dropdownList.ZIndex = 100; // Higher z-index
   dropdownList.Parent = dropdownButton;
@@ -183,7 +187,7 @@ function createYAxisDropdown({
   listCorner.Parent = dropdownList;
 
   // Create option buttons
-  Y_AXIS_PROPERTIES.forEach((property, index) => {
+  yAxisProperties.forEach((property, index) => {
     const optionButton = new Instance("TextButton");
     optionButton.Size = new UDim2(1, -10, 0, itemHeight); // Always account for scrollbar
     optionButton.Position = new UDim2(0, 0, 0, index * itemHeight);

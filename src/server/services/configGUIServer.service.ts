@@ -53,14 +53,19 @@ export class ConfigGUIServerService extends BaseService {
         
         if (validationResult.isValid && validationResult.sanitizedConfig) {
           // Use unified renderer with sanitized config
-          this.unifiedRenderer.renderEnhancedData(
+          const cluster = this.unifiedRenderer.renderEnhancedData(
             this.projectRootFolder, 
             validationResult.sanitizedConfig, 
             this.origin
           );
           
-          // Send success response
+          // Send success response with discovered properties
           this.remoteEvent.FireClient(player, "regenerateSuccess", validationResult.sanitizedConfig);
+          
+          // Send discovered properties if available
+          if (cluster && cluster.discoveredProperties) {
+            this.remoteEvent.FireClient(player, "discoveredProperties", cluster.discoveredProperties);
+          }
         } else {
           // Send detailed error response
           const errorMessage = validationResult.errors.join("; ");
@@ -90,7 +95,7 @@ export class ConfigGUIServerService extends BaseService {
         
         if (validationResult.isValid && validationResult.sanitizedConfig) {
           // Use unified renderer's update method with sanitized config
-          this.unifiedRenderer.updateEnhancedData(
+          const clusterOrVoid = this.unifiedRenderer.updateEnhancedData(
             this.projectRootFolder, 
             validationResult.sanitizedConfig, 
             this.origin
@@ -98,6 +103,11 @@ export class ConfigGUIServerService extends BaseService {
           
           // Send success response
           this.remoteEvent.FireClient(player, "updateSuccess", validationResult.sanitizedConfig);
+          
+          // Send discovered properties if a new cluster was created
+          if (clusterOrVoid && typeIs(clusterOrVoid, "table") && clusterOrVoid.discoveredProperties) {
+            this.remoteEvent.FireClient(player, "discoveredProperties", clusterOrVoid.discoveredProperties);
+          }
         } else {
           // Send detailed error response
           const errorMessage = validationResult.errors.join("; ");

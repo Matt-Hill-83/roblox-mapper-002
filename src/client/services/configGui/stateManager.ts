@@ -8,6 +8,8 @@
 import { GUIState, EnhancedGeneratorConfig } from "./interfaces";
 import { GUI_CONSTANTS } from "./constants";
 import type { SpacingConfig, VisualizationOptions, AxisMapping, VisualMapping, YAxisConfig } from "../../../shared/interfaces/enhancedGenerator.interface";
+import { getDefaultXAxis, getDefaultZAxis, isUsingLegacyDefaults } from "../../../shared/constants/axisDefaults";
+import { updateAvailableProperties } from "./components/axisMappingControls/constants";
 
 export class GUIStateManager {
   private state: GUIState;
@@ -34,10 +36,10 @@ export class GUIStateManager {
     
     // Initialize spatial grouping with defaults (using legacy interface for compatibility)
     const defaultAxisMapping: AxisMapping = {
-      xAxis: "type",
-      zAxis: "petType",
-      xGroupingProperty: "type",
-      zGroupingProperty: "petType"
+      xAxis: getDefaultXAxis(),
+      zAxis: getDefaultZAxis(),
+      xGroupingProperty: getDefaultXAxis(),
+      zGroupingProperty: getDefaultZAxis()
     };
     
     // Initialize visual mapping with defaults
@@ -237,15 +239,47 @@ export class GUIStateManager {
   }
   
   /**
+   * Updates the discovered properties from the cluster data
+   */
+  public updateDiscoveredProperties(properties: string[]): void {
+    this.state.discoveredProperties = properties;
+    
+    // Update the available properties in the dropdown controls
+    updateAvailableProperties(properties);
+    
+    // If we have at least 2 properties and no axis mapping is set, use the first two
+    if (properties.size() >= 2 && this.state.enhancedConfig.axisMapping) {
+      const currentMapping = this.state.enhancedConfig.axisMapping;
+      
+      // Only update if current values are the hardcoded defaults
+      if (isUsingLegacyDefaults(currentMapping.xAxis, currentMapping.zAxis)) {
+        this.state.enhancedConfig.axisMapping = {
+          xAxis: getDefaultXAxis(properties),
+          zAxis: getDefaultZAxis(properties),
+          xGroupingProperty: getDefaultXAxis(properties),
+          zGroupingProperty: getDefaultZAxis(properties)
+        };
+        
+        print(`[GUIStateManager] Updated axis mapping to discovered properties:`);
+        print(`  X-axis: ${properties[0]}`);
+        print(`  Z-axis: ${properties[1]}`);
+        
+        // Notify listeners about the change
+        this.notifyListeners();
+      }
+    }
+  }
+  
+  /**
    * Updates spatial grouping (formerly axis mapping)
    */
   public updateAxisMapping(axis: "xAxis" | "zAxis", value: string): void {
     if (!this.state.enhancedConfig.axisMapping) {
       this.state.enhancedConfig.axisMapping = {
-        xAxis: "type",
-        zAxis: "petType",
-        xGroupingProperty: "type",
-        zGroupingProperty: "petType"
+        xAxis: getDefaultXAxis(this.state.discoveredProperties),
+        zAxis: getDefaultZAxis(this.state.discoveredProperties),
+        xGroupingProperty: getDefaultXAxis(this.state.discoveredProperties),
+        zGroupingProperty: getDefaultZAxis(this.state.discoveredProperties)
       };
     }
     

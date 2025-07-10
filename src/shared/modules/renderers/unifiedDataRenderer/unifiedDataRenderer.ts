@@ -22,6 +22,7 @@ import { PropertyValueResolver } from "../propertyValueResolver";
 import { BLOCK_CONSTANTS } from "../constants/blockConstants";
 import { LAYOUT_CONSTANTS } from "../constants/layoutConstants";
 import { EndcapBlockCreator } from "../blocks/endcapBlockCreator";
+import { getDefaultXAxis, getDefaultZAxis } from "../../../constants/axisDefaults";
 
 export class UnifiedDataRenderer {
   private dataGenerator: DataGenerator;
@@ -56,7 +57,7 @@ export class UnifiedDataRenderer {
     parentFolder: Folder,
     config: EnhancedGeneratorConfig,
     origin?: Vector3
-  ): void {
+  ): Cluster {
     // Delete any existing platform and shadow blocks
     const existingPlatform = parentFolder.FindFirstChild("PlatformBlock");
     if (existingPlatform) {
@@ -80,7 +81,7 @@ export class UnifiedDataRenderer {
     this.positionCalculator.centerBottomAtOrigin(cluster, targetOrigin, config);
 
     // Calculate Z-axis centering offset for type lanes
-    const zAxisProperty = config?.axisMapping?.zAxis || "type";
+    const zAxisProperty = config?.axisMapping?.zAxis || getDefaultZAxis(cluster.discoveredProperties);
     const zAxisOffset = this.calculateZAxisOffset(cluster, zAxisProperty);
 
     // Apply the Z-axis centering offset to all nodes
@@ -203,6 +204,9 @@ export class UnifiedDataRenderer {
 
     // Store current configuration for update comparison
     this.currentConfig = config;
+    
+    // Return the cluster with discovered properties
+    return cluster;
   }
 
   /**
@@ -212,27 +216,27 @@ export class UnifiedDataRenderer {
     parentFolder: Folder,
     config: EnhancedGeneratorConfig,
     origin?: Vector3
-  ): void {
+  ): Cluster | void {
     // Find GraphMaker folder
     const graphMakerFolder = parentFolder.FindFirstChild("GraphMaker");
     if (!graphMakerFolder || !this.currentConfig) {
-      this.renderEnhancedData(parentFolder, config, origin);
-      return;
+      const cluster = this.renderEnhancedData(parentFolder, config, origin);
+      return cluster;
     }
 
     // Find nodes and links folders
     const clusterFolder = graphMakerFolder.FindFirstChild("UnifiedDataCluster");
     if (!clusterFolder) {
-      this.renderEnhancedData(parentFolder, config, origin);
-      return;
+      const cluster = this.renderEnhancedData(parentFolder, config, origin);
+      return cluster;
     }
 
     const nodesFolder = clusterFolder.FindFirstChild("Nodes") as Folder;
     const linksFolder = clusterFolder.FindFirstChild("Links") as Folder;
 
     if (!nodesFolder || !linksFolder) {
-      this.renderEnhancedData(parentFolder, config, origin);
-      return;
+      const cluster = this.renderEnhancedData(parentFolder, config, origin);
+      return cluster;
     }
 
     // Delegate to update manager
@@ -258,7 +262,7 @@ export class UnifiedDataRenderer {
   ): Map<string, Part> {
     const swimlaneBlocks = new Map<string, Part>();
     // Use axis mapping if available - X axis sorts on service for Harness data
-    const xAxisProperty = config.axisMapping?.xAxis || "service";
+    const xAxisProperty = config.axisMapping?.xAxis || getDefaultXAxis(cluster.discoveredProperties);
 
     // Organize nodes by X grouping property to determine lane placement
     const nodesByType = new Map<string, Node[]>();
@@ -380,8 +384,8 @@ export class UnifiedDataRenderer {
     platformBounds?: { minX: number; maxX: number; minZ: number; maxZ: number }
   ): void {
     // Use axis mapping if available
-    const xAxisProperty = config?.axisMapping?.xAxis || "type";
-    const zAxisProperty = config?.axisMapping?.zAxis || "petType";
+    const xAxisProperty = config?.axisMapping?.xAxis || getDefaultXAxis(cluster.discoveredProperties);
+    const zAxisProperty = config?.axisMapping?.zAxis || getDefaultZAxis(cluster.discoveredProperties);
     
     // Organize nodes by x-axis property for X-axis labels
     const nodesByXProperty = new Map<string, Node[]>();
@@ -529,7 +533,7 @@ export class UnifiedDataRenderer {
   ): Map<string, Part> {
     const swimlaneBlocks = new Map<string, Part>();
     // Use axis mapping if available - Z axis sorts on type for Harness data
-    const zAxisProperty = config?.axisMapping?.zAxis || "type";
+    const zAxisProperty = config?.axisMapping?.zAxis || getDefaultZAxis(cluster.discoveredProperties);
 
     // Organize nodes by z-axis property
     const nodesByProperty = new Map<string, Node[]>();
@@ -661,7 +665,7 @@ export class UnifiedDataRenderer {
   ): void {
     if (!config.yAxisConfig || config.yAxisConfig.useLayer) return;
 
-    const yAxisProperty = config.yAxisConfig.property || "type";
+    const yAxisProperty = config.yAxisConfig.property || getDefaultXAxis(cluster.discoveredProperties);
     const propertyGroups = new Map<string, { minY: number; maxY: number }>();
     const propertyColors = new Map<string, Color3>();
 

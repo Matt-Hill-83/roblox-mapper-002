@@ -279,6 +279,19 @@ export class ConfigGUIService {
   }
 
   /**
+   * Updates the discovered properties from the data
+   */
+  public updateDiscoveredProperties(properties: string[]): void {
+    print(`[ConfigGUIService] updateDiscoveredProperties called with ${properties.size()} properties`);
+    properties.forEach((prop, index) => {
+      print(`  ${index + 1}. ${prop}`);
+    });
+    
+    // Update the state manager with discovered properties
+    this.stateManager.updateDiscoveredProperties(properties);
+  }
+
+  /**
    * Gets the current visibility state
    */
   public isVisible(): boolean {

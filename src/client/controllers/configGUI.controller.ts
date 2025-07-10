@@ -79,6 +79,12 @@ export class ConfigGUIController extends BaseService {
             // Just trigger generation without updating GUI (it was already created with initialConfig)
             this.onEnhancedConfigChange(enhancedConfig);
           }
+        } else if (eventType === "discoveredProperties" && typeIs(data, "table")) {
+          print("[ConfigGUIController] Received discoveredProperties event");
+          const properties = data as string[];
+          if (this.guiService) {
+            this.guiService.updateDiscoveredProperties(properties);
+          }
         }
       }
     );

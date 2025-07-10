@@ -18,6 +18,7 @@ export interface GUIState {
   configFrame?: Frame;
   layerRows: Frame[];
   statusLabel?: TextLabel;
+  discoveredProperties?: string[];
 }
 
 export interface ComponentProps {

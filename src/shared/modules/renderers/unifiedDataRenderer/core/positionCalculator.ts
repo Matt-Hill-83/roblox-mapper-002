@@ -10,6 +10,7 @@ import { IPositionCalculator, SpacingConfig } from "../interfaces";
 import { RENDERER_CONSTANTS } from "../../dataGeneratorRobloxRendererUtils/constants";
 import { PropertyValueResolver } from "../../propertyValueResolver";
 import { POSITION_CONSTANTS } from "../../constants/positionConstants";
+import { getDefaultXAxis, getDefaultZAxis } from "../../../../constants/axisDefaults";
 
 export class PositionCalculator implements IPositionCalculator {
   private propertyResolver: PropertyValueResolver;
@@ -61,9 +62,10 @@ export class PositionCalculator implements IPositionCalculator {
     const spacing = this.getSpacingConfig(config);
     const numLayers = config.layers.size();
     
-    // Use spatial grouping properties if available, otherwise default to type/petType
-    const xAxisProperty = config.axisMapping?.xAxis || "type";
-    const zAxisProperty = config.axisMapping?.zAxis || "petType";
+    // Use spatial grouping properties if available, otherwise use dynamic defaults
+    const discoveredProperties = cluster.discoveredProperties;
+    const xAxisProperty = config.axisMapping?.xAxis || getDefaultXAxis(discoveredProperties);
+    const zAxisProperty = config.axisMapping?.zAxis || getDefaultZAxis(discoveredProperties);
     
     // Organize nodes by layer and X grouping property
     const { nodesByTypeAndLayer, typeCounters } = this.organizeNodesByProperty(cluster, xAxisProperty);

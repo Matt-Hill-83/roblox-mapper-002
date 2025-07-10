@@ -177,27 +177,41 @@ export class NodePropertiesInspectorService {
           properties: {}
         };
 
-        // Get all properties
-        const age = child.GetAttribute("age") as number | undefined;
-        if (age !== undefined) node.properties!.age = age;
-
-        const petType = child.GetAttribute("petType") as string | undefined;
-        if (petType) node.properties!.petType = petType;
-
-        const petColor = child.GetAttribute("petColor") as string | undefined;
-        if (petColor) node.properties!.petColor = petColor;
-
-        const firstName = child.GetAttribute("firstName") as string | undefined;
-        if (firstName) node.properties!.firstName = firstName;
-
-        const lastName = child.GetAttribute("lastName") as string | undefined;
-        if (lastName) node.properties!.lastName = lastName;
+        // Get all properties dynamically
+        // First, get standard properties that might be on Person nodes
+        const standardProperties = [
+          "age", "petType", "petColor", "firstName", "lastName", 
+          "countryOfBirth", "countryOfResidence"
+        ];
         
-        const countryOfBirth = child.GetAttribute("countryOfBirth") as string | undefined;
-        if (countryOfBirth) node.properties!.countryOfBirth = countryOfBirth;
+        // Also check for Harness properties
+        const harnessProperties = [
+          "service", "component", "language", "size", "type",
+          "resourceDomain", "operationType", "apiPattern", 
+          "apiComplexity", "httpMethod", "path"
+        ];
         
-        const countryOfResidence = child.GetAttribute("countryOfResidence") as string | undefined;
-        if (countryOfResidence) node.properties!.countryOfResidence = countryOfResidence;
+        // Check all known properties
+        const allProperties = [...standardProperties, ...harnessProperties];
+        
+        allProperties.forEach(propName => {
+          const value = child.GetAttribute(propName);
+          if (value !== undefined) {
+            const props = node.properties as Record<string, unknown>;
+            props[propName] = value;
+          }
+        });
+        
+        // Also get any other attributes that might be present
+        const attributes = child.GetAttributes();
+        for (const [key, value] of pairs(attributes)) {
+          // Skip system attributes
+          if (key !== "nodeName" && key !== "nodeType" && key !== "nodeGuid" && 
+              !allProperties.includes(key as string)) {
+            const props = node.properties as Record<string, unknown>;
+            props[key as string] = value;
+          }
+        }
 
         return node;
       }

@@ -1,10 +1,12 @@
 /**
  * Type-safe property access helpers for nodes
  * Part of F002 refactoring for improved type safety
+ * Updated for T9: Make Axis Filters Dynamic - now supports any property structure
  */
 
 import { Node } from "../interfaces/simpleDataGenerator.interface";
 import { PersonProperties, AnimalProperties, isPersonNodeType, isAnimalNodeType } from "../interfaces/nodeTypes";
+import { getNodePropertyValue } from "./propertyDiscovery";
 
 // Type guards for nodes with specific properties
 export function isPersonNode(node: Node): node is Node & { 
@@ -69,19 +71,19 @@ export function getFullName(node: Node): string {
   return `${firstName} ${lastName}`;
 }
 
-// Property value resolver for any property
+// Property value resolver for any property - now generic
 export function resolvePropertyValue(node: Node, propertyName: string): string {
   // Handle special case for "type"
   if (propertyName === "type") {
     return node.type;
   }
   
-  // Handle age with range grouping
-  if (propertyName === "age") {
+  // Handle age with range grouping (legacy support)
+  if (propertyName === "age" && isPersonNode(node)) {
     return getAgeRange(node);
   }
   
-  // Handle other properties
-  const value = getNodeProperty(node, propertyName as keyof (PersonProperties & AnimalProperties));
+  // Use generic property discovery for all properties
+  const value = getNodePropertyValue(node, propertyName);
   return value !== undefined ? tostring(value) : "Unknown";
 }

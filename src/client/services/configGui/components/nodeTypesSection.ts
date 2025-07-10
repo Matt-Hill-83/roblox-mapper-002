@@ -124,6 +124,7 @@ export function createNodeTypesSection({
   });
 
   // Pet types setting - positioned below link types
+  // NOTE: This control is deprecated and will be removed once all data uses dynamic properties
   const petTypesLabel = new Instance("TextLabel");
   petTypesLabel.Size = new UDim2(0, 150, 0, 25);
   petTypesLabel.Position = new UDim2(0, 10, 0, 105); // Below link types

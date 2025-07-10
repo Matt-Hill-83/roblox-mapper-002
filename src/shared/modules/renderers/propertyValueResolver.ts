@@ -2,11 +2,13 @@
  * Property Value Resolver
  * Centralizes property extraction logic for nodes
  * Part of F002 Phase 2 refactoring - T8
+ * Updated for T9: Now supports dynamic property discovery
  */
 
 import { Node } from "../../interfaces/simpleDataGenerator.interface";
 import { isPersonNode, getAgeRange, getFullName } from "../../utils/nodePropertyHelpers";
 import { POSITION_CONSTANTS } from "./constants/positionConstants";
+import { getNodePropertyValue } from "../../utils/propertyDiscovery";
 
 export type PropertyExtractor = (node: Node) => string;
 
@@ -44,17 +46,22 @@ export class PropertyValueResolver {
   public getPropertyValue(node: Node, propertyName: string): string {
     const extractor = this.propertyExtractors.get(propertyName);
     
-    if (!extractor) {
-      warn(`[PropertyValueResolver] Unknown property: ${propertyName}`);
-      return "Unknown";
+    if (extractor) {
+      try {
+        return extractor(node);
+      } catch (error) {
+        warn(`[PropertyValueResolver] Error extracting property ${propertyName}: ${error}`);
+      }
     }
     
-    try {
-      return extractor(node);
-    } catch (error) {
-      warn(`[PropertyValueResolver] Error extracting property ${propertyName}: ${error}`);
-      return "Unknown";
+    // Fall back to dynamic property discovery for unknown properties
+    const value = getNodePropertyValue(node, propertyName);
+    if (value !== undefined) {
+      return tostring(value);
     }
+    
+    // Final fallback
+    return "Unknown";
   }
   
   /**

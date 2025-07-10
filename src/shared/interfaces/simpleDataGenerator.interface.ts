@@ -59,6 +59,7 @@ export interface Group {
 export interface Cluster {
   groups: Group[];        // Each group represents a hierarchical tree
   relations: Link[];      // All relationships between nodes
+  discoveredProperties?: string[];  // Properties discovered from nodes for dynamic axis mapping
 }
 
 export interface GeneratorConfig {
