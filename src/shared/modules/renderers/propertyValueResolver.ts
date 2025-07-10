@@ -24,7 +24,17 @@ export class PropertyValueResolver {
       ["fullName", (node) => this.extractFullName(node)],
       ["animalType", (node) => this.extractAnimalType(node)],
       ["countryOfBirth", (node) => this.extractCountryOfBirth(node)],
-      ["countryOfResidence", (node) => this.extractCountryOfResidence(node)]
+      ["countryOfResidence", (node) => this.extractCountryOfResidence(node)],
+      // Harness-specific properties
+      ["service", (node) => this.extractService(node)],
+      ["component", (node) => this.extractComponent(node)],
+      ["language", (node) => this.extractLanguage(node)],
+      ["size", (node) => this.extractSize(node)],
+      ["resourceDomain", (node) => this.extractResourceDomain(node)],
+      ["operationType", (node) => this.extractOperationType(node)],
+      ["apiPattern", (node) => this.extractApiPattern(node)],
+      ["apiComplexity", (node) => this.extractApiComplexity(node)],
+      ["httpMethod", (node) => this.extractHttpMethod(node)]
     ]);
   }
   
@@ -69,6 +79,11 @@ export class PropertyValueResolver {
    * Extract type property
    */
   private extractType(node: Node): string {
+    // For Harness data, the file type is in properties.type
+    if (node.properties?.type) {
+      return node.properties.type;
+    }
+    // For regular nodes, use node.type
     return node.type;
   }
   
@@ -169,5 +184,68 @@ export class PropertyValueResolver {
     if (age < ranges.MIDDLE_AGED.max) return ranges.MIDDLE_AGED.label;
     if (age < ranges.SENIOR.max) return ranges.SENIOR.label;
     return ranges.ELDERLY.label;
+  }
+
+  /**
+   * Extract service property (Harness)
+   */
+  private extractService(node: Node): string {
+    return node.properties?.service || "Unknown";
+  }
+
+  /**
+   * Extract component property (Harness)
+   */
+  private extractComponent(node: Node): string {
+    return node.properties?.component || node.type || "Unknown";
+  }
+
+  /**
+   * Extract language property (Harness)
+   */
+  private extractLanguage(node: Node): string {
+    return node.properties?.language || "Unknown";
+  }
+
+  /**
+   * Extract size property (Harness)
+   */
+  private extractSize(node: Node): string {
+    return node.properties?.size || "Unknown";
+  }
+
+  /**
+   * Extract resourceDomain property (Harness)
+   */
+  private extractResourceDomain(node: Node): string {
+    return node.properties?.resourceDomain || "Unknown";
+  }
+
+  /**
+   * Extract operationType property (Harness)
+   */
+  private extractOperationType(node: Node): string {
+    return node.properties?.operationType || "Unknown";
+  }
+
+  /**
+   * Extract apiPattern property (Harness)
+   */
+  private extractApiPattern(node: Node): string {
+    return node.properties?.apiPattern || "Unknown";
+  }
+
+  /**
+   * Extract apiComplexity property (Harness)
+   */
+  private extractApiComplexity(node: Node): string {
+    return node.properties?.apiComplexity || "Unknown";
+  }
+
+  /**
+   * Extract httpMethod property (Harness)
+   */
+  private extractHttpMethod(node: Node): string {
+    return node.properties?.httpMethod || "Unknown";
   }
 }

@@ -8,7 +8,7 @@ import { Cluster, Node, Link, Group } from "../../../../interfaces/simpleDataGen
 import { EnhancedGeneratorConfig, LayerConfig } from "../../../../interfaces/enhancedGenerator.interface";
 import { IDataGenerator } from "../interfaces";
 import { COLOR_PALETTES, NODE_TYPE_NAMES, ANIMAL_TYPES, DEFAULT_ATTACHMENTS, PET_TYPES, PET_COLORS, FIRST_NAMES, LAST_NAMES, COUNTRIES_OF_BIRTH, COUNTRIES_OF_RESIDENCE } from "../constants";
-import { TEMP_TEST_NODES, TEMP_TEST_LINKS } from "../../../../data/tempTestData";
+import { TEMP_HARNESS_TEST_DATA } from "../../../../data/tempHarnessTestData";
 
 export class DataGenerator implements IDataGenerator {
   private linkIdCounter = 0;
@@ -434,20 +434,61 @@ export class DataGenerator implements IDataGenerator {
    * Generate cluster from test data
    */
   private generateClusterFromTestData(): Cluster {
-    print(`=== USING TEST DATA ===`);
-    print(`Test nodes: ${TEMP_TEST_NODES.size()}`);
-    print(`Test links: ${TEMP_TEST_LINKS.size()}`);
+    print(`=== USING HARNESS TEST DATA ===`);
+    print(`Harness files: ${TEMP_HARNESS_TEST_DATA.size()}`);
     
-    // Create a single group containing all test nodes
+    // Convert Harness data to Node format
+    const harnessNodes: Node[] = [];
+    TEMP_HARNESS_TEST_DATA.forEach((file, index) => {
+      const node: Node = {
+        uuid: `harness_file_${index}`,
+        name: this.getFileName(file.path),
+        type: file.component as any, // Use component as node type
+        color: this.getServiceColor(file.service),
+        position: { x: 0, y: 0, z: 0 }, // Will be calculated by swim lanes
+        attachmentNames: [],
+        properties: {
+          service: file.service,
+          component: file.component,
+          language: file.language,
+          size: file.size,
+          type: file.type,
+          resourceDomain: file.resourceDomain,
+          operationType: file.operationType,
+          apiPattern: file.apiPattern,
+          apiComplexity: file.apiComplexity,
+          httpMethod: file.httpMethod,
+          path: file.path
+        }
+      };
+      harnessNodes.push(node);
+    });
+    
+    // Create simple links between consecutive files
+    const harnessLinks: Link[] = [];
+    for (let i = 0; i < harnessNodes.size() - 1; i++) {
+      const link: Link = {
+        uuid: `harness_link_${i}`,
+        type: "dependency",
+        sourceNodeUuid: harnessNodes[i].uuid,
+        targetNodeUuid: harnessNodes[i + 1].uuid,
+        color: [0.5, 0.5, 0.8]
+      };
+      harnessLinks.push(link);
+    }
+    
+    print(`Created ${harnessNodes.size()} nodes and ${harnessLinks.size()} links from Harness data`);
+    
+    // Create a single group containing all harness nodes
     const mainGroup: Group = {
-      id: "test-group",
-      name: "Test Data Group",
-      nodes: TEMP_TEST_NODES,
+      id: "harness-group",
+      name: "Harness Data Group",
+      nodes: harnessNodes,
     };
 
     return {
       groups: [mainGroup],
-      relations: TEMP_TEST_LINKS,
+      relations: harnessLinks,
     };
   }
 
@@ -457,5 +498,27 @@ export class DataGenerator implements IDataGenerator {
   public setUseTestData(useTestData: boolean): void {
     this.useTestData = useTestData;
     print(`Test data mode: ${useTestData ? "ENABLED" : "DISABLED"}`);
+  }
+
+  /**
+   * Extract filename from full path
+   */
+  private getFileName(path: string): string {
+    const parts = path.split("/");
+    return parts[parts.size() - 1] || path;
+  }
+
+  /**
+   * Get color based on service type
+   */
+  private getServiceColor(service: string): [number, number, number] {
+    const serviceColors: { [key: string]: [number, number, number] } = {
+      platform: [0.2, 0.4, 0.8],
+      ci: [0.8, 0.4, 0.2], 
+      cd: [0.2, 0.8, 0.2],
+      ce: [0.8, 0.2, 0.8],
+      core: [0.8, 0.8, 0.2]
+    };
+    return serviceColors[service] || [0.5, 0.5, 0.5];
   }
 }

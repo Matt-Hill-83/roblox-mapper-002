@@ -79,14 +79,14 @@ export class UnifiedDataRenderer {
     const targetOrigin = origin || new Vector3(0, 0, 0);
     this.positionCalculator.centerBottomAtOrigin(cluster, targetOrigin, config);
 
-    // Calculate Z-axis centering offset for pet lanes
-    const zAxisProperty = config?.axisMapping?.zAxis || "petType";
-    const petLaneOffset = this.calculatePetLaneZOffset(cluster, zAxisProperty);
+    // Calculate Z-axis centering offset for type lanes
+    const zAxisProperty = config?.axisMapping?.zAxis || "type";
+    const zAxisOffset = this.calculateZAxisOffset(cluster, zAxisProperty);
 
-    // Apply the pet lane centering offset to all nodes
-    if (petLaneOffset !== 0) {
+    // Apply the Z-axis centering offset to all nodes
+    if (zAxisOffset !== 0) {
       cluster.groups[0].nodes.forEach((node) => {
-        node.position.z += petLaneOffset;
+        node.position.z += zAxisOffset;
       });
     }
 
@@ -177,7 +177,7 @@ export class UnifiedDataRenderer {
     this.nodeRenderer.renderCluster(cluster, parentFolder, config);
 
     // Log alignment check between nodes and swimlanes
-    const xAxisProperty = config.axisMapping?.xAxis || "type";
+    const xAxisProperty = config.axisMapping?.xAxis || "service";
     const nodesByType = new Map<string, Node[]>();
 
     cluster.groups[0].nodes.forEach((node) => {
@@ -257,8 +257,8 @@ export class UnifiedDataRenderer {
     config: EnhancedGeneratorConfig
   ): Map<string, Part> {
     const swimlaneBlocks = new Map<string, Part>();
-    // Use axis mapping if available
-    const xAxisProperty = config.axisMapping?.xAxis || "type";
+    // Use axis mapping if available - X axis sorts on service for Harness data
+    const xAxisProperty = config.axisMapping?.xAxis || "service";
 
     // Organize nodes by X grouping property to determine lane placement
     const nodesByType = new Map<string, Node[]>();
@@ -528,8 +528,8 @@ export class UnifiedDataRenderer {
     zParallelLanes: Map<string, Part>
   ): Map<string, Part> {
     const swimlaneBlocks = new Map<string, Part>();
-    // Use axis mapping if available
-    const zAxisProperty = config?.axisMapping?.zAxis || "petType";
+    // Use axis mapping if available - Z axis sorts on type for Harness data
+    const zAxisProperty = config?.axisMapping?.zAxis || "type";
 
     // Organize nodes by z-axis property
     const nodesByProperty = new Map<string, Node[]>();
@@ -596,9 +596,9 @@ export class UnifiedDataRenderer {
   }
 
   /**
-   * Calculate the Z-axis offset needed to center pet lanes
+   * Calculate the Z-axis offset needed to center lanes
    */
-  private calculatePetLaneZOffset(
+  private calculateZAxisOffset(
     cluster: Cluster,
     zAxisProperty: string
   ): number {
@@ -622,7 +622,7 @@ export class UnifiedDataRenderer {
       bounds.maxZ = math.max(bounds.maxZ, node.position.z);
     });
 
-    // Calculate collective bounds of all pet lanes
+    // Calculate collective bounds of all Z-axis lanes
     let collectiveMinZ = math.huge;
     let collectiveMaxZ = -math.huge;
 
@@ -631,10 +631,10 @@ export class UnifiedDataRenderer {
       collectiveMaxZ = math.max(collectiveMaxZ, bounds.maxZ);
     });
 
-    // Calculate the center of the collective pet lanes
+    // Calculate the center of the collective Z-axis lanes
     const collectiveCenter = (collectiveMinZ + collectiveMaxZ) / 2;
 
-    // The group shadow block is centered at Z=0, so we need to offset the pet lanes
+    // The group shadow block is centered at Z=0, so we need to offset the lanes
     const offsetZ = 0 - collectiveCenter;
 
     return offsetZ;

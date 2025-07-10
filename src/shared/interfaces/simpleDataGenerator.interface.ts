@@ -25,6 +25,19 @@ export interface Node {
     
     // For Animals nodes
     animalType?: string;  // Now supports 10 different animal types
+    
+    // For Harness repository files
+    service?: string;
+    component?: string;
+    language?: string;
+    size?: string;
+    type?: string;
+    resourceDomain?: string;
+    operationType?: string;
+    apiPattern?: string;
+    apiComplexity?: string;
+    httpMethod?: string;
+    path?: string;
   };
 }
 
