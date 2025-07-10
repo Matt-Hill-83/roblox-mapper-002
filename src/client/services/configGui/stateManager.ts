@@ -44,8 +44,8 @@ export class GUIStateManager {
     
     // Initialize visual mapping with defaults
     const defaultVisualMapping: VisualMapping = {
-      backgroundColor: "None",
-      borderColor: "None"
+      backgroundColor: "none",  // Will be updated to first discovered property
+      borderColor: "none"
     };
     
     // Initialize Y-axis config with defaults
@@ -263,11 +263,22 @@ export class GUIStateManager {
         print(`[GUIStateManager] Updated axis mapping to discovered properties:`);
         print(`  X-axis: ${properties[0]}`);
         print(`  Z-axis: ${properties[1]}`);
-        
-        // Notify listeners about the change
-        this.notifyListeners();
       }
     }
+    
+    // Update visual mapping to use first property as default background color
+    if (properties.size() > 0 && this.state.enhancedConfig.visualMapping) {
+      const currentVisualMapping = this.state.enhancedConfig.visualMapping;
+      
+      // Only update if background is still "None" or "none"
+      if (currentVisualMapping.backgroundColor === "None" || currentVisualMapping.backgroundColor === "none") {
+        this.state.enhancedConfig.visualMapping.backgroundColor = properties[0];
+        print(`[GUIStateManager] Updated background color to first property: ${properties[0]}`);
+      }
+    }
+    
+    // Notify listeners about the changes
+    this.notifyListeners();
   }
   
   /**
