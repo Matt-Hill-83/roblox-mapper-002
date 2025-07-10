@@ -1,5 +1,5 @@
 
-Just do a Code Audit?: false
+Just do a Code Audit?: true
 |----------------------------------------------------------------------|
 Summary:
 F007 - harness code categorization
