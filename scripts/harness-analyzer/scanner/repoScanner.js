@@ -71,8 +71,9 @@ async function scanRepository(repoPath, options = {}) {
     
     // Analyze files
     const analyzedFiles = [];
-    for (const file of files.slice(0, options.limit || 200)) {
-        const analysis = analyzeFile(file);
+    const filesToAnalyze = files.slice(0, options.limit || 200);
+    for (const file of filesToAnalyze) {
+        const analysis = analyzeFile(file, repoPath, files);
         analyzedFiles.push(analysis);
     }
     
