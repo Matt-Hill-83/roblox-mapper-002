@@ -7,7 +7,7 @@
 
 import { GUIState, EnhancedGeneratorConfig } from "./interfaces";
 import { GUI_CONSTANTS } from "./constants";
-import type { SpacingConfig, VisualizationOptions, AxisMapping, SpatialGrouping, VisualMapping, YAxisConfig } from "../../../shared/interfaces/enhancedGenerator.interface";
+import type { SpacingConfig, VisualizationOptions, AxisMapping, VisualMapping, YAxisConfig } from "../../../shared/interfaces/enhancedGenerator.interface";
 
 export class GUIStateManager {
   private state: GUIState;

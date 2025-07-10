@@ -105,7 +105,6 @@ export class UnifiedDataRenderer {
     this.createXParallelLaneBlocks(cluster, xParallelModel, targetOrigin, config);
     
     // Create Z-parallel lanes model (lanes that run along Z axis)
-    const xAxisProperty = config?.axisMapping?.xAxis || "type";
     const zParallelModel = new Instance("Model");
     zParallelModel.Name = `ZParallel_Lanes_Group`;
     zParallelModel.Parent = blocks.shadow;

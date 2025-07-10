@@ -38,9 +38,11 @@ export interface SpatialGrouping {
 }
 
 // Legacy interface for backwards compatibility
-export interface AxisMapping extends SpatialGrouping {
+export interface AxisMapping {
   xAxis: string; // Deprecated: use xGroupingProperty
   zAxis: string; // Deprecated: use zGroupingProperty
+  xGroupingProperty?: string; // Optional for backwards compatibility
+  zGroupingProperty?: string; // Optional for backwards compatibility
 }
 
 // Visual mapping configuration for node colors
