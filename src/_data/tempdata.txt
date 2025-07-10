@@ -1,0 +1,220 @@
+  
+  00:19:58.215  First 10 nodes (full objects):  -  Server - dataGenerator:568
+  00:19:58.216    Node 1:  -  Server - dataGenerator:571
+  00:19:58.216      uuid: node_1_0  -  Server - dataGenerator:572
+  00:19:58.216      name: man 1-1  -  Server - dataGenerator:573
+  00:19:58.216      type: man  -  Server - dataGenerator:574
+  00:19:58.216      color: [0.2, 0.4, 0.8]  -  Server - dataGenerator:575
+  00:19:58.216      position: {x: 0, y: 0, z: 0}  -  Server - dataGenerator:576
+  00:19:58.216      properties: {  -  Server - dataGenerator:578
+  00:19:58.216        age: 56  -  Server - dataGenerator:580
+  00:19:58.216        petType: Fish  -  Server - dataGenerator:583
+  00:19:58.216        petColor: White  -  Server - dataGenerator:586
+  00:19:58.216        firstName: Robert  -  Server - dataGenerator:589
+  00:19:58.216        lastName: Smith  -  Server - dataGenerator:592
+  00:19:58.217        countryOfBirth: United States  -  Server - dataGenerator:595
+  00:19:58.217        countryOfResidence: Netherlands  -  Server - dataGenerator:598
+  00:19:58.217      }  -  Server - dataGenerator:603
+  00:19:58.217    Node 2:  -  Server - dataGenerator:571
+  00:19:58.217      uuid: node_1_1  -  Server - dataGenerator:572
+  00:19:58.217      name: woman 1-2  -  Server - dataGenerator:573
+  00:19:58.217      type: woman  -  Server - dataGenerator:574
+  00:19:58.217      color: [0.8, 0.4, 0.2]  -  Server - dataGenerator:575
+  00:19:58.217      position: {x: 0, y: 0, z: 0}  -  Server - dataGenerator:576
+  00:19:58.217      properties: {  -  Server - dataGenerator:578
+  00:19:58.217        age: 47  -  Server - dataGenerator:580
+  00:19:58.217        petType: Bird  -  Server - dataGenerator:583
+  00:19:58.217        petColor: Golden  -  Server - dataGenerator:586
+  00:19:58.218        firstName: John  -  Server - dataGenerator:589
+  00:19:58.218        lastName: Brown  -  Server - dataGenerator:592
+  00:19:58.218        countryOfBirth: Germany  -  Server - dataGenerator:595
+  00:19:58.218        countryOfResidence: United States  -  Server - dataGenerator:598
+  00:19:58.218      }  -  Server - dataGenerator:603
+  00:19:58.218    Node 3:  -  Server - dataGenerator:571
+  00:19:58.218      uuid: node_1_2  -  Server - dataGenerator:572
+  00:19:58.218      name: child 1-3  -  Server - dataGenerator:573
+  00:19:58.218      type: child  -  Server - dataGenerator:574
+  00:19:58.218      color: [0.2, 0.8, 0.2]  -  Server - dataGenerator:575
+  00:19:58.218      position: {x: 0, y: 0, z: 0}  -  Server - dataGenerator:576
+  00:19:58.218      properties: {  -  Server - dataGenerator:578
+  00:19:58.219        age: 17  -  Server - dataGenerator:580
+  00:19:58.219        petType: Bird  -  Server - dataGenerator:583
+  00:19:58.219        petColor: Orange  -  Server - dataGenerator:586
+  00:19:58.219        firstName: John  -  Server - dataGenerator:589
+  00:19:58.219        lastName: Brown  -  Server - dataGenerator:592
+  00:19:58.219        countryOfBirth: Germany  -  Server - dataGenerator:595
+  00:19:58.219        countryOfResidence: Australia  -  Server - dataGenerator:598
+  00:19:58.219      }  -  Server - dataGenerator:603
+  00:19:58.219    Node 4:  -  Server - dataGenerator:571
+  00:19:58.219      uuid: node_1_3  -  Server - dataGenerator:572
+  00:19:58.219      name: grandparent 1-4  -  Server - dataGenerator:573
+  00:19:58.219      type: grandparent  -  Server - dataGenerator:574
+  00:19:58.219      color: [0.8, 0.2, 0.8]  -  Server - dataGenerator:575
+  00:19:58.219      position: {x: 0, y: 0, z: 0}  -  Server - dataGenerator:576
+  00:19:58.219      properties: {  -  Server - dataGenerator:578
+  00:19:58.219        age: 74  -  Server - dataGenerator:580
+  00:19:58.220        petType: Bird  -  Server - dataGenerator:583
+  00:19:58.220        petColor: Black  -  Server - dataGenerator:586
+  00:19:58.220        firstName: Linda  -  Server - dataGenerator:589
+  00:19:58.220        lastName: Williams  -  Server - dataGenerator:592
+  00:19:58.220        countryOfBirth: United States  -  Server - dataGenerator:595
+  00:19:58.220        countryOfResidence: Spain  -  Server - dataGenerator:598
+  00:19:58.220      }  -  Server - dataGenerator:603
+  00:19:58.220    Node 5:  -  Server - dataGenerator:571
+  00:19:58.220      uuid: node_2_0  -  Server - dataGenerator:572
+  00:19:58.220      name: man 2-1  -  Server - dataGenerator:573
+  00:19:58.220      type: man  -  Server - dataGenerator:574
+  00:19:58.220      color: [0.2, 0.4, 0.8]  -  Server - dataGenerator:575
+  00:19:58.220      position: {x: 0, y: 0, z: 0}  -  Server - dataGenerator:576
+  00:19:58.220      properties: {  -  Server - dataGenerator:578
+  00:19:58.221        age: 55  -  Server - dataGenerator:580
+  00:19:58.221        petType: Fish  -  Server - dataGenerator:583
+  00:19:58.221        petColor: Golden  -  Server - dataGenerator:586
+  00:19:58.221        firstName: James  -  Server - dataGenerator:589
+  00:19:58.221        lastName: Jones  -  Server - dataGenerator:592
+  00:19:58.221        countryOfBirth: India  -  Server - dataGenerator:595
+  00:19:58.221        countryOfResidence: Germany  -  Server - dataGenerator:598
+  00:19:58.221      }  -  Server - dataGenerator:603
+  00:19:58.221    Node 6:  -  Server - dataGenerator:571
+  00:19:58.221      uuid: node_2_1  -  Server - dataGenerator:572
+  00:19:58.221      name: woman 2-2  -  Server - dataGenerator:573
+  00:19:58.221      type: woman  -  Server - dataGenerator:574
+  00:19:58.221      color: [0.8, 0.4, 0.2]  -  Server - dataGenerator:575
+  00:19:58.222      position: {x: 0, y: 0, z: 0}  -  Server - dataGenerator:576
+  00:19:58.222      properties: {  -  Server - dataGenerator:578
+  00:19:58.222        age: 55  -  Server - dataGenerator:580
+  00:19:58.222        petType: Dog  -  Server - dataGenerator:583
+  00:19:58.222        petColor: Gray  -  Server - dataGenerator:586
+  00:19:58.222        firstName: Jennifer  -  Server - dataGenerator:589
+  00:19:58.222        lastName: Smith  -  Server - dataGenerator:592
+  00:19:58.222        countryOfBirth: China  -  Server - dataGenerator:595
+  00:19:58.222        countryOfResidence: France  -  Server - dataGenerator:598
+  00:19:58.222      }  -  Server - dataGenerator:603
+  00:19:58.222    Node 7:  -  Server - dataGenerator:571
+  00:19:58.222      uuid: node_2_2  -  Server - dataGenerator:572
+  00:19:58.222      name: child 2-3  -  Server - dataGenerator:573
+  00:19:58.222      type: child  -  Server - dataGenerator:574
+  00:19:58.223      color: [0.2, 0.8, 0.2]  -  Server - dataGenerator:575
+  00:19:58.223      position: {x: 0, y: 0, z: 0}  -  Server - dataGenerator:576
+  00:19:58.223      properties: {  -  Server - dataGenerator:578
+  00:19:58.223        age: 7  -  Server - dataGenerator:580
+  00:19:58.223        petType: Bird  -  Server - dataGenerator:583
+  00:19:58.223        petColor: Gray  -  Server - dataGenerator:586
+  00:19:58.223        firstName: Mary  -  Server - dataGenerator:589
+  00:19:58.223        lastName: Rodriguez  -  Server - dataGenerator:592
+  00:19:58.223        countryOfBirth: United States  -  Server - dataGenerator:595
+  00:19:58.223        countryOfResidence: Australia  -  Server - dataGenerator:598
+  00:19:58.223      }  -  Server - dataGenerator:603
+  00:19:58.223    Node 8:  -  Server - dataGenerator:571
+  00:19:58.223      uuid: node_2_3  -  Server - dataGenerator:572
+  00:19:58.223      name: grandparent 2-4  -  Server - dataGenerator:573
+  00:19:58.224      type: grandparent  -  Server - dataGenerator:574
+  00:19:58.224      color: [0.8, 0.2, 0.8]  -  Server - dataGenerator:575
+  00:19:58.224      position: {x: 0, y: 0, z: 0}  -  Server - dataGenerator:576
+  00:19:58.224      properties: {  -  Server - dataGenerator:578
+  00:19:58.224        age: 93  -  Server - dataGenerator:580
+  00:19:58.224        petType: None  -  Server - dataGenerator:583
+  00:19:58.224        petColor: White  -  Server - dataGenerator:586
+  00:19:58.224        firstName: James  -  Server - dataGenerator:589
+  00:19:58.224        lastName: Davis  -  Server - dataGenerator:592
+  00:19:58.224        countryOfBirth: India  -  Server - dataGenerator:595
+  00:19:58.224        countryOfResidence: Canada  -  Server - dataGenerator:598
+  00:19:58.224      }  -  Server - dataGenerator:603
+  00:19:58.224    Node 9:  -  Server - dataGenerator:571
+  00:19:58.224      uuid: node_2_4  -  Server - dataGenerator:572
+  00:19:58.224      name: man 2-5  -  Server - dataGenerator:573
+  00:19:58.225      type: man  -  Server - dataGenerator:574
+  00:19:58.225      color: [0.2, 0.4, 0.8]  -  Server - dataGenerator:575
+  00:19:58.225      position: {x: 0, y: 0, z: 0}  -  Server - dataGenerator:576
+  00:19:58.225      properties: {  -  Server - dataGenerator:578
+  00:19:58.225        age: 24  -  Server - dataGenerator:580
+  00:19:58.225        petType: Dog  -  Server - dataGenerator:583
+  00:19:58.225        petColor: Black  -  Server - dataGenerator:586
+  00:19:58.225        firstName: James  -  Server - dataGenerator:589
+  00:19:58.225        lastName: Williams  -  Server - dataGenerator:592
+  00:19:58.225        countryOfBirth: Brazil  -  Server - dataGenerator:595
+  00:19:58.225        countryOfResidence: Canada  -  Server - dataGenerator:598
+  00:19:58.225      }  -  Server - dataGenerator:603
+  00:19:58.225    Node 10:  -  Server - dataGenerator:571
+  00:19:58.225      uuid: node_2_5  -  Server - dataGenerator:572
+  00:19:58.225      name: woman 2-6  -  Server - dataGenerator:573
+  00:19:58.226      type: woman  -  Server - dataGenerator:574
+  00:19:58.226      color: [0.8, 0.4, 0.2]  -  Server - dataGenerator:575
+  00:19:58.226      position: {x: 0, y: 0, z: 0}  -  Server - dataGenerator:576
+  00:19:58.226      properties: {  -  Server - dataGenerator:578
+  00:19:58.226        age: 54  -  Server - dataGenerator:580
+  00:19:58.226        petType: Dog  -  Server - dataGenerator:583
+  00:19:58.226        petColor: Black  -  Server - dataGenerator:586
+  00:19:58.226        firstName: Mary  -  Server - dataGenerator:589
+  00:19:58.226        lastName: Miller  -  Server - dataGenerator:592
+  00:19:58.226        countryOfBirth: Australia  -  Server - dataGenerator:595
+  00:19:58.226        countryOfResidence: France  -  Server - dataGenerator:598
+  00:19:58.226      }  -  Server - dataGenerator:603
+  00:19:58.226  First 10 links (full objects):  -  Server - dataGenerator:610
+  00:19:58.226    Link 1:  -  Server - dataGenerator:613
+  00:19:58.227      uuid: link-1  -  Server - dataGenerator:614
+  00:19:58.227      type: Link1  -  Server - dataGenerator:615
+  00:19:58.227      sourceNodeUuid: node_1_0  -  Server - dataGenerator:616
+  00:19:58.227      targetNodeUuid: node_2_4  -  Server - dataGenerator:617
+  00:19:58.227      color: [0.2, 0.8, 0.2]  -  Server - dataGenerator:618
+  00:19:58.227    Link 2:  -  Server - dataGenerator:613
+  00:19:58.227      uuid: link-2  -  Server - dataGenerator:614
+  00:19:58.227      type: Link2  -  Server - dataGenerator:615
+  00:19:58.227      sourceNodeUuid: node_1_0  -  Server - dataGenerator:616
+  00:19:58.227      targetNodeUuid: node_2_0  -  Server - dataGenerator:617
+  00:19:58.227      color: [0.8, 0.2, 0.8]  -  Server - dataGenerator:618
+  00:19:58.227    Link 3:  -  Server - dataGenerator:613
+  00:19:58.227      uuid: link-3  -  Server - dataGenerator:614
+  00:19:58.227      type: Link3  -  Server - dataGenerator:615
+  00:19:58.228      sourceNodeUuid: node_1_1  -  Server - dataGenerator:616
+  00:19:58.228      targetNodeUuid: node_2_5  -  Server - dataGenerator:617
+  00:19:58.228      color: [0.8, 0.8, 0.2]  -  Server - dataGenerator:618
+  00:19:58.228    Link 4:  -  Server - dataGenerator:613
+  00:19:58.228      uuid: link-4  -  Server - dataGenerator:614
+  00:19:58.228      type: Link1  -  Server - dataGenerator:615
+  00:19:58.228      sourceNodeUuid: node_1_1  -  Server - dataGenerator:616
+  00:19:58.228      targetNodeUuid: node_2_1  -  Server - dataGenerator:617
+  00:19:58.228      color: [0.2, 0.8, 0.2]  -  Server - dataGenerator:618
+  00:19:58.228    Link 5:  -  Server - dataGenerator:613
+  00:19:58.228      uuid: link-5  -  Server - dataGenerator:614
+  00:19:58.228      type: Link2  -  Server - dataGenerator:615
+  00:19:58.228      sourceNodeUuid: node_1_2  -  Server - dataGenerator:616
+  00:19:58.229      targetNodeUuid: node_2_2  -  Server - dataGenerator:617
+  00:19:58.229      color: [0.8, 0.2, 0.8]  -  Server - dataGenerator:618
+  00:19:58.229    Link 6:  -  Server - dataGenerator:613
+  00:19:58.229      uuid: link-6  -  Server - dataGenerator:614
+  00:19:58.229      type: Link3  -  Server - dataGenerator:615
+  00:19:58.229      sourceNodeUuid: node_1_2  -  Server - dataGenerator:616
+  00:19:58.229      targetNodeUuid: node_2_6  -  Server - dataGenerator:617
+  00:19:58.229      color: [0.8, 0.8, 0.2]  -  Server - dataGenerator:618
+  00:19:58.229    Link 7:  -  Server - dataGenerator:613
+  00:19:58.229      uuid: link-7  -  Server - dataGenerator:614
+  00:19:58.229      type: Link1  -  Server - dataGenerator:615
+  00:19:58.229      sourceNodeUuid: node_1_3  -  Server - dataGenerator:616
+  00:19:58.229      targetNodeUuid: node_2_7  -  Server - dataGenerator:617
+  00:19:58.229      color: [0.2, 0.8, 0.2]  -  Server - dataGenerator:618
+  00:19:58.229    Link 8:  -  Server - dataGenerator:613
+  00:19:58.230      uuid: link-8  -  Server - dataGenerator:614
+  00:19:58.230      type: Link2  -  Server - dataGenerator:615
+  00:19:58.230      sourceNodeUuid: node_1_3  -  Server - dataGenerator:616
+  00:19:58.230      targetNodeUuid: node_2_3  -  Server - dataGenerator:617
+  00:19:58.230      color: [0.8, 0.2, 0.8]  -  Server - dataGenerator:618
+  00:19:58.230    Link 9:  -  Server - dataGenerator:613
+  00:19:58.230      uuid: link-9  -  Server - dataGenerator:614
+  00:19:58.230      type: Link3  -  Server - dataGenerator:615
+  00:19:58.230      sourceNodeUuid: node_2_0  -  Server - dataGenerator:616
+  00:19:58.230      targetNodeUuid: node_2_2  -  Server - dataGenerator:617
+  00:19:58.230      color: [0.8, 0.8, 0.2]  -  Server - dataGenerator:618
+  00:19:58.230    Link 10:  -  Server - dataGenerator:613
+  00:19:58.230      uuid: link-10  -  Server - dataGenerator:614
+  00:19:58.230      type: Link1  -  Server - dataGenerator:615
+  00:19:58.230      sourceNodeUuid: node_2_0  -  Server - dataGenerator:616
+  00:19:58.231      targetNodeUuid: node_3_4  -  Server - dataGenerator:617
+  00:19:58.231      color: [0.2, 0.8, 0.2]  -  Server - dataGenerator:618
+  00:19:58.231  === END TEMP DATA ===  -  Server - dataGenerator:624
+  00:19:58.231  [SwimLaneBlock] woman created at position: X=-9, Z=0  -  Server - swimlaneBlockCreator:58
+  00:19:58.232  [SwimLaneBlock] grandparent created at position: X=3, Z=0  -  Server - swimlaneBlockCreator:58
+  00:19:58.232  [SwimLaneBlock] man created at position: X=-3, Z=0  -  Server - swimlaneBlockCreator:58
+  00:19:58.233  [SwimLaneBlock] child created at position: X=9, Z=0  -  Server - swimlaneBlockCreator:58
+  00:19:58.236  [NodeRenderer] renderCluster() called with 60 nodes  -  Server - nodeRenderer:29
+  00:20:01.414  AnimationTestRemote not found - animation test may not be enabled  -  Client - animationTestGUI.controller:44

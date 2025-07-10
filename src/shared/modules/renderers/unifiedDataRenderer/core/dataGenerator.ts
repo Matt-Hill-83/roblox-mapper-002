@@ -8,14 +8,20 @@ import { Cluster, Node, Link, Group } from "../../../../interfaces/simpleDataGen
 import { EnhancedGeneratorConfig, LayerConfig } from "../../../../interfaces/enhancedGenerator.interface";
 import { IDataGenerator } from "../interfaces";
 import { COLOR_PALETTES, NODE_TYPE_NAMES, ANIMAL_TYPES, DEFAULT_ATTACHMENTS, PET_TYPES, PET_COLORS, FIRST_NAMES, LAST_NAMES, COUNTRIES_OF_BIRTH, COUNTRIES_OF_RESIDENCE } from "../constants";
+import { TEMP_TEST_NODES, TEMP_TEST_LINKS } from "../../../../data/tempTestData";
 
 export class DataGenerator implements IDataGenerator {
   private linkIdCounter = 0;
+  private useTestData = true; // Set to true to use temp test data
 
   /**
    * Generates cluster data from layer configuration
    */
   public generateClusterFromLayers(config: EnhancedGeneratorConfig): Cluster {
+    // Use test data if enabled
+    if (this.useTestData) {
+      return this.generateClusterFromTestData();
+    }
     const allNodes: Node[] = [];
     const allLinks: Link[] = [];
     const nodesByLayer = new Map<number, Node[]>();
@@ -71,10 +77,15 @@ export class DataGenerator implements IDataGenerator {
       nodes: allNodes,
     };
 
-    return {
+    const cluster = {
       groups: [mainGroup],
       relations: allLinks,
     };
+
+    // Write first 10 objects to tempData.json for debugging
+    this.writeTempData(allNodes, allLinks);
+
+    return cluster;
   }
 
   /**
@@ -364,5 +375,87 @@ export class DataGenerator implements IDataGenerator {
     }
     
     return undefined;
+  }
+
+  /**
+   * Write first 10 objects to tempData.json for debugging
+   */
+  private writeTempData(allNodes: Node[], allLinks: Link[]): void {
+    const first10Nodes: Node[] = [];
+    const first10Links: Link[] = [];
+    
+    // Get first 10 nodes
+    for (let i = 0; i < math.min(10, allNodes.size()); i++) {
+      first10Nodes.push(allNodes[i]);
+    }
+    
+    // Get first 10 links
+    for (let i = 0; i < math.min(10, allLinks.size()); i++) {
+      first10Links.push(allLinks[i]);
+    }
+    
+    print(`=== TEMP DATA DEBUG ===`);
+    print(`Total nodes: ${allNodes.size()}`);
+    print(`Total links: ${allLinks.size()}`);
+    print(`First 10 nodes (full objects):`);
+    first10Nodes.forEach((node, index) => {
+      print(`  Node ${index + 1}:`);
+      print(`    uuid: ${node.uuid}`);
+      print(`    name: ${node.name}`);
+      print(`    type: ${node.type}`);
+      print(`    color: [${node.color[0]}, ${node.color[1]}, ${node.color[2]}]`);
+      print(`    position: {x: ${node.position.x}, y: ${node.position.y}, z: ${node.position.z}}`);
+      if (node.properties) {
+        print(`    properties: {`);
+        if (node.properties.age !== undefined) print(`      age: ${node.properties.age}`);
+        if (node.properties.petType !== undefined) print(`      petType: ${node.properties.petType}`);
+        if (node.properties.petColor !== undefined) print(`      petColor: ${node.properties.petColor}`);
+        if (node.properties.firstName !== undefined) print(`      firstName: ${node.properties.firstName}`);
+        if (node.properties.lastName !== undefined) print(`      lastName: ${node.properties.lastName}`);
+        if (node.properties.countryOfBirth !== undefined) print(`      countryOfBirth: ${node.properties.countryOfBirth}`);
+        if (node.properties.countryOfResidence !== undefined) print(`      countryOfResidence: ${node.properties.countryOfResidence}`);
+        if (node.properties.animalType !== undefined) print(`      animalType: ${node.properties.animalType}`);
+        print(`    }`);
+      }
+    });
+    print(`First 10 links (full objects):`);
+    first10Links.forEach((link, index) => {
+      print(`  Link ${index + 1}:`);
+      print(`    uuid: ${link.uuid}`);
+      print(`    type: ${link.type}`);
+      print(`    sourceNodeUuid: ${link.sourceNodeUuid}`);
+      print(`    targetNodeUuid: ${link.targetNodeUuid}`);
+      print(`    color: [${link.color[0]}, ${link.color[1]}, ${link.color[2]}]`);
+    });
+    print(`=== END TEMP DATA ===`);
+  }
+
+  /**
+   * Generate cluster from test data
+   */
+  private generateClusterFromTestData(): Cluster {
+    print(`=== USING TEST DATA ===`);
+    print(`Test nodes: ${TEMP_TEST_NODES.size()}`);
+    print(`Test links: ${TEMP_TEST_LINKS.size()}`);
+    
+    // Create a single group containing all test nodes
+    const mainGroup: Group = {
+      id: "test-group",
+      name: "Test Data Group",
+      nodes: TEMP_TEST_NODES,
+    };
+
+    return {
+      groups: [mainGroup],
+      relations: TEMP_TEST_LINKS,
+    };
+  }
+
+  /**
+   * Enable or disable test data mode
+   */
+  public setUseTestData(useTestData: boolean): void {
+    this.useTestData = useTestData;
+    print(`Test data mode: ${useTestData ? "ENABLED" : "DISABLED"}`);
   }
 }
