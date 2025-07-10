@@ -29,6 +29,11 @@ export const AXIS_DEFAULTS = {
  */
 export function getDefaultXAxis(discoveredProperties?: string[]): string {
   if (discoveredProperties && discoveredProperties.size() > 0) {
+    // Prefer "component" if it exists in discovered properties
+    const componentIndex = discoveredProperties.indexOf("component");
+    if (componentIndex !== -1) {
+      return "component";
+    }
     return discoveredProperties[0];
   }
   return AXIS_DEFAULTS.LEGACY_X_AXIS;
