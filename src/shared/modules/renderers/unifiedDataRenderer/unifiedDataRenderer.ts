@@ -80,7 +80,7 @@ export class UnifiedDataRenderer {
     this.positionCalculator.centerBottomAtOrigin(cluster, targetOrigin, config);
 
     // Calculate Z-axis centering offset for type lanes
-    const zAxisProperty = config?.axisMapping?.zAxis || "type";
+    const zAxisProperty = config?.axisMapping?.zAxis || "petType";
     const zAxisOffset = this.calculateZAxisOffset(cluster, zAxisProperty);
 
     // Apply the Z-axis centering offset to all nodes
@@ -177,7 +177,7 @@ export class UnifiedDataRenderer {
     this.nodeRenderer.renderCluster(cluster, parentFolder, config);
 
     // Log alignment check between nodes and swimlanes
-    const xAxisProperty = config.axisMapping?.xAxis || "service";
+    const xAxisProperty = config.axisMapping?.xAxis || "type";
     const nodesByType = new Map<string, Node[]>();
 
     cluster.groups[0].nodes.forEach((node) => {
@@ -258,7 +258,7 @@ export class UnifiedDataRenderer {
   ): Map<string, Part> {
     const swimlaneBlocks = new Map<string, Part>();
     // Use axis mapping if available - X axis sorts on service for Harness data
-    const xAxisProperty = config.axisMapping?.xAxis || "service";
+    const xAxisProperty = config.axisMapping?.xAxis || "type";
 
     // Organize nodes by X grouping property to determine lane placement
     const nodesByType = new Map<string, Node[]>();
@@ -297,19 +297,32 @@ export class UnifiedDataRenderer {
 
     // Find the maximum width across all swimlanes
     let maxWidth = 0;
+    // Find the maximum depth across all swimlanes to make them all the same length
+    let maxDepth = 0;
+    // Find the overall Z bounds across all lanes
+    let overallMinZ = math.huge;
+    let overallMaxZ = -math.huge;
+    
     nodesByType.forEach((nodes, typeName) => {
       const bounds = typeBounds.get(typeName)!;
       const width = bounds.maxX - bounds.minX;
+      const depth = bounds.maxZ - bounds.minZ;
       maxWidth = math.max(maxWidth, width);
+      maxDepth = math.max(maxDepth, depth);
+      overallMinZ = math.min(overallMinZ, bounds.minZ);
+      overallMaxZ = math.max(overallMaxZ, bounds.maxZ);
     });
+    
+    // Calculate the common center Z position for all lanes
+    const commonCenterZ = (overallMinZ + overallMaxZ) / 2;
 
     nodesByType.forEach((nodes, typeName) => {
       const bounds = typeBounds.get(typeName)!;
 
       // Use actual node bounds to determine X position
       const centerX = (bounds.minX + bounds.maxX) / 2;
-      // Use the actual node bounds to determine Z position
-      const centerZ = (bounds.minZ + bounds.maxZ) / 2;
+      // Use the common center Z for all lanes to ensure alignment
+      const centerZ = commonCenterZ;
 
       // Calculate actual swimlane dimensions based on node bounds
 
@@ -318,7 +331,8 @@ export class UnifiedDataRenderer {
 
       // Use the maximum width for all lanes to ensure uniform length
       const blockWidth = maxWidth;
-      const blockDepth = bounds.maxZ - bounds.minZ + zBuffer * 2;
+      // Use the overall Z extent for all lanes to ensure uniform Z-length
+      const blockDepth = (overallMaxZ - overallMinZ) + zBuffer * 2;
 
       // Fixed Y position for Z-parallel lane blocks - use SHADOW_LAYER_DISPLACEMENT above shadow block
       // Shadow block is at Y = 1.6 (top at 2.1)
@@ -529,7 +543,7 @@ export class UnifiedDataRenderer {
   ): Map<string, Part> {
     const swimlaneBlocks = new Map<string, Part>();
     // Use axis mapping if available - Z axis sorts on type for Harness data
-    const zAxisProperty = config?.axisMapping?.zAxis || "type";
+    const zAxisProperty = config?.axisMapping?.zAxis || "petType";
 
     // Organize nodes by z-axis property
     const nodesByProperty = new Map<string, Node[]>();

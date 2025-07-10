@@ -28,6 +28,8 @@ export class GameService extends BaseService {
     }
 
     this.gameStarted = true;
+    
+    print("========== HELLO WORK - GAME SERVICE STARTED ==========");
 
     // Create or find the MyStuff folder at the start
     this.myStuffFolder = game.Workspace.FindFirstChild("MyStuff") as Folder;
