@@ -452,9 +452,12 @@ export class DataGenerator implements IDataGenerator {
     print(`=== USING HARNESS TEST DATA ===`);
     print(`Harness files: ${TEMP_HARNESS_TEST_DATA.size()}`);
     
-    // Convert Harness data to Node format
+    // Convert Harness data to Node format - using only first 10 items
     const harnessNodes: Node[] = [];
+    let itemCount = 0;
     TEMP_HARNESS_TEST_DATA.forEach((file, index) => {
+      if (itemCount >= 10) return; // Only process first 10 items
+      itemCount++;
       const node: Node = {
         uuid: `harness_file_${index}`,
         name: this.getFileName(file.path),
@@ -492,7 +495,7 @@ export class DataGenerator implements IDataGenerator {
       harnessLinks.push(link);
     }
     
-    print(`Created ${harnessNodes.size()} nodes and ${harnessLinks.size()} links from Harness data`);
+    print(`Created ${harnessNodes.size()} nodes and ${harnessLinks.size()} links from Harness data (limited to 10)`);
     
     // Discover properties from the harness nodes
     const discoveredProps = discoverNodeProperties(harnessNodes);
