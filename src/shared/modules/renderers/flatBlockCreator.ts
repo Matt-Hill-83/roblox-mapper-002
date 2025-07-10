@@ -89,8 +89,8 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   const shadowBlock = new Instance("Part");
   shadowBlock.Name = "GroupShadowBlock";
   
-  // Set shadow size with buffer on all sides and uniform thickness
-  shadowBlock.Size = new Vector3(width + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, depth + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER);
+  // Set shadow size with uniform thickness (no extra buffer - padding is already included in width/depth)
+  shadowBlock.Size = new Vector3(width, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, depth);
   
   // Set shadow material and appearance
   shadowBlock.Material = BLOCK_CONSTANTS.MATERIALS.SHADOW;

@@ -3,7 +3,7 @@
  * Part of F002 refactoring to eliminate magic numbers
  */
 
-import { Z_AXIS_COLORS } from "./robloxColors";
+import { Z_AXIS_COLORS, X_AXIS_COLORS } from "./robloxColors";
 
 export const BLOCK_CONSTANTS = {
   DIMENSIONS: {
@@ -11,7 +11,7 @@ export const BLOCK_CONSTANTS = {
     DEFAULT_WIDTH: 200,
     DEFAULT_DEPTH: 200,
     PLATFORM_SIZE: 100,
-    SHADOW_BUFFER: 2,
+    SHADOW_BUFFER: 2, // DEPRECATED: Use LAYOUT_CONSTANTS.SHADOW_PADDING instead
     Z_PARALLEL_LANE_BUFFER: 4, // Extra Z-dimension buffer for Z-parallel lanes (formerly "X-axis swimlanes")
     X_PARALLEL_LANE_BUFFER: 4, // Extra X-dimension buffer for X-parallel lanes (formerly "Z-axis swimlanes")
     Z_FIGHTING_OFFSET: 0.1,
@@ -25,6 +25,7 @@ export const BLOCK_CONSTANTS = {
     SHADOW: new Color3(0.5, 0.7, 1),
     PLATFORM: new Color3(0.5, 0, 0.5), // Purple
     Z_AXIS_COLORS: Z_AXIS_COLORS,
+    X_PARALLEL_LANE_COLORS: X_AXIS_COLORS,
   },
   TRANSPARENCY: {
     OPAQUE: 0,

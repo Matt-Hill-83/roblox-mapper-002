@@ -6,6 +6,7 @@
 
 import { BaseBlockCreator } from "./baseBlockCreator";
 import { BLOCK_CONSTANTS } from "../constants/blockConstants";
+import { LAYOUT_CONSTANTS } from "../constants/layoutConstants";
 import { EndcapBlockCreator } from "./endcapBlockCreator";
 
 export interface ShadowBlockConfig {
@@ -14,7 +15,7 @@ export interface ShadowBlockConfig {
   height?: number;
   width?: number;
   depth?: number;
-  buffer?: number;
+  buffer?: number; // DEPRECATED: Padding is handled by LAYOUT_CONSTANTS.SHADOW_PADDING
 }
 
 export class ShadowBlockCreator extends BaseBlockCreator {
@@ -32,13 +33,13 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       origin,
       parent,
       width = BLOCK_CONSTANTS.DIMENSIONS.DEFAULT_WIDTH,
-      depth = BLOCK_CONSTANTS.DIMENSIONS.DEFAULT_DEPTH,
-      buffer = BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER
+      depth = BLOCK_CONSTANTS.DIMENSIONS.DEFAULT_DEPTH
     } = config;
 
+    // Note: buffer parameter is deprecated - padding is handled by LAYOUT_CONSTANTS.SHADOW_PADDING
     const shadowBlock = this.createBlock({
       name: "GroupShadowBlock",
-      size: new Vector3(width + buffer, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, depth + buffer),
+      size: new Vector3(width, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, depth),
       position: new Vector3(
         origin.X,
         BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2 + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET, // Raised by 0.1 to prevent z-fighting
@@ -73,9 +74,11 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     let collectiveMinZ = math.huge;
     let collectiveMaxZ = -math.huge;
     
-    propertyBounds.forEach((bounds) => {
+    print("[X-Parallel Shadow Blocks] Calculating collective bounds:");
+    propertyBounds.forEach((bounds, propertyValue) => {
       collectiveMinZ = math.min(collectiveMinZ, bounds.minZ);
       collectiveMaxZ = math.max(collectiveMaxZ, bounds.maxZ);
+      print(`  ${propertyValue}: minZ = ${bounds.minZ}, maxZ = ${bounds.maxZ}`);
     });
     
     // Calculate the center of the collective pet lanes
@@ -83,6 +86,9 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     
     // The group shadow block is centered at Z=0, so we need to offset the pet lanes
     const offsetZ = 0 - collectiveCenter;
+    print(`  Collective bounds: [${collectiveMinZ}, ${collectiveMaxZ}]`);
+    print(`  Collective center: ${collectiveCenter}`);
+    print(`  Offset to center at Z=0: ${offsetZ}`);
     
     let blockIndex = 0;
     
@@ -124,13 +130,12 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     propertyName?: string,
     offsetZ: number = 0
   ): Part {
-    // Apply different buffers for X and Z dimensions (X-parallel lanes need extra X buffer)
-    const xBuffer = BLOCK_CONSTANTS.DIMENSIONS.X_PARALLEL_LANE_BUFFER;
-    const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER;
-    
-    // Calculate dimensions with asymmetric buffers
-    const width = bounds.maxX - bounds.minX + xBuffer * 2;
-    const depth = bounds.maxZ - bounds.minZ + zBuffer * 2;
+    // Use actual bounds for dimensions with buffer
+    const xBuffer = 5; // 5 unit buffer on each side
+    const width = bounds.maxX - bounds.minX + (xBuffer * 2); // Add buffer to both ends
+    // Use fixed depth of 4 units for X-parallel lanes
+    const depth = 4;
+    const centerX = (bounds.minX + bounds.maxX) / 2;
     const centerZ = (bounds.minZ + bounds.maxZ) / 2;
     
     // Generate unique ID for the lane
@@ -140,12 +145,20 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     // Apply the offset to center the collection of lanes
     const adjustedZPosition = centerZ + offsetZ;
     
+    print(`[X-Parallel Block] ${propertyValue}:`);
+    print(`  Z bounds: [${bounds.minZ}, ${bounds.maxZ}]`);
+    print(`  Original centerZ: ${centerZ}`);
+    print(`  Offset: ${offsetZ}`);
+    print(`  Final Z position: ${adjustedZPosition}`);
+    print(`  Width (X span): ${width} (base: ${bounds.maxX - bounds.minX} + buffer: ${xBuffer * 2})`);
+    print(`  Depth (Z span): ${depth}`);
+    
     const block = this.createBlock({
       name: blockName,
-      size: new Vector3(width, BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS, depth),
-      position: new Vector3(0, yPosition, adjustedZPosition), // Center at X=0 and apply Z offset
+      size: new Vector3(width, LAYOUT_CONSTANTS.LANE_DIMENSIONS.X_PARALLEL_LANE_HEIGHT, depth),
+      position: new Vector3(centerX, yPosition, adjustedZPosition),
       material: BLOCK_CONSTANTS.MATERIALS.SWIMLANE,
-      color: this.getColorFromArray(BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS, colorIndex),
+      color: this.getColorFromArray(BLOCK_CONSTANTS.COLORS.X_PARALLEL_LANE_COLORS, colorIndex),
       transparency: BLOCK_CONSTANTS.TRANSPARENCY.OPAQUE,
       canCollide: true
     });
@@ -153,8 +166,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     block.CastShadow = false;
 
     // Add surface labels to all faces
-    // DISABLED: Removing labels from swimlane shadow blocks per T17
-    // this.addSurfaceLabelsToAllFaces(block, propertyValue);
+    this.addSurfaceLabelsToAllFaces(block, propertyValue);
 
 
     return block;
@@ -162,9 +174,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
 
   /**
    * Add surface labels to all faces of a block
-   * DISABLED: Per T17 - swimlane labels removed, using endcaps instead
    */
-  /*
   private addSurfaceLabelsToAllFaces(block: Part, text: string): void {
     const faces: Enum.NormalId[] = [
       Enum.NormalId.Front,
@@ -184,12 +194,13 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       surfaceGui.PixelsPerStud = 50;
       surfaceGui.Parent = block;
 
-      // Create Frame for background
+      // Create Frame for background with border
       const frame = new Instance("Frame");
       frame.Size = new UDim2(1, 0, 1, 0);
-      frame.BackgroundColor3 = new Color3(0, 0, 0);
-      frame.BackgroundTransparency = 1; // Fully transparent background
-      frame.BorderSizePixel = 0;
+      frame.BackgroundColor3 = block.Color; // Match block color
+      frame.BackgroundTransparency = 0; // Opaque background
+      frame.BorderSizePixel = 5; // 5 pixel border
+      frame.BorderColor3 = new Color3(0, 0, 0); // Black border
       frame.Parent = surfaceGui;
 
       // Create TextLabel
@@ -201,8 +212,8 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       textLabel.Text = text;
       textLabel.TextColor3 = new Color3(0, 0, 0); // Black text
       textLabel.TextScaled = true;
+      textLabel.Rotation = 90; // Rotate 90 degrees clockwise
       textLabel.Parent = frame;
     });
   }
-  */
 }
