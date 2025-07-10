@@ -8,23 +8,27 @@ const { generateDataset } = require('./output/jsonGenerator');
 async function main() {
     console.log('🚀 Starting Harness Repository Analysis...\n');
     
-    const repoPath = path.join(__dirname, '..', '..', 'harness', 'harness');
+    // Get limit from command line argument, default to 200
+    const limit = parseInt(process.argv[2]) || 200;
+    console.log(`📊 Maximum objects to create: ${limit}\n`);
+    
+    const repoPath = path.join(__dirname, '..', '..', 'harness');
     const outputPath = path.join(__dirname, '..', '..', 'data', 'harness-files.json');
     
     try {
         // Phase 1: Initial scan
         console.log('Phase 1: Initial Repository Analysis');
         console.log('=====================================');
-        const analysisResults = await scanRepository(repoPath, { phase: 'analysis', limit: 50 });
+        const analysisResults = await scanRepository(repoPath, { phase: 'analysis', limit: Math.min(50, limit) });
         
         // Phase 2: Full scan
         console.log('\nPhase 2: Full Repository Scan');
         console.log('==============================');
-        const fullResults = await scanRepository(repoPath, { phase: 'full', limit: 200 });
+        const fullResults = await scanRepository(repoPath, { phase: 'full', limit: limit });
         
         // Generate dataset
         console.log('\n📝 Generating JSON dataset...');
-        const dataset = generateDataset(fullResults);
+        const dataset = generateDataset(fullResults, limit);
         
         // Save results
         fs.writeFileSync(outputPath, JSON.stringify(dataset, null, 2));

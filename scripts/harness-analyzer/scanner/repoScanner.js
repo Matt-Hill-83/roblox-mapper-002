@@ -44,10 +44,7 @@ async function scanRepository(repoPath, options = {}) {
                         directory: path.dirname(relativePath)
                     });
                     
-                    // Stop if we've reached the limit
-                    if (options.limit && files.length >= options.limit) {
-                        return;
-                    }
+                    // Don't stop early during traversal
                 }
             }
         } catch (error) {
