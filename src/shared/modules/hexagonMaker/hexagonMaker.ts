@@ -10,7 +10,7 @@ import {
   createCenterAttachment,
   calculateBarDimensions
 } from "./utilities";
-import { createTextBox } from "../TextBoxMaker";
+import { createTextLabel } from "../TextLabelMaker";
 import { IHexagonMakerConfig } from "./standardizedInterfaces";
 
 /**
@@ -90,7 +90,7 @@ export function makeHexagon(config: IHexagonMakerConfig): Model {
     
     // Add top label on the first bar only
     if (i === 0 && labels.size() > 0) {
-      createTextBox({
+      createTextLabel({
         part: bar,
         face: Enum.NormalId.Top,
         text: labels[0], // Use the first label (node name)
