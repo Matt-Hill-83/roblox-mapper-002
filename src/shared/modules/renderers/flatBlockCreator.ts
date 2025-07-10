@@ -4,7 +4,6 @@
  */
 
 import { BLOCK_CONSTANTS } from "./constants/blockConstants";
-import { POSITION_CONSTANTS } from "./constants/positionConstants";
 
 export interface FlatBlockConfig {
   origin: Vector3;

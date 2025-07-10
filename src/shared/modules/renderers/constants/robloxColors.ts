@@ -12,10 +12,10 @@ export const robloxColors: Color3[] = [
 ];
 
 export const Z_AXIS_COLORS: Color3[] = [
+  new Color3(0.6431, 0.3608, 0.6471), // Base 19 saturated 200%
   new Color3(0.3608, 0.7529, 0.3608), // Base 20 saturated 200%
   new Color3(0.3608, 0.5333, 1.0), // Base 15 saturated 200%
   new Color3(0.948, 0.7186, 0.7422), // Base 1 saturated 150%
-  new Color3(0.6431, 0.3608, 0.6471), // Base 19 saturated 200%
   new Color3(0.3608, 0.5333, 1.0), // Base 18 saturated 200%
   new Color3(1.0, 0.5333, 0.3608), // Base 11 saturated 200%
   new Color3(0.9863, 0.6804, 0.7118), // Base 1 saturated 200%
