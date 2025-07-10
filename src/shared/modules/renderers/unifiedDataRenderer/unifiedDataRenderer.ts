@@ -11,11 +11,9 @@ import { PositionCalculator } from "./core/positionCalculator";
 import { NodeRenderer } from "./rendering/nodeRenderer";
 import { UpdateManager } from "./rendering/updateManager";
 // import { LabelRenderer } from "./rendering/labelRenderer"; // Disabled per T17
-import { 
-  createFlatBlocksAdapter as createFlatBlocks, 
-  createSwimLaneBlockAdapter as createSwimLaneBlock, 
-  createXParallelShadowBlocksAdapter as createXParallelShadowBlocks
-} from "../blockCreatorAdapter";
+import { PlatformBlockCreator } from "../blocks/platformBlockCreator";
+import { ShadowBlockCreator } from "../blocks/shadowBlockCreator";
+import { SwimLaneBlockCreator } from "../blocks/swimlaneBlockCreator";
 import { createVerticalWalls, createWallSwimlanes } from "../verticalWallCreator";
 import { PropertyValueResolver } from "../propertyValueResolver";
 import { BLOCK_CONSTANTS } from "../constants/blockConstants";
@@ -30,6 +28,9 @@ export class UnifiedDataRenderer {
   // private labelRenderer: LabelRenderer; // Disabled per T17
   private propertyResolver: PropertyValueResolver;
   private endcapCreator: EndcapBlockCreator;
+  private platformCreator: PlatformBlockCreator;
+  private shadowCreator: ShadowBlockCreator;
+  private swimlaneCreator: SwimLaneBlockCreator;
   private currentConfig?: EnhancedGeneratorConfig;
 
   constructor() {
@@ -40,6 +41,9 @@ export class UnifiedDataRenderer {
     // this.labelRenderer = new LabelRenderer(); // Disabled per T17
     this.propertyResolver = new PropertyValueResolver();
     this.endcapCreator = new EndcapBlockCreator();
+    this.platformCreator = new PlatformBlockCreator();
+    this.shadowCreator = new ShadowBlockCreator();
+    this.swimlaneCreator = new SwimLaneBlockCreator();
   }
 
   /**
@@ -113,16 +117,25 @@ export class UnifiedDataRenderer {
     const allLaneBounds = this.calculateLaneBounds(xParallelLanes, zParallelLanes);
     
     // Create platform and shadow blocks last, sized to encompass all lanes
-    const blocks = createFlatBlocks({
+    const platform = this.platformCreator.createPlatformBlock({
       origin: targetOrigin,
       parent: parentFolder,
+      height: BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS,
+      size: BLOCK_CONSTANTS.DIMENSIONS.PLATFORM_SIZE
+    });
+
+    const shadow = this.shadowCreator.createGroupShadowBlock({
+      origin: targetOrigin,
+      parent: platform,
+      height: BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS,
       width: allLaneBounds.width + LAYOUT_CONSTANTS.SHADOW_PADDING.X_PADDING * 2,
       depth: allLaneBounds.depth + LAYOUT_CONSTANTS.SHADOW_PADDING.Z_PADDING * 2,
+      buffer: BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER
     });
     
     // Re-parent lanes to shadow block
-    xParallelModel.Parent = blocks.shadow;
-    zParallelModel.Parent = blocks.shadow;
+    xParallelModel.Parent = shadow;
+    zParallelModel.Parent = shadow;
     lanesParent.Destroy();
     
     // Create vertical walls if Y-axis is property-based
@@ -138,7 +151,7 @@ export class UnifiedDataRenderer {
           maxZ: targetOrigin.Z + shadowDepth / 2
         },
         height: wallHeight,
-        parent: blocks.platform
+        parent: platform
       });
       
       // Add swimlane shadows on walls
@@ -301,7 +314,7 @@ export class UnifiedDataRenderer {
       
       
       // Create swimlane block
-      const swimlaneBlock = createSwimLaneBlock({
+      const swimlaneBlock = this.swimlaneCreator.createSwimLaneBlock({
         position: new Vector3(centerX, blockYPosition, centerZ),
         width: blockWidth,
         depth: blockDepth,
@@ -539,7 +552,7 @@ export class UnifiedDataRenderer {
     const shadowBlockTop = BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2;
     const yPosition = shadowBlockTop + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT;
     
-    createXParallelShadowBlocks(nodesByProperty, propertyBounds, parent, yPosition, swimlaneBlocks, zAxisProperty, targetOrigin);
+    this.shadowCreator.createXParallelShadowBlocks(nodesByProperty, propertyBounds, parent, yPosition, swimlaneBlocks, zAxisProperty, targetOrigin);
     return swimlaneBlocks;
   }
   
