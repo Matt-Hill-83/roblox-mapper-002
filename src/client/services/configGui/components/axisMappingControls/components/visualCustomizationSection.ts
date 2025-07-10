@@ -21,13 +21,13 @@ export function createVisualCustomizationSection({
   onBorderColorChange
 }: VisualCustomizationSectionProps): void {
   // Section label
-  createSectionLabel(parent, "Visual Customization", 85);
+  createSectionLabel(parent, "Visual Customization", 110);
 
   // Background color row
   createLabel(
     parent,
     "background:",
-    new UDim2(0, UI_CONSTANTS.SPACING.SECTION_MARGIN, 0, 105),
+    new UDim2(0, UI_CONSTANTS.SPACING.SECTION_MARGIN, 0, 130),
     UI_CONSTANTS.SPACING.LABEL_WIDTH
   );
 
@@ -35,7 +35,7 @@ export function createVisualCustomizationSection({
     parent,
     "BgColorButton",
     backgroundColorValue,
-    new UDim2(0, 95, 0, 105),
+    new UDim2(0, 95, 0, 130),
     150
   );
 
@@ -43,7 +43,7 @@ export function createVisualCustomizationSection({
   createLabel(
     parent,
     "border:",
-    new UDim2(0, UI_CONSTANTS.SPACING.SECTION_MARGIN, 0, 130),
+    new UDim2(0, UI_CONSTANTS.SPACING.SECTION_MARGIN, 0, 155),
     UI_CONSTANTS.SPACING.LABEL_WIDTH
   );
 
@@ -51,7 +51,7 @@ export function createVisualCustomizationSection({
     parent,
     "BorderColorButton",
     borderColorValue,
-    new UDim2(0, 95, 0, 130),
+    new UDim2(0, 95, 0, 155),
     150
   );
 
