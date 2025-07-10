@@ -138,7 +138,7 @@ const zAxisProperty = config?.axisMapping?.zAxis || DEFAULT_Z_AXIS_PROPERTY;
 
 ### Phase 1: Property Discovery System (T9.1)
 
-#### Task 1.1: Create Property Discovery Utility
+#### ⬛ Task 1.1: Create Property Discovery Utility
 **File**: Create `src/shared/utils/propertyDiscovery.ts`
 ```typescript
 export function discoverObjectProperties(data: any[]): string[] {
@@ -148,7 +148,7 @@ export function discoverObjectProperties(data: any[]): string[] {
 }
 ```
 
-#### Task 1.2: Update Data Generator
+#### ⬛ Task 1.2: Update Data Generator
 **File**: `src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts`
 - Add property discovery on data load
 - Store discovered properties in cluster metadata
@@ -156,7 +156,7 @@ export function discoverObjectProperties(data: any[]): string[] {
 
 ### Phase 2: Remove Hardcoded Properties (T9.2)
 
-#### Task 2.1: Create Configuration Constants
+#### ⬛ Task 2.1: Create Configuration Constants
 **File**: Create `src/shared/constants/axisDefaults.ts`
 ```typescript
 export const AXIS_DEFAULTS = {
@@ -168,25 +168,25 @@ export const AXIS_DEFAULTS = {
 };
 ```
 
-#### Task 2.2: Update State Manager
+#### ⬛ Task 2.2: Update State Manager
 **File**: `src/client/services/configGui/stateManager.ts`
 - Lines 38, 40, 246, 248: Replace hardcoded "petType" with dynamic property
 - Add property discovery on initialization
 - Update defaultAxisMapping to use discovered properties
 
-#### Task 2.3: Update Position Calculator
+#### ⬛ Task 2.3: Update Position Calculator
 **File**: `src/shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts`
 - Line 66: Replace `|| "petType"` with `|| discoveredProperties[1]`
 - Add property discovery integration
 
-#### Task 2.4: Update Unified Data Renderer
+#### ⬛ Task 2.4: Update Unified Data Renderer
 **File**: `src/shared/modules/renderers/unifiedDataRenderer/unifiedDataRenderer.ts`
 - Lines 83, 384, 532: Replace hardcoded "petType" defaults
 - Integrate with property discovery system
 
 ### Phase 3: Dynamic Property Assignment (T9.3)
 
-#### Task 3.1: Implement Property Assignment Logic
+#### ⬛ Task 3.1: Implement Property Assignment Logic
 **File**: Update `src/client/services/configGui/stateManager.ts`
 ```typescript
 private assignDefaultAxisProperties(discoveredProps: string[]): AxisMapping {
@@ -199,7 +199,7 @@ private assignDefaultAxisProperties(discoveredProps: string[]): AxisMapping {
 }
 ```
 
-#### Task 3.2: Update Axis Mapping Constants
+#### ⬛ Task 3.2: Update Axis Mapping Constants
 **File**: `src/client/services/configGui/components/axisMappingControls/constants.ts`
 - Lines 4, 17, 68: Make properties dynamic
 - Remove hardcoded "petType" from AVAILABLE_PROPERTIES
@@ -207,7 +207,7 @@ private assignDefaultAxisProperties(discoveredProps: string[]): AxisMapping {
 
 ### Phase 4: Update GUI Controls (T9.4, T9.5)
 
-#### Task 4.1: Update Dropdown Population
+#### ⬛ Task 4.1: Update Dropdown Population
 **File**: `src/client/services/configGui/components/axisMappingControls/constants.ts`
 ```typescript
 export function updateAvailableProperties(discoveredProps: string[]): void {
@@ -216,51 +216,51 @@ export function updateAvailableProperties(discoveredProps: string[]): void {
 }
 ```
 
-#### Task 4.2: Update Y-Axis Controls
+#### ⬛ Task 4.2: Update Y-Axis Controls
 **File**: `src/client/services/configGui/components/yAxisControls.ts`
 - Line 12: Make Y_AXIS_PROPERTIES dynamic
 - Add property discovery integration
 
-#### Task 4.3: Remove Pet Type Specific Controls
+#### ⬛ Task 4.3: Remove Pet Type Specific Controls
 **File**: `src/client/services/configGui/components/nodeTypesSection.ts`
 - Lines 127-166: Make pet type controls generic or remove
 - Replace with dynamic property controls
 
 ### Phase 5: Data Processing Updates (T9.6)
 
-#### Task 5.1: Update Property Helpers
+#### ⬛ Task 5.1: Update Property Helpers
 **File**: `src/shared/utils/nodePropertyHelpers.ts`
 - Line 36: Remove hardcoded property checks
 - Make property validation dynamic
 
-#### Task 5.2: Update Property Resolver
+#### ⬛ Task 5.2: Update Property Resolver
 **File**: `src/shared/modules/renderers/propertyValueResolver.ts`
 - Remove Person-specific assumptions
 - Make property resolution fully dynamic
 
-#### Task 5.3: Update Node Inspector
+#### ⬛ Task 5.3: Update Node Inspector
 **File**: `src/client/services/nodePropertiesInspector/nodePropertiesInspector.service.ts`
 - Lines 184-185: Make attribute extraction dynamic
 - Remove hardcoded "petType" references
 
 ### Phase 6: Testing & Validation
 
-#### Task 6.1: Create Test Data Sets
+#### ⬛ Task 6.1: Create Test Data Sets
 - Create test data with different property structures
 - Verify dynamic property discovery works correctly
 
-#### Task 6.2: Update Test Data
+#### ⬛ Task 6.2: Update Test Data
 **File**: `src/shared/data/tempTestData.ts`
 - Create versions without "petType" property
 - Test with completely different data structures
 
-#### Task 6.3: Backward Compatibility Tests
+#### ⬛ Task 6.3: Backward Compatibility Tests
 - Ensure existing Person data still works
 - Verify "type" and "petType" can still be selected manually
 
 ### Phase 7: Migration Utilities
 
-#### Task 7.1: Create Migration Helper
+#### ⬛ Task 7.1: Create Migration Helper
 **File**: Create `src/shared/utils/axisMigration.ts`
 ```typescript
 export function migrateAxisConfiguration(oldConfig: any): any {
@@ -269,7 +269,7 @@ export function migrateAxisConfiguration(oldConfig: any): any {
 }
 ```
 
-#### Task 7.2: Add Compatibility Layer
+#### ⬛ Task 7.2: Add Compatibility Layer
 - Detect old data format
 - Automatically map to new dynamic system
 - Log warnings for deprecated usage
