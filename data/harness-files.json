@@ -1,0 +1,1602 @@
+[
+  {
+    "path": "app/api/controller/pullreq/activity_list_test.go",
+    "service": "test",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "test"
+  },
+  {
+    "path": "Dockerfile.uiv2",
+    "service": "security",
+    "component": "core",
+    "language": "other",
+    "size": "small",
+    "type": "source"
+  },
+  {
+    "path": "app/api/controller/check/check_recent_space.go",
+    "service": "platform",
+    "component": "model",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/limiter/wire.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "tiny",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/githook/wire.go",
+    "service": "platform",
+    "component": "api",
+    "language": "java",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/auth/space.go",
+    "service": "platform",
+    "component": "test",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/get_commit.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/label_find.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/label_list.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/connector/find.go",
+    "service": "platform",
+    "component": "test",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/reviewer_combined_list.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/wire.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/file_view_delete.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/delete_tag.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/execution/cancel.go",
+    "service": "platform",
+    "component": "service",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/auth/user.go",
+    "service": "platform",
+    "component": "cli",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/suggestions.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/gitspace/lookup_repo.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "xlarge",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/file_view_add.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/migrate/webhooks.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/githook/pre_receive_process.go",
+    "service": "platform",
+    "component": "api",
+    "language": "typescript",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/get_branch.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/lfs/types.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "asset"
+  },
+  {
+    "path": "app/api/controller/repo/content_get.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/principal/wire.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "tiny",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/diff.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/content_paths_details.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/principal/controller.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "tiny",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/githook/print.go",
+    "service": "platform",
+    "component": "api",
+    "language": "kotlin",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/keywordsearch/wire.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "asset"
+  },
+  {
+    "path": "app/api/controller/repo/label_define.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/get_commit_divergences.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/plugin/wire.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "tiny",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/import.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/connector/update.go",
+    "service": "platform",
+    "component": "cli",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/infraprovider/create_config.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "xlarge",
+    "type": "config"
+  },
+  {
+    "path": "app/api/controller/pullreq/reviewer_delete.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/create_branch.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/pr_update.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/lfs/download.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "asset"
+  },
+  {
+    "path": "app/api/auth/registry.go",
+    "service": "platform",
+    "component": "cli",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "NOTICE",
+    "service": "ce",
+    "component": "core",
+    "language": "other",
+    "size": "tiny",
+    "type": "source"
+  },
+  {
+    "path": "app/api/controller/pullreq/comment_create.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "medium",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/gitspace/list_all.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "xlarge",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pipeline/wire.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/auth/repo.go",
+    "service": "platform",
+    "component": "ui",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/pr_find.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/reviewer_list.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": ".local.env",
+    "service": "cd",
+    "component": "core",
+    "language": "other",
+    "size": "tiny",
+    "type": "source"
+  },
+  {
+    "path": "app/api/controller/gitspace/delete.go",
+    "service": "platform",
+    "component": "api",
+    "language": "rust",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/comment_apply_suggestions.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "medium",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/label_delete.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/execution/delete.go",
+    "service": "platform",
+    "component": "test",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/usergroup_reviewer_delete.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": ".gitignore",
+    "service": "security",
+    "component": "core",
+    "language": "other",
+    "size": "tiny",
+    "type": "source"
+  },
+  {
+    "path": "app/api/controller/repo/archive.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/check/controller.go",
+    "service": "platform",
+    "component": "repository",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/check.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/gitspace/action.go",
+    "service": "platform",
+    "component": "api",
+    "language": "typescript",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/limiter/gitspace.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/auth/service.go",
+    "service": "platform",
+    "component": "model",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/migrate/rules.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/activity_list.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/check/check_recent.go",
+    "service": "platform",
+    "component": "service",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "Makefile",
+    "service": "cd",
+    "component": "core",
+    "language": "make",
+    "size": "small",
+    "type": "build"
+  },
+  {
+    "path": "app/api/controller/logs/controller.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/migrate/update_state.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pipeline/create.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/lfs/authenticate.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/plugin/list.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/migrate/error.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "tiny",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/execution/controller.go",
+    "service": "platform",
+    "component": "model",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": ".testapi/diff.http",
+    "service": "ce",
+    "component": "core",
+    "language": "other",
+    "size": "tiny",
+    "type": "source"
+  },
+  {
+    "path": "app/api/controller/connector/test.go",
+    "service": "test",
+    "component": "repository",
+    "language": "go",
+    "size": "small",
+    "type": "test"
+  },
+  {
+    "path": ".testapi/space.http",
+    "service": "ci",
+    "component": "core",
+    "language": "other",
+    "size": "tiny",
+    "type": "source"
+  },
+  {
+    "path": "app/api/controller/githook/post_receive.go",
+    "service": "platform",
+    "component": "api",
+    "language": "rust",
+    "size": "medium",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/auth/pipeline.go",
+    "service": "platform",
+    "component": "repository",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/infraprovider/find.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/label_list.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/logs/wire.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/githook/pre_receive.go",
+    "service": "platform",
+    "component": "api",
+    "language": "java",
+    "size": "medium",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/keywordsearch/controller.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/connector/delete.go",
+    "service": "platform",
+    "component": "utils",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/infraprovider/wire.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "asset"
+  },
+  {
+    "path": "app/api/controller/infraprovider/controller.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "large",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/execution/create.go",
+    "service": "platform",
+    "component": "utils",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/execution/wire.go",
+    "service": "platform",
+    "component": "ui",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/connector/wire.go",
+    "service": "platform",
+    "component": "ui",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/check/check_list.go",
+    "service": "platform",
+    "component": "ui",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": ".githooks/pre-commit",
+    "service": "ce",
+    "component": "core",
+    "language": "other",
+    "size": "tiny",
+    "type": "source"
+  },
+  {
+    "path": "app/api/controller/pipeline/delete.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/githook/update.go",
+    "service": "platform",
+    "component": "api",
+    "language": "rust",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/gitspace/find.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "xlarge",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/controller.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/create.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/reviewer_add.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/suggestions_test.go",
+    "service": "test",
+    "component": "api",
+    "language": "go",
+    "size": "medium",
+    "type": "test"
+  },
+  {
+    "path": "app/api/controller/infraprovider/delete_config.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "asset"
+  },
+  {
+    "path": "app/api/controller/execution/find.go",
+    "service": "platform",
+    "component": "repository",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/limiter/limiter.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/githook/extender.go",
+    "service": "platform",
+    "component": "api",
+    "language": "python",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/usergroup_reviewer_add.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/connector/controller.go",
+    "service": "platform",
+    "component": "service",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/migrate/create_repo.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pipeline/update.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/codeowner.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/githook/pre_receive_scan_secrets.go",
+    "service": "platform",
+    "component": "api",
+    "language": "python",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/auth/auth.go",
+    "service": "platform",
+    "component": "service",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/execution/list.go",
+    "service": "platform",
+    "component": "cli",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/gitspace/create.go",
+    "service": "platform",
+    "component": "api",
+    "language": "kotlin",
+    "size": "medium",
+    "type": "api-def"
+  },
+  {
+    "path": ".github/workflows/ci-lint.yml",
+    "service": "ff",
+    "component": "config",
+    "language": "yaml",
+    "size": "small",
+    "type": "config"
+  },
+  {
+    "path": "app/api/controller/connector/create.go",
+    "service": "platform",
+    "component": "model",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/file_view_list.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/branch_change_target.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/migrate/label.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/githook/client.go",
+    "service": "platform",
+    "component": "api",
+    "language": "java",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/comment_update.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/git_service_pack.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/pr_state.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/comment_delete.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/label_update.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/auth/secret.go",
+    "service": "platform",
+    "component": "service",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/pr_list.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/principal/find_by_email.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "CONTRIBUTING.md",
+    "service": "ce",
+    "component": "core",
+    "language": "markdown",
+    "size": "small",
+    "type": "docs"
+  },
+  {
+    "path": "app/api/controller/lfs/upload.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/lfs/transfer.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "database"
+  },
+  {
+    "path": "app/api/controller/check/wire.go",
+    "service": "platform",
+    "component": "ui",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/gitspace/find_all.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "large",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/githook/controller.go",
+    "service": "platform",
+    "component": "api",
+    "language": "typescript",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "LICENSE",
+    "service": "ci",
+    "component": "core",
+    "language": "other",
+    "size": "medium",
+    "type": "source"
+  },
+  {
+    "path": "app/api/controller/repo/import_progress.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/principal/list.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/revert.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/delete_branch.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "Dockerfile",
+    "service": "ff",
+    "component": "core",
+    "language": "docker",
+    "size": "small",
+    "type": "build"
+  },
+  {
+    "path": ".testapi/login.http",
+    "service": "security",
+    "component": "core",
+    "language": "other",
+    "size": "tiny",
+    "type": "source"
+  },
+  {
+    "path": "app/api/controller/repo/label_save.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/lfs/wire.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/default_branch.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/principal/types.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "tiny",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/auth/service_account.go",
+    "service": "platform",
+    "component": "utils",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/git_info_refs.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/pr_diff.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/keywordsearch/search.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "database"
+  },
+  {
+    "path": "app/api/controller/infraprovider/create_resources.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "database"
+  },
+  {
+    "path": "app/api/controller/pullreq/pr_commits.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/principal/find.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/gitspace/controller.go",
+    "service": "platform",
+    "component": "api",
+    "language": "python",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/check/check_report.go",
+    "service": "platform",
+    "component": "utils",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/label_value_define.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pipeline/controller.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/auth/gitspace.go",
+    "service": "platform",
+    "component": "utils",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "README.md",
+    "service": "ff",
+    "component": "core",
+    "language": "markdown",
+    "size": "small",
+    "type": "docs"
+  },
+  {
+    "path": "app/api/controller/repo/find.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/auth/connector.go",
+    "service": "platform",
+    "component": "model",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/review_submit.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/check_list.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": ".dockerignore",
+    "service": "ci",
+    "component": "core",
+    "language": "other",
+    "size": "tiny",
+    "type": "source"
+  },
+  {
+    "path": "app/api/controller/migrate/controller.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/plugin/controller.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "tiny",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/controller.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "medium",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/logs/find.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": ".engops/pr_source_code_changes.sh",
+    "service": "cd",
+    "component": "core",
+    "language": "shell",
+    "size": "small",
+    "type": "script"
+  },
+  {
+    "path": ".vscode/launch.json",
+    "service": "cd",
+    "component": "config",
+    "language": "json",
+    "size": "tiny",
+    "type": "config"
+  },
+  {
+    "path": "app/api/controller/gitspace/events.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "large",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/blame.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/codeowner_validate.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/helper.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/migrate/wire.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/check/sanitizers.go",
+    "service": "platform",
+    "component": "cli",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/gitspace/wire.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "xlarge",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/gitspace/logs_stream.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "large",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/githook/git.go",
+    "service": "platform",
+    "component": "api",
+    "language": "kotlin",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/migrate/pullreq.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/logs/tail.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/lfs/errors.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "tiny",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/auth/template.go",
+    "service": "platform",
+    "component": "repository",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/pr_create.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "medium",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/branch_delete.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/pr_branch_candidates.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/check/check_report_test.go",
+    "service": "test",
+    "component": "test",
+    "language": "go",
+    "size": "small",
+    "type": "test"
+  },
+  {
+    "path": "app/api/controller/pullreq/label_assign.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/branch_restore.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/comment_status.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/auth/infraprovider.go",
+    "service": "platform",
+    "component": "test",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": ".golangci.yml",
+    "service": "ci",
+    "component": "config",
+    "language": "yaml",
+    "size": "medium",
+    "type": "config"
+  },
+  {
+    "path": "app/api/controller/pullreq/label_unassign.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/infraprovider/list.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "database"
+  },
+  {
+    "path": "app/api/api.go",
+    "service": "security",
+    "component": "api",
+    "language": "go",
+    "size": "tiny",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/gitspace/update.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "large",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/label_value_list.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/lfs/controller.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "database"
+  },
+  {
+    "path": "app/api/controller/repo/commit.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/repo/create_commit_tag.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": ".testapi/http-client.env.json",
+    "service": "ff",
+    "component": "config",
+    "language": "json",
+    "size": "tiny",
+    "type": "config"
+  },
+  {
+    "path": "app/api/controller/repo/label_value_delete.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/merge.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "medium",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pullreq/mentions.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  },
+  {
+    "path": "app/api/controller/pipeline/find.go",
+    "service": "platform",
+    "component": "api",
+    "language": "go",
+    "size": "small",
+    "type": "api-def"
+  }
+]

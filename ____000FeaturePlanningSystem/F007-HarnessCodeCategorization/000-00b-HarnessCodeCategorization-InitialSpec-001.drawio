@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" agent="Claude Code">
+  <diagram name="Harness Code Categorization Flow" id="harness-categorization">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Main Process -->
+        <mxCell id="main" value="index.js&lt;br&gt;Main Orchestrator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f5fe;strokeColor=#01579b;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="40" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Repository -->
+        <mxCell id="repo" value="Harness Repository&lt;br&gt;(GitHub)" style="shape=cylinder;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#e65100;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="140" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Scanner -->
+        <mxCell id="scanner" value="repoScanner.js&lt;br&gt;File Scanner" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#4a148c;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="250" y="150" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Initial Analysis -->
+        <mxCell id="analysis" value="Repository Analysis&lt;br&gt;(Initial Scan)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#880e4f;" vertex="1" parent="1">
+          <mxGeometry x="250" y="250" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Schema Design -->
+        <mxCell id="schema" value="JSON Schema&lt;br&gt;Design" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#1b5e20;" vertex="1" parent="1">
+          <mxGeometry x="450" y="250" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- File Analyzer -->
+        <mxCell id="analyzer" value="fileAnalyzer.js&lt;br&gt;Property Extraction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#e65100;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="450" y="150" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Extractors Group -->
+        <mxCell id="extractors" value="Property Extractors" style="swimlane;fillColor=#e8f5e9;strokeColor=#1b5e20;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="680" y="120" width="380" height="240" as="geometry" />
+        </mxCell>
+        
+        <!-- Individual Extractors -->
+        <mxCell id="serviceExt" value="serviceExtractor.js&lt;br&gt;Service Identification" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f8e9;" vertex="1" parent="extractors">
+          <mxGeometry x="20" y="40" width="160" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="componentExt" value="componentExtractor.js&lt;br&gt;Component Type" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f8e9;" vertex="1" parent="extractors">
+          <mxGeometry x="200" y="40" width="160" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="languageExt" value="languageExtractor.js&lt;br&gt;Language Detection" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f8e9;" vertex="1" parent="extractors">
+          <mxGeometry x="20" y="100" width="160" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sizeExt" value="sizeExtractor.js&lt;br&gt;Size Categorization" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f8e9;" vertex="1" parent="extractors">
+          <mxGeometry x="200" y="100" width="160" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="typeExt" value="typeExtractor.js&lt;br&gt;File Type Classification" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f8e9;" vertex="1" parent="extractors">
+          <mxGeometry x="110" y="160" width="160" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- File Object -->
+        <mxCell id="fileObject" value="File Object&lt;br&gt;{properties}" style="shape=document;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#f57c00;" vertex="1" parent="1">
+          <mxGeometry x="790" y="400" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- JSON Generator -->
+        <mxCell id="generator" value="jsonGenerator.js&lt;br&gt;Dataset Creator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#880e4f;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="450" y="490" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Output -->
+        <mxCell id="output" value="harness-files.json&lt;br&gt;(200 objects)" style="shape=cylinder;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="460" y="600" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Connections -->
+        <mxCell id="edge1" edge="1" parent="1" source="main" target="repo">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="350" y="100" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="110" y="100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge1Label" value="1. Clone" edgeLabel="1" parent="edge1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge2" edge="1" parent="1" source="repo" target="scanner">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge2Label" value="2. Read files" edgeLabel="1" parent="edge2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge3" edge="1" parent="1" source="scanner" target="analysis">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge3Label" value="Initial scan" edgeLabel="1" parent="edge3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge4" edge="1" parent="1" source="analysis" target="schema">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge4Label" value="Design schema" edgeLabel="1" parent="edge4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge5" edge="1" parent="1" source="scanner" target="analyzer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge5Label" value="3. Each file" edgeLabel="1" parent="edge5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge6" edge="1" parent="1" source="analyzer" target="extractors">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="610" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge6Label" value="4. Extract" edgeLabel="1" parent="edge6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge7" edge="1" parent="1" source="extractors" target="fileObject">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="870" y="360" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge7Label" value="Properties" edgeLabel="1" parent="edge7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge8" edge="1" parent="1" source="fileObject" target="generator">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="870" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge8Label" value="5. Collect" edgeLabel="1" parent="edge8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge9" edge="1" parent="1" source="generator" target="output">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge9Label" value="6. Export" edgeLabel="1" parent="edge9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge10" edge="1" parent="1" source="schema" target="extractors">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="530" y="340" />
+              <mxPoint x="680" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge10Label" value="Guide extraction" edgeLabel="1" parent="edge10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Process Flow Annotation -->
+        <mxCell id="phase1" value="Phase 1: Analysis" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="140" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="phase2" value="Phase 2: Full Scan" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="400" width="140" height="30" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
