@@ -285,6 +285,7 @@ export class UnifiedDataRenderer {
 
     // Get node radius from spacing config
     const nodeRadius = config?.spacing?.nodeRadius || 0.5;
+    print(`[SWIMLANE CALC] Using nodeRadius=${nodeRadius}`);
     
     // Group nodes by X grouping property and calculate bounds
     cluster.groups[0].nodes.forEach((node) => {
@@ -306,30 +307,30 @@ export class UnifiedDataRenderer {
       nodesByType.get(propertyValue)!.push(node);
 
       const bounds = typeBounds.get(propertyValue)!;
+      const oldMinX = bounds.minX;
+      const oldMaxX = bounds.maxX;
+      
       // Account for node radius when calculating bounds
       bounds.minX = math.min(bounds.minX, node.position.x - nodeRadius);
       bounds.maxX = math.max(bounds.maxX, node.position.x + nodeRadius);
       bounds.minZ = math.min(bounds.minZ, node.position.z - nodeRadius);
       bounds.maxZ = math.max(bounds.maxZ, node.position.z + nodeRadius);
+      
+      // Debug first few nodes of each type
+      if (nodesByType.get(propertyValue)!.size() <= 3) {
+        print(`[SWIMLANE CALC] ${propertyValue} node #${nodesByType.get(propertyValue)!.size()}: pos.x=${node.position.x}, bounds updated from (${oldMinX},${oldMaxX}) to (${bounds.minX},${bounds.maxX})`);
+      }
     });
 
     // Create a block for each swimlane based on actual node positions
     let swimlaneIndex = 0;
 
-    // Find the maximum width across all swimlanes
-    let maxWidth = 0;
-    // Find the maximum depth across all swimlanes to make them all the same length
-    let maxDepth = 0;
     // Find the overall Z bounds across all lanes
     let overallMinZ = math.huge;
     let overallMaxZ = -math.huge;
     
     nodesByType.forEach((nodes, typeName) => {
       const bounds = typeBounds.get(typeName)!;
-      const width = bounds.maxX - bounds.minX;
-      const depth = bounds.maxZ - bounds.minZ;
-      maxWidth = math.max(maxWidth, width);
-      maxDepth = math.max(maxDepth, depth);
       overallMinZ = math.min(overallMinZ, bounds.minZ);
       overallMaxZ = math.max(overallMaxZ, bounds.maxZ);
     });
@@ -347,17 +348,17 @@ export class UnifiedDataRenderer {
 
       // Calculate actual swimlane dimensions based on node bounds
 
-      // Apply uniform buffer to dimensions
+      // Apply buffer to dimensions
       const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.Z_PARALLEL_LANE_BUFFER;
-      const xBuffer = BLOCK_CONSTANTS.DIMENSIONS.X_PARALLEL_LANE_BUFFER; // Add X buffer for width too
 
-      // Use the maximum width for all lanes to ensure uniform length, plus buffer
-      const blockWidth = maxWidth + xBuffer * 2;
+      // Calculate this lane's specific width based on its actual node bounds - NO BUFFER!
+      const laneWidth = bounds.maxX - bounds.minX;
+      const blockWidth = laneWidth; // No buffer on X-axis to prevent overlap
       // Use the overall Z extent for all lanes to ensure uniform Z-length
       const blockDepth = (overallMaxZ - overallMinZ) + zBuffer * 2;
       
-      // Debug: Print width of Z-parallel swimlane
-      print(`[Z-PARALLEL LANE] ${typeName}: width=${blockWidth} (maxWidth=${maxWidth}, xBuffer=${xBuffer})`)
+      // Debug: Print width of Z-parallel swimlane with node count
+      print(`[Z-PARALLEL LANE] ${typeName}: nodes=${nodes.size()}, width=${blockWidth} (laneWidth=${laneWidth}, bounds=${bounds.minX} to ${bounds.maxX})`)
 
       // Fixed Y position for Z-parallel lane blocks - use SHADOW_LAYER_DISPLACEMENT above shadow block
       // Shadow block is at Y = 1.6 (top at 2.1)

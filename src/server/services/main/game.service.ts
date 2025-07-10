@@ -70,6 +70,7 @@ export class GameService extends BaseService {
     // Add debug node inspection after a delay to allow nodes to be created
     task.wait(5);
     this.debugNodeInformation();
+    this.debugSwimlaneShadows();
   }
 
   /**
@@ -177,6 +178,107 @@ export class GameService extends BaseService {
     // If not found, could search through the actual node data
     // For now, return undefined
     return undefined;
+  }
+
+  /**
+   * Debug function to find and print swimlane shadow widths
+   */
+  private debugSwimlaneShadows(): void {
+    print("========== DEBUG SWIMLANE SHADOWS ==========");
+    
+    // Find all Z-parallel lane blocks (swimlane shadows)
+    const zParallelLanes: Part[] = [];
+    const xParallelLanes: Part[] = [];
+    
+    const searchForLanes = (parent: Instance) => {
+      parent.GetDescendants().forEach((desc) => {
+        if (desc.IsA("Part")) {
+          const name = desc.Name;
+          // Debug Z-parallel lanes
+          if (name === "ZParallel_Lane_httpMethod_GET" || 
+              name === "ZParallel_Lane_httpMethod_POST" || 
+              name === "ZParallel_Lane_httpMethod_PUT" ||
+              name === "ZParallel_Lane_httpMethod_MULTIPLE" ||
+              name === "ZParallel_Lane_httpMethod_UNKNOWN") {
+            print(`[DEBUG] Found ${name}: Size=(${desc.Size.X}, ${desc.Size.Y}, ${desc.Size.Z})`);
+            zParallelLanes.push(desc as Part);
+          } else if (name.match("^XParallel_Lane_")) {
+            // Debug X-parallel lanes
+            if (name === "XParallel_Lane_apiPattern_controller" ||
+                name === "XParallel_Lane_apiPattern_crud-operation" ||
+                name === "XParallel_Lane_apiPattern_data-model" ||
+                name === "XParallel_Lane_apiPattern_dependency-injection" ||
+                name === "XParallel_Lane_apiPattern_general-api") {
+              print(`[DEBUG] Found ${name}: Size=(${desc.Size.X}, ${desc.Size.Y}, ${desc.Size.Z})`);
+              xParallelLanes.push(desc as Part);
+            }
+          }
+        }
+      });
+    };
+    
+    searchForLanes(this.myStuffFolder);
+    
+    print(`Found ${zParallelLanes.size()} Z-parallel lanes (vertical swimlane shadows)`);
+    print(`Found ${xParallelLanes.size()} X-parallel lanes (horizontal shadows)`);
+    
+    // Sort and print Z-parallel lanes
+    zParallelLanes.sort((a, b) => a.Position.X < b.Position.X);
+    print("\nZ-PARALLEL LANES (Vertical Swimlane Shadows):");
+    zParallelLanes.forEach((lane) => {
+      const name = lane.Name;
+      const width = lane.Size.X;
+      const position = lane.Position;
+      
+      // Extract the property value from the lane name (e.g., "ZParallel_Lane_httpMethod_GET" -> "GET")
+      const match = name.match("ZParallel_Lane_[^_]+_(.+)");
+      const propertyValue = match ? match[1] : undefined;
+      
+      // Count nodes in the corresponding swimlane
+      let nodeCount = 0;
+      const nodesFolder = this.myStuffFolder.FindFirstChild("GraphMaker")
+        ?.FindFirstChild("UnifiedDataCluster")
+        ?.FindFirstChild("Nodes") as Folder;
+      
+      if (nodesFolder && propertyValue) {
+        // Debug: print what swimlanes we find
+        if (lane === zParallelLanes[0]) {
+          print(`[DEBUG] Looking for Swimlane_${propertyValue} in Nodes folder`);
+          nodesFolder.GetChildren().forEach((child) => {
+            if (child.IsA("Model") && child.Name.match("^Swimlane_")) {
+              print(`[DEBUG] Found swimlane: ${child.Name}`);
+            }
+          });
+        }
+        
+        // Look for all swimlane models and check their names
+        nodesFolder.GetChildren().forEach((swimlane) => {
+          if (swimlane.IsA("Model") && swimlane.Name === `Swimlane_${propertyValue}`) {
+            // Count hexagons in this swimlane
+            swimlane.GetChildren().forEach((child) => {
+              if (child.IsA("Model") && child.Name.match("^Hexagon_")) {
+                nodeCount++;
+              }
+            });
+          }
+        });
+      }
+      
+      print(`  ${name}: width=${width}, nodes=${nodeCount}, position=(${math.floor(position.X * 10) / 10}, ${math.floor(position.Y * 10) / 10}, ${math.floor(position.Z * 10) / 10})`);
+    });
+    
+    // Sort and print X-parallel lanes
+    xParallelLanes.sort((a, b) => a.Position.Z < b.Position.Z);
+    print("\nX-PARALLEL LANES (Horizontal Shadows):");
+    xParallelLanes.forEach((lane) => {
+      const name = lane.Name;
+      const width = lane.Size.X;
+      const depth = lane.Size.Z;
+      const position = lane.Position;
+      print(`  ${name}: width=${width}, depth=${depth}, position=(${math.floor(position.X * 10) / 10}, ${math.floor(position.Y * 10) / 10}, ${math.floor(position.Z * 10) / 10})`);
+    });
+    
+    print("========== END DEBUG SWIMLANE SHADOWS ==========");
   }
 
   /**
