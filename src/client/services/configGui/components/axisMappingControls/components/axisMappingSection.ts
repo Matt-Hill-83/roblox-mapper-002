@@ -6,8 +6,10 @@ interface AxisMappingSectionProps {
   parent: Frame;
   xAxisValue: string;
   zAxisValue: string;
+  yAxisValue: string;
   onXAxisChange: (value: string) => void;
   onZAxisChange: (value: string) => void;
+  onYAxisChange: (value: string) => void;
 }
 
 /**
@@ -17,8 +19,10 @@ export function createAxisMappingSection({
   parent,
   xAxisValue,
   zAxisValue,
+  yAxisValue,
   onXAxisChange,
-  onZAxisChange
+  onZAxisChange,
+  onYAxisChange
 }: AxisMappingSectionProps): void {
   const availableProps = getAvailableProperties();
   print(`[axisMappingSection] Creating dropdowns with ${availableProps.size()} available properties:`);
@@ -61,6 +65,22 @@ export function createAxisMappingSection({
     UI_CONSTANTS.SPACING.DROPDOWN_WIDTH
   );
 
+  // Y position grouping row
+  createLabel(
+    parent,
+    "Y group:",
+    new UDim2(0, UI_CONSTANTS.SPACING.SECTION_MARGIN, 0, 75),
+    50
+  );
+
+  const yAxisButton = createButton(
+    parent,
+    "YAxisButton",
+    yAxisValue,
+    new UDim2(0, 65, 0, 75),
+    UI_CONSTANTS.SPACING.DROPDOWN_WIDTH
+  );
+
   // Create dropdown functionality
   createDropdown({
     button: xAxisButton,
@@ -74,6 +94,14 @@ export function createAxisMappingSection({
     button: zAxisButton,
     currentValue: zAxisValue,
     onChange: onZAxisChange,
+    parent: parent,
+    properties: availableProps
+  });
+
+  createDropdown({
+    button: yAxisButton,
+    currentValue: yAxisValue,
+    onChange: onYAxisChange,
     parent: parent,
     properties: availableProps
   });

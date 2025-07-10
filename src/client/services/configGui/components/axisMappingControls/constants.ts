@@ -40,7 +40,7 @@ export function updateAvailableProperties(discoveredProps: string[]): void {
 export const UI_CONSTANTS = {
   FRAME: {
     WIDTH: 300,
-    HEIGHT: 250,
+    HEIGHT: 200,  // Reduced from 250 since Y-axis config section removed
     BACKGROUND_COLOR: new Color3(0.2, 0.2, 0.2),
     CORNER_RADIUS: 8
   },

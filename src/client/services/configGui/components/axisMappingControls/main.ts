@@ -1,10 +1,9 @@
-import { DEFAULTS } from "./constants";
+import { DEFAULTS, getAvailableProperties } from "./constants";
 import type { AxisMappingControlsProps, CompactAxisControlsProps } from "./types";
 import { getOrCreateScreenGui } from "./utils/screenGuiManager";
 import { createMainFrame } from "./utils/layoutManager";
 import { createAxisMappingSection } from "./components/axisMappingSection";
 import { createVisualCustomizationSection } from "./components/visualCustomizationSection";
-import { createYAxisConfigSection } from "./components/yAxisConfigSection";
 
 /**
  * Creates axis mapping controls UI
@@ -36,21 +35,23 @@ export function createAxisMappingControls({
   // Get or create the shared ScreenGui
   const gui = getOrCreateScreenGui();
   
+  // Get the 3rd available property for Y axis default
+  const availableProps = getAvailableProperties();
+  const yAxisDefaultValue = availableProps.size() >= 3 ? availableProps[2] : "none";
+  
   // Create a single compact frame for all controls
   createCompactAxisControls({
     gui: gui,
     xAxisValue: mapping.xAxis,
     zAxisValue: mapping.zAxis,
+    yAxisValue: yAxisDefaultValue,
     backgroundColorValue: visMapping.backgroundColor || DEFAULTS.BACKGROUND_COLOR,
     borderColorValue: visMapping.borderColor || DEFAULTS.BORDER_COLOR,
-    useLayerForYAxis: useLayerForYAxis,
-    yAxisProperty: yAxisProperty,
     onXAxisChange: (value) => onAxisMappingChange("xAxis", value),
     onZAxisChange: (value) => onAxisMappingChange("zAxis", value),
+    onYAxisChange: (value) => print(`Y axis changed to: ${value}`), // Not connected for now
     onBackgroundColorChange: (value) => onVisualMappingChange("backgroundColor", value),
-    onBorderColorChange: (value) => onVisualMappingChange("borderColor", value),
-    onYAxisModeChange: onYAxisModeChange,
-    onYAxisPropertyChange: onYAxisPropertyChange
+    onBorderColorChange: (value) => onVisualMappingChange("borderColor", value)
   });
 }
 
@@ -62,16 +63,14 @@ function createCompactAxisControls({
   gui,
   xAxisValue,
   zAxisValue,
+  yAxisValue,
   backgroundColorValue,
   borderColorValue,
-  useLayerForYAxis,
-  yAxisProperty,
   onXAxisChange,
   onZAxisChange,
+  onYAxisChange,
   onBackgroundColorChange,
-  onBorderColorChange,
-  onYAxisModeChange,
-  onYAxisPropertyChange
+  onBorderColorChange
 }: CompactAxisControlsProps): void {
   // Create main container frame
   const mainFrame = createMainFrame(gui);
@@ -81,8 +80,10 @@ function createCompactAxisControls({
     parent: mainFrame,
     xAxisValue: xAxisValue,
     zAxisValue: zAxisValue,
+    yAxisValue: yAxisValue,
     onXAxisChange: onXAxisChange,
-    onZAxisChange: onZAxisChange
+    onZAxisChange: onZAxisChange,
+    onYAxisChange: onYAxisChange
   });
 
   // Create visual customization section
@@ -92,14 +93,5 @@ function createCompactAxisControls({
     borderColorValue: borderColorValue,
     onBackgroundColorChange: onBackgroundColorChange,
     onBorderColorChange: onBorderColorChange
-  });
-
-  // Create Y-axis configuration section
-  createYAxisConfigSection({
-    parent: mainFrame,
-    useLayerForYAxis: useLayerForYAxis,
-    yAxisProperty: yAxisProperty,
-    onYAxisModeChange: onYAxisModeChange,
-    onYAxisPropertyChange: onYAxisPropertyChange
   });
 }

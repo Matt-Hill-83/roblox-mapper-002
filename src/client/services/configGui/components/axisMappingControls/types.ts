@@ -16,16 +16,14 @@ export interface CompactAxisControlsProps {
   gui: ScreenGui;
   xAxisValue: string;
   zAxisValue: string;
+  yAxisValue: string;
   backgroundColorValue: string;
   borderColorValue: string;
-  useLayerForYAxis: boolean;
-  yAxisProperty?: string;
   onXAxisChange: (value: string) => void;
   onZAxisChange: (value: string) => void;
+  onYAxisChange: (value: string) => void;
   onBackgroundColorChange: (value: string) => void;
   onBorderColorChange: (value: string) => void;
-  onYAxisModeChange?: (useLayer: boolean) => void;
-  onYAxisPropertyChange?: (property: string) => void;
 }
 
 export interface DropdownProps {
