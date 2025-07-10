@@ -44,12 +44,12 @@ export function createAxisMappingControls({
     gui: gui,
     xAxisValue: mapping.xAxis,
     zAxisValue: mapping.zAxis,
-    yAxisValue: yAxisDefaultValue,
+    yAxisValue: mapping.yAxis || yAxisDefaultValue,
     backgroundColorValue: visMapping.backgroundColor || DEFAULTS.BACKGROUND_COLOR,
     borderColorValue: visMapping.borderColor || DEFAULTS.BORDER_COLOR,
     onXAxisChange: (value) => onAxisMappingChange("xAxis", value),
     onZAxisChange: (value) => onAxisMappingChange("zAxis", value),
-    onYAxisChange: (value) => print(`Y axis changed to: ${value}`), // Not connected for now
+    onYAxisChange: (value) => onAxisMappingChange("yAxis", value),
     onBackgroundColorChange: (value) => onVisualMappingChange("backgroundColor", value),
     onBorderColorChange: (value) => onVisualMappingChange("borderColor", value)
   });

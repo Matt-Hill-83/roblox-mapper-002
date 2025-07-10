@@ -38,6 +38,7 @@ export class GUIStateManager {
     const defaultAxisMapping: AxisMapping = {
       xAxis: getDefaultXAxis(),
       zAxis: getDefaultZAxis(),
+      yAxis: "none", // Default to none, will be updated with discovered properties
       xGroupingProperty: getDefaultXAxis(),
       zGroupingProperty: getDefaultZAxis()
     };
@@ -270,6 +271,7 @@ export class GUIStateManager {
         this.state.enhancedConfig.axisMapping = {
           xAxis: getDefaultXAxis(properties),
           zAxis: getDefaultZAxis(properties),
+          yAxis: properties.size() >= 3 ? properties[2] : "none", // Set to 3rd property if available
           xGroupingProperty: getDefaultXAxis(properties),
           zGroupingProperty: getDefaultZAxis(properties)
         };
@@ -277,6 +279,7 @@ export class GUIStateManager {
         print(`[GUIStateManager] Updated axis mapping to discovered properties:`);
         print(`  X-axis: ${properties[0]}`);
         print(`  Z-axis: ${properties[1]}`);
+        print(`  Y-axis: ${properties.size() >= 3 ? properties[2] : "none"}`);
       }
     }
     
@@ -319,11 +322,12 @@ export class GUIStateManager {
   /**
    * Updates spatial grouping (formerly axis mapping)
    */
-  public updateAxisMapping(axis: "xAxis" | "zAxis", value: string): void {
+  public updateAxisMapping(axis: "xAxis" | "zAxis" | "yAxis", value: string): void {
     if (!this.state.enhancedConfig.axisMapping) {
       this.state.enhancedConfig.axisMapping = {
         xAxis: getDefaultXAxis(this.state.discoveredProperties),
         zAxis: getDefaultZAxis(this.state.discoveredProperties),
+        yAxis: this.state.discoveredProperties && this.state.discoveredProperties.size() >= 3 ? this.state.discoveredProperties[2] : "none",
         xGroupingProperty: getDefaultXAxis(this.state.discoveredProperties),
         zGroupingProperty: getDefaultZAxis(this.state.discoveredProperties)
       };

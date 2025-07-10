@@ -192,7 +192,7 @@ export class ConfigGUIService {
       visualMapping: config.visualMapping,
       useLayerForYAxis: config.yAxisConfig?.useLayer !== false, // Default to true
       yAxisProperty: config.yAxisConfig?.property,
-      onAxisMappingChange: (axis: "xAxis" | "zAxis", value: string) => {
+      onAxisMappingChange: (axis: "xAxis" | "zAxis" | "yAxis", value: string) => {
         this.stateManager.updateAxisMapping(axis, value);
         // Trigger re-render with new axis mapping
         this.eventHandlers.handleRegenerateClick();

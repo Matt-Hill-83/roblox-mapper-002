@@ -6,7 +6,7 @@ export interface AxisMappingControlsProps {
   visualMapping?: VisualMapping;
   useLayerForYAxis?: boolean;
   yAxisProperty?: string;
-  onAxisMappingChange: (axis: "xAxis" | "zAxis", value: string) => void;
+  onAxisMappingChange: (axis: "xAxis" | "zAxis" | "yAxis", value: string) => void;
   onVisualMappingChange: (mapping: keyof VisualMapping, value: string) => void;
   onYAxisModeChange?: (useLayer: boolean) => void;
   onYAxisPropertyChange?: (property: string) => void;

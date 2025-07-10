@@ -23,6 +23,7 @@ import { BLOCK_CONSTANTS } from "../constants/blockConstants";
 import { LAYOUT_CONSTANTS } from "../constants/layoutConstants";
 import { EndcapBlockCreator } from "../blocks/endcapBlockCreator";
 import { getDefaultXAxis, getDefaultZAxis } from "../../../constants/axisDefaults";
+import { YParallelShadowCreator } from "../blocks/yParallelShadowCreator";
 
 export class UnifiedDataRenderer {
   private dataGenerator: DataGenerator;
@@ -35,6 +36,7 @@ export class UnifiedDataRenderer {
   private platformCreator: PlatformBlockCreator;
   private shadowCreator: ShadowBlockCreator;
   private swimlaneCreator: SwimLaneBlockCreator;
+  private yParallelShadowCreator: YParallelShadowCreator;
   private currentConfig?: EnhancedGeneratorConfig;
 
   constructor() {
@@ -48,6 +50,7 @@ export class UnifiedDataRenderer {
     this.platformCreator = new PlatformBlockCreator();
     this.shadowCreator = new ShadowBlockCreator();
     this.swimlaneCreator = new SwimLaneBlockCreator();
+    this.yParallelShadowCreator = new YParallelShadowCreator();
   }
 
   /**
@@ -182,6 +185,11 @@ export class UnifiedDataRenderer {
     // Render the cluster first
     this.nodeRenderer.renderCluster(cluster, parentFolder, config);
 
+    // Create Y-parallel shadows if Y-axis property is configured
+    if (config.axisMapping?.yAxis && config.axisMapping.yAxis !== "none") {
+      this.createYParallelShadows(cluster, parentFolder, config);
+    }
+
     // Log alignment check between nodes and swimlanes
     const xAxisProperty = config.axisMapping?.xAxis || getDefaultXAxis(cluster.discoveredProperties);
     const nodesByType = new Map<string, Node[]>();
@@ -228,6 +236,41 @@ export class UnifiedDataRenderer {
     
     // Return the cluster with discovered properties
     return cluster;
+  }
+
+  /**
+   * Create Y-parallel shadow blocks
+   */
+  private createYParallelShadows(
+    cluster: Cluster,
+    parentFolder: Folder,
+    config: EnhancedGeneratorConfig
+  ): void {
+    if (!config.axisMapping?.yAxis || config.axisMapping.yAxis === "none") {
+      return;
+    }
+
+    // Get the cluster folder
+    const graphMakerFolder = parentFolder.FindFirstChild("GraphMaker") as Folder;
+    if (!graphMakerFolder) {
+      warn("[UnifiedDataRenderer] GraphMaker folder not found for Y-parallel shadows");
+      return;
+    }
+
+    const clusterFolder = graphMakerFolder.FindFirstChild("UnifiedDataCluster") as Folder;
+    if (!clusterFolder) {
+      warn("[UnifiedDataRenderer] UnifiedDataCluster folder not found for Y-parallel shadows");
+      return;
+    }
+
+    // Create Y-parallel shadows
+    const yParallelShadows = this.yParallelShadowCreator.createYParallelShadows({
+      nodes: cluster.groups[0].nodes,
+      yAxisProperty: config.axisMapping.yAxis,
+      parent: clusterFolder
+    });
+
+    print(`[UnifiedDataRenderer] Created ${yParallelShadows.size()} Y-parallel shadow blocks`);
   }
 
   /**

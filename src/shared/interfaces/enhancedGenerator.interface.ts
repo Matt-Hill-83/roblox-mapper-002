@@ -41,6 +41,7 @@ export interface SpatialGrouping {
 export interface AxisMapping {
   xAxis: string; // Deprecated: use xGroupingProperty
   zAxis: string; // Deprecated: use zGroupingProperty
+  yAxis?: string; // Y-axis property for vertical grouping
   xGroupingProperty?: string; // Optional for backwards compatibility
   zGroupingProperty?: string; // Optional for backwards compatibility
 }
