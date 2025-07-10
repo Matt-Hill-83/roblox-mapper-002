@@ -51,6 +51,19 @@ export const X_AXIS_COLORS: Color3[] = [
 // Index 2: child (Green)
 // Index 3: grandparent (Yellow)
 // Index 4: Animals (Orange) - if needed
+// X-parallel lane colors - pastel/lighter shades for visual distinction from Z-parallel lanes
+export const X_PARALLEL_LANE_COLORS: Color3[] = [
+  new Color3(0.9, 0.7, 0.7), // Light pink
+  new Color3(0.7, 0.9, 0.7), // Light green  
+  new Color3(0.7, 0.7, 0.9), // Light blue
+  new Color3(0.9, 0.9, 0.7), // Light yellow
+  new Color3(0.9, 0.7, 0.9), // Light magenta
+  new Color3(0.7, 0.9, 0.9), // Light cyan
+  new Color3(0.8, 0.7, 0.6), // Light brown
+  new Color3(1.0, 0.8, 0.6), // Light orange
+  new Color3(0.8, 0.7, 0.8), // Light purple
+];
+
 export const personColors: Color3[] = [
   new Color3(0.0, 0.4, 0.4), // Hue 9
   new Color3(0.2, 0.4, 0.0), // Hue 6

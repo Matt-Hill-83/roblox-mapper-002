@@ -1,0 +1,61 @@
+<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="5.0" etag="F006-Layout" version="21.1.2" type="device">
+  <diagram name="Page-1" id="F006-ReDesignLayoutConstruction">
+    <mxGraphModel dx="1426" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Current Approach -->
+        <mxCell id="2" value="Current Approach (Backwards)" style="swimlane;fillColor=#ffcccc;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="350" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="Calculate Node Bounds" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="2">
+          <mxGeometry x="75" y="50" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="Add Buffers to Bounds" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="2">
+          <mxGeometry x="75" y="130" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="Create Shadow Block" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="2">
+          <mxGeometry x="75" y="210" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="Create Lanes (Variable Size)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="2">
+          <mxGeometry x="75" y="290" width="200" height="60" as="geometry" />
+        </mxCell>
+        <!-- New Approach -->
+        <mxCell id="7" value="New Approach (Forward)" style="swimlane;fillColor=#ccffcc;" vertex="1" parent="1">
+          <mxGeometry x="440" y="40" width="350" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="Create X-Parallel Lanes&lt;br&gt;(Content-Driven Length)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="7">
+          <mxGeometry x="75" y="50" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="Create Z-Parallel Lanes&lt;br&gt;(Fixed Width)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="7">
+          <mxGeometry x="75" y="130" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="Calculate Total Bounds" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="7">
+          <mxGeometry x="75" y="210" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="Create Shadow Block&lt;br&gt;(Encompasses All)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="7">
+          <mxGeometry x="75" y="290" width="200" height="60" as="geometry" />
+        </mxCell>
+        <!-- Arrows -->
+        <mxCell id="12" edge="1" parent="2" source="3" target="4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="13" edge="1" parent="2" source="4" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="14" edge="1" parent="2" source="5" target="6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="15" edge="1" parent="7" source="8" target="9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="16" edge="1" parent="7" source="9" target="10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="17" edge="1" parent="7" source="10" target="11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

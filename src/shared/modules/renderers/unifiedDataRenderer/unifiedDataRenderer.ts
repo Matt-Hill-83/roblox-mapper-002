@@ -13,13 +13,13 @@ import { UpdateManager } from "./rendering/updateManager";
 // import { LabelRenderer } from "./rendering/labelRenderer"; // Disabled per T17
 import { 
   createFlatBlocksAdapter as createFlatBlocks, 
-  calculateBlockDimensionsAdapter as calculateBlockDimensions, 
   createSwimLaneBlockAdapter as createSwimLaneBlock, 
   createXParallelShadowBlocksAdapter as createXParallelShadowBlocks
 } from "../blockCreatorAdapter";
 import { createVerticalWalls, createWallSwimlanes } from "../verticalWallCreator";
 import { PropertyValueResolver } from "../propertyValueResolver";
 import { BLOCK_CONSTANTS } from "../constants/blockConstants";
+import { LAYOUT_CONSTANTS } from "../constants/layoutConstants";
 import { EndcapBlockCreator } from "../blocks/endcapBlockCreator";
 
 export class UnifiedDataRenderer {
@@ -47,6 +47,7 @@ export class UnifiedDataRenderer {
    */
   public renderEnhancedData(parentFolder: Folder, config: EnhancedGeneratorConfig, origin?: Vector3): void {
     print("[UnifiedDataRenderer] renderEnhancedData() called");
+    print("[DEBUG] Starting layout with F006 changes");
     
     // Delete any existing platform and shadow blocks
     const existingPlatform = parentFolder.FindFirstChild("PlatformBlock");
@@ -74,54 +75,67 @@ export class UnifiedDataRenderer {
     const zAxisProperty = config?.axisMapping?.zAxis || "petType";
     const petLaneOffset = this.calculatePetLaneZOffset(cluster, zAxisProperty);
     
+    print(`[UnifiedDataRenderer] Pet lane offset: ${petLaneOffset}`);
+    
     // Apply the pet lane centering offset to all nodes
     if (petLaneOffset !== 0) {
+      print(`[UnifiedDataRenderer] Applying offset ${petLaneOffset} to all nodes`);
       cluster.groups[0].nodes.forEach(node => {
+        const oldZ = node.position.z;
         node.position.z += petLaneOffset;
+        print(`  Node: Z ${oldZ} -> ${node.position.z}`);
       });
     }
     
-    // Get bounds after positioning
-    const bounds = this.positionCalculator.getClusterBounds(cluster);
+    // Create temporary parent for lanes during construction
+    const lanesParent = new Instance("Model");
+    lanesParent.Name = "TemporaryLanesParent";
+    lanesParent.Parent = parentFolder;
     
-    // Calculate block dimensions based on actual node tree bounds
-    const blockDimensions = calculateBlockDimensions(bounds, 0); // No padding
+    // Create Z-parallel lanes first (lanes that run along Z axis)
+    // These lanes are grouped by X position values
+    const zParallelModel = new Instance("Model");
+    zParallelModel.Name = `ZParallel_Lanes_Group`;
+    zParallelModel.Parent = lanesParent;
     
-    // Create platform and shadow blocks with calculated dimensions
+    const zParallelLanes = this.createZParallelLaneBlocks(cluster, zParallelModel, targetOrigin, config);
+    
+    // Now create X-parallel lanes (lanes that run along X axis)
+    // These lanes are grouped by Z position values
+    const xParallelModel = new Instance("Model");
+    xParallelModel.Name = `XParallel_Lanes_Group`;
+    xParallelModel.Parent = lanesParent;
+    
+    // Pass the Z-parallel lanes so we can calculate proper bounds
+    const xParallelLanes = this.createXParallelLaneBlocks(cluster, xParallelModel, targetOrigin, config, zParallelLanes);
+    
+    // Calculate bounds for all lanes to determine shadow size
+    const allLaneBounds = this.calculateLaneBounds(xParallelLanes, zParallelLanes);
+    
+    // Create platform and shadow blocks last, sized to encompass all lanes
     const blocks = createFlatBlocks({
       origin: targetOrigin,
       parent: parentFolder,
-      width: blockDimensions.width,
-      depth: blockDimensions.depth,
+      width: allLaneBounds.width + LAYOUT_CONSTANTS.SHADOW_PADDING.X_PADDING * 2,
+      depth: allLaneBounds.depth + LAYOUT_CONSTANTS.SHADOW_PADDING.Z_PADDING * 2,
     });
     
-    // Create X-parallel lanes model (lanes that run along X axis)
-    const xParallelModel = new Instance("Model");
-    xParallelModel.Name = `XParallel_Lanes_Group`;
-    xParallelModel.Parent = blocks.shadow; // Parent to GroupShadowBlock
-    
-    // Create X-parallel shadow blocks first (lanes running along X axis)
-    // These lanes are grouped by Z position values
-    this.createXParallelLaneBlocks(cluster, xParallelModel, targetOrigin, config);
-    
-    // Create Z-parallel lanes model (lanes that run along Z axis)
-    const zParallelModel = new Instance("Model");
-    zParallelModel.Name = `ZParallel_Lanes_Group`;
+    // Re-parent lanes to shadow block
+    xParallelModel.Parent = blocks.shadow;
     zParallelModel.Parent = blocks.shadow;
-    
-    // Create Z-parallel lane blocks (lanes running along Z axis)
-    // These lanes are grouped by X position values
-    this.createZParallelLaneBlocks(cluster, zParallelModel, targetOrigin, blockDimensions, config);
+    lanesParent.Destroy();
     
     // Create vertical walls if Y-axis is property-based
     if (config.yAxisConfig && !config.yAxisConfig.useLayer) {
       const wallHeight = this.calculateWallHeight(cluster);
+      const shadowWidth = allLaneBounds.width + LAYOUT_CONSTANTS.SHADOW_PADDING.X_PADDING * 2;
+      const shadowDepth = allLaneBounds.depth + LAYOUT_CONSTANTS.SHADOW_PADDING.Z_PADDING * 2;
       const walls = createVerticalWalls({
         platformBounds: {
-          minX: targetOrigin.X - blockDimensions.width / 2,
-          maxX: targetOrigin.X + blockDimensions.width / 2,
-          minZ: targetOrigin.Z - blockDimensions.depth / 2,
-          maxZ: targetOrigin.Z + blockDimensions.depth / 2
+          minX: targetOrigin.X - shadowWidth / 2,
+          maxX: targetOrigin.X + shadowWidth / 2,
+          minZ: targetOrigin.Z - shadowDepth / 2,
+          maxZ: targetOrigin.Z + shadowDepth / 2
         },
         height: wallHeight,
         parent: blocks.platform
@@ -133,6 +147,32 @@ export class UnifiedDataRenderer {
     
     // Render the cluster first
     this.nodeRenderer.renderCluster(cluster, parentFolder, config);
+    
+    // Log alignment check between nodes and swimlanes
+    print("\n=== ALIGNMENT CHECK: Nodes vs Swimlanes ===");
+    const xAxisProperty = config.axisMapping?.xAxis || "type";
+    const nodesByType = new Map<string, Node[]>();
+    
+    cluster.groups[0].nodes.forEach(node => {
+      const propertyValue = this.propertyResolver.getPropertyValue(node, xAxisProperty);
+      if (!nodesByType.has(propertyValue)) {
+        nodesByType.set(propertyValue, []);
+      }
+      nodesByType.get(propertyValue)!.push(node);
+    });
+    
+    nodesByType.forEach((nodes, typeName) => {
+      const swimlane = zParallelLanes.get(typeName);
+      if (swimlane) {
+        print(`\n${typeName} swimlane:`);
+        print(`  Swimlane position: X=${swimlane.Position.X}, Z=${swimlane.Position.Z}`);
+        print(`  Swimlane size: X=${swimlane.Size.X}, Z=${swimlane.Size.Z}`);
+        print(`  Node positions:`);
+        nodes.forEach(node => {
+          print(`    ${node.name}: X=${node.position.x}, Z=${node.position.z}`);
+        });
+      }
+    });
     
     // Swimlane labels disabled per T17
     // Labels are now provided by endcaps on the swimlanes
@@ -180,7 +220,7 @@ export class UnifiedDataRenderer {
   /**
    * Creates Z-parallel lane blocks (lanes that run along Z axis, grouped by X position)
    */
-  private createZParallelLaneBlocks(cluster: Cluster, parent: Instance, origin: Vector3, shadowDimensions: { width: number; depth: number }, config: EnhancedGeneratorConfig): Map<string, Part> {
+  private createZParallelLaneBlocks(cluster: Cluster, parent: Instance, origin: Vector3, config: EnhancedGeneratorConfig): Map<string, Part> {
     print("[UnifiedDataRenderer] createZParallelLaneBlocks() called for X grouping property:", config.axisMapping?.xAxis || "type");
     const swimlaneBlocks = new Map<string, Part>();
     // Use axis mapping if available
@@ -212,28 +252,27 @@ export class UnifiedDataRenderer {
       bounds.maxZ = math.max(bounds.maxZ, node.position.z);
     });
     
-    // Create a block for each swimlane with progressive sizing
+    // Create a block for each swimlane based on actual node positions
     let swimlaneIndex = 0;
+    
+    
     nodesByType.forEach((nodes, typeName) => {
       const bounds = typeBounds.get(typeName)!;
       
-      // Calculate swimlane center position
+      // Use actual node bounds to determine X position
       const centerX = (bounds.minX + bounds.maxX) / 2;
-      // Use the origin Z (center of shadow block) for all X-axis swimlanes
-      const centerZ = origin.Z;
+      // Use the actual node bounds to determine Z position
+      const centerZ = (bounds.minZ + bounds.maxZ) / 2;
+      
       
       // Calculate actual swimlane dimensions based on node bounds
-      // Get hexagon width from config (nodeRadius * 2)
-      const hexagonWidth = (config.spacing?.nodeRadius || 0.25) * 2;
-      const nodeSpacing = bounds.maxX - bounds.minX;
-      const swimlaneWidth = nodeSpacing === 0 ? hexagonWidth : nodeSpacing + hexagonWidth;
       
       // Apply uniform Z-dimension buffer to all Z-parallel lanes
       const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.Z_PARALLEL_LANE_BUFFER;
       
-      // Use shadow block dimensions for depth to match group shadow block
-      const blockWidth = swimlaneWidth;
-      const blockDepth = shadowDimensions.depth + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER + (zBuffer * 2);
+      // Use fixed width and calculate depth based on content
+      const blockWidth = LAYOUT_CONSTANTS.LANE_DIMENSIONS.Z_PARALLEL_LANE_WIDTH;
+      const blockDepth = bounds.maxZ - bounds.minZ + zBuffer * 2;
       
       // Fixed Y position for Z-parallel lane blocks - use SHADOW_LAYER_DISPLACEMENT above shadow block
       // Shadow block is at Y = 1.6 (top at 2.1)
@@ -245,13 +284,6 @@ export class UnifiedDataRenderer {
       const colors = BLOCK_CONSTANTS.COLORS.Z_AXIS_COLORS;
       const color = colors[swimlaneIndex % colors.size()];
       
-      // Log X-axis swimlane creation
-      print(`[UnifiedDataRenderer] Creating X-axis swimlane for type: ${typeName}`);
-      print(`  - Z Buffer Applied: ${zBuffer} (total extra depth: ${zBuffer * 2})`);
-      print(`  - Block Width: ${blockWidth}`);
-      print(`  - Base Shadow Depth: ${shadowDimensions.depth}`);
-      print(`  - Final Block Depth: ${blockDepth}`);
-      print(`  - Position: X=${centerX}, Y=${blockYPosition}, Z=${centerZ}`);
       
       // Create swimlane block
       const swimlaneBlock = createSwimLaneBlock({
@@ -264,6 +296,11 @@ export class UnifiedDataRenderer {
         parent: parent,
         propertyName: xAxisProperty
       });
+      
+      print(`[Z-Parallel Lane] ${typeName}:`);
+      print(`  Node bounds: Z[${bounds.minZ}, ${bounds.maxZ}]`);
+      print(`  Lane center position: X=${centerX}, Z=${centerZ}`);
+      print(`  Lane size: width=${blockWidth}, depth=${blockDepth}`);
       
       // Create swimlane model with endcaps
       this.endcapCreator.createSwimlaneWithEndcaps({
@@ -280,13 +317,6 @@ export class UnifiedDataRenderer {
       swimlaneIndex++;
     });
     
-    // Verify all swimlane blocks after creation
-    print("\n[UnifiedDataRenderer] === Verifying X-axis Swimlane Blocks ===");
-    swimlaneBlocks.forEach((block, typeName) => {
-      print(`Swimlane: ${typeName}`);
-      print(`  - Block Name: ${block.Name}`);
-      print(`  - Actual Size: X=${block.Size.X}, Y=${block.Size.Y}, Z=${block.Size.Z}`);
-    });
     
     return swimlaneBlocks;
   }
@@ -363,47 +393,138 @@ export class UnifiedDataRenderer {
   */
   
   /**
+   * Calculate bounds for all lanes to determine shadow size
+   */
+  private calculateLaneBounds(
+    xParallelLanes: Map<string, Part>,
+    zParallelLanes: Map<string, Part>
+  ): { width: number; depth: number } {
+    let minX = math.huge;
+    let maxX = -math.huge;
+    let minZ = math.huge;
+    let maxZ = -math.huge;
+    
+    // Check X-parallel lanes
+    xParallelLanes.forEach(block => {
+      const halfWidth = block.Size.X / 2;
+      const halfDepth = block.Size.Z / 2;
+      minX = math.min(minX, block.Position.X - halfWidth);
+      maxX = math.max(maxX, block.Position.X + halfWidth);
+      minZ = math.min(minZ, block.Position.Z - halfDepth);
+      maxZ = math.max(maxZ, block.Position.Z + halfDepth);
+    });
+    
+    // Check Z-parallel lanes
+    zParallelLanes.forEach(block => {
+      const halfWidth = block.Size.X / 2;
+      const halfDepth = block.Size.Z / 2;
+      minX = math.min(minX, block.Position.X - halfWidth);
+      maxX = math.max(maxX, block.Position.X + halfWidth);
+      minZ = math.min(minZ, block.Position.Z - halfDepth);
+      maxZ = math.max(maxZ, block.Position.Z + halfDepth);
+    });
+    
+    return {
+      width: maxX - minX,
+      depth: maxZ - minZ
+    };
+  }
+
+  /**
+   * Calculate the required dimensions for X-parallel lanes based on content
+   */
+  private calculateXParallelLaneDimensions(
+    nodesByProperty: Map<string, Node[]>
+  ): { lanePositions: Map<string, { z: number; minZ: number; maxZ: number }> } {
+    
+    // Calculate Z positions for each lane
+    const lanePositions = new Map<string, { z: number; minZ: number; maxZ: number }>();
+    
+    // Collect actual Z bounds for each property group and store with property names
+    const boundsArray: Array<[string, { minZ: number; maxZ: number; centerZ: number }]> = [];
+    
+    print("[X-Parallel Lanes] Calculating Z positions for lanes:");
+    nodesByProperty.forEach((nodes, propertyValue) => {
+      let minZ = math.huge;
+      let maxZ = -math.huge;
+      nodes.forEach(node => {
+        minZ = math.min(minZ, node.position.z);
+        maxZ = math.max(maxZ, node.position.z);
+      });
+      const centerZ = (minZ + maxZ) / 2;
+      print(`  ${propertyValue}: Z bounds [${minZ}, ${maxZ}], center = ${centerZ}`);
+      boundsArray.push([propertyValue, { minZ, maxZ, centerZ }]);
+    });
+    
+    // Sort by center Z position to maintain proper ordering
+    boundsArray.sort((a, b) => a[1].centerZ < b[1].centerZ);
+    
+    // Assign lane positions based on actual positions
+    boundsArray.forEach(([propertyValue, bounds]) => {
+      lanePositions.set(propertyValue, { 
+        z: bounds.centerZ,  // Use actual center position
+        minZ: bounds.minZ,
+        maxZ: bounds.maxZ
+      });
+    });
+    
+    return { lanePositions };
+  }
+
+  /**
    * Creates X-parallel lane blocks (lanes that run along X axis, grouped by Z position)
    */
-  private createXParallelLaneBlocks(cluster: Cluster, parent: Instance, targetOrigin: Vector3, config?: EnhancedGeneratorConfig): Map<string, Part> {
+  private createXParallelLaneBlocks(cluster: Cluster, parent: Instance, targetOrigin: Vector3, config: EnhancedGeneratorConfig | undefined, zParallelLanes: Map<string, Part>): Map<string, Part> {
     const swimlaneBlocks = new Map<string, Part>();
     // Use axis mapping if available
     const zAxisProperty = config?.axisMapping?.zAxis || "petType";
-    
-    // First, get overall cluster bounds for uniform width
-    const clusterBounds = this.positionCalculator.getClusterBounds(cluster);
+    print(`[DEBUG] createXParallelLaneBlocks using zAxisProperty: ${zAxisProperty}`);
     
     // Organize nodes by z-axis property
     const nodesByProperty = new Map<string, Node[]>();
-    const propertyBounds = new Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>();
     
     cluster.groups[0].nodes.forEach(node => {
       const propertyValue = this.propertyResolver.getPropertyValue(node, zAxisProperty);
       if (!nodesByProperty.has(propertyValue)) {
         nodesByProperty.set(propertyValue, []);
-        // Use cluster bounds for X (uniform width), but track individual Z bounds
-        propertyBounds.set(propertyValue, {
-          minX: clusterBounds.minX,
-          maxX: clusterBounds.maxX,
-          minZ: math.huge,
-          maxZ: -math.huge
-        });
       }
-      
       nodesByProperty.get(propertyValue)!.push(node);
-      
-      // Only update Z bounds for positioning
-      const bounds = propertyBounds.get(propertyValue)!;
-      bounds.minZ = math.min(bounds.minZ, node.position.z);
-      bounds.maxZ = math.max(bounds.maxZ, node.position.z);
     });
     
-    // Create X-parallel shadow blocks at same elevation as Z-parallel blocks
-    // Z-parallel blocks are positioned at blockYPosition from createZParallelLaneBlocks
+    // Calculate dimensions based on content
+    const { lanePositions } = this.calculateXParallelLaneDimensions(nodesByProperty);
+    
+    
+    // Create property bounds - X-parallel lanes should span full width of Z-parallel lanes
+    const propertyBounds = new Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>();
+    
+    // Calculate the actual X extent from the Z-parallel lanes
+    let fullMinX = math.huge;
+    let fullMaxX = -math.huge;
+    
+    zParallelLanes.forEach(lane => {
+      const halfWidth = lane.Size.X / 2;
+      fullMinX = math.min(fullMinX, lane.Position.X - halfWidth);
+      fullMaxX = math.max(fullMaxX, lane.Position.X + halfWidth);
+    });
+    
+    print(`[X-Parallel Lanes] Actual Z-parallel lanes X extent: [${fullMinX}, ${fullMaxX}]`);
+    
+    // Set same X bounds for all X-parallel lanes
+    lanePositions.forEach((position, propertyValue) => {
+      propertyBounds.set(propertyValue, {
+        minX: fullMinX,
+        maxX: fullMaxX,
+        minZ: position.minZ,
+        maxZ: position.maxZ
+      });
+    });
+    
+    // Create X-parallel shadow blocks with fixed dimensions
     const shadowBlockTop = BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2;
-    const xAxisYPosition = shadowBlockTop + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT;
-    const zAxisYPosition = xAxisYPosition; // Same height as X-axis
-    createXParallelShadowBlocks(nodesByProperty, propertyBounds, parent, zAxisYPosition, swimlaneBlocks, zAxisProperty);
+    const yPosition = shadowBlockTop + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT;
+    
+    createXParallelShadowBlocks(nodesByProperty, propertyBounds, parent, yPosition, swimlaneBlocks, zAxisProperty, targetOrigin);
     return swimlaneBlocks;
   }
   

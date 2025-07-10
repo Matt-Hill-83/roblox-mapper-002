@@ -6,6 +6,7 @@
 
 import { BaseBlockCreator } from "./baseBlockCreator";
 import { BLOCK_CONSTANTS } from "../constants/blockConstants";
+import { LAYOUT_CONSTANTS } from "../constants/layoutConstants";
 
 export interface SwimLaneBlockConfig {
   position: Vector3;
@@ -41,6 +42,8 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
 
     swimLaneBlock.CastShadow = false;
     swimLaneBlock.Parent = parent;
+    
+    print(`[SwimLaneBlock] ${typeName} created at position: X=${position.X}, Z=${position.Z}`);
 
     // Add surface labels to all faces
     this.addSurfaceLabelsToAllFaces(swimLaneBlock, typeName);
@@ -97,17 +100,17 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
   ): Map<string, Part> {
     const zParallelBlocks = new Map<string, Part>();
     let colorIndex = 0;
+    let currentX = 0;
 
     typeBounds.forEach((bounds, typeName) => {
-      // Apply uniform buffers to Z-parallel lanes
-      const xBuffer = BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER; // Standard buffer for X dimension
-      const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.Z_PARALLEL_LANE_BUFFER; // Uniform Z buffer for all Z-parallel lanes
+      // Use fixed width from layout constants
+      const width = LAYOUT_CONSTANTS.LANE_DIMENSIONS.Z_PARALLEL_LANE_WIDTH;
+      const depth = bounds.maxZ - bounds.minZ + BLOCK_CONSTANTS.DIMENSIONS.Z_PARALLEL_LANE_BUFFER * 2;
       
-      // Calculate dimensions with different buffers for X and Z
-      const width = bounds.maxX - bounds.minX + xBuffer * 2;
-      const depth = bounds.maxZ - bounds.minZ + zBuffer * 2;
-      const centerX = (bounds.minX + bounds.maxX) / 2;
+      // Position lanes with fixed spacing
+      const centerX = currentX;
       const centerZ = (bounds.minZ + bounds.maxZ) / 2;
+      currentX += width + LAYOUT_CONSTANTS.LANE_SPACING.Z_PARALLEL_LANE_SPACING;
       
       const blockName = `ZParallelShadowBlock_${typeName}`;
       const blockSize = new Vector3(
@@ -119,7 +122,7 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
       // Log shadow block creation
       print(`Creating shadow block: ${blockName}`);
       print(`  - Bounds: X[${bounds.minX}, ${bounds.maxX}], Z[${bounds.minZ}, ${bounds.maxZ}]`);
-      print(`  - X Buffer: ${xBuffer}, Z Buffer: ${zBuffer}`);
+      print(`  - Z Buffer: ${BLOCK_CONSTANTS.DIMENSIONS.Z_PARALLEL_LANE_BUFFER}`);
       print(`  - Calculated Size: X=${width}, Y=${BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BLOCK_HEIGHT}, Z=${depth}`);
       
       const block = this.createBlock({
