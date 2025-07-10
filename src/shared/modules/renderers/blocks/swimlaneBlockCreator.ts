@@ -20,14 +20,14 @@ export interface SwimLaneBlockConfig {
 
 export class SwimLaneBlockCreator extends BaseBlockCreator {
   /**
-   * Create a swimlane shadow block
+   * Create a Z-parallel lane shadow block (runs along Z axis)
    */
   public createSwimLaneBlock(config: SwimLaneBlockConfig): Part {
     const { position, width, depth, height, color, typeName, parent, propertyName } = config;
     
-    const blockName = propertyName 
-      ? `XAxis_SwimLaneShadow_${propertyName}_${typeName}`
-      : `XAxis_SwimLaneShadow_${typeName}`;
+    // Generate unique ID for the lane
+    const laneId = `${propertyName || "default"}_${typeName}`;
+    const blockName = `ZParallel_Lane_${laneId}`;
     
     const swimLaneBlock = this.createBlock({
       name: blockName,
@@ -50,9 +50,9 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
   }
 
   /**
-   * Create swimlane blocks for multiple types
+   * Create Z-parallel lane blocks for multiple types
    */
-  public createSwimLaneBlocks(
+  public createZParallelLaneBlocks(
     typeBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
     yPosition: number,
     height: number,
@@ -88,18 +88,18 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
   }
 
   /**
-   * Create X-axis swimlane blocks
+   * Create Z-parallel lane blocks grouped by X position
    */
   public createXAxisSwimLaneBlocks(
     typeBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
     parent: Instance,
     yPosition: number = 0
   ): Map<string, Part> {
-    const xAxisBlocks = new Map<string, Part>();
+    const zParallelBlocks = new Map<string, Part>();
     let colorIndex = 0;
 
     typeBounds.forEach((bounds, typeName) => {
-      // Apply uniform buffers to all X-axis swimlanes
+      // Apply uniform buffers to Z-parallel lanes
       const xBuffer = BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER; // Standard buffer for X dimension
       const zBuffer = BLOCK_CONSTANTS.DIMENSIONS.Z_PARALLEL_LANE_BUFFER; // Uniform Z buffer for all Z-parallel lanes
       
@@ -109,7 +109,7 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
       const centerX = (bounds.minX + bounds.maxX) / 2;
       const centerZ = (bounds.minZ + bounds.maxZ) / 2;
       
-      const blockName = `XAxisShadowBlock_${typeName}`;
+      const blockName = `ZParallelShadowBlock_${typeName}`;
       const blockSize = new Vector3(
         width,
         BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BLOCK_HEIGHT,
@@ -138,14 +138,14 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
 
       block.CastShadow = false;
       block.Parent = parent;
-      xAxisBlocks.set(typeName, block);
+      zParallelBlocks.set(typeName, block);
       
       colorIndex++;
     });
 
     // Verify all shadow blocks after creation
     print("\n=== Verifying Shadow Blocks After Creation ===");
-    xAxisBlocks.forEach((block, typeName) => {
+    zParallelBlocks.forEach((block, typeName) => {
       print(`Shadow block: ${block.Name}`);
       print(`  - Type: ${typeName}`);
       print(`  - Actual Size: X=${block.Size.X}, Y=${block.Size.Y}, Z=${block.Size.Z}`);
@@ -162,7 +162,7 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
       print(`  - Size: X=${block.Size.X}, Y=${block.Size.Y}, Z=${block.Size.Z}`);
     });
 
-    return xAxisBlocks;
+    return zParallelBlocks;
   }
 
   /**

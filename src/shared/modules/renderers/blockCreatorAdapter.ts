@@ -96,9 +96,9 @@ export function calculateBlockDimensionsAdapter(
 }
 
 /**
- * Create Z-axis shadow blocks adapter
+ * Create X-parallel shadow blocks adapter
  */
-export function createZAxisShadowBlocksAdapter(
+export function createXParallelShadowBlocksAdapter(
   nodesByProperty: Map<string, any[]>,
   propertyBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
   parent: Instance,
@@ -107,7 +107,7 @@ export function createZAxisShadowBlocksAdapter(
   propertyName?: string,
   origin?: Vector3
 ): void {
-  shadowCreator.createZAxisShadowBlocks(
+  shadowCreator.createXParallelShadowBlocks(
     nodesByProperty,
     propertyBounds,
     parent,

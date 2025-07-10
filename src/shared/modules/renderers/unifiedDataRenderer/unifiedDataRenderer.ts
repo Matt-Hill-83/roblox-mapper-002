@@ -15,7 +15,7 @@ import {
   createFlatBlocksAdapter as createFlatBlocks, 
   calculateBlockDimensionsAdapter as calculateBlockDimensions, 
   createSwimLaneBlockAdapter as createSwimLaneBlock, 
-  createZAxisShadowBlocksAdapter as createZAxisShadowBlocks
+  createXParallelShadowBlocksAdapter as createXParallelShadowBlocks
 } from "../blockCreatorAdapter";
 import { createVerticalWalls, createWallSwimlanes } from "../verticalWallCreator";
 import { PropertyValueResolver } from "../propertyValueResolver";
@@ -95,24 +95,24 @@ export class UnifiedDataRenderer {
       depth: blockDimensions.depth,
     });
     
-    // Create Z-axis swimlanes model
-    const zAxisModel = new Instance("Model");
-    zAxisModel.Name = `ZAxis_SwimLanes_${zAxisProperty}`;
-    zAxisModel.Parent = blocks.shadow; // Parent to GroupShadowBlock
+    // Create X-parallel lanes model (lanes that run along X axis)
+    const xParallelModel = new Instance("Model");
+    xParallelModel.Name = `XParallel_Lanes_Group`;
+    xParallelModel.Parent = blocks.shadow; // Parent to GroupShadowBlock
     
-    // Create Z-axis shadow blocks first (they go below X-axis)
-    // Create Z-axis swimlane blocks (labels disabled per T17)
-    this.createZAxisSwimLaneBlocks(cluster, zAxisModel, targetOrigin, config);
+    // Create X-parallel shadow blocks first (they go below Z-parallel)
+    // Create X-parallel lane blocks (labels disabled per T17)
+    this.createXParallelLaneBlocks(cluster, xParallelModel, targetOrigin, config);
     
-    // Create X-axis swimlanes model
+    // Create Z-parallel lanes model (lanes that run along Z axis)
     const xAxisProperty = config?.axisMapping?.xAxis || "type";
-    const xAxisModel = new Instance("Model");
-    xAxisModel.Name = `XAxis_SwimLanes_${xAxisProperty}`;
-    xAxisModel.Parent = blocks.shadow;
+    const zParallelModel = new Instance("Model");
+    zParallelModel.Name = `ZParallel_Lanes_Group`;
+    zParallelModel.Parent = blocks.shadow;
     
-    // Create X-axis swimlane blocks (they go above Z-axis)
-    // Create X-axis swimlane blocks (labels disabled per T17)
-    this.createSwimLaneBlocks(cluster, xAxisModel, targetOrigin, blockDimensions, config);
+    // Create Z-parallel lane blocks (they go above X-parallel)
+    // Create Z-parallel lane blocks (labels disabled per T17)
+    this.createZParallelLaneBlocks(cluster, zParallelModel, targetOrigin, blockDimensions, config);
     
     // Create vertical walls if Y-axis is property-based
     if (config.yAxisConfig && !config.yAxisConfig.useLayer) {
@@ -179,10 +179,10 @@ export class UnifiedDataRenderer {
   }
 
   /**
-   * Creates blocks under each swimlane
+   * Creates Z-parallel lane blocks (lanes that run along Z axis, grouped by X position)
    */
-  private createSwimLaneBlocks(cluster: Cluster, parent: Instance, origin: Vector3, shadowDimensions: { width: number; depth: number }, config: EnhancedGeneratorConfig): Map<string, Part> {
-    print("[UnifiedDataRenderer] createSwimLaneBlocks() called for X-axis property:", config.axisMapping?.xAxis || "type");
+  private createZParallelLaneBlocks(cluster: Cluster, parent: Instance, origin: Vector3, shadowDimensions: { width: number; depth: number }, config: EnhancedGeneratorConfig): Map<string, Part> {
+    print("[UnifiedDataRenderer] createZParallelLaneBlocks() called for X grouping property:", config.axisMapping?.xAxis || "type");
     const swimlaneBlocks = new Map<string, Part>();
     // Use axis mapping if available
     const xAxisProperty = config.axisMapping?.xAxis || "type";
@@ -364,9 +364,9 @@ export class UnifiedDataRenderer {
   */
   
   /**
-   * Creates Z-axis shadow blocks for property swimlanes
+   * Creates X-parallel lane blocks (lanes that run along X axis, grouped by Z position)
    */
-  private createZAxisSwimLaneBlocks(cluster: Cluster, parent: Instance, targetOrigin: Vector3, config?: EnhancedGeneratorConfig): Map<string, Part> {
+  private createXParallelLaneBlocks(cluster: Cluster, parent: Instance, targetOrigin: Vector3, config?: EnhancedGeneratorConfig): Map<string, Part> {
     const swimlaneBlocks = new Map<string, Part>();
     // Use axis mapping if available
     const zAxisProperty = config?.axisMapping?.zAxis || "petType";
@@ -404,7 +404,7 @@ export class UnifiedDataRenderer {
     const shadowBlockTop = BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS + BLOCK_CONSTANTS.DIMENSIONS.Z_FIGHTING_OFFSET + BLOCK_CONSTANTS.DIMENSIONS.UNIFORM_SHADOW_THICKNESS / 2;
     const xAxisYPosition = shadowBlockTop + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_LAYER_DISPLACEMENT;
     const zAxisYPosition = xAxisYPosition; // Same height as X-axis
-    createZAxisShadowBlocks(nodesByProperty, propertyBounds, parent, zAxisYPosition, swimlaneBlocks, zAxisProperty);
+    createXParallelShadowBlocks(nodesByProperty, propertyBounds, parent, zAxisYPosition, swimlaneBlocks, zAxisProperty);
     return swimlaneBlocks;
   }
   
