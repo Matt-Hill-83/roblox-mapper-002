@@ -1,3 +1,5 @@
+
+Just do a Code Audit?: true
 |----------------------------------------------------------------------|
 Summary:
 F006 - ReDesign Layout Construction
@@ -18,20 +20,24 @@ Requirements:
 |----------------------------------------------------------------------|
 
 1. Note to AI Agent:
-   1. This file is a set of instrctions that you will follow in order to help plan a feature.
-   2. Following the instructions will create a final product that is a folder containing a set of documents that will be used one of more AI agents.
-   3. Follow each Step.
-      1. After you complete the Step, ask the user the User Question provided for that task.
-      2. The user will possibly make some edits, and direct you to do the next Step.
-      3. Do not perform any Step unless told to.
-      4. When told to run this file, assume the Summary and Features above have been updated to reflect current needs.
-      5. Output
-         1. A sample of the final output folder can be found here.
-            1. Sample Output:
-            2. ./F000-TicTacToe (example)
-      6. User Message
-         1. Hyperlink all file and folder names when outputting the User Message
-         2. Do not add your own extemporaneous commentary or fluff
+   1. If Just do a Code Audit? === true, skip the rest of this doc and execute 000-111-CodeAuditPlan.md in the xxx folder.
+      1. "____000FeaturePlanningSystem/___internal docs/000-111 - Code Audit/Int-000-01-CodeQualityAudit"
+      2. place the results in a new folder.  skip the rest of these instructions
+
+2. This file is a set of instrctions that you will follow in order to help plan a feature.
+3. Following the instructions will create a final product that is a folder containing a set of documents that will be used one of more AI agents.
+4. Follow each Step.
+   1. After you complete the Step, ask the user the User Question provided for that task.
+   2. The user will possibly make some edits, and direct you to do the next Step.
+   3. Do not perform any Step unless told to.
+   4. When told to run this file, assume the Summary and Features above have been updated to reflect current needs.
+   5. Output
+      1. A sample of the final output folder can be found here.
+         1. Sample Output:
+         2. ./F000-TicTacToe (example)
+   6. User Message
+      1. Hyperlink all file and folder names when outputting the User Message
+      2. Do not add your own extemporaneous commentary or fluff
 
 |----------------------------------------------------------------------|
 

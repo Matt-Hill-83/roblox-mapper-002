@@ -1,10 +1,10 @@
 {
-    "[markdown]": {
-        "editor.formatOnSave": false,
-        "editor.autoIndent": "none",
-        "files.trimTrailingWhitespace": false
-    },
-    "search.exclude": {
-        "**/*.{md,json,txt,dot}": true
-    }
+  "[markdown]": {
+    "editor.formatOnSave": false,
+    "editor.autoIndent": "none",
+    "files.trimTrailingWhitespace": false
+  },
+  "search.exclude": {
+    "asdf/**/*.{md,json,txt,dot}": true
+  }
 }
