@@ -35,7 +35,7 @@ export const BLOCK_CONSTANTS = {
     OPAQUE: 0,
     SEMI_TRANSPARENT: 0.5,
     FORCE_FIELD: 0.8,
-    Y_SHADOW: 0.7, // 70% transparent as per requirements
+    Y_SHADOW: 0.5, // 50% transparent
   },
   MATERIALS: {
     SHADOW: Enum.Material.Concrete,

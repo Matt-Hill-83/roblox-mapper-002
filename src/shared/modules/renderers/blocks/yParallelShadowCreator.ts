@@ -14,6 +14,8 @@ export interface YParallelShadowConfig {
   nodes: Node[];
   yAxisProperty: string;
   parent: Instance;
+  shadowWidth?: number; // Optional: use group shadow width
+  shadowDepth?: number; // Optional: use group shadow depth
 }
 
 export interface YGroupBounds {
@@ -37,7 +39,7 @@ export class YParallelShadowCreator extends BaseBlockCreator {
    * Create Y-parallel shadow blocks for each Y property value
    */
   public createYParallelShadows(config: YParallelShadowConfig): Map<string, Part> {
-    const { nodes, yAxisProperty, parent } = config;
+    const { nodes, yAxisProperty, parent, shadowWidth, shadowDepth } = config;
     const shadows = new Map<string, Part>();
 
     // Group nodes by Y property value and calculate bounds
@@ -45,7 +47,7 @@ export class YParallelShadowCreator extends BaseBlockCreator {
 
     // Create a shadow block for each Y group
     yGroupBounds.forEach((bounds, propertyValue) => {
-      const shadow = this.createYShadowBlock(bounds, parent);
+      const shadow = this.createYShadowBlock(bounds, parent, shadowWidth, shadowDepth);
       shadows.set(propertyValue, shadow);
       
       print(`[YParallelShadow] Created shadow for ${propertyValue}: X(${string.format("%.1f", bounds.minX)},${string.format("%.1f", bounds.maxX)}) Z(${string.format("%.1f", bounds.minZ)},${string.format("%.1f", bounds.maxZ)}) Y=${string.format("%.1f", bounds.yPosition)}`);
@@ -92,11 +94,21 @@ export class YParallelShadowCreator extends BaseBlockCreator {
   /**
    * Create a single Y-parallel shadow block
    */
-  private createYShadowBlock(bounds: YGroupBounds, parent: Instance): Part {
-    // Add padding around the group footprint
-    const padding = LAYOUT_CONSTANTS.SHADOW_PADDING.Y_SHADOW_PADDING;
-    const width = bounds.maxX - bounds.minX + padding * 2;
-    const depth = bounds.maxZ - bounds.minZ + padding * 2;
+  private createYShadowBlock(bounds: YGroupBounds, parent: Instance, shadowWidth?: number, shadowDepth?: number): Part {
+    // Use provided shadow dimensions or calculate from bounds
+    let width: number;
+    let depth: number;
+    
+    if (shadowWidth !== undefined && shadowDepth !== undefined) {
+      // Use group shadow dimensions
+      width = shadowWidth;
+      depth = shadowDepth;
+    } else {
+      // Calculate from node bounds with padding
+      const padding = LAYOUT_CONSTANTS.SHADOW_PADDING.Y_SHADOW_PADDING;
+      width = bounds.maxX - bounds.minX + padding * 2;
+      depth = bounds.maxZ - bounds.minZ + padding * 2;
+    }
     
     // Create the shadow block
     const shadow = this.createBlock({
@@ -107,9 +119,9 @@ export class YParallelShadowCreator extends BaseBlockCreator {
         depth
       ),
       position: new Vector3(
-        (bounds.minX + bounds.maxX) / 2,
-        bounds.yPosition - BLOCK_CONSTANTS.DIMENSIONS.Y_SHADOW_OFFSET || 2, // Position slightly below nodes
-        (bounds.minZ + bounds.maxZ) / 2
+        shadowWidth !== undefined ? 0 : (bounds.minX + bounds.maxX) / 2, // Center at origin if using group shadow size
+        bounds.yPosition - (BLOCK_CONSTANTS.DIMENSIONS.Y_SHADOW_OFFSET || 2), // Position slightly below nodes
+        shadowDepth !== undefined ? 0 : (bounds.minZ + bounds.maxZ) / 2 // Center at origin if using group shadow size
       ),
       color: BLOCK_CONSTANTS.COLORS.Y_SHADOW_COLOR || new Color3(0.5, 0.5, 0.5),
       transparency: BLOCK_CONSTANTS.TRANSPARENCY.Y_SHADOW || 0.7, // 70% transparent as per requirements

@@ -187,7 +187,7 @@ export class UnifiedDataRenderer {
 
     // Create Y-parallel shadows if Y-axis property is configured
     if (config.axisMapping?.yAxis && config.axisMapping.yAxis !== "none") {
-      this.createYParallelShadows(cluster, parentFolder, config);
+      this.createYParallelShadows(cluster, parentFolder, config, allLaneBounds);
     }
 
     // Log alignment check between nodes and swimlanes
@@ -235,7 +235,8 @@ export class UnifiedDataRenderer {
   private createYParallelShadows(
     cluster: Cluster,
     parentFolder: Folder,
-    config: EnhancedGeneratorConfig
+    config: EnhancedGeneratorConfig,
+    allLaneBounds: { width: number; depth: number }
   ): void {
     if (!config.axisMapping?.yAxis || config.axisMapping.yAxis === "none") {
       return;
@@ -254,11 +255,17 @@ export class UnifiedDataRenderer {
       return;
     }
 
+    // Calculate shadow dimensions (same as group shadow)
+    const shadowWidth = allLaneBounds.width + LAYOUT_CONSTANTS.SHADOW_PADDING.X_PADDING * 2;
+    const shadowDepth = allLaneBounds.depth + LAYOUT_CONSTANTS.SHADOW_PADDING.Z_PADDING * 2;
+
     // Create Y-parallel shadows
     const yParallelShadows = this.yParallelShadowCreator.createYParallelShadows({
       nodes: cluster.groups[0].nodes,
       yAxisProperty: config.axisMapping.yAxis,
-      parent: clusterFolder
+      parent: clusterFolder,
+      shadowWidth: shadowWidth,
+      shadowDepth: shadowDepth
     });
 
     print(`[UnifiedDataRenderer] Created ${yParallelShadows.size()} Y-parallel shadow blocks`);
