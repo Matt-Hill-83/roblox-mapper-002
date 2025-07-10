@@ -130,9 +130,10 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     propertyName?: string,
     offsetZ: number = 0
   ): Part {
-    // Use fixed dimensions from layout constants
+    // Use actual bounds for dimensions
     const width = bounds.maxX - bounds.minX; // Use provided bounds for length
-    const depth = LAYOUT_CONSTANTS.LANE_DIMENSIONS.X_PARALLEL_LANE_DEPTH; // Fixed depth
+    // Use fixed depth of 4 units for X-parallel lanes
+    const depth = 4;
     const centerX = (bounds.minX + bounds.maxX) / 2;
     const centerZ = (bounds.minZ + bounds.maxZ) / 2;
     
@@ -144,10 +145,12 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     const adjustedZPosition = centerZ + offsetZ;
     
     print(`[X-Parallel Block] ${propertyValue}:`);
+    print(`  Z bounds: [${bounds.minZ}, ${bounds.maxZ}]`);
     print(`  Original centerZ: ${centerZ}`);
     print(`  Offset: ${offsetZ}`);
     print(`  Final Z position: ${adjustedZPosition}`);
-    print(`  Width: ${width}, Depth: ${depth}`);
+    print(`  Width (X span): ${width} from X[${bounds.minX}, ${bounds.maxX}]`);
+    print(`  Depth (Z span): ${depth} from Z[${bounds.minZ}, ${bounds.maxZ}]`);
     
     const block = this.createBlock({
       name: blockName,
@@ -162,8 +165,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     block.CastShadow = false;
 
     // Add surface labels to all faces
-    // DISABLED: Removing labels from swimlane shadow blocks per T17
-    // this.addSurfaceLabelsToAllFaces(block, propertyValue);
+    this.addSurfaceLabelsToAllFaces(block, propertyValue);
 
 
     return block;
@@ -171,9 +173,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
 
   /**
    * Add surface labels to all faces of a block
-   * DISABLED: Per T17 - swimlane labels removed, using endcaps instead
    */
-  /*
   private addSurfaceLabelsToAllFaces(block: Part, text: string): void {
     const faces: Enum.NormalId[] = [
       Enum.NormalId.Front,
@@ -210,8 +210,8 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       textLabel.Text = text;
       textLabel.TextColor3 = new Color3(0, 0, 0); // Black text
       textLabel.TextScaled = true;
+      textLabel.Rotation = 90; // Rotate 90 degrees clockwise
       textLabel.Parent = frame;
     });
   }
-  */
 }
