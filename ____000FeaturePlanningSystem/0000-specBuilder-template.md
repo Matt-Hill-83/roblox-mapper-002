@@ -1,16 +1,22 @@
 |----------------------------------------------------------------------|
 Summary:
-Create a plan to review how colors are used through the roblox part of the codebase and provide reccommendatinos for improvement.
-/Users/__projects/roblox-mapper-002-multi/vscode/_webapp/src
+Audit and Revise Geometric Naming
+- our current codebase places items parallel to the X and Z axes in roblox
+- historically, instead of just referring to item groupings by their axis, we referred to them by the property being displayed on that axis.
+- in addition, we have labeled some axes and objects incorrectly.
+- we want to correct this.
+- this Feature will audit the code to identify where this naming is used, and create a plan to fix the naminig to be agnostic to the type of data being mapped, and instead focus on the axis upon which it is mapped.
 |----------------------------------------------------------------------|
-Features:
+Requirements:
+1. perform code audit of all files under:
+/Users/__projects/roblox-mapper-002-multi/cursor/src
 
-output will be a report with:
+2. create a report that includes:
 -- summary
--- table
--- diagrams
---- reccomendatinos
---- list of specific tasks to improve the codebase
+
+-- drawio diagrams of existing dataflow
+-- list of names to be corrected
+--- list of specific tasks to correct the naming and improve the codebase
 
 |----------------------------------------------------------------------|
 
@@ -36,7 +42,7 @@ Step 1. - Create Single Spec Document
 
 1. Inputs
 
-   1. Summary and Features provided above
+   1. Summary and Requirements provided above
 
 2. Actions for AI Agent
 

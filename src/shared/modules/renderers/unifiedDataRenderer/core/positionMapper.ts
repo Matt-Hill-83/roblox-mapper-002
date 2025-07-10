@@ -65,7 +65,7 @@ export class PositionMapper {
     
     sortedValues.forEach((value, index) => {
       // Position values using constant spacing
-      const position = (index - sortedValues.size() / 2) * POSITION_CONSTANTS.Z_AXIS_SPACING;
+      const position = (index - sortedValues.size() / 2) * POSITION_CONSTANTS.Z_DIMENSION_GROUP_SPACING;
       positionMap.set(value, position);
     });
     

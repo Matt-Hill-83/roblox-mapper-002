@@ -31,10 +31,16 @@ export interface VisualizationOptions {
   allowSameLevelLinks: boolean;
 }
 
-// Axis mapping configuration
-export interface AxisMapping {
-  xAxis: string; // Property name for X-axis grouping
-  zAxis: string; // Property name for Z-axis grouping
+// Spatial grouping configuration
+export interface SpatialGrouping {
+  xGroupingProperty: string; // Property that determines X position grouping
+  zGroupingProperty: string; // Property that determines Z position grouping
+}
+
+// Legacy interface for backwards compatibility
+export interface AxisMapping extends SpatialGrouping {
+  xAxis: string; // Deprecated: use xGroupingProperty
+  zAxis: string; // Deprecated: use zGroupingProperty
 }
 
 // Visual mapping configuration for node colors
@@ -53,11 +59,12 @@ export interface YAxisConfig {
 export interface EnhancedGeneratorConfig {
   numNodeTypes: number;
   numLinkTypes: number;
-  numPetTypes?: number; // Number of pet types for Z-axis grouping (default: 5)
+  numPetTypes?: number; // Number of pet types for Z position grouping (default: 5)
   layers: LayerConfig[];
   spacing?: SpacingConfig; // Optional for backward compatibility
   visualization?: VisualizationOptions; // Optional for backward compatibility
-  axisMapping?: AxisMapping; // Optional for backward compatibility
+  spatialGrouping?: SpatialGrouping; // Spatial grouping configuration
+  axisMapping?: AxisMapping; // Deprecated: use spatialGrouping
   visualMapping?: VisualMapping; // Optional for visual property mapping
   yAxisConfig?: YAxisConfig; // Optional for Y-axis configuration
 }

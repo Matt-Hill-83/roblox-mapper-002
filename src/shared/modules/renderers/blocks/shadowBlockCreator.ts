@@ -58,9 +58,9 @@ export class ShadowBlockCreator extends BaseBlockCreator {
   }
 
   /**
-   * Create Z-axis shadow blocks for property-based swimlanes
+   * Create X-parallel shadow blocks (run along X axis, grouped by Z position)
    */
-  public createZAxisShadowBlocks(
+  public createXParallelShadowBlocks(
     nodesByProperty: Map<string, any[]>,
     propertyBounds: Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>,
     parent: Instance,
@@ -92,7 +92,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
         warn(`[ShadowBlockCreator] No bounds found for property value: ${propertyValue}`);
         return;
       }
-      const block = this.createZAxisBlock(propertyValue, bounds, yPosition, blockIndex, propertyName, offsetZ);
+      const block = this.createXParallelBlock(propertyValue, bounds, yPosition, blockIndex, propertyName, offsetZ);
       block.Parent = parent;
       
       // Create swimlane model with endcaps
@@ -114,9 +114,9 @@ export class ShadowBlockCreator extends BaseBlockCreator {
   }
 
   /**
-   * Create a single Z-axis shadow block
+   * Create a single X-parallel shadow block
    */
-  private createZAxisBlock(
+  private createXParallelBlock(
     propertyValue: string,
     bounds: { minX: number; maxX: number; minZ: number; maxZ: number },
     yPosition: number,
@@ -126,9 +126,9 @@ export class ShadowBlockCreator extends BaseBlockCreator {
   ): Part {
     const dimensions = this.calculateBlockDimensions(bounds, BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER);
     
-    const blockName = propertyName 
-      ? `ZAxis_SwimLaneShadow_${propertyName}_${propertyValue}`
-      : `ZAxis_SwimLaneShadow_${propertyValue}`;
+    // Generate unique ID for the lane
+    const laneId = `${propertyName || "default"}_${propertyValue}`;
+    const blockName = `XParallel_Lane_${laneId}`;
     
     // Apply the offset to center the collection of pet lanes
     const adjustedZPosition = dimensions.position.Z + offsetZ;

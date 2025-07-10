@@ -23,3 +23,14 @@ sample format:
    1. ✅ [CLD12] T164.1.1: Locate createSwimLaneBlocks method in unifiedDataRenderer.ts
    2. ✅ [CLD12] T164.1.2: Change buffer application from width to depth calculation
    3. ✅ [CLD12] T164.1.3: Verify person types: man, woman, child, grandparent
+
+
+## T165: Make Buffer Application Data-Type Agnostic
+
+**Description**: Modify buffer logic to be agnostic to data type - apply buffer based on axis mapping, not specific type names
+
+1. ✅ [CLD12] T165.1: Remove person-type-specific buffer logic
+   1. ✅ [CLD12] T165.1.1: Remove PERSON_TYPES array from blockConstants.ts
+   2. ✅ [CLD12] T165.1.2: Remove isPersonType checks from UnifiedDataRenderer
+   3. ✅ [CLD12] T165.1.3: Remove isPersonType checks from SwimLaneBlockCreator
+   4. ✅ [CLD12] T165.1.4: Apply buffer uniformly to all X-axis swimlanes (for Z dimension)

@@ -61,11 +61,11 @@ export class PositionCalculator implements IPositionCalculator {
     const spacing = this.getSpacingConfig(config);
     const numLayers = config.layers.size();
     
-    // Use axis mapping if available, otherwise default to type/petType
+    // Use spatial grouping properties if available, otherwise default to type/petType
     const xAxisProperty = config.axisMapping?.xAxis || "type";
     const zAxisProperty = config.axisMapping?.zAxis || "petType";
     
-    // Organize nodes by layer and x-axis property
+    // Organize nodes by layer and X grouping property
     const { nodesByTypeAndLayer, typeCounters } = this.organizeNodesByProperty(cluster, xAxisProperty);
     
     // Sort values by count
@@ -335,7 +335,7 @@ export class PositionCalculator implements IPositionCalculator {
         positionMap.set(value, index);
       } else {
         // Position values apart on the Z axis
-        positionMap.set(value, (index - sortedValues.size() / 2) * POSITION_CONSTANTS.Z_AXIS_SPACING);
+        positionMap.set(value, (index - sortedValues.size() / 2) * POSITION_CONSTANTS.Z_DIMENSION_GROUP_SPACING);
       }
     });
     

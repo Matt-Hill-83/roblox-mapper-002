@@ -134,9 +134,9 @@ export class LabelRenderer {
       let labelPosition: Vector3;
       
       if (axis === "X") {
-        labelPosition = new Vector3(position, basePosition.Y + 10, basePosition.Z - POSITION_CONSTANTS.Z_AXIS_SPACING);
+        labelPosition = new Vector3(position, basePosition.Y + 10, basePosition.Z - POSITION_CONSTANTS.Z_DIMENSION_GROUP_SPACING);
       } else {
-        labelPosition = new Vector3(basePosition.X - POSITION_CONSTANTS.Z_AXIS_SPACING, basePosition.Y + 10, position);
+        labelPosition = new Vector3(basePosition.X - POSITION_CONSTANTS.Z_DIMENSION_GROUP_SPACING, basePosition.Y + 10, position);
       }
       
       this.createLabel({
