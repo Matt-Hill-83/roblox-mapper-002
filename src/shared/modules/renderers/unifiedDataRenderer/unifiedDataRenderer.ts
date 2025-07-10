@@ -285,9 +285,6 @@ export class UnifiedDataRenderer {
     // Use axis mapping if available - X axis sorts on service for Harness data
     const xAxisProperty = config.axisMapping?.xAxis || getDefaultXAxis(cluster.discoveredProperties);
 
-    print(`[DEBUG] createZParallelLaneBlocks - Using X-axis property: ${xAxisProperty}`);
-    print(`[DEBUG] Available discovered properties: ${cluster.discoveredProperties ? cluster.discoveredProperties.join(", ") : "none"}`);
-
     // Organize nodes by X grouping property to determine lane placement
     const nodesByType = new Map<string, Node[]>();
     const typeBounds = new Map<
@@ -296,15 +293,11 @@ export class UnifiedDataRenderer {
     >();
 
     // Group nodes by X grouping property and calculate bounds
-    print(`[DEBUG] Grouping ${cluster.groups[0].nodes.size()} nodes by X-axis property: ${xAxisProperty}`);
-    
     cluster.groups[0].nodes.forEach((node) => {
       const propertyValue = this.propertyResolver.getPropertyValue(
         node,
         xAxisProperty
       );
-      
-      print(`[DEBUG] Node ${node.uuid} -> ${xAxisProperty} = ${propertyValue}`);
       
       if (!nodesByType.has(propertyValue)) {
         nodesByType.set(propertyValue, []);
@@ -314,7 +307,6 @@ export class UnifiedDataRenderer {
           minZ: math.huge,
           maxZ: -math.huge,
         });
-        print(`[DEBUG] Created new group for ${propertyValue}`);
       }
 
       nodesByType.get(propertyValue)!.push(node);
@@ -324,11 +316,6 @@ export class UnifiedDataRenderer {
       bounds.maxX = math.max(bounds.maxX, node.position.x);
       bounds.minZ = math.min(bounds.minZ, node.position.z);
       bounds.maxZ = math.max(bounds.maxZ, node.position.z);
-    });
-
-    print(`[DEBUG] Created ${nodesByType.size()} groups:`);
-    nodesByType.forEach((nodes, typeName) => {
-      print(`[DEBUG] Group ${typeName}: ${nodes.size()} nodes`);
     });
 
     // Create a block for each swimlane based on actual node positions

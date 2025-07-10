@@ -234,7 +234,21 @@ export class GUIStateManager {
    * Updates the entire enhanced configuration
    */
   public updateEnhancedConfig(config: EnhancedGeneratorConfig): void {
-    this.state.enhancedConfig = { ...config };
+    // Preserve important properties if not provided in the new config
+    const axisMapping = config.axisMapping || this.state.enhancedConfig.axisMapping;
+    const visualMapping = config.visualMapping || this.state.enhancedConfig.visualMapping;
+    const yAxisConfig = config.yAxisConfig || this.state.enhancedConfig.yAxisConfig;
+    const spacing = config.spacing || this.state.enhancedConfig.spacing;
+    const visualization = config.visualization || this.state.enhancedConfig.visualization;
+    
+    this.state.enhancedConfig = { 
+      ...config, 
+      axisMapping,
+      visualMapping,
+      yAxisConfig,
+      spacing,
+      visualization
+    };
     this.notifyListeners();
   }
   

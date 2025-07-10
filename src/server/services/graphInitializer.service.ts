@@ -53,6 +53,8 @@ export class GraphInitializerService {
       allowSameLevelLinks: true,  // Enable same-level links for testing
     },
     // axisMapping will be determined dynamically based on discovered properties
+    // Set to undefined initially - will be updated when properties are discovered
+    axisMapping: undefined,
     visualMapping: {
       backgroundColor: "none",
       borderColor: "none",
