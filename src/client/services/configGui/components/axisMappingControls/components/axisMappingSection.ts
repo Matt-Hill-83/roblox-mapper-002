@@ -21,12 +21,12 @@ export function createAxisMappingSection({
   onZAxisChange
 }: AxisMappingSectionProps): void {
   // Section label
-  createSectionLabel(parent, "Axis Mapping", 5);
+  createSectionLabel(parent, "Spatial Grouping", 5);
 
-  // X-axis row
+  // X position grouping row
   createLabel(
     parent,
-    "x-axis:",
+    "X group:",
     new UDim2(0, UI_CONSTANTS.SPACING.SECTION_MARGIN, 0, 25),
     50
   );
@@ -39,10 +39,10 @@ export function createAxisMappingSection({
     UI_CONSTANTS.SPACING.DROPDOWN_WIDTH
   );
 
-  // Z-axis row
+  // Z position grouping row
   createLabel(
     parent,
-    "z-axis:",
+    "Z group:",
     new UDim2(0, UI_CONSTANTS.SPACING.SECTION_MARGIN, 0, 50),
     50
   );
