@@ -124,8 +124,9 @@ export class YParallelShadowCreator extends BaseBlockCreator {
         shadowDepth !== undefined ? 0 : (bounds.minZ + bounds.maxZ) / 2 // Center at origin if using group shadow size
       ),
       color: BLOCK_CONSTANTS.COLORS.Y_SHADOW_COLOR || new Color3(0.5, 0.5, 0.5),
-      transparency: BLOCK_CONSTANTS.TRANSPARENCY.Y_SHADOW || 0.7, // 70% transparent as per requirements
-      material: Enum.Material.ForceField
+      transparency: BLOCK_CONSTANTS.TRANSPARENCY.Y_SHADOW || 0.5, // 50% transparent
+      material: Enum.Material.Concrete,
+      canCollide: false
     });
 
     shadow.Parent = parent;
@@ -137,24 +138,37 @@ export class YParallelShadowCreator extends BaseBlockCreator {
   }
 
   /**
-   * Add a label to the Y shadow block
+   * Add labels to all faces of the Y shadow block with different colors
    */
   private addLabel(shadow: Part, text: string): void {
-    const surfaceGui = new Instance("SurfaceGui");
-    surfaceGui.Face = Enum.NormalId.Top;
-    surfaceGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud;
-    surfaceGui.PixelsPerStud = 50;
-    surfaceGui.Parent = shadow;
+    // Define colors for each face
+    const faceColors = new Map<Enum.NormalId, Color3>([
+      [Enum.NormalId.Top, new Color3(1, 1, 1)],       // White
+      [Enum.NormalId.Bottom, new Color3(0.8, 0.8, 0.8)], // Light gray
+      [Enum.NormalId.Front, new Color3(1, 0.8, 0.8)],  // Light red
+      [Enum.NormalId.Back, new Color3(0.8, 1, 0.8)],   // Light green
+      [Enum.NormalId.Left, new Color3(0.8, 0.8, 1)],   // Light blue
+      [Enum.NormalId.Right, new Color3(1, 1, 0.8)]     // Light yellow
+    ]);
 
-    const label = new Instance("TextLabel");
-    label.Size = new UDim2(1, 0, 1, 0);
-    label.BackgroundTransparency = 1;
-    label.Text = text;
-    label.TextColor3 = new Color3(1, 1, 1);
-    label.TextScaled = true;
-    label.Font = Enum.Font.SourceSansBold;
-    label.TextStrokeTransparency = 0;
-    label.TextStrokeColor3 = new Color3(0, 0, 0);
-    label.Parent = surfaceGui;
+    // Add label to each face
+    faceColors.forEach((color, face) => {
+      const surfaceGui = new Instance("SurfaceGui");
+      surfaceGui.Face = face;
+      surfaceGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud;
+      surfaceGui.PixelsPerStud = 50;
+      surfaceGui.Parent = shadow;
+
+      const label = new Instance("TextLabel");
+      label.Size = new UDim2(1, 0, 1, 0);
+      label.BackgroundTransparency = 1;
+      label.Text = text;
+      label.TextColor3 = color;
+      label.TextScaled = true;
+      label.Font = Enum.Font.SourceSansBold;
+      label.TextStrokeTransparency = 0;
+      label.TextStrokeColor3 = new Color3(0, 0, 0);
+      label.Parent = surfaceGui;
+    });
   }
 }
