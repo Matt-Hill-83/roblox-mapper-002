@@ -43,4 +43,13 @@ export const BLOCK_CONSTANTS = {
     LABEL_OFFSET: 8,
     X_PARALLEL_LANE_Y_OFFSET: 0.1, // Raises X-parallel lanes (formerly "Z-axis swimlanes") to prevent occlusion
   },
+  LABEL_STYLING: {
+    BORDER_SIZE_PIXEL: 5, // Unified border width for all block labels
+    BORDER_COLOR: new Color3(0, 0, 0), // Black border
+    BORDER_MODE: Enum.BorderMode.Inset, // Internal border so it doesn't overflow
+    TEXT_COLOR: new Color3(0, 0, 0), // Black text
+    FONT: Enum.Font.SourceSansBold,
+    TEXT_SCALED: true,
+    BACKGROUND_TRANSPARENCY: 0, // Opaque background to show border
+  },
 };

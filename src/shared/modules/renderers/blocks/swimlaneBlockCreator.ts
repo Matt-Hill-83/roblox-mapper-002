@@ -208,15 +208,15 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
       const textLabel = new Instance("TextLabel");
       textLabel.Size = new UDim2(1, 0, 1, 0); // Full size as requested
       textLabel.Position = new UDim2(0, 0, 0, 0);
-      textLabel.BackgroundTransparency = 0; // Opaque background to show border
+      textLabel.BackgroundTransparency = BLOCK_CONSTANTS.LABEL_STYLING.BACKGROUND_TRANSPARENCY;
       textLabel.BackgroundColor3 = block.Color; // Same color as the underlying block
-      textLabel.BorderSizePixel = 10; // 10px border
-      textLabel.BorderColor3 = new Color3(0, 0, 0); // Black border
-      textLabel.BorderMode = Enum.BorderMode.Inset; // Internal border so it doesn't overflow
-      textLabel.Font = Enum.Font.SourceSansBold;
+      textLabel.BorderSizePixel = BLOCK_CONSTANTS.LABEL_STYLING.BORDER_SIZE_PIXEL;
+      textLabel.BorderColor3 = BLOCK_CONSTANTS.LABEL_STYLING.BORDER_COLOR;
+      textLabel.BorderMode = BLOCK_CONSTANTS.LABEL_STYLING.BORDER_MODE;
+      textLabel.Font = BLOCK_CONSTANTS.LABEL_STYLING.FONT;
       textLabel.Text = text;
-      textLabel.TextColor3 = new Color3(0, 0, 0); // Black text
-      textLabel.TextScaled = true;
+      textLabel.TextColor3 = BLOCK_CONSTANTS.LABEL_STYLING.TEXT_COLOR;
+      textLabel.TextScaled = BLOCK_CONSTANTS.LABEL_STYLING.TEXT_SCALED;
       textLabel.Parent = surfaceGui;
     });
   }

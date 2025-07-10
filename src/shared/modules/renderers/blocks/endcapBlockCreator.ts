@@ -5,6 +5,7 @@
  */
 
 import { BaseBlockCreator } from "./baseBlockCreator";
+import { BLOCK_CONSTANTS } from "../constants/blockConstants";
 
 export interface EndcapConfig {
   swimlaneBlock: Part;
@@ -169,8 +170,8 @@ export class EndcapBlockCreator extends BaseBlockCreator {
       frame.Size = new UDim2(1, 0, 1, 0);
       frame.BackgroundColor3 = new Color3(0.1, 0.1, 0.1);
       frame.BackgroundTransparency = 1; // Fully transparent background
-      frame.BorderSizePixel = 5;
-      frame.BorderColor3 = new Color3(0, 0, 0); // Black border
+      frame.BorderSizePixel = BLOCK_CONSTANTS.LABEL_STYLING.BORDER_SIZE_PIXEL;
+      frame.BorderColor3 = BLOCK_CONSTANTS.LABEL_STYLING.BORDER_COLOR;
       frame.Parent = surfaceGui;
 
       // Create TextLabel
@@ -178,9 +179,9 @@ export class EndcapBlockCreator extends BaseBlockCreator {
       textLabel.Size = new UDim2(0.9, 0, 0.9, 0);
       textLabel.Position = new UDim2(0.05, 0, 0.05, 0);
       textLabel.BackgroundTransparency = 1;
-      textLabel.Font = Enum.Font.SourceSansBold;
+      textLabel.Font = BLOCK_CONSTANTS.LABEL_STYLING.FONT;
       textLabel.Text = text;
-      textLabel.TextColor3 = new Color3(0, 0, 0); // Black text
+      textLabel.TextColor3 = BLOCK_CONSTANTS.LABEL_STYLING.TEXT_COLOR;
       textLabel.TextScaled = false;
       textLabel.TextSize = 72; // Doubled from 36
       
