@@ -3,5 +3,8 @@
         "editor.formatOnSave": false,
         "editor.autoIndent": "none",
         "files.trimTrailingWhitespace": false
+    },
+    "search.exclude": {
+        "**/*.{md,json,txt,dot}": true
     }
 }
