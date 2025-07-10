@@ -22,25 +22,33 @@
         
         <!-- Services -->
         <mxCell id="gameService" value="GameService&lt;br&gt;startGame()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#e65100;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="180" y="220" width="160" height="60" as="geometry" />
+          <mxGeometry x="260" y="220" width="160" height="60" as="geometry" />
         </mxCell>
         
         <mxCell id="unifiedRenderer" value="UnifiedDataRenderer&lt;br&gt;renderEnhancedData()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#e65100;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="180" y="320" width="160" height="60" as="geometry" />
+          <mxGeometry x="260" y="320" width="160" height="60" as="geometry" />
         </mxCell>
         
         <!-- Adapters -->
         <mxCell id="flatBlockAdapter" value="createFlatBlocksAdapter&lt;br&gt;(Group shadows)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#4a148c;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="80" y="420" width="160" height="60" as="geometry" />
+          <mxGeometry x="40" y="420" width="160" height="60" as="geometry" />
         </mxCell>
         
         <mxCell id="zAxisAdapter" value="createZAxisShadowBlocksAdapter&lt;br&gt;(Pet lane shadows)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#4a148c;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="280" y="420" width="180" height="60" as="geometry" />
+          <mxGeometry x="250" y="420" width="180" height="60" as="geometry" />
         </mxCell>
         
-        <!-- Creator -->
+        <mxCell id="xAxisAdapter" value="Direct call to&lt;br&gt;SwimLaneBlockCreator&lt;br&gt;(Person swimlanes)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#4a148c;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="480" y="420" width="180" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Creators -->
         <mxCell id="shadowCreator" value="ShadowBlockCreator" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#1b5e20;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="180" y="520" width="160" height="60" as="geometry" />
+          <mxGeometry x="140" y="520" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="swimlaneCreator" value="SwimLaneBlockCreator" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#1b5e20;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="490" y="520" width="160" height="60" as="geometry" />
         </mxCell>
         
         <!-- Methods -->
@@ -49,26 +57,38 @@
         </mxCell>
         
         <mxCell id="zAxisMethod" value="createZAxisShadowBlocks()&lt;br&gt;Sequential colors" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#1b5e20;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="320" y="620" width="160" height="60" as="geometry" />
+          <mxGeometry x="240" y="620" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="xAxisMethod" value="createXAxisSwimLaneBlocks()&lt;br&gt;Sequential colors" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#1b5e20;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="490" y="620" width="180" height="60" as="geometry" />
         </mxCell>
         
         <!-- Color Assignment -->
         <mxCell id="colorAssignment" value="Color Index Assignment&lt;br&gt;0, 1, 2, 3...&lt;br&gt;index % 9" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#880e4f;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="520" y="600" width="160" height="100" as="geometry" />
+          <mxGeometry x="350" y="710" width="160" height="100" as="geometry" />
         </mxCell>
         
         <!-- Outputs -->
         <mxCell id="groupShadow" value="Group Shadow Block&lt;br&gt;&lt;b&gt;Light Blue&lt;/b&gt;&lt;br&gt;(0.5, 0.7, 1)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffebee;strokeColor=#b71c1c;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="40" y="720" width="160" height="80" as="geometry" />
+          <mxGeometry x="40" y="840" width="160" height="80" as="geometry" />
         </mxCell>
         
         <mxCell id="petLaneShadows" value="Pet Lane Shadows&lt;br&gt;&lt;b&gt;Sequential Colors&lt;/b&gt;&lt;br&gt;Z_AXIS_COLORS[0..8]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffebee;strokeColor=#b71c1c;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="520" y="720" width="160" height="80" as="geometry" />
+          <mxGeometry x="240" y="840" width="160" height="80" as="geometry" />
         </mxCell>
         
-        <!-- Example Box -->
-        <mxCell id="exampleBox" value="&lt;b&gt;Example Sequential Assignment:&lt;/b&gt;&lt;br&gt;dog → Color[0] (Green)&lt;br&gt;cat → Color[1] (Dark Green)&lt;br&gt;bird → Color[2] (Teal)&lt;br&gt;fish → Color[3] (Blue)&lt;br&gt;none → Color[4] (Navy)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" vertex="1" parent="1">
-          <mxGeometry x="720" y="600" width="200" height="120" as="geometry" />
+        <mxCell id="personSwimlanes" value="Person Swimlanes&lt;br&gt;&lt;b&gt;Sequential Colors&lt;/b&gt;&lt;br&gt;Z_AXIS_COLORS[0..3]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffebee;strokeColor=#b71c1c;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="490" y="840" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Example Boxes -->
+        <mxCell id="petExample" value="&lt;b&gt;Pet Lane Assignment:&lt;/b&gt;&lt;br&gt;dog → Color[0] (Green)&lt;br&gt;cat → Color[1] (Dark Green)&lt;br&gt;bird → Color[2] (Teal)&lt;br&gt;fish → Color[3] (Blue)&lt;br&gt;none → Color[4] (Navy)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="720" y="520" width="200" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="personExample" value="&lt;b&gt;Person Swimlane Assignment:&lt;/b&gt;&lt;br&gt;man → Color[0] (Green)&lt;br&gt;woman → Color[1] (Dark Green)&lt;br&gt;child → Color[2] (Teal)&lt;br&gt;grandparent → Color[3] (Blue)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="720" y="660" width="200" height="100" as="geometry" />
         </mxCell>
         
         <!-- Arrows -->
@@ -76,54 +96,105 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         
-        <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="unifiedRenderer" target="flatBlockAdapter">
+        <mxCell id="arrow2a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="unifiedRenderer" target="flatBlockAdapter">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         
-        <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="unifiedRenderer" target="zAxisAdapter">
+        <mxCell id="arrow2b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="unifiedRenderer" target="zAxisAdapter">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         
-        <mxCell id="arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="flatBlockAdapter" target="shadowCreator">
+        <mxCell id="arrow2c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="unifiedRenderer" target="xAxisAdapter">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         
-        <mxCell id="arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="zAxisAdapter" target="shadowCreator">
+        <mxCell id="arrow3a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="flatBlockAdapter" target="shadowCreator">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         
-        <mxCell id="arrow6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="shadowCreator" target="groupMethod">
+        <mxCell id="arrow3b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="zAxisAdapter" target="shadowCreator">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         
-        <mxCell id="arrow7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="shadowCreator" target="zAxisMethod">
+        <mxCell id="arrow3c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="xAxisAdapter" target="swimlaneCreator">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         
-        <mxCell id="arrow8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#01579b;" edge="1" parent="1" source="blockConstants" target="groupMethod">
+        <mxCell id="arrow4a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="shadowCreator" target="groupMethod">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         
-        <mxCell id="arrow9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#01579b;" edge="1" parent="1" source="robloxColors" target="zAxisMethod">
+        <mxCell id="arrow4b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="shadowCreator" target="zAxisMethod">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="arrow4c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="swimlaneCreator" target="xAxisMethod">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Data source arrows -->
+        <mxCell id="arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#01579b;" edge="1" parent="1" source="blockConstants" target="groupMethod">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="160" y="200" />
-              <mxPoint x="500" y="200" />
-              <mxPoint x="500" y="650" />
+              <mxPoint x="360" y="200" />
+              <mxPoint x="20" y="200" />
+              <mxPoint x="20" y="650" />
+              <mxPoint x="120" y="650" />
             </Array>
           </mxGeometry>
         </mxCell>
         
-        <mxCell id="arrow10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="groupMethod" target="groupShadow">
+        <mxCell id="arrow6a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#01579b;" edge="1" parent="1" source="robloxColors" target="zAxisMethod">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="200" />
+              <mxPoint x="700" y="200" />
+              <mxPoint x="700" y="650" />
+              <mxPoint x="320" y="650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow6b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#01579b;" edge="1" parent="1" source="robloxColors" target="xAxisMethod">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="200" />
+              <mxPoint x="700" y="200" />
+              <mxPoint x="700" y="650" />
+              <mxPoint x="580" y="650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Method to output arrows -->
+        <mxCell id="arrow7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="groupMethod" target="groupShadow">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         
-        <mxCell id="arrow11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="zAxisMethod" target="colorAssignment">
+        <mxCell id="arrow8a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="zAxisMethod" target="colorAssignment">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         
-        <mxCell id="arrow12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="colorAssignment" target="petLaneShadows">
+        <mxCell id="arrow8b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="xAxisMethod" target="colorAssignment">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="arrow9a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="colorAssignment" target="petLaneShadows">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="430" y="820" />
+              <mxPoint x="320" y="820" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow9b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="colorAssignment" target="personSwimlanes">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="430" y="820" />
+              <mxPoint x="580" y="820" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         
         <!-- Legend -->
@@ -149,6 +220,11 @@
         
         <mxCell id="legendOutput" value="Output" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffebee;strokeColor=#b71c1c;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="720" y="290" width="120" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Notes -->
+        <mxCell id="note1" value="&lt;b&gt;Note:&lt;/b&gt; X_AXIS_COLORS is defined but never used.&lt;br&gt;Both X and Z axis shadows use Z_AXIS_COLORS." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fffde7;strokeColor=#f57f17;strokeWidth=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="720" y="350" width="250" height="60" as="geometry" />
         </mxCell>
         
       </root>
