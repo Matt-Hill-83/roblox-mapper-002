@@ -18,6 +18,7 @@ import { createLayerGrid } from "./components/layerGrid";
 import { createStatusArea } from "./components/status";
 import { createVisualizationControls } from "./components/visualizationControls";
 import { createAxisMappingControls } from "./components/axisMappingControls/index";
+import { refreshAxisDropdownGUI } from "./components/axisMappingControls/utils/screenGuiManager";
 import { GUIStateManager } from "./stateManager";
 import { GUIEventHandlers } from "./eventHandlers";
 import { ComponentFactory } from "./componentFactory";
@@ -169,8 +170,8 @@ export class ConfigGUIService {
       visualizationControls.Size = new UDim2(1, -20, 1, -20);
     }
 
-    // Create axis mapping dropdowns as separate GUIs
-    createAxisMappingControls({
+    // Store axis mapping config for later creation
+    this.stateManager.setAxisMappingConfig({
       parent: parentFrame, // Not actually used since dropdowns are separate GUIs
       axisMapping: config.axisMapping,
       visualMapping: config.visualMapping,
@@ -289,6 +290,21 @@ export class ConfigGUIService {
     
     // Update the state manager with discovered properties
     this.stateManager.updateDiscoveredProperties(properties);
+    
+    // First refresh the axis dropdown GUI to clear old dropdowns
+    refreshAxisDropdownGUI();
+    
+    // Create axis mapping controls now that we have properties
+    const axisMappingConfig = this.stateManager.getAxisMappingConfig();
+    if (axisMappingConfig) {
+      // Update the config with the new axis mapping values from state
+      const currentState = this.stateManager.getState();
+      if (currentState.enhancedConfig.axisMapping) {
+        axisMappingConfig.axisMapping = currentState.enhancedConfig.axisMapping;
+      }
+      print("[ConfigGUIService] Creating axis mapping controls with discovered properties");
+      createAxisMappingControls(axisMappingConfig);
+    }
   }
 
   /**

@@ -1,5 +1,5 @@
 import { GUI_CONSTANTS } from "../constants";
-import { AVAILABLE_PROPERTIES } from "./axisMappingControls/constants";
+import { getAvailableProperties } from "./axisMappingControls/constants";
 
 interface YAxisControlsProps {
   parent: Frame;
@@ -11,7 +11,7 @@ interface YAxisControlsProps {
 
 // Y-axis properties now use the same dynamic properties as X and Z axes
 function getYAxisProperties(): string[] {
-  return AVAILABLE_PROPERTIES;
+  return getAvailableProperties();
 }
 
 export function createYAxisControls({

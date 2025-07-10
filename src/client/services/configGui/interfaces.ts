@@ -19,6 +19,7 @@ export interface GUIState {
   layerRows: Frame[];
   statusLabel?: TextLabel;
   discoveredProperties?: string[];
+  axisMappingConfig?: any; // Store axis mapping config for delayed creation
 }
 
 export interface ComponentProps {

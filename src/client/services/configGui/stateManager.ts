@@ -271,6 +271,20 @@ export class GUIStateManager {
   }
   
   /**
+   * Sets the axis mapping configuration for delayed creation
+   */
+  public setAxisMappingConfig(config: any): void {
+    this.state.axisMappingConfig = config;
+  }
+  
+  /**
+   * Gets the stored axis mapping configuration
+   */
+  public getAxisMappingConfig(): any {
+    return this.state.axisMappingConfig;
+  }
+  
+  /**
    * Updates spatial grouping (formerly axis mapping)
    */
   public updateAxisMapping(axis: "xAxis" | "zAxis", value: string): void {

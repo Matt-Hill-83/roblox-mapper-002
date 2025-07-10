@@ -1,4 +1,4 @@
-import { VISUAL_PROPERTIES, UI_CONSTANTS } from "../constants";
+import { getVisualProperties, UI_CONSTANTS } from "../constants";
 import { createDropdown } from "./dropdown";
 import { createSectionLabel, createLabel, createButton } from "../utils/layoutManager";
 
@@ -61,7 +61,7 @@ export function createVisualCustomizationSection({
     currentValue: backgroundColorValue,
     onChange: onBackgroundColorChange,
     parent: parent,
-    properties: VISUAL_PROPERTIES
+    properties: getVisualProperties()
   });
 
   createDropdown({
@@ -69,6 +69,6 @@ export function createVisualCustomizationSection({
     currentValue: borderColorValue,
     onChange: onBorderColorChange,
     parent: parent,
-    properties: VISUAL_PROPERTIES
+    properties: getVisualProperties()
   });
 }

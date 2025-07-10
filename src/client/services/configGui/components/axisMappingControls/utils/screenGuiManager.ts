@@ -19,3 +19,15 @@ export function getOrCreateScreenGui(): ScreenGui {
   
   return axisDropdownGUI;
 }
+
+/**
+ * Destroys and recreates the axis dropdown GUI
+ * Used to refresh the GUI when properties are discovered
+ */
+export function refreshAxisDropdownGUI(): void {
+  if (axisDropdownGUI) {
+    print("[screenGuiManager] Destroying existing AxisDropdownGUI for refresh");
+    axisDropdownGUI.Destroy();
+    axisDropdownGUI = undefined;
+  }
+}

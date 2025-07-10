@@ -82,8 +82,12 @@ export class ConfigGUIController extends BaseService {
         } else if (eventType === "discoveredProperties" && typeIs(data, "table")) {
           print("[ConfigGUIController] Received discoveredProperties event");
           const properties = data as string[];
+          print(`[ConfigGUIController] Properties received: ${properties.join(", ")}`);
           if (this.guiService) {
+            print("[ConfigGUIController] GUI service exists, updating properties");
             this.guiService.updateDiscoveredProperties(properties);
+          } else {
+            print("[ConfigGUIController] WARNING: GUI service not yet created!");
           }
         }
       }

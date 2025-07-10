@@ -1,33 +1,17 @@
 import { AXIS_DEFAULTS } from "../../../../../shared/constants/axisDefaults";
 
-// Available properties for axis mapping - now dynamic
-export let AVAILABLE_PROPERTIES: string[] = [
-  // Will be populated dynamically from discovered properties
-  // Fallback to legacy properties if no properties discovered
-  "type",
-  "petType",
-  "petColor",
-  "age",
-  "firstName",
-  "lastName",
-  "countryOfBirth",
-  "countryOfResidence"
-];
+// Store the discovered properties internally
+let _availableProperties: string[] = [];
+let _visualProperties: string[] = [];
 
-// Available properties for visual mapping (includes "none") - now dynamic
-export let VISUAL_PROPERTIES: string[] = [
-  "none",
-  // Will be populated dynamically from discovered properties
-  // Fallback to legacy properties if no properties discovered
-  "type",
-  "petType",
-  "petColor",
-  "age",
-  "firstName",
-  "lastName",
-  "countryOfBirth",
-  "countryOfResidence"
-];
+// Export getters to ensure we always get the latest values
+export function getAvailableProperties(): string[] {
+  return _availableProperties;
+}
+
+export function getVisualProperties(): string[] {
+  return _visualProperties;
+}
 
 /**
  * Updates the available properties from discovered data properties
@@ -36,12 +20,19 @@ export let VISUAL_PROPERTIES: string[] = [
 export function updateAvailableProperties(discoveredProps: string[]): void {
   if (discoveredProps && discoveredProps.size() > 0) {
     // Update axis mapping properties
-    AVAILABLE_PROPERTIES = [...discoveredProps];
+    _availableProperties = [...discoveredProps];
     
     // Update visual properties (include "none" option)
-    VISUAL_PROPERTIES = ["none", ...discoveredProps];
+    _visualProperties = ["none", ...discoveredProps];
     
     print(`[axisMappingControls] Updated available properties with ${discoveredProps.size()} discovered properties`);
+    discoveredProps.forEach((prop, index) => {
+      print(`  ${index + 1}. ${prop}`);
+    });
+  } else {
+    print("[axisMappingControls] WARNING: No properties discovered, using empty arrays");
+    _availableProperties = [];
+    _visualProperties = ["none"];
   }
 }
 

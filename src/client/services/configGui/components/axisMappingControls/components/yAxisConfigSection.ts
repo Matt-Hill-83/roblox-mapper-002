@@ -1,4 +1,4 @@
-import { AVAILABLE_PROPERTIES, UI_CONSTANTS } from "../constants";
+import { getAvailableProperties, UI_CONSTANTS } from "../constants";
 import { createDropdown } from "./dropdown";
 import { createRadioButton, updateRadioButtonState } from "./radioButton";
 import { createSectionLabel, createButton, setButtonEnabled } from "../utils/layoutManager";
@@ -78,7 +78,7 @@ export function createYAxisConfigSection({
             currentValue: yAxisPropertyButton.Text,
             onChange: onYAxisPropertyChange,
             parent: parent,
-            properties: AVAILABLE_PROPERTIES
+            properties: getAvailableProperties()
           });
         }
       }
@@ -117,7 +117,7 @@ export function createYAxisConfigSection({
       currentValue: yAxisProperty || "type",
       onChange: onYAxisPropertyChange,
       parent: parent,
-      properties: AVAILABLE_PROPERTIES
+      properties: getAvailableProperties()
     });
   }
 }
