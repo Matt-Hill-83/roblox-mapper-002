@@ -6,5 +6,10 @@
   },
   "search.exclude": {
     "asdf/**/*.{md,json,txt,dot}": true
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#2D2F1C",
+    "titleBar.activeBackground": "#3F4228",
+    "titleBar.activeForeground": "#FAFAF7"
   }
 }
