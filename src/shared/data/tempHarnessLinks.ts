@@ -4,10 +4,13 @@
  * Contains 1000 links between Harness repository files
  */
 
-import { Link } from "../interfaces/simpleDataGenerator.interface";
-
 // Extended interface with additional metadata
-export interface HarnessLink extends Link {
+export interface HarnessLink {
+  uuid: string;
+  type: string;
+  sourceNodeUuid: string;
+  targetNodeUuid: string;
+  color: [number, number, number];
   confidence?: number;
   direction?: string;
   reason?: string;
