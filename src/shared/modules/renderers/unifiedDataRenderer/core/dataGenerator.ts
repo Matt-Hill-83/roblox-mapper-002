@@ -14,7 +14,7 @@ import { IDataGenerator } from "../interfaces";
 import { TEMP_HARNESS_TEST_DATA } from "../../../../data/tempHarnessTestData";
 
 // Maximum number of items to use from test data
-const MAX_DATA_ITEMS = 100;
+const MAX_DATA_ITEMS = 50;
 
 export class DataGenerator implements IDataGenerator {
   private linkIdCounter = 0;
