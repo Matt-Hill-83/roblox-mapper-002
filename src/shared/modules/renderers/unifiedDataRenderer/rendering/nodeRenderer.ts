@@ -17,6 +17,7 @@ export class NodeRenderer implements INodeRenderer {
    * Renders the cluster with positioned nodes
    */
   public renderCluster(cluster: Cluster, parentFolder: Folder, config?: EnhancedGeneratorConfig): void {
+    print("[NodeRenderer] renderCluster() called with", cluster.groups[0].nodes.size(), "nodes");
     // Look for existing GraphMaker folder and delete it
     const existingGraphMaker = parentFolder.FindFirstChild("GraphMaker");
     if (existingGraphMaker) {

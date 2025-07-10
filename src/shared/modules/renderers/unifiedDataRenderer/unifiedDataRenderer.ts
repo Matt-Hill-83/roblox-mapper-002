@@ -46,6 +46,7 @@ export class UnifiedDataRenderer {
    * Main entry point - renders data based on enhanced configuration
    */
   public renderEnhancedData(parentFolder: Folder, config: EnhancedGeneratorConfig, origin?: Vector3): void {
+    print("[UnifiedDataRenderer] renderEnhancedData() called");
     
     // Delete any existing platform and shadow blocks
     const existingPlatform = parentFolder.FindFirstChild("PlatformBlock");
@@ -181,6 +182,7 @@ export class UnifiedDataRenderer {
    * Creates blocks under each swimlane
    */
   private createSwimLaneBlocks(cluster: Cluster, parent: Instance, origin: Vector3, shadowDimensions: { width: number; depth: number }, config: EnhancedGeneratorConfig): Map<string, Part> {
+    print("[UnifiedDataRenderer] createSwimLaneBlocks() called for X-axis property:", config.axisMapping?.xAxis || "type");
     const swimlaneBlocks = new Map<string, Part>();
     // Use axis mapping if available
     const xAxisProperty = config.axisMapping?.xAxis || "type";
@@ -227,8 +229,12 @@ export class UnifiedDataRenderer {
       const nodeSpacing = bounds.maxX - bounds.minX;
       const swimlaneWidth = nodeSpacing === 0 ? hexagonWidth : nodeSpacing + hexagonWidth;
       
+      // Check if this is a person type for extra buffer
+      const isPersonType = ["man", "woman", "child", "grandparent"].includes(typeName.lower());
+      const xBuffer = isPersonType ? 20 : 0; // Add 20 units to each side for person types
+      
       // Use shadow block dimensions for depth to match group shadow block
-      const blockWidth = swimlaneWidth;
+      const blockWidth = swimlaneWidth + (xBuffer * 2);
       const blockDepth = shadowDimensions.depth + BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER;
       
       // Fixed Y position for X-axis swimlane blocks - use SHADOW_LAYER_DISPLACEMENT above shadow block
@@ -240,6 +246,15 @@ export class UnifiedDataRenderer {
       // Get the color from the first node of this type
       const nodeColor = nodes[0].color;
       const color = new Color3(nodeColor[0], nodeColor[1], nodeColor[2]);
+      
+      // Log X-axis swimlane creation
+      print(`[UnifiedDataRenderer] Creating X-axis swimlane for type: ${typeName}`);
+      print(`  - Is Person Type: ${isPersonType}`);
+      print(`  - X Buffer Applied: ${xBuffer} (total extra width: ${xBuffer * 2})`);
+      print(`  - Base Swimlane Width: ${swimlaneWidth}`);
+      print(`  - Final Block Width: ${blockWidth}`);
+      print(`  - Block Depth: ${blockDepth}`);
+      print(`  - Position: X=${centerX}, Y=${blockYPosition}, Z=${centerZ}`);
       
       // Create swimlane block
       const swimlaneBlock = createSwimLaneBlock({
@@ -266,6 +281,14 @@ export class UnifiedDataRenderer {
       swimlaneBlocks.set(typeName, swimlaneBlock);
       
       swimlaneIndex++;
+    });
+    
+    // Verify all swimlane blocks after creation
+    print("\n[UnifiedDataRenderer] === Verifying X-axis Swimlane Blocks ===");
+    swimlaneBlocks.forEach((block, typeName) => {
+      print(`Swimlane: ${typeName}`);
+      print(`  - Block Name: ${block.Name}`);
+      print(`  - Actual Size: X=${block.Size.X}, Y=${block.Size.Y}, Z=${block.Size.Z}`);
     });
     
     return swimlaneBlocks;

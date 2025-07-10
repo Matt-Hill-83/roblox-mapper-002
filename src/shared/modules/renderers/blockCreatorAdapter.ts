@@ -122,6 +122,7 @@ export function createZAxisShadowBlocksAdapter(
  * Create swimlane block adapter
  */
 export function createSwimLaneBlockAdapter(config: SwimLaneBlockConfig): Part {
+  print("[BlockCreatorAdapter] createSwimLaneBlockAdapter called for type:", config.typeName);
   return swimlaneCreator.createSwimLaneBlock({
     position: config.position,
     width: config.width,
