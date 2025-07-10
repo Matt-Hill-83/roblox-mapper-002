@@ -12,6 +12,7 @@ import { discoverNodeProperties, filterValidAxisProperties } from "../../../../u
 
 import { IDataGenerator } from "../interfaces";
 import { TEMP_HARNESS_TEST_DATA } from "../../../../data/tempHarnessTestData";
+import { TEMP_HARNESS_LINKS } from "../../../../data/tempHarnessLinks";
 
 // Maximum number of items to use from test data
 const MAX_DATA_ITEMS = 50;
@@ -486,18 +487,21 @@ export class DataGenerator implements IDataGenerator {
       harnessNodes.push(node);
     });
     
-    // Create simple links between consecutive files
-    const harnessLinks: Link[] = [];
-    for (let i = 0; i < harnessNodes.size() - 1; i++) {
-      const link: Link = {
-        uuid: `harness_link_${i}`,
-        type: "dependency",
-        sourceNodeUuid: harnessNodes[i].uuid,
-        targetNodeUuid: harnessNodes[i + 1].uuid,
-        color: [0.5, 0.5, 0.8]
-      };
-      harnessLinks.push(link);
-    }
+    // Use real harness links from the link detection analysis
+    // Filter to only include links between nodes we actually have
+    const nodeUuids = new Set(harnessNodes.map(node => node.uuid));
+    const validHarnessLinks = TEMP_HARNESS_LINKS.filter(link => 
+      nodeUuids.has(link.sourceNodeUuid) && nodeUuids.has(link.targetNodeUuid)
+    );
+    
+    // Convert to Link[] format (remove extra properties)
+    const harnessLinks: Link[] = validHarnessLinks.map(link => ({
+      uuid: link.uuid,
+      type: link.type,
+      sourceNodeUuid: link.sourceNodeUuid,
+      targetNodeUuid: link.targetNodeUuid,
+      color: link.color
+    }));
     
     print(`Created ${harnessNodes.size()} nodes and ${harnessLinks.size()} links from Harness data (limited to ${MAX_DATA_ITEMS})`);
     

@@ -28,9 +28,6 @@ export class GameService extends BaseService {
     }
 
     this.gameStarted = true;
-    
-    print("========== HELLO WORK - GAME SERVICE STARTED ==========");
-    print("TEST");
 
     // Create or find the MyStuff folder at the start
     this.myStuffFolder = game.Workspace.FindFirstChild("MyStuff") as Folder;
@@ -69,60 +66,6 @@ export class GameService extends BaseService {
     if (false) {
       initializeDev2Features(this.myStuffFolder);
     }
-
-    // Search for vertical walls after a delay to ensure rendering is complete
-    task.wait(2);
-    this.searchForVerticalWalls();
-  }
-
-  /**
-   * Searches for all vertical walls (FarZEdgeWall) in the workspace and reports their properties
-   */
-  private searchForVerticalWalls(): void {
-    print("========== SEARCHING FOR VERTICAL WALLS ==========");
-    
-    const walls: Part[] = [];
-    
-    // Recursive function to search through all descendants
-    const searchInInstance = (instance: Instance) => {
-      if (instance.IsA("Part") && (instance.Name === "FarZEdgeWall" || instance.Name === "FarXEdgeWall")) {
-        walls.push(instance as Part);
-      }
-      
-      for (const child of instance.GetChildren()) {
-        searchInInstance(child);
-      }
-    };
-    
-    // Search in MyStuff folder
-    if (this.myStuffFolder) {
-      searchInInstance(this.myStuffFolder);
-    }
-    
-    // Report findings
-    if (walls.size() === 0) {
-      print("❌ No vertical walls found!");
-    } else {
-      print(`✅ Found ${walls.size()} vertical wall(s):`);
-      
-      walls.forEach((wall, index) => {
-        print(`\n  Wall #${index + 1}:`);
-        print(`    Name: ${wall.Name}`);
-        print(`    Parent: ${wall.Parent ? wall.Parent.GetFullName() : "nil"}`);
-        print(`    Position: ${wall.Position}`);
-        print(`    Size: ${wall.Size}`);
-        print(`    Anchored: ${wall.Anchored}`);
-        print(`    Transparency: ${wall.Transparency}`);
-        print(`    Material: ${wall.Material.Name}`);
-        print(`    CanCollide: ${wall.CanCollide}`);
-        
-        // Check if it's visible
-        const isVisible = wall.Transparency < 1 && wall.Parent !== undefined;
-        print(`    Visible: ${isVisible ? "Yes" : "No"}`);
-      });
-    }
-    
-    print("========== END VERTICAL WALL SEARCH ==========");
   }
 
   /**
@@ -141,6 +84,5 @@ export class GameService extends BaseService {
     if (initializer.destroy) {
       initializer.destroy();
     }
-
   }
 }
