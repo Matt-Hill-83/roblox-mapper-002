@@ -98,3 +98,13 @@ export const personColors: Color3[] = [
   new Color3(0.6, 0.6, 0.0), // Hue 4
   new Color3(0.4, 0.6, 0.0), // Hue 5
 ];
+
+/**
+ * Highlight colors for link selection
+ * Used when nodes are clicked to highlight their connections
+ */
+export const LINK_HIGHLIGHT_COLORS: Color3[] = [
+  new Color3(0/255, 162/255, 255/255), // Bright blue for first node
+  new Color3(255/255, 234/255, 0/255), // Bright yellow for second node
+  new Color3(0/255, 255/255, 128/255), // Bright green for common links (blend of blue + yellow)
+];

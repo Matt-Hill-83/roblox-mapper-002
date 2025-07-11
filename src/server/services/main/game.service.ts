@@ -13,7 +13,7 @@ const ORIGIN = {
 };
 
 // Maximum number of data items to generate
-const MAX_DATA_ITEMS = 400;
+const MAX_DATA_ITEMS = 200;
 
 // Default GUI axis options
 const DEFAULT_AXIS_OPTIONS = {

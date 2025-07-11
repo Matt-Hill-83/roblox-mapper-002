@@ -65,6 +65,7 @@ export function makeBar(config: IBarMakerConfig): Part {
   bar.BottomSurface = bottomSurface;
   bar.Transparency = transparency;
   bar.CastShadow = castShadow;
+  bar.CanCollide = false;
 
   // Create attachments
   const frontAttachment = makeAttachment(

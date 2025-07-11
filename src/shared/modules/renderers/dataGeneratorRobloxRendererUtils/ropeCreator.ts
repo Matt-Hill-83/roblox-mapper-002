@@ -148,7 +148,7 @@ function createRope(
   
   // Create cylinder part
   const cylinder = new Instance("Part");
-  cylinder.Name = `rod${padNumber(ropeIndex, 3)}-${link.type.lower()}-${sourceHex.Name}-to-${targetHex.Name}`;
+  cylinder.Name = `rod${padNumber(ropeIndex, 3)}-${link.type.lower()}-${link.sourceNodeUuid}-to-${link.targetNodeUuid}`;
   cylinder.Shape = Enum.PartType.Cylinder;
   cylinder.Material = Enum.Material.Concrete;
   cylinder.TopSurface = Enum.SurfaceType.Smooth;
