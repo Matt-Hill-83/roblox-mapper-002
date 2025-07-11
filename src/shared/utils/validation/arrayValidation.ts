@@ -2,14 +2,14 @@
  * Array validation utilities for bounds checking and type safety
  */
 
-export interface ArrayValidationOptions {
+interface ArrayValidationOptions {
   maxSize?: number;
   minSize?: number;
   allowEmpty?: boolean;
   itemValidator?: (item: unknown) => boolean;
 }
 
-export interface ArrayValidationResult<T = unknown> {
+interface ArrayValidationResult<T = unknown> {
   isValid: boolean;
   error?: string;
   sanitized?: T[];
@@ -86,41 +86,8 @@ export function validateArray<T extends defined>(
   };
 }
 
-/**
- * Validates array of nodes with specific constraints
- */
-export function validateNodeArray(nodes: unknown): ArrayValidationResult {
-  return validateArray(nodes, {
-    maxSize: ARRAY_LIMITS.MAX_NODES,
-    allowEmpty: false,
-    itemValidator: (item) => {
-      if (!typeIs(item, "table")) return false;
-      const node = item as { uuid?: string; name?: string };
-      return typeIs(node.uuid, "string") && typeIs(node.name, "string");
-    },
-  });
-}
 
-/**
- * Validates array bounds for layers
- */
-export function validateLayerArray(layers: unknown): ArrayValidationResult {
-  return validateArray(layers, {
-    maxSize: ARRAY_LIMITS.MAX_LAYERS,
-    minSize: 1,
-    allowEmpty: false,
-  });
-}
 
-/**
- * Validates connection/link array bounds
- */
-export function validateConnectionArray(connections: unknown): ArrayValidationResult {
-  return validateArray(connections, {
-    maxSize: ARRAY_LIMITS.MAX_CONNECTIONS,
-    allowEmpty: true,
-  });
-}
 
 /**
  * Checks for circular references in an array
@@ -160,18 +127,3 @@ export function hasCircularReference(arr: unknown[]): boolean {
   return checkCircular(arr);
 }
 
-/**
- * Safely slices an array to maximum size
- */
-export function truncateArray<T extends defined>(arr: T[], maxSize: number): T[] {
-  if (arr.size() <= maxSize) {
-    return arr;
-  }
-  
-  const truncated: T[] = [];
-  for (let i = 0; i < maxSize; i++) {
-    truncated.push(arr[i]);
-  }
-  
-  return truncated;
-}

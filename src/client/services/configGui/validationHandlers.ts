@@ -7,7 +7,6 @@
 
 import { EnhancedGeneratorConfig, LayerConfig } from "./interfaces";
 import { GUI_CONSTANTS } from "./constants";
-import { validateString, sanitizeString, STRING_LIMITS } from "../../../shared/utils/validation";
 
 export interface ValidationResult {
   isValid: boolean;
@@ -113,87 +112,3 @@ export function validateSpacingConfig(spacing: import("../../../shared/interface
   return { isValid: true };
 }
 
-/**
- * Validates a numeric input value
- */
-export function validateNumericInput(value: string, min: number, max: number, fieldName: string): ValidationResult {
-  const numValue = tonumber(value);
-  
-  if (numValue === undefined) {
-    return {
-      isValid: false,
-      error: `${fieldName} must be a number`
-    };
-  }
-
-  if (numValue < min || numValue > max) {
-    return {
-      isValid: false,
-      error: `${fieldName} must be between ${min} and ${max}`
-    };
-  }
-
-  return { isValid: true };
-}
-
-/**
- * Validates a string input using comprehensive validation
- */
-export function validateStringInput(value: string, maxLength: number, fieldName: string): ValidationResult {
-  const result = validateString(value, {
-    maxLength: maxLength || STRING_LIMITS.NODE_NAME,
-    minLength: 1,
-    blockSpecialChars: true,
-    trimWhitespace: true,
-  });
-  
-  if (!result.isValid) {
-    return {
-      isValid: false,
-      error: `${fieldName}: ${result.error}`
-    };
-  }
-  
-  return { 
-    isValid: true,
-    // Include sanitized value for use by caller
-    error: result.sanitized 
-  };
-}
-
-/**
- * Sanitizes a string input for safe use
- */
-export function sanitizeStringInput(value: string, maxLength?: number): string {
-  return sanitizeString(value, maxLength || STRING_LIMITS.NODE_NAME);
-}
-
-/**
- * Validates the total complexity of the configuration
- */
-export function validateComplexity(config: EnhancedGeneratorConfig): ValidationResult {
-  let totalNodes = 0;
-  let totalConnections = 0;
-
-  for (let i = 0; i < config.layers.size(); i++) {
-    const layer = config.layers[i];
-    totalNodes += layer.numNodes;
-    totalConnections += layer.numNodes * layer.connectionsPerNode;
-  }
-
-  if (totalNodes > GUI_CONSTANTS.VALIDATION.MAX_TOTAL_NODES) {
-    return {
-      isValid: false,
-      error: `Total nodes (${totalNodes}) exceeds maximum of ${GUI_CONSTANTS.VALIDATION.MAX_TOTAL_NODES}`
-    };
-  }
-
-  if (totalConnections > GUI_CONSTANTS.VALIDATION.MAX_TOTAL_CONNECTIONS) {
-    return {
-      isValid: false,
-      error: `Total connections (${totalConnections}) exceeds maximum of ${GUI_CONSTANTS.VALIDATION.MAX_TOTAL_CONNECTIONS}`
-    };
-  }
-
-  return { isValid: true };
-}

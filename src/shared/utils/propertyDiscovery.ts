@@ -48,44 +48,6 @@ export function discoverNodeProperties(nodes: Node[]): string[] {
   return properties;
 }
 
-/**
- * Discovers properties from generic data objects (not just nodes)
- * @param data - Array of data objects
- * @returns Array of discovered property names
- */
-export function discoverObjectProperties(data: unknown[]): string[] {
-  const propertySet = new Set<string>();
-  
-  (data as defined[]).forEach(obj => {
-    if (typeIs(obj, "table")) {
-      // Type assertion to access properties
-      const objWithProps = obj as { properties?: unknown };
-      
-      // For nodes with properties object
-      if (objWithProps.properties && typeIs(objWithProps.properties, "table")) {
-        for (const [key, _] of pairs(objWithProps.properties)) {
-          if (typeIs(key, "string") && !SYSTEM_PROPERTIES.has(key)) {
-            propertySet.add(key);
-          }
-        }
-      } else {
-        // For flat objects, get all top-level properties
-        for (const [key, _] of pairs(obj)) {
-          if (typeIs(key, "string") && !SYSTEM_PROPERTIES.has(key)) {
-            propertySet.add(key);
-          }
-        }
-      }
-    }
-  });
-  
-  // Convert set to sorted array
-  const properties: string[] = [];
-  propertySet.forEach(prop => properties.push(prop));
-  properties.sort();
-  
-  return properties;
-}
 
 /**
  * Gets property value from a node, handling nested properties
@@ -121,7 +83,7 @@ export function getNodePropertyValue(node: Node, propertyName: string): unknown 
  * @param propertyName - Property to validate
  * @returns True if property has at least 2 different values
  */
-export function isValidAxisProperty(nodes: Node[], propertyName: string): boolean {
+function isValidAxisProperty(nodes: Node[], propertyName: string): boolean {
   const uniqueValues = new Set<string>();
   
   nodes.forEach(node => {
