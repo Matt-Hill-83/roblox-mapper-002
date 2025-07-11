@@ -18,7 +18,7 @@ export function createDropdown({
   button.MouseButton1Click.Connect(() => {
     if (!isOpen) {
       optionsFrame = createOptionsFrame(button, parent, properties, (value) => {
-        button.Text = value;
+        // Don't update button text here - let the onChange handler do it
         onChange(value);
         closeDropdown();
       });

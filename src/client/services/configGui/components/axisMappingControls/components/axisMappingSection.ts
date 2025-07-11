@@ -1,4 +1,4 @@
-import { UI_CONSTANTS, getAvailableProperties } from "../constants";
+import { UI_CONSTANTS, getAvailableProperties, getPropertyValueCount } from "../constants";
 import { createButton, createLabel, createSectionLabel } from "../utils/layoutManager";
 
 import { createDropdown } from "./dropdown";
@@ -27,6 +27,12 @@ export function createAxisMappingSection({
 }: AxisMappingSectionProps): void {
   const availableProps = getAvailableProperties();
   
+  // Format properties with counts
+  const propsWithCounts = availableProps.map(prop => {
+    const count = getPropertyValueCount(prop);
+    return count > 0 ? `${prop} [${count}]` : prop;
+  });
+  
   
   
   // Section label
@@ -40,10 +46,16 @@ export function createAxisMappingSection({
     50
   );
 
+  // Helper to format button text with count
+  const formatButtonText = (prop: string): string => {
+    const count = getPropertyValueCount(prop);
+    return count > 0 ? `${prop} [${count}]` : prop;
+  };
+
   const xAxisButton = createButton(
     parent,
     "XAxisButton",
-    xAxisValue,
+    formatButtonText(xAxisValue),
     new UDim2(0, 65, 0, 25),
     UI_CONSTANTS.SPACING.DROPDOWN_WIDTH
   );
@@ -59,7 +71,7 @@ export function createAxisMappingSection({
   const zAxisButton = createButton(
     parent,
     "ZAxisButton",
-    zAxisValue,
+    formatButtonText(zAxisValue),
     new UDim2(0, 65, 0, 50),
     UI_CONSTANTS.SPACING.DROPDOWN_WIDTH
   );
@@ -75,33 +87,52 @@ export function createAxisMappingSection({
   const yAxisButton = createButton(
     parent,
     "YAxisButton",
-    yAxisValue,
+    formatButtonText(yAxisValue),
     new UDim2(0, 65, 0, 75),
     UI_CONSTANTS.SPACING.DROPDOWN_WIDTH
   );
+
+  // Helper to extract property name from display string
+  const extractPropertyName = (displayValue: string): string => {
+    // Remove the count suffix if present (e.g., "service [15]" -> "service")
+    const match = displayValue.match("^([^%[]+)%s*%[?");
+    return match ? match[1] : displayValue;
+  };
 
   // Create dropdown functionality
   createDropdown({
     button: xAxisButton,
     currentValue: xAxisValue,
-    onChange: onXAxisChange,
+    onChange: (value) => {
+      const propName = extractPropertyName(value);
+      xAxisButton.Text = formatButtonText(propName);
+      onXAxisChange(propName);
+    },
     parent: parent,
-    properties: availableProps
+    properties: propsWithCounts
   });
 
   createDropdown({
     button: zAxisButton,
     currentValue: zAxisValue,
-    onChange: onZAxisChange,
+    onChange: (value) => {
+      const propName = extractPropertyName(value);
+      zAxisButton.Text = formatButtonText(propName);
+      onZAxisChange(propName);
+    },
     parent: parent,
-    properties: availableProps
+    properties: propsWithCounts
   });
 
   createDropdown({
     button: yAxisButton,
     currentValue: yAxisValue,
-    onChange: onYAxisChange,
+    onChange: (value) => {
+      const propName = extractPropertyName(value);
+      yAxisButton.Text = formatButtonText(propName);
+      onYAxisChange(propName);
+    },
     parent: parent,
-    properties: availableProps
+    properties: propsWithCounts
   });
 }
