@@ -54,7 +54,7 @@ export function createButton(parent: Frame, name: string, text: string, position
   button.TextSize = UI_CONSTANTS.TEXT.LABEL_SIZE;
   button.Parent = parent;
 
-  applyCornerRadius(button, UI_CONSTANTS.BUTTON.CORNER_RADIUS);
+  // Corner radius removed with applyCornerRadius function
   
   return button;
 }
@@ -62,15 +62,6 @@ export function createButton(parent: Frame, name: string, text: string, position
 /**
  * Applies corner radius to a GUI object
  */
-export function applyCornerRadius(object: GuiObject, radius: number | UDim): void {
-  const corner = new Instance("UICorner");
-  if (typeIs(radius, "UDim")) {
-    corner.CornerRadius = radius;
-  } else {
-    corner.CornerRadius = new UDim(0, radius);
-  }
-  corner.Parent = object;
-}
 
 /**
  * Creates the main container frame
@@ -84,7 +75,7 @@ export function createMainFrame(gui: ScreenGui): Frame {
   mainFrame.BorderSizePixel = 0;
   mainFrame.Parent = gui;
 
-  applyCornerRadius(mainFrame, UI_CONSTANTS.FRAME.CORNER_RADIUS);
+  // Corner radius removed with applyCornerRadius function
   
   return mainFrame;
 }
