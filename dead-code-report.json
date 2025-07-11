@@ -1,0 +1,2821 @@
+{
+  "orphanedFiles": [
+    {
+      "file": "src/shared/data/tempHarnessTestData.ts",
+      "lines": 23033,
+      "size": 687256
+    },
+    {
+      "file": "src/shared/data/tempHarnessLinks.ts",
+      "lines": 14034,
+      "size": 335859
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
+      "lines": 889,
+      "size": 25651
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "lines": 690,
+      "size": 19496
+    },
+    {
+      "file": "src/client/services/propertiesGui/propertiesGui.service.ts",
+      "lines": 458,
+      "size": 15342
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/managers/laneManager.ts",
+      "lines": 440,
+      "size": 14490
+    },
+    {
+      "file": "src/client/services/configGui/stateManager.ts",
+      "lines": 404,
+      "size": 13772
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",
+      "lines": 397,
+      "size": 14113
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/rendering/updateManager.ts",
+      "lines": 397,
+      "size": 13786
+    },
+    {
+      "file": "_webapp/src/components/TestDataConfigComponent.tsx",
+      "lines": 387,
+      "size": 14524
+    },
+    {
+      "file": "src/shared/utils/validation/configValidation.ts",
+      "lines": 371,
+      "size": 10682
+    },
+    {
+      "file": "src/client/services/configGui/components/layerGrid.ts",
+      "lines": 365,
+      "size": 12152
+    },
+    {
+      "file": "src/client/services/configGui/makeConfigGui.ts",
+      "lines": 360,
+      "size": 11765
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
+      "lines": 334,
+      "size": 9408
+    },
+    {
+      "file": "src/server/services/configGUIServer.service.ts",
+      "lines": 321,
+      "size": 12732
+    },
+    {
+      "file": "src/client/services/nodePropertiesInspector/nodePropertiesInspector.service.ts",
+      "lines": 315,
+      "size": 10482
+    },
+    {
+      "file": "_webapp/src/components/graphs/D3Graph.tsx",
+      "lines": 302,
+      "size": 9480
+    },
+    {
+      "file": "src/client/services/configGui/componentFactory.ts",
+      "lines": 299,
+      "size": 8761
+    },
+    {
+      "file": "src/shared/modules/renderers/propertyValueResolver.ts",
+      "lines": 287,
+      "size": 7751
+    },
+    {
+      "file": "_webapp/src/styles/theme.ts",
+      "lines": 285,
+      "size": 8348
+    },
+    {
+      "file": "_webapp/src/components/TreeDisplay.tsx",
+      "lines": 283,
+      "size": 7577
+    },
+    {
+      "file": "_webapp/src/components/graphs/SciChart3DBubbleSimple.tsx",
+      "lines": 278,
+      "size": 9398
+    },
+    {
+      "file": "_webapp/src/components/SuggestionsTable.tsx",
+      "lines": 270,
+      "size": 8264
+    },
+    {
+      "file": "_webapp/src/lib/db.ts",
+      "lines": 268,
+      "size": 7084
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/rendering/nodeRenderer.ts",
+      "lines": 262,
+      "size": 8198
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/unifiedDataRenderer.ts",
+      "lines": 259,
+      "size": 8399
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/yParallelShadowCreator.ts",
+      "lines": 257,
+      "size": 8280
+    },
+    {
+      "file": "_webapp/src/lib/generateData/generateData.ts",
+      "lines": 255,
+      "size": 7250
+    },
+    {
+      "file": "src/shared/data/tempTestData.ts",
+      "lines": 252,
+      "size": 5424
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/shadowBlockCreator.ts",
+      "lines": 252,
+      "size": 7914
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/swimlaneBlockCreator.ts",
+      "lines": 244,
+      "size": 7163
+    },
+    {
+      "file": "src/shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts",
+      "lines": 244,
+      "size": 7267
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/utils/colorMapper.ts",
+      "lines": 240,
+      "size": 8912
+    },
+    {
+      "file": "_webapp/src/data/presetConfigurations.ts",
+      "lines": 233,
+      "size": 5431
+    },
+    {
+      "file": "src/server/services/groupAnimationTest.service.ts",
+      "lines": 222,
+      "size": 6092
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/endcapBlockCreator.ts",
+      "lines": 216,
+      "size": 6067
+    },
+    {
+      "file": "src/shared/utils/validation/stringValidation.ts",
+      "lines": 214,
+      "size": 5525
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/testDataProcessor.ts",
+      "lines": 212,
+      "size": 6516
+    },
+    {
+      "file": "src/server/services/main/game.service.ts",
+      "lines": 211,
+      "size": 6405
+    },
+    {
+      "file": "src/client/services/keyboardShortcuts.service.ts",
+      "lines": 207,
+      "size": 7791
+    },
+    {
+      "file": "src/shared/modules/renderers/verticalWallCreator.ts",
+      "lines": 207,
+      "size": 6601
+    },
+    {
+      "file": "src/client/services/configGui/validationHandlers.ts",
+      "lines": 199,
+      "size": 5713
+    },
+    {
+      "file": "src/client/services/configGui/components/linkTypesDisplay.ts",
+      "lines": 194,
+      "size": 6673
+    },
+    {
+      "file": "_webapp/src/components/graphs/CytoscapeGraph.tsx",
+      "lines": 191,
+      "size": 5070
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/propertyManager.ts",
+      "lines": 187,
+      "size": 5151
+    },
+    {
+      "file": "src/client/services/configGui/components/collapsibleFrame.ts",
+      "lines": 186,
+      "size": 5590
+    },
+    {
+      "file": "src/shared/modules/renderers/flatBlockCreator.ts",
+      "lines": 183,
+      "size": 5866
+    },
+    {
+      "file": "_webapp/src/config/colorTokens.ts",
+      "lines": 182,
+      "size": 4411
+    },
+    {
+      "file": "src/shared/modules/labelGroupMaker.ts",
+      "lines": 179,
+      "size": 6210
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "lines": 179,
+      "size": 3533
+    },
+    {
+      "file": "src/shared/utils/validation/arrayValidation.ts",
+      "lines": 177,
+      "size": 3960
+    },
+    {
+      "file": "src/client/controllers/configGUI.controller.ts",
+      "lines": 174,
+      "size": 6022
+    },
+    {
+      "file": "src/client/utils/guiDebugger.ts",
+      "lines": 174,
+      "size": 5461
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",
+      "lines": 174,
+      "size": 5320
+    },
+    {
+      "file": "src/client/services/configGui/eventHandlers.ts",
+      "lines": 173,
+      "size": 5301
+    },
+    {
+      "file": "_webapp/src/lib/generateData/utils.ts",
+      "lines": 173,
+      "size": 5105
+    },
+    {
+      "file": "src/shared/services/base/BaseService.ts",
+      "lines": 172,
+      "size": 4629
+    },
+    {
+      "file": "src/client/services/configGui/components/nodeTypesSection.ts",
+      "lines": 170,
+      "size": 6578
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/rendering/labelRenderer.ts",
+      "lines": 168,
+      "size": 5869
+    },
+    {
+      "file": "_webapp/src/components/graphs/ReactFlowGraph.tsx",
+      "lines": 168,
+      "size": 4811
+    },
+    {
+      "file": "_webapp/src/app/(pages)/hierarchy-tester/page.tsx",
+      "lines": 158,
+      "size": 4326
+    },
+    {
+      "file": "src/client/controllers/animationTestGUI.controller.ts",
+      "lines": 157,
+      "size": 4208
+    },
+    {
+      "file": "_webapp/src/app/pivot/page.tsx",
+      "lines": 155,
+      "size": 4828
+    },
+    {
+      "file": "src/server/services/graphInitializer.service.ts",
+      "lines": 154,
+      "size": 4076
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/boundsCalculator.ts",
+      "lines": 154,
+      "size": 3886
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/positionMapper.ts",
+      "lines": 154,
+      "size": 4672
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/components/dropdown.ts",
+      "lines": 149,
+      "size": 4428
+    },
+    {
+      "file": "src/shared/utils/propertyDiscovery.ts",
+      "lines": 145,
+      "size": 4363
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/managers/wallManager.ts",
+      "lines": 142,
+      "size": 4027
+    },
+    {
+      "file": "_webapp/src/components/MetricsBox.tsx",
+      "lines": 142,
+      "size": 3491
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/components/axisMappingSection.ts",
+      "lines": 140,
+      "size": 3628
+    },
+    {
+      "file": "src/client/services/configGui/components/dropdownTestControls.ts",
+      "lines": 137,
+      "size": 4423
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/nodeOrganizer.ts",
+      "lines": 135,
+      "size": 3902
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/constants.ts",
+      "lines": 134,
+      "size": 3880
+    },
+    {
+      "file": "src/shared/interfaces/IMaker.ts",
+      "lines": 128,
+      "size": 2858
+    },
+    {
+      "file": "src/client/services/configGui/components/visualizationControls.ts",
+      "lines": 126,
+      "size": 4554
+    },
+    {
+      "file": "src/server/services/colorsTest.service.ts",
+      "lines": 126,
+      "size": 3776
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/components/yAxisConfigSection.ts",
+      "lines": 123,
+      "size": 3718
+    },
+    {
+      "file": "src/client/services/configGui/components/dropdown.ts",
+      "lines": 116,
+      "size": 3515
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
+      "lines": 116,
+      "size": 2529
+    },
+    {
+      "file": "src/shared/modules/barMaker/barMaker.ts",
+      "lines": 109,
+      "size": 3152
+    },
+    {
+      "file": "src/client/services/configGui/constants.ts",
+      "lines": 107,
+      "size": 2601
+    },
+    {
+      "file": "src/shared/modules/hexagonMaker/hexagonMaker.ts",
+      "lines": 107,
+      "size": 3088
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/blockDimensionCalculator.ts",
+      "lines": 106,
+      "size": 2845
+    },
+    {
+      "file": "src/shared/modules/renderers/constants/robloxColors.ts",
+      "lines": 102,
+      "size": 4388
+    },
+    {
+      "file": "src/shared/modules/TextBoxMaker.ts",
+      "lines": 101,
+      "size": 2963
+    },
+    {
+      "file": "src/shared/modules/TextLabelMaker.ts",
+      "lines": 100,
+      "size": 3048
+    },
+    {
+      "file": "_webapp/src/lib/positioning/positioning.ts",
+      "lines": 99,
+      "size": 2740
+    },
+    {
+      "file": "src/client/services/configGui/components/spacingControls.ts",
+      "lines": 96,
+      "size": 3718
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/labelBlockMaker.ts",
+      "lines": 94,
+      "size": 2754
+    },
+    {
+      "file": "_webapp/src/components/VisualMap.tsx",
+      "lines": 93,
+      "size": 2751
+    },
+    {
+      "file": "src/shared/modules/makeOriginBlock.ts",
+      "lines": 91,
+      "size": 2891
+    },
+    {
+      "file": "_webapp/src/utils/colorUtils.ts",
+      "lines": 91,
+      "size": 2345
+    },
+    {
+      "file": "src/shared/utils/nodePropertyHelpers.ts",
+      "lines": 89,
+      "size": 2599
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/styles.ts",
+      "lines": 89,
+      "size": 1871
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/styles.ts",
+      "lines": 89,
+      "size": 1871
+    },
+    {
+      "file": "src/shared/modules/ropeLabelMaker/utilities.ts",
+      "lines": 88,
+      "size": 2460
+    },
+    {
+      "file": "src/server/services/linkTypeCounterServer.service.ts",
+      "lines": 87,
+      "size": 2486
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/baseBlockCreator.ts",
+      "lines": 86,
+      "size": 2408
+    },
+    {
+      "file": "_webapp/src/components/GraphsDisplay.tsx",
+      "lines": 86,
+      "size": 2401
+    },
+    {
+      "file": "_webapp/src/components/CollapsibleGraphPanel.tsx",
+      "lines": 85,
+      "size": 2339
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/components/radioButton.ts",
+      "lines": 83,
+      "size": 2782
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/managers/yParallelShadowManager.ts",
+      "lines": 83,
+      "size": 2644
+    },
+    {
+      "file": "src/client/services/configGui/utilities.ts",
+      "lines": 82,
+      "size": 2365
+    },
+    {
+      "file": "_webapp/src/components/graphs/GraphContainer.tsx",
+      "lines": 81,
+      "size": 1753
+    },
+    {
+      "file": "src/shared/modules/renderers/dataGeneratorRobloxRendererUtils/constants.ts",
+      "lines": 79,
+      "size": 2073
+    },
+    {
+      "file": "_webapp/src/components/HorizCollapsibleSetChild.tsx",
+      "lines": 77,
+      "size": 2209
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/interfaces.ts",
+      "lines": 75,
+      "size": 1847
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/components/visualCustomizationSection.ts",
+      "lines": 74,
+      "size": 1814
+    },
+    {
+      "file": "src/shared/interfaces/enhancedGenerator.interface.ts",
+      "lines": 74,
+      "size": 2518
+    },
+    {
+      "file": "src/shared/modules/hexStackMaker/hexStackMaker.ts",
+      "lines": 74,
+      "size": 2137
+    },
+    {
+      "file": "src/shared/modules/hexagonMaker/utilities.ts",
+      "lines": 74,
+      "size": 2436
+    },
+    {
+      "file": "src/shared/interfaces/simpleDataGenerator.interface.ts",
+      "lines": 72,
+      "size": 2307
+    },
+    {
+      "file": "_webapp/src/stores/dataStore.ts",
+      "lines": 71,
+      "size": 2559
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/constants.ts",
+      "lines": 70,
+      "size": 2203
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/managers/platformShadowManager.ts",
+      "lines": 69,
+      "size": 2206
+    },
+    {
+      "file": "src/client/services/configGui/utils/linkTypeCounter.ts",
+      "lines": 65,
+      "size": 1892
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/platformBlockCreator.ts",
+      "lines": 65,
+      "size": 1692
+    },
+    {
+      "file": "src/shared/constants/axisDefaults.ts",
+      "lines": 62,
+      "size": 2077
+    },
+    {
+      "file": "src/shared/modules/renderers/constants/blockConstants.ts",
+      "lines": 62,
+      "size": 2439
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/standardizedInterfaces.ts",
+      "lines": 61,
+      "size": 1224
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/utilities.ts",
+      "lines": 59,
+      "size": 1965
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/types.ts",
+      "lines": 58,
+      "size": 1539
+    },
+    {
+      "file": "src/shared/interfaces/nodeTypes.ts",
+      "lines": 54,
+      "size": 1493
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/interfaces.ts",
+      "lines": 52,
+      "size": 1320
+    },
+    {
+      "file": "_webapp/src/components/graphs/GraphPanel.tsx",
+      "lines": 52,
+      "size": 1643
+    },
+    {
+      "file": "src/client/services/configGui/components/frame.ts",
+      "lines": 49,
+      "size": 1549
+    },
+    {
+      "file": "src/shared/modules/ropeLabelMaker/interfaces.ts",
+      "lines": 49,
+      "size": 911
+    },
+    {
+      "file": "_webapp/src/components/HorizCollapsibleSetParent.tsx",
+      "lines": 49,
+      "size": 1270
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/columns.ts",
+      "lines": 49,
+      "size": 1426
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/columns.ts",
+      "lines": 49,
+      "size": 1426
+    },
+    {
+      "file": "src/client/services/configGui/components/globalSettings.ts",
+      "lines": 48,
+      "size": 1504
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/config.ts",
+      "lines": 47,
+      "size": 1007
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/config.ts",
+      "lines": 47,
+      "size": 1007
+    },
+    {
+      "file": "_webapp/src/services/teamService.ts",
+      "lines": 46,
+      "size": 949
+    },
+    {
+      "file": "src/shared/modules/barMaker/standardizedInterfaces.ts",
+      "lines": 44,
+      "size": 922
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/Table002.tsx",
+      "lines": 44,
+      "size": 1185
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/Table001.tsx",
+      "lines": 43,
+      "size": 1194
+    },
+    {
+      "file": "_webapp/src/services/personService.ts",
+      "lines": 43,
+      "size": 915
+    },
+    {
+      "file": "src/client/services/configGui/components/status.ts",
+      "lines": 40,
+      "size": 1472
+    },
+    {
+      "file": "src/shared/modules/ropeLabelMaker/ropeLabelMaker.ts",
+      "lines": 40,
+      "size": 971
+    },
+    {
+      "file": "src/shared/interfaces/IService.ts",
+      "lines": 39,
+      "size": 819
+    },
+    {
+      "file": "src/shared/modules/renderers/constants/labelConstants.ts",
+      "lines": 39,
+      "size": 982
+    },
+    {
+      "file": "src/shared/modules/ropeLabelMaker/constants.ts",
+      "lines": 39,
+      "size": 706
+    },
+    {
+      "file": "src/shared/modules/hexStackMaker/standardizedInterfaces.ts",
+      "lines": 38,
+      "size": 833
+    },
+    {
+      "file": "src/client/services/configGui/interfaces.ts",
+      "lines": 36,
+      "size": 1011
+    },
+    {
+      "file": "src/shared/modules/barMaker/interfaces.ts",
+      "lines": 36,
+      "size": 836
+    },
+    {
+      "file": "src/shared/modules/hexagonMaker/standardizedInterfaces.ts",
+      "lines": 36,
+      "size": 752
+    },
+    {
+      "file": "_webapp/src/lib/generateData/constants.ts",
+      "lines": 36,
+      "size": 567
+    },
+    {
+      "file": "_webapp/src/lib/positioning/types.ts",
+      "lines": 36,
+      "size": 621
+    },
+    {
+      "file": "src/shared/modules/renderers/constants/positionConstants.ts",
+      "lines": 35,
+      "size": 881
+    },
+    {
+      "file": "_webapp/src/hooks/usePanelCollapse.ts",
+      "lines": 35,
+      "size": 852
+    },
+    {
+      "file": "src/server/services/main/dev2features.ts",
+      "lines": 34,
+      "size": 1090
+    },
+    {
+      "file": "_webapp/src/test-utils/index.tsx",
+      "lines": 34,
+      "size": 806
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/utils/screenGuiManager.ts",
+      "lines": 33,
+      "size": 868
+    },
+    {
+      "file": "_webapp/src/components/graphs/SciChart3DBubbleWrapper.tsx",
+      "lines": 32,
+      "size": 706
+    },
+    {
+      "file": "_webapp/src/datagrid/page.tsx",
+      "lines": 32,
+      "size": 619
+    },
+    {
+      "file": "src/shared/modules/barMaker/utilities.ts",
+      "lines": 31,
+      "size": 1268
+    },
+    {
+      "file": "_webapp/src/components/ConfigPanel.tsx",
+      "lines": 31,
+      "size": 787
+    },
+    {
+      "file": "src/shared/modules/hexagonMaker/constants.ts",
+      "lines": 29,
+      "size": 701
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/constants.ts",
+      "lines": 28,
+      "size": 770
+    },
+    {
+      "file": "src/client/services/configGui/components/title.ts",
+      "lines": 26,
+      "size": 746
+    },
+    {
+      "file": "_webapp/src/lib/generateData/interfaces.ts",
+      "lines": 24,
+      "size": 615
+    },
+    {
+      "file": "src/shared/modules/hexStackMaker/constants.ts",
+      "lines": 23,
+      "size": 572
+    },
+    {
+      "file": "src/shared/utils/stringUtils.ts",
+      "lines": 22,
+      "size": 548
+    },
+    {
+      "file": "src/shared/modules/barMaker/constants.ts",
+      "lines": 21,
+      "size": 514
+    },
+    {
+      "file": "_webapp/src/components/DataProvider.tsx",
+      "lines": 20,
+      "size": 429
+    },
+    {
+      "file": "_webapp/src/data/defaultConfigs.ts",
+      "lines": 20,
+      "size": 469
+    },
+    {
+      "file": "src/shared/modules/hexStackMaker/utilities.ts",
+      "lines": 16,
+      "size": 563
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/index.ts",
+      "lines": 16,
+      "size": 398
+    },
+    {
+      "file": "_webapp/src/lib/positioning/positioningConstants.ts",
+      "lines": 16,
+      "size": 402
+    },
+    {
+      "file": "src/shared/modules/ropeLabelMaker/index.ts",
+      "lines": 12,
+      "size": 253
+    },
+    {
+      "file": "_webapp/src/app/(pages)/hierarchy-tester/pageStyle.tsx",
+      "lines": 12,
+      "size": 237
+    },
+    {
+      "file": "src/client/services/configGui/index.ts",
+      "lines": 11,
+      "size": 493
+    },
+    {
+      "file": "src/shared/modules/hexagonMaker/interfaces.ts",
+      "lines": 11,
+      "size": 231
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/index.ts",
+      "lines": 10,
+      "size": 283
+    },
+    {
+      "file": "src/shared/modules/hexStackMaker/interfaces.ts",
+      "lines": 9,
+      "size": 212
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/index.ts",
+      "lines": 9,
+      "size": 228
+    },
+    {
+      "file": "src/shared/modules/renderers/constants/index.ts",
+      "lines": 7,
+      "size": 152
+    },
+    {
+      "file": "src/shared/utils/validation/index.ts",
+      "lines": 7,
+      "size": 146
+    },
+    {
+      "file": "src/shared/modules/barMaker/index.ts",
+      "lines": 6,
+      "size": 233
+    },
+    {
+      "file": "src/shared/modules/hexStackMaker/index.ts",
+      "lines": 6,
+      "size": 242
+    },
+    {
+      "file": "src/shared/modules/hexagonMaker/index.ts",
+      "lines": 6,
+      "size": 238
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/index.ts",
+      "lines": 5,
+      "size": 179
+    },
+    {
+      "file": "_webapp/src/app/page.tsx",
+      "lines": 5,
+      "size": 107
+    },
+    {
+      "file": "_webapp/src/lib/generateData/index.ts",
+      "lines": 4,
+      "size": 115
+    },
+    {
+      "file": "src/client/services/configGui/components/visualCustomizationControls.ts",
+      "lines": 1,
+      "size": 0
+    },
+    {
+      "file": "src/client/services/configGui/components/yAxisControls.ts",
+      "lines": 1,
+      "size": 0
+    }
+  ],
+  "unusedExports": [
+    {
+      "file": "src/client/controllers/animationTestGUI.controller.ts",
+      "exportName": "AnimationTestGUIController"
+    },
+    {
+      "file": "src/client/controllers/configGUI.controller.ts",
+      "exportName": "ConfigGUIController"
+    },
+    {
+      "file": "src/client/services/configGui/componentFactory.ts",
+      "exportName": "ButtonOptions"
+    },
+    {
+      "file": "src/client/services/configGui/componentFactory.ts",
+      "exportName": "TextInputOptions"
+    },
+    {
+      "file": "src/client/services/configGui/componentFactory.ts",
+      "exportName": "LabelOptions"
+    },
+    {
+      "file": "src/client/services/configGui/componentFactory.ts",
+      "exportName": "FrameOptions"
+    },
+    {
+      "file": "src/client/services/configGui/componentFactory.ts",
+      "exportName": "DropdownOptions"
+    },
+    {
+      "file": "src/client/services/configGui/componentFactory.ts",
+      "exportName": "TitleOptions"
+    },
+    {
+      "file": "src/client/services/configGui/componentFactory.ts",
+      "exportName": "ComponentFactory"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/components/axisMappingSection.ts",
+      "exportName": "createAxisMappingSection"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/components/dropdown.ts",
+      "exportName": "createDropdown"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/components/radioButton.ts",
+      "exportName": "createRadioButton"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/components/radioButton.ts",
+      "exportName": "updateRadioButtonState"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/components/visualCustomizationSection.ts",
+      "exportName": "createVisualCustomizationSection"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/components/yAxisConfigSection.ts",
+      "exportName": "createYAxisConfigSection"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/constants.ts",
+      "exportName": "getAvailableProperties"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/constants.ts",
+      "exportName": "getPropertyValueCount"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/constants.ts",
+      "exportName": "getVisualProperties"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/constants.ts",
+      "exportName": "updateAvailableProperties"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/constants.ts",
+      "exportName": "UI_CONSTANTS"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/constants.ts",
+      "exportName": "DEFAULTS"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/index.ts",
+      "exportName": "createAxisMappingControls"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/main.ts",
+      "exportName": "createAxisMappingControls"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/types.ts",
+      "exportName": "AxisMappingControlsProps"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/types.ts",
+      "exportName": "CompactAxisControlsProps"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/types.ts",
+      "exportName": "DropdownProps"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/types.ts",
+      "exportName": "RadioButtonProps"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/types.ts",
+      "exportName": "SectionProps"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/types.ts",
+      "exportName": "LabeledControlProps"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/utils/screenGuiManager.ts",
+      "exportName": "getOrCreateScreenGui"
+    },
+    {
+      "file": "src/client/services/configGui/components/axisMappingControls/utils/screenGuiManager.ts",
+      "exportName": "refreshAxisDropdownGUI"
+    },
+    {
+      "file": "src/client/services/configGui/components/collapsibleFrame.ts",
+      "exportName": "CollapsibleFrameOptions"
+    },
+    {
+      "file": "src/client/services/configGui/components/collapsibleFrame.ts",
+      "exportName": "CollapsibleFrameResult"
+    },
+    {
+      "file": "src/client/services/configGui/components/collapsibleFrame.ts",
+      "exportName": "createCollapsibleFrame"
+    },
+    {
+      "file": "src/client/services/configGui/components/dropdown.ts",
+      "exportName": "createDropdown"
+    },
+    {
+      "file": "src/client/services/configGui/components/dropdownTestControls.ts",
+      "exportName": "DropdownTestControlsOptions"
+    },
+    {
+      "file": "src/client/services/configGui/components/dropdownTestControls.ts",
+      "exportName": "createDropdownTestControls"
+    },
+    {
+      "file": "src/client/services/configGui/components/frame.ts",
+      "exportName": "createFrame"
+    },
+    {
+      "file": "src/client/services/configGui/components/frame.ts",
+      "exportName": "createMainFrame"
+    },
+    {
+      "file": "src/client/services/configGui/components/globalSettings.ts",
+      "exportName": "createGlobalSettings"
+    },
+    {
+      "file": "src/client/services/configGui/components/layerGrid.ts",
+      "exportName": "createLayerGrid"
+    },
+    {
+      "file": "src/client/services/configGui/components/linkTypesDisplay.ts",
+      "exportName": "LinkTypeCount"
+    },
+    {
+      "file": "src/client/services/configGui/components/linkTypesDisplay.ts",
+      "exportName": "LinkTypesDisplayProps"
+    },
+    {
+      "file": "src/client/services/configGui/components/linkTypesDisplay.ts",
+      "exportName": "createLinkTypesDisplay"
+    },
+    {
+      "file": "src/client/services/configGui/components/linkTypesDisplay.ts",
+      "exportName": "updateLinkTypesDisplay"
+    },
+    {
+      "file": "src/client/services/configGui/components/nodeTypesSection.ts",
+      "exportName": "createNodeTypesSection"
+    },
+    {
+      "file": "src/client/services/configGui/components/spacingControls.ts",
+      "exportName": "createSpacingControls"
+    },
+    {
+      "file": "src/client/services/configGui/components/status.ts",
+      "exportName": "createStatusArea"
+    },
+    {
+      "file": "src/client/services/configGui/components/status.ts",
+      "exportName": "updateStatus"
+    },
+    {
+      "file": "src/client/services/configGui/components/title.ts",
+      "exportName": "createTitle"
+    },
+    {
+      "file": "src/client/services/configGui/components/visualizationControls.ts",
+      "exportName": "createVisualizationControls"
+    },
+    {
+      "file": "src/client/services/configGui/constants.ts",
+      "exportName": "GUI_CONSTANTS"
+    },
+    {
+      "file": "src/client/services/configGui/eventHandlers.ts",
+      "exportName": "EventHandlerOptions"
+    },
+    {
+      "file": "src/client/services/configGui/eventHandlers.ts",
+      "exportName": "GUIEventHandlers"
+    },
+    {
+      "file": "src/client/services/configGui/index.ts",
+      "exportName": "ConfigGUIService"
+    },
+    {
+      "file": "src/client/services/configGui/index.ts",
+      "exportName": "GUIStateManager"
+    },
+    {
+      "file": "src/client/services/configGui/index.ts",
+      "exportName": "GUIEventHandlers"
+    },
+    {
+      "file": "src/client/services/configGui/index.ts",
+      "exportName": "ComponentFactory"
+    },
+    {
+      "file": "src/client/services/configGui/index.ts",
+      "exportName": "createDropdown"
+    },
+    {
+      "file": "src/client/services/configGui/index.ts",
+      "exportName": "createFrame"
+    },
+    {
+      "file": "src/client/services/configGui/index.ts",
+      "exportName": "createTitle"
+    },
+    {
+      "file": "src/client/services/configGui/interfaces.ts",
+      "exportName": "ConfigGUIServiceOptions"
+    },
+    {
+      "file": "src/client/services/configGui/interfaces.ts",
+      "exportName": "GUIState"
+    },
+    {
+      "file": "src/client/services/configGui/interfaces.ts",
+      "exportName": "ComponentProps"
+    },
+    {
+      "file": "src/client/services/configGui/interfaces.ts",
+      "exportName": "LayerConfig"
+    },
+    {
+      "file": "src/client/services/configGui/interfaces.ts",
+      "exportName": "EnhancedGeneratorConfig"
+    },
+    {
+      "file": "src/client/services/configGui/makeConfigGui.ts",
+      "exportName": "ConfigGUIService"
+    },
+    {
+      "file": "src/client/services/configGui/stateManager.ts",
+      "exportName": "GUIStateManager"
+    },
+    {
+      "file": "src/client/services/configGui/utilities.ts",
+      "exportName": "validateInput"
+    },
+    {
+      "file": "src/client/services/configGui/utilities.ts",
+      "exportName": "flashColor"
+    },
+    {
+      "file": "src/client/services/configGui/utilities.ts",
+      "exportName": "createUICorner"
+    },
+    {
+      "file": "src/client/services/configGui/utilities.ts",
+      "exportName": "validateAndUpdateInput"
+    },
+    {
+      "file": "src/client/services/configGui/utilities.ts",
+      "exportName": "animateButtonClick"
+    },
+    {
+      "file": "src/client/services/configGui/utils/linkTypeCounter.ts",
+      "exportName": "countLinkTypes"
+    },
+    {
+      "file": "src/client/services/configGui/utils/linkTypeCounter.ts",
+      "exportName": "getLinkTypeCountsFromCluster"
+    },
+    {
+      "file": "src/client/services/configGui/utils/linkTypeCounter.ts",
+      "exportName": "LINK_TYPE_COUNTS_REMOTE"
+    },
+    {
+      "file": "src/client/services/configGui/validationHandlers.ts",
+      "exportName": "ValidationResult"
+    },
+    {
+      "file": "src/client/services/configGui/validationHandlers.ts",
+      "exportName": "validateEnhancedConfig"
+    },
+    {
+      "file": "src/client/services/configGui/validationHandlers.ts",
+      "exportName": "validateLayerConfig"
+    },
+    {
+      "file": "src/client/services/configGui/validationHandlers.ts",
+      "exportName": "validateSpacingConfig"
+    },
+    {
+      "file": "src/client/services/configGui/validationHandlers.ts",
+      "exportName": "validateNumericInput"
+    },
+    {
+      "file": "src/client/services/configGui/validationHandlers.ts",
+      "exportName": "validateStringInput"
+    },
+    {
+      "file": "src/client/services/configGui/validationHandlers.ts",
+      "exportName": "sanitizeStringInput"
+    },
+    {
+      "file": "src/client/services/configGui/validationHandlers.ts",
+      "exportName": "validateComplexity"
+    },
+    {
+      "file": "src/client/services/keyboardShortcuts.service.ts",
+      "exportName": "KeyboardShortcutsService"
+    },
+    {
+      "file": "src/client/services/nodePropertiesInspector/nodePropertiesInspector.service.ts",
+      "exportName": "NodePropertiesInspectorService"
+    },
+    {
+      "file": "src/client/services/propertiesGui/propertiesGui.service.ts",
+      "exportName": "PropertyInfo"
+    },
+    {
+      "file": "src/client/services/propertiesGui/propertiesGui.service.ts",
+      "exportName": "PropertiesData"
+    },
+    {
+      "file": "src/client/services/propertiesGui/propertiesGui.service.ts",
+      "exportName": "FilterState"
+    },
+    {
+      "file": "src/client/services/propertiesGui/propertiesGui.service.ts",
+      "exportName": "PropertiesGuiService"
+    },
+    {
+      "file": "src/client/utils/guiDebugger.ts",
+      "exportName": "GUIDebugger"
+    },
+    {
+      "file": "src/server/services/colorsTest.service.ts",
+      "exportName": "ColorsTestService"
+    },
+    {
+      "file": "src/server/services/configGUIServer.service.ts",
+      "exportName": "ConfigGUIServerService"
+    },
+    {
+      "file": "src/server/services/graphInitializer.service.ts",
+      "exportName": "GraphInitConfig"
+    },
+    {
+      "file": "src/server/services/graphInitializer.service.ts",
+      "exportName": "GraphInitializerService"
+    },
+    {
+      "file": "src/server/services/groupAnimationTest.service.ts",
+      "exportName": "GroupAnimationTestService"
+    },
+    {
+      "file": "src/server/services/linkTypeCounterServer.service.ts",
+      "exportName": "LinkTypeCounterServerService"
+    },
+    {
+      "file": "src/server/services/main/dev2features.ts",
+      "exportName": "initializeDev2Features"
+    },
+    {
+      "file": "src/server/services/main/game.service.ts",
+      "exportName": "GameService"
+    },
+    {
+      "file": "src/shared/constants/axisDefaults.ts",
+      "exportName": "AXIS_DEFAULTS"
+    },
+    {
+      "file": "src/shared/constants/axisDefaults.ts",
+      "exportName": "getDefaultXAxis"
+    },
+    {
+      "file": "src/shared/constants/axisDefaults.ts",
+      "exportName": "getDefaultZAxis"
+    },
+    {
+      "file": "src/shared/constants/axisDefaults.ts",
+      "exportName": "isUsingLegacyDefaults"
+    },
+    {
+      "file": "src/shared/data/tempHarnessLinks.ts",
+      "exportName": "HarnessLink"
+    },
+    {
+      "file": "src/shared/data/tempHarnessLinks.ts",
+      "exportName": "TEMP_HARNESS_LINKS"
+    },
+    {
+      "file": "src/shared/data/tempHarnessLinks.ts",
+      "exportName": "HARNESS_LINK_STATS"
+    },
+    {
+      "file": "src/shared/data/tempHarnessTestData.ts",
+      "exportName": "HarnessFileData"
+    },
+    {
+      "file": "src/shared/data/tempHarnessTestData.ts",
+      "exportName": "TEMP_HARNESS_TEST_DATA"
+    },
+    {
+      "file": "src/shared/data/tempTestData.ts",
+      "exportName": "TEMP_TEST_NODES"
+    },
+    {
+      "file": "src/shared/data/tempTestData.ts",
+      "exportName": "TEMP_TEST_LINKS"
+    },
+    {
+      "file": "src/shared/interfaces/IMaker.ts",
+      "exportName": "IMakerConfig"
+    },
+    {
+      "file": "src/shared/interfaces/IMaker.ts",
+      "exportName": "IMakerResult"
+    },
+    {
+      "file": "src/shared/interfaces/IMaker.ts",
+      "exportName": "IMakerFunction"
+    },
+    {
+      "file": "src/shared/interfaces/IMaker.ts",
+      "exportName": "IMakerClass"
+    },
+    {
+      "file": "src/shared/interfaces/IMaker.ts",
+      "exportName": "IVisualMakerConfig"
+    },
+    {
+      "file": "src/shared/interfaces/IMaker.ts",
+      "exportName": "ILabelMakerConfig"
+    },
+    {
+      "file": "src/shared/interfaces/IMaker.ts",
+      "exportName": "IConnectorMakerConfig"
+    },
+    {
+      "file": "src/shared/interfaces/IService.ts",
+      "exportName": "IService"
+    },
+    {
+      "file": "src/shared/interfaces/IService.ts",
+      "exportName": "IServiceWithInit"
+    },
+    {
+      "file": "src/shared/interfaces/IService.ts",
+      "exportName": "IServiceOptions"
+    },
+    {
+      "file": "src/shared/interfaces/enhancedGenerator.interface.ts",
+      "exportName": "LayerConfig"
+    },
+    {
+      "file": "src/shared/interfaces/enhancedGenerator.interface.ts",
+      "exportName": "SpacingConfig"
+    },
+    {
+      "file": "src/shared/interfaces/enhancedGenerator.interface.ts",
+      "exportName": "VisualizationOptions"
+    },
+    {
+      "file": "src/shared/interfaces/enhancedGenerator.interface.ts",
+      "exportName": "SpatialGrouping"
+    },
+    {
+      "file": "src/shared/interfaces/enhancedGenerator.interface.ts",
+      "exportName": "AxisMapping"
+    },
+    {
+      "file": "src/shared/interfaces/enhancedGenerator.interface.ts",
+      "exportName": "VisualMapping"
+    },
+    {
+      "file": "src/shared/interfaces/enhancedGenerator.interface.ts",
+      "exportName": "YAxisConfig"
+    },
+    {
+      "file": "src/shared/interfaces/enhancedGenerator.interface.ts",
+      "exportName": "EnhancedGeneratorConfig"
+    },
+    {
+      "file": "src/shared/interfaces/nodeTypes.ts",
+      "exportName": "PersonNodeType"
+    },
+    {
+      "file": "src/shared/interfaces/nodeTypes.ts",
+      "exportName": "AnimalNodeType"
+    },
+    {
+      "file": "src/shared/interfaces/nodeTypes.ts",
+      "exportName": "NodeType"
+    },
+    {
+      "file": "src/shared/interfaces/nodeTypes.ts",
+      "exportName": "PersonProperties"
+    },
+    {
+      "file": "src/shared/interfaces/nodeTypes.ts",
+      "exportName": "AnimalProperties"
+    },
+    {
+      "file": "src/shared/interfaces/nodeTypes.ts",
+      "exportName": "NodeProperties"
+    },
+    {
+      "file": "src/shared/interfaces/nodeTypes.ts",
+      "exportName": "isPersonNodeType"
+    },
+    {
+      "file": "src/shared/interfaces/nodeTypes.ts",
+      "exportName": "isAnimalNodeType"
+    },
+    {
+      "file": "src/shared/interfaces/nodeTypes.ts",
+      "exportName": "isValidNodeType"
+    },
+    {
+      "file": "src/shared/interfaces/nodeTypes.ts",
+      "exportName": "AxisPropertyName"
+    },
+    {
+      "file": "src/shared/interfaces/nodeTypes.ts",
+      "exportName": "AXIS_PROPERTIES"
+    },
+    {
+      "file": "src/shared/interfaces/simpleDataGenerator.interface.ts",
+      "exportName": "Node"
+    },
+    {
+      "file": "src/shared/interfaces/simpleDataGenerator.interface.ts",
+      "exportName": "Link"
+    },
+    {
+      "file": "src/shared/interfaces/simpleDataGenerator.interface.ts",
+      "exportName": "Group"
+    },
+    {
+      "file": "src/shared/interfaces/simpleDataGenerator.interface.ts",
+      "exportName": "Cluster"
+    },
+    {
+      "file": "src/shared/interfaces/simpleDataGenerator.interface.ts",
+      "exportName": "GeneratorConfig"
+    },
+    {
+      "file": "src/shared/modules/TextBoxMaker.ts",
+      "exportName": "createTextBox"
+    },
+    {
+      "file": "src/shared/modules/TextBoxMaker.ts",
+      "exportName": "createTextBoxWithCustomStyling"
+    },
+    {
+      "file": "src/shared/modules/TextLabelMaker.ts",
+      "exportName": "createTextLabel"
+    },
+    {
+      "file": "src/shared/modules/TextLabelMaker.ts",
+      "exportName": "createTextLabelWithCustomStyling"
+    },
+    {
+      "file": "src/shared/modules/barMaker/barMaker.ts",
+      "exportName": "makeBar"
+    },
+    {
+      "file": "src/shared/modules/barMaker/constants.ts",
+      "exportName": "BAR_CONSTANTS"
+    },
+    {
+      "file": "src/shared/modules/barMaker/index.ts",
+      "exportName": "makeBar"
+    },
+    {
+      "file": "src/shared/modules/barMaker/interfaces.ts",
+      "exportName": "BarProps"
+    },
+    {
+      "file": "src/shared/modules/barMaker/interfaces.ts",
+      "exportName": "BarConfig"
+    },
+    {
+      "file": "src/shared/modules/barMaker/interfaces.ts",
+      "exportName": "defaultProps"
+    },
+    {
+      "file": "src/shared/modules/barMaker/standardizedInterfaces.ts",
+      "exportName": "IBarMakerConfig"
+    },
+    {
+      "file": "src/shared/modules/barMaker/utilities.ts",
+      "exportName": "makeAttachment"
+    },
+    {
+      "file": "src/shared/modules/barMaker/utilities.ts",
+      "exportName": "generateBarName"
+    },
+    {
+      "file": "src/shared/modules/barMaker/utilities.ts",
+      "exportName": "generateAttachmentName"
+    },
+    {
+      "file": "src/shared/modules/hexStackMaker/constants.ts",
+      "exportName": "HEX_STACK_CONSTANTS"
+    },
+    {
+      "file": "src/shared/modules/hexStackMaker/hexStackMaker.ts",
+      "exportName": "makeHexStack"
+    },
+    {
+      "file": "src/shared/modules/hexStackMaker/index.ts",
+      "exportName": "makeHexStack"
+    },
+    {
+      "file": "src/shared/modules/hexStackMaker/interfaces.ts",
+      "exportName": "HexStackConfig"
+    },
+    {
+      "file": "src/shared/modules/hexStackMaker/standardizedInterfaces.ts",
+      "exportName": "IHexStackMakerConfig"
+    },
+    {
+      "file": "src/shared/modules/hexStackMaker/utilities.ts",
+      "exportName": "generateStackName"
+    },
+    {
+      "file": "src/shared/modules/hexStackMaker/utilities.ts",
+      "exportName": "calculateLevelPosition"
+    },
+    {
+      "file": "src/shared/modules/hexagonMaker/constants.ts",
+      "exportName": "HEXAGON_CONSTANTS"
+    },
+    {
+      "file": "src/shared/modules/hexagonMaker/hexagonMaker.ts",
+      "exportName": "makeHexagon"
+    },
+    {
+      "file": "src/shared/modules/hexagonMaker/index.ts",
+      "exportName": "makeHexagon"
+    },
+    {
+      "file": "src/shared/modules/hexagonMaker/interfaces.ts",
+      "exportName": "HexagonConfig"
+    },
+    {
+      "file": "src/shared/modules/hexagonMaker/standardizedInterfaces.ts",
+      "exportName": "IHexagonMakerConfig"
+    },
+    {
+      "file": "src/shared/modules/hexagonMaker/utilities.ts",
+      "exportName": "generateHexagonName"
+    },
+    {
+      "file": "src/shared/modules/hexagonMaker/utilities.ts",
+      "exportName": "createCenterCube"
+    },
+    {
+      "file": "src/shared/modules/hexagonMaker/utilities.ts",
+      "exportName": "createCenterAttachment"
+    },
+    {
+      "file": "src/shared/modules/hexagonMaker/utilities.ts",
+      "exportName": "calculateBarDimensions"
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/constants.ts",
+      "exportName": "LABEL_BLOCK_CONSTANTS"
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/index.ts",
+      "exportName": "makeLabelBlock"
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/interfaces.ts",
+      "exportName": "TextBoxProps"
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/interfaces.ts",
+      "exportName": "LabelConfig"
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/interfaces.ts",
+      "exportName": "LabelBlockProps"
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/interfaces.ts",
+      "exportName": "LabelBlockConfig"
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/interfaces.ts",
+      "exportName": "defaultProps"
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/labelBlockMaker.ts",
+      "exportName": "makeLabelBlock"
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/standardizedInterfaces.ts",
+      "exportName": "IFaceLabelConfig"
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/standardizedInterfaces.ts",
+      "exportName": "ILabelBlockMakerConfig"
+    },
+    {
+      "file": "src/shared/modules/labelBlockMaker/utilities.ts",
+      "exportName": "createLabelsForBlock"
+    },
+    {
+      "file": "src/shared/modules/labelGroupMaker.ts",
+      "exportName": "createLabelGroup"
+    },
+    {
+      "file": "src/shared/modules/makeOriginBlock.ts",
+      "exportName": "makeOriginBlock"
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/blockDimensionCalculator.ts",
+      "exportName": "NodeBounds"
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/blockDimensionCalculator.ts",
+      "exportName": "BlockDimensions"
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/blockDimensionCalculator.ts",
+      "exportName": "BlockDimensionCalculator"
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/endcapBlockCreator.ts",
+      "exportName": "EndcapConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/endcapBlockCreator.ts",
+      "exportName": "EndcapBlockCreator"
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/platformBlockCreator.ts",
+      "exportName": "PlatformBlockConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/platformBlockCreator.ts",
+      "exportName": "PlatformBlockCreator"
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/shadowBlockCreator.ts",
+      "exportName": "ShadowBlockConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/shadowBlockCreator.ts",
+      "exportName": "ShadowBlockCreator"
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/swimlaneBlockCreator.ts",
+      "exportName": "SwimLaneBlockConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/swimlaneBlockCreator.ts",
+      "exportName": "SwimLaneBlockCreator"
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/yParallelShadowCreator.ts",
+      "exportName": "YParallelShadowConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/yParallelShadowCreator.ts",
+      "exportName": "YGroupBounds"
+    },
+    {
+      "file": "src/shared/modules/renderers/blocks/yParallelShadowCreator.ts",
+      "exportName": "YParallelShadowCreator"
+    },
+    {
+      "file": "src/shared/modules/renderers/constants/blockConstants.ts",
+      "exportName": "BLOCK_CONSTANTS"
+    },
+    {
+      "file": "src/shared/modules/renderers/constants/labelConstants.ts",
+      "exportName": "LABEL_CONSTANTS"
+    },
+    {
+      "file": "src/shared/modules/renderers/constants/positionConstants.ts",
+      "exportName": "POSITION_CONSTANTS"
+    },
+    {
+      "file": "src/shared/modules/renderers/constants/robloxColors.ts",
+      "exportName": "robloxColors"
+    },
+    {
+      "file": "src/shared/modules/renderers/constants/robloxColors.ts",
+      "exportName": "LINK_COLORS"
+    },
+    {
+      "file": "src/shared/modules/renderers/constants/robloxColors.ts",
+      "exportName": "Y_AXIS_COLORS"
+    },
+    {
+      "file": "src/shared/modules/renderers/constants/robloxColors.ts",
+      "exportName": "Z_AXIS_COLORS"
+    },
+    {
+      "file": "src/shared/modules/renderers/constants/robloxColors.ts",
+      "exportName": "X_AXIS_COLORS"
+    },
+    {
+      "file": "src/shared/modules/renderers/constants/robloxColors.ts",
+      "exportName": "X_PARALLEL_LANE_COLORS"
+    },
+    {
+      "file": "src/shared/modules/renderers/constants/robloxColors.ts",
+      "exportName": "personColors"
+    },
+    {
+      "file": "src/shared/modules/renderers/dataGeneratorRobloxRendererUtils/constants.ts",
+      "exportName": "RENDERER_CONSTANTS"
+    },
+    {
+      "file": "src/shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts",
+      "exportName": "createRopeConnectors"
+    },
+    {
+      "file": "src/shared/modules/renderers/flatBlockCreator.ts",
+      "exportName": "SwimLaneBlockConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/flatBlockCreator.ts",
+      "exportName": "FLAT_BLOCK_DEFAULTS"
+    },
+    {
+      "file": "src/shared/modules/renderers/flatBlockCreator.ts",
+      "exportName": "createFlatBlocks"
+    },
+    {
+      "file": "src/shared/modules/renderers/flatBlockCreator.ts",
+      "exportName": "calculateBlockDimensions"
+    },
+    {
+      "file": "src/shared/modules/renderers/flatBlockCreator.ts",
+      "exportName": "createSwimLaneBlock"
+    },
+    {
+      "file": "src/shared/modules/renderers/propertyValueResolver.ts",
+      "exportName": "PropertyExtractor"
+    },
+    {
+      "file": "src/shared/modules/renderers/propertyValueResolver.ts",
+      "exportName": "PropertyValueResolver"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/constants.ts",
+      "exportName": "COLOR_PALETTES"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/constants.ts",
+      "exportName": "NODE_TYPE_NAMES"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/constants.ts",
+      "exportName": "ANIMAL_TYPES"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/constants.ts",
+      "exportName": "PET_TYPES"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/constants.ts",
+      "exportName": "PET_COLORS"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/constants.ts",
+      "exportName": "FIRST_NAMES"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/constants.ts",
+      "exportName": "LAST_NAMES"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/constants.ts",
+      "exportName": "COUNTRIES_OF_BIRTH"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/constants.ts",
+      "exportName": "COUNTRIES_OF_RESIDENCE"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/constants.ts",
+      "exportName": "DEFAULT_ATTACHMENTS"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/boundsCalculator.ts",
+      "exportName": "Bounds"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/boundsCalculator.ts",
+      "exportName": "BoundsCalculator"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
+      "exportName": "INodeGenerator"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
+      "exportName": "ILinkGenerator"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
+      "exportName": "ITestDataProcessor"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
+      "exportName": "IPropertyManager"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
+      "exportName": "NodesByLayer"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
+      "exportName": "LinkGenerationResult"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
+      "exportName": "PropertyAssignmentConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
+      "exportName": "PropertyMetadata"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
+      "exportName": "LinkGenerator"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",
+      "exportName": "NodeGenerator"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/propertyManager.ts",
+      "exportName": "PropertyManager"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/testDataProcessor.ts",
+      "exportName": "TestDataProcessor"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
+      "exportName": "DataGenerator"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/nodeOrganizer.ts",
+      "exportName": "OrganizedNodes"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/nodeOrganizer.ts",
+      "exportName": "NodeOrganizer"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",
+      "exportName": "PositionCalculator"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/core/positionMapper.ts",
+      "exportName": "PositionMapper"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/index.ts",
+      "exportName": "UnifiedDataRenderer"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/interfaces.ts",
+      "exportName": "IDataGenerator"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/interfaces.ts",
+      "exportName": "IPositionCalculator"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/interfaces.ts",
+      "exportName": "INodeRenderer"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/interfaces.ts",
+      "exportName": "IUpdateManager"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/interfaces.ts",
+      "exportName": "NodeCreationParams"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/interfaces.ts",
+      "exportName": "UpdatePlan"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/interfaces.ts",
+      "exportName": "SpacingConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/managers/laneManager.ts",
+      "exportName": "LaneManager"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/managers/platformShadowManager.ts",
+      "exportName": "PlatformShadowManager"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/managers/wallManager.ts",
+      "exportName": "WallManager"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/managers/yParallelShadowManager.ts",
+      "exportName": "YParallelShadowManager"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/rendering/labelRenderer.ts",
+      "exportName": "LabelConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/rendering/labelRenderer.ts",
+      "exportName": "LabelRenderer"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/rendering/nodeRenderer.ts",
+      "exportName": "NodeRenderer"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/rendering/updateManager.ts",
+      "exportName": "UpdateManager"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "LaneBounds"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "PropertyBounds"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "LanePosition"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "LaneDimensions"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "PlatformBounds"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "WallConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "YPropertyBounds"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "ShadowBlockConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "PlatformBlockConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "EndcapConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "YParallelShadowConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "RendererConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "UpdateConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "LaneManagerResult"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "PlatformShadowResult"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "WallManagerResult"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "isNode"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "isLink"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "exportName": "isCluster"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/unifiedDataRenderer.ts",
+      "exportName": "UnifiedDataRenderer"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/utils/colorMapper.ts",
+      "exportName": "getNodeBackgroundColor"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/utils/colorMapper.ts",
+      "exportName": "getNodeBorderColor"
+    },
+    {
+      "file": "src/shared/modules/renderers/unifiedDataRenderer/utils/colorMapper.ts",
+      "exportName": "getNodeTextProperties"
+    },
+    {
+      "file": "src/shared/modules/renderers/verticalWallCreator.ts",
+      "exportName": "VerticalWallConfig"
+    },
+    {
+      "file": "src/shared/modules/renderers/verticalWallCreator.ts",
+      "exportName": "createVerticalWalls"
+    },
+    {
+      "file": "src/shared/modules/renderers/verticalWallCreator.ts",
+      "exportName": "createWallSwimlanes"
+    },
+    {
+      "file": "src/shared/modules/renderers/verticalWallCreator.ts",
+      "exportName": "createFarZEdgeWall"
+    },
+    {
+      "file": "src/shared/modules/renderers/verticalWallCreator.ts",
+      "exportName": "createFarXEdgeWall"
+    },
+    {
+      "file": "src/shared/modules/ropeLabelMaker/constants.ts",
+      "exportName": "ROPE_LABEL_CONSTANTS"
+    },
+    {
+      "file": "src/shared/modules/ropeLabelMaker/index.ts",
+      "exportName": "createRopeLabel"
+    },
+    {
+      "file": "src/shared/modules/ropeLabelMaker/interfaces.ts",
+      "exportName": "RopeLabelProps"
+    },
+    {
+      "file": "src/shared/modules/ropeLabelMaker/interfaces.ts",
+      "exportName": "RopeLabelConfig"
+    },
+    {
+      "file": "src/shared/modules/ropeLabelMaker/interfaces.ts",
+      "exportName": "ParsedRelation"
+    },
+    {
+      "file": "src/shared/modules/ropeLabelMaker/interfaces.ts",
+      "exportName": "RopeLabelOptions"
+    },
+    {
+      "file": "src/shared/modules/ropeLabelMaker/ropeLabelMaker.ts",
+      "exportName": "createRopeLabel"
+    },
+    {
+      "file": "src/shared/modules/ropeLabelMaker/utilities.ts",
+      "exportName": "parseRelationName"
+    },
+    {
+      "file": "src/shared/modules/ropeLabelMaker/utilities.ts",
+      "exportName": "formatNodeName"
+    },
+    {
+      "file": "src/shared/modules/ropeLabelMaker/utilities.ts",
+      "exportName": "calculateLabelPosition"
+    },
+    {
+      "file": "src/shared/modules/ropeLabelMaker/utilities.ts",
+      "exportName": "validateRelationFormat"
+    },
+    {
+      "file": "src/shared/utils/nodePropertyHelpers.ts",
+      "exportName": "isPersonNode"
+    },
+    {
+      "file": "src/shared/utils/nodePropertyHelpers.ts",
+      "exportName": "isAnimalNode"
+    },
+    {
+      "file": "src/shared/utils/nodePropertyHelpers.ts",
+      "exportName": "getNodeProperty"
+    },
+    {
+      "file": "src/shared/utils/nodePropertyHelpers.ts",
+      "exportName": "getAgeRange"
+    },
+    {
+      "file": "src/shared/utils/nodePropertyHelpers.ts",
+      "exportName": "getFullName"
+    },
+    {
+      "file": "src/shared/utils/nodePropertyHelpers.ts",
+      "exportName": "resolvePropertyValue"
+    },
+    {
+      "file": "src/shared/utils/propertyDiscovery.ts",
+      "exportName": "discoverNodeProperties"
+    },
+    {
+      "file": "src/shared/utils/propertyDiscovery.ts",
+      "exportName": "discoverObjectProperties"
+    },
+    {
+      "file": "src/shared/utils/propertyDiscovery.ts",
+      "exportName": "getNodePropertyValue"
+    },
+    {
+      "file": "src/shared/utils/propertyDiscovery.ts",
+      "exportName": "isValidAxisProperty"
+    },
+    {
+      "file": "src/shared/utils/propertyDiscovery.ts",
+      "exportName": "filterValidAxisProperties"
+    },
+    {
+      "file": "src/shared/utils/stringUtils.ts",
+      "exportName": "padNumber"
+    },
+    {
+      "file": "src/shared/utils/validation/arrayValidation.ts",
+      "exportName": "ArrayValidationOptions"
+    },
+    {
+      "file": "src/shared/utils/validation/arrayValidation.ts",
+      "exportName": "ArrayValidationResult"
+    },
+    {
+      "file": "src/shared/utils/validation/arrayValidation.ts",
+      "exportName": "ARRAY_LIMITS"
+    },
+    {
+      "file": "src/shared/utils/validation/arrayValidation.ts",
+      "exportName": "validateArray"
+    },
+    {
+      "file": "src/shared/utils/validation/arrayValidation.ts",
+      "exportName": "validateNodeArray"
+    },
+    {
+      "file": "src/shared/utils/validation/arrayValidation.ts",
+      "exportName": "validateLayerArray"
+    },
+    {
+      "file": "src/shared/utils/validation/arrayValidation.ts",
+      "exportName": "validateConnectionArray"
+    },
+    {
+      "file": "src/shared/utils/validation/arrayValidation.ts",
+      "exportName": "hasCircularReference"
+    },
+    {
+      "file": "src/shared/utils/validation/arrayValidation.ts",
+      "exportName": "truncateArray"
+    },
+    {
+      "file": "src/shared/utils/validation/configValidation.ts",
+      "exportName": "ConfigValidationResult"
+    },
+    {
+      "file": "src/shared/utils/validation/configValidation.ts",
+      "exportName": "validateEnhancedGeneratorConfig"
+    },
+    {
+      "file": "src/shared/utils/validation/configValidation.ts",
+      "exportName": "isEnhancedGeneratorConfig"
+    },
+    {
+      "file": "src/shared/utils/validation/configValidation.ts",
+      "exportName": "validateRemoteData"
+    },
+    {
+      "file": "src/shared/utils/validation/stringValidation.ts",
+      "exportName": "StringValidationOptions"
+    },
+    {
+      "file": "src/shared/utils/validation/stringValidation.ts",
+      "exportName": "ValidationResult"
+    },
+    {
+      "file": "src/shared/utils/validation/stringValidation.ts",
+      "exportName": "STRING_LIMITS"
+    },
+    {
+      "file": "src/shared/utils/validation/stringValidation.ts",
+      "exportName": "validateNodeName"
+    },
+    {
+      "file": "src/shared/utils/validation/stringValidation.ts",
+      "exportName": "validateLabelText"
+    },
+    {
+      "file": "src/shared/utils/validation/stringValidation.ts",
+      "exportName": "validateString"
+    },
+    {
+      "file": "src/shared/utils/validation/stringValidation.ts",
+      "exportName": "sanitizeString"
+    },
+    {
+      "file": "src/shared/utils/validation/stringValidation.ts",
+      "exportName": "validateStringArray"
+    },
+    {
+      "file": "src/shared/utils/validation/stringValidation.ts",
+      "exportName": "containsInjectionPattern"
+    },
+    {
+      "file": "src/shared/utils/validation/stringValidation.ts",
+      "exportName": "escapeHtml"
+    },
+    {
+      "file": "_webapp/src/app/(pages)/hierarchy-tester/page.tsx",
+      "exportName": "TestDataConfig"
+    },
+    {
+      "file": "_webapp/src/app/(pages)/hierarchy-tester/page.tsx",
+      "exportName": "HierarchyResult"
+    },
+    {
+      "file": "_webapp/src/app/(pages)/hierarchy-tester/page.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/app/(pages)/hierarchy-tester/pageStyle.tsx",
+      "exportName": "containerStyle"
+    },
+    {
+      "file": "_webapp/src/app/page.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/app/pivot/page.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/CollapsibleGraphPanel.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/ConfigPanel.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/DataProvider.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/GraphsDisplay.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/HorizCollapsibleSetChild.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/HorizCollapsibleSetParent.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/MetricsBox.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/SuggestionsTable.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/Table001.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/columns.ts",
+      "exportName": "buildColumns"
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/config.ts",
+      "exportName": "dataGridConfig"
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/config.ts",
+      "exportName": "gridDensityOptions"
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/config.ts",
+      "exportName": "defaultPageSizes"
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/styles.ts",
+      "exportName": "dataGridContainer"
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/styles.ts",
+      "exportName": "pageWrapper"
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/styles.ts",
+      "exportName": "pageHeader"
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/styles.ts",
+      "exportName": "gridToolbar"
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/styles.ts",
+      "exportName": "filterButton"
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/styles.ts",
+      "exportName": "densitySelector"
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/styles.ts",
+      "exportName": "statsCard"
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/styles.ts",
+      "exportName": "loadingOverlay"
+    },
+    {
+      "file": "_webapp/src/components/Table001Basic/styles.ts",
+      "exportName": "errorMessage"
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/Table002.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/columns.ts",
+      "exportName": "buildColumns"
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/config.ts",
+      "exportName": "dataGridConfig"
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/config.ts",
+      "exportName": "gridDensityOptions"
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/config.ts",
+      "exportName": "defaultPageSizes"
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/styles.ts",
+      "exportName": "dataGridContainer"
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/styles.ts",
+      "exportName": "pageWrapper"
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/styles.ts",
+      "exportName": "pageHeader"
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/styles.ts",
+      "exportName": "gridToolbar"
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/styles.ts",
+      "exportName": "filterButton"
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/styles.ts",
+      "exportName": "densitySelector"
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/styles.ts",
+      "exportName": "statsCard"
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/styles.ts",
+      "exportName": "loadingOverlay"
+    },
+    {
+      "file": "_webapp/src/components/Table002Teams/styles.ts",
+      "exportName": "errorMessage"
+    },
+    {
+      "file": "_webapp/src/components/TestDataConfigComponent.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/TreeDisplay.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/VisualMap.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/graphs/CytoscapeGraph.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/graphs/D3Graph.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/graphs/GraphContainer.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/graphs/GraphPanel.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/graphs/ReactFlowGraph.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/graphs/SciChart3DBubbleSimple.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/components/graphs/SciChart3DBubbleWrapper.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/config/colorTokens.ts",
+      "exportName": "appLayout"
+    },
+    {
+      "file": "_webapp/src/config/colorTokens.ts",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/data/defaultConfigs.ts",
+      "exportName": "initialConfig"
+    },
+    {
+      "file": "_webapp/src/data/presetConfigurations.ts",
+      "exportName": "PresetConfiguration"
+    },
+    {
+      "file": "_webapp/src/data/presetConfigurations.ts",
+      "exportName": "presetConfigurations"
+    },
+    {
+      "file": "_webapp/src/datagrid/page.tsx",
+      "exportName": "default"
+    },
+    {
+      "file": "_webapp/src/hooks/usePanelCollapse.ts",
+      "exportName": "PanelId"
+    },
+    {
+      "file": "_webapp/src/hooks/usePanelCollapse.ts",
+      "exportName": "usePanelCollapse"
+    },
+    {
+      "file": "_webapp/src/lib/db.ts",
+      "exportName": "DatabasePerson"
+    },
+    {
+      "file": "_webapp/src/lib/db.ts",
+      "exportName": "ParsedPersonData"
+    },
+    {
+      "file": "_webapp/src/lib/db.ts",
+      "exportName": "Person"
+    },
+    {
+      "file": "_webapp/src/lib/db.ts",
+      "exportName": "GraphConfig"
+    },
+    {
+      "file": "_webapp/src/lib/db.ts",
+      "exportName": "TestDataConfig"
+    },
+    {
+      "file": "_webapp/src/lib/db.ts",
+      "exportName": "getPersons"
+    },
+    {
+      "file": "_webapp/src/lib/db.ts",
+      "exportName": "getGraphConfigs"
+    },
+    {
+      "file": "_webapp/src/lib/db.ts",
+      "exportName": "saveGraphConfig"
+    },
+    {
+      "file": "_webapp/src/lib/db.ts",
+      "exportName": "toggleFavoriteGraphConfig"
+    },
+    {
+      "file": "_webapp/src/lib/db.ts",
+      "exportName": "deleteGraphConfig"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/constants.ts",
+      "exportName": "DEFAULT_ENTITY_TYPES"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/constants.ts",
+      "exportName": "DEFAULT_CONNECTOR_TYPES"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/constants.ts",
+      "exportName": "NETWORK_DENSITY_MULTIPLIERS"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/constants.ts",
+      "exportName": "DEFAULT_NODE_WEIGHT_RANGE"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/generateData.ts",
+      "exportName": "generateConfigurableData"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/generateData.ts",
+      "exportName": "findConnectedGroups"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/generateData.ts",
+      "exportName": "createSimpleASCII"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/interfaces.ts",
+      "exportName": "TestDataConfig"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/interfaces.ts",
+      "exportName": "Connection"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/utils.ts",
+      "exportName": "generateEntityTypeNames"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/utils.ts",
+      "exportName": "generateConnectorTypeNames"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/utils.ts",
+      "exportName": "selectRandomIndices"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/utils.ts",
+      "exportName": "isInSameTree"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/utils.ts",
+      "exportName": "findRoot"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/utils.ts",
+      "exportName": "addCrossTreeConnections"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/utils.ts",
+      "exportName": "applyClustering"
+    },
+    {
+      "file": "_webapp/src/lib/generateData/utils.ts",
+      "exportName": "applyNetworkDensity"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "GraphConfig"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "HierarchyEntity"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "HierarchyConnection"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "HierarchyData"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "CytoscapeElement"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "CytoscapeData"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "CytoscapeAdapter"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "ReactFlowNode"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "ReactFlowEdge"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "ReactFlowData"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "D3Node"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "D3Link"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "D3Data"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "D3Adapter"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "Highcharts3DNode"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "Highcharts3DData"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "Highcharts3DAdapter"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "HierarchyDataExtractor"
+    },
+    {
+      "file": "_webapp/src/lib/graphAdapters.ts",
+      "exportName": "GraphAdapters"
+    },
+    {
+      "file": "_webapp/src/lib/positioning/positioning.ts",
+      "exportName": "position2D"
+    },
+    {
+      "file": "_webapp/src/lib/positioning/positioningConstants.ts",
+      "exportName": "positioningConstants"
+    },
+    {
+      "file": "_webapp/src/lib/positioning/types.ts",
+      "exportName": "SimpleEntity"
+    },
+    {
+      "file": "_webapp/src/lib/positioning/types.ts",
+      "exportName": "ConnectedGroup"
+    },
+    {
+      "file": "_webapp/src/lib/positioning/types.ts",
+      "exportName": "EntityPosition"
+    },
+    {
+      "file": "_webapp/src/services/personService.ts",
+      "exportName": "personService"
+    },
+    {
+      "file": "_webapp/src/services/teamService.ts",
+      "exportName": "teamService"
+    },
+    {
+      "file": "_webapp/src/stores/dataStore.ts",
+      "exportName": "useDataStore"
+    },
+    {
+      "file": "_webapp/src/styles/theme.ts",
+      "exportName": "layoutStyles"
+    },
+    {
+      "file": "_webapp/src/styles/theme.ts",
+      "exportName": "dataGridStyles"
+    },
+    {
+      "file": "_webapp/src/styles/theme.ts",
+      "exportName": "pivotTableStyles"
+    },
+    {
+      "file": "_webapp/src/styles/theme.ts",
+      "exportName": "buttonStyles"
+    },
+    {
+      "file": "_webapp/src/styles/theme.ts",
+      "exportName": "cardStyles"
+    },
+    {
+      "file": "_webapp/src/styles/theme.ts",
+      "exportName": "loadingStyles"
+    },
+    {
+      "file": "_webapp/src/styles/theme.ts",
+      "exportName": "breakpoints"
+    },
+    {
+      "file": "_webapp/src/styles/theme.ts",
+      "exportName": "colors"
+    },
+    {
+      "file": "_webapp/src/test-utils/index.tsx",
+      "exportName": "render"
+    },
+    {
+      "file": "_webapp/src/utils/colorUtils.ts",
+      "exportName": "generateEntityTypeColors"
+    },
+    {
+      "file": "_webapp/src/utils/colorUtils.ts",
+      "exportName": "ConnectorStyle"
+    },
+    {
+      "file": "_webapp/src/utils/colorUtils.ts",
+      "exportName": "generateConnectorTypeStyles"
+    },
+    {
+      "file": "_webapp/src/utils/colorUtils.ts",
+      "exportName": "getEntityTypeColor"
+    },
+    {
+      "file": "_webapp/src/utils/colorUtils.ts",
+      "exportName": "getConnectorTypeStyle"
+    }
+  ],
+  "summary": {
+    "totalFiles": 191,
+    "orphanedFiles": 188,
+    "unusedExports": 467,
+    "totalOrphanedLines": 61073,
+    "totalOrphanedSize": 1739413
+  }
+}

@@ -1,0 +1,3647 @@
+{
+  "summary": {
+    "totalFiles": 143,
+    "totalSize": 1586581,
+    "totalLines": 55524,
+    "orphanedFiles": 33,
+    "filesWithUnusedExports": 69,
+    "totalUnusedExports": 166,
+    "circularDependencyCount": 0
+  },
+  "orphanedFiles": [
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/components/yAxisConfigSection.ts",
+      "size": 3718,
+      "lines": 123,
+      "exports": 1
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/main.ts",
+      "size": 3217,
+      "lines": 97,
+      "exports": 1
+    },
+    {
+      "path": "src/client/services/configGui/components/dropdownTestControls.ts",
+      "size": 4423,
+      "lines": 137,
+      "exports": 2
+    },
+    {
+      "path": "src/client/services/configGui/components/nodeTypesSection.ts",
+      "size": 6578,
+      "lines": 170,
+      "exports": 1
+    },
+    {
+      "path": "src/client/services/configGui/components/visualCustomizationControls.ts",
+      "size": 0,
+      "lines": 1,
+      "exports": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/yAxisControls.ts",
+      "size": 0,
+      "lines": 1,
+      "exports": 0
+    },
+    {
+      "path": "src/client/services/configGui/makeConfigGui.ts",
+      "size": 11765,
+      "lines": 360,
+      "exports": 1
+    },
+    {
+      "path": "src/client/services/configGui/utils/linkTypeCounter.ts",
+      "size": 1892,
+      "lines": 65,
+      "exports": 3
+    },
+    {
+      "path": "src/client/utils/guiDebugger.ts",
+      "size": 5461,
+      "lines": 174,
+      "exports": 1
+    },
+    {
+      "path": "src/shared/modules/barMaker/barMaker.ts",
+      "size": 3152,
+      "lines": 109,
+      "exports": 1
+    },
+    {
+      "path": "src/shared/modules/barMaker/interfaces.ts",
+      "size": 836,
+      "lines": 36,
+      "exports": 3
+    },
+    {
+      "path": "src/shared/modules/hexagonMaker/hexagonMaker.ts",
+      "size": 3088,
+      "lines": 107,
+      "exports": 1
+    },
+    {
+      "path": "src/shared/modules/hexagonMaker/interfaces.ts",
+      "size": 231,
+      "lines": 11,
+      "exports": 1
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/hexStackMaker.ts",
+      "size": 2137,
+      "lines": 74,
+      "exports": 1
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/index.ts",
+      "size": 242,
+      "lines": 6,
+      "exports": 1
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/interfaces.ts",
+      "size": 212,
+      "lines": 9,
+      "exports": 1
+    },
+    {
+      "path": "src/shared/modules/labelBlockMaker/labelBlockMaker.ts",
+      "size": 2754,
+      "lines": 94,
+      "exports": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/blockDimensionCalculator.ts",
+      "size": 2845,
+      "lines": 106,
+      "exports": 3
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/index.ts",
+      "size": 283,
+      "lines": 10,
+      "exports": 5
+    },
+    {
+      "path": "src/shared/modules/renderers/constants/index.ts",
+      "size": 152,
+      "lines": 7,
+      "exports": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/flatBlockCreator.ts",
+      "size": 5866,
+      "lines": 183,
+      "exports": 5
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/boundsCalculator.ts",
+      "size": 3886,
+      "lines": 154,
+      "exports": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
+      "size": 9408,
+      "lines": 334,
+      "exports": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",
+      "size": 5320,
+      "lines": 174,
+      "exports": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/propertyManager.ts",
+      "size": 5151,
+      "lines": 187,
+      "exports": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/testDataProcessor.ts",
+      "size": 6516,
+      "lines": 212,
+      "exports": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/nodeOrganizer.ts",
+      "size": 3902,
+      "lines": 135,
+      "exports": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/positionMapper.ts",
+      "size": 4672,
+      "lines": 154,
+      "exports": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/rendering/labelRenderer.ts",
+      "size": 5869,
+      "lines": 168,
+      "exports": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/unifiedDataRenderer.ts",
+      "size": 8399,
+      "lines": 259,
+      "exports": 1
+    },
+    {
+      "path": "src/shared/modules/ropeLabelMaker/index.ts",
+      "size": 253,
+      "lines": 12,
+      "exports": 1
+    },
+    {
+      "path": "src/shared/utils/validation/configValidation.ts",
+      "size": 10682,
+      "lines": 371,
+      "exports": 4
+    },
+    {
+      "path": "src/shared/utils/validation/stringValidation.ts",
+      "size": 5525,
+      "lines": 214,
+      "exports": 10
+    }
+  ],
+  "filesWithUnusedExports": [
+    {
+      "path": "src/client/services/configGui/componentFactory.ts",
+      "unusedExports": [
+        "ButtonOptions",
+        "TextInputOptions",
+        "LabelOptions",
+        "FrameOptions",
+        "DropdownOptions",
+        "TitleOptions"
+      ],
+      "totalExports": 7
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/components/yAxisConfigSection.ts",
+      "unusedExports": [
+        "createYAxisConfigSection"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/constants.ts",
+      "unusedExports": [
+        "getPropertyValueCount"
+      ],
+      "totalExports": 6
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/main.ts",
+      "unusedExports": [
+        "createAxisMappingControls"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/types.ts",
+      "unusedExports": [
+        "SectionProps",
+        "LabeledControlProps"
+      ],
+      "totalExports": 6
+    },
+    {
+      "path": "src/client/services/configGui/components/collapsibleFrame.ts",
+      "unusedExports": [
+        "CollapsibleFrameOptions",
+        "CollapsibleFrameResult"
+      ],
+      "totalExports": 3
+    },
+    {
+      "path": "src/client/services/configGui/components/dropdownTestControls.ts",
+      "unusedExports": [
+        "DropdownTestControlsOptions",
+        "createDropdownTestControls"
+      ],
+      "totalExports": 2
+    },
+    {
+      "path": "src/client/services/configGui/components/frame.ts",
+      "unusedExports": [
+        "createMainFrame"
+      ],
+      "totalExports": 2
+    },
+    {
+      "path": "src/client/services/configGui/components/linkTypesDisplay.ts",
+      "unusedExports": [
+        "LinkTypesDisplayProps",
+        "createLinkTypesDisplay",
+        "updateLinkTypesDisplay"
+      ],
+      "totalExports": 4
+    },
+    {
+      "path": "src/client/services/configGui/components/nodeTypesSection.ts",
+      "unusedExports": [
+        "createNodeTypesSection"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/client/services/configGui/eventHandlers.ts",
+      "unusedExports": [
+        "EventHandlerOptions"
+      ],
+      "totalExports": 2
+    },
+    {
+      "path": "src/client/services/configGui/index.ts",
+      "unusedExports": [
+        "GUIStateManager",
+        "GUIEventHandlers",
+        "ComponentFactory",
+        "createDropdown",
+        "createFrame",
+        "createTitle"
+      ],
+      "totalExports": 8
+    },
+    {
+      "path": "src/client/services/configGui/interfaces.ts",
+      "unusedExports": [
+        "ComponentProps"
+      ],
+      "totalExports": 5
+    },
+    {
+      "path": "src/client/services/configGui/makeConfigGui.ts",
+      "unusedExports": [
+        "ConfigGUIService"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/client/services/configGui/utilities.ts",
+      "unusedExports": [
+        "validateInput",
+        "flashColor",
+        "validateAndUpdateInput",
+        "animateButtonClick"
+      ],
+      "totalExports": 5
+    },
+    {
+      "path": "src/client/services/configGui/utils/linkTypeCounter.ts",
+      "unusedExports": [
+        "countLinkTypes",
+        "getLinkTypeCountsFromCluster",
+        "LINK_TYPE_COUNTS_REMOTE"
+      ],
+      "totalExports": 3
+    },
+    {
+      "path": "src/client/services/configGui/validationHandlers.ts",
+      "unusedExports": [
+        "ValidationResult",
+        "validateLayerConfig",
+        "validateSpacingConfig",
+        "validateNumericInput",
+        "validateStringInput",
+        "sanitizeStringInput",
+        "validateComplexity"
+      ],
+      "totalExports": 8
+    },
+    {
+      "path": "src/client/services/propertiesGui/propertiesGui.service.ts",
+      "unusedExports": [
+        "PropertyInfo",
+        "PropertiesData",
+        "FilterState"
+      ],
+      "totalExports": 4
+    },
+    {
+      "path": "src/client/utils/guiDebugger.ts",
+      "unusedExports": [
+        "GUIDebugger"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/server/services/graphInitializer.service.ts",
+      "unusedExports": [
+        "GraphInitConfig"
+      ],
+      "totalExports": 2
+    },
+    {
+      "path": "src/shared/data/tempHarnessLinks.ts",
+      "unusedExports": [
+        "HarnessLink",
+        "HARNESS_LINK_STATS"
+      ],
+      "totalExports": 3
+    },
+    {
+      "path": "src/shared/data/tempHarnessTestData.ts",
+      "unusedExports": [
+        "HarnessFileData"
+      ],
+      "totalExports": 2
+    },
+    {
+      "path": "src/shared/data/tempTestData.ts",
+      "unusedExports": [
+        "TEMP_TEST_NODES",
+        "TEMP_TEST_LINKS"
+      ],
+      "totalExports": 2
+    },
+    {
+      "path": "src/shared/interfaces/enhancedGenerator.interface.ts",
+      "unusedExports": [
+        "SpatialGrouping"
+      ],
+      "totalExports": 8
+    },
+    {
+      "path": "src/shared/interfaces/IMaker.ts",
+      "unusedExports": [
+        "IMakerConfig",
+        "IMakerResult",
+        "IMakerFunction",
+        "IMakerClass",
+        "IConnectorMakerConfig"
+      ],
+      "totalExports": 7
+    },
+    {
+      "path": "src/shared/interfaces/IService.ts",
+      "unusedExports": [
+        "IServiceWithInit",
+        "IServiceOptions"
+      ],
+      "totalExports": 3
+    },
+    {
+      "path": "src/shared/interfaces/nodeTypes.ts",
+      "unusedExports": [
+        "PersonNodeType",
+        "AnimalNodeType",
+        "NodeType",
+        "NodeProperties",
+        "AxisPropertyName",
+        "isValidNodeType",
+        "AXIS_PROPERTIES"
+      ],
+      "totalExports": 11
+    },
+    {
+      "path": "src/shared/modules/barMaker/barMaker.ts",
+      "unusedExports": [
+        "makeBar"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/shared/modules/barMaker/interfaces.ts",
+      "unusedExports": [
+        "BarProps",
+        "BarConfig",
+        "defaultProps"
+      ],
+      "totalExports": 3
+    },
+    {
+      "path": "src/shared/modules/hexagonMaker/hexagonMaker.ts",
+      "unusedExports": [
+        "makeHexagon"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/shared/modules/hexagonMaker/interfaces.ts",
+      "unusedExports": [
+        "HexagonConfig"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/hexStackMaker.ts",
+      "unusedExports": [
+        "makeHexStack"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/index.ts",
+      "unusedExports": [
+        "makeHexStack"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/interfaces.ts",
+      "unusedExports": [
+        "HexStackConfig"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/shared/modules/labelBlockMaker/interfaces.ts",
+      "unusedExports": [
+        "LabelBlockProps",
+        "LabelBlockConfig",
+        "defaultProps"
+      ],
+      "totalExports": 5
+    },
+    {
+      "path": "src/shared/modules/labelBlockMaker/labelBlockMaker.ts",
+      "unusedExports": [
+        "makeLabelBlock"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/shared/modules/labelBlockMaker/standardizedInterfaces.ts",
+      "unusedExports": [
+        "IFaceLabelConfig"
+      ],
+      "totalExports": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/blockDimensionCalculator.ts",
+      "unusedExports": [
+        "NodeBounds",
+        "BlockDimensions",
+        "BlockDimensionCalculator"
+      ],
+      "totalExports": 3
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/endcapBlockCreator.ts",
+      "unusedExports": [
+        "EndcapConfig"
+      ],
+      "totalExports": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/platformBlockCreator.ts",
+      "unusedExports": [
+        "PlatformBlockConfig"
+      ],
+      "totalExports": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/shadowBlockCreator.ts",
+      "unusedExports": [
+        "ShadowBlockConfig"
+      ],
+      "totalExports": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/swimlaneBlockCreator.ts",
+      "unusedExports": [
+        "SwimLaneBlockConfig"
+      ],
+      "totalExports": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/yParallelShadowCreator.ts",
+      "unusedExports": [
+        "YParallelShadowConfig",
+        "YGroupBounds"
+      ],
+      "totalExports": 3
+    },
+    {
+      "path": "src/shared/modules/renderers/constants/robloxColors.ts",
+      "unusedExports": [
+        "robloxColors",
+        "X_PARALLEL_LANE_COLORS"
+      ],
+      "totalExports": 7
+    },
+    {
+      "path": "src/shared/modules/renderers/flatBlockCreator.ts",
+      "unusedExports": [
+        "SwimLaneBlockConfig",
+        "FLAT_BLOCK_DEFAULTS",
+        "createFlatBlocks",
+        "calculateBlockDimensions",
+        "createSwimLaneBlock"
+      ],
+      "totalExports": 5
+    },
+    {
+      "path": "src/shared/modules/renderers/propertyValueResolver.ts",
+      "unusedExports": [
+        "PropertyExtractor"
+      ],
+      "totalExports": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/boundsCalculator.ts",
+      "unusedExports": [
+        "Bounds",
+        "BoundsCalculator"
+      ],
+      "totalExports": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
+      "unusedExports": [
+        "NodesByLayer",
+        "LinkGenerationResult",
+        "PropertyAssignmentConfig",
+        "PropertyMetadata"
+      ],
+      "totalExports": 8
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
+      "unusedExports": [
+        "LinkGenerator"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",
+      "unusedExports": [
+        "NodeGenerator"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/propertyManager.ts",
+      "unusedExports": [
+        "PropertyManager"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/testDataProcessor.ts",
+      "unusedExports": [
+        "TestDataProcessor"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/nodeOrganizer.ts",
+      "unusedExports": [
+        "OrganizedNodes",
+        "NodeOrganizer"
+      ],
+      "totalExports": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/positionMapper.ts",
+      "unusedExports": [
+        "PositionMapper"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/interfaces.ts",
+      "unusedExports": [
+        "NodeCreationParams",
+        "UpdatePlan"
+      ],
+      "totalExports": 7
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/rendering/labelRenderer.ts",
+      "unusedExports": [
+        "LabelConfig",
+        "LabelRenderer"
+      ],
+      "totalExports": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "unusedExports": [
+        "LanePosition",
+        "PlatformBounds",
+        "WallConfig",
+        "ShadowBlockConfig",
+        "PlatformBlockConfig",
+        "EndcapConfig",
+        "YParallelShadowConfig",
+        "RendererConfig",
+        "UpdateConfig",
+        "isNode",
+        "isLink",
+        "isCluster"
+      ],
+      "totalExports": 19
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/unifiedDataRenderer.ts",
+      "unusedExports": [
+        "UnifiedDataRenderer"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/utils/colorMapper.ts",
+      "unusedExports": [
+        "getNodeBorderColor",
+        "getNodeTextProperties"
+      ],
+      "totalExports": 3
+    },
+    {
+      "path": "src/shared/modules/renderers/verticalWallCreator.ts",
+      "unusedExports": [
+        "VerticalWallConfig",
+        "createWallSwimlanes",
+        "createFarZEdgeWall",
+        "createFarXEdgeWall"
+      ],
+      "totalExports": 5
+    },
+    {
+      "path": "src/shared/modules/ropeLabelMaker/index.ts",
+      "unusedExports": [
+        "createRopeLabel"
+      ],
+      "totalExports": 1
+    },
+    {
+      "path": "src/shared/modules/ropeLabelMaker/interfaces.ts",
+      "unusedExports": [
+        "RopeLabelConfig",
+        "RopeLabelOptions"
+      ],
+      "totalExports": 4
+    },
+    {
+      "path": "src/shared/modules/ropeLabelMaker/utilities.ts",
+      "unusedExports": [
+        "formatNodeName",
+        "calculateLabelPosition",
+        "validateRelationFormat"
+      ],
+      "totalExports": 4
+    },
+    {
+      "path": "src/shared/modules/TextLabelMaker.ts",
+      "unusedExports": [
+        "createTextLabelWithCustomStyling"
+      ],
+      "totalExports": 2
+    },
+    {
+      "path": "src/shared/utils/nodePropertyHelpers.ts",
+      "unusedExports": [
+        "isAnimalNode",
+        "getNodeProperty"
+      ],
+      "totalExports": 6
+    },
+    {
+      "path": "src/shared/utils/propertyDiscovery.ts",
+      "unusedExports": [
+        "discoverObjectProperties",
+        "isValidAxisProperty"
+      ],
+      "totalExports": 5
+    },
+    {
+      "path": "src/shared/utils/validation/arrayValidation.ts",
+      "unusedExports": [
+        "ArrayValidationOptions",
+        "ArrayValidationResult",
+        "validateNodeArray",
+        "validateLayerArray",
+        "validateConnectionArray",
+        "truncateArray"
+      ],
+      "totalExports": 9
+    },
+    {
+      "path": "src/shared/utils/validation/configValidation.ts",
+      "unusedExports": [
+        "ConfigValidationResult",
+        "validateEnhancedGeneratorConfig",
+        "isEnhancedGeneratorConfig",
+        "validateRemoteData"
+      ],
+      "totalExports": 4
+    },
+    {
+      "path": "src/shared/utils/validation/stringValidation.ts",
+      "unusedExports": [
+        "StringValidationOptions",
+        "ValidationResult",
+        "STRING_LIMITS",
+        "validateNodeName",
+        "validateLabelText",
+        "validateString",
+        "sanitizeString",
+        "validateStringArray",
+        "containsInjectionPattern",
+        "escapeHtml"
+      ],
+      "totalExports": 10
+    }
+  ],
+  "circularDependencies": [],
+  "allFiles": [
+    {
+      "path": "src/client/controllers/animationTestGUI.controller.ts",
+      "size": 4208,
+      "lines": 157,
+      "exports": [
+        {
+          "name": "AnimationTestGUIController",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/controllers/configGUI.controller.ts",
+      "size": 6022,
+      "lines": 174,
+      "exports": [
+        {
+          "name": "ConfigGUIController",
+          "type": "declaration"
+        }
+      ],
+      "imports": 5,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/main.client.ts",
+      "size": 7643,
+      "lines": 206,
+      "exports": [],
+      "imports": 7,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/componentFactory.ts",
+      "size": 8761,
+      "lines": 299,
+      "exports": [
+        {
+          "name": "ButtonOptions",
+          "type": "declaration"
+        },
+        {
+          "name": "TextInputOptions",
+          "type": "declaration"
+        },
+        {
+          "name": "LabelOptions",
+          "type": "declaration"
+        },
+        {
+          "name": "FrameOptions",
+          "type": "declaration"
+        },
+        {
+          "name": "DropdownOptions",
+          "type": "declaration"
+        },
+        {
+          "name": "TitleOptions",
+          "type": "declaration"
+        },
+        {
+          "name": "ComponentFactory",
+          "type": "declaration"
+        }
+      ],
+      "imports": 4,
+      "isOrphaned": false,
+      "unusedExportCount": 6
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/components/axisMappingSection.ts",
+      "size": 3628,
+      "lines": 140,
+      "exports": [
+        {
+          "name": "createAxisMappingSection",
+          "type": "declaration"
+        }
+      ],
+      "imports": 3,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/components/dropdown.ts",
+      "size": 4428,
+      "lines": 149,
+      "exports": [
+        {
+          "name": "createDropdown",
+          "type": "declaration"
+        }
+      ],
+      "imports": 3,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/components/radioButton.ts",
+      "size": 2782,
+      "lines": 83,
+      "exports": [
+        {
+          "name": "createRadioButton",
+          "type": "declaration"
+        },
+        {
+          "name": "updateRadioButtonState",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/components/visualCustomizationSection.ts",
+      "size": 1814,
+      "lines": 74,
+      "exports": [
+        {
+          "name": "createVisualCustomizationSection",
+          "type": "declaration"
+        }
+      ],
+      "imports": 3,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/components/yAxisConfigSection.ts",
+      "size": 3718,
+      "lines": 123,
+      "exports": [
+        {
+          "name": "createYAxisConfigSection",
+          "type": "declaration"
+        }
+      ],
+      "imports": 4,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/constants.ts",
+      "size": 3880,
+      "lines": 134,
+      "exports": [
+        {
+          "name": "getAvailableProperties",
+          "type": "declaration"
+        },
+        {
+          "name": "getPropertyValueCount",
+          "type": "declaration"
+        },
+        {
+          "name": "getVisualProperties",
+          "type": "declaration"
+        },
+        {
+          "name": "updateAvailableProperties",
+          "type": "declaration"
+        },
+        {
+          "name": "UI_CONSTANTS",
+          "type": "declaration"
+        },
+        {
+          "name": "DEFAULTS",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/index.ts",
+      "size": 179,
+      "lines": 5,
+      "exports": [
+        {
+          "name": "createAxisMappingControls",
+          "type": "named"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/main.ts",
+      "size": 3217,
+      "lines": 97,
+      "exports": [
+        {
+          "name": "createAxisMappingControls",
+          "type": "declaration"
+        }
+      ],
+      "imports": 6,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/types.ts",
+      "size": 1539,
+      "lines": 58,
+      "exports": [
+        {
+          "name": "AxisMappingControlsProps",
+          "type": "declaration"
+        },
+        {
+          "name": "CompactAxisControlsProps",
+          "type": "declaration"
+        },
+        {
+          "name": "DropdownProps",
+          "type": "declaration"
+        },
+        {
+          "name": "RadioButtonProps",
+          "type": "declaration"
+        },
+        {
+          "name": "SectionProps",
+          "type": "declaration"
+        },
+        {
+          "name": "LabeledControlProps",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 2
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/utils/layoutManager.ts",
+      "size": 3066,
+      "lines": 94,
+      "exports": [
+        {
+          "name": "createSectionLabel",
+          "type": "declaration"
+        },
+        {
+          "name": "createLabel",
+          "type": "declaration"
+        },
+        {
+          "name": "createButton",
+          "type": "declaration"
+        },
+        {
+          "name": "createMainFrame",
+          "type": "declaration"
+        },
+        {
+          "name": "setButtonEnabled",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/utils/screenGuiManager.ts",
+      "size": 868,
+      "lines": 33,
+      "exports": [
+        {
+          "name": "getOrCreateScreenGui",
+          "type": "declaration"
+        },
+        {
+          "name": "refreshAxisDropdownGUI",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/collapsibleFrame.ts",
+      "size": 5590,
+      "lines": 186,
+      "exports": [
+        {
+          "name": "CollapsibleFrameOptions",
+          "type": "declaration"
+        },
+        {
+          "name": "CollapsibleFrameResult",
+          "type": "declaration"
+        },
+        {
+          "name": "createCollapsibleFrame",
+          "type": "declaration"
+        }
+      ],
+      "imports": 4,
+      "isOrphaned": false,
+      "unusedExportCount": 2
+    },
+    {
+      "path": "src/client/services/configGui/components/dropdown.ts",
+      "size": 3515,
+      "lines": 116,
+      "exports": [
+        {
+          "name": "createDropdown",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/dropdownTestControls.ts",
+      "size": 4423,
+      "lines": 137,
+      "exports": [
+        {
+          "name": "DropdownTestControlsOptions",
+          "type": "declaration"
+        },
+        {
+          "name": "createDropdownTestControls",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": true,
+      "unusedExportCount": 2
+    },
+    {
+      "path": "src/client/services/configGui/components/frame.ts",
+      "size": 1549,
+      "lines": 49,
+      "exports": [
+        {
+          "name": "createFrame",
+          "type": "declaration"
+        },
+        {
+          "name": "createMainFrame",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/client/services/configGui/components/globalSettings.ts",
+      "size": 1504,
+      "lines": 48,
+      "exports": [
+        {
+          "name": "createGlobalSettings",
+          "type": "declaration"
+        }
+      ],
+      "imports": 3,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/layerGrid.ts",
+      "size": 12152,
+      "lines": 365,
+      "exports": [
+        {
+          "name": "createLayerGrid",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/linkTypesDisplay.ts",
+      "size": 6673,
+      "lines": 194,
+      "exports": [
+        {
+          "name": "LinkTypeCount",
+          "type": "declaration"
+        },
+        {
+          "name": "LinkTypesDisplayProps",
+          "type": "declaration"
+        },
+        {
+          "name": "createLinkTypesDisplay",
+          "type": "declaration"
+        },
+        {
+          "name": "updateLinkTypesDisplay",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 3
+    },
+    {
+      "path": "src/client/services/configGui/components/nodeTypesSection.ts",
+      "size": 6578,
+      "lines": 170,
+      "exports": [
+        {
+          "name": "createNodeTypesSection",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/client/services/configGui/components/spacingControls.ts",
+      "size": 3718,
+      "lines": 96,
+      "exports": [
+        {
+          "name": "createSpacingControls",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/status.ts",
+      "size": 1472,
+      "lines": 40,
+      "exports": [
+        {
+          "name": "createStatusArea",
+          "type": "declaration"
+        },
+        {
+          "name": "updateStatus",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/title.ts",
+      "size": 746,
+      "lines": 26,
+      "exports": [
+        {
+          "name": "createTitle",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/visualCustomizationControls.ts",
+      "size": 0,
+      "lines": 1,
+      "exports": [],
+      "imports": 0,
+      "isOrphaned": true,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/visualizationControls.ts",
+      "size": 4554,
+      "lines": 126,
+      "exports": [
+        {
+          "name": "createVisualizationControls",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/yAxisControls.ts",
+      "size": 0,
+      "lines": 1,
+      "exports": [],
+      "imports": 0,
+      "isOrphaned": true,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/constants.ts",
+      "size": 2601,
+      "lines": 107,
+      "exports": [
+        {
+          "name": "GUI_CONSTANTS",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/eventHandlers.ts",
+      "size": 5301,
+      "lines": 173,
+      "exports": [
+        {
+          "name": "EventHandlerOptions",
+          "type": "declaration"
+        },
+        {
+          "name": "GUIEventHandlers",
+          "type": "declaration"
+        }
+      ],
+      "imports": 4,
+      "isOrphaned": false,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/client/services/configGui/guiLayout.ts",
+      "size": 2643,
+      "lines": 90,
+      "exports": [
+        {
+          "name": "GuiLayoutManager",
+          "type": "declaration"
+        },
+        {
+          "name": "COMPONENT_HEIGHTS",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/index.ts",
+      "size": 493,
+      "lines": 11,
+      "exports": [
+        {
+          "name": "ConfigGUIService",
+          "type": "named"
+        },
+        {
+          "name": "GUIStateManager",
+          "type": "named"
+        },
+        {
+          "name": "GUIEventHandlers",
+          "type": "named"
+        },
+        {
+          "name": "ComponentFactory",
+          "type": "named"
+        },
+        {
+          "name": "createDropdown",
+          "type": "named"
+        },
+        {
+          "name": "createFrame",
+          "type": "named"
+        },
+        {
+          "name": "createTitle",
+          "type": "named"
+        },
+        {
+          "type": "star"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 6
+    },
+    {
+      "path": "src/client/services/configGui/interfaces.ts",
+      "size": 1011,
+      "lines": 36,
+      "exports": [
+        {
+          "name": "ConfigGUIServiceOptions",
+          "type": "declaration"
+        },
+        {
+          "name": "GUIState",
+          "type": "declaration"
+        },
+        {
+          "name": "ComponentProps",
+          "type": "declaration"
+        },
+        {
+          "name": "LayerConfig",
+          "type": "named"
+        },
+        {
+          "name": "EnhancedGeneratorConfig",
+          "type": "named"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/client/services/configGui/makeConfigGui.ts",
+      "size": 11765,
+      "lines": 360,
+      "exports": [
+        {
+          "name": "ConfigGUIService",
+          "type": "declaration"
+        }
+      ],
+      "imports": 14,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/client/services/configGui/stateManager.ts",
+      "size": 13772,
+      "lines": 404,
+      "exports": [
+        {
+          "name": "GUIStateManager",
+          "type": "declaration"
+        }
+      ],
+      "imports": 5,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/configGui/utilities.ts",
+      "size": 2365,
+      "lines": 82,
+      "exports": [
+        {
+          "name": "validateInput",
+          "type": "declaration"
+        },
+        {
+          "name": "flashColor",
+          "type": "declaration"
+        },
+        {
+          "name": "createUICorner",
+          "type": "declaration"
+        },
+        {
+          "name": "validateAndUpdateInput",
+          "type": "declaration"
+        },
+        {
+          "name": "animateButtonClick",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 4
+    },
+    {
+      "path": "src/client/services/configGui/utils/linkTypeCounter.ts",
+      "size": 1892,
+      "lines": 65,
+      "exports": [
+        {
+          "name": "countLinkTypes",
+          "type": "declaration"
+        },
+        {
+          "name": "getLinkTypeCountsFromCluster",
+          "type": "declaration"
+        },
+        {
+          "name": "LINK_TYPE_COUNTS_REMOTE",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": true,
+      "unusedExportCount": 3
+    },
+    {
+      "path": "src/client/services/configGui/validationHandlers.ts",
+      "size": 5713,
+      "lines": 199,
+      "exports": [
+        {
+          "name": "ValidationResult",
+          "type": "declaration"
+        },
+        {
+          "name": "validateEnhancedConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "validateLayerConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "validateSpacingConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "validateNumericInput",
+          "type": "declaration"
+        },
+        {
+          "name": "validateStringInput",
+          "type": "declaration"
+        },
+        {
+          "name": "sanitizeStringInput",
+          "type": "declaration"
+        },
+        {
+          "name": "validateComplexity",
+          "type": "declaration"
+        }
+      ],
+      "imports": 3,
+      "isOrphaned": false,
+      "unusedExportCount": 7
+    },
+    {
+      "path": "src/client/services/keyboardShortcuts.service.ts",
+      "size": 7791,
+      "lines": 207,
+      "exports": [
+        {
+          "name": "KeyboardShortcutsService",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/nodePropertiesInspector/nodePropertiesInspector.service.ts",
+      "size": 10482,
+      "lines": 315,
+      "exports": [
+        {
+          "name": "NodePropertiesInspectorService",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/client/services/propertiesGui/propertiesGui.service.ts",
+      "size": 15342,
+      "lines": 458,
+      "exports": [
+        {
+          "name": "PropertyInfo",
+          "type": "declaration"
+        },
+        {
+          "name": "PropertiesData",
+          "type": "declaration"
+        },
+        {
+          "name": "FilterState",
+          "type": "declaration"
+        },
+        {
+          "name": "PropertiesGuiService",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 3
+    },
+    {
+      "path": "src/client/utils/guiDebugger.ts",
+      "size": 5461,
+      "lines": 174,
+      "exports": [
+        {
+          "name": "GUIDebugger",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/server/main.server.ts",
+      "size": 799,
+      "lines": 22,
+      "exports": [],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/server/services/colorsTest.service.ts",
+      "size": 3776,
+      "lines": 126,
+      "exports": [
+        {
+          "name": "ColorsTestService",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/server/services/configGUIServer.service.ts",
+      "size": 12732,
+      "lines": 321,
+      "exports": [
+        {
+          "name": "ConfigGUIServerService",
+          "type": "declaration"
+        }
+      ],
+      "imports": 5,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/server/services/graphInitializer.service.ts",
+      "size": 4076,
+      "lines": 154,
+      "exports": [
+        {
+          "name": "GraphInitConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "GraphInitializerService",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/server/services/groupAnimationTest.service.ts",
+      "size": 6092,
+      "lines": 222,
+      "exports": [
+        {
+          "name": "GroupAnimationTestService",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/server/services/linkTypeCounterServer.service.ts",
+      "size": 2486,
+      "lines": 87,
+      "exports": [
+        {
+          "name": "LinkTypeCounterServerService",
+          "type": "declaration"
+        }
+      ],
+      "imports": 4,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/server/services/main/dev2features.ts",
+      "size": 1090,
+      "lines": 34,
+      "exports": [
+        {
+          "name": "initializeDev2Features",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/server/services/main/game.service.ts",
+      "size": 6405,
+      "lines": 211,
+      "exports": [
+        {
+          "name": "GameService",
+          "type": "declaration"
+        }
+      ],
+      "imports": 6,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/constants/axisDefaults.ts",
+      "size": 2077,
+      "lines": 62,
+      "exports": [
+        {
+          "name": "AXIS_DEFAULTS",
+          "type": "declaration"
+        },
+        {
+          "name": "getDefaultXAxis",
+          "type": "declaration"
+        },
+        {
+          "name": "getDefaultZAxis",
+          "type": "declaration"
+        },
+        {
+          "name": "isUsingLegacyDefaults",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/data/tempHarnessLinks.ts",
+      "size": 335859,
+      "lines": 14034,
+      "exports": [
+        {
+          "name": "HarnessLink",
+          "type": "declaration"
+        },
+        {
+          "name": "TEMP_HARNESS_LINKS",
+          "type": "declaration"
+        },
+        {
+          "name": "HARNESS_LINK_STATS",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 2
+    },
+    {
+      "path": "src/shared/data/tempHarnessTestData.ts",
+      "size": 687256,
+      "lines": 23033,
+      "exports": [
+        {
+          "name": "HarnessFileData",
+          "type": "declaration"
+        },
+        {
+          "name": "TEMP_HARNESS_TEST_DATA",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/data/tempTestData.ts",
+      "size": 5424,
+      "lines": 252,
+      "exports": [
+        {
+          "name": "TEMP_TEST_NODES",
+          "type": "declaration"
+        },
+        {
+          "name": "TEMP_TEST_LINKS",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 2
+    },
+    {
+      "path": "src/shared/interfaces/enhancedGenerator.interface.ts",
+      "size": 2518,
+      "lines": 74,
+      "exports": [
+        {
+          "name": "LayerConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "SpacingConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "VisualizationOptions",
+          "type": "declaration"
+        },
+        {
+          "name": "SpatialGrouping",
+          "type": "declaration"
+        },
+        {
+          "name": "AxisMapping",
+          "type": "declaration"
+        },
+        {
+          "name": "VisualMapping",
+          "type": "declaration"
+        },
+        {
+          "name": "YAxisConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "EnhancedGeneratorConfig",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/interfaces/IMaker.ts",
+      "size": 2858,
+      "lines": 128,
+      "exports": [
+        {
+          "name": "IMakerConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "IMakerResult",
+          "type": "declaration"
+        },
+        {
+          "name": "IMakerFunction",
+          "type": "declaration"
+        },
+        {
+          "name": "IMakerClass",
+          "type": "declaration"
+        },
+        {
+          "name": "IVisualMakerConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "ILabelMakerConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "IConnectorMakerConfig",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 5
+    },
+    {
+      "path": "src/shared/interfaces/IService.ts",
+      "size": 819,
+      "lines": 39,
+      "exports": [
+        {
+          "name": "IService",
+          "type": "declaration"
+        },
+        {
+          "name": "IServiceWithInit",
+          "type": "declaration"
+        },
+        {
+          "name": "IServiceOptions",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 2
+    },
+    {
+      "path": "src/shared/interfaces/nodeTypes.ts",
+      "size": 1493,
+      "lines": 54,
+      "exports": [
+        {
+          "name": "PersonNodeType",
+          "type": "declaration"
+        },
+        {
+          "name": "AnimalNodeType",
+          "type": "declaration"
+        },
+        {
+          "name": "NodeType",
+          "type": "declaration"
+        },
+        {
+          "name": "PersonProperties",
+          "type": "declaration"
+        },
+        {
+          "name": "AnimalProperties",
+          "type": "declaration"
+        },
+        {
+          "name": "NodeProperties",
+          "type": "declaration"
+        },
+        {
+          "name": "AxisPropertyName",
+          "type": "declaration"
+        },
+        {
+          "name": "isPersonNodeType",
+          "type": "declaration"
+        },
+        {
+          "name": "isAnimalNodeType",
+          "type": "declaration"
+        },
+        {
+          "name": "isValidNodeType",
+          "type": "declaration"
+        },
+        {
+          "name": "AXIS_PROPERTIES",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 7
+    },
+    {
+      "path": "src/shared/interfaces/simpleDataGenerator.interface.ts",
+      "size": 2307,
+      "lines": 72,
+      "exports": [
+        {
+          "name": "Node",
+          "type": "declaration"
+        },
+        {
+          "name": "Link",
+          "type": "declaration"
+        },
+        {
+          "name": "Group",
+          "type": "declaration"
+        },
+        {
+          "name": "Cluster",
+          "type": "declaration"
+        },
+        {
+          "name": "GeneratorConfig",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/barMaker/barMaker.ts",
+      "size": 3152,
+      "lines": 109,
+      "exports": [
+        {
+          "name": "makeBar",
+          "type": "declaration"
+        }
+      ],
+      "imports": 3,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/barMaker/constants.ts",
+      "size": 514,
+      "lines": 21,
+      "exports": [
+        {
+          "name": "BAR_CONSTANTS",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/barMaker/index.ts",
+      "size": 233,
+      "lines": 6,
+      "exports": [
+        {
+          "name": "makeBar",
+          "type": "named"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/barMaker/interfaces.ts",
+      "size": 836,
+      "lines": 36,
+      "exports": [
+        {
+          "name": "BarProps",
+          "type": "declaration"
+        },
+        {
+          "name": "BarConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "defaultProps",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": true,
+      "unusedExportCount": 3
+    },
+    {
+      "path": "src/shared/modules/barMaker/standardizedInterfaces.ts",
+      "size": 922,
+      "lines": 44,
+      "exports": [
+        {
+          "name": "IBarMakerConfig",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/barMaker/utilities.ts",
+      "size": 1268,
+      "lines": 31,
+      "exports": [
+        {
+          "name": "makeAttachment",
+          "type": "declaration"
+        },
+        {
+          "name": "generateBarName",
+          "type": "declaration"
+        },
+        {
+          "name": "generateAttachmentName",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/hexagonMaker/constants.ts",
+      "size": 701,
+      "lines": 29,
+      "exports": [
+        {
+          "name": "HEXAGON_CONSTANTS",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/hexagonMaker/hexagonMaker.ts",
+      "size": 3088,
+      "lines": 107,
+      "exports": [
+        {
+          "name": "makeHexagon",
+          "type": "declaration"
+        }
+      ],
+      "imports": 5,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/hexagonMaker/index.ts",
+      "size": 238,
+      "lines": 6,
+      "exports": [
+        {
+          "name": "makeHexagon",
+          "type": "named"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/hexagonMaker/interfaces.ts",
+      "size": 231,
+      "lines": 11,
+      "exports": [
+        {
+          "name": "HexagonConfig",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/hexagonMaker/standardizedInterfaces.ts",
+      "size": 752,
+      "lines": 36,
+      "exports": [
+        {
+          "name": "IHexagonMakerConfig",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/hexagonMaker/utilities.ts",
+      "size": 2436,
+      "lines": 74,
+      "exports": [
+        {
+          "name": "generateHexagonName",
+          "type": "declaration"
+        },
+        {
+          "name": "createCenterCube",
+          "type": "declaration"
+        },
+        {
+          "name": "createCenterAttachment",
+          "type": "declaration"
+        },
+        {
+          "name": "calculateBarDimensions",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/constants.ts",
+      "size": 572,
+      "lines": 23,
+      "exports": [
+        {
+          "name": "HEX_STACK_CONSTANTS",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/hexStackMaker.ts",
+      "size": 2137,
+      "lines": 74,
+      "exports": [
+        {
+          "name": "makeHexStack",
+          "type": "declaration"
+        }
+      ],
+      "imports": 4,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/index.ts",
+      "size": 242,
+      "lines": 6,
+      "exports": [
+        {
+          "name": "makeHexStack",
+          "type": "named"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/interfaces.ts",
+      "size": 212,
+      "lines": 9,
+      "exports": [
+        {
+          "name": "HexStackConfig",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/standardizedInterfaces.ts",
+      "size": 833,
+      "lines": 38,
+      "exports": [
+        {
+          "name": "IHexStackMakerConfig",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/utilities.ts",
+      "size": 563,
+      "lines": 16,
+      "exports": [
+        {
+          "name": "generateStackName",
+          "type": "declaration"
+        },
+        {
+          "name": "calculateLevelPosition",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/labelBlockMaker/constants.ts",
+      "size": 770,
+      "lines": 28,
+      "exports": [
+        {
+          "name": "LABEL_BLOCK_CONSTANTS",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/labelBlockMaker/index.ts",
+      "size": 398,
+      "lines": 16,
+      "exports": [
+        {
+          "name": "makeLabelBlock",
+          "type": "named"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/labelBlockMaker/interfaces.ts",
+      "size": 1320,
+      "lines": 52,
+      "exports": [
+        {
+          "name": "TextBoxProps",
+          "type": "declaration"
+        },
+        {
+          "name": "LabelConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "LabelBlockProps",
+          "type": "declaration"
+        },
+        {
+          "name": "LabelBlockConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "defaultProps",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 3
+    },
+    {
+      "path": "src/shared/modules/labelBlockMaker/labelBlockMaker.ts",
+      "size": 2754,
+      "lines": 94,
+      "exports": [
+        {
+          "name": "makeLabelBlock",
+          "type": "declaration"
+        }
+      ],
+      "imports": 4,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/labelBlockMaker/standardizedInterfaces.ts",
+      "size": 1224,
+      "lines": 61,
+      "exports": [
+        {
+          "name": "IFaceLabelConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "ILabelBlockMakerConfig",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/labelBlockMaker/utilities.ts",
+      "size": 1965,
+      "lines": 59,
+      "exports": [
+        {
+          "name": "createLabelsForBlock",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/labelGroupMaker.ts",
+      "size": 6210,
+      "lines": 179,
+      "exports": [
+        {
+          "name": "createLabelGroup",
+          "type": "declaration"
+        }
+      ],
+      "imports": 3,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/makeOriginBlock.ts",
+      "size": 2891,
+      "lines": 91,
+      "exports": [
+        {
+          "name": "makeOriginBlock",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/baseBlockCreator.ts",
+      "size": 2408,
+      "lines": 86,
+      "exports": [],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/blockDimensionCalculator.ts",
+      "size": 2845,
+      "lines": 106,
+      "exports": [
+        {
+          "name": "NodeBounds",
+          "type": "declaration"
+        },
+        {
+          "name": "BlockDimensions",
+          "type": "declaration"
+        },
+        {
+          "name": "BlockDimensionCalculator",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": true,
+      "unusedExportCount": 3
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/endcapBlockCreator.ts",
+      "size": 6067,
+      "lines": 216,
+      "exports": [
+        {
+          "name": "EndcapConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "EndcapBlockCreator",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/index.ts",
+      "size": 283,
+      "lines": 10,
+      "exports": [
+        {
+          "type": "star"
+        },
+        {
+          "type": "star"
+        },
+        {
+          "type": "star"
+        },
+        {
+          "type": "star"
+        },
+        {
+          "type": "star"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": true,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/platformBlockCreator.ts",
+      "size": 1692,
+      "lines": 65,
+      "exports": [
+        {
+          "name": "PlatformBlockConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "PlatformBlockCreator",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/shadowBlockCreator.ts",
+      "size": 7914,
+      "lines": 252,
+      "exports": [
+        {
+          "name": "ShadowBlockConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "ShadowBlockCreator",
+          "type": "declaration"
+        }
+      ],
+      "imports": 4,
+      "isOrphaned": false,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/swimlaneBlockCreator.ts",
+      "size": 7163,
+      "lines": 244,
+      "exports": [
+        {
+          "name": "SwimLaneBlockConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "SwimLaneBlockCreator",
+          "type": "declaration"
+        }
+      ],
+      "imports": 3,
+      "isOrphaned": false,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/yParallelShadowCreator.ts",
+      "size": 8280,
+      "lines": 257,
+      "exports": [
+        {
+          "name": "YParallelShadowConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "YGroupBounds",
+          "type": "declaration"
+        },
+        {
+          "name": "YParallelShadowCreator",
+          "type": "declaration"
+        }
+      ],
+      "imports": 6,
+      "isOrphaned": false,
+      "unusedExportCount": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/constants/blockConstants.ts",
+      "size": 2439,
+      "lines": 62,
+      "exports": [
+        {
+          "name": "BLOCK_CONSTANTS",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/constants/index.ts",
+      "size": 152,
+      "lines": 7,
+      "exports": [
+        {
+          "type": "star"
+        },
+        {
+          "type": "star"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": true,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/constants/labelConstants.ts",
+      "size": 982,
+      "lines": 39,
+      "exports": [
+        {
+          "name": "LABEL_CONSTANTS",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/constants/layoutConstants.ts",
+      "size": 887,
+      "lines": 29,
+      "exports": [
+        {
+          "name": "LAYOUT_CONSTANTS",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/constants/positionConstants.ts",
+      "size": 881,
+      "lines": 35,
+      "exports": [
+        {
+          "name": "POSITION_CONSTANTS",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/constants/robloxColors.ts",
+      "size": 4388,
+      "lines": 102,
+      "exports": [
+        {
+          "name": "robloxColors",
+          "type": "declaration"
+        },
+        {
+          "name": "LINK_COLORS",
+          "type": "declaration"
+        },
+        {
+          "name": "Y_AXIS_COLORS",
+          "type": "declaration"
+        },
+        {
+          "name": "Z_AXIS_COLORS",
+          "type": "declaration"
+        },
+        {
+          "name": "X_AXIS_COLORS",
+          "type": "declaration"
+        },
+        {
+          "name": "X_PARALLEL_LANE_COLORS",
+          "type": "declaration"
+        },
+        {
+          "name": "personColors",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/dataGeneratorRobloxRendererUtils/constants.ts",
+      "size": 2073,
+      "lines": 79,
+      "exports": [
+        {
+          "name": "RENDERER_CONSTANTS",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts",
+      "size": 7267,
+      "lines": 244,
+      "exports": [
+        {
+          "name": "createRopeConnectors",
+          "type": "declaration"
+        }
+      ],
+      "imports": 6,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/flatBlockCreator.ts",
+      "size": 5866,
+      "lines": 183,
+      "exports": [
+        {
+          "name": "SwimLaneBlockConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "FLAT_BLOCK_DEFAULTS",
+          "type": "declaration"
+        },
+        {
+          "name": "createFlatBlocks",
+          "type": "declaration"
+        },
+        {
+          "name": "calculateBlockDimensions",
+          "type": "declaration"
+        },
+        {
+          "name": "createSwimLaneBlock",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": true,
+      "unusedExportCount": 5
+    },
+    {
+      "path": "src/shared/modules/renderers/propertyValueResolver.ts",
+      "size": 7751,
+      "lines": 287,
+      "exports": [
+        {
+          "name": "PropertyExtractor",
+          "type": "declaration"
+        },
+        {
+          "name": "PropertyValueResolver",
+          "type": "declaration"
+        }
+      ],
+      "imports": 4,
+      "isOrphaned": false,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/constants.ts",
+      "size": 2203,
+      "lines": 70,
+      "exports": [
+        {
+          "name": "COLOR_PALETTES",
+          "type": "declaration"
+        },
+        {
+          "name": "NODE_TYPE_NAMES",
+          "type": "declaration"
+        },
+        {
+          "name": "ANIMAL_TYPES",
+          "type": "declaration"
+        },
+        {
+          "name": "PET_TYPES",
+          "type": "declaration"
+        },
+        {
+          "name": "PET_COLORS",
+          "type": "declaration"
+        },
+        {
+          "name": "FIRST_NAMES",
+          "type": "declaration"
+        },
+        {
+          "name": "LAST_NAMES",
+          "type": "declaration"
+        },
+        {
+          "name": "COUNTRIES_OF_BIRTH",
+          "type": "declaration"
+        },
+        {
+          "name": "COUNTRIES_OF_RESIDENCE",
+          "type": "declaration"
+        },
+        {
+          "name": "DEFAULT_ATTACHMENTS",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/boundsCalculator.ts",
+      "size": 3886,
+      "lines": 154,
+      "exports": [
+        {
+          "name": "Bounds",
+          "type": "declaration"
+        },
+        {
+          "name": "BoundsCalculator",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": true,
+      "unusedExportCount": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
+      "size": 25651,
+      "lines": 889,
+      "exports": [
+        {
+          "name": "DataGenerator",
+          "type": "declaration"
+        }
+      ],
+      "imports": 7,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
+      "size": 2529,
+      "lines": 116,
+      "exports": [
+        {
+          "name": "INodeGenerator",
+          "type": "declaration"
+        },
+        {
+          "name": "ILinkGenerator",
+          "type": "declaration"
+        },
+        {
+          "name": "ITestDataProcessor",
+          "type": "declaration"
+        },
+        {
+          "name": "IPropertyManager",
+          "type": "declaration"
+        },
+        {
+          "name": "NodesByLayer",
+          "type": "declaration"
+        },
+        {
+          "name": "LinkGenerationResult",
+          "type": "declaration"
+        },
+        {
+          "name": "PropertyAssignmentConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "PropertyMetadata",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 4
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
+      "size": 9408,
+      "lines": 334,
+      "exports": [
+        {
+          "name": "LinkGenerator",
+          "type": "declaration"
+        }
+      ],
+      "imports": 4,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",
+      "size": 5320,
+      "lines": 174,
+      "exports": [
+        {
+          "name": "NodeGenerator",
+          "type": "declaration"
+        }
+      ],
+      "imports": 4,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/propertyManager.ts",
+      "size": 5151,
+      "lines": 187,
+      "exports": [
+        {
+          "name": "PropertyManager",
+          "type": "declaration"
+        }
+      ],
+      "imports": 3,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/testDataProcessor.ts",
+      "size": 6516,
+      "lines": 212,
+      "exports": [
+        {
+          "name": "TestDataProcessor",
+          "type": "declaration"
+        }
+      ],
+      "imports": 6,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/nodeOrganizer.ts",
+      "size": 3902,
+      "lines": 135,
+      "exports": [
+        {
+          "name": "OrganizedNodes",
+          "type": "declaration"
+        },
+        {
+          "name": "NodeOrganizer",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": true,
+      "unusedExportCount": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",
+      "size": 14113,
+      "lines": 397,
+      "exports": [
+        {
+          "name": "PositionCalculator",
+          "type": "declaration"
+        }
+      ],
+      "imports": 7,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/positionMapper.ts",
+      "size": 4672,
+      "lines": 154,
+      "exports": [
+        {
+          "name": "PositionMapper",
+          "type": "declaration"
+        }
+      ],
+      "imports": 4,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/index.ts",
+      "size": 228,
+      "lines": 9,
+      "exports": [
+        {
+          "name": "UnifiedDataRenderer",
+          "type": "named"
+        },
+        {
+          "type": "star"
+        },
+        {
+          "type": "star"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/interfaces.ts",
+      "size": 1847,
+      "lines": 75,
+      "exports": [
+        {
+          "name": "IDataGenerator",
+          "type": "declaration"
+        },
+        {
+          "name": "IPositionCalculator",
+          "type": "declaration"
+        },
+        {
+          "name": "INodeRenderer",
+          "type": "declaration"
+        },
+        {
+          "name": "IUpdateManager",
+          "type": "declaration"
+        },
+        {
+          "name": "NodeCreationParams",
+          "type": "declaration"
+        },
+        {
+          "name": "UpdatePlan",
+          "type": "declaration"
+        },
+        {
+          "name": "SpacingConfig",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/managers/laneManager.ts",
+      "size": 14490,
+      "lines": 440,
+      "exports": [
+        {
+          "name": "LaneManager",
+          "type": "declaration"
+        }
+      ],
+      "imports": 9,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/managers/platformShadowManager.ts",
+      "size": 2206,
+      "lines": 69,
+      "exports": [
+        {
+          "name": "PlatformShadowManager",
+          "type": "declaration"
+        }
+      ],
+      "imports": 5,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/managers/wallManager.ts",
+      "size": 4027,
+      "lines": 142,
+      "exports": [
+        {
+          "name": "WallManager",
+          "type": "declaration"
+        }
+      ],
+      "imports": 5,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/managers/yParallelShadowManager.ts",
+      "size": 2644,
+      "lines": 83,
+      "exports": [
+        {
+          "name": "YParallelShadowManager",
+          "type": "declaration"
+        }
+      ],
+      "imports": 5,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/rendering/labelRenderer.ts",
+      "size": 5869,
+      "lines": 168,
+      "exports": [
+        {
+          "name": "LabelConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "LabelRenderer",
+          "type": "declaration"
+        }
+      ],
+      "imports": 3,
+      "isOrphaned": true,
+      "unusedExportCount": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/rendering/nodeRenderer.ts",
+      "size": 8198,
+      "lines": 262,
+      "exports": [
+        {
+          "name": "NodeRenderer",
+          "type": "declaration"
+        }
+      ],
+      "imports": 9,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/rendering/updateManager.ts",
+      "size": 13786,
+      "lines": 397,
+      "exports": [
+        {
+          "name": "UpdateManager",
+          "type": "declaration"
+        }
+      ],
+      "imports": 7,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "size": 3533,
+      "lines": 179,
+      "exports": [
+        {
+          "name": "LaneBounds",
+          "type": "declaration"
+        },
+        {
+          "name": "PropertyBounds",
+          "type": "declaration"
+        },
+        {
+          "name": "LanePosition",
+          "type": "declaration"
+        },
+        {
+          "name": "LaneDimensions",
+          "type": "declaration"
+        },
+        {
+          "name": "PlatformBounds",
+          "type": "declaration"
+        },
+        {
+          "name": "WallConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "YPropertyBounds",
+          "type": "declaration"
+        },
+        {
+          "name": "ShadowBlockConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "PlatformBlockConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "EndcapConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "YParallelShadowConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "RendererConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "UpdateConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "LaneManagerResult",
+          "type": "declaration"
+        },
+        {
+          "name": "PlatformShadowResult",
+          "type": "declaration"
+        },
+        {
+          "name": "WallManagerResult",
+          "type": "declaration"
+        },
+        {
+          "name": "isNode",
+          "type": "declaration"
+        },
+        {
+          "name": "isLink",
+          "type": "declaration"
+        },
+        {
+          "name": "isCluster",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 12
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/unifiedDataRenderer.ts",
+      "size": 8399,
+      "lines": 259,
+      "exports": [
+        {
+          "name": "UnifiedDataRenderer",
+          "type": "declaration"
+        }
+      ],
+      "imports": 13,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/utils/colorMapper.ts",
+      "size": 8912,
+      "lines": 240,
+      "exports": [
+        {
+          "name": "getNodeBackgroundColor",
+          "type": "declaration"
+        },
+        {
+          "name": "getNodeBorderColor",
+          "type": "declaration"
+        },
+        {
+          "name": "getNodeTextProperties",
+          "type": "declaration"
+        }
+      ],
+      "imports": 4,
+      "isOrphaned": false,
+      "unusedExportCount": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/verticalWallCreator.ts",
+      "size": 6601,
+      "lines": 207,
+      "exports": [
+        {
+          "name": "VerticalWallConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "createVerticalWalls",
+          "type": "declaration"
+        },
+        {
+          "name": "createWallSwimlanes",
+          "type": "declaration"
+        },
+        {
+          "name": "createFarZEdgeWall",
+          "type": "declaration"
+        },
+        {
+          "name": "createFarXEdgeWall",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 4
+    },
+    {
+      "path": "src/shared/modules/ropeLabelMaker/constants.ts",
+      "size": 706,
+      "lines": 39,
+      "exports": [
+        {
+          "name": "ROPE_LABEL_CONSTANTS",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/ropeLabelMaker/index.ts",
+      "size": 253,
+      "lines": 12,
+      "exports": [
+        {
+          "name": "createRopeLabel",
+          "type": "named"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": true,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/modules/ropeLabelMaker/interfaces.ts",
+      "size": 911,
+      "lines": 49,
+      "exports": [
+        {
+          "name": "RopeLabelProps",
+          "type": "declaration"
+        },
+        {
+          "name": "RopeLabelConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "ParsedRelation",
+          "type": "declaration"
+        },
+        {
+          "name": "RopeLabelOptions",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 2
+    },
+    {
+      "path": "src/shared/modules/ropeLabelMaker/ropeLabelMaker.ts",
+      "size": 971,
+      "lines": 40,
+      "exports": [
+        {
+          "name": "createRopeLabel",
+          "type": "declaration"
+        }
+      ],
+      "imports": 3,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/ropeLabelMaker/utilities.ts",
+      "size": 2460,
+      "lines": 88,
+      "exports": [
+        {
+          "name": "parseRelationName",
+          "type": "declaration"
+        },
+        {
+          "name": "formatNodeName",
+          "type": "declaration"
+        },
+        {
+          "name": "calculateLabelPosition",
+          "type": "declaration"
+        },
+        {
+          "name": "validateRelationFormat",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": false,
+      "unusedExportCount": 3
+    },
+    {
+      "path": "src/shared/modules/TextBoxMaker.ts",
+      "size": 2963,
+      "lines": 101,
+      "exports": [
+        {
+          "name": "createTextBox",
+          "type": "declaration"
+        },
+        {
+          "name": "createTextBoxWithCustomStyling",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/modules/TextLabelMaker.ts",
+      "size": 3048,
+      "lines": 100,
+      "exports": [
+        {
+          "name": "createTextLabel",
+          "type": "declaration"
+        },
+        {
+          "name": "createTextLabelWithCustomStyling",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 1
+    },
+    {
+      "path": "src/shared/services/base/BaseService.ts",
+      "size": 4629,
+      "lines": 172,
+      "exports": [],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/utils/nodePropertyHelpers.ts",
+      "size": 2599,
+      "lines": 89,
+      "exports": [
+        {
+          "name": "isPersonNode",
+          "type": "declaration"
+        },
+        {
+          "name": "isAnimalNode",
+          "type": "declaration"
+        },
+        {
+          "name": "getNodeProperty",
+          "type": "declaration"
+        },
+        {
+          "name": "getAgeRange",
+          "type": "declaration"
+        },
+        {
+          "name": "getFullName",
+          "type": "declaration"
+        },
+        {
+          "name": "resolvePropertyValue",
+          "type": "declaration"
+        }
+      ],
+      "imports": 3,
+      "isOrphaned": false,
+      "unusedExportCount": 2
+    },
+    {
+      "path": "src/shared/utils/propertyDiscovery.ts",
+      "size": 4363,
+      "lines": 145,
+      "exports": [
+        {
+          "name": "discoverNodeProperties",
+          "type": "declaration"
+        },
+        {
+          "name": "discoverObjectProperties",
+          "type": "declaration"
+        },
+        {
+          "name": "getNodePropertyValue",
+          "type": "declaration"
+        },
+        {
+          "name": "isValidAxisProperty",
+          "type": "declaration"
+        },
+        {
+          "name": "filterValidAxisProperties",
+          "type": "declaration"
+        }
+      ],
+      "imports": 1,
+      "isOrphaned": false,
+      "unusedExportCount": 2
+    },
+    {
+      "path": "src/shared/utils/stringUtils.ts",
+      "size": 548,
+      "lines": 22,
+      "exports": [
+        {
+          "name": "padNumber",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/utils/validation/arrayValidation.ts",
+      "size": 3960,
+      "lines": 177,
+      "exports": [
+        {
+          "name": "ArrayValidationOptions",
+          "type": "declaration"
+        },
+        {
+          "name": "ArrayValidationResult",
+          "type": "declaration"
+        },
+        {
+          "name": "ARRAY_LIMITS",
+          "type": "declaration"
+        },
+        {
+          "name": "validateArray",
+          "type": "declaration"
+        },
+        {
+          "name": "validateNodeArray",
+          "type": "declaration"
+        },
+        {
+          "name": "validateLayerArray",
+          "type": "declaration"
+        },
+        {
+          "name": "validateConnectionArray",
+          "type": "declaration"
+        },
+        {
+          "name": "hasCircularReference",
+          "type": "declaration"
+        },
+        {
+          "name": "truncateArray",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 6
+    },
+    {
+      "path": "src/shared/utils/validation/configValidation.ts",
+      "size": 10682,
+      "lines": 371,
+      "exports": [
+        {
+          "name": "ConfigValidationResult",
+          "type": "declaration"
+        },
+        {
+          "name": "validateEnhancedGeneratorConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "isEnhancedGeneratorConfig",
+          "type": "declaration"
+        },
+        {
+          "name": "validateRemoteData",
+          "type": "declaration"
+        }
+      ],
+      "imports": 2,
+      "isOrphaned": true,
+      "unusedExportCount": 4
+    },
+    {
+      "path": "src/shared/utils/validation/index.ts",
+      "size": 146,
+      "lines": 7,
+      "exports": [
+        {
+          "type": "star"
+        },
+        {
+          "type": "star"
+        },
+        {
+          "type": "star"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": false,
+      "unusedExportCount": 0
+    },
+    {
+      "path": "src/shared/utils/validation/stringValidation.ts",
+      "size": 5525,
+      "lines": 214,
+      "exports": [
+        {
+          "name": "StringValidationOptions",
+          "type": "declaration"
+        },
+        {
+          "name": "ValidationResult",
+          "type": "declaration"
+        },
+        {
+          "name": "STRING_LIMITS",
+          "type": "declaration"
+        },
+        {
+          "name": "validateNodeName",
+          "type": "declaration"
+        },
+        {
+          "name": "validateLabelText",
+          "type": "declaration"
+        },
+        {
+          "name": "validateString",
+          "type": "declaration"
+        },
+        {
+          "name": "sanitizeString",
+          "type": "declaration"
+        },
+        {
+          "name": "validateStringArray",
+          "type": "declaration"
+        },
+        {
+          "name": "containsInjectionPattern",
+          "type": "declaration"
+        },
+        {
+          "name": "escapeHtml",
+          "type": "declaration"
+        }
+      ],
+      "imports": 0,
+      "isOrphaned": true,
+      "unusedExportCount": 10
+    }
+  ]
+}

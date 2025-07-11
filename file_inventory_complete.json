@@ -1,0 +1,168 @@
+{
+  "metadata": {
+    "generatedAt": "2025-07-11",
+    "projectPath": "/Users/__projects/roblox-mapper-002-multi/cursor",
+    "analysisVersion": "1.0.0"
+  },
+  "summary": {
+    "totalFiles": 143,
+    "totalSize": 1586581,
+    "totalSizeFormatted": "1.51 MB",
+    "totalLines": 55524,
+    "orphanedFiles": 33,
+    "orphanedFilesPercentage": 23.1,
+    "filesWithUnusedExports": 69,
+    "filesWithUnusedExportsPercentage": 48.3,
+    "totalUnusedExports": 166,
+    "circularDependencies": 0
+  },
+  "moduleBreakdown": {
+    "src/shared/modules": {
+      "description": "Core business logic modules",
+      "files": 75,
+      "sizeKB": 274.61,
+      "lines": 9340,
+      "exports": 170,
+      "unusedExports": 74,
+      "orphanedFiles": 22,
+      "healthScore": "needs-cleanup"
+    },
+    "src/client/services": {
+      "description": "Client-side services and GUI components",
+      "files": 39,
+      "sizeKB": 167.50,
+      "lines": 5351,
+      "exports": 96,
+      "unusedExports": 46,
+      "orphanedFiles": 8,
+      "healthScore": "moderate"
+    },
+    "src/server/services": {
+      "description": "Server-side game services",
+      "files": 7,
+      "sizeKB": 35.80,
+      "lines": 1155,
+      "exports": 8,
+      "unusedExports": 1,
+      "orphanedFiles": 0,
+      "healthScore": "good"
+    },
+    "src/shared/data": {
+      "description": "Data files and test data",
+      "files": 3,
+      "sizeKB": 1004.43,
+      "lines": 37319,
+      "exports": 7,
+      "unusedExports": 5,
+      "orphanedFiles": 0,
+      "healthScore": "bloated"
+    }
+  },
+  "criticalFindings": {
+    "emptyFiles": [
+      "src/client/services/configGui/components/visualCustomizationControls.ts",
+      "src/client/services/configGui/components/yAxisControls.ts"
+    ],
+    "largestFiles": [
+      {
+        "path": "src/shared/data/tempHarnessTestData.ts",
+        "lines": 23033,
+        "sizeKB": 1028.02,
+        "recommendation": "Move to external data source or database"
+      },
+      {
+        "path": "src/shared/data/tempHarnessLinks.ts",
+        "lines": 14034,
+        "sizeKB": 638.51,
+        "recommendation": "Move to external data source or database"
+      },
+      {
+        "path": "src/shared/modules/renderers/unifiedDataRenderer/rendering/nodeRenderer.ts",
+        "lines": 1153,
+        "sizeKB": 41.97,
+        "recommendation": "Split into smaller focused modules"
+      }
+    ],
+    "mostUnusedExports": [
+      {
+        "path": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+        "unusedCount": 12,
+        "totalExports": 19,
+        "unusedNames": ["LanePosition", "PlatformBounds", "WallConfig", "ShadowBlockConfig", "PlatformBlockConfig", "EndcapConfig", "YParallelShadowConfig", "RendererConfig", "UpdateConfig", "isNode", "isLink", "isCluster"]
+      },
+      {
+        "path": "src/shared/utils/validation/stringValidation.ts",
+        "unusedCount": 10,
+        "totalExports": 10,
+        "unusedNames": ["StringValidationOptions", "ValidationResult", "STRING_LIMITS", "validateNodeName", "validateLabelText", "validateString", "sanitizeString", "validateStringArray", "containsInjectionPattern", "escapeHtml"]
+      },
+      {
+        "path": "src/shared/modules/renderers/constants/robloxColors.ts",
+        "unusedCount": 11,
+        "totalExports": 11,
+        "unusedNames": ["Color3", "ROBLOX_COLORS", "COLOR_PALETTE", "DEFAULT_COLORS", "MATERIAL_COLORS", "getRandomColor", "interpolateColor", "colorToHex", "hexToColor", "adjustBrightness", "getContrastColor"]
+      }
+    ],
+    "potentiallyDeprecatedModules": [
+      {
+        "pattern": "*Maker modules",
+        "count": 33,
+        "orphanedCount": 10,
+        "note": "Many maker modules are orphaned, suggesting they may be deprecated"
+      }
+    ]
+  },
+  "recommendations": [
+    {
+      "priority": "high",
+      "action": "Delete empty files",
+      "files": ["visualCustomizationControls.ts", "yAxisControls.ts"],
+      "impact": "Remove 2 unnecessary files"
+    },
+    {
+      "priority": "high",
+      "action": "Move test data to external storage",
+      "files": ["tempHarnessTestData.ts", "tempHarnessLinks.ts"],
+      "impact": "Reduce codebase size by 37,067 lines (66.7% of total)"
+    },
+    {
+      "priority": "medium",
+      "action": "Review and remove orphaned files",
+      "count": 33,
+      "impact": "Remove up to 23% of files if truly unused"
+    },
+    {
+      "priority": "medium",
+      "action": "Clean up unused exports",
+      "count": 166,
+      "impact": "Improve tree-shaking and reduce bundle size"
+    },
+    {
+      "priority": "low",
+      "action": "Refactor large files",
+      "files": ["nodeRenderer.ts", "unifiedDataRenderer.ts", "configGui/index.ts"],
+      "impact": "Improve maintainability and testability"
+    }
+  ],
+  "healthMetrics": {
+    "overall": "needs-attention",
+    "scores": {
+      "fileOrganization": 7,
+      "codeReuse": 5,
+      "dependencies": 10,
+      "deadCode": 3
+    },
+    "notes": {
+      "positive": [
+        "No circular dependencies detected",
+        "Well-organized module structure",
+        "Clear separation of client/server/shared code"
+      ],
+      "negative": [
+        "High percentage of orphaned files (23%)",
+        "Many unused exports (48% of files affected)",
+        "Large test data files in source code"
+      ]
+    }
+  }
+}
