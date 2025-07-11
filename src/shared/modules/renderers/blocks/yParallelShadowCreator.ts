@@ -9,6 +9,7 @@ import { BLOCK_CONSTANTS } from "../constants/blockConstants";
 import { LAYOUT_CONSTANTS } from "../constants/layoutConstants";
 import { POSITION_CONSTANTS } from "../constants/positionConstants";
 import { Y_AXIS_COLORS } from "../constants/robloxColors";
+import { RENDERER_CONSTANTS } from "../dataGeneratorRobloxRendererUtils/constants";
 import { Node } from "../../../interfaces/simpleDataGenerator.interface";
 import { PropertyValueResolver } from "../propertyValueResolver";
 
@@ -107,31 +108,50 @@ export class YParallelShadowCreator extends BaseBlockCreator {
   }
 
   /**
-   * Apply custom spacing between Y shadow blocks (T9.8.3)
+   * Apply layer-based Y positions to Y shadow blocks
    */
   private applyYShadowSpacing(yGroupBounds: Map<string, YGroupBounds>): void {
-    const spacing = BLOCK_CONSTANTS.DIMENSIONS.Y_SHADOW_SPACING || 2;
+    // Use the same layer spacing as nodes
+    const layerSpacing = RENDERER_CONSTANTS.POSITIONING.LEVEL_SPACING;
     
-    print(`[YParallelShadow] Applying Y shadow spacing of ${spacing} units`);
+    print(`[YParallelShadow] Applying layer-based Y positions with spacing of ${layerSpacing} units`);
     
-    // Collect and sort bounds by Y position
+    // Collect bounds and determine which layer each belongs to
     const boundsArray: YGroupBounds[] = [];
     yGroupBounds.forEach((bounds) => {
       boundsArray.push(bounds);
       print(`[YParallelShadow] Original Y position for ${bounds.propertyValue}: ${bounds.yPosition}`);
     });
     
-    // Sort by original Y position (ascending)
-    boundsArray.sort((a: YGroupBounds, b: YGroupBounds) => a.yPosition < b.yPosition);
+    // Group by Y position to determine layers
+    const yPositionGroups = new Map<number, YGroupBounds[]>();
+    boundsArray.forEach((bounds) => {
+      const y = bounds.yPosition;
+      if (!yPositionGroups.has(y)) {
+        yPositionGroups.set(y, []);
+      }
+      yPositionGroups.get(y)!.push(bounds);
+    });
     
-    // Reassign Y positions with custom spacing
-    let currentY = POSITION_CONSTANTS.BASE_Y; // Start from base Y
-    print(`[YParallelShadow] Starting Y assignment from BASE_Y: ${currentY}`);
+    // Sort Y positions to determine layer order
+    const yPositions: number[] = [];
+    yPositionGroups.forEach((_, yPos) => {
+      yPositions.push(yPos);
+    });
+    yPositions.sort((a: number, b: number) => b > a); // Descending (top to bottom)
     
-    boundsArray.forEach((bounds: YGroupBounds) => {
-      print(`[YParallelShadow] Assigning ${bounds.propertyValue} Y position: ${bounds.yPosition} -> ${currentY}`);
-      bounds.yPosition = currentY;
-      currentY += spacing; // Add spacing for next level
+    // Assign layer-based Y positions (matching node layers)
+    const numLayers = yPositions.size();
+    yPositions.forEach((yPos: number, index: number) => {
+      // Calculate layer Y position (layer 1 at top)
+      const layerY = POSITION_CONSTANTS.BASE_Y + (numLayers - (index + 1)) * layerSpacing;
+      
+      // Apply to all bounds at this Y position
+      const boundsAtY = yPositionGroups.get(yPos)!;
+      boundsAtY.forEach((bounds: YGroupBounds) => {
+        print(`[YParallelShadow] Assigning ${bounds.propertyValue} to layer ${index + 1} at Y=${layerY}`);
+        bounds.yPosition = layerY;
+      });
     });
   }
 
