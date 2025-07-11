@@ -18,7 +18,7 @@ export interface EndcapConfig {
 
 export class EndcapBlockCreator extends BaseBlockCreator {
   private readonly ENDCAP_WIDTH = 1;
-  private readonly DEFAULT_GAP = 1;
+  private readonly DEFAULT_GAP = 0;
 
   /**
    * Create endcaps for a swimlane and wrap everything in a model
