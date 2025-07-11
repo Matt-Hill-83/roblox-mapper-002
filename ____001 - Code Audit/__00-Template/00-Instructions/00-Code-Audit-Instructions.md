@@ -24,6 +24,17 @@ INSTRUCTIONS FOR AI AGENT - START
 INSTRUCTIONS FOR AI AGENT - END
 [------------------------------------------------]
 
+
+Deliverables:
+
+1. list of dead code
+2. list of orphaned files
+3. Summary.md
+   1. asdf
+4. Drawio files:
+   1. 00-Project-Architecture.drawio
+   2. 01-DataFlow.drawio
+
 # Code Quality Audit Specification
 
 ## Summary

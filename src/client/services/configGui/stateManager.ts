@@ -148,29 +148,6 @@ export class GUIStateManager {
     this.notifyListeners();
   }
 
-  /**
-   * Updates the number of node types
-   */
-  public setNumNodeTypes(value: number): void {
-    this.state.enhancedConfig.numNodeTypes = value;
-    this.notifyListeners();
-  }
-
-  /**
-   * Updates the number of link types
-   */
-  public setNumLinkTypes(value: number): void {
-    this.state.enhancedConfig.numLinkTypes = value;
-    this.notifyListeners();
-  }
-
-  /**
-   * Updates the number of pet types
-   */
-  public setNumPetTypes(value: number): void {
-    this.state.enhancedConfig.numPetTypes = value;
-    this.notifyListeners();
-  }
 
   /**
    * Updates the layers configuration

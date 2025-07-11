@@ -7,7 +7,6 @@ import { PlatformBlockCreator } from "../../blocks/platformBlockCreator";
 import { ShadowBlockCreator } from "../../blocks/shadowBlockCreator";
 import { BLOCK_CONSTANTS } from "../../constants/blockConstants";
 import { LAYOUT_CONSTANTS } from "../../constants/layoutConstants";
-import { createFarZEdgeWall, createFarXEdgeWall } from "../../verticalWallCreator";
 import {
   LaneBounds,
   PlatformShadowResult
@@ -47,11 +46,6 @@ export class PlatformShadowManager {
       depth: allLaneBounds.depth + LAYOUT_CONSTANTS.SHADOW_PADDING.Z_PADDING * 2,
       buffer: BLOCK_CONSTANTS.DIMENSIONS.SHADOW_BUFFER
     });
-
-    // Create vertical walls at far Z and X edges
-    const wallHeight = 20; // You can adjust this height as needed
-    createFarZEdgeWall(shadow, wallHeight);
-    createFarXEdgeWall(shadow, wallHeight);
 
     return { platform, shadow };
   }
