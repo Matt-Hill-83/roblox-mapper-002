@@ -1,6 +1,6 @@
 /**
  * Modular Data Generator for Unified Data Renderer
- * 
+ *
  * Refactored into internal classes for better organization while maintaining single-file compatibility
  */
 
@@ -35,7 +35,7 @@ import { TEMP_HARNESS_LINKS } from "../../../../data/tempHarnessLinks";
 import { TEMP_HARNESS_TEST_DATA } from "../../../../data/tempHarnessTestData";
 
 // Default maximum number of items to use from test data
-const DEFAULT_MAX_DATA_ITEMS = 100;
+const DEFAULT_MAX_DATA_ITEMS = 1000;
 
 /**
  * Node Generator - Handles node creation and property assignment
@@ -113,7 +113,10 @@ class NodeGenerator {
     }
   }
 
-  private addPersonProperties(node: Node, config: EnhancedGeneratorConfig): void {
+  private addPersonProperties(
+    node: Node,
+    config: EnhancedGeneratorConfig
+  ): void {
     const numPetTypes = config.numPetTypes || 5;
     const maxPetTypeIndex = math.min(numPetTypes - 1, PET_TYPES.size() - 1);
 
@@ -132,7 +135,10 @@ class NodeGenerator {
     };
   }
 
-  private addChildProperties(node: Node, config: EnhancedGeneratorConfig): void {
+  private addChildProperties(
+    node: Node,
+    config: EnhancedGeneratorConfig
+  ): void {
     const numPetTypes = config.numPetTypes || 5;
     const maxPetTypeIndex = math.min(numPetTypes - 1, PET_TYPES.size() - 1);
 
@@ -151,7 +157,10 @@ class NodeGenerator {
     };
   }
 
-  private addGrandparentProperties(node: Node, config: EnhancedGeneratorConfig): void {
+  private addGrandparentProperties(
+    node: Node,
+    config: EnhancedGeneratorConfig
+  ): void {
     const numPetTypes = config.numPetTypes || 5;
     const maxPetTypeIndex = math.min(numPetTypes - 1, PET_TYPES.size() - 1);
 
@@ -199,11 +208,11 @@ class LinkGenerator {
       layerNumbers.push(layerNumber);
     });
     table.sort(layerNumbers, (a, b) => a < b);
-    
+
     layerNumbers.forEach((layerNumber) => {
       const currentLayerNodes = nodesByLayer.get(layerNumber)!;
       const nextLayerNodes = nodesByLayer.get(layerNumber + 1);
-      
+
       const layer: LayerConfig = {
         layerNumber,
         numNodes: currentLayerNodes.size(),
@@ -220,7 +229,12 @@ class LinkGenerator {
 
       // Add backward connections for first layer
       if (layerNumber === 1 && nextLayerNodes) {
-        this.ensureBackwardConnections(currentLayerNodes, nextLayerNodes, config, allLinks);
+        this.ensureBackwardConnections(
+          currentLayerNodes,
+          nextLayerNodes,
+          config,
+          allLinks
+        );
       }
     });
 
@@ -263,7 +277,8 @@ class LinkGenerator {
     config: EnhancedGeneratorConfig,
     allLinks: Link[]
   ): void {
-    const allowSameLevelLinks = config.visualization?.allowSameLevelLinks ?? true;
+    const allowSameLevelLinks =
+      config.visualization?.allowSameLevelLinks ?? true;
 
     if (
       !allowSameLevelLinks ||
@@ -441,22 +456,24 @@ class LinkGenerator {
 }
 
 /**
- * Test Data Processor - Handles test data conversion
+ * TestDataProcessor class with Import link filtering
  */
 class TestDataProcessor {
   private useTestData = true;
 
-  public generateClusterFromTestData(config?: EnhancedGeneratorConfig): Cluster {
+  public generateClusterFromTestData(
+    config?: EnhancedGeneratorConfig
+  ): Cluster {
     const maxItems = config?.maxDataItems || DEFAULT_MAX_DATA_ITEMS;
     print(`[TestDataProcessor] Using maxItems: ${maxItems}`);
-    
+
     const harnessNodes: Node[] = [];
     let itemCount = 0;
-    
+
     TEMP_HARNESS_TEST_DATA.forEach((file, index) => {
       if (itemCount >= maxItems) return;
       itemCount++;
-      
+
       const node: Node = {
         uuid: `harness_node_${index}`,
         name: this.getFileName(file.path),
@@ -484,9 +501,10 @@ class TestDataProcessor {
     const nodeUuids = new Set(harnessNodes.map((node) => node.uuid));
     const validHarnessLinks = TEMP_HARNESS_LINKS.filter(
       (link) =>
-        nodeUuids.has(link.sourceNodeUuid) && nodeUuids.has(link.targetNodeUuid)
+        nodeUuids.has(link.sourceNodeUuid) && nodeUuids.has(link.targetNodeUuid) &&
+        link.type === "Import"
     );
-    
+
     const harnessLinks: Link[] = validHarnessLinks.map((link) => ({
       uuid: link.uuid,
       type: link.type,
@@ -598,7 +616,8 @@ export class DataGenerator implements IDataGenerator {
     };
 
     // Discover properties using PropertyManager
-    const validProps = this.propertyManager.discoverAndValidateProperties(allNodes);
+    const validProps =
+      this.propertyManager.discoverAndValidateProperties(allNodes);
 
     const cluster = {
       groups: [mainGroup],
@@ -607,7 +626,11 @@ export class DataGenerator implements IDataGenerator {
     };
 
     // Write first maxDataItems objects to tempData.json for debugging
-    this.writeTempData(allNodes, allLinks, config.maxDataItems || DEFAULT_MAX_DATA_ITEMS);
+    this.writeTempData(
+      allNodes,
+      allLinks,
+      config.maxDataItems || DEFAULT_MAX_DATA_ITEMS
+    );
 
     return cluster;
   }
@@ -623,7 +646,11 @@ export class DataGenerator implements IDataGenerator {
   /**
    * Write first maxDataItems objects to tempData.json for debugging
    */
-  private writeTempData(allNodes: Node[], allLinks: Link[], maxDataItems: number): void {
+  private writeTempData(
+    allNodes: Node[],
+    allLinks: Link[],
+    maxDataItems: number
+  ): void {
     const first10Nodes: Node[] = [];
     const first10Links: Link[] = [];
 

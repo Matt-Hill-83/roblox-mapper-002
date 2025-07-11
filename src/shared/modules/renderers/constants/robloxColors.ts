@@ -12,11 +12,13 @@ export const robloxColors: Color3[] = [
 ];
 
 export const LINK_COLORS: Color3[] = [
-  new Color3(35/255, 115/255, 35/255), // green007: rgba(35, 115, 35, 1)
-  new Color3(235/255, 77/255, 77/255), // red008: rgba(235, 77, 77, 1)
-  new Color3(255/255, 111/255, 0/255), // orange009: rgba(255, 111, 0, 1)
-  new Color3(130/255, 60/255, 180/255), // purple007: rgba(130, 60, 180, 1)
-  new Color3(25/255, 108/255, 192/255), // blue010: rgb(25, 108, 192)
+  new Color3(0.2, 0.2, 0.8), // Blue
+  new Color3(0.8, 0.2, 0.8), // Magenta
+  new Color3(35 / 255, 115 / 255, 35 / 255), // green007: rgba(35, 115, 35, 1)
+  new Color3(235 / 255, 77 / 255, 77 / 255), // red008: rgba(235, 77, 77, 1)
+  new Color3(255 / 255, 111 / 255, 0 / 255), // orange009: rgba(255, 111, 0, 1)
+  new Color3(130 / 255, 60 / 255, 180 / 255), // purple007: rgba(130, 60, 180, 1)
+  new Color3(25 / 255, 108 / 255, 192 / 255), // blue010: rgb(25, 108, 192)
   new Color3(0.6431, 0.3608, 0.6471), // Base 19 saturated 200%
 ];
 export const Y_AXIS_COLORS: Color3[] = [
