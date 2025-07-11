@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram name="DataGenerator Refactoring" id="dataGenerator">
+    <mxGraphModel dx="1422" dy="754" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Current State -->
+        <mxCell id="current" value="CURRENT STATE" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="200" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="currentDataGen" value="DataGenerator.ts&#xa;(631 lines)&#xa;&#xa;• generateClusterFromLayers()&#xa;• generateLayerNodes()&#xa;• createNode()&#xa;• addTypeSpecificProperties()&#xa;• generateLayerLinks()&#xa;• createLink()&#xa;• generateClusterFromTestData()&#xa;• ensureNodeConnectivity()&#xa;• writeTempData()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcccc;strokeColor=#ff0000;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="50" y="100" width="200" height="200" as="geometry" />
+        </mxCell>
+        
+        <!-- Target State -->
+        <mxCell id="target" value="TARGET STATE" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="400" y="50" width="200" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="newDataGen" value="DataGenerator.ts&#xa;(~150 lines)&#xa;&#xa;Orchestrator&#xa;• generateClusterFromLayers()&#xa;• constructor()&#xa;• setUseTestData()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ccffcc;strokeColor=#00cc00;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="400" y="100" width="150" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="nodeGen" value="NodeGenerator.ts&#xa;(~150 lines)&#xa;&#xa;• generateLayerNodes()&#xa;• createNode()&#xa;• addTypeSpecificProperties()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ccffcc;strokeColor=#00cc00;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="580" y="100" width="150" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="linkGen" value="LinkGenerator.ts&#xa;(~120 lines)&#xa;&#xa;• generateLayerLinks()&#xa;• createLink()&#xa;• ensureNodeConnectivity()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ccffcc;strokeColor=#00cc00;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="400" y="230" width="150" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="testDataProc" value="TestDataProcessor.ts&#xa;(~100 lines)&#xa;&#xa;• generateClusterFromTestData()&#xa;• getFileName()&#xa;• getServiceColor()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ccffcc;strokeColor=#00cc00;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="580" y="230" width="150" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="propMgr" value="PropertyManager.ts&#xa;(~80 lines)&#xa;&#xa;• discoverProperties()&#xa;• validateProperties()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ccffcc;strokeColor=#00cc00;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="490" y="360" width="150" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrows -->
+        <mxCell id="refactorArrow" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;exitX=1;exitY=0.5;" edge="1" parent="1" source="currentDataGen" target="newDataGen">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="200" as="sourcePoint" />
+            <mxPoint x="350" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="refactorLabel" value="REFACTOR" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="300" y="180" width="80" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Dependencies in target state -->
+        <mxCell id="dep1" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;exitX=1;exitY=0.5;" edge="1" parent="1" source="newDataGen" target="nodeGen">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="150" as="sourcePoint" />
+            <mxPoint x="600" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="dep2" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;exitX=0.5;exitY=1;" edge="1" parent="1" source="newDataGen" target="linkGen">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="475" y="200" as="sourcePoint" />
+            <mxPoint x="475" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="dep3" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0;exitX=1;exitY=1;" edge="1" parent="1" source="newDataGen" target="testDataProc">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="200" as="sourcePoint" />
+            <mxPoint x="580" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="dep4" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;exitX=0.5;exitY=1;" edge="1" parent="1" source="linkGen" target="propMgr">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="475" y="330" as="sourcePoint" />
+            <mxPoint x="565" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
