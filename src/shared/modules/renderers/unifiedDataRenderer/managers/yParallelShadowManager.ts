@@ -76,6 +76,21 @@ export class YParallelShadowManager {
         side: "right",
       });
 
+    // Create Y-parallel shadows for back side (duplicate)
+    const yParallelShadowsBack =
+      this.yParallelShadowCreator.createYParallelShadows({
+        nodes: cluster.groups[0].nodes,
+        yAxisProperty: config.axisMapping.yAxis,
+        parent: yShadowsModelBack,
+        shadowWidth: shadowWidth,
+        shadowDepth: shadowDepth,
+        side: "back",
+      });
+
+    print(
+      `[YParallelShadowManager] Created ${yParallelShadowsRight.size()} right and ${yParallelShadowsBack.size()} back Y-parallel shadow blocks`
+    );
+
     // Return the right shadows for compatibility
     return yParallelShadowsRight;
   }
