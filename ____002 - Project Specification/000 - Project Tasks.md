@@ -22,3 +22,4 @@ New:
       1. ⬛ T2.1 - Siamese
       2. ⬛ T2.2 - Russian Blue
       3. ⬛ T2.3 - British Shorthair
+      3. ⬛ T2.3 - British Shorthair
