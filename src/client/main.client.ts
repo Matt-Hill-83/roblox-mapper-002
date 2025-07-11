@@ -183,12 +183,17 @@ configRemote.OnClientEvent.Connect((eventType: string, data?: unknown) => {
   } else if (eventType === "propertyValues" && typeIs(data, "table")) {
     const propertyData = data as { [key: string]: string[] };
     
-    // Create GUI with all properties data
-    propertiesGui.createGUI(propertyData, (filters) => {
-      // Handle filter changes - send to server
-      print("[Main] Filter state changed:", filters);
-      configRemote.FireServer("updateFilters", filters);
-    });
+    // Update properties data if GUI exists, otherwise create it
+    if (propertiesGui && propertiesGui.isGuiCreated && propertiesGui.isGuiCreated()) {
+      propertiesGui.updatePropertiesData(propertyData);
+    } else {
+      // Create GUI with all properties data
+      propertiesGui.createGUI(propertyData, (filters) => {
+        // Handle filter changes - send to server
+        print("[Main] Filter state changed:", filters);
+        configRemote.FireServer("updateFilters", filters);
+      });
+    }
   }
 });
 

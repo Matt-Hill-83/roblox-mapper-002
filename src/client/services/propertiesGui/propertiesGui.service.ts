@@ -40,6 +40,13 @@ export class PropertiesGuiService extends BaseService {
   }
 
   /**
+   * Check if GUI is already created
+   */
+  public isGuiCreated(): boolean {
+    return this.gui !== undefined && this.frame !== undefined;
+  }
+
+  /**
    * Creates the properties GUI
    */
   public createGUI(propertiesData: PropertiesData, onFilterChange?: (filters: FilterState) => void): void {
@@ -284,6 +291,12 @@ export class PropertiesGuiService extends BaseService {
         // Store button reference
         const buttonKey = `${propName}:${value}`;
         this.toggleButtons.set(buttonKey, toggleButton);
+        
+        // Restore filter state if this value was filtered
+        if (this.filterState[propName] && this.filterState[propName].has(value)) {
+          toggleButton.BackgroundColor3 = new Color3(0.1, 0.1, 0.1);
+          toggleButton.TextColor3 = new Color3(0.5, 0.5, 0.5);
+        }
 
         // Add click handler
         toggleButton.MouseButton1Click.Connect(() => {

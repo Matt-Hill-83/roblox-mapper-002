@@ -13,6 +13,7 @@ export class ConfigGUIServerService extends BaseService {
   private defaultAxisOptions?: { [key: string]: string };
   private currentFilters?: { [key: string]: string[] };
   private serverPrefilters?: { [key: string]: string[] };
+  private originalPropertyValues?: { [key: string]: string[] };
 
   constructor(projectRootFolder: Folder, origin?: Vector3, linkTypeCounterService?: LinkTypeCounterServerService, defaultAxisOptions?: { [key: string]: string }) {
     super("ConfigGUIServerService");
@@ -81,6 +82,11 @@ export class ConfigGUIServerService extends BaseService {
           if (cluster && cluster.discoveredProperties) {
             this.remoteEvent.FireClient(player, "discoveredProperties", cluster.discoveredProperties);
           }
+          
+          // Store original property values if not already stored
+          if (!this.originalPropertyValues) {
+            this.originalPropertyValues = this.getPropertyValues();
+          }
         } else {
           // Send detailed error response
           const errorMessage = validationResult.errors.join("; ");
@@ -146,8 +152,8 @@ export class ConfigGUIServerService extends BaseService {
         // Send default axis options to client
         this.remoteEvent.FireClient(player, "defaultAxisOptions", this.defaultAxisOptions || {});
       } else if (eventType === "getPropertyValues") {
-        // Get unique property values from current data
-        const propertyValues = this.getPropertyValues();
+        // Always send original unfiltered property values
+        const propertyValues = this.originalPropertyValues || this.getPropertyValues();
         this.remoteEvent.FireClient(player, "propertyValues", propertyValues);
       } else if (eventType === "updateFilters" && typeIs(data, "table")) {
         // Update filters and regenerate data
@@ -175,9 +181,9 @@ export class ConfigGUIServerService extends BaseService {
           // Send success response
           this.remoteEvent.FireClient(player, "regenerateSuccess", currentConfig);
           
-          // Send updated property values after filtering
+          // Send original property values (not filtered)
           wait(0.5);
-          const propertyValues = this.getPropertyValues();
+          const propertyValues = this.originalPropertyValues || this.getPropertyValues();
           this.remoteEvent.FireClient(player, "propertyValues", propertyValues);
         }
       }
