@@ -19,8 +19,10 @@ export const BLOCK_CONSTANTS = {
     MIN_BLOCK_SIZE: 1,
     LABEL_Y_OFFSET: 0.001, // Prevents z-fighting with labels
     UNIFORM_SHADOW_THICKNESS: 1.0, // Uniform thickness for all shadow layers
+    // SHADOW_LAYER_DISPLACEMENT: 5, // Vertical displacement between shadow layer tops
     SHADOW_LAYER_DISPLACEMENT: 0.5, // Vertical displacement between shadow layer tops
-    Z_TO_X_SHADOW_LANE_SPACING: 0.5, // Vertical spacing between Z shadow lanes and X shadow lanes
+    Z_TO_X_SHADOW_LANE_SPACING: 0, // Vertical spacing between Z shadow lanes and X shadow lanes
+    // Z_TO_X_SHADOW_LANE_SPACING: 0.5, // Vertical spacing between Z shadow lanes and X shadow lanes
     Y_SHADOW_THICKNESS: 5, // Thickness of Y-parallel shadow blocks (T9.8.2)
     Y_SHADOW_OFFSET: 2, // Vertical offset below nodes for Y shadows
     Y_SHADOW_SPACING: 2, // Spacing between Y shadow blocks (T9.8.3)

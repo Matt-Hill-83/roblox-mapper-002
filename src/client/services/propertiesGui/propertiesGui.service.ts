@@ -79,12 +79,15 @@ export class PropertiesGuiService extends BaseService {
   private createMainFrame(): void {
     if (!this.gui) return;
 
-    // Create main frame - full height and twice as wide
+    // Initialize in collapsed state
+    this.isCollapsed = true;
+
+    // Create main frame - start collapsed
     this.frame = new Instance("Frame");
     this.frame.Name = "PropertiesFrame";
-    this.frame.Size = new UDim2(0, 1200, 1, -20); // Twice as wide (was 600)
+    this.expandedSize = new UDim2(0, 1200, 1, -20); // Store full size
+    this.frame.Size = new UDim2(0, 200, 0, 30); // Start collapsed
     this.frame.Position = new UDim2(0, 270, 0, 10); // Next to Link Types GUI, top of screen
-    this.expandedSize = this.frame.Size; // Store expanded size
     this.frame.BackgroundColor3 = new Color3(0.1, 0.1, 0.1);
     this.frame.BorderSizePixel = 2;
     this.frame.BorderColor3 = new Color3(0.4, 0.4, 0.4);
@@ -122,7 +125,7 @@ export class PropertiesGuiService extends BaseService {
     collapseButton.Size = new UDim2(0, 30, 1, 0);
     collapseButton.Position = new UDim2(1, -30, 0, 0);
     collapseButton.BackgroundTransparency = 1;
-    collapseButton.Text = "−"; // Minus sign for expanded state
+    collapseButton.Text = "+"; // Plus sign for collapsed state
     collapseButton.TextColor3 = new Color3(1, 1, 1);
     collapseButton.TextScaled = true;
     collapseButton.Font = Enum.Font.SourceSansBold;
@@ -148,6 +151,7 @@ export class PropertiesGuiService extends BaseService {
     scrollFrame.BorderSizePixel = 0;
     scrollFrame.ScrollBarThickness = 6;
     scrollFrame.CanvasSize = new UDim2(0, 0, 0, 0);
+    scrollFrame.Visible = false; // Start hidden since we're collapsed
     scrollFrame.Parent = this.frame;
     this.scrollFrame = scrollFrame;
   }

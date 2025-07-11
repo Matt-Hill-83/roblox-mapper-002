@@ -12,12 +12,14 @@
  */
 
 import { ConfigGUIController } from "./controllers/configGUI.controller";
-import { AnimationTestGUIController } from "./controllers/animationTestGUI.controller";
+// import { AnimationTestGUIController } from "./controllers/animationTestGUI.controller";
 // import { ColorPickerController } from "./controllers/_orphaned/colorPicker.controller";
 import { Players, ReplicatedStorage } from "@rbxts/services";
 import { KeyboardShortcutsService } from "./services/keyboardShortcuts.service";
 import { NodePropertiesInspectorService } from "./services/nodePropertiesInspector/nodePropertiesInspector.service";
 import { PropertiesGuiService } from "./services/propertiesGui/propertiesGui.service";
+import { LinkHighlightService } from "./services/linkHighlight/linkHighlight.service";
+import { NodeClickHandlerService } from "./services/nodeClickHandler.service";
 
 // Disable the default Roblox chat
 const starterGui = game.GetService("StarterGui");
@@ -36,9 +38,9 @@ wait(0.5);
 const configGUIController = new ConfigGUIController();
 configGUIController.initialize();
 
-// Initialize the animation test GUI
-const animationTestController = new AnimationTestGUIController();
-animationTestController.initialize();
+// Initialize the animation test GUI (disabled - blocking clicks)
+// const animationTestController = new AnimationTestGUIController();
+// animationTestController.initialize();
 
 // Initialize the color picker GUI (disabled - moved to _orphaned)
 // const colorPickerController = new ColorPickerController();
@@ -46,6 +48,12 @@ animationTestController.initialize();
 
 // Initialize keyboard shortcuts service
 new KeyboardShortcutsService();
+
+// Initialize link highlight service
+const linkHighlightService = new LinkHighlightService();
+
+// Initialize node click handler service
+const nodeClickHandlerService = new NodeClickHandlerService(linkHighlightService);
 
 // Initialize node properties inspector
 const nodeInspector = NodePropertiesInspectorService.getInstance();
@@ -180,6 +188,32 @@ configRemote.OnClientEvent.Connect((eventType: string, data?: unknown) => {
     // Request property values after data is loaded
     wait(0.5); // Short delay to ensure data is processed
     configRemote.FireServer("getPropertyValues");
+    
+    // Set up link highlighting and node click detection
+    spawn(() => {
+      wait(0.5); // Wait for graph to be fully created
+      
+      // Find the graph folders
+      const myStuff = game.Workspace.FindFirstChild("MyStuff") as Folder | undefined;
+      if (myStuff) {
+        const graphMaker = myStuff.FindFirstChild("GraphMaker") as Folder | undefined;
+        if (graphMaker) {
+          const cluster = graphMaker.FindFirstChild("UnifiedDataCluster") as Folder | undefined;
+          if (cluster) {
+            const linksFolder = cluster.FindFirstChild("Links") as Folder | undefined;
+            const nodesFolder = cluster.FindFirstChild("Nodes") as Folder | undefined;
+            
+            if (linksFolder) {
+              linkHighlightService.registerLinks(linksFolder);
+            }
+            
+            if (nodesFolder) {
+              nodeClickHandlerService.setupNodeClickHandlers(nodesFolder);
+            }
+          }
+        }
+      }
+    });
   } else if (eventType === "propertyValues" && typeIs(data, "table")) {
     const propertyData = data as { [key: string]: string[] };
     

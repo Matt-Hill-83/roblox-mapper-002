@@ -1,10 +1,10 @@
 /**
  * Rope and connector creation logic
  * 
- * Updated to use Beams instead of RopeConstraints for better performance:
- * - Beams are visual-only (no physics calculations)
- * - 70% reduction in computational overhead
- * - No visual quality loss for straight connections
+ * TEST: Using RodConstraints instead of Beams
+ * - Testing visual appearance and performance
+ * - RodConstraints provide simpler cylindrical connections
+ * - May have different performance characteristics
  */
 
 import { Cluster, Link } from "../../../interfaces/simpleDataGenerator.interface";
@@ -29,7 +29,7 @@ export function createRopeConnectors(context: RopeCreationContext): void {
   const { cluster, nodeToHexagon, linksFolder, visualization, linkDiameter } = context;
   
   // Check if connectors should be shown
-  const showConnectors = visualization?.showConnectors ?? true;
+  const showConnectors = visualization?.showConnectors ?? false;
   const showLinkLabels = visualization?.showLinkLabels ?? true;
   
   // Early return if connectors are disabled
@@ -50,11 +50,11 @@ export function createRopeConnectors(context: RopeCreationContext): void {
       const targetAttachment = findCenterAttachment(targetHex);
       
       if (sourceAttachment && targetAttachment) {
-        // Create beam connector
-        const beam = createRope(link, sourceHex, targetHex, sourceAttachment, targetAttachment, ropeIndex, linkDiameter);
+        // Create rod connector
+        const rod = createRope(link, sourceHex, targetHex, sourceAttachment, targetAttachment, ropeIndex, linkDiameter);
         
-        // Parent beam to links folder (beams must be in workspace hierarchy)
-        beam.Parent = linksFolder;
+        // Parent rod to links folder
+        rod.Parent = linksFolder;
         
         // Create rope label only if showLinkLabels is true
         if (showLinkLabels) {
@@ -126,7 +126,7 @@ function findCenterCube(hexagon: Model): Part | undefined {
 }
 
 /**
- * Create a beam connector (replaces rope constraint for better performance)
+ * Create a rod connector (testing physical cylinder part instead of Beam)
  */
 function createRope(
   link: Link,
@@ -136,35 +136,44 @@ function createRope(
   targetAttachment: Attachment,
   ropeIndex: number,
   linkDiameter?: number
-): Beam {
-  const beam = new Instance("Beam");
-  beam.Name = `beam${padNumber(ropeIndex, 3)}-${link.type.lower()}-${sourceHex.Name}-to-${targetHex.Name}`;
-  beam.Attachment0 = sourceAttachment;
-  beam.Attachment1 = targetAttachment;
+): Part {
+  // Get world positions of attachments
+  const sourcePos = sourceAttachment.WorldPosition;
+  const targetPos = targetAttachment.WorldPosition;
   
-  // Beam visual properties
+  // Calculate cylinder properties
+  const distance = sourcePos.sub(targetPos).Magnitude;
+  const midpoint = sourcePos.add(targetPos).div(2);
+  const direction = targetPos.sub(sourcePos).Unit;
+  
+  // Create cylinder part
+  const cylinder = new Instance("Part");
+  cylinder.Name = `rod${padNumber(ropeIndex, 3)}-${link.type.lower()}-${link.sourceNodeUuid}-to-${link.targetNodeUuid}`;
+  cylinder.Shape = Enum.PartType.Cylinder;
+  cylinder.Material = Enum.Material.Concrete;
+  cylinder.TopSurface = Enum.SurfaceType.Smooth;
+  cylinder.BottomSurface = Enum.SurfaceType.Smooth;
+  cylinder.CastShadow = false;
+  
+  // Set size
   const diameter = linkDiameter ?? RENDERER_CONSTANTS.ROPE.THICKNESS;
-  beam.Width0 = diameter;
-  beam.Width1 = diameter;
+  cylinder.Size = new Vector3(distance, diameter, diameter);
   
   // Set color using LINK_COLORS array
   const color3 = getLinkColor3(link.type);
-  beam.Color = new ColorSequence(color3);
+  cylinder.Color = color3;
   
-  // Visual settings for performance
-  beam.FaceCamera = true;
-  beam.Segments = 1; // Straight line, no physics calculation
-  beam.Transparency = new NumberSequence(0); // Fully opaque
-  beam.LightEmission = 0; // No glow effect
-  beam.LightInfluence = 1; // Normal lighting
-  beam.Texture = ""; // No texture for better performance
-  beam.TextureSpeed = 0;
-  beam.TextureLength = 1;
-  beam.TextureMode = Enum.TextureMode.Static;
+  // Position and orient the cylinder
+  cylinder.CFrame = CFrame.lookAt(midpoint, midpoint.add(direction))
+    .mul(CFrame.Angles(0, math.rad(90), 0));
   
-  // Note: Beams don't cast shadows by default (performance benefit)
+  // Make it non-collidable
+  cylinder.CanCollide = false;
+  cylinder.CanQuery = false;
+  cylinder.CanTouch = false;
+  cylinder.Anchored = true;
   
-  return beam;
+  return cylinder;
 }
 
 /**

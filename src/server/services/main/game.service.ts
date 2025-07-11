@@ -13,12 +13,12 @@ const ORIGIN = {
 };
 
 // Maximum number of data items to generate
-const MAX_DATA_ITEMS = 1000;
+const MAX_DATA_ITEMS = 200;
 
 // Default GUI axis options
 const DEFAULT_AXIS_OPTIONS = {
   xgroup: "component",
-  zgroup: "server", 
+  zgroup: "server",
   ygroup: "language",
   nodeColor: "server",
 };
@@ -75,9 +75,9 @@ export class GameService extends BaseService {
     // Set server-side prefilters to exclude properties we don't want to visualize
     // Currently no server prefilters are needed, but this can be used to filter out
     // specific property values that should never be shown
-    // Example: this.configGUIServer.setServerPrefilters({ 
+    // Example: this.configGUIServer.setServerPrefilters({
     //   component: ["deprecated", "test"],
-    //   service: ["internal"] 
+    //   service: ["internal"]
     // });
 
     // Set up graph initializer with the GUI server
@@ -90,104 +90,6 @@ export class GameService extends BaseService {
     if (false) {
       initializeDev2Features(this.myStuffFolder);
     }
-  }
-
-  /**
-   * Debug function to search for the LinkTypesDisplay GUI and report its details
-   */
-  public debugLinkTypesGUI(): void {
-    print("[GameService] Searching for LinkTypesDisplay GUI...");
-
-    const players = game.GetService("Players");
-    const localPlayer = players.LocalPlayer;
-    if (!localPlayer) {
-      print("[GameService] No LocalPlayer found");
-      return;
-    }
-
-    const playerGui = localPlayer.WaitForChild("PlayerGui", 5) as
-      | PlayerGui
-      | undefined;
-    if (!playerGui) {
-      print("[GameService] PlayerGui not found");
-      return;
-    }
-
-    print("[GameService] Searching in PlayerGui...");
-
-    // Search for any GUI containing LinkTypesDisplay
-    let foundGUI = false;
-
-    playerGui.GetChildren().forEach((child) => {
-      if (child.IsA("ScreenGui")) {
-        print(`[GameService] Found ScreenGui: ${child.Name}`);
-
-        // Search recursively for LinkTypesDisplay
-        const searchResult = this.searchForLinkTypesDisplay(child);
-        if (searchResult) {
-          foundGUI = true;
-          print(
-            `[GameService] Found LinkTypesDisplay in ScreenGui: ${child.Name}`
-          );
-          print(`  - Position: ${searchResult.Position}`);
-          print(`  - Size: ${searchResult.Size}`);
-          print(`  - Visible: ${searchResult.Visible}`);
-          print(
-            `  - Parent hierarchy: ${this.getParentHierarchy(searchResult)}`
-          );
-        }
-      }
-    });
-
-    if (!foundGUI) {
-      print("[GameService] LinkTypesDisplay GUI not found in any ScreenGui");
-
-      // List all ScreenGuis for debugging
-      print("[GameService] Available ScreenGuis:");
-      playerGui.GetChildren().forEach((child) => {
-        if (child.IsA("ScreenGui")) {
-          print(`  - ${child.Name} (Enabled: ${child.Enabled})`);
-
-          // List top-level children
-          child.GetChildren().forEach((grandchild) => {
-            print(`    - ${grandchild.Name} (${grandchild.ClassName})`);
-          });
-        }
-      });
-    }
-  }
-
-  /**
-   * Recursively search for LinkTypesDisplay element
-   */
-  private searchForLinkTypesDisplay(parent: Instance): GuiObject | undefined {
-    if (parent.Name === "LinkTypesDisplay" && parent.IsA("GuiObject")) {
-      return parent;
-    }
-
-    for (const child of parent.GetChildren()) {
-      const result = this.searchForLinkTypesDisplay(child);
-      if (result) {
-        return result;
-      }
-    }
-
-    return undefined;
-  }
-
-  /**
-   * Get the parent hierarchy as a string
-   */
-  private getParentHierarchy(obj: Instance): string {
-    const hierarchy: string[] = [];
-    let current: Instance | undefined = obj;
-
-    while (current && current !== game) {
-      hierarchy.unshift(current.Name);
-      current = current.Parent;
-    }
-
-    return hierarchy.join(" -> ");
   }
 
   /**
