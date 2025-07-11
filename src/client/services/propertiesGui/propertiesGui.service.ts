@@ -222,7 +222,7 @@ export class PropertiesGuiService extends BaseService {
 
     // Clear existing content
     scrollFrame.GetChildren().forEach((child) => {
-      if (child.IsA("Frame") || child.IsA("TextLabel")) {
+      if (child.IsA("Frame") || child.IsA("TextLabel") || child.IsA("TextButton")) {
         child.Destroy();
       }
     });
@@ -283,6 +283,7 @@ export class PropertiesGuiService extends BaseService {
 
       // Add click handler for header to toggle all values
       headerButton.MouseButton1Click.Connect(() => {
+        print(`[PropertiesGUI] Header clicked for property: ${propName}`);
         this.toggleAllInColumn(propName, values, headerButton);
       });
 
@@ -332,6 +333,8 @@ export class PropertiesGuiService extends BaseService {
    * Toggle all values in a column
    */
   private toggleAllInColumn(propertyName: string, values: string[], headerButton: TextButton): void {
+    print(`[PropertiesGUI] toggleAllInColumn called for: ${propertyName}, values count: ${values.size()}`);
+    
     if (!this.filterState[propertyName]) {
       this.filterState[propertyName] = new Set<string>();
     }
@@ -340,6 +343,7 @@ export class PropertiesGuiService extends BaseService {
     
     // Check if all values are currently filtered
     const allFiltered = values.every(value => filterSet.has(value));
+    print(`[PropertiesGUI] All filtered: ${allFiltered}, filter set size: ${filterSet.size()}`)
     
     if (allFiltered) {
       // Unfilter all - clear the filter set
