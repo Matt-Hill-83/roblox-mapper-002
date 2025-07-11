@@ -183,7 +183,7 @@ export class YParallelShadowCreator extends BaseBlockCreator {
         positionZ
       ),
       color: color || BLOCK_CONSTANTS.COLORS.Y_SHADOW_COLOR || new Color3(0.5, 0.5, 0.5),
-      transparency: BLOCK_CONSTANTS.TRANSPARENCY.Y_SHADOW || 0.5, // 50% transparent
+      transparency: BLOCK_CONSTANTS.TRANSPARENCY.Y_SHADOW || 0, // Fully opaque
       material: Enum.Material.Concrete,
       canCollide: false
     });

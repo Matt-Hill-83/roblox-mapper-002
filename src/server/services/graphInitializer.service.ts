@@ -14,8 +14,8 @@ export class GraphInitializerService {
     layers: [
       {
         layerNumber: 1,
-        numNodes: 4,  // Test with more nodes in first layer
-        connectionsPerNode: 0,  // Test with no intra-layer connections
+        numNodes: 4, // Test with more nodes in first layer
+        connectionsPerNode: 0, // Test with no intra-layer connections
       },
       {
         layerNumber: 2,
@@ -25,7 +25,7 @@ export class GraphInitializerService {
       {
         layerNumber: 3,
         numNodes: 12,
-        connectionsPerNode: 0,  // Test sparse connectivity
+        connectionsPerNode: 0, // Test sparse connectivity
       },
       {
         layerNumber: 4,
@@ -35,13 +35,14 @@ export class GraphInitializerService {
       {
         layerNumber: 5,
         numNodes: 20,
-        connectionsPerNode: 0,  // Test last layer with no connections
+        connectionsPerNode: 0, // Test last layer with no connections
       },
     ],
     spacing: {
       nodeHeight: 0.5,
       nodeRadius: 0.5,
-      layerSpacing: 0.5,
+      layerSpacing: 5,
+      // layerSpacing: 0.5,
       nodeSpacing: 1,
       swimlaneSpacing: 1,
       linkDiameter: 0.1,
@@ -50,13 +51,13 @@ export class GraphInitializerService {
       showNodes: true,
       showLinkLabels: false,
       showConnectors: true,
-      allowSameLevelLinks: true,  // Enable same-level links for testing
+      allowSameLevelLinks: true, // Enable same-level links for testing
     },
     // Default axis mapping for Harness data - will be updated when properties are discovered
     axisMapping: {
       xAxis: "httpMethod",
-      zAxis: "apiPattern", 
-      yAxis: "component"
+      zAxis: "apiPattern",
+      yAxis: "component",
     },
     visualMapping: {
       backgroundColor: "httpMethod", // Default to httpMethod for Harness data
@@ -84,7 +85,7 @@ export class GraphInitializerService {
       ...this.DEFAULT_CONFIG,
       ...customConfig?.defaultConfig,
     };
-    
+
     const config: GraphInitConfig = {
       initialPosition: customConfig?.initialPosition || this.DEFAULT_POSITION,
       defaultConfig: mergedDefaultConfig,
@@ -95,13 +96,15 @@ export class GraphInitializerService {
   }
 
   public initializeGraphWithMaxItems(maxDataItems: number): void {
-    print(`[GraphInitializer] Initializing graph with max ${maxDataItems} items`);
-    
+    print(
+      `[GraphInitializer] Initializing graph with max ${maxDataItems} items`
+    );
+
     const configWithMaxItems = {
       ...this.DEFAULT_CONFIG,
       maxDataItems,
     };
-    
+
     const config: GraphInitConfig = {
       initialPosition: this.DEFAULT_POSITION,
       defaultConfig: configWithMaxItems,
