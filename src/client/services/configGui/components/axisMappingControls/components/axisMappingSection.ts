@@ -1,4 +1,4 @@
-import { UI_CONSTANTS, getAvailableProperties, getPropertyValueCount } from "../constants";
+import { UI_CONSTANTS, getAvailableProperties } from "../constants";
 import { createButton, createLabel, createSectionLabel } from "../utils/layoutManager";
 
 import { createDropdown } from "./dropdown";
@@ -27,10 +27,11 @@ export function createAxisMappingSection({
 }: AxisMappingSectionProps): void {
   const availableProps = getAvailableProperties();
   
-  // Format properties with counts
+  // Format properties with counts - TEMPORARILY DISABLED
   const propsWithCounts = availableProps.map(prop => {
-    const count = getPropertyValueCount(prop);
-    return count > 0 ? `${prop} [${count}]` : prop;
+    // const count = getPropertyValueCount(prop);
+    // return count > 0 ? `${prop} [${count}]` : prop;
+    return prop; // Temporarily just return the property name without count
   });
   
   
@@ -46,10 +47,11 @@ export function createAxisMappingSection({
     50
   );
 
-  // Helper to format button text with count
+  // Helper to format button text with count - TEMPORARILY DISABLED
   const formatButtonText = (prop: string): string => {
-    const count = getPropertyValueCount(prop);
-    return count > 0 ? `${prop} [${count}]` : prop;
+    // const count = getPropertyValueCount(prop);
+    // return count > 0 ? `${prop} [${count}]` : prop;
+    return prop; // Temporarily just return the property name without count
   };
 
   const xAxisButton = createButton(
@@ -94,12 +96,8 @@ export function createAxisMappingSection({
 
   // Helper to extract property name from display string
   const extractPropertyName = (displayValue: string): string => {
-    // Remove the count suffix if present (e.g., "service [15]" -> "service")
-    const match = displayValue.match("^([^%[]+)%s*%[?");
-    if (match && match[1]) {
-      const result = match[1];
-      return typeIs(result, "string") ? result : tostring(result);
-    }
+    // TEMPORARILY SIMPLIFIED - just return the value as-is
+    print(`[AxisMapping] Property selected: "${displayValue}"`);
     return displayValue;
   };
 

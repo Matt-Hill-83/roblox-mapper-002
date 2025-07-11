@@ -1,10 +1,13 @@
 /**
  * Node Renderer for Unified Data Renderer
- * 
+ *
  * Handles creation and rendering of hexagon nodes
  */
 
-import { Cluster, Node } from "../../../../interfaces/simpleDataGenerator.interface";
+import {
+  Cluster,
+  Node,
+} from "../../../../interfaces/simpleDataGenerator.interface";
 import { INodeRenderer, SpacingConfig } from "../interfaces";
 
 import { EnhancedGeneratorConfig } from "../../../../interfaces/enhancedGenerator.interface";
@@ -19,8 +22,11 @@ export class NodeRenderer implements INodeRenderer {
   /**
    * Renders the cluster with positioned nodes
    */
-  public renderCluster(cluster: Cluster, parentFolder: Folder, config?: EnhancedGeneratorConfig): void {
-    
+  public renderCluster(
+    cluster: Cluster,
+    parentFolder: Folder,
+    config?: EnhancedGeneratorConfig
+  ): void {
     // Look for existing GraphMaker folder and delete it
     const existingGraphMaker = parentFolder.FindFirstChild("GraphMaker");
     if (existingGraphMaker) {
@@ -36,98 +42,114 @@ export class NodeRenderer implements INodeRenderer {
     const clusterFolder = new Instance("Folder");
     clusterFolder.Name = "UnifiedDataCluster";
     clusterFolder.Parent = graphMakerFolder;
-    
+
     const nodesFolder = new Instance("Folder");
     nodesFolder.Name = "Nodes";
     nodesFolder.Parent = clusterFolder;
-    
+
     const linksFolder = new Instance("Folder");
     linksFolder.Name = "Links";
     linksFolder.Parent = clusterFolder;
-    
+
     // Create hexagons for all nodes if showNodes is true
     const showNodes = config?.visualization?.showNodes !== false; // Default to true
-    const nodeToHexagon = showNodes 
+    const nodeToHexagon = showNodes
       ? this.createHexagons(cluster, nodesFolder, config)
       : new Map<string, Model>();
-    
+
     // Create links/ropes for relationships only if nodes are shown and connectors are enabled
     if (showNodes && config?.visualization?.showConnectors !== false) {
-      print(`[NodeRenderer] Creating links for ${cluster.relations.size()} relations`);
       createRopeConnectors({
         cluster,
         nodeToHexagon,
         linksFolder,
         visualization: config?.visualization,
-        linkDiameter: config?.spacing?.linkDiameter
+        linkDiameter: config?.spacing?.linkDiameter,
       });
     } else {
-      print(`[NodeRenderer] Not creating links - showNodes: ${showNodes}, showConnectors: ${config?.visualization?.showConnectors}`);
     }
-    
   }
 
   /**
    * Creates hexagons for all nodes in the cluster
    */
-  public createHexagons(cluster: Cluster, nodesFolder: Folder, config?: EnhancedGeneratorConfig): Map<string, Model> {
+  public createHexagons(
+    cluster: Cluster,
+    nodesFolder: Folder,
+    config?: EnhancedGeneratorConfig
+  ): Map<string, Model> {
     const nodeToHexagon = new Map<string, Model>();
     let hexIndex = 1;
-    
+
     // Use spacing from config if provided, otherwise use defaults
     const spacing = this.getSpacingConfig(config);
-    
+
     // Create property resolver to group nodes
     const propertyResolver = new PropertyValueResolver();
-    
+
     // Get the X-axis property for swimlane grouping
-    const xAxisProperty = config?.axisMapping?.xAxis || getDefaultXAxis(cluster.discoveredProperties);
-    
+    const xAxisProperty =
+      config?.axisMapping?.xAxis ||
+      getDefaultXAxis(cluster.discoveredProperties);
+
     // Group nodes by swimlane property
     const nodesBySwimlane = new Map<string, Node[]>();
-    
-    cluster.groups.forEach(group => {
-      group.nodes.forEach(node => {
-        const propertyValue = propertyResolver.getPropertyValue(node, xAxisProperty);
-        
+
+    cluster.groups.forEach((group) => {
+      group.nodes.forEach((node) => {
+        const propertyValue = propertyResolver.getPropertyValue(
+          node,
+          xAxisProperty
+        );
+
         if (!nodesBySwimlane.has(propertyValue)) {
           nodesBySwimlane.set(propertyValue, []);
         }
         nodesBySwimlane.get(propertyValue)!.push(node);
       });
     });
-    
+
     // Create a Model for each swimlane group
     nodesBySwimlane.forEach((nodes, swimlaneName) => {
       const swimlaneModel = new Instance("Model");
       swimlaneModel.Name = `Swimlane_${swimlaneName}`;
       swimlaneModel.Parent = nodesFolder;
-      
+
       // Create hexagons for nodes in this swimlane
-      nodes.forEach(node => {
-        const hexagon = this.createSingleHexagon(node, hexIndex, spacing, config);
+      nodes.forEach((node) => {
+        const hexagon = this.createSingleHexagon(
+          node,
+          hexIndex,
+          spacing,
+          config
+        );
         hexagon.Parent = swimlaneModel;
         nodeToHexagon.set(node.uuid, hexagon);
         hexIndex++;
       });
     });
-    
+
     return nodeToHexagon;
   }
 
   /**
    * Create a single hexagon for a node
    */
-  private createSingleHexagon(node: Node, hexIndex: number, spacing: SpacingConfig, config?: EnhancedGeneratorConfig): Model {
+  private createSingleHexagon(
+    node: Node,
+    hexIndex: number,
+    spacing: SpacingConfig,
+    config?: EnhancedGeneratorConfig
+  ): Model {
     const WIDTH = spacing.nodeRadius * 2; // Diameter from radius
     const HEIGHT = spacing.nodeHeight;
-    
+
     const labels = this.createNodeLabels(node);
-    
+
     // Get colors based on visual mapping
     const backgroundColor = getNodeBackgroundColor(node, config?.visualMapping);
     // const borderColor = getNodeBorderColor(node, config?.visualMapping); // Not used in standardized version
-    
+
     const hexagon = makeHexagon({
       id: hexIndex,
       position: new Vector3(node.position.x, node.position.y, node.position.z),
@@ -139,30 +161,33 @@ export class NodeRenderer implements INodeRenderer {
       labels: labels,
       stackIndex: 1,
       hexIndex: hexIndex,
-      guid: node.uuid
+      guid: node.uuid,
     });
-    
+
     // Debug: Log node position for Y shadow comparison
     if (node.properties && "component" in node.properties) {
       const component = node.properties.component;
       if (component) {
-        print(`[NodeRenderer] Node ${node.name} (${component}): Position Y=${string.format("%.1f", node.position.y)}`);
       }
     }
-    
+
     // Set hexagon name based on UUID pattern
     this.setHexagonName(hexagon, node.uuid);
-    
+
     // Store node properties as attributes for the inspector
     hexagon.SetAttribute("nodeName", node.name);
     hexagon.SetAttribute("nodeType", node.type);
-    
+
     // Dynamically store all properties as attributes
     if (node.properties) {
       for (const [key, value] of pairs(node.properties)) {
         if (value !== undefined) {
           // Convert value to appropriate type for SetAttribute
-          if (typeIs(value, "string") || typeIs(value, "number") || typeIs(value, "boolean")) {
+          if (
+            typeIs(value, "string") ||
+            typeIs(value, "number") ||
+            typeIs(value, "boolean")
+          ) {
             hexagon.SetAttribute(key as string, value);
           } else {
             // For complex types, convert to string
@@ -171,7 +196,7 @@ export class NodeRenderer implements INodeRenderer {
         }
       }
     }
-    
+
     return hexagon;
   }
 
@@ -180,24 +205,27 @@ export class NodeRenderer implements INodeRenderer {
    */
   private createNodeLabels(node: Node): string[] {
     // For person nodes, use full name if available
-    const isPersonNode = ["man", "woman", "child", "grandparent"].includes(node.type);
-    const fullName = isPersonNode && node.properties?.firstName && node.properties?.lastName
-      ? `${node.properties.firstName} ${node.properties.lastName}`
-      : node.name;
-    
+    const isPersonNode = ["man", "woman", "child", "grandparent"].includes(
+      node.type
+    );
+    const fullName =
+      isPersonNode && node.properties?.firstName && node.properties?.lastName
+        ? `${node.properties.firstName} ${node.properties.lastName}`
+        : node.name;
+
     const labels: string[] = [
       fullName,
       node.type,
-      (node as Node & { typeNumber?: string }).typeNumber || ""
+      (node as Node & { typeNumber?: string }).typeNumber || "",
     ];
-    
+
     // Add type-specific properties
     if (isPersonNode && node.properties?.age) {
       labels.push(`Age: ${node.properties.age}`);
     } else if (node.type === "Animals" && node.properties?.animalType) {
       labels.push(node.properties.animalType);
     }
-    
+
     return labels;
   }
 
@@ -220,12 +248,14 @@ export class NodeRenderer implements INodeRenderer {
    * Get spacing configuration
    */
   private getSpacingConfig(config?: EnhancedGeneratorConfig): SpacingConfig {
-    return config?.spacing || {
-      nodeHeight: RENDERER_CONSTANTS.HEXAGON.HEIGHT,
-      nodeRadius: RENDERER_CONSTANTS.HEXAGON.WIDTH / 2,
-      layerSpacing: RENDERER_CONSTANTS.POSITIONING.LEVEL_SPACING,
-      nodeSpacing: RENDERER_CONSTANTS.POSITIONING.COLUMN_SPACING,
-      swimlaneSpacing: RENDERER_CONSTANTS.POSITIONING.COLUMN_SPACING
-    };
+    return (
+      config?.spacing || {
+        nodeHeight: RENDERER_CONSTANTS.HEXAGON.HEIGHT,
+        nodeRadius: RENDERER_CONSTANTS.HEXAGON.WIDTH / 2,
+        layerSpacing: RENDERER_CONSTANTS.POSITIONING.LEVEL_SPACING,
+        nodeSpacing: RENDERER_CONSTANTS.POSITIONING.COLUMN_SPACING,
+        swimlaneSpacing: RENDERER_CONSTANTS.POSITIONING.COLUMN_SPACING,
+      }
+    );
   }
 }

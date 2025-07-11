@@ -45,9 +45,13 @@ export class YParallelShadowCreator extends BaseBlockCreator {
   public createYParallelShadows(config: YParallelShadowConfig): Map<string, Part> {
     const { nodes, yAxisProperty, parent, shadowWidth, shadowDepth, side = "right" } = config;
     const shadows = new Map<string, Part>();
+    
+    print(`[YParallelShadow] Creating shadows for ${side} side with property: ${yAxisProperty}`);
+    print(`[YParallelShadow] Processing ${nodes.size()} nodes`);
 
     // Group nodes by Y property value and calculate bounds
     const yGroupBounds = this.calculateYGroupBounds(nodes, yAxisProperty);
+    print(`[YParallelShadow] Found ${yGroupBounds.size()} unique Y property values`);
 
     // Don't apply layer-based spacing - use the actual node Y positions
 
@@ -71,10 +75,17 @@ export class YParallelShadowCreator extends BaseBlockCreator {
   private calculateYGroupBounds(nodes: Node[], yAxisProperty: string): Map<string, YGroupBounds> {
     const boundsMap = new Map<string, YGroupBounds>();
     const nodeRadius = 0.5; // Default node radius
+    
+    print(`[YParallelShadow] Calculating bounds for Y property: ${yAxisProperty}`);
 
     // Initialize bounds for each Y property value
     nodes.forEach(node => {
       const yValue = this.propertyResolver.getPropertyValue(node, yAxisProperty);
+      
+      // Log first few unique values
+      if (!boundsMap.has(yValue) && boundsMap.size() < 3) {
+        print(`[YParallelShadow] Found Y value: ${yValue} for node ${node.name}`);
+      }
       
       if (!boundsMap.has(yValue)) {
         boundsMap.set(yValue, {

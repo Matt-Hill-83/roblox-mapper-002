@@ -3,20 +3,26 @@
  * Handles creation and management of X-parallel and Z-parallel lanes
  */
 
-import { Cluster, Node } from "../../../../interfaces/simpleDataGenerator.interface";
+import {
+  Cluster,
+  Node,
+} from "../../../../interfaces/simpleDataGenerator.interface";
 import { EnhancedGeneratorConfig } from "../../../../interfaces/enhancedGenerator.interface";
 import {
   LaneBounds,
   PropertyBounds,
   LaneDimensions,
-  LaneManagerResult
+  LaneManagerResult,
 } from "../types";
 import { PropertyValueResolver } from "../../propertyValueResolver";
 import { EndcapBlockCreator } from "../../blocks/endcapBlockCreator";
 import { SwimLaneBlockCreator } from "../../blocks/swimlaneBlockCreator";
 import { ShadowBlockCreator } from "../../blocks/shadowBlockCreator";
 import { BLOCK_CONSTANTS } from "../../constants/blockConstants";
-import { getDefaultXAxis, getDefaultZAxis } from "../../../../constants/axisDefaults";
+import {
+  getDefaultXAxis,
+  getDefaultZAxis,
+} from "../../../../constants/axisDefaults";
 
 export class LaneManager {
   private propertyResolver: PropertyValueResolver;
@@ -75,7 +81,7 @@ export class LaneManager {
     return {
       xParallelLanes,
       zParallelLanes,
-      allLaneBounds
+      allLaneBounds,
     };
   }
 
@@ -90,7 +96,9 @@ export class LaneManager {
   ): Map<string, Part> {
     const swimlaneBlocks = new Map<string, Part>();
     // Use axis mapping if available - X axis sorts on service for Harness data
-    const xAxisProperty = config.axisMapping?.xAxis || getDefaultXAxis(cluster.discoveredProperties);
+    const xAxisProperty =
+      config.axisMapping?.xAxis ||
+      getDefaultXAxis(cluster.discoveredProperties);
 
     // Organize nodes by X grouping property to determine lane placement
     const nodesByType = new Map<string, Node[]>();
@@ -98,15 +106,14 @@ export class LaneManager {
 
     // Get node radius from spacing config
     const nodeRadius = config?.spacing?.nodeRadius || 0.5;
-    print(`[SWIMLANE CALC] Using nodeRadius=${nodeRadius}`);
-    
+
     // Group nodes by X grouping property and calculate bounds
     cluster.groups[0].nodes.forEach((node: Node) => {
       const propertyValue = this.propertyResolver.getPropertyValue(
         node,
         xAxisProperty
       );
-      
+
       if (!nodesByType.has(propertyValue)) {
         nodesByType.set(propertyValue, []);
         typeBounds.set(propertyValue, {
@@ -120,18 +127,15 @@ export class LaneManager {
       nodesByType.get(propertyValue)!.push(node);
 
       const bounds = typeBounds.get(propertyValue)!;
-      const oldMinX = bounds.minX;
-      const oldMaxX = bounds.maxX;
-      
+
       // Account for node radius when calculating bounds
       bounds.minX = math.min(bounds.minX, node.position.x - nodeRadius);
       bounds.maxX = math.max(bounds.maxX, node.position.x + nodeRadius);
       bounds.minZ = math.min(bounds.minZ, node.position.z - nodeRadius);
       bounds.maxZ = math.max(bounds.maxZ, node.position.z + nodeRadius);
-      
+
       // Debug first few nodes of each type
       if (nodesByType.get(propertyValue)!.size() <= 3) {
-        print(`[SWIMLANE CALC] ${propertyValue} node #${nodesByType.get(propertyValue)!.size()}: pos.x=${node.position.x}, bounds updated from (${oldMinX},${oldMaxX}) to (${bounds.minX},${bounds.maxX})`);
       }
     });
 
@@ -141,13 +145,13 @@ export class LaneManager {
     // Find the overall Z bounds across all lanes
     let overallMinZ = math.huge;
     let overallMaxZ = -math.huge;
-    
+
     nodesByType.forEach((_nodes: Node[], typeName: string) => {
       const bounds = typeBounds.get(typeName)!;
       overallMinZ = math.min(overallMinZ, bounds.minZ);
       overallMaxZ = math.max(overallMaxZ, bounds.maxZ);
     });
-    
+
     // Calculate the common center Z position for all lanes
     const commonCenterZ = (overallMinZ + overallMaxZ) / 2;
 
@@ -168,10 +172,9 @@ export class LaneManager {
       const laneWidth = bounds.maxX - bounds.minX;
       const blockWidth = laneWidth; // No buffer on X-axis to prevent overlap
       // Use the overall Z extent for all lanes to ensure uniform Z-length
-      const blockDepth = (overallMaxZ - overallMinZ) + zBuffer * 2;
-      
+      const blockDepth = overallMaxZ - overallMinZ + zBuffer * 2;
+
       // Debug: Print width of Z-parallel swimlane with node count
-      print(`[Z-PARALLEL LANE] ${typeName}: nodes=${nodes.size()}, width=${blockWidth} (laneWidth=${laneWidth}, bounds=${bounds.minX} to ${bounds.maxX})`)
 
       // Fixed Y position for Z-parallel lane blocks - use SHADOW_LAYER_DISPLACEMENT above shadow block
       // Shadow block is at Y = 1.6 (top at 2.1)
@@ -231,7 +234,9 @@ export class LaneManager {
   ): Map<string, Part> {
     const swimlaneBlocks = new Map<string, Part>();
     // Use axis mapping if available - Z axis sorts on type for Harness data
-    const zAxisProperty = config?.axisMapping?.zAxis || getDefaultZAxis(cluster.discoveredProperties);
+    const zAxisProperty =
+      config?.axisMapping?.zAxis ||
+      getDefaultZAxis(cluster.discoveredProperties);
 
     // Organize nodes by z-axis property
     const nodesByProperty = new Map<string, Node[]>();
@@ -265,14 +270,19 @@ export class LaneManager {
     });
 
     // Set same X bounds for all X-parallel lanes
-    lanePositions.forEach((position: { z: number; minZ: number; maxZ: number }, propertyValue: string) => {
-      propertyBounds.set(propertyValue, {
-        minX: fullMinX,
-        maxX: fullMaxX,
-        minZ: position.minZ,
-        maxZ: position.maxZ,
-      });
-    });
+    lanePositions.forEach(
+      (
+        position: { z: number; minZ: number; maxZ: number },
+        propertyValue: string
+      ) => {
+        propertyBounds.set(propertyValue, {
+          minX: fullMinX,
+          maxX: fullMaxX,
+          minZ: position.minZ,
+          maxZ: position.maxZ,
+        });
+      }
+    );
 
     // Create X-parallel shadow blocks with fixed dimensions
     const shadowBlockTop =
@@ -323,16 +333,26 @@ export class LaneManager {
     });
 
     // Sort by center Z position to maintain proper ordering
-    boundsArray.sort((a: [string, { minZ: number; maxZ: number; centerZ: number }], b: [string, { minZ: number; maxZ: number; centerZ: number }]) => a[1].centerZ < b[1].centerZ);
+    boundsArray.sort(
+      (
+        a: [string, { minZ: number; maxZ: number; centerZ: number }],
+        b: [string, { minZ: number; maxZ: number; centerZ: number }]
+      ) => a[1].centerZ < b[1].centerZ
+    );
 
     // Assign lane positions based on actual positions
-    boundsArray.forEach(([propertyValue, bounds]: [string, { minZ: number; maxZ: number; centerZ: number }]) => {
-      lanePositions.set(propertyValue, {
-        z: bounds.centerZ, // Use actual center position
-        minZ: bounds.minZ,
-        maxZ: bounds.maxZ,
-      });
-    });
+    boundsArray.forEach(
+      ([propertyValue, bounds]: [
+        string,
+        { minZ: number; maxZ: number; centerZ: number }
+      ]) => {
+        lanePositions.set(propertyValue, {
+          z: bounds.centerZ, // Use actual center position
+          minZ: bounds.minZ,
+          maxZ: bounds.maxZ,
+        });
+      }
+    );
 
     return { lanePositions };
   }
@@ -378,10 +398,7 @@ export class LaneManager {
   /**
    * Calculate the Z-axis offset needed to center lanes
    */
-  public calculateZAxisOffset(
-    cluster: Cluster,
-    zAxisProperty: string
-  ): number {
+  public calculateZAxisOffset(cluster: Cluster, zAxisProperty: string): number {
     // Organize nodes by z-axis property and find bounds
     const propertyBounds = new Map<string, { minZ: number; maxZ: number }>();
 
