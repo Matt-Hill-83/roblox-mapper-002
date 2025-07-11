@@ -8,7 +8,7 @@ import { createUICorner } from "../utilities";
 import { ComponentFactory } from "../componentFactory";
 import { TweenService } from "@rbxts/services";
 
-interface CollapsibleFrameOptions {
+export interface CollapsibleFrameOptions {
   parent: ScreenGui;
   size?: UDim2;
   collapsedSize?: UDim2;
@@ -16,7 +16,7 @@ interface CollapsibleFrameOptions {
   position?: UDim2;
 }
 
-interface CollapsibleFrameResult {
+export interface CollapsibleFrameResult {
   frame: Frame;
   contentFrame: Frame;
   toggleButton: TextButton;

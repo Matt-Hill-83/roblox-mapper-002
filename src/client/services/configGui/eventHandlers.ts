@@ -10,7 +10,7 @@ import { GUIStateManager } from "./stateManager";
 import { updateStatus } from "./components/status";
 import { validateEnhancedConfig } from "./validationHandlers";
 
-interface EventHandlerOptions {
+export interface EventHandlerOptions {
   stateManager: GUIStateManager;
   onEnhancedConfigChange?: (config: EnhancedGeneratorConfig) => void;
   onClearRequest?: () => void;
