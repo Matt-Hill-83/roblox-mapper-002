@@ -466,7 +466,6 @@ class TestDataProcessor {
     config?: EnhancedGeneratorConfig
   ): Cluster {
     const maxItems = config?.maxDataItems || DEFAULT_MAX_DATA_ITEMS;
-    print(`[TestDataProcessor] Using maxItems: ${maxItems}`);
 
     const harnessNodes: Node[] = [];
     let itemCount = 0;
@@ -502,22 +501,12 @@ class TestDataProcessor {
     const nodeUuids = new Set(harnessNodes.map((node) => node.uuid));
     const validHarnessLinks = TEMP_HARNESS_LINKS.filter(
       (link) =>
-        nodeUuids.has(link.sourceNodeUuid) && nodeUuids.has(link.targetNodeUuid) &&
+        nodeUuids.has(link.sourceNodeUuid) &&
+        nodeUuids.has(link.targetNodeUuid) &&
         link.type === "Import"
     );
 
-    // Print one Import link to see what direction info we have
-    if (validHarnessLinks.size() > 0) {
-      const firstLink = validHarnessLinks[0];
-      print(`[TestDataProcessor] Sample Import link:`);
-      print(`  uuid: ${firstLink.uuid}`);
-      print(`  type: ${firstLink.type}`);
-      print(`  sourceNodeUuid: ${firstLink.sourceNodeUuid}`);
-      print(`  targetNodeUuid: ${firstLink.targetNodeUuid}`);
-      print(`  direction: ${firstLink.direction || "undefined"}`);
-      print(`  reason: ${firstLink.reason || "undefined"}`);
-      print(`  confidence: ${firstLink.confidence || "undefined"}`);
-    }
+    // Import links have been filtered to only include "Import" type
 
     const harnessLinks: Link[] = validHarnessLinks.map((link) => ({
       uuid: link.uuid,
@@ -527,7 +516,6 @@ class TestDataProcessor {
       color: link.color,
     }));
 
-    // Step 1: Collect and print all unique link types
     this.collectAndPrintLinkTypes(TEMP_HARNESS_LINKS);
 
     // Step 2: Assign treeLevel to nodes based on Import relationships
@@ -535,16 +523,20 @@ class TestDataProcessor {
 
     // Step 3: Apply property filters if any
     const filteredNodes = this.applyPropertyFilters(harnessNodes);
-    
+
     // Step 4: Filter links to only include those between remaining nodes
-    const filteredNodeUuids = new Set(filteredNodes.map(node => node.uuid));
-    const filteredLinks = harnessLinks.filter(link => 
-      filteredNodeUuids.has(link.sourceNodeUuid) && 
-      filteredNodeUuids.has(link.targetNodeUuid)
+    const filteredNodeUuids = new Set(filteredNodes.map((node) => node.uuid));
+    const filteredLinks = harnessLinks.filter(
+      (link) =>
+        filteredNodeUuids.has(link.sourceNodeUuid) &&
+        filteredNodeUuids.has(link.targetNodeUuid)
     );
 
     const discoveredProps = discoverNodeProperties(filteredNodes);
-    const validProps = filterValidAxisProperties(filteredNodes, discoveredProps);
+    const validProps = filterValidAxisProperties(
+      filteredNodes,
+      discoveredProps
+    );
 
     const mainGroup: Group = {
       id: "harness-group",
@@ -584,27 +576,26 @@ class TestDataProcessor {
   }
 
   /**
-   * Collect and print all unique link types with their counts
    */
   private collectAndPrintLinkTypes(links: typeof TEMP_HARNESS_LINKS): void {
     const linkTypeCounts = new Map<string, number>();
-    
+
     links.forEach((link) => {
       const currentCount = linkTypeCounts.get(link.type) || 0;
       linkTypeCounts.set(link.type, currentCount + 1);
     });
 
-    print(`[TestDataProcessor] Unique link types found:`);
-    linkTypeCounts.forEach((count, linkType) => {
-      print(`  ${linkType}: ${count}`);
-    });
+    linkTypeCounts.forEach((count, linkType) => {});
   }
 
   /**
    * Assign treeLevel property to nodes based on Import link relationships
    * For Import links: source imports from target, so target is parent, source is child
    */
-  private assignTreeLevels(nodes: Node[], importLinks: typeof TEMP_HARNESS_LINKS): void {
+  private assignTreeLevels(
+    nodes: Node[],
+    importLinks: typeof TEMP_HARNESS_LINKS
+  ): void {
     // Create a map for quick node lookup
     const nodeMap = new Map<string, Node>();
     nodes.forEach((node) => {
@@ -624,7 +615,7 @@ class TestDataProcessor {
 
     importLinks.forEach((link) => {
       const parentUuid = link.targetNodeUuid; // The file being imported (parent)
-      const childUuid = link.sourceNodeUuid;  // The file doing the importing (child)
+      const childUuid = link.sourceNodeUuid; // The file doing the importing (child)
 
       // Add to children map
       if (!children.has(parentUuid)) {
@@ -647,8 +638,6 @@ class TestDataProcessor {
       }
     });
 
-    print(`[TestDataProcessor] Found ${rootNodes.size()} root nodes (no parents)`);
-
     // Assign treeLevel = 0 to root nodes
     rootNodes.forEach((rootUuid) => {
       const rootNode = nodeMap.get(rootUuid);
@@ -669,7 +658,8 @@ class TestDataProcessor {
       const currentNode = nodeMap.get(currentUuid);
       if (!currentNode || !currentNode.properties) continue;
 
-      const currentLevel = (currentNode.properties as { treeLevel: number }).treeLevel;
+      const currentLevel = (currentNode.properties as { treeLevel: number })
+        .treeLevel;
 
       // Process all children of current node
       const nodeChildren = children.get(currentUuid);
@@ -679,11 +669,14 @@ class TestDataProcessor {
           if (!childNode || !childNode.properties) return;
 
           const proposedLevel = currentLevel + 1;
-          const currentChildLevel = (childNode.properties as { treeLevel: number }).treeLevel;
+          const currentChildLevel = (
+            childNode.properties as { treeLevel: number }
+          ).treeLevel;
 
           // If child has multiple parents, use the highest tree level
           if (currentChildLevel === -1 || proposedLevel > currentChildLevel) {
-            (childNode.properties as { treeLevel: number }).treeLevel = proposedLevel;
+            (childNode.properties as { treeLevel: number }).treeLevel =
+              proposedLevel;
           }
 
           // Add child to queue for processing
@@ -696,7 +689,10 @@ class TestDataProcessor {
 
     // Handle any remaining unprocessed nodes (cycles or disconnected components)
     nodes.forEach((node) => {
-      if (node.properties && (node.properties as { treeLevel: number }).treeLevel === -1) {
+      if (
+        node.properties &&
+        (node.properties as { treeLevel: number }).treeLevel === -1
+      ) {
         (node.properties as { treeLevel: number }).treeLevel = 0; // Treat as root
       }
     });
@@ -710,14 +706,11 @@ class TestDataProcessor {
       }
     });
 
-    print(`[TestDataProcessor] TreeLevel distribution:`);
     const sortedLevels: number[] = [];
     levelCounts.forEach((_, level) => sortedLevels.push(level));
     sortedLevels.sort((a, b) => a < b);
-    
-    sortedLevels.forEach((level) => {
-      print(`  Level ${level}: ${levelCounts.get(level)} nodes`);
-    });
+
+    sortedLevels.forEach((level) => {});
   }
 
   /**
@@ -728,20 +721,17 @@ class TestDataProcessor {
     if (!filters) {
       return nodes;
     }
-    
+
     // Check if filters is empty
     let hasFilters = false;
     for (const [_, __] of pairs(filters)) {
       hasFilters = true;
       break;
     }
-    
+
     if (!hasFilters) {
       return nodes;
     }
-
-    print(`[TestDataProcessor] Applying filters:`, filters);
-    const startCount = nodes.size();
 
     const filteredNodes = nodes.filter((node) => {
       // Check each filter
@@ -761,7 +751,6 @@ class TestDataProcessor {
       return true;
     });
 
-    print(`[TestDataProcessor] Filtered from ${startCount} to ${filteredNodes.size()} nodes`);
     return filteredNodes;
   }
 

@@ -30,15 +30,23 @@ export class YParallelShadowManager {
     }
 
     // Get the cluster folder
-    const graphMakerFolder = parentFolder.FindFirstChild("GraphMaker") as Folder;
+    const graphMakerFolder = parentFolder.FindFirstChild(
+      "GraphMaker"
+    ) as Folder;
     if (!graphMakerFolder) {
-      warn("[YParallelShadowManager] GraphMaker folder not found for Y-parallel shadows");
+      warn(
+        "[YParallelShadowManager] GraphMaker folder not found for Y-parallel shadows"
+      );
       return undefined;
     }
 
-    const clusterFolder = graphMakerFolder.FindFirstChild("UnifiedDataCluster") as Folder;
+    const clusterFolder = graphMakerFolder.FindFirstChild(
+      "UnifiedDataCluster"
+    ) as Folder;
     if (!clusterFolder) {
-      warn("[YParallelShadowManager] UnifiedDataCluster folder not found for Y-parallel shadows");
+      warn(
+        "[YParallelShadowManager] UnifiedDataCluster folder not found for Y-parallel shadows"
+      );
       return undefined;
     }
 
@@ -46,37 +54,28 @@ export class YParallelShadowManager {
     const yShadowsModelRight = new Instance("Model");
     yShadowsModelRight.Name = "YParallelShadowsRight";
     yShadowsModelRight.Parent = clusterFolder;
-    
+
     const yShadowsModelBack = new Instance("Model");
     yShadowsModelBack.Name = "YParallelShadowsBack";
     yShadowsModelBack.Parent = clusterFolder;
 
     // Calculate shadow dimensions (same as group shadow)
-    const shadowWidth = allLaneBounds.width + LAYOUT_CONSTANTS.SHADOW_PADDING.X_PADDING * 2;
-    const shadowDepth = allLaneBounds.depth + LAYOUT_CONSTANTS.SHADOW_PADDING.Z_PADDING * 2;
+    const shadowWidth =
+      allLaneBounds.width + LAYOUT_CONSTANTS.SHADOW_PADDING.X_PADDING * 2;
+    const shadowDepth =
+      allLaneBounds.depth + LAYOUT_CONSTANTS.SHADOW_PADDING.Z_PADDING * 2;
 
     // Create Y-parallel shadows for right side (original)
-    const yParallelShadowsRight = this.yParallelShadowCreator.createYParallelShadows({
-      nodes: cluster.groups[0].nodes,
-      yAxisProperty: config.axisMapping.yAxis,
-      parent: yShadowsModelRight,
-      shadowWidth: shadowWidth,
-      shadowDepth: shadowDepth,
-      side: "right"
-    });
+    const yParallelShadowsRight =
+      this.yParallelShadowCreator.createYParallelShadows({
+        nodes: cluster.groups[0].nodes,
+        yAxisProperty: config.axisMapping.yAxis,
+        parent: yShadowsModelRight,
+        shadowWidth: shadowWidth,
+        shadowDepth: shadowDepth,
+        side: "right",
+      });
 
-    // Create Y-parallel shadows for back side (duplicate)
-    const yParallelShadowsBack = this.yParallelShadowCreator.createYParallelShadows({
-      nodes: cluster.groups[0].nodes,
-      yAxisProperty: config.axisMapping.yAxis,
-      parent: yShadowsModelBack,
-      shadowWidth: shadowWidth,
-      shadowDepth: shadowDepth,
-      side: "back"
-    });
-
-    print(`[YParallelShadowManager] Created ${yParallelShadowsRight.size()} right and ${yParallelShadowsBack.size()} back Y-parallel shadow blocks`);
-    
     // Return the right shadows for compatibility
     return yParallelShadowsRight;
   }
