@@ -10,7 +10,7 @@ import { createDropdown } from "./components/dropdown";
 import { createFrame } from "./components/frame";
 import { createTitle } from "./components/title";
 
-export interface ButtonOptions {
+interface ButtonOptions {
   name: string;
   text: string;
   position: UDim2;
@@ -20,7 +20,7 @@ export interface ButtonOptions {
   backgroundColor?: Color3;
 }
 
-export interface TextInputOptions {
+interface TextInputOptions {
   name: string;
   placeholderText?: string;
   text?: string;
@@ -50,7 +50,7 @@ export interface FrameOptions {
   borderSizePixel?: number;
 }
 
-export interface DropdownOptions {
+interface DropdownOptions {
   name: string;
   items: string[];
   defaultValue: string;

@@ -5,7 +5,7 @@
 import { validateArray, ARRAY_LIMITS, hasCircularReference } from "./arrayValidation";
 import { EnhancedGeneratorConfig, LayerConfig } from "../../interfaces/enhancedGenerator.interface";
 
-export interface ConfigValidationResult {
+interface ConfigValidationResult {
   isValid: boolean;
   errors: string[];
   sanitizedConfig?: EnhancedGeneratorConfig;
@@ -335,13 +335,6 @@ function validateYAxisConfig(yAxisConfig: unknown): string[] {
   return errors;
 }
 
-/**
- * Type guard for EnhancedGeneratorConfig
- */
-export function isEnhancedGeneratorConfig(config: unknown): config is EnhancedGeneratorConfig {
-  const result = validateEnhancedGeneratorConfig(config);
-  return result.isValid;
-}
 
 /**
  * Sanitizes and validates remote data
