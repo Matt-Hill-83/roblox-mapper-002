@@ -1,6 +1,6 @@
 
 [------------------------------------------------]
-INSTRUCTIONS FOR AI AGENT
+INSTRUCTIONS FOR AI AGENT - START
 [------------------------------------------------]
 1. Use this file as a guide.
 2. Create the file structure
@@ -20,6 +20,8 @@ INSTRUCTIONS FOR AI AGENT
    1. Inside 03-Results/ create a set of updated documents modelled after the ones in Example Outputs
 
 
+[------------------------------------------------]
+INSTRUCTIONS FOR AI AGENT - END
 [------------------------------------------------]
 
 # Code Quality Audit Specification
