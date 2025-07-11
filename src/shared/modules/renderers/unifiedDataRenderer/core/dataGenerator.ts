@@ -505,6 +505,19 @@ class TestDataProcessor {
         link.type === "Import"
     );
 
+    // Print one Import link to see what direction info we have
+    if (validHarnessLinks.size() > 0) {
+      const firstLink = validHarnessLinks[0];
+      print(`[TestDataProcessor] Sample Import link:`);
+      print(`  uuid: ${firstLink.uuid}`);
+      print(`  type: ${firstLink.type}`);
+      print(`  sourceNodeUuid: ${firstLink.sourceNodeUuid}`);
+      print(`  targetNodeUuid: ${firstLink.targetNodeUuid}`);
+      print(`  direction: ${firstLink.direction || "undefined"}`);
+      print(`  reason: ${firstLink.reason || "undefined"}`);
+      print(`  confidence: ${firstLink.confidence || "undefined"}`);
+    }
+
     const harnessLinks: Link[] = validHarnessLinks.map((link) => ({
       uuid: link.uuid,
       type: link.type,
@@ -512,6 +525,12 @@ class TestDataProcessor {
       targetNodeUuid: link.targetNodeUuid,
       color: link.color,
     }));
+
+    // Step 1: Collect and print all unique link types
+    this.collectAndPrintLinkTypes(TEMP_HARNESS_LINKS);
+
+    // Step 2: Assign treeLevel to nodes based on Import relationships
+    this.assignTreeLevels(harnessNodes, validHarnessLinks);
 
     const discoveredProps = discoverNodeProperties(harnessNodes);
     const validProps = filterValidAxisProperties(harnessNodes, discoveredProps);
@@ -551,6 +570,143 @@ class TestDataProcessor {
       core: [0.8, 0.8, 0.2],
     };
     return serviceColors[service] || [0.5, 0.5, 0.5];
+  }
+
+  /**
+   * Collect and print all unique link types with their counts
+   */
+  private collectAndPrintLinkTypes(links: typeof TEMP_HARNESS_LINKS): void {
+    const linkTypeCounts = new Map<string, number>();
+    
+    links.forEach((link) => {
+      const currentCount = linkTypeCounts.get(link.type) || 0;
+      linkTypeCounts.set(link.type, currentCount + 1);
+    });
+
+    print(`[TestDataProcessor] Unique link types found:`);
+    linkTypeCounts.forEach((count, linkType) => {
+      print(`  ${linkType}: ${count}`);
+    });
+  }
+
+  /**
+   * Assign treeLevel property to nodes based on Import link relationships
+   * For Import links: source imports from target, so target is parent, source is child
+   */
+  private assignTreeLevels(nodes: Node[], importLinks: typeof TEMP_HARNESS_LINKS): void {
+    // Create a map for quick node lookup
+    const nodeMap = new Map<string, Node>();
+    nodes.forEach((node) => {
+      nodeMap.set(node.uuid, node);
+      // Initialize all nodes with treeLevel -1 (unassigned) in properties
+      if (!node.properties) {
+        node.properties = {};
+      }
+      (node.properties as { treeLevel: number }).treeLevel = -1;
+    });
+
+    // Build parent-child relationships from Import links
+    // For Import: sourceNodeUuid imports from targetNodeUuid
+    // So targetNodeUuid is the parent, sourceNodeUuid is the child
+    const children = new Map<string, Set<string>>(); // parent -> children
+    const parents = new Map<string, Set<string>>(); // child -> parents
+
+    importLinks.forEach((link) => {
+      const parentUuid = link.targetNodeUuid; // The file being imported (parent)
+      const childUuid = link.sourceNodeUuid;  // The file doing the importing (child)
+
+      // Add to children map
+      if (!children.has(parentUuid)) {
+        children.set(parentUuid, new Set<string>());
+      }
+      children.get(parentUuid)!.add(childUuid);
+
+      // Add to parents map
+      if (!parents.has(childUuid)) {
+        parents.set(childUuid, new Set<string>());
+      }
+      parents.get(childUuid)!.add(parentUuid);
+    });
+
+    // Find root nodes (nodes with no parents)
+    const rootNodes: string[] = [];
+    nodes.forEach((node) => {
+      if (!parents.has(node.uuid)) {
+        rootNodes.push(node.uuid);
+      }
+    });
+
+    print(`[TestDataProcessor] Found ${rootNodes.size()} root nodes (no parents)`);
+
+    // Assign treeLevel = 0 to root nodes
+    rootNodes.forEach((rootUuid) => {
+      const rootNode = nodeMap.get(rootUuid);
+      if (rootNode && rootNode.properties) {
+        (rootNode.properties as { treeLevel: number }).treeLevel = 0;
+      }
+    });
+
+    // Use breadth-first search to assign tree levels
+    const queue: string[] = [...rootNodes];
+    const processed = new Set<string>();
+
+    while (queue.size() > 0) {
+      const currentUuid = queue.shift()!;
+      if (processed.has(currentUuid)) continue;
+      processed.add(currentUuid);
+
+      const currentNode = nodeMap.get(currentUuid);
+      if (!currentNode || !currentNode.properties) continue;
+
+      const currentLevel = (currentNode.properties as { treeLevel: number }).treeLevel;
+
+      // Process all children of current node
+      const nodeChildren = children.get(currentUuid);
+      if (nodeChildren) {
+        nodeChildren.forEach((childUuid) => {
+          const childNode = nodeMap.get(childUuid);
+          if (!childNode || !childNode.properties) return;
+
+          const proposedLevel = currentLevel + 1;
+          const currentChildLevel = (childNode.properties as { treeLevel: number }).treeLevel;
+
+          // If child has multiple parents, use the highest tree level
+          if (currentChildLevel === -1 || proposedLevel > currentChildLevel) {
+            (childNode.properties as { treeLevel: number }).treeLevel = proposedLevel;
+          }
+
+          // Add child to queue for processing
+          if (!processed.has(childUuid)) {
+            queue.push(childUuid);
+          }
+        });
+      }
+    }
+
+    // Handle any remaining unprocessed nodes (cycles or disconnected components)
+    nodes.forEach((node) => {
+      if (node.properties && (node.properties as { treeLevel: number }).treeLevel === -1) {
+        (node.properties as { treeLevel: number }).treeLevel = 0; // Treat as root
+      }
+    });
+
+    // Print statistics
+    const levelCounts = new Map<number, number>();
+    nodes.forEach((node) => {
+      if (node.properties) {
+        const level = (node.properties as { treeLevel: number }).treeLevel;
+        levelCounts.set(level, (levelCounts.get(level) || 0) + 1);
+      }
+    });
+
+    print(`[TestDataProcessor] TreeLevel distribution:`);
+    const sortedLevels: number[] = [];
+    levelCounts.forEach((_, level) => sortedLevels.push(level));
+    sortedLevels.sort((a, b) => a < b);
+    
+    sortedLevels.forEach((level) => {
+      print(`  Level ${level}: ${levelCounts.get(level)} nodes`);
+    });
   }
 }
 

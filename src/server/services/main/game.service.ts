@@ -13,7 +13,7 @@ const ORIGIN = {
 };
 
 // Maximum number of data items to generate
-const MAX_DATA_ITEMS = 1000;
+const MAX_DATA_ITEMS = 400;
 
 export class GameService extends BaseService {
   private configGUIServer?: ConfigGUIServerService;
