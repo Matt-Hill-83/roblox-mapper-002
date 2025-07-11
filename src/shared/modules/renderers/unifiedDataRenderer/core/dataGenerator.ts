@@ -460,6 +460,7 @@ class LinkGenerator {
  */
 class TestDataProcessor {
   private useTestData = true;
+  private propertyFilters?: { [key: string]: string[] };
 
   public generateClusterFromTestData(
     config?: EnhancedGeneratorConfig
@@ -532,18 +533,28 @@ class TestDataProcessor {
     // Step 2: Assign treeLevel to nodes based on Import relationships
     this.assignTreeLevels(harnessNodes, validHarnessLinks);
 
-    const discoveredProps = discoverNodeProperties(harnessNodes);
-    const validProps = filterValidAxisProperties(harnessNodes, discoveredProps);
+    // Step 3: Apply property filters if any
+    const filteredNodes = this.applyPropertyFilters(harnessNodes);
+    
+    // Step 4: Filter links to only include those between remaining nodes
+    const filteredNodeUuids = new Set(filteredNodes.map(node => node.uuid));
+    const filteredLinks = harnessLinks.filter(link => 
+      filteredNodeUuids.has(link.sourceNodeUuid) && 
+      filteredNodeUuids.has(link.targetNodeUuid)
+    );
+
+    const discoveredProps = discoverNodeProperties(filteredNodes);
+    const validProps = filterValidAxisProperties(filteredNodes, discoveredProps);
 
     const mainGroup: Group = {
       id: "harness-group",
       name: "Harness Data Group",
-      nodes: harnessNodes,
+      nodes: filteredNodes,
     };
 
     return {
       groups: [mainGroup],
-      relations: harnessLinks,
+      relations: filteredLinks,
       discoveredProperties: validProps,
     };
   }
@@ -708,6 +719,58 @@ class TestDataProcessor {
       print(`  Level ${level}: ${levelCounts.get(level)} nodes`);
     });
   }
+
+  /**
+   * Apply property filters to nodes
+   */
+  private applyPropertyFilters(nodes: Node[]): Node[] {
+    const filters = this.propertyFilters;
+    if (!filters) {
+      return nodes;
+    }
+    
+    // Check if filters is empty
+    let hasFilters = false;
+    for (const [_, __] of pairs(filters)) {
+      hasFilters = true;
+      break;
+    }
+    
+    if (!hasFilters) {
+      return nodes;
+    }
+
+    print(`[TestDataProcessor] Applying filters:`, filters);
+    const startCount = nodes.size();
+
+    const filteredNodes = nodes.filter((node) => {
+      // Check each filter
+      for (const [propName, filteredValues] of pairs(filters)) {
+        if (typeIs(propName, "string") && node.properties) {
+          const props = node.properties as { [key: string]: unknown };
+          const propValue = props[propName];
+          if (propValue !== undefined) {
+            const nodeValue = tostring(propValue);
+            // If this value is in the filter list, exclude the node
+            if ((filteredValues as string[]).includes(nodeValue)) {
+              return false;
+            }
+          }
+        }
+      }
+      return true;
+    });
+
+    print(`[TestDataProcessor] Filtered from ${startCount} to ${filteredNodes.size()} nodes`);
+    return filteredNodes;
+  }
+
+  /**
+   * Set property filters
+   */
+  public setPropertyFilters(filters?: { [key: string]: string[] }): void {
+    this.propertyFilters = filters;
+  }
 }
 
 /**
@@ -797,6 +860,13 @@ export class DataGenerator implements IDataGenerator {
   public setUseTestData(useTestData: boolean): void {
     this.useTestData = useTestData;
     this.testDataProcessor.setUseTestData(useTestData);
+  }
+
+  /**
+   * Set property filters for data generation
+   */
+  public setPropertyFilters(filters?: { [key: string]: string[] }): void {
+    this.testDataProcessor.setPropertyFilters(filters);
   }
 
   /**

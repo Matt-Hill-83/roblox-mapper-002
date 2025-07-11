@@ -168,10 +168,33 @@ spawn(() => {
   }
 });
 
-// Create Properties GUI immediately with component data
+// Create Properties GUI
 const propertiesGui = new PropertiesGuiService();
-propertiesGui.createGUI({
-  propertyName: "component",
-  values: ["core", "config", "api", "service", "util", "test"]
+
+// Request property values from server after data is loaded
+const configRemote = ReplicatedStorage.WaitForChild("ConfigGUIRemote") as RemoteEvent;
+
+// Listen for when data is regenerated to update property values
+configRemote.OnClientEvent.Connect((eventType: string, data?: unknown) => {
+  if (eventType === "regenerateSuccess" || eventType === "updateSuccess") {
+    // Request property values after data is loaded
+    wait(0.5); // Short delay to ensure data is processed
+    configRemote.FireServer("getPropertyValues");
+  } else if (eventType === "propertyValues" && typeIs(data, "table")) {
+    const propertyData = data as { [key: string]: string[] };
+    
+    // Create GUI with all properties data
+    propertiesGui.createGUI(propertyData, (filters) => {
+      // Handle filter changes - send to server
+      print("[Main] Filter state changed:", filters);
+      configRemote.FireServer("updateFilters", filters);
+    });
+  }
+});
+
+// Request initial property values
+spawn(() => {
+  wait(2); // Wait for initial data load
+  configRemote.FireServer("getPropertyValues");
 });
 

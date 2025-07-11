@@ -32,6 +32,7 @@ export class UnifiedDataRenderer {
   private wallManager: WallManager;
   private yParallelShadowManager: YParallelShadowManager;
   private currentConfig?: EnhancedGeneratorConfig;
+  private currentCluster?: Cluster;
 
   constructor() {
     this.dataGenerator = new DataGenerator();
@@ -67,6 +68,9 @@ export class UnifiedDataRenderer {
 
     // Generate the cluster data
     const cluster = this.dataGenerator.generateClusterFromLayers(config);
+    
+    // Store the current cluster
+    this.currentCluster = cluster;
     
     // Print how many nodes were actually created
     const nodeCount = cluster.groups[0].nodes.size();
@@ -222,6 +226,27 @@ export class UnifiedDataRenderer {
 
     // Update stored configuration
     this.currentConfig = config;
+  }
+
+  /**
+   * Get the current cluster data
+   */
+  public getCurrentCluster(): Cluster | undefined {
+    return this.currentCluster;
+  }
+
+  /**
+   * Get the current configuration
+   */
+  public getCurrentConfig(): EnhancedGeneratorConfig | undefined {
+    return this.currentConfig;
+  }
+
+  /**
+   * Set property filters for data generation
+   */
+  public setPropertyFilters(filters?: { [key: string]: string[] }): void {
+    this.dataGenerator.setPropertyFilters(filters);
   }
 
 }

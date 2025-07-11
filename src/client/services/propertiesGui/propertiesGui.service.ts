@@ -13,13 +13,24 @@ export interface PropertyInfo {
   values: string[];
 }
 
+export interface PropertiesData {
+  [propertyName: string]: string[];
+}
+
+export interface FilterState {
+  [propertyName: string]: Set<string>;
+}
+
 export class PropertiesGuiService extends BaseService {
   private gui?: ScreenGui;
   private frame?: Frame;
-  private propertyInfo?: PropertyInfo;
+  private propertiesData?: PropertiesData;
+  private filterState: FilterState = {};
+  private toggleButtons: Map<string, TextButton> = new Map();
   private isDragging = false;
   private dragStart?: Vector2;
   private dragStartPos?: UDim2;
+  private onFilterChange?: (filters: FilterState) => void;
 
   constructor() {
     super("PropertiesGuiService");
@@ -28,7 +39,7 @@ export class PropertiesGuiService extends BaseService {
   /**
    * Creates the properties GUI
    */
-  public createGUI(propertyInfo: PropertyInfo): void {
+  public createGUI(propertiesData: PropertiesData, onFilterChange?: (filters: FilterState) => void): void {
     const player = Players.LocalPlayer;
     const playerGui = player.WaitForChild("PlayerGui") as PlayerGui;
 
@@ -41,8 +52,9 @@ export class PropertiesGuiService extends BaseService {
       this.gui.Parent = playerGui;
     }
 
-    // Store property info
-    this.propertyInfo = propertyInfo;
+    // Store property data and callback
+    this.propertiesData = propertiesData;
+    this.onFilterChange = onFilterChange;
 
     // Create the main frame
     this.createMainFrame();
@@ -57,11 +69,11 @@ export class PropertiesGuiService extends BaseService {
   private createMainFrame(): void {
     if (!this.gui) return;
 
-    // Create main frame
+    // Create main frame - full height
     this.frame = new Instance("Frame");
     this.frame.Name = "PropertiesFrame";
-    this.frame.Size = new UDim2(0, 200, 0, 300);
-    this.frame.Position = new UDim2(0, 270, 1, -310); // Next to Link Types GUI
+    this.frame.Size = new UDim2(0, 600, 1, -20); // Wider for grid, full height
+    this.frame.Position = new UDim2(0, 270, 0, 10); // Next to Link Types GUI, top of screen
     this.frame.BackgroundColor3 = new Color3(0.1, 0.1, 0.1);
     this.frame.BorderSizePixel = 2;
     this.frame.BorderColor3 = new Color3(0.4, 0.4, 0.4);
@@ -142,10 +154,10 @@ export class PropertiesGuiService extends BaseService {
   }
 
   /**
-   * Populates the GUI with property values
+   * Populates the GUI with property values in a 2D grid
    */
   private populateProperties(): void {
-    if (!this.frame || !this.propertyInfo) return;
+    if (!this.frame || !this.propertiesData) return;
 
     const scrollFrame = this.frame.FindFirstChild("ContentScroll") as ScrollingFrame;
     if (!scrollFrame) return;
@@ -157,60 +169,119 @@ export class PropertiesGuiService extends BaseService {
       }
     });
 
-    let yPos = 5;
-    const rowHeight = 25;
+    // Clear toggle buttons
+    this.toggleButtons.clear();
+
+    // Get all properties, excluding system ones
+    const properties: string[] = [];
+    const systemProps = new Set(["treeLevel", "size", "path"]);
+    
+    for (const [propName, _] of pairs(this.propertiesData)) {
+      if (typeIs(propName, "string") && !systemProps.has(propName)) {
+        properties.push(propName);
+      }
+    }
+    properties.sort();
+
+    const columnWidth = 120;
+    const headerHeight = 30;
+    const buttonHeight = 25;
     const spacing = 5;
+    const columnPadding = 10;
 
-    // Create property name header
-    const propertyHeader = new Instance("TextLabel");
-    propertyHeader.Name = "PropertyHeader";
-    propertyHeader.Size = new UDim2(1, -10, 0, rowHeight + 5);
-    propertyHeader.Position = new UDim2(0, 5, 0, yPos);
-    propertyHeader.BackgroundColor3 = new Color3(0.15, 0.15, 0.3);
-    propertyHeader.BorderSizePixel = 1;
-    propertyHeader.BorderColor3 = new Color3(0.3, 0.3, 0.5);
-    propertyHeader.Text = this.propertyInfo.propertyName;
-    propertyHeader.TextColor3 = new Color3(1, 1, 1);
-    propertyHeader.TextScaled = true;
-    propertyHeader.Font = Enum.Font.SourceSansBold;
-    propertyHeader.Parent = scrollFrame;
+    // Create columns for each property
+    properties.forEach((propName, colIndex) => {
+      const xPos = colIndex * (columnWidth + columnPadding) + spacing;
+      
+      // Create property header
+      const headerLabel = new Instance("TextLabel");
+      headerLabel.Name = `Header_${propName}`;
+      headerLabel.Size = new UDim2(0, columnWidth, 0, headerHeight);
+      headerLabel.Position = new UDim2(0, xPos, 0, spacing);
+      headerLabel.BackgroundColor3 = new Color3(0.15, 0.15, 0.3);
+      headerLabel.BorderSizePixel = 1;
+      headerLabel.BorderColor3 = new Color3(0.3, 0.3, 0.5);
+      headerLabel.Text = propName;
+      headerLabel.TextColor3 = new Color3(1, 1, 1);
+      headerLabel.TextScaled = true;
+      headerLabel.Font = Enum.Font.SourceSansBold;
+      headerLabel.Parent = scrollFrame;
 
-    yPos += rowHeight + spacing + 10;
+      // Initialize filter state for this property
+      if (!this.filterState[propName]) {
+        this.filterState[propName] = new Set<string>();
+      }
 
-    // Create rows for each value
-    this.propertyInfo.values.forEach((value, index) => {
-      const valueFrame = new Instance("Frame");
-      valueFrame.Name = `Value_${index}`;
-      valueFrame.Size = new UDim2(1, -10, 0, rowHeight);
-      valueFrame.Position = new UDim2(0, 5, 0, yPos);
-      valueFrame.BackgroundColor3 = new Color3(0.15, 0.15, 0.15);
-      valueFrame.BorderSizePixel = 1;
-      valueFrame.BorderColor3 = new Color3(0.3, 0.3, 0.3);
-      valueFrame.Parent = scrollFrame;
+      // Create toggle buttons for each value
+      const values = this.propertiesData ? this.propertiesData[propName] || [] : [];
+      values.forEach((value, valueIndex) => {
+        const yPos = headerHeight + spacing * 2 + valueIndex * (buttonHeight + spacing);
+        
+        const toggleButton = new Instance("TextButton");
+        toggleButton.Name = `Toggle_${propName}_${value}`;
+        toggleButton.Size = new UDim2(0, columnWidth, 0, buttonHeight);
+        toggleButton.Position = new UDim2(0, xPos, 0, yPos);
+        toggleButton.BackgroundColor3 = new Color3(0.2, 0.2, 0.2);
+        toggleButton.BorderSizePixel = 1;
+        toggleButton.BorderColor3 = new Color3(0.4, 0.4, 0.4);
+        toggleButton.Text = value;
+        toggleButton.TextColor3 = new Color3(1, 1, 1);
+        toggleButton.TextScaled = true;
+        toggleButton.Font = Enum.Font.SourceSans;
+        toggleButton.Parent = scrollFrame;
 
-      const valueLabel = new Instance("TextLabel");
-      valueLabel.Size = new UDim2(1, -10, 1, 0);
-      valueLabel.Position = new UDim2(0, 5, 0, 0);
-      valueLabel.BackgroundTransparency = 1;
-      valueLabel.Text = value;
-      valueLabel.TextColor3 = new Color3(0.9, 0.9, 0.9);
-      valueLabel.TextScaled = true;
-      valueLabel.Font = Enum.Font.SourceSans;
-      valueLabel.TextXAlignment = Enum.TextXAlignment.Left;
-      valueLabel.Parent = valueFrame;
+        // Store button reference
+        const buttonKey = `${propName}:${value}`;
+        this.toggleButtons.set(buttonKey, toggleButton);
 
-      yPos += rowHeight + spacing;
+        // Add click handler
+        toggleButton.MouseButton1Click.Connect(() => {
+          this.toggleFilter(propName, value, toggleButton);
+        });
+      });
     });
 
     // Update canvas size
-    scrollFrame.CanvasSize = new UDim2(0, 0, 0, yPos);
+    const totalWidth = properties.size() * (columnWidth + columnPadding);
+    const maxValues = math.max(...properties.map(p => (this.propertiesData![p] || []).size()));
+    const totalHeight = headerHeight + spacing * 2 + maxValues * (buttonHeight + spacing);
+    
+    scrollFrame.CanvasSize = new UDim2(0, totalWidth, 0, totalHeight);
+  }
+
+  /**
+   * Toggle a filter value
+   */
+  private toggleFilter(propertyName: string, value: string, button: TextButton): void {
+    if (!this.filterState[propertyName]) {
+      this.filterState[propertyName] = new Set<string>();
+    }
+
+    const filterSet = this.filterState[propertyName];
+    
+    if (filterSet.has(value)) {
+      // Remove from filter (unfiltered)
+      filterSet.delete(value);
+      button.BackgroundColor3 = new Color3(0.2, 0.2, 0.2);
+      button.TextColor3 = new Color3(1, 1, 1);
+    } else {
+      // Add to filter (filtered out)
+      filterSet.add(value);
+      button.BackgroundColor3 = new Color3(0.1, 0.1, 0.1);
+      button.TextColor3 = new Color3(0.5, 0.5, 0.5);
+    }
+
+    // Notify of filter change
+    if (this.onFilterChange) {
+      this.onFilterChange(this.filterState);
+    }
   }
 
   /**
    * Updates the displayed property information
    */
-  public updatePropertyInfo(propertyInfo: PropertyInfo): void {
-    this.propertyInfo = propertyInfo;
+  public updatePropertiesData(propertiesData: PropertiesData): void {
+    this.propertiesData = propertiesData;
     this.populateProperties();
   }
 

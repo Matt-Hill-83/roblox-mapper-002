@@ -11,6 +11,7 @@ export class ConfigGUIServerService extends BaseService {
   private projectRootFolder: Folder;
   private origin: Vector3;
   private defaultAxisOptions?: { [key: string]: string };
+  private currentFilters?: { [key: string]: string[] };
 
   constructor(projectRootFolder: Folder, origin?: Vector3, linkTypeCounterService?: LinkTypeCounterServerService, defaultAxisOptions?: { [key: string]: string }) {
     super("ConfigGUIServerService");
@@ -140,6 +141,41 @@ export class ConfigGUIServerService extends BaseService {
       } else if (eventType === "getDefaultAxisOptions") {
         // Send default axis options to client
         this.remoteEvent.FireClient(player, "defaultAxisOptions", this.defaultAxisOptions || {});
+      } else if (eventType === "getPropertyValues") {
+        // Get unique property values from current data
+        const propertyValues = this.getPropertyValues();
+        this.remoteEvent.FireClient(player, "propertyValues", propertyValues);
+      } else if (eventType === "updateFilters" && typeIs(data, "table")) {
+        // Update filters and regenerate data
+        this.currentFilters = this.convertFilterFormat(data);
+        print(`[ConfigGUIServerService] Updated filters:`, this.currentFilters);
+        
+        // Store filters in renderer
+        this.unifiedRenderer.setPropertyFilters(this.currentFilters);
+        
+        // Get current config and re-render with filters
+        const currentConfig = this.unifiedRenderer.getCurrentConfig();
+        if (currentConfig) {
+          // Re-render the entire graph with filters applied
+          const cluster = this.unifiedRenderer.renderEnhancedData(
+            this.projectRootFolder, 
+            currentConfig, 
+            this.origin
+          );
+          
+          // Update link type counter with the new filtered links
+          if (this.linkTypeCounterService && cluster && cluster.relations) {
+            this.linkTypeCounterService.updateLinks(cluster.relations);
+          }
+          
+          // Send success response
+          this.remoteEvent.FireClient(player, "regenerateSuccess", currentConfig);
+          
+          // Send updated property values after filtering
+          wait(0.5);
+          const propertyValues = this.getPropertyValues();
+          this.remoteEvent.FireClient(player, "propertyValues", propertyValues);
+        }
       }
     });
     
@@ -148,6 +184,72 @@ export class ConfigGUIServerService extends BaseService {
   }
 
   
+  /**
+   * Get unique property values from current rendered data
+   */
+  private getPropertyValues(): { [key: string]: string[] } {
+    const propertyValues: { [key: string]: Set<string> } = {};
+    
+    // Get the current cluster data from the renderer
+    const currentCluster = this.unifiedRenderer.getCurrentCluster();
+    if (!currentCluster) {
+      return {};
+    }
+    
+    // Iterate through all nodes and collect unique values for each property
+    currentCluster.groups.forEach(group => {
+      group.nodes.forEach(node => {
+        if (node.properties) {
+          for (const [propName, propValue] of pairs(node.properties)) {
+            if (typeIs(propName, "string") && propValue !== undefined) {
+              if (!propertyValues[propName]) {
+                propertyValues[propName] = new Set<string>();
+              }
+              propertyValues[propName].add(tostring(propValue));
+            }
+          }
+        }
+      });
+    });
+    
+    // Convert sets to arrays
+    const result: { [key: string]: string[] } = {};
+    for (const [propName, valueSet] of pairs(propertyValues)) {
+      const valuesArray: string[] = [];
+      valueSet.forEach(value => valuesArray.push(value));
+      valuesArray.sort();
+      result[propName] = valuesArray;
+    }
+    
+    return result;
+  }
+
+  /**
+   * Convert filter format from client (Sets) to server (arrays)
+   */
+  private convertFilterFormat(clientFilters: any): { [key: string]: string[] } {
+    const serverFilters: { [key: string]: string[] } = {};
+    
+    if (typeIs(clientFilters, "table")) {
+      for (const [propName, filterSet] of pairs(clientFilters)) {
+        if (typeIs(propName, "string") && typeIs(filterSet, "table")) {
+          const values: string[] = [];
+          // Convert Lua table (acting as Set) to array
+          for (const [value, _] of pairs(filterSet as any)) {
+            if (typeIs(value, "string")) {
+              values.push(value);
+            }
+          }
+          if (values.size() > 0) {
+            serverFilters[propName] = values;
+          }
+        }
+      }
+    }
+    
+    return serverFilters;
+  }
+
   /**
    * Custom cleanup logic
    */
