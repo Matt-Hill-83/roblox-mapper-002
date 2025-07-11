@@ -74,6 +74,7 @@ export class GameService extends BaseService {
     task.wait(5);
     this.debugNodeInformation();
     this.debugSwimlaneShadows();
+    this.debugVerticalWalls();
   }
 
   /**
@@ -271,6 +272,59 @@ export class GameService extends BaseService {
     xParallelLanes.forEach(() => {
       // X-parallel lanes - currently just collecting them
     });
+  }
+
+  /**
+   * Debug function to find and print vertical wall information
+   */
+  private debugVerticalWalls(): void {
+    print("[GameService] === VERTICAL WALLS DEBUG ===");
+    
+    const verticalWalls: Part[] = [];
+    
+    const searchForWalls = (parent: Instance) => {
+      parent.GetDescendants().forEach((desc) => {
+        if (desc.IsA("Part")) {
+          const name = desc.Name;
+          // Look for vertical wall names
+          if (
+            name === "VerticalWall_Back" ||
+            name === "VerticalWall_Right" ||
+            name === "VerticalWall_Front" ||
+            name === "VerticalWall_Left" ||
+            name === "FarZEdgeWall" ||
+            name === "FarXEdgeWall"
+          ) {
+            verticalWalls.push(desc as Part);
+          }
+        }
+      });
+    };
+
+    searchForWalls(this.myStuffFolder);
+
+    if (verticalWalls.size() === 0) {
+      print("[GameService] No vertical walls found!");
+      return;
+    }
+
+    print(`[GameService] Found ${verticalWalls.size()} vertical walls:`);
+    
+    verticalWalls.forEach((wall) => {
+      const size = wall.Size;
+      const position = wall.Position;
+      const transparency = wall.Transparency;
+      const material = wall.Material;
+      const canCollide = wall.CanCollide;
+      
+      print(`[GameService] Wall: ${wall.Name}`);
+      print(`  Size: (${string.format("%.1f", size.X)}, ${string.format("%.1f", size.Y)}, ${string.format("%.1f", size.Z)})`);
+      print(`  Position: (${string.format("%.1f", position.X)}, ${string.format("%.1f", position.Y)}, ${string.format("%.1f", position.Z)})`);
+      print(`  Transparency: ${transparency}, Material: ${material}, CanCollide: ${canCollide}`);
+      print(`  Parent: ${wall.Parent?.Name || "unknown"}`);
+    });
+    
+    print("[GameService] === END VERTICAL WALLS DEBUG ===");
   }
 
   /**

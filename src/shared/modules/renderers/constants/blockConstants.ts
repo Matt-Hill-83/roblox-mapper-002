@@ -21,8 +21,9 @@ export const BLOCK_CONSTANTS = {
     UNIFORM_SHADOW_THICKNESS: 1.0, // Uniform thickness for all shadow layers
     SHADOW_LAYER_DISPLACEMENT: 0.5, // Vertical displacement between shadow layer tops
     Z_TO_X_SHADOW_LANE_SPACING: 0.5, // Vertical spacing between Z shadow lanes and X shadow lanes
-    Y_SHADOW_THICKNESS: 0.5, // Thickness of Y-parallel shadow blocks
+    Y_SHADOW_THICKNESS: 5, // Thickness of Y-parallel shadow blocks (T9.8.2)
     Y_SHADOW_OFFSET: 2, // Vertical offset below nodes for Y shadows
+    Y_SHADOW_SPACING: 2, // Spacing between Y shadow blocks (T9.8.3)
   },
   COLORS: {
     SHADOW: new Color3(0.5, 0.7, 1),
@@ -35,7 +36,7 @@ export const BLOCK_CONSTANTS = {
     OPAQUE: 0,
     SEMI_TRANSPARENT: 0.5,
     FORCE_FIELD: 0.8,
-    Y_SHADOW: 0.5, // 50% transparent
+    Y_SHADOW: 0, // Fully opaque
   },
   MATERIALS: {
     SHADOW: Enum.Material.Concrete,

@@ -11,6 +11,18 @@ export const robloxColors: Color3[] = [
   new Color3(0, 0.5, 0), // Dark Green
 ];
 
+export const Y_AXIS_COLORS: Color3[] = [
+  new Color3(0.6431, 0.3608, 0.6471), // Base 19 saturated 200%
+  new Color3(0.3608, 0.7529, 0.3608), // Base 20 saturated 200%
+  new Color3(0.3608, 0.5333, 1.0), // Base 15 saturated 200%
+  new Color3(0.948, 0.7186, 0.7422), // Base 1 saturated 150%
+  new Color3(0.3608, 0.5333, 1.0), // Base 18 saturated 200%
+  new Color3(1.0, 0.5333, 0.3608), // Base 11 saturated 200%
+  new Color3(0.9863, 0.6804, 0.7118), // Base 1 saturated 200%
+  new Color3(0.3608, 1.0, 0.5333), // Base 9 saturated 200%
+  new Color3(1.0, 0.6549, 0.3608), // Base 14 saturated 200%
+];
+
 export const Z_AXIS_COLORS: Color3[] = [
   new Color3(0.6431, 0.3608, 0.6471), // Base 19 saturated 200%
   new Color3(0.3608, 0.7529, 0.3608), // Base 20 saturated 200%
@@ -60,7 +72,7 @@ export const X_AXIS_COLORS: Color3[] = [
 // X-parallel lane colors - pastel/lighter shades for visual distinction from Z-parallel lanes
 export const X_PARALLEL_LANE_COLORS: Color3[] = [
   new Color3(0.9, 0.7, 0.7), // Light pink
-  new Color3(0.7, 0.9, 0.7), // Light green  
+  new Color3(0.7, 0.9, 0.7), // Light green
   new Color3(0.7, 0.7, 0.9), // Light blue
   new Color3(0.9, 0.9, 0.7), // Light yellow
   new Color3(0.9, 0.7, 0.9), // Light magenta

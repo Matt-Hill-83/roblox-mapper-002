@@ -144,9 +144,7 @@ export class ShadowBlockCreator extends BaseBlockCreator {
     const width = bounds.maxX - bounds.minX + 4; // Add 4 to length as requested
     // Use the correct depth for X-parallel lanes
     const depth = LAYOUT_CONSTANTS.LANE_DIMENSIONS.X_PARALLEL_LANE_DEPTH;
-    
-    // Debug: Print width of X-parallel shadow
-    print(`[X-PARALLEL SHADOW] ${propertyValue}: width=${width} (bounds=${bounds.minX} to ${bounds.maxX})`)
+
     const centerX = (bounds.minX + bounds.maxX) / 2;
     const centerZ = (bounds.minZ + bounds.maxZ) / 2;
 
@@ -197,11 +195,15 @@ export class ShadowBlockCreator extends BaseBlockCreator {
 
     // Check if this is an X-parallel block
     const isXParallel = block.Name.match("^XParallel_Lane_")[0] !== undefined;
-    
 
     faces.forEach((face) => {
       // Skip Front face (red labels), Back face (green labels), and Left face (blue labels) for X-parallel blocks
-      if (isXParallel && (face === Enum.NormalId.Front || face === Enum.NormalId.Back || face === Enum.NormalId.Left)) {
+      if (
+        isXParallel &&
+        (face === Enum.NormalId.Front ||
+          face === Enum.NormalId.Back ||
+          face === Enum.NormalId.Left)
+      ) {
         return;
       }
       // Create SurfaceGui
@@ -216,7 +218,8 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       const frame = new Instance("Frame");
       frame.Size = new UDim2(1, 0, 1, 0);
       frame.BackgroundColor3 = block.Color; // Match block color
-      frame.BackgroundTransparency = BLOCK_CONSTANTS.LABEL_STYLING.BACKGROUND_TRANSPARENCY;
+      frame.BackgroundTransparency =
+        BLOCK_CONSTANTS.LABEL_STYLING.BACKGROUND_TRANSPARENCY;
       frame.BorderSizePixel = BLOCK_CONSTANTS.LABEL_STYLING.BORDER_SIZE_PIXEL;
       frame.BorderColor3 = BLOCK_CONSTANTS.LABEL_STYLING.BORDER_COLOR;
       frame.Parent = surfaceGui;
@@ -228,17 +231,17 @@ export class ShadowBlockCreator extends BaseBlockCreator {
       textLabel.BackgroundTransparency = 1;
       textLabel.Font = BLOCK_CONSTANTS.LABEL_STYLING.FONT;
       textLabel.Text = text;
-      
+
       // Use different colors for each face (for testing)
       const faceColors: { [key: string]: Color3 } = {
-        Front: new Color3(1, 0, 0),     // Red
-        Back: new Color3(0, 1, 0),      // Green
-        Left: new Color3(0, 0, 1),      // Blue
-        Right: new Color3(1, 1, 0),     // Yellow
-        Top: new Color3(1, 0, 1),       // Magenta
-        Bottom: new Color3(0, 1, 1),    // Cyan
+        Front: new Color3(1, 0, 0), // Red
+        Back: new Color3(0, 1, 0), // Green
+        Left: new Color3(0, 0, 1), // Blue
+        Right: new Color3(1, 1, 0), // Yellow
+        Top: new Color3(1, 0, 1), // Magenta
+        Bottom: new Color3(0, 1, 1), // Cyan
       };
-      
+
       textLabel.TextColor3 = faceColors[face.Name] || new Color3(1, 1, 1); // Default to white
       textLabel.TextScaled = BLOCK_CONSTANTS.LABEL_STYLING.TEXT_SCALED;
       textLabel.Rotation = 90; // Rotate 90 degrees clockwise

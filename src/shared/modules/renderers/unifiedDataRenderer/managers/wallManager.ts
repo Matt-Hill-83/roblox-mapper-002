@@ -30,9 +30,14 @@ export class WallManager {
     shadowDepth: number,
     platform: Part
   ): WallManagerResult | undefined {
+    print(`[WallManager] createWalls called with yAxis: ${config.axisMapping?.yAxis || "undefined"}`);
+    
     if (!config.axisMapping?.yAxis || config.axisMapping.yAxis === "none") {
+      print("[WallManager] No Y-axis configured, skipping wall creation");
       return undefined;
     }
+
+    print("[WallManager] Creating vertical walls...");
 
     const wallHeight = this.calculateWallHeight(cluster);
     

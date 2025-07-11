@@ -52,9 +52,12 @@ export class GraphInitializerService {
       showConnectors: true,
       allowSameLevelLinks: true,  // Enable same-level links for testing
     },
-    // axisMapping will be determined dynamically based on discovered properties
-    // Set to undefined initially - will be updated when properties are discovered
-    axisMapping: undefined,
+    // Default axis mapping for Harness data - will be updated when properties are discovered
+    axisMapping: {
+      xAxis: "httpMethod",
+      zAxis: "apiPattern", 
+      yAxis: "component"
+    },
     visualMapping: {
       backgroundColor: "httpMethod", // Default to httpMethod for Harness data
       borderColor: "none",

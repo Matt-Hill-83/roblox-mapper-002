@@ -3,6 +3,7 @@
  * Creates vertical walls around the platform for Y-axis property visualization
  */
 
+
 export interface VerticalWallConfig {
   platformBounds: {
     minX: number;
@@ -17,6 +18,8 @@ export interface VerticalWallConfig {
 export function createVerticalWalls(config: VerticalWallConfig): Part[] {
   const { platformBounds, height, parent } = config;
   const walls: Part[] = [];
+  
+  print(`[VerticalWallCreator] Creating walls with height ${height} for parent ${parent.Name}`);
   
   const wallThickness = 0.5;
   const wallColor = new Color3(0.3, 0.3, 0.3);
@@ -40,6 +43,7 @@ export function createVerticalWalls(config: VerticalWallConfig): Part[] {
   backWall.CanCollide = false;
   backWall.Parent = parent;
   walls.push(backWall);
+  print(`[VerticalWallCreator] Created back wall at position (${backWall.Position.X}, ${backWall.Position.Y}, ${backWall.Position.Z})`);
   
   // Right wall (positive X)
   const rightWall = new Instance("Part");
@@ -53,8 +57,9 @@ export function createVerticalWalls(config: VerticalWallConfig): Part[] {
   rightWall.CanCollide = false;
   rightWall.Parent = parent;
   walls.push(rightWall);
+  print(`[VerticalWallCreator] Created right wall at position (${rightWall.Position.X}, ${rightWall.Position.Y}, ${rightWall.Position.Z})`);
   
-  
+  print(`[VerticalWallCreator] Created ${walls.size()} vertical walls total`);
   return walls;
 }
 
