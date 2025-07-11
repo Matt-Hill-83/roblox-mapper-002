@@ -1,0 +1,94 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Project Architecture" id="project-arch">
+    <mxGraphModel dx="1434" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="Roblox Mapper 002 - Project Architecture" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="20" width="400" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Client Layer -->
+        <mxCell id="client-layer" value="Client Layer" style="swimlane;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="720" height="200" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="client-main" value="main.client.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="client-layer">
+          <mxGeometry x="20" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="client-controllers" value="Controllers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="client-layer">
+          <mxGeometry x="160" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="client-services" value="Services&#xa;(configGui, keyboard,&#xa;nodeInspector)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="client-layer">
+          <mxGeometry x="300" y="40" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="client-gui" value="GUI Components&#xa;(40+ files)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="client-layer">
+          <mxGeometry x="460" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Shared Layer -->
+        <mxCell id="shared-layer" value="Shared Layer" style="swimlane;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="40" y="320" width="720" height="250" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="shared-modules" value="Modules&#xa;(renderers, makers)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="shared-layer">
+          <mxGeometry x="20" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="shared-data" value="Data&#xa;(tempHarnessTestData,&#xa;tempHarnessLinks)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="shared-layer">
+          <mxGeometry x="160" y="40" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="shared-utils" value="Utils&#xa;(validation, property&#xa;discovery, strings)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="shared-layer">
+          <mxGeometry x="320" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="shared-interfaces" value="Interfaces &amp; Types" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="shared-layer">
+          <mxGeometry x="460" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="unified-renderer" value="UnifiedDataRenderer&#xa;(core, managers,&#xa;rendering, utils)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="shared-layer">
+          <mxGeometry x="240" y="120" width="160" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Server Layer -->
+        <mxCell id="server-layer" value="Server Layer" style="swimlane;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="40" y="590" width="720" height="150" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="server-main" value="main.server.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="server-layer">
+          <mxGeometry x="20" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="server-services" value="Services&#xa;(game, graphInit,&#xa;colorsTest, etc.)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="server-layer">
+          <mxGeometry x="160" y="40" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Connections -->
+        <mxCell id="edge1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="client-main" target="shared-modules">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="server-main" target="unified-renderer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Statistics Box -->
+        <mxCell id="stats" value="&lt;b&gt;Code Statistics&lt;/b&gt;&lt;br&gt;Total Files: 140&lt;br&gt;Total Lines: 56,016&lt;br&gt;Total Size: 1,566 KB&lt;br&gt;&lt;br&gt;&lt;b&gt;Architecture Health&lt;/b&gt;&lt;br&gt;Dependencies: 293&lt;br&gt;Circular Deps: 0&lt;br&gt;Module Cohesion: 0.78" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="760" width="200" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Issues Box -->
+        <mxCell id="issues" value="&lt;b&gt;Quality Issues&lt;/b&gt;&lt;br&gt;Type Annotations: 1,328&lt;br&gt;Naming Issues: 12&lt;br&gt;Duplicate Patterns: 147&lt;br&gt;&lt;br&gt;&lt;b&gt;Largest Files&lt;/b&gt;&lt;br&gt;tempHarnessTestData: 23K lines&lt;br&gt;tempHarnessLinks: 14K lines" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="560" y="760" width="200" height="160" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

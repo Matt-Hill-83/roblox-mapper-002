@@ -1,0 +1,143 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Data Flow" id="data-flow">
+    <mxGraphModel dx="1434" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="Roblox Mapper 002 - Data Flow Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="20" width="400" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Data Sources -->
+        <mxCell id="csv-data" value="CSV Sources&#xa;(Entity &amp; Relationship Data)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="160" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Processing -->
+        <mxCell id="data-generator" value="generate-data-exports.js&#xa;(CSV → TypeScript)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="250" y="110" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- TypeScript Data -->
+        <mxCell id="ts-data" value="TypeScript Data Files&#xa;tempHarnessTestData.ts&#xa;tempHarnessLinks.ts&#xa;(37K+ lines)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="460" y="100" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- SQLite -->
+        <mxCell id="sqlite" value="SQLite Database&#xa;(sports-data.db)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="680" y="100" width="120" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Server Processing -->
+        <mxCell id="game-service" value="GameService&#xa;(Orchestrator)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="320" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Data Processing Components -->
+        <mxCell id="data-gen" value="DataGenerator&#xa;(59 type issues)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="80" y="350" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="position-calc" value="PositionCalculator&#xa;(57 type issues)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="230" y="350" width="130" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="update-mgr" value="UpdateManager&#xa;(60 type issues)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="390" y="350" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="unified-rend" value="UnifiedDataRenderer&#xa;(35 type issues)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="540" y="350" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Renderers -->
+        <mxCell id="renderers" value="Renderers" style="swimlane;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="40" y="450" width="760" height="150" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="node-renderer" value="NodeRenderer" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="renderers">
+          <mxGeometry x="20" y="40" width="100" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="label-renderer" value="LabelRenderer" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="renderers">
+          <mxGeometry x="140" y="40" width="100" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="rope-creator" value="RopeCreator" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="renderers">
+          <mxGeometry x="260" y="40" width="100" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="shadow-block" value="ShadowBlockCreator" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="renderers">
+          <mxGeometry x="380" y="40" width="130" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="swimlane-block" value="SwimlaneBlockCreator" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="renderers">
+          <mxGeometry x="530" y="40" width="140" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- 3D Output -->
+        <mxCell id="roblox-3d" value="Roblox 3D Visualization&#xa;(Hexagons, Stacks, Ropes)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="320" y="650" width="180" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Web App -->
+        <mxCell id="webapp" value="Next.js Web App&#xa;(Data Explorer)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="540" y="650" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Flow Arrows -->
+        <mxCell id="flow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="csv-data" target="data-generator">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="data-generator" target="ts-data">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ts-data" target="sqlite">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ts-data" target="game-service">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="game-service" target="data-gen">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="game-service" target="position-calc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="game-service" target="update-mgr">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="game-service" target="unified-rend">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="unified-rend" target="renderers">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="renderers" target="roblox-3d">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sqlite" target="webapp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Issues Summary -->
+        <mxCell id="issues-box" value="&lt;b&gt;Type Annotation Issues by Component&lt;/b&gt;&lt;br&gt;&lt;br&gt;DataGenerator: 59&lt;br&gt;UpdateManager: 60&lt;br&gt;PositionCalculator: 57&lt;br&gt;GameService: 52&lt;br&gt;UnifiedDataRenderer: 35&lt;br&gt;&lt;br&gt;Total Core Issues: 263 (19.7%)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="750" width="250" height="160" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
