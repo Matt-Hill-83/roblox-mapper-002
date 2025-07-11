@@ -154,6 +154,15 @@ export function validateEnhancedGeneratorConfig(
     }
   }
 
+  // Validate optional maxDataItems
+  if (cfg.maxDataItems !== undefined) {
+    if (!typeIs(cfg.maxDataItems, "number") || cfg.maxDataItems < 1 || cfg.maxDataItems > 10000) {
+      errors.push("maxDataItems must be a number between 1 and 10000");
+    } else {
+      sanitized.maxDataItems = cfg.maxDataItems;
+    }
+  }
+
   return {
     isValid: errors.size() === 0,
     errors,

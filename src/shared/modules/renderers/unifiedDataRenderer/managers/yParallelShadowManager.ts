@@ -42,6 +42,11 @@ export class YParallelShadowManager {
       return undefined;
     }
 
+    // Create a Model to wrap all Y shadows
+    const yShadowsModel = new Instance("Model");
+    yShadowsModel.Name = "YParallelShadows";
+    yShadowsModel.Parent = clusterFolder;
+
     // Calculate shadow dimensions (same as group shadow)
     const shadowWidth = allLaneBounds.width + LAYOUT_CONSTANTS.SHADOW_PADDING.X_PADDING * 2;
     const shadowDepth = allLaneBounds.depth + LAYOUT_CONSTANTS.SHADOW_PADDING.Z_PADDING * 2;
@@ -50,12 +55,12 @@ export class YParallelShadowManager {
     const yParallelShadows = this.yParallelShadowCreator.createYParallelShadows({
       nodes: cluster.groups[0].nodes,
       yAxisProperty: config.axisMapping.yAxis,
-      parent: clusterFolder,
+      parent: yShadowsModel, // Parent to the model instead of clusterFolder
       shadowWidth: shadowWidth,
       shadowDepth: shadowDepth
     });
 
-    print(`[YParallelShadowManager] Created ${yParallelShadows.size()} Y-parallel shadow blocks`);
+    print(`[YParallelShadowManager] Created ${yParallelShadows.size()} Y-parallel shadow blocks in YParallelShadows model`);
     
     return yParallelShadows;
   }

@@ -70,6 +70,10 @@ export class UnifiedDataRenderer {
 
     // Generate the cluster data
     const cluster = this.dataGenerator.generateClusterFromLayers(config);
+    
+    // Print how many nodes were actually created
+    const nodeCount = cluster.groups[0].nodes.size();
+    print(`[UnifiedDataRenderer] Created ${nodeCount} nodes from data`);
 
     // Calculate swim lane positions
     this.positionCalculator.calculateLayerSwimLanePositions(cluster, config);

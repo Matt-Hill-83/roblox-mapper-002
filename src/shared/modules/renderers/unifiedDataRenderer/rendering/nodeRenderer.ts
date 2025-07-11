@@ -53,6 +53,7 @@ export class NodeRenderer implements INodeRenderer {
     
     // Create links/ropes for relationships only if nodes are shown and connectors are enabled
     if (showNodes && config?.visualization?.showConnectors !== false) {
+      print(`[NodeRenderer] Creating links for ${cluster.relations.size()} relations`);
       createRopeConnectors({
         cluster,
         nodeToHexagon,
@@ -60,6 +61,8 @@ export class NodeRenderer implements INodeRenderer {
         visualization: config?.visualization,
         linkDiameter: config?.spacing?.linkDiameter
       });
+    } else {
+      print(`[NodeRenderer] Not creating links - showNodes: ${showNodes}, showConnectors: ${config?.visualization?.showConnectors}`);
     }
     
   }

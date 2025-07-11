@@ -64,7 +64,7 @@ export class GraphInitializerService {
       property: undefined,
     },
     numPetTypes: 5,
-    maxDataItems: 100, // Maximum number of items to use from test data
+    maxDataItems: 1000, // Maximum number of items to use from test data
   };
 
   private readonly DEFAULT_POSITION = { x: 0, y: 0, z: 0 };
@@ -92,6 +92,8 @@ export class GraphInitializerService {
   }
 
   public initializeGraphWithMaxItems(maxDataItems: number): void {
+    print(`[GraphInitializer] Initializing graph with max ${maxDataItems} items`);
+    
     const configWithMaxItems = {
       ...this.DEFAULT_CONFIG,
       maxDataItems,

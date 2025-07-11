@@ -3,10 +3,16 @@ import { AXIS_DEFAULTS } from "../../../../../shared/constants/axisDefaults";
 // Store the discovered properties internally
 let _availableProperties: string[] = [];
 let _visualProperties: string[] = [];
+let _propertyValueCounts: Map<string, Map<string, number>> = new Map();
 
 // Export getters to ensure we always get the latest values
 export function getAvailableProperties(): string[] {
   return _availableProperties;
+}
+
+export function getPropertyValueCount(propertyName: string): number {
+  const counts = _propertyValueCounts.get(propertyName);
+  return counts ? counts.size() : 0;
 }
 
 export function getVisualProperties(): string[] {
@@ -25,6 +31,8 @@ export function updateAvailableProperties(discoveredProps: string[]): void {
     // Update visual properties (include "none" option)
     _visualProperties = ["none", ...discoveredProps];
     
+    // Update property counts by scanning the workspace
+    updatePropertyCounts(discoveredProps);
     
     discoveredProps.forEach((prop, index) => {
       
@@ -33,7 +41,48 @@ export function updateAvailableProperties(discoveredProps: string[]): void {
     
     _availableProperties = [];
     _visualProperties = ["none"];
+    _propertyValueCounts.clear();
   }
+}
+
+/**
+ * Scans the workspace for nodes and counts unique property values
+ */
+function updatePropertyCounts(properties: string[]): void {
+  _propertyValueCounts.clear();
+  
+  // Find all hexagon nodes in the workspace
+  const workspace = game.GetService("Workspace");
+  const myStuff = workspace.FindFirstChild("MyStuff");
+  if (!myStuff) return;
+  
+  const graphMaker = myStuff.FindFirstChild("GraphMaker");
+  if (!graphMaker) return;
+  
+  const clusterFolder = graphMaker.FindFirstChild("UnifiedDataCluster");
+  if (!clusterFolder) return;
+  
+  const nodesFolder = clusterFolder.FindFirstChild("Nodes");
+  if (!nodesFolder) return;
+  
+  // Initialize counts for each property
+  properties.forEach(prop => {
+    _propertyValueCounts.set(prop, new Map<string, number>());
+  });
+  
+  // Count property values from nodes
+  nodesFolder.GetDescendants().forEach(desc => {
+    if (desc.IsA("Model") && desc.Name.match("^Hexagon_")) {
+      properties.forEach(prop => {
+        const value = desc.GetAttribute(prop) as string;
+        if (value !== undefined) {
+          const propCounts = _propertyValueCounts.get(prop)!;
+          const currentCount = propCounts.get(value) || 0;
+          propCounts.set(value, currentCount + 1);
+        }
+      });
+    }
+  });
 }
 
 // UI Constants
