@@ -17,6 +17,7 @@ export interface YParallelShadowConfig {
   parent: Instance;
   shadowWidth?: number; // Optional: use group shadow width
   shadowDepth?: number; // Optional: use group shadow depth
+  side?: "left" | "right" | "back"; // Optional: which side to place shadows (default: "right")
 }
 
 export interface YGroupBounds {
@@ -42,7 +43,7 @@ export class YParallelShadowCreator extends BaseBlockCreator {
    * Create Y-parallel shadow blocks for each Y property value
    */
   public createYParallelShadows(config: YParallelShadowConfig): Map<string, Part> {
-    const { nodes, yAxisProperty, parent, shadowWidth, shadowDepth } = config;
+    const { nodes, yAxisProperty, parent, shadowWidth, shadowDepth, side = "right" } = config;
     const shadows = new Map<string, Part>();
 
     // Group nodes by Y property value and calculate bounds
@@ -54,10 +55,10 @@ export class YParallelShadowCreator extends BaseBlockCreator {
     let colorIndex = 0;
     yGroupBounds.forEach((bounds, propertyValue) => {
       const color = Y_AXIS_COLORS[colorIndex % Y_AXIS_COLORS.size()] || new Color3(0.3, 0.3, 0.8);
-      const shadow = this.createYShadowBlock(bounds, parent, shadowWidth, shadowDepth, color);
+      const shadow = this.createYShadowBlock(bounds, parent, shadowWidth, shadowDepth, color, side);
       shadows.set(propertyValue, shadow);
       
-      print(`[YParallelShadow] Created shadow for ${propertyValue}: X(${string.format("%.1f", bounds.minX)},${string.format("%.1f", bounds.maxX)}) Z(${string.format("%.1f", bounds.minZ)},${string.format("%.1f", bounds.maxZ)}) Y=${string.format("%.1f", bounds.yPosition)} NodeYRange=(${string.format("%.1f", bounds.minY)}-${string.format("%.1f", bounds.maxY)}) Height=${string.format("%.1f", bounds.maxY - bounds.minY)} Color=${colorIndex}`);
+      print(`[YParallelShadow] Created ${side} shadow for ${propertyValue}: X(${string.format("%.1f", bounds.minX)},${string.format("%.1f", bounds.maxX)}) Z(${string.format("%.1f", bounds.minZ)},${string.format("%.1f", bounds.maxZ)}) Y=${string.format("%.1f", bounds.yPosition)} NodeYRange=(${string.format("%.1f", bounds.minY)}-${string.format("%.1f", bounds.maxY)}) Height=${string.format("%.1f", bounds.maxY - bounds.minY)} Color=${colorIndex}`);
       colorIndex++;
     });
 
@@ -108,7 +109,7 @@ export class YParallelShadowCreator extends BaseBlockCreator {
   /**
    * Create a single Y-parallel shadow block
    */
-  private createYShadowBlock(bounds: YGroupBounds, parent: Instance, shadowWidth?: number, shadowDepth?: number, color?: Color3): Part {
+  private createYShadowBlock(bounds: YGroupBounds, parent: Instance, shadowWidth?: number, shadowDepth?: number, color?: Color3, side: "left" | "right" | "back" = "right"): Part {
     // T9.8.1: Y shadows start from vertical wall and extend 10 units away
     const shadowExtension = 10; // Units to extend from wall
     let width: number;
@@ -118,14 +119,31 @@ export class YParallelShadowCreator extends BaseBlockCreator {
     
     if (shadowWidth !== undefined && shadowDepth !== undefined) {
       // Position Y shadows to start from vertical wall edge
-      // The right wall is at shadowWidth/2
-      const wallPosition = shadowWidth / 2;
-      
-      // Y shadow starts at wall position and extends outward to the right (positive X)
-      width = shadowExtension;
-      depth = shadowDepth;
-      positionX = wallPosition + shadowExtension / 2 - 2; // Center of extended shadow (extends right) - 2 units offset
-      positionZ = 0; // Center at origin in Z direction
+      if (side === "right") {
+        // The right wall is at shadowWidth/2
+        const wallPosition = shadowWidth / 2;
+        // Y shadow starts at wall position and extends outward to the right (positive X)
+        width = shadowExtension;
+        depth = shadowDepth;
+        positionX = wallPosition + shadowExtension / 2 - 2; // Center of extended shadow (extends right) - 2 units offset
+        positionZ = 0; // Center at origin in Z direction
+      } else if (side === "left") {
+        // The left wall is at -shadowWidth/2
+        const wallPosition = -shadowWidth / 2;
+        // Y shadow starts at wall position and extends inward by 1 unit
+        width = shadowExtension;
+        depth = shadowDepth;
+        positionX = wallPosition - shadowExtension / 2 + 1; // Center of extended shadow (extends left) + 1 unit into node area
+        positionZ = 0; // Center at origin in Z direction
+      } else {
+        // The back wall is at shadowDepth/2
+        const wallPosition = shadowDepth / 2;
+        // Y shadow starts at wall position and extends forward (negative Z) by 1 unit into node area
+        width = shadowWidth; // Full width along X axis
+        depth = shadowExtension;
+        positionX = 0; // Center at origin in X direction
+        positionZ = wallPosition - shadowExtension / 2 + 1; // Center of extended shadow (extends forward) + 1 unit into node area
+      }
     } else {
       // Fallback: Calculate from node bounds with padding
       const padding = LAYOUT_CONSTANTS.SHADOW_PADDING.Y_SHADOW_PADDING;
@@ -142,7 +160,7 @@ export class YParallelShadowCreator extends BaseBlockCreator {
     
     // Create the shadow block
     const shadow = this.createBlock({
-      name: `YShadow_${bounds.propertyValue}`,
+      name: `YShadow_${side}_${bounds.propertyValue}`,
       size: new Vector3(
         width,
         shadowHeight, // Use height from nodes

@@ -12,6 +12,7 @@ import { createRopeLabel as createRopeLabelFromMaker } from "../../ropeLabelMake
 import { RENDERER_CONSTANTS } from "./constants";
 import { padNumber } from "../../../utils/stringUtils";
 import { VisualizationOptions } from "../../../interfaces/enhancedGenerator.interface";
+import { LINK_COLORS } from "../constants/robloxColors";
 
 interface RopeCreationContext {
   cluster: Cluster;
@@ -146,9 +147,8 @@ function createRope(
   beam.Width0 = diameter;
   beam.Width1 = diameter;
   
-  // Set color
-  const brickColor = getLinkBrickColor(link.type);
-  const color3 = brickColor.Color;
+  // Set color using LINK_COLORS array
+  const color3 = getLinkColor3(link.type);
   beam.Color = new ColorSequence(color3);
   
   // Visual settings for performance
@@ -192,11 +192,28 @@ function createRopeLabel(
 }
 
 /**
- * Get BrickColor for link type
+ * Get Color3 for link type using LINK_COLORS array
  */
-function getLinkBrickColor(linkType: string): BrickColor {
-  return RENDERER_CONSTANTS.LINK_COLORS[linkType as keyof typeof RENDERER_CONSTANTS.LINK_COLORS] || 
-    RENDERER_CONSTANTS.DEFAULT_COLOR;
+function getLinkColor3(linkType: string): Color3 {
+  // Extract numeric part from link type (e.g., "Link1" -> 1, "Link10" -> 10)
+  const match = linkType.match("[0-9]+");
+  if (match && match[0]) {
+    const linkIndex = tonumber(match[0]);
+    if (linkIndex && linkIndex > 0 && linkIndex <= LINK_COLORS.size()) {
+      return LINK_COLORS[linkIndex - 1]; // Array is 0-indexed
+    }
+  }
+  
+  // Fallback for non-numeric link types or out of range
+  // Use hash of link type string to consistently assign a color
+  let hash = 0;
+  for (let i = 1; i <= linkType.size(); i++) {
+    const char = linkType.sub(i, i);
+    hash = ((hash << 5) - hash) + char.byte()[0];
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  const colorIndex = math.abs(hash) % LINK_COLORS.size();
+  return LINK_COLORS[colorIndex];
 }
 
 /**

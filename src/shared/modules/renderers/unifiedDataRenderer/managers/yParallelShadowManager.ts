@@ -42,26 +42,42 @@ export class YParallelShadowManager {
       return undefined;
     }
 
-    // Create a Model to wrap all Y shadows
-    const yShadowsModel = new Instance("Model");
-    yShadowsModel.Name = "YParallelShadows";
-    yShadowsModel.Parent = clusterFolder;
+    // Create models to wrap Y shadows
+    const yShadowsModelRight = new Instance("Model");
+    yShadowsModelRight.Name = "YParallelShadowsRight";
+    yShadowsModelRight.Parent = clusterFolder;
+    
+    const yShadowsModelBack = new Instance("Model");
+    yShadowsModelBack.Name = "YParallelShadowsBack";
+    yShadowsModelBack.Parent = clusterFolder;
 
     // Calculate shadow dimensions (same as group shadow)
     const shadowWidth = allLaneBounds.width + LAYOUT_CONSTANTS.SHADOW_PADDING.X_PADDING * 2;
     const shadowDepth = allLaneBounds.depth + LAYOUT_CONSTANTS.SHADOW_PADDING.Z_PADDING * 2;
 
-    // Create Y-parallel shadows
-    const yParallelShadows = this.yParallelShadowCreator.createYParallelShadows({
+    // Create Y-parallel shadows for right side (original)
+    const yParallelShadowsRight = this.yParallelShadowCreator.createYParallelShadows({
       nodes: cluster.groups[0].nodes,
       yAxisProperty: config.axisMapping.yAxis,
-      parent: yShadowsModel, // Parent to the model instead of clusterFolder
+      parent: yShadowsModelRight,
       shadowWidth: shadowWidth,
-      shadowDepth: shadowDepth
+      shadowDepth: shadowDepth,
+      side: "right"
     });
 
-    print(`[YParallelShadowManager] Created ${yParallelShadows.size()} Y-parallel shadow blocks in YParallelShadows model`);
+    // Create Y-parallel shadows for back side (duplicate)
+    const yParallelShadowsBack = this.yParallelShadowCreator.createYParallelShadows({
+      nodes: cluster.groups[0].nodes,
+      yAxisProperty: config.axisMapping.yAxis,
+      parent: yShadowsModelBack,
+      shadowWidth: shadowWidth,
+      shadowDepth: shadowDepth,
+      side: "back"
+    });
+
+    print(`[YParallelShadowManager] Created ${yParallelShadowsRight.size()} right and ${yParallelShadowsBack.size()} back Y-parallel shadow blocks`);
     
-    return yParallelShadows;
+    // Return the right shadows for compatibility
+    return yParallelShadowsRight;
   }
 }
