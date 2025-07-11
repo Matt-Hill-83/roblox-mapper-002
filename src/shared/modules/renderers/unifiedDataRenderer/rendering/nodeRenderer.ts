@@ -126,7 +126,6 @@ export class NodeRenderer implements INodeRenderer {
     
     // Get colors based on visual mapping
     const backgroundColor = getNodeBackgroundColor(node, config?.visualMapping);
-    // const borderColor = getNodeBorderColor(node, config?.visualMapping); // Not used in standardized version
     
     const hexagon = makeHexagon({
       id: hexIndex,

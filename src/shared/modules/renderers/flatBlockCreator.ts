@@ -61,13 +61,6 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   platformBlock.TopSurface = Enum.SurfaceType.Smooth;
   platformBlock.BottomSurface = Enum.SurfaceType.Smooth;
   
-  // Add texture to platform block
-  // const texture = new Instance("Texture");
-  // texture.Texture = "rbxassetid://6372755229";
-  // texture.Face = Enum.NormalId.Top;
-  // texture.StudsPerTileU = 10;
-  // texture.StudsPerTileV = 10;
-  // texture.Parent = platformBlock;
   
   // Set platform physics properties
   platformBlock.Anchored = true;

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+    
+    <!-- Title -->
+    <mxCell id="title" value="Roblox Mapper 002 - Data Flow Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="314" y="10" width="200" height="30" as="geometry"/>
+    </mxCell>
+    
+    <!-- User Input -->
+    <mxCell id="user" value="User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#d5e8d4;strokeColor=#82b366" vertex="1" parent="1">
+      <mxGeometry x="50" y="60" width="30" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Configuration GUI -->
+    <mxCell id="config-gui-flow" value="Configuration&#xa;GUI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366" vertex="1" parent="1">
+      <mxGeometry x="150" y="70" width="100" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Game Service -->
+    <mxCell id="game-service-flow" value="Game Service&#xa;(Orchestrator)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656" vertex="1" parent="1">
+      <mxGeometry x="320" y="70" width="100" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Unified Data Renderer -->
+    <mxCell id="renderer-flow" value="Unified Data&#xa;Renderer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="500" y="70" width="100" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Data Generation Flow -->
+    <mxCell id="data-flow-title" value="Data Generation Pipeline" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="300" y="170" width="200" height="30" as="geometry"/>
+    </mxCell>
+    
+    <!-- Test Data Source -->
+    <mxCell id="test-data-source" value="Test Data&#xa;Sources" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffe6cc;strokeColor=#d79b00" vertex="1" parent="1">
+      <mxGeometry x="50" y="220" width="80" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Configuration Input -->
+    <mxCell id="config-input" value="Layer&#xa;Configuration" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=20;fillColor=#f0f0f0;strokeColor=#666666" vertex="1" parent="1">
+      <mxGeometry x="50" y="310" width="80" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- DataGenerator -->
+    <mxCell id="data-generator-flow" value="DataGenerator&#xa;(Orchestrator)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="200" y="240" width="100" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Node Generation -->
+    <mxCell id="node-gen-flow" value="Node&#xa;Generation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450" vertex="1" parent="1">
+      <mxGeometry x="120" y="340" width="80" height="50" as="geometry"/>
+    </mxCell>
+    
+    <!-- Link Generation -->
+    <mxCell id="link-gen-flow" value="Link&#xa;Generation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450" vertex="1" parent="1">
+      <mxGeometry x="220" y="340" width="80" height="50" as="geometry"/>
+    </mxCell>
+    
+    <!-- Property Discovery -->
+    <mxCell id="prop-discovery-flow" value="Property&#xa;Discovery" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450" vertex="1" parent="1">
+      <mxGeometry x="320" y="340" width="80" height="50" as="geometry"/>
+    </mxCell>
+    
+    <!-- Generated Cluster -->
+    <mxCell id="cluster-data" value="Generated&#xa;Cluster Data" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#e1d5e7;strokeColor=#9673a6" vertex="1" parent="1">
+      <mxGeometry x="450" y="240" width="100" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Position Calculation -->
+    <mxCell id="position-calc-flow" value="Position&#xa;Calculator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf" vertex="1" parent="1">
+      <mxGeometry x="620" y="180" width="100" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Lane Manager -->
+    <mxCell id="lane-manager-flow" value="Lane&#xa;Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf" vertex="1" parent="1">
+      <mxGeometry x="620" y="260" width="100" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Spatial Layout -->
+    <mxCell id="spatial-layout" value="Spatial Layout&#xa;Data" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#e1d5e7;strokeColor=#9673a6" vertex="1" parent="1">
+      <mxGeometry x="620" y="350" width="100" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Rendering Pipeline -->
+    <mxCell id="rendering-title" value="Rendering Pipeline" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="300" y="450" width="200" height="30" as="geometry"/>
+    </mxCell>
+    
+    <!-- Node Renderer -->
+    <mxCell id="node-renderer" value="Node&#xa;Renderer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#666666" vertex="1" parent="1">
+      <mxGeometry x="150" y="490" width="80" height="50" as="geometry"/>
+    </mxCell>
+    
+    <!-- Link Renderer -->
+    <mxCell id="link-renderer" value="Link&#xa;Renderer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#666666" vertex="1" parent="1">
+      <mxGeometry x="250" y="490" width="80" height="50" as="geometry"/>
+    </mxCell>
+    
+    <!-- Label Renderer -->
+    <mxCell id="label-renderer" value="Label&#xa;Renderer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#666666" vertex="1" parent="1">
+      <mxGeometry x="350" y="490" width="80" height="50" as="geometry"/>
+    </mxCell>
+    
+    <!-- Update Manager -->
+    <mxCell id="update-manager" value="Update&#xa;Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#666666" vertex="1" parent="1">
+      <mxGeometry x="450" y="490" width="80" height="50" as="geometry"/>
+    </mxCell>
+    
+    <!-- 3D Visualization -->
+    <mxCell id="visualization" value="3D Visualization&#xa;(Roblox Workspace)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="300" y="570" width="150" height="80" as="geometry"/>
+    </mxCell>
+    
+    <!-- Data Flow Arrows -->
+    <mxCell id="flow1" edge="1" parent="1" source="user" target="config-gui-flow">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow2" edge="1" parent="1" source="config-gui-flow" target="game-service-flow">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow3" edge="1" parent="1" source="game-service-flow" target="renderer-flow">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow4" edge="1" parent="1" source="test-data-source" target="data-generator-flow">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow5" edge="1" parent="1" source="config-input" target="data-generator-flow">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow6" edge="1" parent="1" source="data-generator-flow" target="node-gen-flow">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow7" edge="1" parent="1" source="data-generator-flow" target="link-gen-flow">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow8" edge="1" parent="1" source="data-generator-flow" target="prop-discovery-flow">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow9" edge="1" parent="1" source="data-generator-flow" target="cluster-data">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow10" edge="1" parent="1" source="cluster-data" target="position-calc-flow">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow11" edge="1" parent="1" source="cluster-data" target="lane-manager-flow">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow12" edge="1" parent="1" source="position-calc-flow" target="spatial-layout">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow13" edge="1" parent="1" source="lane-manager-flow" target="spatial-layout">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow14" edge="1" parent="1" source="spatial-layout" target="node-renderer">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow15" edge="1" parent="1" source="spatial-layout" target="link-renderer">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow16" edge="1" parent="1" source="spatial-layout" target="label-renderer">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow17" edge="1" parent="1" source="spatial-layout" target="update-manager">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow18" edge="1" parent="1" source="node-renderer" target="visualization">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow19" edge="1" parent="1" source="link-renderer" target="visualization">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow20" edge="1" parent="1" source="label-renderer" target="visualization">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="flow21" edge="1" parent="1" source="update-manager" target="visualization">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <!-- Key Improvements Box -->
+    <mxCell id="improvements-title" value="Key Improvements:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="50" y="680" width="120" height="20" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="improvement1" value="✓ DataGenerator: 647 → 122 lines (-81%)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+      <mxGeometry x="50" y="700" width="200" height="15" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="improvement2" value="✓ Modular architecture with 6 separate modules" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+      <mxGeometry x="50" y="715" width="230" height="15" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="improvement3" value="✓ Dead code reduced by 39%" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+      <mxGeometry x="50" y="730" width="200" height="15" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="improvement4" value="✓ Better separation of concerns" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+      <mxGeometry x="50" y="745" width="200" height="15" as="geometry"/>
+    </mxCell>
+    
+    <!-- Data Flow Legend -->
+    <mxCell id="flow-legend" value="Flow Legend:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="500" y="680" width="80" height="20" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="legend-input" value="Data Input" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=8" vertex="1" parent="1">
+      <mxGeometry x="500" y="700" width="50" height="30" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="legend-process" value="Process" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=8" vertex="1" parent="1">
+      <mxGeometry x="560" y="700" width="50" height="30" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="legend-output" value="Output" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=8" vertex="1" parent="1">
+      <mxGeometry x="620" y="700" width="50" height="30" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="legend-final" value="Final Result" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=8" vertex="1" parent="1">
+      <mxGeometry x="680" y="700" width="50" height="30" as="geometry"/>
+    </mxCell>
+  </root>
+</mxGraphModel>

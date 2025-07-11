@@ -32,7 +32,6 @@ export const COLOR_PALETTES = {
 };
 
 // Node type names
-// export const NODE_TYPE_NAMES = ["People", "Animals", "Buildings", "Vehicles", "Plants", "Minerals", "Technology", "Food", "Tools", "Weather"];
 export const NODE_TYPE_NAMES = ["man", "woman", "child", "grandparent"];
 
 // Default animal types for Animals nodes

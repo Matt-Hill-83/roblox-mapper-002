@@ -1,11 +1,11 @@
 {
-  "timestamp": "2025-07-11T04:30:49.426Z",
+  "timestamp": "2025-07-11T05:41:01.295Z",
   "srcPath": "/Users/__projects/roblox-mapper-002-multi/cursor/src",
   "inventory": [
     {
       "path": "shared/data/tempHarnessTestData.ts",
       "lines": 23033,
-      "size": 687256,
+      "size": 687249,
       "functions": 0,
       "classes": 0,
       "interfaces": 1,
@@ -15,25 +15,14 @@
     },
     {
       "path": "shared/data/tempHarnessLinks.ts",
-      "lines": 14034,
-      "size": 335859,
+      "lines": 14023,
+      "size": 335699,
       "functions": 0,
       "classes": 0,
       "interfaces": 2,
       "todos": 0,
       "anyTypes": 0,
-      "typeAssertions": 0
-    },
-    {
-      "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
-      "lines": 647,
-      "size": 18740,
-      "functions": 10,
-      "classes": 5,
-      "interfaces": 0,
-      "todos": 0,
-      "anyTypes": 1,
-      "typeAssertions": 3
+      "typeAssertions": 1
     },
     {
       "path": "shared/modules/renderers/unifiedDataRenderer/managers/laneManager.ts",
@@ -113,17 +102,6 @@
       "typeAssertions": 2
     },
     {
-      "path": "shared/utils/validation/configValidation.ts",
-      "lines": 371,
-      "size": 10682,
-      "functions": 10,
-      "classes": 0,
-      "interfaces": 1,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 7
-    },
-    {
       "path": "client/services/nodePropertiesInspector/nodePropertiesInspector.service.ts",
       "lines": 315,
       "size": 10482,
@@ -133,6 +111,17 @@
       "todos": 0,
       "anyTypes": 0,
       "typeAssertions": 13
+    },
+    {
+      "path": "shared/utils/validation/configValidation.ts",
+      "lines": 364,
+      "size": 10444,
+      "functions": 9,
+      "classes": 0,
+      "interfaces": 1,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 7
     },
     {
       "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
@@ -157,6 +146,17 @@
       "typeAssertions": 1
     },
     {
+      "path": "shared/modules/renderers/blocks/yParallelShadowCreator.ts",
+      "lines": 226,
+      "size": 8968,
+      "functions": 3,
+      "classes": 1,
+      "interfaces": 2,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 0
+    },
+    {
       "path": "shared/modules/renderers/unifiedDataRenderer/utils/colorMapper.ts",
       "lines": 240,
       "size": 8912,
@@ -170,7 +170,7 @@
     {
       "path": "client/services/configGui/componentFactory.ts",
       "lines": 299,
-      "size": 8761,
+      "size": 8740,
       "functions": 6,
       "classes": 1,
       "interfaces": 6,
@@ -199,17 +199,6 @@
       "todos": 0,
       "anyTypes": 0,
       "typeAssertions": 1
-    },
-    {
-      "path": "shared/modules/renderers/blocks/yParallelShadowCreator.ts",
-      "lines": 208,
-      "size": 7810,
-      "functions": 3,
-      "classes": 1,
-      "interfaces": 2,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 0
     },
     {
       "path": "client/services/configGui/components/visualCustomizationControls.ts",
@@ -256,6 +245,17 @@
       "typeAssertions": 2
     },
     {
+      "path": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts",
+      "lines": 244,
+      "size": 7267,
+      "functions": 9,
+      "classes": 0,
+      "interfaces": 1,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 5
+    },
+    {
       "path": "shared/modules/renderers/propertyValueResolver.ts",
       "lines": 258,
       "size": 7026,
@@ -287,17 +287,6 @@
       "todos": 0,
       "anyTypes": 0,
       "typeAssertions": 0
-    },
-    {
-      "path": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts",
-      "lines": 227,
-      "size": 6598,
-      "functions": 9,
-      "classes": 0,
-      "interfaces": 1,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 6
     },
     {
       "path": "client/services/configGui/components/nodeTypesSection.ts",
@@ -355,37 +344,15 @@
       "typeAssertions": 0
     },
     {
-      "path": "client/services/configGui/validationHandlers.ts",
-      "lines": 199,
-      "size": 5713,
-      "functions": 7,
-      "classes": 0,
-      "interfaces": 1,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 0
-    },
-    {
       "path": "client/services/configGui/components/collapsibleFrame.ts",
       "lines": 186,
-      "size": 5590,
+      "size": 5576,
       "functions": 7,
       "classes": 0,
       "interfaces": 2,
       "todos": 0,
       "anyTypes": 0,
       "typeAssertions": 0
-    },
-    {
-      "path": "shared/utils/validation/stringValidation.ts",
-      "lines": 214,
-      "size": 5525,
-      "functions": 7,
-      "classes": 0,
-      "interfaces": 2,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 4
     },
     {
       "path": "server/services/configGUIServer.service.ts",
@@ -410,17 +377,6 @@
       "typeAssertions": 6
     },
     {
-      "path": "shared/data/tempTestData.ts",
-      "lines": 252,
-      "size": 5424,
-      "functions": 0,
-      "classes": 0,
-      "interfaces": 0,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 0
-    },
-    {
       "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",
       "lines": 174,
       "size": 5320,
@@ -434,7 +390,7 @@
     {
       "path": "client/services/configGui/eventHandlers.ts",
       "lines": 173,
-      "size": 5301,
+      "size": 5294,
       "functions": 0,
       "classes": 1,
       "interfaces": 1,
@@ -510,25 +466,14 @@
     },
     {
       "path": "shared/modules/renderers/constants/robloxColors.ts",
-      "lines": 103,
-      "size": 4410,
+      "lines": 100,
+      "size": 4281,
       "functions": 0,
       "classes": 0,
       "interfaces": 0,
       "todos": 0,
       "anyTypes": 0,
       "typeAssertions": 0
-    },
-    {
-      "path": "shared/utils/propertyDiscovery.ts",
-      "lines": 145,
-      "size": 4363,
-      "functions": 8,
-      "classes": 0,
-      "interfaces": 0,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 6
     },
     {
       "path": "client/controllers/animationTestGUI.controller.ts",
@@ -551,17 +496,6 @@
       "todos": 0,
       "anyTypes": 0,
       "typeAssertions": 1
-    },
-    {
-      "path": "shared/utils/validation/arrayValidation.ts",
-      "lines": 177,
-      "size": 3960,
-      "functions": 8,
-      "classes": 0,
-      "interfaces": 2,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 3
     },
     {
       "path": "shared/modules/renderers/unifiedDataRenderer/core/nodeOrganizer.ts",
@@ -608,6 +542,17 @@
       "typeAssertions": 0
     },
     {
+      "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
+      "lines": 122,
+      "size": 3737,
+      "functions": 2,
+      "classes": 1,
+      "interfaces": 0,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 0
+    },
+    {
       "path": "client/services/configGui/components/axisMappingControls/components/yAxisConfigSection.ts",
       "lines": 123,
       "size": 3718,
@@ -628,6 +573,17 @@
       "todos": 0,
       "anyTypes": 0,
       "typeAssertions": 0
+    },
+    {
+      "path": "shared/utils/validation/stringValidation.ts",
+      "lines": 145,
+      "size": 3659,
+      "functions": 2,
+      "classes": 0,
+      "interfaces": 2,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 3
     },
     {
       "path": "client/services/configGui/components/axisMappingControls/components/axisMappingSection.ts",
@@ -667,6 +623,17 @@
       "lines": 116,
       "size": 3515,
       "functions": 7,
+      "classes": 0,
+      "interfaces": 1,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 0
+    },
+    {
+      "path": "client/services/configGui/validationHandlers.ts",
+      "lines": 115,
+      "size": 3433,
+      "functions": 3,
       "classes": 0,
       "interfaces": 1,
       "todos": 0,
@@ -729,6 +696,17 @@
       "typeAssertions": 0
     },
     {
+      "path": "shared/utils/propertyDiscovery.ts",
+      "lines": 107,
+      "size": 3148,
+      "functions": 6,
+      "classes": 0,
+      "interfaces": 0,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 5
+    },
+    {
       "path": "shared/modules/hexagonMaker/hexagonMaker.ts",
       "lines": 107,
       "size": 3088,
@@ -738,6 +716,17 @@
       "todos": 0,
       "anyTypes": 0,
       "typeAssertions": 2
+    },
+    {
+      "path": "shared/modules/renderers/unifiedDataRenderer/managers/yParallelShadowManager.ts",
+      "lines": 83,
+      "size": 3068,
+      "functions": 0,
+      "classes": 1,
+      "interfaces": 0,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 3
     },
     {
       "path": "shared/modules/TextLabelMaker.ts",
@@ -828,6 +817,17 @@
       "typeAssertions": 2
     },
     {
+      "path": "shared/utils/validation/arrayValidation.ts",
+      "lines": 130,
+      "size": 2691,
+      "functions": 3,
+      "classes": 0,
+      "interfaces": 2,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 3
+    },
+    {
       "path": "client/services/configGui/guiLayout.ts",
       "lines": 90,
       "size": 2643,
@@ -894,17 +894,6 @@
       "typeAssertions": 0
     },
     {
-      "path": "shared/modules/renderers/unifiedDataRenderer/managers/yParallelShadowManager.ts",
-      "lines": 67,
-      "size": 2452,
-      "functions": 0,
-      "classes": 1,
-      "interfaces": 0,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 3
-    },
-    {
       "path": "shared/modules/renderers/constants/blockConstants.ts",
       "lines": 62,
       "size": 2439,
@@ -932,17 +921,6 @@
       "size": 2408,
       "functions": 0,
       "classes": 2,
-      "interfaces": 0,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 0
-    },
-    {
-      "path": "client/services/configGui/utilities.ts",
-      "lines": 82,
-      "size": 2365,
-      "functions": 5,
-      "classes": 0,
       "interfaces": 0,
       "todos": 0,
       "anyTypes": 0,
@@ -1400,9 +1378,31 @@
       "typeAssertions": 0
     },
     {
+      "path": "client/services/configGui/utilities.ts",
+      "lines": 16,
+      "size": 344,
+      "functions": 1,
+      "classes": 0,
+      "interfaces": 0,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 0
+    },
+    {
       "path": "shared/modules/renderers/blocks/index.ts",
       "lines": 10,
       "size": 283,
+      "functions": 0,
+      "classes": 0,
+      "interfaces": 0,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 0
+    },
+    {
+      "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/index.ts",
+      "lines": 9,
+      "size": 278,
       "functions": 0,
       "classes": 0,
       "interfaces": 0,
@@ -3075,43 +3075,7 @@
     },
     {
       "file": "client/services/configGui/utilities.ts",
-      "issues": [
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (numValue !== undefined && numValue >= min && numValue <= max) {",
-          "file": "client/services/configGui/utilities.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (originalColor) {",
-          "file": "client/services/configGui/utilities.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (validation.isValid) {",
-          "file": "client/services/configGui/utilities.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const numValue =",
-          "file": "client/services/configGui/utilities.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const originalColor =",
-          "file": "client/services/configGui/utilities.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const validation =",
-          "file": "client/services/configGui/utilities.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const originalColor =",
-          "file": "client/services/configGui/utilities.ts"
-        }
-      ]
+      "issues": []
     },
     {
       "file": "client/services/configGui/validationHandlers.ts",
@@ -3163,31 +3127,6 @@
         },
         {
           "type": "type",
-          "message": "Function parameters missing type annotations: (numValue === undefined) {",
-          "file": "client/services/configGui/validationHandlers.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (numValue < min || numValue > max) {",
-          "file": "client/services/configGui/validationHandlers.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (!result.isValid) {",
-          "file": "client/services/configGui/validationHandlers.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (totalNodes > GUI_CONSTANTS.VALIDATION.MAX_TOTAL_NODES) {",
-          "file": "client/services/configGui/validationHandlers.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (totalConnections > GUI_CONSTANTS.VALIDATION.MAX_TOTAL_CONNECTIONS) {",
-          "file": "client/services/configGui/validationHandlers.ts"
-        },
-        {
-          "type": "type",
           "message": "Variable declaration might benefit from explicit type: const layer =",
           "file": "client/services/configGui/validationHandlers.ts"
         },
@@ -3199,21 +3138,6 @@
         {
           "type": "type",
           "message": "Variable declaration might benefit from explicit type: const spacingResult =",
-          "file": "client/services/configGui/validationHandlers.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const numValue =",
-          "file": "client/services/configGui/validationHandlers.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const result =",
-          "file": "client/services/configGui/validationHandlers.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const layer =",
           "file": "client/services/configGui/validationHandlers.ts"
         }
       ]
@@ -3794,10 +3718,6 @@
     },
     {
       "file": "shared/data/tempHarnessTestData.ts",
-      "issues": []
-    },
-    {
-      "file": "shared/data/tempTestData.ts",
       "issues": []
     },
     {
@@ -4733,6 +4653,16 @@
         },
         {
           "type": "type",
+          "message": "Function parameters missing type annotations: (side === \"right\") {",
+          "file": "shared/modules/renderers/blocks/yParallelShadowCreator.ts"
+        },
+        {
+          "type": "type",
+          "message": "Function parameters missing type annotations: (side === \"left\") {",
+          "file": "shared/modules/renderers/blocks/yParallelShadowCreator.ts"
+        },
+        {
+          "type": "type",
           "message": "Variable declaration might benefit from explicit type: const yGroupBounds =",
           "file": "shared/modules/renderers/blocks/yParallelShadowCreator.ts"
         },
@@ -4754,6 +4684,16 @@
         {
           "type": "type",
           "message": "Variable declaration might benefit from explicit type: const bounds =",
+          "file": "shared/modules/renderers/blocks/yParallelShadowCreator.ts"
+        },
+        {
+          "type": "type",
+          "message": "Variable declaration might benefit from explicit type: const wallPosition =",
+          "file": "shared/modules/renderers/blocks/yParallelShadowCreator.ts"
+        },
+        {
+          "type": "type",
+          "message": "Variable declaration might benefit from explicit type: const wallPosition =",
           "file": "shared/modules/renderers/blocks/yParallelShadowCreator.ts"
         },
         {
@@ -4851,6 +4791,11 @@
         },
         {
           "type": "type",
+          "message": "Function parameters missing type annotations: (match && match[0]) {",
+          "file": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts"
+        },
+        {
+          "type": "type",
           "message": "Function parameters missing type annotations: (textLabel) {",
           "file": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts"
         },
@@ -4921,17 +4866,32 @@
         },
         {
           "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const brickColor =",
-          "file": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts"
-        },
-        {
-          "type": "type",
           "message": "Variable declaration might benefit from explicit type: const color3 =",
           "file": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts"
         },
         {
           "type": "type",
           "message": "Variable declaration might benefit from explicit type: const relationName =",
+          "file": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts"
+        },
+        {
+          "type": "type",
+          "message": "Variable declaration might benefit from explicit type: const match =",
+          "file": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts"
+        },
+        {
+          "type": "type",
+          "message": "Variable declaration might benefit from explicit type: const linkIndex =",
+          "file": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts"
+        },
+        {
+          "type": "type",
+          "message": "Variable declaration might benefit from explicit type: const char =",
+          "file": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts"
+        },
+        {
+          "type": "type",
+          "message": "Variable declaration might benefit from explicit type: const colorIndex =",
           "file": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts"
         },
         {
@@ -5119,6 +5079,10 @@
           "file": "shared/modules/renderers/unifiedDataRenderer/core/boundsCalculator.ts"
         }
       ]
+    },
+    {
+      "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/index.ts",
+      "issues": []
     },
     {
       "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
@@ -5509,282 +5473,7 @@
       "issues": [
         {
           "type": "type",
-          "message": "Function parameters missing type annotations: (let i = 0; i < layer.numNodes; i++) {",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (nodeTypeName === \"man\" || nodeTypeName === \"woman\") {",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (nodeTypeName === \"child\") {",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (nodeTypeName === \"grandparent\") {",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (nodeTypeName === \"Animals\") {",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (layerNumber === 1 && nextLayerNodes) {",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (let i = 0; i < numConnections; i++) {",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (let i = 0; i < numConnections; i++) {",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (!linkExists) {",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (count === 0) {",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (targetNode) {",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Function parameters missing type annotations: (!hasBackwardConnection) {",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
           "message": "Function parameters missing type annotations: (this.useTestData) {",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const node =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const nodeTypeIndex =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const nodeTypeName =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const color =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const nodeWithLevel =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const numPetTypes =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const maxPetTypeIndex =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const numPetTypes =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const maxPetTypeIndex =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const numPetTypes =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const maxPetTypeIndex =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const currentLayerNodes =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const nextLayerNodes =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const allowSameLevelLinks =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const availableTargets =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const numConnections =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const shuffled =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const targetNode =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const link =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const sameTypeNodes =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const candidateNodes =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const numConnections =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const shuffled =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const targetNode =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const linkExists =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const link =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const linkTypeIndex =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const linkColor =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const node =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const targetNode =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const j =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const sameTypeNodes =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const otherNodes =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const hasBackwardConnection =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const sourceNode =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const link =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const maxItems =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const validHarnessLinks =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const discoveredProps =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const validProps =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const parts =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const discoveredProps =",
-          "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const validProps =",
           "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
         },
         {
@@ -6583,7 +6272,12 @@
         },
         {
           "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const yParallelShadows =",
+          "message": "Variable declaration might benefit from explicit type: const yParallelShadowsRight =",
+          "file": "shared/modules/renderers/unifiedDataRenderer/managers/yParallelShadowManager.ts"
+        },
+        {
+          "type": "type",
+          "message": "Variable declaration might benefit from explicit type: const yParallelShadowsBack =",
           "file": "shared/modules/renderers/unifiedDataRenderer/managers/yParallelShadowManager.ts"
         }
       ]
@@ -7675,11 +7369,6 @@
         },
         {
           "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const objWithProps =",
-          "file": "shared/utils/propertyDiscovery.ts"
-        },
-        {
-          "type": "type",
           "message": "Variable declaration might benefit from explicit type: const props =",
           "file": "shared/utils/propertyDiscovery.ts"
         },
@@ -7730,22 +7419,12 @@
         },
         {
           "type": "type",
-          "message": "Function parameters missing type annotations: (let i = 0; i < maxSize; i++) {",
-          "file": "shared/utils/validation/arrayValidation.ts"
-        },
-        {
-          "type": "type",
           "message": "Variable declaration might benefit from explicit type: const arr =",
           "file": "shared/utils/validation/arrayValidation.ts"
         },
         {
           "type": "type",
           "message": "Variable declaration might benefit from explicit type: const maxSize =",
-          "file": "shared/utils/validation/arrayValidation.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const node =",
           "file": "shared/utils/validation/arrayValidation.ts"
         }
       ]
@@ -7967,11 +7646,6 @@
           "type": "type",
           "message": "Variable declaration might benefit from explicit type: const configObj =",
           "file": "shared/utils/validation/configValidation.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const result =",
-          "file": "shared/utils/validation/configValidation.ts"
         }
       ]
     },
@@ -8014,11 +7688,6 @@
         },
         {
           "type": "type",
-          "message": "Function parameters missing type annotations: (!result.isValid) {",
-          "file": "shared/utils/validation/stringValidation.ts"
-        },
-        {
-          "type": "type",
           "message": "Variable declaration might benefit from explicit type: let sanitized =",
           "file": "shared/utils/validation/stringValidation.ts"
         },
@@ -8030,16 +7699,6 @@
         {
           "type": "type",
           "message": "Variable declaration might benefit from explicit type: const result =",
-          "file": "shared/utils/validation/stringValidation.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: const result =",
-          "file": "shared/utils/validation/stringValidation.ts"
-        },
-        {
-          "type": "type",
-          "message": "Variable declaration might benefit from explicit type: let result =",
           "file": "shared/utils/validation/stringValidation.ts"
         }
       ]
@@ -8313,160 +7972,6 @@
       ]
     },
     {
-      "pattern": "{ ANIMAL_TYPES, COLOR_PALETTES, COUNTRIES_OF_BIRTH, COUNTRIES_OF_RESIDENCE, DEFAULT_ATTACHMENTS, FIR...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ discoverNodeProperties, filterValidAxisProperties, }...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/propertyManager.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ const node = this.createNode(i, layer.layerNumber, config); layerNodes.push(node); }...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ age: math.random(18, 80), petType: PET_TYPES[math.random(0, maxPetTypeIndex)], petColor: PET_COLOR...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ age: math.random(5, 17), petType: PET_TYPES[math.random(0, maxPetTypeIndex)], petColor: PET_COLORS...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ age: math.random(65, 95), petType: PET_TYPES[math.random(0, maxPetTypeIndex)], petColor: PET_COLOR...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ animalType: ANIMAL_TYPES[math.random(0, ANIMAL_TYPES.size() - 1)], }...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ this.ensureBackwardConnections(currentLayerNodes, nextLayerNodes, config, allLinks); }...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ this.generateInterLayerLink( sourceNode, nextLayerNodes, config, allLinks ); }...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ const targetNode = shuffled[i]; const link = this.createLink(sourceNode, targetNode, config); allL...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ const link = this.createLink(sourceNode, targetNode, config); allLinks.push(link); }...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ nodeConnections.set( link.sourceNodeUuid, (nodeConnections.get(link.sourceNodeUuid) || 0) + 1 ); n...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ const node = nodes.find((n) => n.uuid === uuid); if (node) isolatedNodes.push(node); }...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ const j = math.random(0, i); [array[i], array[j]] = [array[j], array[i]]; }...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ return sameTypeNodes[math.random(0, sameTypeNodes.size() - 1)]; }...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ return otherNodes[math.random(0, otherNodes.size() - 1)]; }...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ const sourceNode = currentLayerNodes[math.random(0, currentLayerNodes.size() - 1)]; const link = t...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ service: file.service, component: file.component, language: file.language, size: file.size, type: ...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/testDataProcessor.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ uuid: link.uuid, type: link.type, sourceNodeUuid: link.sourceNodeUuid, targetNodeUuid: link.target...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/testDataProcessor.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ id: \"harness-group\", name: \"Harness Data Group\", nodes: harnessNodes, }...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/testDataProcessor.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ groups: [mainGroup], relations: harnessLinks, discoveredProperties: validProps, }...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/testDataProcessor.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
-      "pattern": "{ platform: [0.2, 0.4, 0.8], ci: [0.8, 0.4, 0.2], cd: [0.2, 0.8, 0.2], ce: [0.8, 0.2, 0.8], core: [0...",
-      "files": [
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/testDataProcessor.ts",
-        "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts"
-      ]
-    },
-    {
       "pattern": "{ nodesByLayer, nodesByTypeAndLayer, typeCounters }...",
       "files": [
         "shared/modules/renderers/unifiedDataRenderer/core/nodeOrganizer.ts",
@@ -8653,20 +8158,6 @@
       "files": [
         "shared/modules/ropeLabelMaker/utilities.ts",
         "shared/modules/ropeLabelMaker/utilities.ts"
-      ]
-    },
-    {
-      "pattern": "{ maxSize: ARRAY_LIMITS.MAX_LAYERS, minSize: 1, allowEmpty: false, }...",
-      "files": [
-        "shared/utils/validation/arrayValidation.ts",
-        "shared/utils/validation/configValidation.ts"
-      ]
-    },
-    {
-      "pattern": "{ isValid: false, error: \"Input must be an array\" }...",
-      "files": [
-        "shared/utils/validation/arrayValidation.ts",
-        "shared/utils/validation/stringValidation.ts"
       ]
     }
   ],
@@ -8887,13 +8378,13 @@
           "id": "client/services/configGui/utilities.ts",
           "label": "utilities.ts",
           "type": "service",
-          "size": 82
+          "size": 16
         },
         {
           "id": "client/services/configGui/validationHandlers.ts",
           "label": "validationHandlers.ts",
           "type": "service",
-          "size": 199
+          "size": 115
         },
         {
           "id": "client/services/keyboardShortcuts.service.ts",
@@ -8959,19 +8450,13 @@
           "id": "shared/data/tempHarnessLinks.ts",
           "label": "tempHarnessLinks.ts",
           "type": "other",
-          "size": 14034
+          "size": 14023
         },
         {
           "id": "shared/data/tempHarnessTestData.ts",
           "label": "tempHarnessTestData.ts",
           "type": "other",
           "size": 23033
-        },
-        {
-          "id": "shared/data/tempTestData.ts",
-          "label": "tempTestData.ts",
-          "type": "other",
-          "size": 252
         },
         {
           "id": "shared/interfaces/IMaker.ts",
@@ -9217,7 +8702,7 @@
           "id": "shared/modules/renderers/blocks/yParallelShadowCreator.ts",
           "label": "yParallelShadowCreator.ts",
           "type": "module",
-          "size": 208
+          "size": 226
         },
         {
           "id": "shared/modules/renderers/constants/blockConstants.ts",
@@ -9253,7 +8738,7 @@
           "id": "shared/modules/renderers/constants/robloxColors.ts",
           "label": "robloxColors.ts",
           "type": "module",
-          "size": 103
+          "size": 100
         },
         {
           "id": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/constants.ts",
@@ -9265,7 +8750,7 @@
           "id": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts",
           "label": "ropeCreator.ts",
           "type": "module",
-          "size": 227
+          "size": 244
         },
         {
           "id": "shared/modules/renderers/flatBlockCreator.ts",
@@ -9290,6 +8775,12 @@
           "label": "boundsCalculator.ts",
           "type": "module",
           "size": 154
+        },
+        {
+          "id": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/index.ts",
+          "label": "index.ts",
+          "type": "module",
+          "size": 9
         },
         {
           "id": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
@@ -9325,7 +8816,7 @@
           "id": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
           "label": "dataGenerator.ts",
           "type": "module",
-          "size": 647
+          "size": 122
         },
         {
           "id": "shared/modules/renderers/unifiedDataRenderer/core/nodeOrganizer.ts",
@@ -9379,7 +8870,7 @@
           "id": "shared/modules/renderers/unifiedDataRenderer/managers/yParallelShadowManager.ts",
           "label": "yParallelShadowManager.ts",
           "type": "module",
-          "size": 67
+          "size": 83
         },
         {
           "id": "shared/modules/renderers/unifiedDataRenderer/rendering/labelRenderer.ts",
@@ -9469,7 +8960,7 @@
           "id": "shared/utils/propertyDiscovery.ts",
           "label": "propertyDiscovery.ts",
           "type": "other",
-          "size": 145
+          "size": 107
         },
         {
           "id": "shared/utils/stringUtils.ts",
@@ -9481,13 +8972,13 @@
           "id": "shared/utils/validation/arrayValidation.ts",
           "label": "arrayValidation.ts",
           "type": "other",
-          "size": 177
+          "size": 130
         },
         {
           "id": "shared/utils/validation/configValidation.ts",
           "label": "configValidation.ts",
           "type": "other",
-          "size": 371
+          "size": 364
         },
         {
           "id": "shared/utils/validation/index.ts",
@@ -9499,7 +8990,7 @@
           "id": "shared/utils/validation/stringValidation.ts",
           "label": "stringValidation.ts",
           "type": "other",
-          "size": 214
+          "size": 145
         }
       ],
       "edges": [
@@ -9870,11 +9361,6 @@
         },
         {
           "from": "client/services/configGui/utilities.ts",
-          "to": "shared/interfaces/simpleDataGenerator.interface.ts",
-          "type": "import"
-        },
-        {
-          "from": "client/services/configGui/utilities.ts",
           "to": "client/services/configGui/constants.ts",
           "type": "import"
         },
@@ -9886,11 +9372,6 @@
         {
           "from": "client/services/configGui/validationHandlers.ts",
           "to": "client/services/configGui/constants.ts",
-          "type": "import"
-        },
-        {
-          "from": "client/services/configGui/validationHandlers.ts",
-          "to": "shared/utils/validation/index.ts",
           "type": "import"
         },
         {
@@ -9966,11 +9447,6 @@
         {
           "from": "server/services/main/game.service.ts",
           "to": "shared/modules/makeOriginBlock.ts",
-          "type": "import"
-        },
-        {
-          "from": "shared/data/tempTestData.ts",
-          "to": "shared/interfaces/simpleDataGenerator.interface.ts",
           "type": "import"
         },
         {
@@ -10274,6 +9750,11 @@
           "type": "import"
         },
         {
+          "from": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts",
+          "to": "shared/modules/renderers/constants/robloxColors.ts",
+          "type": "import"
+        },
+        {
           "from": "shared/modules/renderers/flatBlockCreator.ts",
           "to": "shared/modules/renderers/constants/blockConstants.ts",
           "type": "import"
@@ -10405,11 +9886,6 @@
         },
         {
           "from": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
-          "to": "shared/modules/renderers/unifiedDataRenderer/constants.ts",
-          "type": "import"
-        },
-        {
-          "from": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
           "to": "shared/interfaces/simpleDataGenerator.interface.ts",
           "type": "import"
         },
@@ -10420,22 +9896,27 @@
         },
         {
           "from": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
-          "to": "shared/utils/propertyDiscovery.ts",
-          "type": "import"
-        },
-        {
-          "from": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
           "to": "shared/modules/renderers/unifiedDataRenderer/interfaces.ts",
           "type": "import"
         },
         {
           "from": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
-          "to": "shared/data/tempHarnessLinks.ts",
+          "to": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",
           "type": "import"
         },
         {
           "from": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
-          "to": "shared/data/tempHarnessTestData.ts",
+          "to": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
+          "type": "import"
+        },
+        {
+          "from": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
+          "to": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/propertyManager.ts",
+          "type": "import"
+        },
+        {
+          "from": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
+          "to": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/testDataProcessor.ts",
           "type": "import"
         },
         {
@@ -10750,7 +10231,7 @@
         },
         {
           "from": "shared/modules/renderers/unifiedDataRenderer/unifiedDataRenderer.ts",
-          "to": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
+          "to": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/index.ts",
           "type": "import"
         },
         {
@@ -10935,9 +10416,9 @@
           "client/services/nodePropertiesInspector/nodePropertiesInspector.service.ts"
         ],
         "internalEdges": 70,
-        "externalEdges": 10,
-        "cohesion": 0.875,
-        "coupling": 0.125
+        "externalEdges": 8,
+        "cohesion": 0.8974358974358975,
+        "coupling": 0.10256410256410256
       },
       "server": {
         "files": [
@@ -10959,7 +10440,6 @@
           "shared/constants/axisDefaults.ts",
           "shared/data/tempHarnessLinks.ts",
           "shared/data/tempHarnessTestData.ts",
-          "shared/data/tempTestData.ts",
           "shared/interfaces/IMaker.ts",
           "shared/interfaces/IService.ts",
           "shared/interfaces/enhancedGenerator.interface.ts",
@@ -11013,6 +10493,7 @@
           "shared/modules/renderers/propertyValueResolver.ts",
           "shared/modules/renderers/unifiedDataRenderer/constants.ts",
           "shared/modules/renderers/unifiedDataRenderer/core/boundsCalculator.ts",
+          "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/index.ts",
           "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
           "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
           "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",

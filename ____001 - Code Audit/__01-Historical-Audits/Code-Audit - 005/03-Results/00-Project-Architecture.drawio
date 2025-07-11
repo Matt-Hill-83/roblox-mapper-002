@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+    
+    <!-- Title -->
+    <mxCell id="title" value="Roblox Mapper 002 - Project Architecture" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="314" y="10" width="200" height="30" as="geometry"/>
+    </mxCell>
+    
+    <!-- Client Layer -->
+    <mxCell id="client-layer" value="Client Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="50" y="60" width="200" height="40" as="geometry"/>
+    </mxCell>
+    
+    <!-- Server Layer -->
+    <mxCell id="server-layer" value="Server Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="300" y="60" width="200" height="40" as="geometry"/>
+    </mxCell>
+    
+    <!-- Shared Layer -->
+    <mxCell id="shared-layer" value="Shared Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="550" y="60" width="200" height="40" as="geometry"/>
+    </mxCell>
+    
+    <!-- Client Components -->
+    <mxCell id="config-gui" value="ConfigGUI&#xa;Controller" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366" vertex="1" parent="1">
+      <mxGeometry x="20" y="130" width="80" height="60" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="state-manager" value="State&#xa;Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366" vertex="1" parent="1">
+      <mxGeometry x="110" y="130" width="80" height="60" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="gui-components" value="GUI&#xa;Components" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366" vertex="1" parent="1">
+      <mxGeometry x="200" y="130" width="80" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Server Components -->
+    <mxCell id="game-service" value="Game&#xa;Service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656" vertex="1" parent="1">
+      <mxGeometry x="300" y="130" width="80" height="60" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="config-server" value="ConfigGUI&#xa;Server" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656" vertex="1" parent="1">
+      <mxGeometry x="390" y="130" width="80" height="60" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="animation-service" value="Animation&#xa;Service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656" vertex="1" parent="1">
+      <mxGeometry x="480" y="130" width="80" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Shared Components -->
+    <mxCell id="unified-renderer" value="Unified Data&#xa;Renderer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="570" y="130" width="100" height="60" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="interfaces" value="Interfaces &amp;&#xa;Types" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf" vertex="1" parent="1">
+      <mxGeometry x="680" y="130" width="80" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- DataGenerator Module -->
+    <mxCell id="data-generator-group" value="DataGenerator Module (Refactored)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="50" y="220" width="700" height="30" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="data-generator" value="DataGenerator&#xa;(Orchestrator)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450" vertex="1" parent="1">
+      <mxGeometry x="60" y="270" width="90" height="60" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="node-generator" value="Node&#xa;Generator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450" vertex="1" parent="1">
+      <mxGeometry x="170" y="270" width="80" height="60" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="link-generator" value="Link&#xa;Generator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450" vertex="1" parent="1">
+      <mxGeometry x="270" y="270" width="80" height="60" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="test-processor" value="Test Data&#xa;Processor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450" vertex="1" parent="1">
+      <mxGeometry x="370" y="270" width="80" height="60" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="property-manager" value="Property&#xa;Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450" vertex="1" parent="1">
+      <mxGeometry x="470" y="270" width="80" height="60" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="position-calc" value="Position&#xa;Calculator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450" vertex="1" parent="1">
+      <mxGeometry x="570" y="270" width="80" height="60" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="lane-manager" value="Lane&#xa;Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450" vertex="1" parent="1">
+      <mxGeometry x="670" y="270" width="80" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Utility Layer -->
+    <mxCell id="utils-layer" value="Utilities &amp; Validation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="50" y="360" width="200" height="30" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="validation" value="Validation&#xa;Utils" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6" vertex="1" parent="1">
+      <mxGeometry x="60" y="400" width="80" height="50" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="property-discovery" value="Property&#xa;Discovery" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6" vertex="1" parent="1">
+      <mxGeometry x="160" y="400" width="80" height="50" as="geometry"/>
+    </mxCell>
+    
+    <!-- Data Layer -->
+    <mxCell id="data-layer" value="Data Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="300" y="360" width="200" height="30" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="test-data" value="Test Data&#xa;Files" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00" vertex="1" parent="1">
+      <mxGeometry x="320" y="400" width="80" height="50" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="constants" value="Constants &amp;&#xa;Configuration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00" vertex="1" parent="1">
+      <mxGeometry x="420" y="400" width="80" height="50" as="geometry"/>
+    </mxCell>
+    
+    <!-- Rendering Layer -->
+    <mxCell id="rendering-layer" value="Rendering Components" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#666666;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="550" y="360" width="200" height="30" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="block-creators" value="Block&#xa;Creators" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#666666" vertex="1" parent="1">
+      <mxGeometry x="570" y="400" width="80" height="50" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="label-makers" value="Label&#xa;Makers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#666666" vertex="1" parent="1">
+      <mxGeometry x="670" y="400" width="80" height="50" as="geometry"/>
+    </mxCell>
+    
+    <!-- Key Connections -->
+    <mxCell id="edge1" edge="1" parent="1" source="data-generator" target="node-generator">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="edge2" edge="1" parent="1" source="data-generator" target="link-generator">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="edge3" edge="1" parent="1" source="data-generator" target="test-processor">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="edge4" edge="1" parent="1" source="data-generator" target="property-manager">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="edge5" edge="1" parent="1" source="unified-renderer" target="data-generator">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="edge6" edge="1" parent="1" source="game-service" target="unified-renderer">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="edge7" edge="1" parent="1" source="config-gui" target="game-service">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    
+    <!-- Legend -->
+    <mxCell id="legend-title" value="Legend:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="50" y="480" width="60" height="20" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="legend-client" value="Client Components" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10" vertex="1" parent="1">
+      <mxGeometry x="50" y="500" width="100" height="20" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="legend-server" value="Server Components" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10" vertex="1" parent="1">
+      <mxGeometry x="160" y="500" width="100" height="20" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="legend-shared" value="Shared Components" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10" vertex="1" parent="1">
+      <mxGeometry x="270" y="500" width="100" height="20" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="legend-datagen" value="DataGenerator Modules" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10" vertex="1" parent="1">
+      <mxGeometry x="380" y="500" width="120" height="20" as="geometry"/>
+    </mxCell>
+    
+    <!-- Statistics -->
+    <mxCell id="stats-title" value="Code Metrics (Post-Refactoring):" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1" vertex="1" parent="1">
+      <mxGeometry x="50" y="540" width="200" height="20" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="stats-files" value="• 138 TypeScript files" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+      <mxGeometry x="50" y="560" width="150" height="15" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="stats-lines" value="• 53,485 total lines (-1.9%)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+      <mxGeometry x="50" y="575" width="150" height="15" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="stats-classes" value="• 49 classes, 362 functions" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+      <mxGeometry x="50" y="590" width="150" height="15" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="stats-datagen" value="• DataGenerator: 647→122 lines (-81%)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+      <mxGeometry x="50" y="605" width="200" height="15" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="stats-dead" value="• Dead code reduced by 39%" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+      <mxGeometry x="50" y="620" width="150" height="15" as="geometry"/>
+    </mxCell>
+  </root>
+</mxGraphModel>

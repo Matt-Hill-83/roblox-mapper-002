@@ -1,24 +1,24 @@
 {
-  "timestamp": "2025-07-11T04:30:20.212Z",
+  "timestamp": "2025-07-11T05:41:01.226Z",
   "scanPath": "/Users/__projects/roblox-mapper-002-multi/cursor/src",
   "summary": {
     "totalFiles": 138,
-    "totalLines": 54527,
-    "totalSize": 1558678,
-    "totalFunctions": 391,
-    "totalClasses": 53,
+    "totalLines": 53485,
+    "totalSize": 1531745,
+    "totalFunctions": 362,
+    "totalClasses": 49,
     "totalInterfaces": 154,
     "totalTodos": 0,
-    "totalAnyTypes": 14,
-    "totalTypeAssertions": 147,
-    "averageLinesPerFile": 395,
-    "averageSizePerFile": 11295
+    "totalAnyTypes": 13,
+    "totalTypeAssertions": 142,
+    "averageLinesPerFile": 388,
+    "averageSizePerFile": 11100
   },
   "files": [
     {
       "path": "shared/data/tempHarnessTestData.ts",
       "lines": 23033,
-      "size": 687256,
+      "size": 687249,
       "functions": 0,
       "classes": 0,
       "interfaces": 1,
@@ -28,25 +28,14 @@
     },
     {
       "path": "shared/data/tempHarnessLinks.ts",
-      "lines": 14034,
-      "size": 335859,
+      "lines": 14023,
+      "size": 335699,
       "functions": 0,
       "classes": 0,
       "interfaces": 2,
       "todos": 0,
       "anyTypes": 0,
-      "typeAssertions": 0
-    },
-    {
-      "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
-      "lines": 647,
-      "size": 18740,
-      "functions": 10,
-      "classes": 5,
-      "interfaces": 0,
-      "todos": 0,
-      "anyTypes": 1,
-      "typeAssertions": 3
+      "typeAssertions": 1
     },
     {
       "path": "shared/modules/renderers/unifiedDataRenderer/managers/laneManager.ts",
@@ -126,17 +115,6 @@
       "typeAssertions": 2
     },
     {
-      "path": "shared/utils/validation/configValidation.ts",
-      "lines": 371,
-      "size": 10682,
-      "functions": 10,
-      "classes": 0,
-      "interfaces": 1,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 7
-    },
-    {
       "path": "client/services/nodePropertiesInspector/nodePropertiesInspector.service.ts",
       "lines": 315,
       "size": 10482,
@@ -146,6 +124,17 @@
       "todos": 0,
       "anyTypes": 0,
       "typeAssertions": 13
+    },
+    {
+      "path": "shared/utils/validation/configValidation.ts",
+      "lines": 364,
+      "size": 10444,
+      "functions": 9,
+      "classes": 0,
+      "interfaces": 1,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 7
     },
     {
       "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
@@ -170,6 +159,17 @@
       "typeAssertions": 1
     },
     {
+      "path": "shared/modules/renderers/blocks/yParallelShadowCreator.ts",
+      "lines": 226,
+      "size": 8968,
+      "functions": 3,
+      "classes": 1,
+      "interfaces": 2,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 0
+    },
+    {
       "path": "shared/modules/renderers/unifiedDataRenderer/utils/colorMapper.ts",
       "lines": 240,
       "size": 8912,
@@ -183,7 +183,7 @@
     {
       "path": "client/services/configGui/componentFactory.ts",
       "lines": 299,
-      "size": 8761,
+      "size": 8740,
       "functions": 6,
       "classes": 1,
       "interfaces": 6,
@@ -212,17 +212,6 @@
       "todos": 0,
       "anyTypes": 0,
       "typeAssertions": 1
-    },
-    {
-      "path": "shared/modules/renderers/blocks/yParallelShadowCreator.ts",
-      "lines": 208,
-      "size": 7810,
-      "functions": 3,
-      "classes": 1,
-      "interfaces": 2,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 0
     },
     {
       "path": "client/services/configGui/components/visualCustomizationControls.ts",
@@ -269,6 +258,17 @@
       "typeAssertions": 2
     },
     {
+      "path": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts",
+      "lines": 244,
+      "size": 7267,
+      "functions": 9,
+      "classes": 0,
+      "interfaces": 1,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 5
+    },
+    {
       "path": "shared/modules/renderers/propertyValueResolver.ts",
       "lines": 258,
       "size": 7026,
@@ -300,17 +300,6 @@
       "todos": 0,
       "anyTypes": 0,
       "typeAssertions": 0
-    },
-    {
-      "path": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts",
-      "lines": 227,
-      "size": 6598,
-      "functions": 9,
-      "classes": 0,
-      "interfaces": 1,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 6
     },
     {
       "path": "client/services/configGui/components/nodeTypesSection.ts",
@@ -368,37 +357,15 @@
       "typeAssertions": 0
     },
     {
-      "path": "client/services/configGui/validationHandlers.ts",
-      "lines": 199,
-      "size": 5713,
-      "functions": 7,
-      "classes": 0,
-      "interfaces": 1,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 0
-    },
-    {
       "path": "client/services/configGui/components/collapsibleFrame.ts",
       "lines": 186,
-      "size": 5590,
+      "size": 5576,
       "functions": 7,
       "classes": 0,
       "interfaces": 2,
       "todos": 0,
       "anyTypes": 0,
       "typeAssertions": 0
-    },
-    {
-      "path": "shared/utils/validation/stringValidation.ts",
-      "lines": 214,
-      "size": 5525,
-      "functions": 7,
-      "classes": 0,
-      "interfaces": 2,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 4
     },
     {
       "path": "server/services/configGUIServer.service.ts",
@@ -423,17 +390,6 @@
       "typeAssertions": 6
     },
     {
-      "path": "shared/data/tempTestData.ts",
-      "lines": 252,
-      "size": 5424,
-      "functions": 0,
-      "classes": 0,
-      "interfaces": 0,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 0
-    },
-    {
       "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",
       "lines": 174,
       "size": 5320,
@@ -447,7 +403,7 @@
     {
       "path": "client/services/configGui/eventHandlers.ts",
       "lines": 173,
-      "size": 5301,
+      "size": 5294,
       "functions": 0,
       "classes": 1,
       "interfaces": 1,
@@ -523,25 +479,14 @@
     },
     {
       "path": "shared/modules/renderers/constants/robloxColors.ts",
-      "lines": 103,
-      "size": 4410,
+      "lines": 100,
+      "size": 4281,
       "functions": 0,
       "classes": 0,
       "interfaces": 0,
       "todos": 0,
       "anyTypes": 0,
       "typeAssertions": 0
-    },
-    {
-      "path": "shared/utils/propertyDiscovery.ts",
-      "lines": 145,
-      "size": 4363,
-      "functions": 8,
-      "classes": 0,
-      "interfaces": 0,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 6
     },
     {
       "path": "client/controllers/animationTestGUI.controller.ts",
@@ -564,17 +509,6 @@
       "todos": 0,
       "anyTypes": 0,
       "typeAssertions": 1
-    },
-    {
-      "path": "shared/utils/validation/arrayValidation.ts",
-      "lines": 177,
-      "size": 3960,
-      "functions": 8,
-      "classes": 0,
-      "interfaces": 2,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 3
     },
     {
       "path": "shared/modules/renderers/unifiedDataRenderer/core/nodeOrganizer.ts",
@@ -621,6 +555,17 @@
       "typeAssertions": 0
     },
     {
+      "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
+      "lines": 122,
+      "size": 3737,
+      "functions": 2,
+      "classes": 1,
+      "interfaces": 0,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 0
+    },
+    {
       "path": "client/services/configGui/components/axisMappingControls/components/yAxisConfigSection.ts",
       "lines": 123,
       "size": 3718,
@@ -641,6 +586,17 @@
       "todos": 0,
       "anyTypes": 0,
       "typeAssertions": 0
+    },
+    {
+      "path": "shared/utils/validation/stringValidation.ts",
+      "lines": 145,
+      "size": 3659,
+      "functions": 2,
+      "classes": 0,
+      "interfaces": 2,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 3
     },
     {
       "path": "client/services/configGui/components/axisMappingControls/components/axisMappingSection.ts",
@@ -680,6 +636,17 @@
       "lines": 116,
       "size": 3515,
       "functions": 7,
+      "classes": 0,
+      "interfaces": 1,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 0
+    },
+    {
+      "path": "client/services/configGui/validationHandlers.ts",
+      "lines": 115,
+      "size": 3433,
+      "functions": 3,
       "classes": 0,
       "interfaces": 1,
       "todos": 0,
@@ -742,6 +709,17 @@
       "typeAssertions": 0
     },
     {
+      "path": "shared/utils/propertyDiscovery.ts",
+      "lines": 107,
+      "size": 3148,
+      "functions": 6,
+      "classes": 0,
+      "interfaces": 0,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 5
+    },
+    {
       "path": "shared/modules/hexagonMaker/hexagonMaker.ts",
       "lines": 107,
       "size": 3088,
@@ -751,6 +729,17 @@
       "todos": 0,
       "anyTypes": 0,
       "typeAssertions": 2
+    },
+    {
+      "path": "shared/modules/renderers/unifiedDataRenderer/managers/yParallelShadowManager.ts",
+      "lines": 83,
+      "size": 3068,
+      "functions": 0,
+      "classes": 1,
+      "interfaces": 0,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 3
     },
     {
       "path": "shared/modules/TextLabelMaker.ts",
@@ -841,6 +830,17 @@
       "typeAssertions": 2
     },
     {
+      "path": "shared/utils/validation/arrayValidation.ts",
+      "lines": 130,
+      "size": 2691,
+      "functions": 3,
+      "classes": 0,
+      "interfaces": 2,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 3
+    },
+    {
       "path": "client/services/configGui/guiLayout.ts",
       "lines": 90,
       "size": 2643,
@@ -907,17 +907,6 @@
       "typeAssertions": 0
     },
     {
-      "path": "shared/modules/renderers/unifiedDataRenderer/managers/yParallelShadowManager.ts",
-      "lines": 67,
-      "size": 2452,
-      "functions": 0,
-      "classes": 1,
-      "interfaces": 0,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 3
-    },
-    {
       "path": "shared/modules/renderers/constants/blockConstants.ts",
       "lines": 62,
       "size": 2439,
@@ -945,17 +934,6 @@
       "size": 2408,
       "functions": 0,
       "classes": 2,
-      "interfaces": 0,
-      "todos": 0,
-      "anyTypes": 0,
-      "typeAssertions": 0
-    },
-    {
-      "path": "client/services/configGui/utilities.ts",
-      "lines": 82,
-      "size": 2365,
-      "functions": 5,
-      "classes": 0,
       "interfaces": 0,
       "todos": 0,
       "anyTypes": 0,
@@ -1413,9 +1391,31 @@
       "typeAssertions": 0
     },
     {
+      "path": "client/services/configGui/utilities.ts",
+      "lines": 16,
+      "size": 344,
+      "functions": 1,
+      "classes": 0,
+      "interfaces": 0,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 0
+    },
+    {
       "path": "shared/modules/renderers/blocks/index.ts",
       "lines": 10,
       "size": 283,
+      "functions": 0,
+      "classes": 0,
+      "interfaces": 0,
+      "todos": 0,
+      "anyTypes": 0,
+      "typeAssertions": 0
+    },
+    {
+      "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/index.ts",
+      "lines": 9,
+      "size": 278,
       "functions": 0,
       "classes": 0,
       "interfaces": 0,

@@ -30,18 +30,9 @@ export class LabelRenderer {
     _platformBounds?: { minX: number; maxX: number; minZ: number; maxZ: number }
   ): void {
     nodesByType.forEach((_nodes, typeName) => {
-      // const bounds = typeBounds.get(typeName)!;
       const swimlaneBlock = swimlaneBlocks?.get(typeName);
       
       // Floating labels disabled
-      // const centerX = (bounds.minX + bounds.maxX) / 2;
-      // const labelZ = platformBounds ? platformBounds.minZ - LABEL_CONSTANTS.OFFSETS.PLATFORM_EDGE_OFFSET : bounds.minZ - LABEL_CONSTANTS.OFFSETS.PLATFORM_EDGE_OFFSET;
-      // 
-      // this.createLabel({
-      //   text: typeName,
-      //   position: new Vector3(centerX, yPosition + LABEL_CONSTANTS.OFFSETS.POSITION_OFFSET, labelZ),
-      //   parent: parent
-      // });
       
       // Also create surface label if block is available
       if (swimlaneBlock) {
@@ -64,14 +55,6 @@ export class LabelRenderer {
       const swimlaneBlock = swimlaneBlocks?.get(value);
       
       // Floating labels disabled
-      // const labelX = platformBounds ? platformBounds.minX - LABEL_CONSTANTS.OFFSETS.PLATFORM_EDGE_OFFSET : bounds.minX - LABEL_CONSTANTS.OFFSETS.PLATFORM_EDGE_OFFSET;
-      // const centerZ = (bounds.minZ + bounds.maxZ) / 2;
-      // 
-      // this.createLabel({
-      //   text: value,
-      //   position: new Vector3(labelX, yPosition + LABEL_CONSTANTS.OFFSETS.POSITION_OFFSET, centerZ),
-      //   parent: parent
-      // });
       
       // Also create surface label if block is available
       if (swimlaneBlock) {

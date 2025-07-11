@@ -13,7 +13,6 @@ import { DataGenerator } from "./core/dataGenerator";
 import { PositionCalculator } from "./core/positionCalculator";
 import { NodeRenderer } from "./rendering/nodeRenderer";
 import { UpdateManager } from "./rendering/updateManager";
-// import { LabelRenderer } from "./rendering/labelRenderer"; // Disabled per T17
 import { PropertyValueResolver } from "../propertyValueResolver";
 import { LAYOUT_CONSTANTS } from "../constants/layoutConstants";
 import { getDefaultXAxis, getDefaultZAxis } from "../../../constants/axisDefaults";
@@ -27,7 +26,6 @@ export class UnifiedDataRenderer {
   private positionCalculator: PositionCalculator;
   private nodeRenderer: NodeRenderer;
   private updateManager: UpdateManager;
-  // private labelRenderer: LabelRenderer; // Disabled per T17
   private propertyResolver: PropertyValueResolver;
   private laneManager: LaneManager;
   private platformShadowManager: PlatformShadowManager;
@@ -40,7 +38,6 @@ export class UnifiedDataRenderer {
     this.positionCalculator = new PositionCalculator();
     this.nodeRenderer = new NodeRenderer();
     this.updateManager = new UpdateManager();
-    // this.labelRenderer = new LabelRenderer(); // Disabled per T17
     this.propertyResolver = new PropertyValueResolver();
     this.laneManager = new LaneManager();
     this.platformShadowManager = new PlatformShadowManager();
@@ -177,8 +174,6 @@ export class UnifiedDataRenderer {
       }
     });
 
-    // Swimlane labels disabled per T17
-    // Labels are now provided by endcaps on the swimlanes
 
     // Store current configuration for update comparison
     this.currentConfig = config;
@@ -229,73 +224,4 @@ export class UnifiedDataRenderer {
     this.currentConfig = config;
   }
 
-  /**
-   * Creates labels for X and Z axis swimlanes
-   * DISABLED: Per T17 - swimlane labels removed, using endcaps instead
-   */
-  /*
-  private createSwimLaneLabels(
-    cluster: Cluster,
-    parentFolder: Folder,
-    config?: EnhancedGeneratorConfig,
-    xAxisBlocks?: Map<string, Part>,
-    zAxisBlocks?: Map<string, Part>,
-    platformBounds?: { minX: number; maxX: number; minZ: number; maxZ: number }
-  ): void {
-    // Use axis mapping if available
-    const xAxisProperty = config?.axisMapping?.xAxis || getDefaultXAxis(cluster.discoveredProperties);
-    const zAxisProperty = config?.axisMapping?.zAxis || getDefaultZAxis(cluster.discoveredProperties);
-    
-    // Organize nodes by x-axis property for X-axis labels
-    const nodesByXProperty = new Map<string, Node[]>();
-    const xPropertyBounds = new Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>();
-    
-    // Organize nodes by z-axis property for Z-axis labels
-    const nodesByZProperty = new Map<string, Node[]>();
-    const zPropertyBounds = new Map<string, { minX: number; maxX: number; minZ: number; maxZ: number }>();
-    
-    // Group nodes by x and z properties
-    cluster.groups[0].nodes.forEach(node => {
-      // Group by x-axis property
-      const xValue = this.propertyResolver.getPropertyValue(node, xAxisProperty);
-      if (!nodesByXProperty.has(xValue)) {
-        nodesByXProperty.set(xValue, []);
-        xPropertyBounds.set(xValue, {
-          minX: math.huge,
-          maxX: -math.huge,
-          minZ: math.huge,
-          maxZ: -math.huge
-        });
-      }
-      nodesByXProperty.get(xValue)!.push(node);
-      const xBounds = xPropertyBounds.get(xValue)!;
-      xBounds.minX = math.min(xBounds.minX, node.position.x);
-      xBounds.maxX = math.max(xBounds.maxX, node.position.x);
-      xBounds.minZ = math.min(xBounds.minZ, node.position.z);
-      xBounds.maxZ = math.max(xBounds.maxZ, node.position.z);
-      
-      // Group by z-axis property
-      const zValue = this.propertyResolver.getPropertyValue(node, zAxisProperty);
-      if (!nodesByZProperty.has(zValue)) {
-        nodesByZProperty.set(zValue, []);
-        zPropertyBounds.set(zValue, {
-          minX: math.huge,
-          maxX: -math.huge,
-          minZ: math.huge,
-          maxZ: -math.huge
-        });
-      }
-      nodesByZProperty.get(zValue)!.push(node);
-      const zBounds = zPropertyBounds.get(zValue)!;
-      zBounds.minX = math.min(zBounds.minX, node.position.x);
-      zBounds.maxX = math.max(zBounds.maxX, node.position.x);
-      zBounds.minZ = math.min(zBounds.minZ, node.position.z);
-      zBounds.maxZ = math.max(zBounds.maxZ, node.position.z);
-    });
-    
-    // Create labels with swimlane blocks if available
-    this.labelRenderer.createXAxisLabels(nodesByXProperty, xPropertyBounds, parentFolder, 0, xAxisBlocks, platformBounds);
-    this.labelRenderer.createZAxisLabels(zPropertyBounds, parentFolder, 0, zAxisBlocks, platformBounds);
-  }
-  */
 }

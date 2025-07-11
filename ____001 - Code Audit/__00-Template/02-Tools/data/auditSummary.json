@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-07-11T04:30:49.428Z",
+  "timestamp": "2025-07-11T05:41:01.298Z",
   "filesAnalyzed": 138,
-  "totalIssues": 1175,
-  "duplicatePatterns": 89,
+  "totalIssues": 1107,
+  "duplicatePatterns": 65,
   "circularDependencies": 0,
   "modulesAnalyzed": 3
 }
