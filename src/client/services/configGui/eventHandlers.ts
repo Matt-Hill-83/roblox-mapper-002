@@ -41,35 +41,6 @@ export class GUIEventHandlers {
     this.updateStatusMessage(`${field} updated to ${value}`);
   }
 
-  /**
-   * Handles node types change
-   */
-  public handleNodeTypesChange(value: number): void {
-    this.stateManager.setNumNodeTypes(value);
-    this.updateStatusMessage("Node types updated");
-  }
-
-  /**
-   * Handles link types change
-   */
-  public handleLinkTypesChange(value: number): void {
-    this.stateManager.setNumLinkTypes(value);
-    this.updateStatusMessage("Link types updated");
-  }
-
-  /**
-   * Handles pet types change
-   */
-  public handlePetTypesChange(value: number): void {
-    this.stateManager.setNumPetTypes(value);
-    this.updateStatusMessage("Pet types updated");
-    
-    // Trigger regeneration to update swimlanes with new pet types
-    if (this.onEnhancedConfigChange) {
-      const config = this.stateManager.getEnhancedConfig();
-      this.onEnhancedConfigChange(config);
-    }
-  }
 
   /**
    * Handles layer updates

@@ -13,7 +13,6 @@ import { GUI_CONSTANTS } from "./constants";
 import { EnhancedGeneratorConfig, ConfigGUIServiceOptions } from "./interfaces";
 import { createCollapsibleFrame } from "./components/collapsibleFrame";
 import { createGlobalSettings } from "./components/globalSettings";
-import { createNodeTypesSection } from "./components/nodeTypesSection";
 import { createLayerGrid } from "./components/layerGrid";
 import { createStatusArea } from "./components/status";
 import { createVisualizationControls } from "./components/visualizationControls";
@@ -126,35 +125,10 @@ export class ConfigGUIService {
       COMPONENT_HEIGHTS.GLOBAL_SETTINGS
     );
 
-    // Create node/link types section
-    const nodeTypesSection = createNodeTypesSection({
-      parent: scrollFrame,
-      numNodeTypes: config.numNodeTypes,
-      numLinkTypes: config.numLinkTypes,
-      numPetTypes: config.numPetTypes || 5,
-      onNodeTypesChange: (value) => {
-        this.eventHandlers.handleNodeTypesChange(value);
-      },
-      onLinkTypesChange: (value) => {
-        this.eventHandlers.handleLinkTypesChange(value);
-      },
-      onPetTypesChange: (value) => {
-        this.eventHandlers.handlePetTypesChange(value);
-      },
-    });
-    nodeTypesSection.Position = layoutManager.getNextPosition(
-      COMPONENT_HEIGHTS.NODE_TYPES
-    );
 
-    // Generate node and link type arrays
-    const nodeTypes = this.eventHandlers.generateTypeArray(
-      "Type",
-      config.numNodeTypes
-    );
-    const linkTypes = this.eventHandlers.generateTypeArray(
-      "Link",
-      config.numLinkTypes
-    );
+    // Generate default type arrays (legacy layer grid support)
+    const nodeTypes = this.eventHandlers.generateTypeArray("Type", 5);
+    const linkTypes = this.eventHandlers.generateTypeArray("Link", 3);
 
     // Create layer grid with initial layers
     const layerGrid = createLayerGrid({

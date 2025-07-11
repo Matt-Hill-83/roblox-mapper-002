@@ -96,7 +96,11 @@ export function createAxisMappingSection({
   const extractPropertyName = (displayValue: string): string => {
     // Remove the count suffix if present (e.g., "service [15]" -> "service")
     const match = displayValue.match("^([^%[]+)%s*%[?");
-    return match ? (match[1] as string) : displayValue;
+    if (match && match[1]) {
+      const result = match[1];
+      return typeIs(result, "string") ? result : tostring(result);
+    }
+    return displayValue;
   };
 
   // Create dropdown functionality
