@@ -1,3 +1,27 @@
+
+[------------------------------------------------]
+INSTRUCTIONS FOR AI AGENT
+[------------------------------------------------]
+1. Use this file as a guide.
+2. Create the file structure
+   1. Inside __01-Historical-Audits/
+      2. Create a sequentially numbered Output Folder like this:
+         1. Code Audit - 001
+      3. In the Output Folder, create the following folders:
+         1. 02-Updated-Spec/
+         2. 03-Results/
+4. Create the Plan
+   1. Inside the new 02-Updated-Spec/, create:
+      1. a set of updated documents modelled after the ones in 01-Example-Outputs
+5. Execute the plan
+   1. Using the tools in 02-Tools/
+      1. Execute the tasks in 02-Updated-Spec/03-Tasks.md
+6. Create the Results
+   1. Inside 03-Results/ create a set of updated documents modelled after the ones in Example Outputs
+
+
+[------------------------------------------------]
+
 # Code Quality Audit Specification
 
 ## Summary
