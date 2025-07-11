@@ -2,6 +2,7 @@
  * Position Calculator for Unified Data Renderer
  * 
  * Handles swim lane positioning and origin centering for nodes
+ * Refactored into modular internal classes for better organization
  */
 
 import { Cluster, Node } from "../../../../interfaces/simpleDataGenerator.interface";
@@ -12,92 +13,14 @@ import { PropertyValueResolver } from "../../propertyValueResolver";
 import { POSITION_CONSTANTS } from "../../constants/positionConstants";
 import { getDefaultXAxis, getDefaultZAxis } from "../../../../constants/axisDefaults";
 
-export class PositionCalculator implements IPositionCalculator {
-  private propertyResolver: PropertyValueResolver;
-
-  constructor() {
-    this.propertyResolver = new PropertyValueResolver();
-  }
-  /**
-   * Get bounds of the cluster (public method for external use)
-   */
-  public getClusterBounds(cluster: Cluster): { minX: number, maxX: number, minY: number, minZ: number, maxZ: number } {
-    const bounds = this.calculateBounds(cluster);
-    return bounds;
-  }
-
-  /**
-   * Centers the bottom of the group at the specified origin
-   */
-  public centerBottomAtOrigin(cluster: Cluster, origin: Vector3, config?: EnhancedGeneratorConfig): void {
-    if (cluster.groups[0].nodes.size() === 0) return;
-    
-    // Find bounding box
-    const bounds = this.calculateBounds(cluster);
-    
-    // Calculate offsets to center bottom at origin
-    const centerX = (bounds.minX + bounds.maxX) / 2;
-    const offsetX = origin.X - centerX;
-    
-    // Apply origin Y offset if configured
-    const yOffset = config?.spacing?.originYOffset || 0;
-    const offsetY = origin.Y - bounds.minY + yOffset; // Bottom of group at origin Y + offset
-    const offsetZ = origin.Z;
-    
-    // Ensure nodes stay above ground level
-    const minFinalY = bounds.minY + offsetY;
-    const groundClearanceAdjustment = minFinalY < POSITION_CONSTANTS.MIN_GROUND_CLEARANCE ? POSITION_CONSTANTS.MIN_GROUND_CLEARANCE - minFinalY : 0;
-    const finalOffsetY = offsetY + groundClearanceAdjustment;
-    
-    // Apply ground clearance if needed
-    
-    // Apply offsets to all nodes
-    this.applyOffsets(cluster, offsetX, finalOffsetY, offsetZ);
-  }
-
-  /**
-   * Calculates swim lane positions for layer-based data
-   */
-  public calculateLayerSwimLanePositions(cluster: Cluster, config: EnhancedGeneratorConfig): void {
-    const spacing = this.getSpacingConfig(config);
-    const numLayers = config.layers.size();
-    
-    // Use spatial grouping properties if available, otherwise use dynamic defaults
-    const discoveredProperties = cluster.discoveredProperties;
-    const xAxisProperty = config.axisMapping?.xAxis || getDefaultXAxis(discoveredProperties);
-    const zAxisProperty = config.axisMapping?.zAxis || getDefaultZAxis(discoveredProperties);
-    
-    // Organize nodes by layer and X grouping property
-    const { nodesByTypeAndLayer, typeCounters } = this.organizeNodesByProperty(cluster, xAxisProperty);
-    
-    // Sort values by count
-    const sortedTypes = this.sortTypesByCount(typeCounters);
-    
-    // Calculate type column positions
-    const typeXPositions = this.calculateTypeColumnPositions(
-      sortedTypes,
-      nodesByTypeAndLayer,
-      numLayers,
-      spacing
-    );
-    
-    // Assign positions to each node
-    this.assignNodePositionsWithProperties(
-      sortedTypes,
-      nodesByTypeAndLayer,
-      typeXPositions,
-      numLayers,
-      spacing,
-      config,
-      xAxisProperty,
-      zAxisProperty
-    );
-  }
-
+/**
+ * Bounds Calculator - Handles cluster boundary calculations
+ */
+class BoundsCalculator {
   /**
    * Calculate bounds of the cluster
    */
-  private calculateBounds(cluster: Cluster): { minX: number, maxX: number, minY: number, minZ: number, maxZ: number } {
+  public calculateBounds(cluster: Cluster): { minX: number, maxX: number, minY: number, minZ: number, maxZ: number } {
     let minX = math.huge;
     let maxX = -math.huge;
     let minY = math.huge;
@@ -114,11 +37,22 @@ export class PositionCalculator implements IPositionCalculator {
     
     return { minX, maxX, minY, minZ, maxZ };
   }
+}
+
+/**
+ * Position Mapper - Handles position transformations and property mapping
+ */
+class PositionMapper {
+  private propertyResolver: PropertyValueResolver;
+
+  constructor(propertyResolver: PropertyValueResolver) {
+    this.propertyResolver = propertyResolver;
+  }
 
   /**
    * Apply position offsets to all nodes
    */
-  private applyOffsets(cluster: Cluster, offsetX: number, offsetY: number, offsetZ: number): void {
+  public applyOffsets(cluster: Cluster, offsetX: number, offsetY: number, offsetZ: number): void {
     cluster.groups[0].nodes.forEach(node => {
       node.position.x += offsetX;
       node.position.y += offsetY;
@@ -127,23 +61,51 @@ export class PositionCalculator implements IPositionCalculator {
   }
 
   /**
-   * Get spacing configuration
+   * Create position mapping for a property
    */
-  private getSpacingConfig(config: EnhancedGeneratorConfig): SpacingConfig {
-    return config.spacing || {
-      nodeHeight: RENDERER_CONSTANTS.HEXAGON.HEIGHT,
-      nodeRadius: RENDERER_CONSTANTS.HEXAGON.WIDTH / 2,
-      layerSpacing: RENDERER_CONSTANTS.POSITIONING.LEVEL_SPACING,
-      nodeSpacing: RENDERER_CONSTANTS.POSITIONING.COLUMN_SPACING,
-      swimlaneSpacing: RENDERER_CONSTANTS.POSITIONING.COLUMN_SPACING
-    };
+  public createPropertyPositionMap(nodesByTypeAndLayer: Map<string, Node[]>, propertyName: string, isYAxis: boolean = false): Map<string, number> {
+    const uniqueValues = new Set<string>();
+    
+    // Collect all unique values for the property
+    nodesByTypeAndLayer.forEach(nodes => {
+      nodes.forEach(node => {
+        const value = this.propertyResolver.getPropertyValue(node, propertyName);
+        uniqueValues.add(value);
+      });
+    });
+    
+    // Sort values and assign positions
+    const sortedValues = [...uniqueValues].sort();
+    const positionMap = new Map<string, number>();
+    
+    sortedValues.forEach((value, index) => {
+      if (isYAxis) {
+        // For Y-axis, position values vertically
+        positionMap.set(value, index);
+      } else {
+        // Position values apart on the Z axis
+        positionMap.set(value, (index - sortedValues.size() / 2) * POSITION_CONSTANTS.Z_DIMENSION_GROUP_SPACING);
+      }
+    });
+    
+    return positionMap;
   }
+}
 
+/**
+ * Node Organizer - Handles node organization and sorting
+ */
+class NodeOrganizer {
+  private propertyResolver: PropertyValueResolver;
+
+  constructor(propertyResolver: PropertyValueResolver) {
+    this.propertyResolver = propertyResolver;
+  }
 
   /**
    * Organize nodes by layer and property
    */
-  private organizeNodesByProperty(cluster: Cluster, propertyName: string) {
+  public organizeNodesByProperty(cluster: Cluster, propertyName: string) {
     const nodesByLayer = new Map<number, Node[]>();
     const typeCounters = new Map<string, number>();
     const nodesByTypeAndLayer = new Map<string, Node[]>();
@@ -180,11 +142,10 @@ export class PositionCalculator implements IPositionCalculator {
     return { nodesByLayer, nodesByTypeAndLayer, typeCounters };
   }
 
-
   /**
    * Sort types by count (descending)
    */
-  private sortTypesByCount(typeCounters: Map<string, number>): string[] {
+  public sortTypesByCount(typeCounters: Map<string, number>): string[] {
     const sortedTypes: string[] = [];
     typeCounters.forEach((_, nodeType) => {
       sortedTypes.push(nodeType);
@@ -199,11 +160,22 @@ export class PositionCalculator implements IPositionCalculator {
     
     return sortedTypes;
   }
+}
+
+/**
+ * Swim Lane Calculator - Handles swim lane positioning calculations
+ */
+class SwimLaneCalculator {
+  private propertyResolver: PropertyValueResolver;
+
+  constructor(propertyResolver: PropertyValueResolver) {
+    this.propertyResolver = propertyResolver;
+  }
 
   /**
    * Calculate X positions for each type column
    */
-  private calculateTypeColumnPositions(
+  public calculateTypeColumnPositions(
     sortedTypes: string[],
     nodesByTypeAndLayer: Map<string, Node[]>,
     numLayers: number,
@@ -233,34 +205,27 @@ export class PositionCalculator implements IPositionCalculator {
     return typeXPositions;
   }
 
-
   /**
    * Assign positions to nodes with property-based positioning
    */
-  private assignNodePositionsWithProperties(
+  public assignNodePositionsWithProperties(
     sortedTypes: string[],
     nodesByTypeAndLayer: Map<string, Node[]>,
     typeXPositions: Map<string, number>,
     numLayers: number,
     spacing: SpacingConfig,
     config: EnhancedGeneratorConfig,
-    xAxisProperty: string,
-    zAxisProperty: string
+    zAxisProperty: string,
+    zPositionMap: Map<string, number>,
+    yPositionMap?: Map<string, number>
   ): void {
     const typeNodeCounters = new Map<string, number>();
     sortedTypes.forEach(nodeType => typeNodeCounters.set(nodeType, 0));
     
-    // Create Z position mapping for the z-axis property
-    const zPositionMap = this.createPropertyPositionMap(nodesByTypeAndLayer, zAxisProperty);
-    
     // Check if Y-axis should use property-based positioning
-    // Use yAxis from axisMapping if available
     const yAxisFromMapping = config.axisMapping?.yAxis;
     const useLayerForY = !yAxisFromMapping || yAxisFromMapping === "none";
     const yAxisProperty = yAxisFromMapping || "type";
-    
-    // Create Y position mapping if using property-based Y-axis
-    const yPositionMap = useLayerForY ? undefined : this.createPropertyPositionMap(nodesByTypeAndLayer, yAxisProperty, true);
     
     for (let layer = 1; layer <= numLayers; layer++) {
       // Invert Y so layer 1 is at top
@@ -314,37 +279,119 @@ export class PositionCalculator implements IPositionCalculator {
       });
     }
   }
-  
-  /**
-   * Create position mapping for a property
-   */
-  private createPropertyPositionMap(nodesByTypeAndLayer: Map<string, Node[]>, propertyName: string, isYAxis: boolean = false): Map<string, number> {
-    const uniqueValues = new Set<string>();
-    
-    // Collect all unique values for the property
-    nodesByTypeAndLayer.forEach(nodes => {
-      nodes.forEach(node => {
-        const value = this.propertyResolver.getPropertyValue(node, propertyName);
-        uniqueValues.add(value);
-      });
-    });
-    
-    // Sort values and assign positions
-    const sortedValues = [...uniqueValues].sort();
-    const positionMap = new Map<string, number>();
-    
-    sortedValues.forEach((value, index) => {
-      if (isYAxis) {
-        // For Y-axis, position values vertically
-        positionMap.set(value, index);
-      } else {
-        // Position values apart on the Z axis
-        positionMap.set(value, (index - sortedValues.size() / 2) * POSITION_CONSTANTS.Z_DIMENSION_GROUP_SPACING);
-      }
-    });
-    
-    return positionMap;
+}
+
+/**
+ * Main PositionCalculator - Orchestrates all modules
+ */
+export class PositionCalculator implements IPositionCalculator {
+  private propertyResolver: PropertyValueResolver;
+  private boundsCalculator: BoundsCalculator;
+  private positionMapper: PositionMapper;
+  private nodeOrganizer: NodeOrganizer;
+  private swimLaneCalculator: SwimLaneCalculator;
+
+  constructor() {
+    this.propertyResolver = new PropertyValueResolver();
+    this.boundsCalculator = new BoundsCalculator();
+    this.positionMapper = new PositionMapper(this.propertyResolver);
+    this.nodeOrganizer = new NodeOrganizer(this.propertyResolver);
+    this.swimLaneCalculator = new SwimLaneCalculator(this.propertyResolver);
   }
 
+  /**
+   * Get bounds of the cluster (public method for external use)
+   */
+  public getClusterBounds(cluster: Cluster): { minX: number, maxX: number, minY: number, minZ: number, maxZ: number } {
+    return this.boundsCalculator.calculateBounds(cluster);
+  }
 
+  /**
+   * Centers the bottom of the group at the specified origin
+   */
+  public centerBottomAtOrigin(cluster: Cluster, origin: Vector3, config?: EnhancedGeneratorConfig): void {
+    if (cluster.groups[0].nodes.size() === 0) return;
+    
+    // Find bounding box
+    const bounds = this.boundsCalculator.calculateBounds(cluster);
+    
+    // Calculate offsets to center bottom at origin
+    const centerX = (bounds.minX + bounds.maxX) / 2;
+    const offsetX = origin.X - centerX;
+    
+    // Apply origin Y offset if configured
+    const yOffset = config?.spacing?.originYOffset || 0;
+    const offsetY = origin.Y - bounds.minY + yOffset; // Bottom of group at origin Y + offset
+    const offsetZ = origin.Z;
+    
+    // Ensure nodes stay above ground level
+    const minFinalY = bounds.minY + offsetY;
+    const groundClearanceAdjustment = minFinalY < POSITION_CONSTANTS.MIN_GROUND_CLEARANCE ? POSITION_CONSTANTS.MIN_GROUND_CLEARANCE - minFinalY : 0;
+    const finalOffsetY = offsetY + groundClearanceAdjustment;
+    
+    // Apply offsets to all nodes
+    this.positionMapper.applyOffsets(cluster, offsetX, finalOffsetY, offsetZ);
+  }
+
+  /**
+   * Calculates swim lane positions for layer-based data
+   */
+  public calculateLayerSwimLanePositions(cluster: Cluster, config: EnhancedGeneratorConfig): void {
+    const spacing = this.getSpacingConfig(config);
+    const numLayers = config.layers.size();
+    
+    // Use spatial grouping properties if available, otherwise use dynamic defaults
+    const discoveredProperties = cluster.discoveredProperties;
+    const xAxisProperty = config.axisMapping?.xAxis || getDefaultXAxis(discoveredProperties);
+    const zAxisProperty = config.axisMapping?.zAxis || getDefaultZAxis(discoveredProperties);
+    
+    // Organize nodes by layer and X grouping property
+    const { nodesByTypeAndLayer, typeCounters } = this.nodeOrganizer.organizeNodesByProperty(cluster, xAxisProperty);
+    
+    // Sort values by count
+    const sortedTypes = this.nodeOrganizer.sortTypesByCount(typeCounters);
+    
+    // Calculate type column positions
+    const typeXPositions = this.swimLaneCalculator.calculateTypeColumnPositions(
+      sortedTypes,
+      nodesByTypeAndLayer,
+      numLayers,
+      spacing
+    );
+    
+    // Create Z position mapping for the z-axis property
+    const zPositionMap = this.positionMapper.createPropertyPositionMap(nodesByTypeAndLayer, zAxisProperty);
+    
+    // Create Y position mapping if using property-based Y-axis
+    const yAxisFromMapping = config.axisMapping?.yAxis;
+    const yPositionMap = (!yAxisFromMapping || yAxisFromMapping === "none") 
+      ? undefined 
+      : this.positionMapper.createPropertyPositionMap(nodesByTypeAndLayer, yAxisFromMapping, true);
+    
+    // Assign positions to each node
+    this.swimLaneCalculator.assignNodePositionsWithProperties(
+      sortedTypes,
+      nodesByTypeAndLayer,
+      typeXPositions,
+      numLayers,
+      spacing,
+      config,
+      zAxisProperty,
+      zPositionMap,
+      yPositionMap
+    );
+  }
+
+  /**
+   * Get spacing configuration
+   */
+  private getSpacingConfig(config: EnhancedGeneratorConfig): SpacingConfig {
+    return config.spacing || {
+      nodeHeight: RENDERER_CONSTANTS.HEXAGON.HEIGHT,
+      nodeRadius: RENDERER_CONSTANTS.HEXAGON.WIDTH / 2,
+      layerSpacing: RENDERER_CONSTANTS.POSITIONING.LEVEL_SPACING,
+      nodeSpacing: RENDERER_CONSTANTS.POSITIONING.COLUMN_SPACING,
+      swimlaneSpacing: RENDERER_CONSTANTS.POSITIONING.COLUMN_SPACING
+    };
+  }
 }
