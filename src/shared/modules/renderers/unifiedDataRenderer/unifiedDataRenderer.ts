@@ -54,6 +54,12 @@ export class UnifiedDataRenderer {
     config: EnhancedGeneratorConfig,
     origin?: Vector3
   ): Cluster {
+    // Delete any existing GraphMaker folder to avoid duplicates
+    const existingGraphMaker = parentFolder.FindFirstChild("GraphMaker");
+    if (existingGraphMaker) {
+      existingGraphMaker.Destroy();
+    }
+
     // Delete any existing platform and shadow blocks
     const existingPlatform = parentFolder.FindFirstChild("PlatformBlock");
     if (existingPlatform) {
