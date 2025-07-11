@@ -15,6 +15,14 @@ const ORIGIN = {
 // Maximum number of data items to generate
 const MAX_DATA_ITEMS = 1000;
 
+// Default GUI axis options
+const DEFAULT_AXIS_OPTIONS = {
+  xgroup: "component",
+  zgroup: "server", 
+  ygroup: "language",
+  nodeColor: "server",
+};
+
 export class GameService extends BaseService {
   private configGUIServer?: ConfigGUIServerService;
   private graphInitializer: GraphInitializerService;
@@ -56,11 +64,12 @@ export class GameService extends BaseService {
       });
     }
 
-    // Initialize the configuration GUI server with origin and link counter
+    // Initialize the configuration GUI server with origin, link counter, and default axis options
     this.configGUIServer = new ConfigGUIServerService(
       this.myStuffFolder,
       new Vector3(ORIGIN.x, ORIGIN.y, ORIGIN.z),
-      this.linkTypeCounterServer
+      this.linkTypeCounterServer,
+      DEFAULT_AXIS_OPTIONS
     );
 
     // Set up graph initializer with the GUI server

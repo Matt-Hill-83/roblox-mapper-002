@@ -9,6 +9,7 @@ export interface ConfigGUIServiceOptions {
   onUpdateRequest?: (config: EnhancedGeneratorConfig) => void;
   position?: UDim2;
   initialConfig?: EnhancedGeneratorConfig;
+  defaultAxisOptions?: { [key: string]: string };
 }
 
 export interface GUIState {

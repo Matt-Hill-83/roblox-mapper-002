@@ -29,7 +29,7 @@ export class ConfigGUIService {
 
   constructor(options: ConfigGUIServiceOptions) {
     // Initialize state manager
-    this.stateManager = new GUIStateManager(options.initialConfig);
+    this.stateManager = new GUIStateManager(options.initialConfig, options.defaultAxisOptions);
 
     // Initialize event handlers
     this.eventHandlers = new GUIEventHandlers({

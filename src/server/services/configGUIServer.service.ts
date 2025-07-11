@@ -10,13 +10,15 @@ export class ConfigGUIServerService extends BaseService {
   private linkTypeCounterService?: LinkTypeCounterServerService;
   private projectRootFolder: Folder;
   private origin: Vector3;
+  private defaultAxisOptions?: { [key: string]: string };
 
-  constructor(projectRootFolder: Folder, origin?: Vector3, linkTypeCounterService?: LinkTypeCounterServerService) {
+  constructor(projectRootFolder: Folder, origin?: Vector3, linkTypeCounterService?: LinkTypeCounterServerService, defaultAxisOptions?: { [key: string]: string }) {
     super("ConfigGUIServerService");
     this.unifiedRenderer = new UnifiedDataRenderer();
     this.projectRootFolder = projectRootFolder;
     this.origin = origin || new Vector3(0, 0, 0);
     this.linkTypeCounterService = linkTypeCounterService;
+    this.defaultAxisOptions = defaultAxisOptions;
 
     // Create or get RemoteEvent
     let remoteEvent = ReplicatedStorage.FindFirstChild("ConfigGUIRemote") as RemoteEvent;
@@ -135,6 +137,9 @@ export class ConfigGUIServerService extends BaseService {
           warn(`[ConfigGUIServerService] Update validation errors: ${errorMessage}`);
           this.remoteEvent.FireClient(player, "updateError", errorMessage);
         }
+      } else if (eventType === "getDefaultAxisOptions") {
+        // Send default axis options to client
+        this.remoteEvent.FireClient(player, "defaultAxisOptions", this.defaultAxisOptions || {});
       }
     });
     

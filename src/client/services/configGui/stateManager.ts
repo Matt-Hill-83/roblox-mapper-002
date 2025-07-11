@@ -15,7 +15,8 @@ export class GUIStateManager {
   private state: GUIState;
   private listeners: ((state: GUIState) => void)[] = [];
 
-  constructor(initialConfig?: EnhancedGeneratorConfig) {
+  constructor(initialConfig?: EnhancedGeneratorConfig, defaultAxisOptions?: { [key: string]: string }) {
+    print(`[GUIStateManager] Constructor called with defaultAxisOptions:`, defaultAxisOptions);
     // Initialize spacing with defaults
     const defaultSpacing: SpacingConfig = {
       nodeHeight: GUI_CONSTANTS.SPACING_DEFAULTS.NODE_HEIGHT,
@@ -36,16 +37,16 @@ export class GUIStateManager {
     
     // Initialize spatial grouping with defaults (using legacy interface for compatibility)
     const defaultAxisMapping: AxisMapping = {
-      xAxis: getDefaultXAxis(),
-      zAxis: getDefaultZAxis(),
-      yAxis: "none", // Default to none, will be updated with discovered properties
-      xGroupingProperty: getDefaultXAxis(),
-      zGroupingProperty: getDefaultZAxis()
+      xAxis: defaultAxisOptions?.xgroup || getDefaultXAxis(),
+      zAxis: defaultAxisOptions?.zgroup || getDefaultZAxis(),
+      yAxis: defaultAxisOptions?.ygroup || "none", // Default to none, will be updated with discovered properties
+      xGroupingProperty: defaultAxisOptions?.xgroup || getDefaultXAxis(),
+      zGroupingProperty: defaultAxisOptions?.zgroup || getDefaultZAxis()
     };
     
     // Initialize visual mapping with defaults
     const defaultVisualMapping: VisualMapping = {
-      backgroundColor: "none",  // Will be updated to first discovered property
+      backgroundColor: defaultAxisOptions?.nodeColor || "none",  // Will be updated to first discovered property
       borderColor: "none"
     };
     
