@@ -306,6 +306,7 @@ export class ConfigGUIService {
       }
       createAxisMappingControls(axisMappingConfig);
     }
+
   }
 
   /**

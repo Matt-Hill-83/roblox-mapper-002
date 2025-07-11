@@ -42,27 +42,40 @@ export class YParallelShadowCreator extends BaseBlockCreator {
   /**
    * Create Y-parallel shadow blocks for each Y property value
    */
-  public createYParallelShadows(config: YParallelShadowConfig): Map<string, Part> {
-    const { nodes, yAxisProperty, parent, shadowWidth, shadowDepth, side = "right" } = config;
+  public createYParallelShadows(
+    config: YParallelShadowConfig
+  ): Map<string, Part> {
+    const {
+      nodes,
+      yAxisProperty,
+      parent,
+      shadowWidth,
+      shadowDepth,
+      side = "right",
+    } = config;
     const shadows = new Map<string, Part>();
-    
-    print(`[YParallelShadow] Creating shadows for ${side} side with property: ${yAxisProperty}`);
-    print(`[YParallelShadow] Processing ${nodes.size()} nodes`);
 
     // Group nodes by Y property value and calculate bounds
     const yGroupBounds = this.calculateYGroupBounds(nodes, yAxisProperty);
-    print(`[YParallelShadow] Found ${yGroupBounds.size()} unique Y property values`);
 
     // Don't apply layer-based spacing - use the actual node Y positions
 
     // Create a shadow block for each Y group with different colors
     let colorIndex = 0;
     yGroupBounds.forEach((bounds, propertyValue) => {
-      const color = Y_AXIS_COLORS[colorIndex % Y_AXIS_COLORS.size()] || new Color3(0.3, 0.3, 0.8);
-      const shadow = this.createYShadowBlock(bounds, parent, shadowWidth, shadowDepth, color, side);
+      const color =
+        Y_AXIS_COLORS[colorIndex % Y_AXIS_COLORS.size()] ||
+        new Color3(0.3, 0.3, 0.8);
+      const shadow = this.createYShadowBlock(
+        bounds,
+        parent,
+        shadowWidth,
+        shadowDepth,
+        color,
+        side
+      );
       shadows.set(propertyValue, shadow);
-      
-      print(`[YParallelShadow] Created ${side} shadow for ${propertyValue}: X(${string.format("%.1f", bounds.minX)},${string.format("%.1f", bounds.maxX)}) Z(${string.format("%.1f", bounds.minZ)},${string.format("%.1f", bounds.maxZ)}) Y=${string.format("%.1f", bounds.yPosition)} NodeYRange=(${string.format("%.1f", bounds.minY)}-${string.format("%.1f", bounds.maxY)}) Height=${string.format("%.1f", bounds.maxY - bounds.minY)} Color=${colorIndex}`);
+
       colorIndex++;
     });
 
@@ -72,21 +85,24 @@ export class YParallelShadowCreator extends BaseBlockCreator {
   /**
    * Calculate bounds for each Y property group
    */
-  private calculateYGroupBounds(nodes: Node[], yAxisProperty: string): Map<string, YGroupBounds> {
+  private calculateYGroupBounds(
+    nodes: Node[],
+    yAxisProperty: string
+  ): Map<string, YGroupBounds> {
     const boundsMap = new Map<string, YGroupBounds>();
     const nodeRadius = 0.5; // Default node radius
-    
-    print(`[YParallelShadow] Calculating bounds for Y property: ${yAxisProperty}`);
 
     // Initialize bounds for each Y property value
-    nodes.forEach(node => {
-      const yValue = this.propertyResolver.getPropertyValue(node, yAxisProperty);
-      
+    nodes.forEach((node) => {
+      const yValue = this.propertyResolver.getPropertyValue(
+        node,
+        yAxisProperty
+      );
+
       // Log first few unique values
       if (!boundsMap.has(yValue) && boundsMap.size() < 3) {
-        print(`[YParallelShadow] Found Y value: ${yValue} for node ${node.name}`);
       }
-      
+
       if (!boundsMap.has(yValue)) {
         boundsMap.set(yValue, {
           minX: math.huge,
@@ -96,7 +112,7 @@ export class YParallelShadowCreator extends BaseBlockCreator {
           yPosition: node.position.y,
           propertyValue: yValue,
           minY: node.position.y,
-          maxY: node.position.y
+          maxY: node.position.y,
         });
       }
 
@@ -116,18 +132,24 @@ export class YParallelShadowCreator extends BaseBlockCreator {
     return boundsMap;
   }
 
-
   /**
    * Create a single Y-parallel shadow block
    */
-  private createYShadowBlock(bounds: YGroupBounds, parent: Instance, shadowWidth?: number, shadowDepth?: number, color?: Color3, side: "left" | "right" | "back" = "right"): Part {
+  private createYShadowBlock(
+    bounds: YGroupBounds,
+    parent: Instance,
+    shadowWidth?: number,
+    shadowDepth?: number,
+    color?: Color3,
+    side: "left" | "right" | "back" = "right"
+  ): Part {
     // T9.8.1: Y shadows start from vertical wall and extend 10 units away
     const shadowExtension = 10; // Units to extend from wall
     let width: number;
     let depth: number;
     let positionX: number;
     let positionZ: number;
-    
+
     if (shadowWidth !== undefined && shadowDepth !== undefined) {
       // Position Y shadows to start from vertical wall edge
       if (side === "right") {
@@ -163,12 +185,10 @@ export class YParallelShadowCreator extends BaseBlockCreator {
       positionX = (bounds.minX + bounds.maxX) / 2;
       positionZ = (bounds.minZ + bounds.maxZ) / 2;
     }
-    
+
     // Use fixed height for Y shadows
     const shadowHeight = BLOCK_CONSTANTS.DIMENSIONS.Y_SHADOW_THICKNESS || 5;
-    
-    print(`[YParallelShadow] Creating shadow ${bounds.propertyValue}: Y=${string.format("%.1f", bounds.yPosition)}, height=${string.format("%.1f", shadowHeight)}`);
-    
+
     // Create the shadow block
     const shadow = this.createBlock({
       name: `YShadow_${side}_${bounds.propertyValue}`,
@@ -182,17 +202,16 @@ export class YParallelShadowCreator extends BaseBlockCreator {
         bounds.yPosition, // Use layer Y position
         positionZ
       ),
-      color: color || BLOCK_CONSTANTS.COLORS.Y_SHADOW_COLOR || new Color3(0.5, 0.5, 0.5),
+      color:
+        color ||
+        BLOCK_CONSTANTS.COLORS.Y_SHADOW_COLOR ||
+        new Color3(0.5, 0.5, 0.5),
       transparency: BLOCK_CONSTANTS.TRANSPARENCY.Y_SHADOW || 0, // Fully opaque
       material: Enum.Material.Concrete,
-      canCollide: false
+      canCollide: false,
     });
 
     shadow.Parent = parent;
-
-    // Print actual shadow position
-    const actualPos = shadow.Position;
-    print(`[YParallelShadow] Shadow block ${bounds.propertyValue} actual position: X=${string.format("%.1f", actualPos.X)}, Y=${string.format("%.1f", actualPos.Y)}, Z=${string.format("%.1f", actualPos.Z)} (Y offset from nodes: ${string.format("%.1f", actualPos.Y - bounds.yPosition)})`);
 
     // Add label
     this.addLabel(shadow, bounds.propertyValue);
@@ -211,7 +230,7 @@ export class YParallelShadowCreator extends BaseBlockCreator {
       Enum.NormalId.Front,
       Enum.NormalId.Back,
       Enum.NormalId.Left,
-      Enum.NormalId.Right
+      Enum.NormalId.Right,
     ];
 
     // Add label to each face
