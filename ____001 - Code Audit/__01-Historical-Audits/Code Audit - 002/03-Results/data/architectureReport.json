@@ -1,0 +1,234 @@
+{
+  "overview": {
+    "totalFiles": 133,
+    "totalLines": 53639,
+    "totalSize": 1534474,
+    "categories": 7
+  },
+  "categoryBreakdown": {
+    "services": {
+      "count": 43,
+      "totalLines": 6318,
+      "totalComplexity": 198,
+      "totalSize": 201182,
+      "avgLines": 147,
+      "avgComplexity": 4.6,
+      "avgSize": 4679
+    },
+    "renderers": {
+      "count": 37,
+      "totalLines": 6169,
+      "totalComplexity": 144,
+      "totalSize": 196846,
+      "avgLines": 167,
+      "avgComplexity": 3.9,
+      "avgSize": 5320
+    },
+    "utils": {
+      "count": 7,
+      "totalLines": 1025,
+      "totalComplexity": 40,
+      "totalSize": 27823,
+      "avgLines": 146,
+      "avgComplexity": 5.7,
+      "avgSize": 3975
+    },
+    "other": {
+      "count": 5,
+      "totalLines": 458,
+      "totalComplexity": 11,
+      "totalSize": 14649,
+      "avgLines": 92,
+      "avgComplexity": 2.2,
+      "avgSize": 2930
+    },
+    "modules": {
+      "count": 33,
+      "totalLines": 1983,
+      "totalComplexity": 34,
+      "totalSize": 55440,
+      "avgLines": 60,
+      "avgComplexity": 1,
+      "avgSize": 1680
+    },
+    "interfaces": {
+      "count": 5,
+      "totalLines": 367,
+      "totalComplexity": 4,
+      "totalSize": 9995,
+      "avgLines": 73,
+      "avgComplexity": 0.8,
+      "avgSize": 1999
+    },
+    "data": {
+      "count": 3,
+      "totalLines": 37319,
+      "totalComplexity": 0,
+      "totalSize": 1028539,
+      "avgLines": 12440,
+      "avgComplexity": 0,
+      "avgSize": 342846
+    }
+  },
+  "topFilesByCategory": {
+    "services": [
+      {
+        "path": "client/services/configGui/stateManager.ts",
+        "lines": 426,
+        "complexity": 3
+      },
+      {
+        "path": "client/services/configGui/makeConfigGui.ts",
+        "lines": 385,
+        "complexity": 12
+      },
+      {
+        "path": "client/services/configGui/components/layerGrid.ts",
+        "lines": 365,
+        "complexity": 17
+      }
+    ],
+    "renderers": [
+      {
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
+        "lines": 631,
+        "complexity": 10
+      },
+      {
+        "path": "shared/modules/renderers/unifiedDataRenderer/managers/laneManager.ts",
+        "lines": 422,
+        "complexity": 14
+      },
+      {
+        "path": "shared/modules/renderers/unifiedDataRenderer/rendering/updateManager.ts",
+        "lines": 397,
+        "complexity": 13
+      }
+    ],
+    "utils": [
+      {
+        "path": "shared/utils/validation/configValidation.ts",
+        "lines": 371,
+        "complexity": 10
+      },
+      {
+        "path": "shared/utils/validation/stringValidation.ts",
+        "lines": 214,
+        "complexity": 7
+      },
+      {
+        "path": "shared/utils/validation/arrayValidation.ts",
+        "lines": 177,
+        "complexity": 8
+      }
+    ],
+    "other": [
+      {
+        "path": "client/controllers/configGUI.controller.ts",
+        "lines": 164,
+        "complexity": 2
+      },
+      {
+        "path": "client/controllers/animationTestGUI.controller.ts",
+        "lines": 157,
+        "complexity": 4
+      },
+      {
+        "path": "shared/constants/axisDefaults.ts",
+        "lines": 62,
+        "complexity": 5
+      }
+    ],
+    "modules": [
+      {
+        "path": "shared/modules/labelGroupMaker.ts",
+        "lines": 179,
+        "complexity": 3
+      },
+      {
+        "path": "shared/modules/labelBlockMaker/standardizedInterfaces.ts",
+        "lines": 154,
+        "complexity": 1
+      },
+      {
+        "path": "shared/modules/barMaker/standardizedInterfaces.ts",
+        "lines": 135,
+        "complexity": 1
+      }
+    ],
+    "interfaces": [
+      {
+        "path": "shared/interfaces/IMaker.ts",
+        "lines": 128,
+        "complexity": 1
+      },
+      {
+        "path": "shared/interfaces/enhancedGenerator.interface.ts",
+        "lines": 74,
+        "complexity": 0
+      },
+      {
+        "path": "shared/interfaces/simpleDataGenerator.interface.ts",
+        "lines": 72,
+        "complexity": 0
+      }
+    ],
+    "data": [
+      {
+        "path": "shared/data/tempHarnessTestData.ts",
+        "lines": 23033,
+        "complexity": 0
+      },
+      {
+        "path": "shared/data/tempHarnessLinks.ts",
+        "lines": 14034,
+        "complexity": 0
+      },
+      {
+        "path": "shared/data/tempTestData.ts",
+        "lines": 252,
+        "complexity": 0
+      }
+    ]
+  },
+  "codeDistribution": {
+    "services": {
+      "filesPercent": 32,
+      "linesPercent": 12
+    },
+    "renderers": {
+      "filesPercent": 28,
+      "linesPercent": 12
+    },
+    "utils": {
+      "filesPercent": 5,
+      "linesPercent": 2
+    },
+    "other": {
+      "filesPercent": 4,
+      "linesPercent": 1
+    },
+    "modules": {
+      "filesPercent": 25,
+      "linesPercent": 4
+    },
+    "interfaces": {
+      "filesPercent": 4,
+      "linesPercent": 1
+    },
+    "data": {
+      "filesPercent": 2,
+      "linesPercent": 70
+    }
+  },
+  "insights": [
+    {
+      "severity": "info",
+      "message": "Project uses TypeScript throughout with 141 interface definitions."
+    },
+    {
+      "severity": "info",
+      "message": "Found 0 TODO/FIXME comments that need attention."
+    }
+  ]
+}

@@ -1,0 +1,2231 @@
+{
+  "summary": {
+    "totalFiles": 133,
+    "totalLines": 53639,
+    "totalSize": 1534474,
+    "averageFileSize": 11537,
+    "averageLinesPerFile": 403,
+    "largestFiles": [
+      {
+        "path": "src/shared/data/tempHarnessTestData.ts",
+        "lines": 23033
+      },
+      {
+        "path": "src/shared/data/tempHarnessLinks.ts",
+        "lines": 14034
+      },
+      {
+        "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
+        "lines": 631
+      },
+      {
+        "path": "src/client/services/configGui/stateManager.ts",
+        "lines": 426
+      },
+      {
+        "path": "src/shared/modules/renderers/unifiedDataRenderer/managers/laneManager.ts",
+        "lines": 422
+      },
+      {
+        "path": "src/shared/modules/renderers/unifiedDataRenderer/rendering/updateManager.ts",
+        "lines": 397
+      },
+      {
+        "path": "src/client/services/configGui/makeConfigGui.ts",
+        "lines": 385
+      },
+      {
+        "path": "src/shared/utils/validation/configValidation.ts",
+        "lines": 371
+      },
+      {
+        "path": "src/client/services/configGui/components/layerGrid.ts",
+        "lines": 365
+      },
+      {
+        "path": "src/shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",
+        "lines": 350
+      }
+    ],
+    "mostComplexFiles": [
+      {
+        "path": "src/client/services/configGui/components/layerGrid.ts",
+        "complexity": 17
+      },
+      {
+        "path": "src/shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",
+        "complexity": 15
+      },
+      {
+        "path": "src/shared/modules/renderers/unifiedDataRenderer/managers/laneManager.ts",
+        "complexity": 14
+      },
+      {
+        "path": "src/shared/modules/renderers/unifiedDataRenderer/rendering/updateManager.ts",
+        "complexity": 13
+      },
+      {
+        "path": "src/client/services/configGui/makeConfigGui.ts",
+        "complexity": 12
+      },
+      {
+        "path": "src/server/services/main/game.service.ts",
+        "complexity": 12
+      },
+      {
+        "path": "src/client/services/configGui/components/axisMappingControls/components/dropdown.ts",
+        "complexity": 12
+      },
+      {
+        "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
+        "complexity": 10
+      },
+      {
+        "path": "src/shared/utils/validation/configValidation.ts",
+        "complexity": 10
+      },
+      {
+        "path": "src/client/services/configGui/components/yAxisControls.ts",
+        "complexity": 10
+      }
+    ]
+  },
+  "files": [
+    {
+      "path": "src/client/services/configGui/components/layerGrid.ts",
+      "name": "layerGrid.ts",
+      "lines": 365,
+      "size": 12152,
+      "lastModified": "2025-07-09T02:33:35.659Z",
+      "patterns": {
+        "functions": 17,
+        "classes": 0,
+        "interfaces": 3,
+        "exports": 1,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 17
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",
+      "name": "positionCalculator.ts",
+      "lines": 350,
+      "size": 12465,
+      "lastModified": "2025-07-10T21:53:52.206Z",
+      "patterns": {
+        "functions": 14,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 7,
+        "todos": 0
+      },
+      "complexity": 15
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/managers/laneManager.ts",
+      "name": "laneManager.ts",
+      "lines": 422,
+      "size": 14860,
+      "lastModified": "2025-07-11T00:13:21.004Z",
+      "patterns": {
+        "functions": 13,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 9,
+        "todos": 0
+      },
+      "complexity": 14
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/rendering/updateManager.ts",
+      "name": "updateManager.ts",
+      "lines": 397,
+      "size": 13786,
+      "lastModified": "2025-07-09T02:37:58.209Z",
+      "patterns": {
+        "functions": 12,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 7,
+        "todos": 0
+      },
+      "complexity": 13
+    },
+    {
+      "path": "src/client/services/configGui/makeConfigGui.ts",
+      "name": "makeConfigGui.ts",
+      "lines": 385,
+      "size": 12526,
+      "lastModified": "2025-07-10T20:36:41.966Z",
+      "patterns": {
+        "functions": 11,
+        "classes": 1,
+        "interfaces": 1,
+        "exports": 1,
+        "imports": 15,
+        "todos": 0
+      },
+      "complexity": 12
+    },
+    {
+      "path": "src/server/services/main/game.service.ts",
+      "name": "game.service.ts",
+      "lines": 294,
+      "size": 9685,
+      "lastModified": "2025-07-10T23:40:55.958Z",
+      "patterns": {
+        "functions": 11,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 5,
+        "todos": 0
+      },
+      "complexity": 12
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/components/dropdown.ts",
+      "name": "dropdown.ts",
+      "lines": 149,
+      "size": 4428,
+      "lastModified": "2025-07-11T00:37:44.930Z",
+      "patterns": {
+        "functions": 12,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 3,
+        "todos": 0
+      },
+      "complexity": 12
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
+      "name": "dataGenerator.ts",
+      "lines": 631,
+      "size": 19426,
+      "lastModified": "2025-07-11T00:37:44.931Z",
+      "patterns": {
+        "functions": 9,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 8,
+        "todos": 0
+      },
+      "complexity": 10
+    },
+    {
+      "path": "src/shared/utils/validation/configValidation.ts",
+      "name": "configValidation.ts",
+      "lines": 371,
+      "size": 10682,
+      "lastModified": "2025-07-11T00:37:44.933Z",
+      "patterns": {
+        "functions": 10,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 4,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 10
+    },
+    {
+      "path": "src/client/services/configGui/components/yAxisControls.ts",
+      "name": "yAxisControls.ts",
+      "lines": 257,
+      "size": 9054,
+      "lastModified": "2025-07-10T09:46:29.338Z",
+      "patterns": {
+        "functions": 10,
+        "classes": 0,
+        "interfaces": 2,
+        "exports": 1,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 10
+    },
+    {
+      "path": "src/shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts",
+      "name": "ropeCreator.ts",
+      "lines": 227,
+      "size": 6598,
+      "lastModified": "2025-07-09T03:26:59.561Z",
+      "patterns": {
+        "functions": 9,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 1,
+        "imports": 5,
+        "todos": 0
+      },
+      "complexity": 9
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/nodeOrganizer.ts",
+      "name": "nodeOrganizer.ts",
+      "lines": 135,
+      "size": 3902,
+      "lastModified": "2025-07-07T09:26:00.809Z",
+      "patterns": {
+        "functions": 8,
+        "classes": 1,
+        "interfaces": 1,
+        "exports": 2,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 9
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/constants.ts",
+      "name": "constants.ts",
+      "lines": 134,
+      "size": 3880,
+      "lastModified": "2025-07-11T00:37:44.930Z",
+      "patterns": {
+        "functions": 9,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 6,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 9
+    },
+    {
+      "path": "src/client/services/configGui/components/visualCustomizationControls.ts",
+      "name": "visualCustomizationControls.ts",
+      "lines": 213,
+      "size": 7796,
+      "lastModified": "2025-07-09T03:26:09.002Z",
+      "patterns": {
+        "functions": 8,
+        "classes": 0,
+        "interfaces": 2,
+        "exports": 1,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 8
+    },
+    {
+      "path": "src/shared/utils/validation/arrayValidation.ts",
+      "name": "arrayValidation.ts",
+      "lines": 177,
+      "size": 3960,
+      "lastModified": "2025-07-06T23:04:35.913Z",
+      "patterns": {
+        "functions": 8,
+        "classes": 0,
+        "interfaces": 2,
+        "exports": 9,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 8
+    },
+    {
+      "path": "src/shared/utils/propertyDiscovery.ts",
+      "name": "propertyDiscovery.ts",
+      "lines": 145,
+      "size": 4363,
+      "lastModified": "2025-07-10T09:08:19.428Z",
+      "patterns": {
+        "functions": 8,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 5,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 8
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/unifiedDataRenderer.ts",
+      "name": "unifiedDataRenderer.ts",
+      "lines": 302,
+      "size": 10869,
+      "lastModified": "2025-07-11T00:38:16.570Z",
+      "patterns": {
+        "functions": 6,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 14,
+        "todos": 0
+      },
+      "complexity": 7
+    },
+    {
+      "path": "src/client/services/configGui/componentFactory.ts",
+      "name": "componentFactory.ts",
+      "lines": 299,
+      "size": 8761,
+      "lastModified": "2025-07-08T09:55:07.690Z",
+      "patterns": {
+        "functions": 6,
+        "classes": 1,
+        "interfaces": 6,
+        "exports": 7,
+        "imports": 4,
+        "todos": 0
+      },
+      "complexity": 7
+    },
+    {
+      "path": "src/shared/utils/validation/stringValidation.ts",
+      "name": "stringValidation.ts",
+      "lines": 214,
+      "size": 5525,
+      "lastModified": "2025-07-06T23:04:19.345Z",
+      "patterns": {
+        "functions": 7,
+        "classes": 0,
+        "interfaces": 2,
+        "exports": 10,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 7
+    },
+    {
+      "path": "src/client/services/configGui/validationHandlers.ts",
+      "name": "validationHandlers.ts",
+      "lines": 199,
+      "size": 5713,
+      "lastModified": "2025-07-07T01:53:27.698Z",
+      "patterns": {
+        "functions": 7,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 8,
+        "imports": 3,
+        "todos": 0
+      },
+      "complexity": 7
+    },
+    {
+      "path": "src/client/services/configGui/components/collapsibleFrame.ts",
+      "name": "collapsibleFrame.ts",
+      "lines": 186,
+      "size": 5590,
+      "lastModified": "2025-07-08T22:24:36.907Z",
+      "patterns": {
+        "functions": 7,
+        "classes": 0,
+        "interfaces": 2,
+        "exports": 3,
+        "imports": 4,
+        "todos": 0
+      },
+      "complexity": 7
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/components/axisMappingSection.ts",
+      "name": "axisMappingSection.ts",
+      "lines": 138,
+      "size": 3470,
+      "lastModified": "2025-07-11T00:37:44.929Z",
+      "patterns": {
+        "functions": 7,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 1,
+        "imports": 3,
+        "todos": 0
+      },
+      "complexity": 7
+    },
+    {
+      "path": "src/client/services/configGui/components/dropdownTestControls.ts",
+      "name": "dropdownTestControls.ts",
+      "lines": 137,
+      "size": 4423,
+      "lastModified": "2025-07-09T03:26:09.002Z",
+      "patterns": {
+        "functions": 7,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 2,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 7
+    },
+    {
+      "path": "src/client/services/configGui/components/dropdown.ts",
+      "name": "dropdown.ts",
+      "lines": 116,
+      "size": 3515,
+      "lastModified": "2025-07-06T03:12:48.606Z",
+      "patterns": {
+        "functions": 7,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 1,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 7
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/swimlaneBlockCreator.ts",
+      "name": "swimlaneBlockCreator.ts",
+      "lines": 246,
+      "size": 7309,
+      "lastModified": "2025-07-10T21:41:24.262Z",
+      "patterns": {
+        "functions": 5,
+        "classes": 1,
+        "interfaces": 1,
+        "exports": 2,
+        "imports": 3,
+        "todos": 0
+      },
+      "complexity": 6
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/utils/colorMapper.ts",
+      "name": "colorMapper.ts",
+      "lines": 240,
+      "size": 8912,
+      "lastModified": "2025-07-10T18:46:23.909Z",
+      "patterns": {
+        "functions": 6,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 3,
+        "imports": 4,
+        "todos": 0
+      },
+      "complexity": 6
+    },
+    {
+      "path": "src/server/services/groupAnimationTest.service.ts",
+      "name": "groupAnimationTest.service.ts",
+      "lines": 222,
+      "size": 6092,
+      "lastModified": "2025-07-09T02:35:16.667Z",
+      "patterns": {
+        "functions": 5,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 6
+    },
+    {
+      "path": "src/shared/modules/renderers/verticalWallCreator.ts",
+      "name": "verticalWallCreator.ts",
+      "lines": 188,
+      "size": 6557,
+      "lastModified": "2025-07-10T22:06:31.139Z",
+      "patterns": {
+        "functions": 6,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 5,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 6
+    },
+    {
+      "path": "src/shared/services/base/BaseService.ts",
+      "name": "BaseService.ts",
+      "lines": 172,
+      "size": 4629,
+      "lastModified": "2025-07-09T02:36:42.422Z",
+      "patterns": {
+        "functions": 2,
+        "classes": 4,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 6
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/positionMapper.ts",
+      "name": "positionMapper.ts",
+      "lines": 154,
+      "size": 4672,
+      "lastModified": "2025-07-10T01:40:13.757Z",
+      "patterns": {
+        "functions": 5,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 4,
+        "todos": 0
+      },
+      "complexity": 6
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/utils/layoutManager.ts",
+      "name": "layoutManager.ts",
+      "lines": 103,
+      "size": 3361,
+      "lastModified": "2025-07-09T23:26:02.022Z",
+      "patterns": {
+        "functions": 6,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 6,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 6
+    },
+    {
+      "path": "src/shared/utils/nodePropertyHelpers.ts",
+      "name": "nodePropertyHelpers.ts",
+      "lines": 89,
+      "size": 2599,
+      "lastModified": "2025-07-10T08:59:23.712Z",
+      "patterns": {
+        "functions": 6,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 6,
+        "imports": 3,
+        "todos": 0
+      },
+      "complexity": 6
+    },
+    {
+      "path": "src/client/services/nodePropertiesInspector/nodePropertiesInspector.service.ts",
+      "name": "nodePropertiesInspector.service.ts",
+      "lines": 315,
+      "size": 10482,
+      "lastModified": "2025-07-10T09:07:55.036Z",
+      "patterns": {
+        "functions": 4,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 5
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/rendering/nodeRenderer.ts",
+      "name": "nodeRenderer.ts",
+      "lines": 223,
+      "size": 8068,
+      "lastModified": "2025-07-11T00:37:44.932Z",
+      "patterns": {
+        "functions": 4,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 9,
+        "todos": 0
+      },
+      "complexity": 5
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/components/yAxisConfigSection.ts",
+      "name": "yAxisConfigSection.ts",
+      "lines": 123,
+      "size": 3718,
+      "lastModified": "2025-07-10T09:45:30.794Z",
+      "patterns": {
+        "functions": 5,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 1,
+        "imports": 4,
+        "todos": 0
+      },
+      "complexity": 5
+    },
+    {
+      "path": "src/client/services/configGui/utilities.ts",
+      "name": "utilities.ts",
+      "lines": 82,
+      "size": 2365,
+      "lastModified": "2025-07-05T23:00:49.423Z",
+      "patterns": {
+        "functions": 5,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 5,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 5
+    },
+    {
+      "path": "src/shared/constants/axisDefaults.ts",
+      "name": "axisDefaults.ts",
+      "lines": 62,
+      "size": 2077,
+      "lastModified": "2025-07-10T11:07:24.268Z",
+      "patterns": {
+        "functions": 5,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 4,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 5
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/shadowBlockCreator.ts",
+      "name": "shadowBlockCreator.ts",
+      "lines": 249,
+      "size": 8065,
+      "lastModified": "2025-07-10T21:47:48.642Z",
+      "patterns": {
+        "functions": 3,
+        "classes": 1,
+        "interfaces": 1,
+        "exports": 2,
+        "imports": 4,
+        "todos": 0
+      },
+      "complexity": 4
+    },
+    {
+      "path": "src/shared/modules/renderers/flatBlockCreator.ts",
+      "name": "flatBlockCreator.ts",
+      "lines": 237,
+      "size": 7400,
+      "lastModified": "2025-07-10T03:34:52.563Z",
+      "patterns": {
+        "functions": 4,
+        "classes": 0,
+        "interfaces": 2,
+        "exports": 7,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 4
+    },
+    {
+      "path": "src/client/services/keyboardShortcuts.service.ts",
+      "name": "keyboardShortcuts.service.ts",
+      "lines": 207,
+      "size": 7791,
+      "lastModified": "2025-07-09T02:34:06.161Z",
+      "patterns": {
+        "functions": 3,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 4
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/rendering/labelRenderer.ts",
+      "name": "labelRenderer.ts",
+      "lines": 185,
+      "size": 6789,
+      "lastModified": "2025-07-10T01:39:58.390Z",
+      "patterns": {
+        "functions": 3,
+        "classes": 1,
+        "interfaces": 1,
+        "exports": 2,
+        "imports": 3,
+        "todos": 0
+      },
+      "complexity": 4
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/yParallelShadowCreator.ts",
+      "name": "yParallelShadowCreator.ts",
+      "lines": 174,
+      "size": 6320,
+      "lastModified": "2025-07-10T22:09:42.452Z",
+      "patterns": {
+        "functions": 3,
+        "classes": 1,
+        "interfaces": 2,
+        "exports": 3,
+        "imports": 5,
+        "todos": 0
+      },
+      "complexity": 4
+    },
+    {
+      "path": "src/client/services/configGui/components/nodeTypesSection.ts",
+      "name": "nodeTypesSection.ts",
+      "lines": 170,
+      "size": 6578,
+      "lastModified": "2025-07-10T08:58:46.669Z",
+      "patterns": {
+        "functions": 4,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 1,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 4
+    },
+    {
+      "path": "src/client/controllers/animationTestGUI.controller.ts",
+      "name": "animationTestGUI.controller.ts",
+      "lines": 157,
+      "size": 4208,
+      "lastModified": "2025-07-09T02:32:56.357Z",
+      "patterns": {
+        "functions": 3,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 4
+    },
+    {
+      "path": "src/shared/modules/ropeLabelMaker/utilities.ts",
+      "name": "utilities.ts",
+      "lines": 88,
+      "size": 2460,
+      "lastModified": "2025-07-06T02:19:00.653Z",
+      "patterns": {
+        "functions": 4,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 4,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 4
+    },
+    {
+      "path": "src/shared/modules/hexagonMaker/utilities.ts",
+      "name": "utilities.ts",
+      "lines": 74,
+      "size": 2436,
+      "lastModified": "2025-07-06T20:49:58.816Z",
+      "patterns": {
+        "functions": 4,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 4,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 4
+    },
+    {
+      "path": "src/shared/modules/barMaker/utilities.ts",
+      "name": "utilities.ts",
+      "lines": 49,
+      "size": 1825,
+      "lastModified": "2025-07-06T20:51:06.075Z",
+      "patterns": {
+        "functions": 4,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 4,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 4
+    },
+    {
+      "path": "src/client/services/configGui/stateManager.ts",
+      "name": "stateManager.ts",
+      "lines": 426,
+      "size": 13990,
+      "lastModified": "2025-07-10T22:06:31.137Z",
+      "patterns": {
+        "functions": 2,
+        "classes": 1,
+        "interfaces": 2,
+        "exports": 1,
+        "imports": 5,
+        "todos": 0
+      },
+      "complexity": 3
+    },
+    {
+      "path": "src/shared/modules/renderers/propertyValueResolver.ts",
+      "name": "propertyValueResolver.ts",
+      "lines": 258,
+      "size": 7026,
+      "lastModified": "2025-07-10T11:43:23.527Z",
+      "patterns": {
+        "functions": 2,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 2,
+        "imports": 4,
+        "todos": 0
+      },
+      "complexity": 3
+    },
+    {
+      "path": "src/shared/modules/labelGroupMaker.ts",
+      "name": "labelGroupMaker.ts",
+      "lines": 179,
+      "size": 6210,
+      "lastModified": "2025-07-07T09:45:09.182Z",
+      "patterns": {
+        "functions": 3,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 1,
+        "imports": 3,
+        "todos": 0
+      },
+      "complexity": 3
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "name": "types.ts",
+      "lines": 179,
+      "size": 3533,
+      "lastModified": "2025-07-10T23:53:39.651Z",
+      "patterns": {
+        "functions": 3,
+        "classes": 0,
+        "interfaces": 16,
+        "exports": 19,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 3
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/core/boundsCalculator.ts",
+      "name": "boundsCalculator.ts",
+      "lines": 154,
+      "size": 3886,
+      "lastModified": "2025-07-09T02:37:48.687Z",
+      "patterns": {
+        "functions": 2,
+        "classes": 1,
+        "interfaces": 1,
+        "exports": 2,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 3
+    },
+    {
+      "path": "src/server/services/graphInitializer.service.ts",
+      "name": "graphInitializer.service.ts",
+      "lines": 148,
+      "size": 4047,
+      "lastModified": "2025-07-11T00:37:44.931Z",
+      "patterns": {
+        "functions": 2,
+        "classes": 1,
+        "interfaces": 1,
+        "exports": 2,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 3
+    },
+    {
+      "path": "src/client/services/configGui/components/visualizationControls.ts",
+      "name": "visualizationControls.ts",
+      "lines": 126,
+      "size": 4554,
+      "lastModified": "2025-07-09T07:33:53.329Z",
+      "patterns": {
+        "functions": 3,
+        "classes": 0,
+        "interfaces": 2,
+        "exports": 1,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 3
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/managers/wallManager.ts",
+      "name": "wallManager.ts",
+      "lines": 108,
+      "size": 3182,
+      "lastModified": "2025-07-11T00:31:47.521Z",
+      "patterns": {
+        "functions": 2,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 5,
+        "todos": 0
+      },
+      "complexity": 3
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/main.ts",
+      "name": "main.ts",
+      "lines": 97,
+      "size": 3217,
+      "lastModified": "2025-07-10T20:36:41.965Z",
+      "patterns": {
+        "functions": 3,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 6,
+        "todos": 0
+      },
+      "complexity": 3
+    },
+    {
+      "path": "src/client/services/configGui/components/spacingControls.ts",
+      "name": "spacingControls.ts",
+      "lines": 96,
+      "size": 3718,
+      "lastModified": "2025-07-09T02:31:19.092Z",
+      "patterns": {
+        "functions": 3,
+        "classes": 0,
+        "interfaces": 2,
+        "exports": 1,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 3
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/components/radioButton.ts",
+      "name": "radioButton.ts",
+      "lines": 83,
+      "size": 2782,
+      "lastModified": "2025-07-09T23:28:56.588Z",
+      "patterns": {
+        "functions": 3,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 2,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 3
+    },
+    {
+      "path": "src/shared/interfaces/nodeTypes.ts",
+      "name": "nodeTypes.ts",
+      "lines": 54,
+      "size": 1493,
+      "lastModified": "2025-07-07T09:31:22.193Z",
+      "patterns": {
+        "functions": 3,
+        "classes": 0,
+        "interfaces": 2,
+        "exports": 11,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 3
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/endcapBlockCreator.ts",
+      "name": "endcapBlockCreator.ts",
+      "lines": 216,
+      "size": 6067,
+      "lastModified": "2025-07-10T21:27:58.554Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 1,
+        "interfaces": 1,
+        "exports": 2,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 2
+    },
+    {
+      "path": "src/client/controllers/configGUI.controller.ts",
+      "name": "configGUI.controller.ts",
+      "lines": 164,
+      "size": 5477,
+      "lastModified": "2025-07-10T19:57:46.861Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 5,
+        "todos": 0
+      },
+      "complexity": 2
+    },
+    {
+      "path": "src/server/services/configGUIServer.service.ts",
+      "name": "configGUIServer.service.ts",
+      "lines": 138,
+      "size": 5514,
+      "lastModified": "2025-07-10T08:47:42.907Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 4,
+        "todos": 0
+      },
+      "complexity": 2
+    },
+    {
+      "path": "src/server/services/colorsTest.service.ts",
+      "name": "colorsTest.service.ts",
+      "lines": 126,
+      "size": 3776,
+      "lastModified": "2025-07-09T02:35:23.164Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/blockDimensionCalculator.ts",
+      "name": "blockDimensionCalculator.ts",
+      "lines": 106,
+      "size": 2845,
+      "lastModified": "2025-07-09T02:29:36.189Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 1,
+        "interfaces": 2,
+        "exports": 3,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 2
+    },
+    {
+      "path": "src/shared/modules/TextBoxMaker.ts",
+      "name": "TextBoxMaker.ts",
+      "lines": 101,
+      "size": 2963,
+      "lastModified": "2025-07-07T09:30:00.137Z",
+      "patterns": {
+        "functions": 2,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 2,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 2
+    },
+    {
+      "path": "src/shared/modules/TextLabelMaker.ts",
+      "name": "TextLabelMaker.ts",
+      "lines": 100,
+      "size": 3048,
+      "lastModified": "2025-07-10T21:53:52.206Z",
+      "patterns": {
+        "functions": 2,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 2,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 2
+    },
+    {
+      "path": "src/shared/modules/makeOriginBlock.ts",
+      "name": "makeOriginBlock.ts",
+      "lines": 91,
+      "size": 2926,
+      "lastModified": "2025-07-10T00:34:39.413Z",
+      "patterns": {
+        "functions": 2,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 2,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 2
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/baseBlockCreator.ts",
+      "name": "baseBlockCreator.ts",
+      "lines": 86,
+      "size": 2408,
+      "lastModified": "2025-07-09T02:28:39.258Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 2,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 2
+    },
+    {
+      "path": "src/shared/modules/labelBlockMaker/utilities.ts",
+      "name": "utilities.ts",
+      "lines": 59,
+      "size": 1965,
+      "lastModified": "2025-07-05T22:11:32.465Z",
+      "patterns": {
+        "functions": 2,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 2
+    },
+    {
+      "path": "src/client/services/configGui/components/frame.ts",
+      "name": "frame.ts",
+      "lines": 49,
+      "size": 1549,
+      "lastModified": "2025-07-08T09:55:07.690Z",
+      "patterns": {
+        "functions": 2,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 2,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 2
+    },
+    {
+      "path": "src/client/services/configGui/components/status.ts",
+      "name": "status.ts",
+      "lines": 40,
+      "size": 1472,
+      "lastModified": "2025-07-07T15:07:38.249Z",
+      "patterns": {
+        "functions": 2,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 2,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 2
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/utils/screenGuiManager.ts",
+      "name": "screenGuiManager.ts",
+      "lines": 33,
+      "size": 868,
+      "lastModified": "2025-07-10T19:58:12.927Z",
+      "patterns": {
+        "functions": 2,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 2,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 2
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/utilities.ts",
+      "name": "utilities.ts",
+      "lines": 16,
+      "size": 563,
+      "lastModified": "2025-07-05T22:54:23.441Z",
+      "patterns": {
+        "functions": 2,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 2,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 2
+    },
+    {
+      "path": "src/client/services/configGui/eventHandlers.ts",
+      "name": "eventHandlers.ts",
+      "lines": 202,
+      "size": 6116,
+      "lastModified": "2025-07-09T03:08:54.859Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 1,
+        "interfaces": 1,
+        "exports": 3,
+        "imports": 4,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/shared/modules/labelBlockMaker/standardizedInterfaces.ts",
+      "name": "standardizedInterfaces.ts",
+      "lines": 154,
+      "size": 3523,
+      "lastModified": "2025-07-08T10:10:20.993Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 0,
+        "interfaces": 3,
+        "exports": 4,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/shared/modules/barMaker/standardizedInterfaces.ts",
+      "name": "standardizedInterfaces.ts",
+      "lines": 135,
+      "size": 3297,
+      "lastModified": "2025-07-08T10:10:20.991Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 0,
+        "interfaces": 2,
+        "exports": 3,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/shared/interfaces/IMaker.ts",
+      "name": "IMaker.ts",
+      "lines": 128,
+      "size": 2858,
+      "lastModified": "2025-07-06T22:52:45.635Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 0,
+        "interfaces": 7,
+        "exports": 7,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/shared/modules/barMaker/barMaker.ts",
+      "name": "barMaker.ts",
+      "lines": 109,
+      "size": 3152,
+      "lastModified": "2025-07-08T22:08:21.568Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 3,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/shared/modules/hexagonMaker/hexagonMaker.ts",
+      "name": "hexagonMaker.ts",
+      "lines": 107,
+      "size": 3088,
+      "lastModified": "2025-07-10T10:06:23.249Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 5,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/shared/modules/hexagonMaker/standardizedInterfaces.ts",
+      "name": "standardizedInterfaces.ts",
+      "lines": 97,
+      "size": 2285,
+      "lastModified": "2025-07-08T10:10:20.993Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 0,
+        "interfaces": 2,
+        "exports": 3,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/shared/modules/labelBlockMaker/labelBlockMaker.ts",
+      "name": "labelBlockMaker.ts",
+      "lines": 94,
+      "size": 2754,
+      "lastModified": "2025-07-08T22:08:21.570Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 4,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/client/services/configGui/guiLayout.ts",
+      "name": "guiLayout.ts",
+      "lines": 90,
+      "size": 2643,
+      "lastModified": "2025-07-09T07:53:12.743Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 2,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/managers/platformShadowManager.ts",
+      "name": "platformShadowManager.ts",
+      "lines": 75,
+      "size": 2496,
+      "lastModified": "2025-07-11T00:26:41.326Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 6,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/components/visualCustomizationSection.ts",
+      "name": "visualCustomizationSection.ts",
+      "lines": 74,
+      "size": 1814,
+      "lastModified": "2025-07-10T17:44:34.346Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 1,
+        "imports": 3,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/hexStackMaker.ts",
+      "name": "hexStackMaker.ts",
+      "lines": 74,
+      "size": 2137,
+      "lastModified": "2025-07-09T02:36:52.835Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 4,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/standardizedInterfaces.ts",
+      "name": "standardizedInterfaces.ts",
+      "lines": 73,
+      "size": 1700,
+      "lastModified": "2025-07-08T10:10:20.992Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 0,
+        "interfaces": 2,
+        "exports": 3,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/managers/yParallelShadowManager.ts",
+      "name": "yParallelShadowManager.ts",
+      "lines": 67,
+      "size": 2452,
+      "lastModified": "2025-07-11T00:38:44.039Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 5,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/platformBlockCreator.ts",
+      "name": "platformBlockCreator.ts",
+      "lines": 65,
+      "size": 1692,
+      "lastModified": "2025-07-09T02:29:27.764Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 1,
+        "interfaces": 1,
+        "exports": 2,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/client/services/configGui/components/globalSettings.ts",
+      "name": "globalSettings.ts",
+      "lines": 48,
+      "size": 1504,
+      "lastModified": "2025-07-07T15:04:20.346Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 1,
+        "imports": 3,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/shared/modules/ropeLabelMaker/ropeLabelMaker.ts",
+      "name": "ropeLabelMaker.ts",
+      "lines": 40,
+      "size": 971,
+      "lastModified": "2025-07-06T02:19:20.674Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 3,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/server/services/main/dev2features.ts",
+      "name": "dev2features.ts",
+      "lines": 34,
+      "size": 1090,
+      "lastModified": "2025-07-06T17:28:27.815Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/client/services/configGui/components/title.ts",
+      "name": "title.ts",
+      "lines": 26,
+      "size": 746,
+      "lastModified": "2025-07-08T09:55:07.691Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 1,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/shared/utils/stringUtils.ts",
+      "name": "stringUtils.ts",
+      "lines": 22,
+      "size": 548,
+      "lastModified": "2025-07-05T22:11:32.466Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/index.ts",
+      "name": "index.ts",
+      "lines": 9,
+      "size": 228,
+      "lastModified": "2025-07-06T20:27:08.308Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 1,
+        "interfaces": 0,
+        "exports": 3,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/index.ts",
+      "name": "index.ts",
+      "lines": 5,
+      "size": 179,
+      "lastModified": "2025-07-10T09:46:08.455Z",
+      "patterns": {
+        "functions": 1,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 3,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 1
+    },
+    {
+      "path": "src/shared/data/tempHarnessTestData.ts",
+      "name": "tempHarnessTestData.ts",
+      "lines": 23033,
+      "size": 687256,
+      "lastModified": "2025-07-11T00:37:44.931Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 2,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/data/tempHarnessLinks.ts",
+      "name": "tempHarnessLinks.ts",
+      "lines": 14034,
+      "size": 335859,
+      "lastModified": "2025-07-10T11:32:29.289Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 2,
+        "exports": 3,
+        "imports": 956,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/data/tempTestData.ts",
+      "name": "tempTestData.ts",
+      "lines": 252,
+      "size": 5424,
+      "lastModified": "2025-07-10T07:43:10.154Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 2,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/client/services/configGui/constants.ts",
+      "name": "constants.ts",
+      "lines": 107,
+      "size": 2601,
+      "lastModified": "2025-07-09T02:31:19.093Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/constants/robloxColors.ts",
+      "name": "robloxColors.ts",
+      "lines": 80,
+      "size": 3211,
+      "lastModified": "2025-07-10T05:50:24.323Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 5,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/dataGeneratorRobloxRendererUtils/constants.ts",
+      "name": "constants.ts",
+      "lines": 79,
+      "size": 2073,
+      "lastModified": "2025-07-06T17:28:27.816Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/interfaces.ts",
+      "name": "interfaces.ts",
+      "lines": 75,
+      "size": 1847,
+      "lastModified": "2025-07-07T02:28:26.734Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 7,
+        "exports": 7,
+        "imports": 2,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/interfaces/enhancedGenerator.interface.ts",
+      "name": "enhancedGenerator.interface.ts",
+      "lines": 74,
+      "size": 2518,
+      "lastModified": "2025-07-10T20:46:00.095Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 9,
+        "exports": 8,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/interfaces/simpleDataGenerator.interface.ts",
+      "name": "simpleDataGenerator.interface.ts",
+      "lines": 72,
+      "size": 2307,
+      "lastModified": "2025-07-10T08:42:50.789Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 5,
+        "exports": 5,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/unifiedDataRenderer/constants.ts",
+      "name": "constants.ts",
+      "lines": 71,
+      "size": 2349,
+      "lastModified": "2025-07-07T09:30:00.138Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 11,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/constants/blockConstants.ts",
+      "name": "blockConstants.ts",
+      "lines": 61,
+      "size": 2368,
+      "lastModified": "2025-07-10T21:59:31.709Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/client/services/configGui/components/axisMappingControls/types.ts",
+      "name": "types.ts",
+      "lines": 58,
+      "size": 1539,
+      "lastModified": "2025-07-10T20:36:41.965Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 6,
+        "exports": 6,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/client/main.client.ts",
+      "name": "main.client.ts",
+      "lines": 53,
+      "size": 2088,
+      "lastModified": "2025-07-09T07:53:12.742Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 0,
+        "imports": 6,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/labelBlockMaker/interfaces.ts",
+      "name": "interfaces.ts",
+      "lines": 52,
+      "size": 1320,
+      "lastModified": "2025-07-05T22:32:14.124Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 4,
+        "exports": 5,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/ropeLabelMaker/interfaces.ts",
+      "name": "interfaces.ts",
+      "lines": 49,
+      "size": 911,
+      "lastModified": "2025-07-06T02:18:17.088Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 4,
+        "exports": 4,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/interfaces/IService.ts",
+      "name": "IService.ts",
+      "lines": 39,
+      "size": 819,
+      "lastModified": "2025-07-06T20:55:46.789Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 3,
+        "exports": 3,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/constants/labelConstants.ts",
+      "name": "labelConstants.ts",
+      "lines": 39,
+      "size": 982,
+      "lastModified": "2025-07-07T09:44:14.673Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/ropeLabelMaker/constants.ts",
+      "name": "constants.ts",
+      "lines": 39,
+      "size": 706,
+      "lastModified": "2025-07-06T02:18:34.339Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/barMaker/interfaces.ts",
+      "name": "interfaces.ts",
+      "lines": 36,
+      "size": 836,
+      "lastModified": "2025-07-07T09:30:00.138Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 2,
+        "exports": 3,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/client/services/configGui/interfaces.ts",
+      "name": "interfaces.ts",
+      "lines": 35,
+      "size": 961,
+      "lastModified": "2025-07-10T09:33:36.193Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 3,
+        "exports": 5,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/constants/positionConstants.ts",
+      "name": "positionConstants.ts",
+      "lines": 35,
+      "size": 881,
+      "lastModified": "2025-07-10T01:38:53.837Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/hexagonMaker/constants.ts",
+      "name": "constants.ts",
+      "lines": 29,
+      "size": 701,
+      "lastModified": "2025-07-05T22:20:50.681Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/constants/layoutConstants.ts",
+      "name": "layoutConstants.ts",
+      "lines": 29,
+      "size": 887,
+      "lastModified": "2025-07-10T21:53:52.206Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/labelBlockMaker/constants.ts",
+      "name": "constants.ts",
+      "lines": 28,
+      "size": 770,
+      "lastModified": "2025-07-07T09:43:23.566Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/constants.ts",
+      "name": "constants.ts",
+      "lines": 23,
+      "size": 572,
+      "lastModified": "2025-07-05T22:54:23.441Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/server/main.server.ts",
+      "name": "main.server.ts",
+      "lines": 22,
+      "size": 799,
+      "lastModified": "2025-07-09T02:34:53.067Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 0,
+        "imports": 1,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/barMaker/constants.ts",
+      "name": "constants.ts",
+      "lines": 21,
+      "size": 514,
+      "lastModified": "2025-07-05T22:17:36.423Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 1,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/labelBlockMaker/index.ts",
+      "name": "index.ts",
+      "lines": 16,
+      "size": 398,
+      "lastModified": "2025-07-08T22:08:21.569Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 3,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/ropeLabelMaker/index.ts",
+      "name": "index.ts",
+      "lines": 12,
+      "size": 253,
+      "lastModified": "2025-07-06T02:19:33.861Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 2,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/client/services/configGui/index.ts",
+      "name": "index.ts",
+      "lines": 11,
+      "size": 493,
+      "lastModified": "2025-07-08T09:55:07.691Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 9,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/hexagonMaker/interfaces.ts",
+      "name": "interfaces.ts",
+      "lines": 11,
+      "size": 231,
+      "lastModified": "2025-07-05T22:20:32.342Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 1,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/blocks/index.ts",
+      "name": "index.ts",
+      "lines": 10,
+      "size": 283,
+      "lastModified": "2025-07-07T09:26:00.808Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 6,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/interfaces.ts",
+      "name": "interfaces.ts",
+      "lines": 9,
+      "size": 212,
+      "lastModified": "2025-07-05T22:54:23.441Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 1,
+        "exports": 1,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/renderers/constants/index.ts",
+      "name": "index.ts",
+      "lines": 7,
+      "size": 152,
+      "lastModified": "2025-07-07T09:26:00.809Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 3,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/utils/validation/index.ts",
+      "name": "index.ts",
+      "lines": 7,
+      "size": 146,
+      "lastModified": "2025-07-06T22:55:39.604Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 4,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/barMaker/index.ts",
+      "name": "index.ts",
+      "lines": 6,
+      "size": 233,
+      "lastModified": "2025-07-08T22:08:21.568Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 3,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/hexStackMaker/index.ts",
+      "name": "index.ts",
+      "lines": 6,
+      "size": 242,
+      "lastModified": "2025-07-08T22:08:21.569Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 3,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    },
+    {
+      "path": "src/shared/modules/hexagonMaker/index.ts",
+      "name": "index.ts",
+      "lines": 6,
+      "size": 238,
+      "lastModified": "2025-07-08T22:08:21.569Z",
+      "patterns": {
+        "functions": 0,
+        "classes": 0,
+        "interfaces": 0,
+        "exports": 3,
+        "imports": 0,
+        "todos": 0
+      },
+      "complexity": 0
+    }
+  ],
+  "patterns": {
+    "totalFunctions": 390,
+    "totalClasses": 41,
+    "totalInterfaces": 141,
+    "totalExports": 367,
+    "totalImports": 1237,
+    "totalTodos": 0
+  }
+}
