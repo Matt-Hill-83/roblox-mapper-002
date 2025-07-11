@@ -12,6 +12,7 @@ export class ConfigGUIServerService extends BaseService {
   private origin: Vector3;
   private defaultAxisOptions?: { [key: string]: string };
   private currentFilters?: { [key: string]: string[] };
+  private serverPrefilters?: { [key: string]: string[] };
 
   constructor(projectRootFolder: Folder, origin?: Vector3, linkTypeCounterService?: LinkTypeCounterServerService, defaultAxisOptions?: { [key: string]: string }) {
     super("ConfigGUIServerService");
@@ -58,6 +59,9 @@ export class ConfigGUIServerService extends BaseService {
         const validationResult = validateEnhancedGeneratorConfig(data);
         
         if (validationResult.isValid && validationResult.sanitizedConfig) {
+          // Apply combined filters before rendering
+          this.applyCombinedFilters();
+          
           // Use unified renderer with sanitized config
           const cluster = this.unifiedRenderer.renderEnhancedData(
             this.projectRootFolder, 
@@ -150,8 +154,8 @@ export class ConfigGUIServerService extends BaseService {
         this.currentFilters = this.convertFilterFormat(data);
         print(`[ConfigGUIServerService] Updated filters:`, this.currentFilters);
         
-        // Store filters in renderer
-        this.unifiedRenderer.setPropertyFilters(this.currentFilters);
+        // Apply combined server and client filters
+        this.applyCombinedFilters();
         
         // Get current config and re-render with filters
         const currentConfig = this.unifiedRenderer.getCurrentConfig();
@@ -248,6 +252,51 @@ export class ConfigGUIServerService extends BaseService {
     }
     
     return serverFilters;
+  }
+
+  /**
+   * Set server-side prefilters that are always applied
+   */
+  public setServerPrefilters(filters: { [key: string]: string[] }): void {
+    this.serverPrefilters = filters;
+    // Apply combined filters to the renderer
+    this.applyCombinedFilters();
+  }
+
+  /**
+   * Apply both server prefilters and client filters
+   */
+  private applyCombinedFilters(): void {
+    const combinedFilters: { [key: string]: string[] } = {};
+    
+    // First add server prefilters
+    if (this.serverPrefilters) {
+      for (const [prop, values] of pairs(this.serverPrefilters)) {
+        if (typeIs(prop, "string")) {
+          combinedFilters[prop] = [...values];
+        }
+      }
+    }
+    
+    // Then add client filters
+    if (this.currentFilters) {
+      for (const [prop, values] of pairs(this.currentFilters)) {
+        if (typeIs(prop, "string")) {
+          if (combinedFilters[prop]) {
+            // Merge with existing filters, avoiding duplicates
+            const existingSet = new Set(combinedFilters[prop]);
+            values.forEach(v => existingSet.add(v));
+            combinedFilters[prop] = [];
+            existingSet.forEach(v => combinedFilters[prop].push(v));
+          } else {
+            combinedFilters[prop] = [...values];
+          }
+        }
+      }
+    }
+    
+    // Apply combined filters to renderer
+    this.unifiedRenderer.setPropertyFilters(combinedFilters);
   }
 
   /**

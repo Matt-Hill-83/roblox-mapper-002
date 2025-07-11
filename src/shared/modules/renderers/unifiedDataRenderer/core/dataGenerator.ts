@@ -493,7 +493,7 @@ class TestDataProcessor {
           apiPattern: file.apiPattern,
           apiComplexity: file.apiComplexity,
           httpMethod: file.httpMethod,
-          path: file.path,
+          // path property removed - no longer needed for visualization
         },
       };
       harnessNodes.push(node);

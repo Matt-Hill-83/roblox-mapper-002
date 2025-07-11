@@ -72,6 +72,14 @@ export class GameService extends BaseService {
       DEFAULT_AXIS_OPTIONS
     );
 
+    // Set server-side prefilters to exclude properties we don't want to visualize
+    // Currently no server prefilters are needed, but this can be used to filter out
+    // specific property values that should never be shown
+    // Example: this.configGUIServer.setServerPrefilters({ 
+    //   component: ["deprecated", "test"],
+    //   service: ["internal"] 
+    // });
+
     // Set up graph initializer with the GUI server
     this.graphInitializer.setConfigGUIServer(this.configGUIServer);
 
