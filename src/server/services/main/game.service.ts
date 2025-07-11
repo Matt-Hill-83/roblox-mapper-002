@@ -13,12 +13,12 @@ const ORIGIN = {
 };
 
 // Maximum number of data items to generate
-const MAX_DATA_ITEMS = 1000;
+const MAX_DATA_ITEMS = 400;
 
 // Default GUI axis options
 const DEFAULT_AXIS_OPTIONS = {
   xgroup: "component",
-  zgroup: "server", 
+  zgroup: "server",
   ygroup: "language",
   nodeColor: "server",
 };
@@ -75,9 +75,9 @@ export class GameService extends BaseService {
     // Set server-side prefilters to exclude properties we don't want to visualize
     // Currently no server prefilters are needed, but this can be used to filter out
     // specific property values that should never be shown
-    // Example: this.configGUIServer.setServerPrefilters({ 
+    // Example: this.configGUIServer.setServerPrefilters({
     //   component: ["deprecated", "test"],
-    //   service: ["internal"] 
+    //   service: ["internal"]
     // });
 
     // Set up graph initializer with the GUI server

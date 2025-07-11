@@ -29,7 +29,7 @@ export function createRopeConnectors(context: RopeCreationContext): void {
   const { cluster, nodeToHexagon, linksFolder, visualization, linkDiameter } = context;
   
   // Check if connectors should be shown
-  const showConnectors = visualization?.showConnectors ?? true;
+  const showConnectors = visualization?.showConnectors ?? false;
   const showLinkLabels = visualization?.showLinkLabels ?? true;
   
   // Early return if connectors are disabled
@@ -150,9 +150,10 @@ function createRope(
   const cylinder = new Instance("Part");
   cylinder.Name = `rod${padNumber(ropeIndex, 3)}-${link.type.lower()}-${sourceHex.Name}-to-${targetHex.Name}`;
   cylinder.Shape = Enum.PartType.Cylinder;
-  cylinder.Material = Enum.Material.Neon;
+  cylinder.Material = Enum.Material.Concrete;
   cylinder.TopSurface = Enum.SurfaceType.Smooth;
   cylinder.BottomSurface = Enum.SurfaceType.Smooth;
+  cylinder.CastShadow = false;
   
   // Set size
   const diameter = linkDiameter ?? RENDERER_CONSTANTS.ROPE.THICKNESS;
