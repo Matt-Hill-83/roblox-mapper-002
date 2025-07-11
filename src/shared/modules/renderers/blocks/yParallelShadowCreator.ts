@@ -60,7 +60,7 @@ export class YParallelShadowCreator extends BaseBlockCreator {
       const shadow = this.createYShadowBlock(bounds, parent, shadowWidth, shadowDepth, color);
       shadows.set(propertyValue, shadow);
       
-      print(`[YParallelShadow] Created shadow for ${propertyValue}: X(${string.format("%.1f", bounds.minX)},${string.format("%.1f", bounds.maxX)}) Z(${string.format("%.1f", bounds.minZ)},${string.format("%.1f", bounds.maxZ)}) Y=${string.format("%.1f", bounds.yPosition)} Height=${string.format("%.1f", bounds.maxY - bounds.minY)} Color=${colorIndex}`);
+      print(`[YParallelShadow] Created shadow for ${propertyValue}: X(${string.format("%.1f", bounds.minX)},${string.format("%.1f", bounds.maxX)}) Z(${string.format("%.1f", bounds.minZ)},${string.format("%.1f", bounds.maxZ)}) Y=${string.format("%.1f", bounds.yPosition)} NodeYRange=(${string.format("%.1f", bounds.minY)}-${string.format("%.1f", bounds.maxY)}) Height=${string.format("%.1f", bounds.maxY - bounds.minY)} Color=${colorIndex}`);
       colorIndex++;
     });
 
@@ -168,13 +168,13 @@ export class YParallelShadowCreator extends BaseBlockCreator {
     
     if (shadowWidth !== undefined && shadowDepth !== undefined) {
       // Position Y shadows to start from vertical wall edge
-      // Assume platform is centered at origin, so wall is at +shadowWidth/2
-      const wallPosition = shadowWidth / 2;
+      // Assume platform is centered at origin, so wall is at -shadowWidth/2 (left side)
+      const wallPosition = -shadowWidth / 2;
       
-      // Y shadow extends from wall position outward by shadowExtension
+      // Y shadow extends from wall position outward to the left (negative X) by shadowExtension
       width = shadowExtension;
       depth = shadowDepth;
-      positionX = wallPosition + shadowExtension / 2; // Center of extended shadow
+      positionX = wallPosition - shadowExtension / 2; // Center of extended shadow (extends left)
       positionZ = 0; // Center at origin in Z direction
     } else {
       // Fallback: Calculate from node bounds with padding
@@ -189,6 +189,11 @@ export class YParallelShadowCreator extends BaseBlockCreator {
     const nodeHeight = bounds.maxY - bounds.minY;
     const shadowHeight = nodeHeight > 0 ? nodeHeight : (BLOCK_CONSTANTS.DIMENSIONS.Y_SHADOW_THICKNESS || 5);
     
+    // Center the Y shadow at the midpoint of the node Y range
+    const centerY = (bounds.minY + bounds.maxY) / 2;
+    
+    print(`[YParallelShadow] Creating shadow ${bounds.propertyValue}: centerY=${string.format("%.1f", centerY)}, height=${string.format("%.1f", shadowHeight)}, nodeRange=(${string.format("%.1f", bounds.minY)}-${string.format("%.1f", bounds.maxY)})`);
+    
     // Create the shadow block
     const shadow = this.createBlock({
       name: `YShadow_${bounds.propertyValue}`,
@@ -199,7 +204,7 @@ export class YParallelShadowCreator extends BaseBlockCreator {
       ),
       position: new Vector3(
         positionX,
-        bounds.yPosition - (BLOCK_CONSTANTS.DIMENSIONS.Y_SHADOW_OFFSET || 2), // Position slightly below nodes
+        centerY, // Center Y shadow at midpoint of node Y range
         positionZ
       ),
       color: color || BLOCK_CONSTANTS.COLORS.Y_SHADOW_COLOR || new Color3(0.5, 0.5, 0.5),
@@ -209,6 +214,10 @@ export class YParallelShadowCreator extends BaseBlockCreator {
     });
 
     shadow.Parent = parent;
+
+    // Print actual shadow position
+    const actualPos = shadow.Position;
+    print(`[YParallelShadow] Shadow block ${bounds.propertyValue} actual position: X=${string.format("%.1f", actualPos.X)}, Y=${string.format("%.1f", actualPos.Y)}, Z=${string.format("%.1f", actualPos.Z)} (Y offset from nodes: ${string.format("%.1f", actualPos.Y - bounds.yPosition)})`);
 
     // Add label
     this.addLabel(shadow, bounds.propertyValue);
