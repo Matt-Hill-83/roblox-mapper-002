@@ -527,7 +527,7 @@ export class DataGenerator implements IDataGenerator {
       if (itemCount >= maxItems) return; // Only process first maxItems items
       itemCount++;
       const node: Node = {
-        uuid: `harness_file_${index}`,
+        uuid: `harness_node_${index}`,
         name: this.getFileName(file.path),
         type: file.component as any, // Use component as node type
         color: this.getServiceColor(file.service),
@@ -558,6 +558,8 @@ export class DataGenerator implements IDataGenerator {
         nodeUuids.has(link.sourceNodeUuid) && nodeUuids.has(link.targetNodeUuid)
     );
 
+    print(`[DataGenerator] Found ${TEMP_HARNESS_LINKS.size()} total links, ${validHarnessLinks.size()} valid links for ${nodeUuids.size()} nodes`);
+    
     // Convert to Link[] format (remove extra properties)
     const harnessLinks: Link[] = validHarnessLinks.map((link) => ({
       uuid: link.uuid,
