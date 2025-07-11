@@ -251,27 +251,42 @@ export class PropertiesGuiService extends BaseService {
     properties.forEach((propName, colIndex) => {
       const xPos = colIndex * (columnWidth + columnPadding) + spacing;
       
-      // Create property header
-      const headerLabel = new Instance("TextLabel");
-      headerLabel.Name = `Header_${propName}`;
-      headerLabel.Size = new UDim2(0, columnWidth, 0, headerHeight);
-      headerLabel.Position = new UDim2(0, xPos, 0, spacing);
-      headerLabel.BackgroundColor3 = new Color3(0.15, 0.15, 0.3);
-      headerLabel.BorderSizePixel = 1;
-      headerLabel.BorderColor3 = new Color3(0.3, 0.3, 0.5);
-      headerLabel.Text = propName;
-      headerLabel.TextColor3 = new Color3(1, 1, 1);
-      headerLabel.TextSize = 16; // Reduced from default ~18
-      headerLabel.Font = Enum.Font.SourceSansBold;
-      headerLabel.Parent = scrollFrame;
+      // Create property header as a button
+      const headerButton = new Instance("TextButton");
+      headerButton.Name = `Header_${propName}`;
+      headerButton.Size = new UDim2(0, columnWidth, 0, headerHeight);
+      headerButton.Position = new UDim2(0, xPos, 0, spacing);
+      headerButton.BackgroundColor3 = new Color3(0.15, 0.15, 0.3);
+      headerButton.BorderSizePixel = 1;
+      headerButton.BorderColor3 = new Color3(0.3, 0.3, 0.5);
+      headerButton.Text = propName;
+      headerButton.TextColor3 = new Color3(1, 1, 1);
+      headerButton.TextSize = 16; // Reduced from default ~18
+      headerButton.Font = Enum.Font.SourceSansBold;
+      headerButton.Parent = scrollFrame;
 
       // Initialize filter state for this property
       if (!this.filterState[propName]) {
         this.filterState[propName] = new Set<string>();
       }
 
-      // Create toggle buttons for each value
+      // Get values for this property
       const values = this.propertiesData ? this.propertiesData[propName] || [] : [];
+
+      // Check if any values in this column are filtered to set initial header appearance
+      const anyFiltered = values.some(value => 
+        this.filterState[propName] && this.filterState[propName].has(value)
+      );
+      if (anyFiltered) {
+        headerButton.BackgroundColor3 = new Color3(0.1, 0.1, 0.25);
+      }
+
+      // Add click handler for header to toggle all values
+      headerButton.MouseButton1Click.Connect(() => {
+        this.toggleAllInColumn(propName, values, headerButton);
+      });
+
+      // Create toggle buttons for each value
       values.forEach((value, valueIndex) => {
         const yPos = headerHeight + spacing * 2 + valueIndex * (buttonHeight + spacing);
         
@@ -314,6 +329,61 @@ export class PropertiesGuiService extends BaseService {
   }
 
   /**
+   * Toggle all values in a column
+   */
+  private toggleAllInColumn(propertyName: string, values: string[], headerButton: TextButton): void {
+    if (!this.filterState[propertyName]) {
+      this.filterState[propertyName] = new Set<string>();
+    }
+
+    const filterSet = this.filterState[propertyName];
+    
+    // Check if all values are currently filtered
+    const allFiltered = values.every(value => filterSet.has(value));
+    
+    if (allFiltered) {
+      // Unfilter all - clear the filter set
+      filterSet.clear();
+      
+      // Update header appearance
+      headerButton.BackgroundColor3 = new Color3(0.15, 0.15, 0.3);
+      
+      // Update all buttons in this column
+      values.forEach(value => {
+        const buttonKey = `${propertyName}:${value}`;
+        const button = this.toggleButtons.get(buttonKey);
+        if (button) {
+          button.BackgroundColor3 = new Color3(0.2, 0.2, 0.2);
+          button.TextColor3 = new Color3(1, 1, 1);
+        }
+      });
+    } else {
+      // Filter all - add all values to filter set
+      values.forEach(value => {
+        filterSet.add(value);
+      });
+      
+      // Update header appearance to show it's filtered
+      headerButton.BackgroundColor3 = new Color3(0.1, 0.1, 0.25);
+      
+      // Update button appearances
+      values.forEach(value => {
+        const buttonKey = `${propertyName}:${value}`;
+        const button = this.toggleButtons.get(buttonKey);
+        if (button) {
+          button.BackgroundColor3 = new Color3(0.1, 0.1, 0.1);
+          button.TextColor3 = new Color3(0.5, 0.5, 0.5);
+        }
+      });
+    }
+
+    // Notify of filter change
+    if (this.onFilterChange) {
+      this.onFilterChange(this.filterState);
+    }
+  }
+
+  /**
    * Toggle a filter value
    */
   private toggleFilter(propertyName: string, value: string, button: TextButton): void {
@@ -335,9 +405,31 @@ export class PropertiesGuiService extends BaseService {
       button.TextColor3 = new Color3(0.5, 0.5, 0.5);
     }
 
+    // Update header button appearance based on filter state
+    this.updateHeaderAppearance(propertyName);
+
     // Notify of filter change
     if (this.onFilterChange) {
       this.onFilterChange(this.filterState);
+    }
+  }
+
+  /**
+   * Update header button appearance based on filter state
+   */
+  private updateHeaderAppearance(propertyName: string): void {
+    if (!this.scrollFrame) return;
+    
+    const headerButton = this.scrollFrame.FindFirstChild(`Header_${propertyName}`) as TextButton | undefined;
+    if (!headerButton) return;
+    
+    const filterSet = this.filterState[propertyName];
+    if (!filterSet || filterSet.size() === 0) {
+      // No filters - normal appearance
+      headerButton.BackgroundColor3 = new Color3(0.15, 0.15, 0.3);
+    } else {
+      // Some filters - darker appearance
+      headerButton.BackgroundColor3 = new Color3(0.1, 0.1, 0.25);
     }
   }
 
