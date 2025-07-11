@@ -17,6 +17,7 @@ import { AnimationTestGUIController } from "./controllers/animationTestGUI.contr
 import { Players, ReplicatedStorage } from "@rbxts/services";
 import { KeyboardShortcutsService } from "./services/keyboardShortcuts.service";
 import { NodePropertiesInspectorService } from "./services/nodePropertiesInspector/nodePropertiesInspector.service";
+import { PropertiesGuiService } from "./services/propertiesGui/propertiesGui.service";
 
 // Disable the default Roblox chat
 const starterGui = game.GetService("StarterGui");
@@ -165,5 +166,12 @@ spawn(() => {
     wait(2);
     updateLinkTypesDisplay();
   }
+});
+
+// Create Properties GUI immediately with component data
+const propertiesGui = new PropertiesGuiService();
+propertiesGui.createGUI({
+  propertyName: "component",
+  values: ["core", "config", "api", "service", "util", "test"]
 });
 
