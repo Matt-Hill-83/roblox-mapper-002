@@ -518,6 +518,8 @@ export class DataGenerator implements IDataGenerator {
    */
   private generateClusterFromTestData(config?: EnhancedGeneratorConfig): Cluster {
     const maxItems = config?.maxDataItems || DEFAULT_MAX_DATA_ITEMS;
+    print(`[DataGenerator] Using maxItems: ${maxItems} (config.maxDataItems: ${config?.maxDataItems || "undefined"})`);
+    print(`[DataGenerator] Available test data items: ${TEMP_HARNESS_TEST_DATA.size()}`);
     // Convert Harness data to Node format - using only first maxItems items
     const harnessNodes: Node[] = [];
     let itemCount = 0;
