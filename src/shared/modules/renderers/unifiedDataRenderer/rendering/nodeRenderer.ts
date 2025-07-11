@@ -142,6 +142,14 @@ export class NodeRenderer implements INodeRenderer {
       guid: node.uuid
     });
     
+    // Debug: Log node position for Y shadow comparison
+    if (node.properties && "component" in node.properties) {
+      const component = node.properties.component;
+      if (component) {
+        print(`[NodeRenderer] Node ${node.name} (${component}): Position Y=${string.format("%.1f", node.position.y)}`);
+      }
+    }
+    
     // Set hexagon name based on UUID pattern
     this.setHexagonName(hexagon, node.uuid);
     
