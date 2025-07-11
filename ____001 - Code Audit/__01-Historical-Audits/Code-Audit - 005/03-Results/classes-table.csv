@@ -1,0 +1,19 @@
+ClassName,FileName,FilePath,MethodCount,Methods,FileLines
+"ConfigGUIController","configGUI.controller.ts","client/controllers/configGUI.controller.ts",21,"initialize, if, if, if, if, if, if, if, if, onEnhancedConfigChange, if, if, if, onClearRequest, if, onUpdateRequest, if, if, if, onDestroy, if",164
+"ConfigGUIService","makeConfigGui.ts","client/services/configGui/makeConfigGui.ts",13,"createGUI, if, createUnifiedUI, if, createActionButtons, updateEnhancedConfig, if, updateDiscoveredProperties, if, if, isVisible, showError, destroy",359
+"UnifiedDataRenderer","unifiedDataRenderer.ts","shared/modules/renderers/unifiedDataRenderer/unifiedDataRenderer.ts",10,"renderEnhancedData, if, if, if, if, updateEnhancedData, if, if, if, createSwimLaneLabels",302
+"PropertyManager","propertyManager.ts","shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/propertyManager.ts",9,"discoverAndValidateProperties, analyzePropertyDistribution, Map, if, validateAxisProperties, if, if, if, size",187
+"TestDataProcessor","testDataProcessor.ts","shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/testDataProcessor.ts",8,"generateClusterFromTestData, print, print, size, size, isUsingTestData, if, if",211
+"GameService","game.service.ts","server/services/main/game.service.ts",8,"startGame, if, if, if, if, onDestroy, if, if",92
+"SwimLaneCalculator","positionCalculator.ts","shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",6,"calculateTypeColumnPositions, for, assignNodePositionsWithProperties, for, for, lower",397
+"ShadowBlockCreator","shadowBlockCreator.ts","shared/modules/renderers/blocks/shadowBlockCreator.ts",6,"createGroupShadowBlock, createXParallelShadowBlocks, if, if, createXParallelBlock, addSurfaceLabelsToAllFaces",252
+"SwimLaneBlockCreator","swimlaneBlockCreator.ts","shared/modules/renderers/blocks/swimlaneBlockCreator.ts",6,"createSwimLaneBlock, createZParallelLaneBlocks, createXAxisSwimLaneBlocks, filter, addSurfaceLabelsToAllFaces, if",246
+"GraphInitializerService","graphInitializer.service.ts","server/services/graphInitializer.service.ts",6,"initializeGraph, initializeGraphWithMaxItems, triggerGraphGeneration, if, sendInitialConfig, if",154
+"EndcapBlockCreator","endcapBlockCreator.ts","shared/modules/renderers/blocks/endcapBlockCreator.ts",5,"createSwimlaneWithEndcaps, if, createEndcapBlock, addLabelsToAllFaces, if",216
+"GuiLayoutManager","guiLayout.ts","client/services/configGui/guiLayout.ts",4,"reset, addSpacing, createScrollingFrame, updateCanvasSize",90
+"PositionMapper","positionCalculator.ts","shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",3,"applyOffsets, createPropertyPositionMap, if",397
+"NodeOrganizer","positionCalculator.ts","shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",2,"organizeNodesByProperty, sortTypesByCount",397
+"BoundsCalculator","positionCalculator.ts","shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",1,"calculateBounds",397
+"for","BaseService.ts","shared/services/base/BaseService.ts",0,"",172
+"for","baseBlockCreator.ts","shared/modules/renderers/blocks/baseBlockCreator.ts",0,"",86
+"and","index.ts","shared/modules/renderers/unifiedDataRenderer/index.ts",0,"",9

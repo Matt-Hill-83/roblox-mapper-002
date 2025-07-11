@@ -5,13 +5,11 @@
 
 import { BLOCK_CONSTANTS } from "./constants/blockConstants";
 
-export interface FlatBlockConfig {
+interface FlatBlockConfig {
   origin: Vector3;
   parent: Instance;
-  height?: number;
   width?: number;
   depth?: number;
-  color?: Color3;
 }
 
 export interface SwimLaneBlockConfig {
@@ -61,13 +59,6 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
   platformBlock.TopSurface = Enum.SurfaceType.Smooth;
   platformBlock.BottomSurface = Enum.SurfaceType.Smooth;
   
-  // Add texture to platform block
-  // const texture = new Instance("Texture");
-  // texture.Texture = "rbxassetid://6372755229";
-  // texture.Face = Enum.NormalId.Top;
-  // texture.StudsPerTileU = 10;
-  // texture.StudsPerTileV = 10;
-  // texture.Parent = platformBlock;
   
   // Set platform physics properties
   platformBlock.Anchored = true;
@@ -125,50 +116,6 @@ export function createFlatBlocks(config: FlatBlockConfig): { platform: Part; sha
  * @param config Configuration for the flat block
  * @returns The created part instance
  */
-export function createFlatBlock(config: FlatBlockConfig): Part {
-  const {
-    origin,
-    parent,
-    height = FLAT_BLOCK_DEFAULTS.height,
-    width = FLAT_BLOCK_DEFAULTS.width,
-    depth = FLAT_BLOCK_DEFAULTS.depth,
-    color = FLAT_BLOCK_DEFAULTS.shadowColor,
-  } = config;
-
-  // Create the block
-  const block = new Instance("Part");
-  block.Name = "FlatBlockFoundation";
-  
-  // Set size
-  block.Size = new Vector3(width, height, depth);
-  
-  // Set material and appearance
-  block.Material = BLOCK_CONSTANTS.MATERIALS.SHADOW;
-  block.Color = color;
-  block.TopSurface = Enum.SurfaceType.Smooth;
-  block.BottomSurface = Enum.SurfaceType.Smooth;
-  
-  // Set physics properties
-  block.Anchored = true;
-  block.CanCollide = true; // Changed to true to make the block solid
-  block.CastShadow = false; // Optimize rendering
-  block.Transparency = 0; // Fully opaque
-  
-  // Position the block
-  // Center at origin X and Z, position bottom surface at Y=0 (ground level)
-  // This ensures the block sits on the ground
-  block.Position = new Vector3(
-    origin.X,
-    height / 2, // Bottom at Y=0, so center is at height/2
-    origin.Z
-  );
-  
-  // Parent the block
-  block.Parent = parent;
-  
-  
-  return block;
-}
 
 /**
  * Calculates appropriate block dimensions based on node tree bounds
@@ -197,7 +144,6 @@ export function calculateBlockDimensions(
     depth: finalDepth,
   };
 }
-
 
 /**
  * Creates a block under a swimlane

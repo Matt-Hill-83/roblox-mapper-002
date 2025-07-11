@@ -1,0 +1,2349 @@
+{
+  "timestamp": "2025-07-11T05:39:41.946Z",
+  "summary": {
+    "totalFiles": 138,
+    "totalLines": 53485,
+    "totalClasses": 18,
+    "totalMethods": 108,
+    "totalInterfaces": 154,
+    "totalAnyTypes": 13,
+    "averageLinesPerFile": 388,
+    "averageMethodsPerClass": 6
+  },
+  "modularization": {
+    "mainFile": {
+      "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
+      "lines": 122,
+      "classes": 0,
+      "imports": 7
+    },
+    "moduleFiles": [
+      {
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
+        "lines": 334,
+        "classes": 0
+      },
+      {
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/testDataProcessor.ts",
+        "lines": 211,
+        "classes": 1
+      },
+      {
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",
+        "lines": 174,
+        "classes": 0
+      },
+      {
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/propertyManager.ts",
+        "lines": 187,
+        "classes": 1
+      },
+      {
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
+        "lines": 116,
+        "classes": 0
+      },
+      {
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/index.ts",
+        "lines": 9,
+        "classes": 0
+      }
+    ],
+    "totalLines": 1476,
+    "moduleCount": 6
+  },
+  "tables": {
+    "files": [
+      {
+        "name": "tempHarnessTestData.ts",
+        "path": "shared/data/tempHarnessTestData.ts",
+        "lines": 23033,
+        "size": 671.14,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 1,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "tempHarnessLinks.ts",
+        "path": "shared/data/tempHarnessLinks.ts",
+        "lines": 14023,
+        "size": 327.83,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 2,
+        "imports": 956,
+        "anyTypes": 0
+      },
+      {
+        "name": "laneManager.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/managers/laneManager.ts",
+        "lines": 422,
+        "size": 14.51,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 9,
+        "anyTypes": 0
+      },
+      {
+        "name": "positionCalculator.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",
+        "lines": 397,
+        "size": 13.78,
+        "classes": 4,
+        "interfaces": 0,
+        "methods": 12,
+        "exports": 1,
+        "imports": 7,
+        "anyTypes": 0
+      },
+      {
+        "name": "updateManager.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/rendering/updateManager.ts",
+        "lines": 397,
+        "size": 13.46,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 7,
+        "anyTypes": 0
+      },
+      {
+        "name": "stateManager.ts",
+        "path": "client/services/configGui/stateManager.ts",
+        "lines": 403,
+        "size": 13.13,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 1,
+        "imports": 5,
+        "anyTypes": 2
+      },
+      {
+        "name": "layerGrid.ts",
+        "path": "client/services/configGui/components/layerGrid.ts",
+        "lines": 365,
+        "size": 11.87,
+        "classes": 0,
+        "interfaces": 3,
+        "methods": 0,
+        "exports": 1,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "makeConfigGui.ts",
+        "path": "client/services/configGui/makeConfigGui.ts",
+        "lines": 359,
+        "size": 11.46,
+        "classes": 1,
+        "interfaces": 1,
+        "methods": 13,
+        "exports": 1,
+        "imports": 14,
+        "anyTypes": 0
+      },
+      {
+        "name": "unifiedDataRenderer.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/unifiedDataRenderer.ts",
+        "lines": 302,
+        "size": 10.61,
+        "classes": 1,
+        "interfaces": 0,
+        "methods": 10,
+        "exports": 1,
+        "imports": 14,
+        "anyTypes": 0
+      },
+      {
+        "name": "nodePropertiesInspector.service.ts",
+        "path": "client/services/nodePropertiesInspector/nodePropertiesInspector.service.ts",
+        "lines": 315,
+        "size": 10.24,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "configValidation.ts",
+        "path": "shared/utils/validation/configValidation.ts",
+        "lines": 364,
+        "size": 10.2,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 2,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "linkGenerator.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/linkGenerator.ts",
+        "lines": 334,
+        "size": 9.19,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 4,
+        "anyTypes": 0
+      },
+      {
+        "name": "yAxisControls.ts",
+        "path": "client/services/configGui/components/yAxisControls.ts",
+        "lines": 257,
+        "size": 8.84,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 1,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "yParallelShadowCreator.ts",
+        "path": "shared/modules/renderers/blocks/yParallelShadowCreator.ts",
+        "lines": 226,
+        "size": 8.76,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 3,
+        "imports": 6,
+        "anyTypes": 0
+      },
+      {
+        "name": "colorMapper.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/utils/colorMapper.ts",
+        "lines": 240,
+        "size": 8.7,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 3,
+        "imports": 4,
+        "anyTypes": 0
+      },
+      {
+        "name": "componentFactory.ts",
+        "path": "client/services/configGui/componentFactory.ts",
+        "lines": 299,
+        "size": 8.54,
+        "classes": 0,
+        "interfaces": 6,
+        "methods": 0,
+        "exports": 4,
+        "imports": 4,
+        "anyTypes": 0
+      },
+      {
+        "name": "nodeRenderer.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/rendering/nodeRenderer.ts",
+        "lines": 231,
+        "size": 8.2,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 9,
+        "anyTypes": 0
+      },
+      {
+        "name": "shadowBlockCreator.ts",
+        "path": "shared/modules/renderers/blocks/shadowBlockCreator.ts",
+        "lines": 252,
+        "size": 7.73,
+        "classes": 1,
+        "interfaces": 1,
+        "methods": 6,
+        "exports": 2,
+        "imports": 4,
+        "anyTypes": 0
+      },
+      {
+        "name": "visualCustomizationControls.ts",
+        "path": "client/services/configGui/components/visualCustomizationControls.ts",
+        "lines": 213,
+        "size": 7.61,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 1,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "keyboardShortcuts.service.ts",
+        "path": "client/services/keyboardShortcuts.service.ts",
+        "lines": 207,
+        "size": 7.61,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "flatBlockCreator.ts",
+        "path": "shared/modules/renderers/flatBlockCreator.ts",
+        "lines": 237,
+        "size": 7.23,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 7,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "swimlaneBlockCreator.ts",
+        "path": "shared/modules/renderers/blocks/swimlaneBlockCreator.ts",
+        "lines": 246,
+        "size": 7.14,
+        "classes": 1,
+        "interfaces": 1,
+        "methods": 6,
+        "exports": 2,
+        "imports": 3,
+        "anyTypes": 0
+      },
+      {
+        "name": "ropeCreator.ts",
+        "path": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/ropeCreator.ts",
+        "lines": 244,
+        "size": 7.1,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 1,
+        "imports": 6,
+        "anyTypes": 0
+      },
+      {
+        "name": "propertyValueResolver.ts",
+        "path": "shared/modules/renderers/propertyValueResolver.ts",
+        "lines": 258,
+        "size": 6.86,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 2,
+        "imports": 4,
+        "anyTypes": 0
+      },
+      {
+        "name": "verticalWallCreator.ts",
+        "path": "shared/modules/renderers/verticalWallCreator.ts",
+        "lines": 193,
+        "size": 6.85,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 5,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "labelRenderer.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/rendering/labelRenderer.ts",
+        "lines": 185,
+        "size": 6.63,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 2,
+        "imports": 3,
+        "anyTypes": 0
+      },
+      {
+        "name": "nodeTypesSection.ts",
+        "path": "client/services/configGui/components/nodeTypesSection.ts",
+        "lines": 170,
+        "size": 6.42,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 1,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "testDataProcessor.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/testDataProcessor.ts",
+        "lines": 211,
+        "size": 6.27,
+        "classes": 1,
+        "interfaces": 1,
+        "methods": 8,
+        "exports": 1,
+        "imports": 6,
+        "anyTypes": 0
+      },
+      {
+        "name": "labelGroupMaker.ts",
+        "path": "shared/modules/labelGroupMaker.ts",
+        "lines": 179,
+        "size": 6.06,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 1,
+        "imports": 3,
+        "anyTypes": 1
+      },
+      {
+        "name": "groupAnimationTest.service.ts",
+        "path": "server/services/groupAnimationTest.service.ts",
+        "lines": 222,
+        "size": 5.95,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "endcapBlockCreator.ts",
+        "path": "shared/modules/renderers/blocks/endcapBlockCreator.ts",
+        "lines": 216,
+        "size": 5.92,
+        "classes": 1,
+        "interfaces": 1,
+        "methods": 5,
+        "exports": 2,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "collapsibleFrame.ts",
+        "path": "client/services/configGui/components/collapsibleFrame.ts",
+        "lines": 186,
+        "size": 5.45,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 1,
+        "imports": 4,
+        "anyTypes": 0
+      },
+      {
+        "name": "configGUIServer.service.ts",
+        "path": "server/services/configGUIServer.service.ts",
+        "lines": 138,
+        "size": 5.38,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 4,
+        "anyTypes": 0
+      },
+      {
+        "name": "configGUI.controller.ts",
+        "path": "client/controllers/configGUI.controller.ts",
+        "lines": 164,
+        "size": 5.35,
+        "classes": 1,
+        "interfaces": 0,
+        "methods": 21,
+        "exports": 1,
+        "imports": 5,
+        "anyTypes": 0
+      },
+      {
+        "name": "nodeGenerator.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/nodeGenerator.ts",
+        "lines": 174,
+        "size": 5.2,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 4,
+        "anyTypes": 0
+      },
+      {
+        "name": "eventHandlers.ts",
+        "path": "client/services/configGui/eventHandlers.ts",
+        "lines": 173,
+        "size": 5.17,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 2,
+        "imports": 4,
+        "anyTypes": 0
+      },
+      {
+        "name": "propertyManager.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/propertyManager.ts",
+        "lines": 187,
+        "size": 5.03,
+        "classes": 1,
+        "interfaces": 4,
+        "methods": 9,
+        "exports": 1,
+        "imports": 3,
+        "anyTypes": 1
+      },
+      {
+        "name": "positionMapper.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/positionMapper.ts",
+        "lines": 154,
+        "size": 4.56,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 4,
+        "anyTypes": 0
+      },
+      {
+        "name": "BaseService.ts",
+        "path": "shared/services/base/BaseService.ts",
+        "lines": 172,
+        "size": 4.52,
+        "classes": 1,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "visualizationControls.ts",
+        "path": "client/services/configGui/components/visualizationControls.ts",
+        "lines": 126,
+        "size": 4.45,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 1,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "dropdown.ts",
+        "path": "client/services/configGui/components/axisMappingControls/components/dropdown.ts",
+        "lines": 149,
+        "size": 4.32,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 3,
+        "anyTypes": 0
+      },
+      {
+        "name": "dropdownTestControls.ts",
+        "path": "client/services/configGui/components/dropdownTestControls.ts",
+        "lines": 137,
+        "size": 4.32,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 2,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "robloxColors.ts",
+        "path": "shared/modules/renderers/constants/robloxColors.ts",
+        "lines": 100,
+        "size": 4.18,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 7,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "animationTestGUI.controller.ts",
+        "path": "client/controllers/animationTestGUI.controller.ts",
+        "lines": 157,
+        "size": 4.11,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "graphInitializer.service.ts",
+        "path": "server/services/graphInitializer.service.ts",
+        "lines": 154,
+        "size": 3.98,
+        "classes": 1,
+        "interfaces": 1,
+        "methods": 6,
+        "exports": 2,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "nodeOrganizer.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/nodeOrganizer.ts",
+        "lines": 135,
+        "size": 3.81,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 2,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "boundsCalculator.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/boundsCalculator.ts",
+        "lines": 154,
+        "size": 3.79,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 2,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "constants.ts",
+        "path": "client/services/configGui/components/axisMappingControls/constants.ts",
+        "lines": 134,
+        "size": 3.79,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 6,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "colorsTest.service.ts",
+        "path": "server/services/colorsTest.service.ts",
+        "lines": 126,
+        "size": 3.69,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "dataGenerator.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator.ts",
+        "lines": 122,
+        "size": 3.65,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 7,
+        "anyTypes": 0
+      },
+      {
+        "name": "yAxisConfigSection.ts",
+        "path": "client/services/configGui/components/axisMappingControls/components/yAxisConfigSection.ts",
+        "lines": 123,
+        "size": 3.63,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 1,
+        "imports": 4,
+        "anyTypes": 0
+      },
+      {
+        "name": "spacingControls.ts",
+        "path": "client/services/configGui/components/spacingControls.ts",
+        "lines": 96,
+        "size": 3.63,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 1,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "stringValidation.ts",
+        "path": "shared/utils/validation/stringValidation.ts",
+        "lines": 145,
+        "size": 3.57,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 4,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "axisMappingSection.ts",
+        "path": "client/services/configGui/components/axisMappingControls/components/axisMappingSection.ts",
+        "lines": 142,
+        "size": 3.5,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 1,
+        "imports": 3,
+        "anyTypes": 0
+      },
+      {
+        "name": "types.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/types.ts",
+        "lines": 179,
+        "size": 3.45,
+        "classes": 0,
+        "interfaces": 16,
+        "methods": 0,
+        "exports": 19,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "standardizedInterfaces.ts",
+        "path": "shared/modules/labelBlockMaker/standardizedInterfaces.ts",
+        "lines": 154,
+        "size": 3.44,
+        "classes": 0,
+        "interfaces": 3,
+        "methods": 0,
+        "exports": 4,
+        "imports": 1,
+        "anyTypes": 1
+      },
+      {
+        "name": "dropdown.ts",
+        "path": "client/services/configGui/components/dropdown.ts",
+        "lines": 116,
+        "size": 3.43,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 1,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "validationHandlers.ts",
+        "path": "client/services/configGui/validationHandlers.ts",
+        "lines": 115,
+        "size": 3.35,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 4,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "wallManager.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/managers/wallManager.ts",
+        "lines": 113,
+        "size": 3.34,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 5,
+        "anyTypes": 0
+      },
+      {
+        "name": "layoutManager.ts",
+        "path": "client/services/configGui/components/axisMappingControls/utils/layoutManager.ts",
+        "lines": 103,
+        "size": 3.28,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 6,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "standardizedInterfaces.ts",
+        "path": "shared/modules/barMaker/standardizedInterfaces.ts",
+        "lines": 135,
+        "size": 3.22,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 3,
+        "imports": 1,
+        "anyTypes": 1
+      },
+      {
+        "name": "main.ts",
+        "path": "client/services/configGui/components/axisMappingControls/main.ts",
+        "lines": 97,
+        "size": 3.14,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 6,
+        "anyTypes": 0
+      },
+      {
+        "name": "barMaker.ts",
+        "path": "shared/modules/barMaker/barMaker.ts",
+        "lines": 109,
+        "size": 3.08,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 3,
+        "anyTypes": 0
+      },
+      {
+        "name": "propertyDiscovery.ts",
+        "path": "shared/utils/propertyDiscovery.ts",
+        "lines": 107,
+        "size": 3.07,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 3,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "hexagonMaker.ts",
+        "path": "shared/modules/hexagonMaker/hexagonMaker.ts",
+        "lines": 107,
+        "size": 3.02,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 5,
+        "anyTypes": 0
+      },
+      {
+        "name": "yParallelShadowManager.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/managers/yParallelShadowManager.ts",
+        "lines": 83,
+        "size": 3,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 5,
+        "anyTypes": 0
+      },
+      {
+        "name": "TextLabelMaker.ts",
+        "path": "shared/modules/TextLabelMaker.ts",
+        "lines": 100,
+        "size": 2.98,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 2,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "TextBoxMaker.ts",
+        "path": "shared/modules/TextBoxMaker.ts",
+        "lines": 101,
+        "size": 2.89,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 2,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "makeOriginBlock.ts",
+        "path": "shared/modules/makeOriginBlock.ts",
+        "lines": 91,
+        "size": 2.86,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 2,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "IMaker.ts",
+        "path": "shared/interfaces/IMaker.ts",
+        "lines": 128,
+        "size": 2.79,
+        "classes": 0,
+        "interfaces": 7,
+        "methods": 0,
+        "exports": 7,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "blockDimensionCalculator.ts",
+        "path": "shared/modules/renderers/blocks/blockDimensionCalculator.ts",
+        "lines": 106,
+        "size": 2.78,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 3,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "radioButton.ts",
+        "path": "client/services/configGui/components/axisMappingControls/components/radioButton.ts",
+        "lines": 83,
+        "size": 2.72,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 2,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "game.service.ts",
+        "path": "server/services/main/game.service.ts",
+        "lines": 92,
+        "size": 2.7,
+        "classes": 1,
+        "interfaces": 0,
+        "methods": 8,
+        "exports": 1,
+        "imports": 5,
+        "anyTypes": 0
+      },
+      {
+        "name": "labelBlockMaker.ts",
+        "path": "shared/modules/labelBlockMaker/labelBlockMaker.ts",
+        "lines": 94,
+        "size": 2.69,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 4,
+        "anyTypes": 0
+      },
+      {
+        "name": "arrayValidation.ts",
+        "path": "shared/utils/validation/arrayValidation.ts",
+        "lines": 130,
+        "size": 2.63,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 3,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "guiLayout.ts",
+        "path": "client/services/configGui/guiLayout.ts",
+        "lines": 90,
+        "size": 2.58,
+        "classes": 1,
+        "interfaces": 0,
+        "methods": 4,
+        "exports": 2,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "constants.ts",
+        "path": "client/services/configGui/constants.ts",
+        "lines": 107,
+        "size": 2.54,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "nodePropertyHelpers.ts",
+        "path": "shared/utils/nodePropertyHelpers.ts",
+        "lines": 89,
+        "size": 2.54,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 6,
+        "imports": 3,
+        "anyTypes": 0
+      },
+      {
+        "name": "interfaces.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
+        "lines": 116,
+        "size": 2.47,
+        "classes": 0,
+        "interfaces": 8,
+        "methods": 0,
+        "exports": 8,
+        "imports": 2,
+        "anyTypes": 2
+      },
+      {
+        "name": "enhancedGenerator.interface.ts",
+        "path": "shared/interfaces/enhancedGenerator.interface.ts",
+        "lines": 74,
+        "size": 2.46,
+        "classes": 0,
+        "interfaces": 9,
+        "methods": 0,
+        "exports": 8,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "utilities.ts",
+        "path": "shared/modules/ropeLabelMaker/utilities.ts",
+        "lines": 88,
+        "size": 2.4,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 4,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "blockConstants.ts",
+        "path": "shared/modules/renderers/constants/blockConstants.ts",
+        "lines": 62,
+        "size": 2.38,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "utilities.ts",
+        "path": "shared/modules/hexagonMaker/utilities.ts",
+        "lines": 74,
+        "size": 2.38,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 4,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "baseBlockCreator.ts",
+        "path": "shared/modules/renderers/blocks/baseBlockCreator.ts",
+        "lines": 86,
+        "size": 2.35,
+        "classes": 1,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "constants.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/constants.ts",
+        "lines": 71,
+        "size": 2.29,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 11,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "simpleDataGenerator.interface.ts",
+        "path": "shared/interfaces/simpleDataGenerator.interface.ts",
+        "lines": 72,
+        "size": 2.25,
+        "classes": 0,
+        "interfaces": 5,
+        "methods": 0,
+        "exports": 5,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "standardizedInterfaces.ts",
+        "path": "shared/modules/hexagonMaker/standardizedInterfaces.ts",
+        "lines": 97,
+        "size": 2.23,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 3,
+        "imports": 1,
+        "anyTypes": 1
+      },
+      {
+        "name": "platformShadowManager.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/managers/platformShadowManager.ts",
+        "lines": 69,
+        "size": 2.15,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 5,
+        "anyTypes": 0
+      },
+      {
+        "name": "hexStackMaker.ts",
+        "path": "shared/modules/hexStackMaker/hexStackMaker.ts",
+        "lines": 74,
+        "size": 2.09,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 4,
+        "anyTypes": 0
+      },
+      {
+        "name": "main.client.ts",
+        "path": "client/main.client.ts",
+        "lines": 53,
+        "size": 2.04,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 0,
+        "imports": 6,
+        "anyTypes": 0
+      },
+      {
+        "name": "axisDefaults.ts",
+        "path": "shared/constants/axisDefaults.ts",
+        "lines": 62,
+        "size": 2.03,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 4,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "constants.ts",
+        "path": "shared/modules/renderers/dataGeneratorRobloxRendererUtils/constants.ts",
+        "lines": 79,
+        "size": 2.02,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "utilities.ts",
+        "path": "shared/modules/labelBlockMaker/utilities.ts",
+        "lines": 59,
+        "size": 1.92,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "interfaces.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/interfaces.ts",
+        "lines": 75,
+        "size": 1.8,
+        "classes": 0,
+        "interfaces": 7,
+        "methods": 0,
+        "exports": 7,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "utilities.ts",
+        "path": "shared/modules/barMaker/utilities.ts",
+        "lines": 49,
+        "size": 1.78,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 4,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "visualCustomizationSection.ts",
+        "path": "client/services/configGui/components/axisMappingControls/components/visualCustomizationSection.ts",
+        "lines": 74,
+        "size": 1.77,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 1,
+        "imports": 3,
+        "anyTypes": 0
+      },
+      {
+        "name": "standardizedInterfaces.ts",
+        "path": "shared/modules/hexStackMaker/standardizedInterfaces.ts",
+        "lines": 73,
+        "size": 1.66,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 3,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "platformBlockCreator.ts",
+        "path": "shared/modules/renderers/blocks/platformBlockCreator.ts",
+        "lines": 65,
+        "size": 1.65,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 2,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "frame.ts",
+        "path": "client/services/configGui/components/frame.ts",
+        "lines": 49,
+        "size": 1.51,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 2,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "types.ts",
+        "path": "client/services/configGui/components/axisMappingControls/types.ts",
+        "lines": 58,
+        "size": 1.5,
+        "classes": 0,
+        "interfaces": 6,
+        "methods": 0,
+        "exports": 6,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "globalSettings.ts",
+        "path": "client/services/configGui/components/globalSettings.ts",
+        "lines": 48,
+        "size": 1.47,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 1,
+        "imports": 3,
+        "anyTypes": 0
+      },
+      {
+        "name": "nodeTypes.ts",
+        "path": "shared/interfaces/nodeTypes.ts",
+        "lines": 54,
+        "size": 1.46,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 11,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "status.ts",
+        "path": "client/services/configGui/components/status.ts",
+        "lines": 40,
+        "size": 1.44,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 2,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "interfaces.ts",
+        "path": "shared/modules/labelBlockMaker/interfaces.ts",
+        "lines": 52,
+        "size": 1.29,
+        "classes": 0,
+        "interfaces": 4,
+        "methods": 0,
+        "exports": 5,
+        "imports": 1,
+        "anyTypes": 1
+      },
+      {
+        "name": "dev2features.ts",
+        "path": "server/services/main/dev2features.ts",
+        "lines": 34,
+        "size": 1.06,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "labelConstants.ts",
+        "path": "shared/modules/renderers/constants/labelConstants.ts",
+        "lines": 39,
+        "size": 0.96,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "ropeLabelMaker.ts",
+        "path": "shared/modules/ropeLabelMaker/ropeLabelMaker.ts",
+        "lines": 40,
+        "size": 0.95,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 3,
+        "anyTypes": 0
+      },
+      {
+        "name": "interfaces.ts",
+        "path": "client/services/configGui/interfaces.ts",
+        "lines": 35,
+        "size": 0.94,
+        "classes": 0,
+        "interfaces": 3,
+        "methods": 0,
+        "exports": 5,
+        "imports": 1,
+        "anyTypes": 1
+      },
+      {
+        "name": "interfaces.ts",
+        "path": "shared/modules/ropeLabelMaker/interfaces.ts",
+        "lines": 49,
+        "size": 0.89,
+        "classes": 0,
+        "interfaces": 4,
+        "methods": 0,
+        "exports": 4,
+        "imports": 0,
+        "anyTypes": 1
+      },
+      {
+        "name": "layoutConstants.ts",
+        "path": "shared/modules/renderers/constants/layoutConstants.ts",
+        "lines": 29,
+        "size": 0.87,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "positionConstants.ts",
+        "path": "shared/modules/renderers/constants/positionConstants.ts",
+        "lines": 35,
+        "size": 0.86,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "screenGuiManager.ts",
+        "path": "client/services/configGui/components/axisMappingControls/utils/screenGuiManager.ts",
+        "lines": 33,
+        "size": 0.85,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 2,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "interfaces.ts",
+        "path": "shared/modules/barMaker/interfaces.ts",
+        "lines": 36,
+        "size": 0.82,
+        "classes": 0,
+        "interfaces": 2,
+        "methods": 0,
+        "exports": 3,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "IService.ts",
+        "path": "shared/interfaces/IService.ts",
+        "lines": 39,
+        "size": 0.8,
+        "classes": 0,
+        "interfaces": 3,
+        "methods": 0,
+        "exports": 3,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "main.server.ts",
+        "path": "server/main.server.ts",
+        "lines": 22,
+        "size": 0.78,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 0,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "constants.ts",
+        "path": "shared/modules/labelBlockMaker/constants.ts",
+        "lines": 28,
+        "size": 0.75,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "title.ts",
+        "path": "client/services/configGui/components/title.ts",
+        "lines": 26,
+        "size": 0.73,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 1,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "constants.ts",
+        "path": "shared/modules/ropeLabelMaker/constants.ts",
+        "lines": 39,
+        "size": 0.69,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "constants.ts",
+        "path": "shared/modules/hexagonMaker/constants.ts",
+        "lines": 29,
+        "size": 0.68,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "constants.ts",
+        "path": "shared/modules/hexStackMaker/constants.ts",
+        "lines": 23,
+        "size": 0.56,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "utilities.ts",
+        "path": "shared/modules/hexStackMaker/utilities.ts",
+        "lines": 16,
+        "size": 0.55,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 2,
+        "imports": 2,
+        "anyTypes": 0
+      },
+      {
+        "name": "stringUtils.ts",
+        "path": "shared/utils/stringUtils.ts",
+        "lines": 22,
+        "size": 0.54,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "constants.ts",
+        "path": "shared/modules/barMaker/constants.ts",
+        "lines": 21,
+        "size": 0.5,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "index.ts",
+        "path": "client/services/configGui/index.ts",
+        "lines": 11,
+        "size": 0.48,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 9,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "index.ts",
+        "path": "shared/modules/labelBlockMaker/index.ts",
+        "lines": 16,
+        "size": 0.39,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 3,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "utilities.ts",
+        "path": "client/services/configGui/utilities.ts",
+        "lines": 16,
+        "size": 0.34,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 1,
+        "imports": 1,
+        "anyTypes": 0
+      },
+      {
+        "name": "index.ts",
+        "path": "shared/modules/renderers/blocks/index.ts",
+        "lines": 10,
+        "size": 0.28,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 6,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "index.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/index.ts",
+        "lines": 9,
+        "size": 0.27,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 5,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "index.ts",
+        "path": "shared/modules/ropeLabelMaker/index.ts",
+        "lines": 12,
+        "size": 0.25,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 2,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "index.ts",
+        "path": "shared/modules/hexStackMaker/index.ts",
+        "lines": 6,
+        "size": 0.24,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 3,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "index.ts",
+        "path": "shared/modules/hexagonMaker/index.ts",
+        "lines": 6,
+        "size": 0.23,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 3,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "index.ts",
+        "path": "shared/modules/barMaker/index.ts",
+        "lines": 6,
+        "size": 0.23,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 3,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "interfaces.ts",
+        "path": "shared/modules/hexagonMaker/interfaces.ts",
+        "lines": 11,
+        "size": 0.23,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 1,
+        "imports": 0,
+        "anyTypes": 1
+      },
+      {
+        "name": "index.ts",
+        "path": "shared/modules/renderers/unifiedDataRenderer/index.ts",
+        "lines": 9,
+        "size": 0.22,
+        "classes": 1,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 3,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "interfaces.ts",
+        "path": "shared/modules/hexStackMaker/interfaces.ts",
+        "lines": 9,
+        "size": 0.21,
+        "classes": 0,
+        "interfaces": 1,
+        "methods": 0,
+        "exports": 1,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "index.ts",
+        "path": "client/services/configGui/components/axisMappingControls/index.ts",
+        "lines": 5,
+        "size": 0.17,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 3,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "index.ts",
+        "path": "shared/modules/renderers/constants/index.ts",
+        "lines": 7,
+        "size": 0.15,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 3,
+        "imports": 0,
+        "anyTypes": 0
+      },
+      {
+        "name": "index.ts",
+        "path": "shared/utils/validation/index.ts",
+        "lines": 7,
+        "size": 0.14,
+        "classes": 0,
+        "interfaces": 0,
+        "methods": 0,
+        "exports": 4,
+        "imports": 0,
+        "anyTypes": 0
+      }
+    ],
+    "classes": [
+      {
+        "className": "ConfigGUIController",
+        "fileName": "configGUI.controller.ts",
+        "filePath": "client/controllers/configGUI.controller.ts",
+        "methodCount": 21,
+        "methods": "initialize, if, if, if, if, if, if, if, if, onEnhancedConfigChange, if, if, if, onClearRequest, if, onUpdateRequest, if, if, if, onDestroy, if",
+        "fileLines": 164
+      },
+      {
+        "className": "ConfigGUIService",
+        "fileName": "makeConfigGui.ts",
+        "filePath": "client/services/configGui/makeConfigGui.ts",
+        "methodCount": 13,
+        "methods": "createGUI, if, createUnifiedUI, if, createActionButtons, updateEnhancedConfig, if, updateDiscoveredProperties, if, if, isVisible, showError, destroy",
+        "fileLines": 359
+      },
+      {
+        "className": "UnifiedDataRenderer",
+        "fileName": "unifiedDataRenderer.ts",
+        "filePath": "shared/modules/renderers/unifiedDataRenderer/unifiedDataRenderer.ts",
+        "methodCount": 10,
+        "methods": "renderEnhancedData, if, if, if, if, updateEnhancedData, if, if, if, createSwimLaneLabels",
+        "fileLines": 302
+      },
+      {
+        "className": "PropertyManager",
+        "fileName": "propertyManager.ts",
+        "filePath": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/propertyManager.ts",
+        "methodCount": 9,
+        "methods": "discoverAndValidateProperties, analyzePropertyDistribution, Map, if, validateAxisProperties, if, if, if, size",
+        "fileLines": 187
+      },
+      {
+        "className": "TestDataProcessor",
+        "fileName": "testDataProcessor.ts",
+        "filePath": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/testDataProcessor.ts",
+        "methodCount": 8,
+        "methods": "generateClusterFromTestData, print, print, size, size, isUsingTestData, if, if",
+        "fileLines": 211
+      },
+      {
+        "className": "GameService",
+        "fileName": "game.service.ts",
+        "filePath": "server/services/main/game.service.ts",
+        "methodCount": 8,
+        "methods": "startGame, if, if, if, if, onDestroy, if, if",
+        "fileLines": 92
+      },
+      {
+        "className": "SwimLaneCalculator",
+        "fileName": "positionCalculator.ts",
+        "filePath": "shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",
+        "methodCount": 6,
+        "methods": "calculateTypeColumnPositions, for, assignNodePositionsWithProperties, for, for, lower",
+        "fileLines": 397
+      },
+      {
+        "className": "ShadowBlockCreator",
+        "fileName": "shadowBlockCreator.ts",
+        "filePath": "shared/modules/renderers/blocks/shadowBlockCreator.ts",
+        "methodCount": 6,
+        "methods": "createGroupShadowBlock, createXParallelShadowBlocks, if, if, createXParallelBlock, addSurfaceLabelsToAllFaces",
+        "fileLines": 252
+      },
+      {
+        "className": "SwimLaneBlockCreator",
+        "fileName": "swimlaneBlockCreator.ts",
+        "filePath": "shared/modules/renderers/blocks/swimlaneBlockCreator.ts",
+        "methodCount": 6,
+        "methods": "createSwimLaneBlock, createZParallelLaneBlocks, createXAxisSwimLaneBlocks, filter, addSurfaceLabelsToAllFaces, if",
+        "fileLines": 246
+      },
+      {
+        "className": "GraphInitializerService",
+        "fileName": "graphInitializer.service.ts",
+        "filePath": "server/services/graphInitializer.service.ts",
+        "methodCount": 6,
+        "methods": "initializeGraph, initializeGraphWithMaxItems, triggerGraphGeneration, if, sendInitialConfig, if",
+        "fileLines": 154
+      },
+      {
+        "className": "EndcapBlockCreator",
+        "fileName": "endcapBlockCreator.ts",
+        "filePath": "shared/modules/renderers/blocks/endcapBlockCreator.ts",
+        "methodCount": 5,
+        "methods": "createSwimlaneWithEndcaps, if, createEndcapBlock, addLabelsToAllFaces, if",
+        "fileLines": 216
+      },
+      {
+        "className": "GuiLayoutManager",
+        "fileName": "guiLayout.ts",
+        "filePath": "client/services/configGui/guiLayout.ts",
+        "methodCount": 4,
+        "methods": "reset, addSpacing, createScrollingFrame, updateCanvasSize",
+        "fileLines": 90
+      },
+      {
+        "className": "PositionMapper",
+        "fileName": "positionCalculator.ts",
+        "filePath": "shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",
+        "methodCount": 3,
+        "methods": "applyOffsets, createPropertyPositionMap, if",
+        "fileLines": 397
+      },
+      {
+        "className": "NodeOrganizer",
+        "fileName": "positionCalculator.ts",
+        "filePath": "shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",
+        "methodCount": 2,
+        "methods": "organizeNodesByProperty, sortTypesByCount",
+        "fileLines": 397
+      },
+      {
+        "className": "BoundsCalculator",
+        "fileName": "positionCalculator.ts",
+        "filePath": "shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",
+        "methodCount": 1,
+        "methods": "calculateBounds",
+        "fileLines": 397
+      },
+      {
+        "className": "for",
+        "fileName": "BaseService.ts",
+        "filePath": "shared/services/base/BaseService.ts",
+        "methodCount": 0,
+        "methods": "",
+        "fileLines": 172
+      },
+      {
+        "className": "for",
+        "fileName": "baseBlockCreator.ts",
+        "filePath": "shared/modules/renderers/blocks/baseBlockCreator.ts",
+        "methodCount": 0,
+        "methods": "",
+        "fileLines": 86
+      },
+      {
+        "className": "and",
+        "fileName": "index.ts",
+        "filePath": "shared/modules/renderers/unifiedDataRenderer/index.ts",
+        "methodCount": 0,
+        "methods": "",
+        "fileLines": 9
+      }
+    ]
+  },
+  "deadCode": [
+    {
+      "file": "shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",
+      "type": "commented-code",
+      "count": 1,
+      "lines": 6
+    },
+    {
+      "file": "shared/modules/renderers/unifiedDataRenderer/unifiedDataRenderer.ts",
+      "type": "commented-code",
+      "count": 1,
+      "lines": 65
+    },
+    {
+      "file": "client/services/configGui/components/yAxisControls.ts",
+      "type": "unused-export",
+      "items": [
+        "createYAxisControls"
+      ]
+    },
+    {
+      "file": "shared/modules/renderers/blocks/yParallelShadowCreator.ts",
+      "type": "unused-export",
+      "items": [
+        "YGroupBounds"
+      ]
+    },
+    {
+      "file": "shared/modules/renderers/unifiedDataRenderer/utils/colorMapper.ts",
+      "type": "unused-export",
+      "items": [
+        "getNodeTextProperties"
+      ]
+    },
+    {
+      "file": "client/services/configGui/components/visualCustomizationControls.ts",
+      "type": "unused-export",
+      "items": [
+        "createVisualCustomizationControls"
+      ]
+    },
+    {
+      "file": "shared/modules/renderers/flatBlockCreator.ts",
+      "type": "commented-code",
+      "count": 1,
+      "lines": 6
+    },
+    {
+      "file": "shared/modules/renderers/flatBlockCreator.ts",
+      "type": "unused-export",
+      "items": [
+        "FlatBlockConfig",
+        "FLAT_BLOCK_DEFAULTS",
+        "createFlatBlocks",
+        "createFlatBlock"
+      ]
+    },
+    {
+      "file": "shared/modules/renderers/verticalWallCreator.ts",
+      "type": "unused-export",
+      "items": [
+        "VerticalWallConfig",
+        "createFarZEdgeWall",
+        "createFarXEdgeWall"
+      ]
+    },
+    {
+      "file": "client/services/configGui/components/nodeTypesSection.ts",
+      "type": "unused-export",
+      "items": [
+        "createNodeTypesSection"
+      ]
+    },
+    {
+      "file": "shared/services/base/BaseService.ts",
+      "type": "commented-code",
+      "count": 1,
+      "lines": 6
+    },
+    {
+      "file": "client/services/configGui/components/dropdownTestControls.ts",
+      "type": "unused-export",
+      "items": [
+        "DropdownTestControlsOptions",
+        "createDropdownTestControls"
+      ]
+    },
+    {
+      "file": "server/services/graphInitializer.service.ts",
+      "type": "unused-export",
+      "items": [
+        "GraphInitConfig"
+      ]
+    },
+    {
+      "file": "shared/modules/renderers/unifiedDataRenderer/core/nodeOrganizer.ts",
+      "type": "unused-export",
+      "items": [
+        "OrganizedNodes"
+      ]
+    },
+    {
+      "file": "client/services/configGui/components/axisMappingControls/components/yAxisConfigSection.ts",
+      "type": "unused-export",
+      "items": [
+        "createYAxisConfigSection"
+      ]
+    },
+    {
+      "file": "shared/utils/validation/stringValidation.ts",
+      "type": "unused-export",
+      "items": [
+        "STRING_LIMITS",
+        "validateString",
+        "sanitizeString"
+      ]
+    },
+    {
+      "file": "shared/modules/renderers/unifiedDataRenderer/types.ts",
+      "type": "unused-export",
+      "items": [
+        "PlatformBounds",
+        "RendererConfig",
+        "UpdateConfig",
+        "isNode",
+        "isLink",
+        "isCluster"
+      ]
+    },
+    {
+      "file": "shared/modules/labelBlockMaker/standardizedInterfaces.ts",
+      "type": "unused-export",
+      "items": [
+        "IFaceLabelConfig",
+        "LabelBlockConfigLegacy",
+        "convertLegacyLabelBlockConfig"
+      ]
+    },
+    {
+      "file": "client/services/configGui/components/axisMappingControls/utils/layoutManager.ts",
+      "type": "unused-export",
+      "items": [
+        "applyCornerRadius"
+      ]
+    },
+    {
+      "file": "shared/modules/barMaker/standardizedInterfaces.ts",
+      "type": "unused-export",
+      "items": [
+        "BarConfigLegacy",
+        "convertLegacyBarConfig"
+      ]
+    },
+    {
+      "file": "shared/modules/TextLabelMaker.ts",
+      "type": "unused-export",
+      "items": [
+        "createTextLabelWithCustomStyling"
+      ]
+    },
+    {
+      "file": "shared/modules/makeOriginBlock.ts",
+      "type": "unused-export",
+      "items": [
+        "OriginBlockConfig"
+      ]
+    },
+    {
+      "file": "shared/interfaces/IMaker.ts",
+      "type": "unused-export",
+      "items": [
+        "IMakerConfig",
+        "IMakerResult",
+        "IMakerFunction",
+        "IMakerClass",
+        "IConnectorMakerConfig"
+      ]
+    },
+    {
+      "file": "shared/modules/renderers/blocks/blockDimensionCalculator.ts",
+      "type": "unused-export",
+      "items": [
+        "NodeBounds",
+        "BlockDimensionCalculator"
+      ]
+    },
+    {
+      "file": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/interfaces.ts",
+      "type": "unused-export",
+      "items": [
+        "LinkGenerationResult",
+        "PropertyAssignmentConfig",
+        "PropertyMetadata"
+      ]
+    },
+    {
+      "file": "shared/interfaces/enhancedGenerator.interface.ts",
+      "type": "unused-export",
+      "items": [
+        "SpatialGrouping"
+      ]
+    },
+    {
+      "file": "shared/modules/ropeLabelMaker/utilities.ts",
+      "type": "unused-export",
+      "items": [
+        "formatNodeName",
+        "calculateLabelPosition",
+        "validateRelationFormat"
+      ]
+    },
+    {
+      "file": "shared/modules/hexagonMaker/standardizedInterfaces.ts",
+      "type": "unused-export",
+      "items": [
+        "HexagonConfigLegacy",
+        "convertLegacyHexagonConfig"
+      ]
+    },
+    {
+      "file": "client/main.client.ts",
+      "type": "commented-code",
+      "count": 1,
+      "lines": 12
+    },
+    {
+      "file": "shared/modules/renderers/unifiedDataRenderer/interfaces.ts",
+      "type": "unused-export",
+      "items": [
+        "NodeCreationParams",
+        "UpdatePlan"
+      ]
+    },
+    {
+      "file": "shared/modules/barMaker/utilities.ts",
+      "type": "unused-export",
+      "items": [
+        "makeCircle"
+      ]
+    },
+    {
+      "file": "shared/modules/hexStackMaker/standardizedInterfaces.ts",
+      "type": "unused-export",
+      "items": [
+        "HexStackConfigLegacy",
+        "convertLegacyHexStackConfig"
+      ]
+    },
+    {
+      "file": "client/services/configGui/components/axisMappingControls/types.ts",
+      "type": "unused-export",
+      "items": [
+        "LabeledControlProps"
+      ]
+    },
+    {
+      "file": "shared/interfaces/nodeTypes.ts",
+      "type": "unused-export",
+      "items": [
+        "isValidNodeType",
+        "AXIS_PROPERTIES"
+      ]
+    },
+    {
+      "file": "client/services/configGui/interfaces.ts",
+      "type": "unused-export",
+      "items": [
+        "ComponentProps"
+      ]
+    },
+    {
+      "file": "shared/interfaces/IService.ts",
+      "type": "unused-export",
+      "items": [
+        "IServiceWithInit"
+      ]
+    },
+    {
+      "file": "server/main.server.ts",
+      "type": "commented-code",
+      "count": 1,
+      "lines": 13
+    }
+  ],
+  "largestFiles": [
+    {
+      "name": "tempHarnessTestData.ts",
+      "path": "shared/data/tempHarnessTestData.ts",
+      "lines": 23033,
+      "size": 671.14,
+      "classes": 0,
+      "interfaces": 1,
+      "methods": 0,
+      "exports": 1,
+      "imports": 0,
+      "anyTypes": 0
+    },
+    {
+      "name": "tempHarnessLinks.ts",
+      "path": "shared/data/tempHarnessLinks.ts",
+      "lines": 14023,
+      "size": 327.83,
+      "classes": 0,
+      "interfaces": 2,
+      "methods": 0,
+      "exports": 2,
+      "imports": 956,
+      "anyTypes": 0
+    },
+    {
+      "name": "laneManager.ts",
+      "path": "shared/modules/renderers/unifiedDataRenderer/managers/laneManager.ts",
+      "lines": 422,
+      "size": 14.51,
+      "classes": 0,
+      "interfaces": 0,
+      "methods": 0,
+      "exports": 1,
+      "imports": 9,
+      "anyTypes": 0
+    },
+    {
+      "name": "positionCalculator.ts",
+      "path": "shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",
+      "lines": 397,
+      "size": 13.78,
+      "classes": 4,
+      "interfaces": 0,
+      "methods": 12,
+      "exports": 1,
+      "imports": 7,
+      "anyTypes": 0
+    },
+    {
+      "name": "updateManager.ts",
+      "path": "shared/modules/renderers/unifiedDataRenderer/rendering/updateManager.ts",
+      "lines": 397,
+      "size": 13.46,
+      "classes": 0,
+      "interfaces": 0,
+      "methods": 0,
+      "exports": 1,
+      "imports": 7,
+      "anyTypes": 0
+    },
+    {
+      "name": "stateManager.ts",
+      "path": "client/services/configGui/stateManager.ts",
+      "lines": 403,
+      "size": 13.13,
+      "classes": 0,
+      "interfaces": 2,
+      "methods": 0,
+      "exports": 1,
+      "imports": 5,
+      "anyTypes": 2
+    },
+    {
+      "name": "layerGrid.ts",
+      "path": "client/services/configGui/components/layerGrid.ts",
+      "lines": 365,
+      "size": 11.87,
+      "classes": 0,
+      "interfaces": 3,
+      "methods": 0,
+      "exports": 1,
+      "imports": 2,
+      "anyTypes": 0
+    },
+    {
+      "name": "makeConfigGui.ts",
+      "path": "client/services/configGui/makeConfigGui.ts",
+      "lines": 359,
+      "size": 11.46,
+      "classes": 1,
+      "interfaces": 1,
+      "methods": 13,
+      "exports": 1,
+      "imports": 14,
+      "anyTypes": 0
+    },
+    {
+      "name": "unifiedDataRenderer.ts",
+      "path": "shared/modules/renderers/unifiedDataRenderer/unifiedDataRenderer.ts",
+      "lines": 302,
+      "size": 10.61,
+      "classes": 1,
+      "interfaces": 0,
+      "methods": 10,
+      "exports": 1,
+      "imports": 14,
+      "anyTypes": 0
+    },
+    {
+      "name": "nodePropertiesInspector.service.ts",
+      "path": "client/services/nodePropertiesInspector/nodePropertiesInspector.service.ts",
+      "lines": 315,
+      "size": 10.24,
+      "classes": 0,
+      "interfaces": 0,
+      "methods": 0,
+      "exports": 1,
+      "imports": 2,
+      "anyTypes": 0
+    }
+  ],
+  "mostComplexClasses": [
+    {
+      "className": "ConfigGUIController",
+      "fileName": "configGUI.controller.ts",
+      "filePath": "client/controllers/configGUI.controller.ts",
+      "methodCount": 21,
+      "methods": "initialize, if, if, if, if, if, if, if, if, onEnhancedConfigChange, if, if, if, onClearRequest, if, onUpdateRequest, if, if, if, onDestroy, if",
+      "fileLines": 164
+    },
+    {
+      "className": "ConfigGUIService",
+      "fileName": "makeConfigGui.ts",
+      "filePath": "client/services/configGui/makeConfigGui.ts",
+      "methodCount": 13,
+      "methods": "createGUI, if, createUnifiedUI, if, createActionButtons, updateEnhancedConfig, if, updateDiscoveredProperties, if, if, isVisible, showError, destroy",
+      "fileLines": 359
+    },
+    {
+      "className": "UnifiedDataRenderer",
+      "fileName": "unifiedDataRenderer.ts",
+      "filePath": "shared/modules/renderers/unifiedDataRenderer/unifiedDataRenderer.ts",
+      "methodCount": 10,
+      "methods": "renderEnhancedData, if, if, if, if, updateEnhancedData, if, if, if, createSwimLaneLabels",
+      "fileLines": 302
+    },
+    {
+      "className": "PropertyManager",
+      "fileName": "propertyManager.ts",
+      "filePath": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/propertyManager.ts",
+      "methodCount": 9,
+      "methods": "discoverAndValidateProperties, analyzePropertyDistribution, Map, if, validateAxisProperties, if, if, if, size",
+      "fileLines": 187
+    },
+    {
+      "className": "TestDataProcessor",
+      "fileName": "testDataProcessor.ts",
+      "filePath": "shared/modules/renderers/unifiedDataRenderer/core/dataGenerator/testDataProcessor.ts",
+      "methodCount": 8,
+      "methods": "generateClusterFromTestData, print, print, size, size, isUsingTestData, if, if",
+      "fileLines": 211
+    },
+    {
+      "className": "GameService",
+      "fileName": "game.service.ts",
+      "filePath": "server/services/main/game.service.ts",
+      "methodCount": 8,
+      "methods": "startGame, if, if, if, if, onDestroy, if, if",
+      "fileLines": 92
+    },
+    {
+      "className": "SwimLaneCalculator",
+      "fileName": "positionCalculator.ts",
+      "filePath": "shared/modules/renderers/unifiedDataRenderer/core/positionCalculator.ts",
+      "methodCount": 6,
+      "methods": "calculateTypeColumnPositions, for, assignNodePositionsWithProperties, for, for, lower",
+      "fileLines": 397
+    },
+    {
+      "className": "ShadowBlockCreator",
+      "fileName": "shadowBlockCreator.ts",
+      "filePath": "shared/modules/renderers/blocks/shadowBlockCreator.ts",
+      "methodCount": 6,
+      "methods": "createGroupShadowBlock, createXParallelShadowBlocks, if, if, createXParallelBlock, addSurfaceLabelsToAllFaces",
+      "fileLines": 252
+    },
+    {
+      "className": "SwimLaneBlockCreator",
+      "fileName": "swimlaneBlockCreator.ts",
+      "filePath": "shared/modules/renderers/blocks/swimlaneBlockCreator.ts",
+      "methodCount": 6,
+      "methods": "createSwimLaneBlock, createZParallelLaneBlocks, createXAxisSwimLaneBlocks, filter, addSurfaceLabelsToAllFaces, if",
+      "fileLines": 246
+    },
+    {
+      "className": "GraphInitializerService",
+      "fileName": "graphInitializer.service.ts",
+      "filePath": "server/services/graphInitializer.service.ts",
+      "methodCount": 6,
+      "methods": "initializeGraph, initializeGraphWithMaxItems, triggerGraphGeneration, if, sendInitialConfig, if",
+      "fileLines": 154
+    }
+  ]
+}

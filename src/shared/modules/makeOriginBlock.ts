@@ -6,8 +6,8 @@
 // Legacy function signature for backward compatibility
 import { makeLabelBlock } from "./labelBlockMaker";
 
-export interface OriginBlockConfig {
-  origin: { x: number; y: number; z: number };
+interface OriginBlockConfig {
+  origin: Vector3;
   parent: Instance;
   offset?: { x: number; y: number; z: number };
   size?: number;
@@ -30,9 +30,9 @@ export function makeOriginBlock({
     id: "orientation-ref",
     text: "ORIENT", // Required text field
     position: new Vector3(
-      origin.x + offset.x,
-      origin.y + offset.y,
-      origin.z + offset.z
+      origin.X + offset.x,
+      origin.Y + offset.y,
+      origin.Z + offset.z
     ),
     size: size,
     color: new Color3(0.3, 0.3, 0.3), // Dark gray

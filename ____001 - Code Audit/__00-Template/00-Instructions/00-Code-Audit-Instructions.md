@@ -30,7 +30,8 @@ Deliverables:
 1. list of dead code
 2. list of orphaned files
 3. Summary.md
-   1. asdf
+   1. Table of files and the number of lines, classes etc
+   2. table of classes and the number of methods etc
 4. Drawio files:
    1. 00-Project-Architecture.drawio
    2. 01-DataFlow.drawio

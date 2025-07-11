@@ -8,24 +8,6 @@ export function makeAttachment(name: string, offset: number, id: string): Attach
   return attachment;
 }
 
-export function makeCircle(
-  name: string,
-  x: number,
-  y: number,
-  z: number,
-  color: [number, number, number]
-): Part {
-  const circle = new Instance("Part");
-  circle.Size = new Vector3(BAR_CONSTANTS.POINT_SIZE, BAR_CONSTANTS.POINT_SIZE, BAR_CONSTANTS.POINT_SIZE);
-  circle.Position = new Vector3(x, y, z);
-  circle.Anchored = true;
-  circle.Color = Color3.fromRGB(color[0] * 255, color[1] * 255, color[2] * 255);
-  circle.Material = Enum.Material.SmoothPlastic;
-  circle.Shape = Enum.PartType.Ball;
-  circle.CastShadow = false;
-  return circle;
-}
-
 export function generateBarName(
   stackIndex: number,
   hexIndex: number,

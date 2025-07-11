@@ -59,7 +59,7 @@ export class GameService extends BaseService {
     // Create orientation reference block at origin
     if (true) {
       makeOriginBlock({
-        origin: { x: ORIGIN.x, y: ORIGIN.y + 20, z: ORIGIN.z }, // Offset cube by 20 in Y
+        origin: new Vector3(ORIGIN.x, ORIGIN.y + 20, ORIGIN.z), // Offset cube by 20 in Y
         parent: this.myStuffFolder,
       });
     }
