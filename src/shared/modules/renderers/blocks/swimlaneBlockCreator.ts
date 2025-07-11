@@ -38,9 +38,6 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
     // Generate unique ID for the lane
     const laneId = `${propertyName || "default"}_${typeName}`;
     const blockName = `ZParallel_Lane_${laneId}`;
-    
-    // Debug: Print width of actual swimlane
-    print(`[SWIMLANE] ${typeName}: width=${width}, depth=${depth}`)
 
     const swimLaneBlock = this.createBlock({
       name: blockName,
@@ -200,7 +197,6 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
 
     // Check if this is a Z-parallel block
     const isZParallel = block.Name.match("^ZParallel_Lane_")[0] !== undefined;
-    
 
     faces.forEach((face) => {
       // Skip Front face (red labels) for Z-parallel blocks
@@ -219,24 +215,26 @@ export class SwimLaneBlockCreator extends BaseBlockCreator {
       const textLabel = new Instance("TextLabel");
       textLabel.Size = new UDim2(1, 0, 1, 0); // Full size as requested
       textLabel.Position = new UDim2(0, 0, 0, 0);
-      textLabel.BackgroundTransparency = BLOCK_CONSTANTS.LABEL_STYLING.BACKGROUND_TRANSPARENCY;
+      textLabel.BackgroundTransparency =
+        BLOCK_CONSTANTS.LABEL_STYLING.BACKGROUND_TRANSPARENCY;
       textLabel.BackgroundColor3 = block.Color; // Same color as the underlying block
-      textLabel.BorderSizePixel = BLOCK_CONSTANTS.LABEL_STYLING.BORDER_SIZE_PIXEL;
+      textLabel.BorderSizePixel =
+        BLOCK_CONSTANTS.LABEL_STYLING.BORDER_SIZE_PIXEL;
       textLabel.BorderColor3 = BLOCK_CONSTANTS.LABEL_STYLING.BORDER_COLOR;
       textLabel.BorderMode = BLOCK_CONSTANTS.LABEL_STYLING.BORDER_MODE;
       textLabel.Font = BLOCK_CONSTANTS.LABEL_STYLING.FONT;
       textLabel.Text = text;
-      
+
       // Use different colors for each face (for testing)
       const faceColors: { [key: string]: Color3 } = {
-        Front: new Color3(1, 0, 0),     // Red
-        Back: new Color3(0, 1, 0),      // Green
-        Left: new Color3(0, 0, 1),      // Blue
-        Right: new Color3(1, 1, 0),     // Yellow
-        Top: new Color3(1, 0, 1),       // Magenta
-        Bottom: new Color3(0, 1, 1),    // Cyan
+        Front: new Color3(1, 0, 0), // Red
+        Back: new Color3(0, 1, 0), // Green
+        Left: new Color3(0, 0, 1), // Blue
+        Right: new Color3(1, 1, 0), // Yellow
+        Top: new Color3(1, 0, 1), // Magenta
+        Bottom: new Color3(0, 1, 1), // Cyan
       };
-      
+
       textLabel.TextColor3 = faceColors[face.Name] || new Color3(1, 1, 1); // Default to white
       textLabel.TextScaled = BLOCK_CONSTANTS.LABEL_STYLING.TEXT_SCALED;
       textLabel.Parent = surfaceGui;

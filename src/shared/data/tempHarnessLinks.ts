@@ -14019,4 +14019,15 @@ export const TEMP_HARNESS_LINKS: HarnessLink[] = [
   }
 ];
 
-// Summary statistics removed - was unused
+// Summary statistics
+export const HARNESS_LINK_STATS = {
+  totalLinks: 1000,
+  linkTypes: {
+    Import: 956,
+    API: 3,
+    Test: 3,
+    Hierarchy: 38,
+    Service: 0
+  },
+  averageConfidence: 0.70
+};

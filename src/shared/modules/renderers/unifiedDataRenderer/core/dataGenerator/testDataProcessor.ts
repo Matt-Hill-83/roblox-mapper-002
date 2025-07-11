@@ -64,16 +64,17 @@ export class TestDataProcessor implements ITestDataProcessor {
       };
       harnessNodes.push(node);
     });
-
+    
     // Use real harness links from the link detection analysis
-    // Filter to only include links between nodes we actually have
+    // Filter to only include links between nodes we actually have AND only Import type links
     const nodeUuids = new Set(harnessNodes.map((node) => node.uuid));
-    const validHarnessLinks = TEMP_HARNESS_LINKS.filter(
-      (link) =>
-        nodeUuids.has(link.sourceNodeUuid) && nodeUuids.has(link.targetNodeUuid)
-    );
+    const validHarnessLinks = TEMP_HARNESS_LINKS.filter((link) => {
+      return nodeUuids.has(link.sourceNodeUuid) && 
+             nodeUuids.has(link.targetNodeUuid) &&
+             link.type === "Import";
+    });
 
-    print(`[TestDataProcessor] Found ${TEMP_HARNESS_LINKS.size()} total links, ${validHarnessLinks.size()} valid links for ${nodeUuids.size()} nodes`);
+    print(`[TestDataProcessor] Found ${TEMP_HARNESS_LINKS.size()} total links, ${validHarnessLinks.size()} valid Import links for ${nodeUuids.size()} nodes`);
     
     // Convert to Link[] format (remove extra properties)
     const harnessLinks: Link[] = validHarnessLinks.map((link) => ({

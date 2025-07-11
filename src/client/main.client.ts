@@ -13,7 +13,8 @@
 
 import { ConfigGUIController } from "./controllers/configGUI.controller";
 import { AnimationTestGUIController } from "./controllers/animationTestGUI.controller";
-import { Players } from "@rbxts/services";
+// import { ColorPickerController } from "./controllers/_orphaned/colorPicker.controller";
+import { Players, ReplicatedStorage } from "@rbxts/services";
 import { KeyboardShortcutsService } from "./services/keyboardShortcuts.service";
 import { NodePropertiesInspectorService } from "./services/nodePropertiesInspector/nodePropertiesInspector.service";
 
@@ -38,6 +39,9 @@ configGUIController.initialize();
 const animationTestController = new AnimationTestGUIController();
 animationTestController.initialize();
 
+// Initialize the color picker GUI (disabled - moved to _orphaned)
+// const colorPickerController = new ColorPickerController();
+// colorPickerController.initialize();
 
 // Initialize keyboard shortcuts service
 new KeyboardShortcutsService();
@@ -45,4 +49,121 @@ new KeyboardShortcutsService();
 // Initialize node properties inspector
 const nodeInspector = NodePropertiesInspectorService.getInstance();
 nodeInspector.initialize();
+
+// Create LinkTypes GUI in lower left corner
+const playerGui = player.WaitForChild("PlayerGui") as PlayerGui;
+
+const linkTypesGui = new Instance("ScreenGui");
+linkTypesGui.Name = "LinkTypesGUI";
+linkTypesGui.Parent = playerGui;
+
+const linkTypesFrame = new Instance("Frame");
+linkTypesFrame.Name = "LinkTypesFrame";
+linkTypesFrame.Size = new UDim2(0, 250, 0, 200);
+linkTypesFrame.Position = new UDim2(0, 10, 1, -210); // Lower left corner
+linkTypesFrame.BackgroundColor3 = new Color3(0.1, 0.1, 0.1);
+linkTypesFrame.BorderSizePixel = 2;
+linkTypesFrame.BorderColor3 = new Color3(0.4, 0.4, 0.4);
+linkTypesFrame.Parent = linkTypesGui;
+
+// Header
+const headerLabel = new Instance("TextLabel");
+headerLabel.Text = "Link Types";
+headerLabel.Size = new UDim2(1, 0, 0, 25);
+headerLabel.Position = new UDim2(0, 0, 0, 0);
+headerLabel.BackgroundColor3 = new Color3(0.2, 0.2, 0.2);
+headerLabel.TextColor3 = new Color3(1, 1, 1);
+headerLabel.TextScaled = true;
+headerLabel.Font = Enum.Font.SourceSansBold;
+headerLabel.Parent = linkTypesFrame;
+
+// Scrolling area
+const scrollFrame = new Instance("ScrollingFrame");
+scrollFrame.Size = new UDim2(1, -10, 1, -35);
+scrollFrame.Position = new UDim2(0, 5, 0, 30);
+scrollFrame.BackgroundTransparency = 1;
+scrollFrame.BorderSizePixel = 0;
+scrollFrame.ScrollBarThickness = 6;
+scrollFrame.CanvasSize = new UDim2(0, 0, 0, 0);
+scrollFrame.Parent = linkTypesFrame;
+
+// Function to get link type counts from existing server
+function getLinkTypeCounts(): { name: string; count: number }[] {
+  const remoteFunction = ReplicatedStorage.FindFirstChild("GetLinkTypeCounts") as RemoteFunction;
+  if (remoteFunction) {
+    try {
+      const result: unknown = remoteFunction.InvokeServer();
+      if (result && typeIs(result, "table")) {
+        const serverData = result as { type: string; count: number }[];
+        // Convert from server format {type, count} to client format {name, count}
+        return serverData.map(item => ({ name: item.type, count: item.count }));
+      }
+    } catch (error) {
+      warn("Failed to get link type counts:", error);
+    }
+  }
+  return [{ name: "Loading...", count: 0 }];
+}
+
+// Function to update the GUI with current data
+function updateLinkTypesDisplay() {
+  // Clear existing entries
+  scrollFrame.GetChildren().forEach(child => {
+    if (child.IsA("Frame")) {
+      child.Destroy();
+    }
+  });
+  
+  // Get current link type counts from server
+  const linkTypes = getLinkTypeCounts();
+  
+  let yPos = 5;
+  linkTypes.forEach((linkType, index) => {
+    const entryFrame = new Instance("Frame");
+    entryFrame.Size = new UDim2(1, -10, 0, 25);
+    entryFrame.Position = new UDim2(0, 5, 0, yPos);
+    entryFrame.BackgroundColor3 = new Color3(0.15, 0.15, 0.15);
+    entryFrame.BorderSizePixel = 1;
+    entryFrame.BorderColor3 = new Color3(0.3, 0.3, 0.3);
+    entryFrame.Parent = scrollFrame;
+    
+    const nameLabel = new Instance("TextLabel");
+    nameLabel.Text = linkType.name;
+    nameLabel.Size = new UDim2(0.7, 0, 1, 0);
+    nameLabel.Position = new UDim2(0, 5, 0, 0);
+    nameLabel.BackgroundTransparency = 1;
+    nameLabel.TextColor3 = new Color3(1, 1, 1);
+    nameLabel.TextScaled = true;
+    nameLabel.Font = Enum.Font.SourceSans;
+    nameLabel.TextXAlignment = Enum.TextXAlignment.Left;
+    nameLabel.Parent = entryFrame;
+    
+    const countLabel = new Instance("TextLabel");
+    countLabel.Text = tostring(linkType.count);
+    countLabel.Size = new UDim2(0.3, -5, 1, 0);
+    countLabel.Position = new UDim2(0.7, 0, 0, 0);
+    countLabel.BackgroundTransparency = 1;
+    countLabel.TextColor3 = new Color3(0.8, 0.8, 1);
+    countLabel.TextScaled = true;
+    countLabel.Font = Enum.Font.SourceSansBold;
+    countLabel.TextXAlignment = Enum.TextXAlignment.Right;
+    countLabel.Parent = entryFrame;
+    
+    yPos += 30;
+  });
+  
+  // Update canvas size
+  scrollFrame.CanvasSize = new UDim2(0, 0, 0, yPos);
+}
+
+// Initial display
+updateLinkTypesDisplay();
+
+// Update every 2 seconds to reflect server changes
+spawn(() => {
+  while (true) {
+    wait(2);
+    updateLinkTypesDisplay();
+  }
+});
 

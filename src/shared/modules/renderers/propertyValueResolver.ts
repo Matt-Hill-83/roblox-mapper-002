@@ -6,7 +6,11 @@
  */
 
 import { Node } from "../../interfaces/simpleDataGenerator.interface";
-import { isPersonNode, getAgeRange, getFullName } from "../../utils/nodePropertyHelpers";
+import {
+  isPersonNode,
+  getAgeRange,
+  getFullName,
+} from "../../utils/nodePropertyHelpers";
 import { POSITION_CONSTANTS } from "./constants/positionConstants";
 import { getNodePropertyValue } from "../../utils/propertyDiscovery";
 
@@ -14,7 +18,7 @@ export type PropertyExtractor = (node: Node) => string;
 
 export class PropertyValueResolver {
   private propertyExtractors: Map<string, PropertyExtractor>;
-  
+
   constructor() {
     this.propertyExtractors = new Map([
       ["type", (node) => this.extractType(node)],
@@ -36,41 +40,46 @@ export class PropertyValueResolver {
       ["operationType", (node) => this.extractOperationType(node)],
       ["apiPattern", (node) => this.extractApiPattern(node)],
       ["apiComplexity", (node) => this.extractApiComplexity(node)],
-      ["httpMethod", (node) => this.extractHttpMethod(node)]
+      ["httpMethod", (node) => this.extractHttpMethod(node)],
     ]);
   }
-  
+
   /**
    * Get property value for a node
    */
   public getPropertyValue(node: Node, propertyName: string): string {
     const extractor = this.propertyExtractors.get(propertyName);
-    
+
     if (extractor) {
       try {
         return extractor(node);
       } catch (error) {
-        warn(`[PropertyValueResolver] Error extracting property ${propertyName}: ${error}`);
+        warn(
+          `[PropertyValueResolver] Error extracting property ${propertyName}: ${error}`
+        );
       }
     }
-    
+
     // Fall back to dynamic property discovery for unknown properties
     const value = getNodePropertyValue(node, propertyName);
     if (value !== undefined) {
       return tostring(value);
     }
-    
+
     // Final fallback
     return "Unknown";
   }
-  
+
   /**
    * Register a custom property extractor
    */
-  public registerExtractor(propertyName: string, extractor: PropertyExtractor): void {
+  public registerExtractor(
+    propertyName: string,
+    extractor: PropertyExtractor
+  ): void {
     this.propertyExtractors.set(propertyName, extractor);
   }
-  
+
   /**
    * Get all available property names
    */
@@ -81,7 +90,7 @@ export class PropertyValueResolver {
     });
     return properties;
   }
-  
+
   /**
    * Extract type property
    */
@@ -93,14 +102,14 @@ export class PropertyValueResolver {
     // For regular nodes, use node.type
     return node.type;
   }
-  
+
   /**
    * Extract age as range
    */
   private extractAge(node: Node): string {
     return getAgeRange(node);
   }
-  
+
   /**
    * Extract pet type
    */
@@ -110,7 +119,7 @@ export class PropertyValueResolver {
     }
     return node.properties.petType || "None";
   }
-  
+
   /**
    * Extract pet color
    */
@@ -120,7 +129,7 @@ export class PropertyValueResolver {
     }
     return node.properties.petColor || "None";
   }
-  
+
   /**
    * Extract first name
    */
@@ -130,7 +139,7 @@ export class PropertyValueResolver {
     }
     return node.properties.firstName || node.name;
   }
-  
+
   /**
    * Extract last name
    */
@@ -140,14 +149,14 @@ export class PropertyValueResolver {
     }
     return node.properties.lastName || "";
   }
-  
+
   /**
    * Extract full name
    */
   private extractFullName(node: Node): string {
     return getFullName(node);
   }
-  
+
   /**
    * Extract animal type
    */
@@ -159,7 +168,7 @@ export class PropertyValueResolver {
     const properties = node.properties as { animalType?: string };
     return properties.animalType || "None";
   }
-  
+
   /**
    * Extract country of birth
    */
@@ -169,7 +178,7 @@ export class PropertyValueResolver {
     }
     return node.properties.countryOfBirth || "Unknown";
   }
-  
+
   /**
    * Extract country of residence
    */
@@ -179,13 +188,13 @@ export class PropertyValueResolver {
     }
     return node.properties.countryOfResidence || "Unknown";
   }
-  
+
   /**
    * Get age range label from age value
    */
   public getAgeRangeLabel(age: number): string {
     const ranges = POSITION_CONSTANTS.AGE_RANGES;
-    
+
     if (age < ranges.CHILD.max) return ranges.CHILD.label;
     if (age < ranges.YOUNG_ADULT.max) return ranges.YOUNG_ADULT.label;
     if (age < ranges.MIDDLE_AGED.max) return ranges.MIDDLE_AGED.label;
@@ -204,7 +213,26 @@ export class PropertyValueResolver {
    * Extract component property (Harness)
    */
   private extractComponent(node: Node): string {
-    return node.properties?.component || node.type || "Unknown";
+    // For Harness data with component property
+    if (node.properties?.component) {
+      const component = node.properties.component;
+      // print(`[PropertyResolver] Node ${node.name} has component: ${component}`);
+      return component;
+    }
+
+    // For test data, try to use node name for uniqueness
+    // This prevents all nodes from being grouped as "Unknown"
+    const match = node.name.match("[0-9]+");
+    if (match && match[0]) {
+      const result = `${node.type}_${match[0]}`;
+      // print(`[PropertyResolver] Node ${node.name} using generated component: ${result}`);
+      return result;
+    }
+
+    // Fallback to node type
+    const fallback = node.type || "Unknown";
+    // print(`[PropertyResolver] Node ${node.name} falling back to: ${fallback}`);
+    return fallback;
   }
 
   /**

@@ -1,6 +1,7 @@
 import { BaseService } from "../../../shared/services/base/BaseService";
 import { ConfigGUIServerService } from "../configGUIServer.service";
 import { GraphInitializerService } from "../graphInitializer.service";
+import { LinkTypeCounterServerService } from "../linkTypeCounterServer.service";
 import { initializeDev2Features } from "./dev2features";
 import { makeOriginBlock } from "../../../shared/modules/makeOriginBlock";
 
@@ -12,17 +13,27 @@ const ORIGIN = {
 };
 
 // Maximum number of data items to generate
-const MAX_DATA_ITEMS = 200;
+const MAX_DATA_ITEMS = 1000;
+
+// Default GUI axis options
+const DEFAULT_AXIS_OPTIONS = {
+  xgroup: "component",
+  zgroup: "server", 
+  ygroup: "language",
+  nodeColor: "server",
+};
 
 export class GameService extends BaseService {
   private configGUIServer?: ConfigGUIServerService;
   private graphInitializer: GraphInitializerService;
+  private linkTypeCounterServer: LinkTypeCounterServerService;
   private myStuffFolder!: Folder;
   private gameStarted = false; // Flag to prevent duplicate initialization
 
   constructor() {
     super("GameService");
     this.graphInitializer = new GraphInitializerService();
+    this.linkTypeCounterServer = new LinkTypeCounterServerService();
   }
 
   public startGame(): void {
@@ -53,10 +64,12 @@ export class GameService extends BaseService {
       });
     }
 
-    // Initialize the configuration GUI server with origin
+    // Initialize the configuration GUI server with origin, link counter, and default axis options
     this.configGUIServer = new ConfigGUIServerService(
       this.myStuffFolder,
-      new Vector3(ORIGIN.x, ORIGIN.y, ORIGIN.z)
+      new Vector3(ORIGIN.x, ORIGIN.y, ORIGIN.z),
+      this.linkTypeCounterServer,
+      DEFAULT_AXIS_OPTIONS
     );
 
     // Set up graph initializer with the GUI server
@@ -69,6 +82,104 @@ export class GameService extends BaseService {
     if (false) {
       initializeDev2Features(this.myStuffFolder);
     }
+  }
+
+  /**
+   * Debug function to search for the LinkTypesDisplay GUI and report its details
+   */
+  public debugLinkTypesGUI(): void {
+    print("[GameService] Searching for LinkTypesDisplay GUI...");
+
+    const players = game.GetService("Players");
+    const localPlayer = players.LocalPlayer;
+    if (!localPlayer) {
+      print("[GameService] No LocalPlayer found");
+      return;
+    }
+
+    const playerGui = localPlayer.WaitForChild("PlayerGui", 5) as
+      | PlayerGui
+      | undefined;
+    if (!playerGui) {
+      print("[GameService] PlayerGui not found");
+      return;
+    }
+
+    print("[GameService] Searching in PlayerGui...");
+
+    // Search for any GUI containing LinkTypesDisplay
+    let foundGUI = false;
+
+    playerGui.GetChildren().forEach((child) => {
+      if (child.IsA("ScreenGui")) {
+        print(`[GameService] Found ScreenGui: ${child.Name}`);
+
+        // Search recursively for LinkTypesDisplay
+        const searchResult = this.searchForLinkTypesDisplay(child);
+        if (searchResult) {
+          foundGUI = true;
+          print(
+            `[GameService] Found LinkTypesDisplay in ScreenGui: ${child.Name}`
+          );
+          print(`  - Position: ${searchResult.Position}`);
+          print(`  - Size: ${searchResult.Size}`);
+          print(`  - Visible: ${searchResult.Visible}`);
+          print(
+            `  - Parent hierarchy: ${this.getParentHierarchy(searchResult)}`
+          );
+        }
+      }
+    });
+
+    if (!foundGUI) {
+      print("[GameService] LinkTypesDisplay GUI not found in any ScreenGui");
+
+      // List all ScreenGuis for debugging
+      print("[GameService] Available ScreenGuis:");
+      playerGui.GetChildren().forEach((child) => {
+        if (child.IsA("ScreenGui")) {
+          print(`  - ${child.Name} (Enabled: ${child.Enabled})`);
+
+          // List top-level children
+          child.GetChildren().forEach((grandchild) => {
+            print(`    - ${grandchild.Name} (${grandchild.ClassName})`);
+          });
+        }
+      });
+    }
+  }
+
+  /**
+   * Recursively search for LinkTypesDisplay element
+   */
+  private searchForLinkTypesDisplay(parent: Instance): GuiObject | undefined {
+    if (parent.Name === "LinkTypesDisplay" && parent.IsA("GuiObject")) {
+      return parent;
+    }
+
+    for (const child of parent.GetChildren()) {
+      const result = this.searchForLinkTypesDisplay(child);
+      if (result) {
+        return result;
+      }
+    }
+
+    return undefined;
+  }
+
+  /**
+   * Get the parent hierarchy as a string
+   */
+  private getParentHierarchy(obj: Instance): string {
+    const hierarchy: string[] = [];
+    let current: Instance | undefined = obj;
+
+    while (current && current !== game) {
+      hierarchy.unshift(current.Name);
+      current = current.Parent;
+    }
+
+    return hierarchy.join(" -> ");
   }
 
   /**

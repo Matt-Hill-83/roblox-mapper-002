@@ -2,18 +2,23 @@ import { ReplicatedStorage } from "@rbxts/services";
 import { UnifiedDataRenderer } from "../../shared/modules/renderers/unifiedDataRenderer";
 import { BaseService } from "../../shared/services/base/BaseService";
 import { validateEnhancedGeneratorConfig, validateRemoteData } from "../../shared/utils/validation";
+import { LinkTypeCounterServerService } from "./linkTypeCounterServer.service";
 
 export class ConfigGUIServerService extends BaseService {
   private remoteEvent: RemoteEvent;
   private unifiedRenderer: UnifiedDataRenderer;
+  private linkTypeCounterService?: LinkTypeCounterServerService;
   private projectRootFolder: Folder;
   private origin: Vector3;
+  private defaultAxisOptions?: { [key: string]: string };
 
-  constructor(projectRootFolder: Folder, origin?: Vector3) {
+  constructor(projectRootFolder: Folder, origin?: Vector3, linkTypeCounterService?: LinkTypeCounterServerService, defaultAxisOptions?: { [key: string]: string }) {
     super("ConfigGUIServerService");
     this.unifiedRenderer = new UnifiedDataRenderer();
     this.projectRootFolder = projectRootFolder;
     this.origin = origin || new Vector3(0, 0, 0);
+    this.linkTypeCounterService = linkTypeCounterService;
+    this.defaultAxisOptions = defaultAxisOptions;
 
     // Create or get RemoteEvent
     let remoteEvent = ReplicatedStorage.FindFirstChild("ConfigGUIRemote") as RemoteEvent;
@@ -59,6 +64,11 @@ export class ConfigGUIServerService extends BaseService {
             this.origin
           );
           
+          // Update link type counter with the new links
+          if (this.linkTypeCounterService && cluster && cluster.relations) {
+            this.linkTypeCounterService.updateLinks(cluster.relations);
+          }
+          
           // Send success response with discovered properties
           this.remoteEvent.FireClient(player, "regenerateSuccess", validationResult.sanitizedConfig);
           
@@ -88,6 +98,14 @@ export class ConfigGUIServerService extends BaseService {
         
         // Send success response
         this.remoteEvent.FireClient(player, "clearSuccess");
+      } else if (eventType === "debugLinkTypesGUI") {
+        // Debug function to search for LinkTypesDisplay GUI
+        print("[ConfigGUIServerService] Debug LinkTypes GUI request received");
+        
+        // We need to call this on the client side, so we'll fire back to the client
+        // to run the debug function there
+        this.remoteEvent.FireClient(player, "runDebugLinkTypesGUI");
+        
       } else if (eventType === "updateEnhanced" && typeIs(data, "table")) {
         
         // Use comprehensive validation
@@ -100,6 +118,11 @@ export class ConfigGUIServerService extends BaseService {
             validationResult.sanitizedConfig, 
             this.origin
           );
+          
+          // Update link type counter if we got a new cluster
+          if (this.linkTypeCounterService && clusterOrVoid && typeIs(clusterOrVoid, "table") && clusterOrVoid.relations) {
+            this.linkTypeCounterService.updateLinks(clusterOrVoid.relations);
+          }
           
           // Send success response
           this.remoteEvent.FireClient(player, "updateSuccess", validationResult.sanitizedConfig);
@@ -114,6 +137,9 @@ export class ConfigGUIServerService extends BaseService {
           warn(`[ConfigGUIServerService] Update validation errors: ${errorMessage}`);
           this.remoteEvent.FireClient(player, "updateError", errorMessage);
         }
+      } else if (eventType === "getDefaultAxisOptions") {
+        // Send default axis options to client
+        this.remoteEvent.FireClient(player, "defaultAxisOptions", this.defaultAxisOptions || {});
       }
     });
     

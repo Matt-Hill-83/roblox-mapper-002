@@ -4,7 +4,7 @@
  * Generated automatically from 1000 files
  */
 
-interface HarnessFileData {
+export interface HarnessFileData {
   path: string;
   service: string;
   component: string;

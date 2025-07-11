@@ -7,6 +7,7 @@ import { validateEnhancedGeneratorConfig } from "../../shared/utils/validation";
 export class ConfigGUIController extends BaseService {
   private guiService?: ConfigGUIService;
   private remoteEvent?: RemoteEvent;
+  private defaultAxisOptions?: { [key: string]: string };
 
   /**
    * Initializes the configuration GUI controller
@@ -24,6 +25,9 @@ export class ConfigGUIController extends BaseService {
 
     // Set up event listeners
     this.setupEventListeners();
+
+    // Request default axis options from server
+    this.remoteEvent.FireServer("getDefaultAxisOptions");
 
     // Wait for initial config from server before creating GUI
     // The GUI will be created when we receive the initial config
@@ -55,6 +59,7 @@ export class ConfigGUIController extends BaseService {
                 onClearRequest: () => this.onClearRequest(),
                 onUpdateRequest: (config) => this.onUpdateRequest(config),
                 initialConfig: enhancedConfig,
+                defaultAxisOptions: this.defaultAxisOptions,
               });
               this.guiService.createGUI();
             } else {
@@ -89,6 +94,11 @@ export class ConfigGUIController extends BaseService {
           } else {
             
           }
+        } else if (eventType === "defaultAxisOptions" && typeIs(data, "table")) {
+          
+          // Store default axis options for GUI creation
+          this.defaultAxisOptions = data as { [key: string]: string };
+          print(`[ConfigGUIController] Received default axis options:`, this.defaultAxisOptions);
         }
       }
     );

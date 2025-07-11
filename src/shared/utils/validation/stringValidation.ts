@@ -2,7 +2,7 @@
  * String validation utilities for input sanitization and security
  */
 
-interface StringValidationOptions {
+export interface StringValidationOptions {
   maxLength?: number;
   minLength?: number;
   allowEmpty?: boolean;
@@ -29,7 +29,30 @@ export const STRING_LIMITS = {
 // Pattern for detecting potentially malicious characters
 // Note: In Roblox Lua, we use string patterns instead of regex
 
+/**
+ * Validates a node name with specific constraints
+ */
+export function validateNodeName(name: string): ValidationResult {
+  return validateString(name, {
+    maxLength: STRING_LIMITS.NODE_NAME,
+    minLength: 1,
+    blockSpecialChars: true,
+    trimWhitespace: true,
+  });
+}
 
+/**
+ * Validates label text with appropriate constraints
+ */
+export function validateLabelText(text: string): ValidationResult {
+  return validateString(text, {
+    maxLength: STRING_LIMITS.LABEL_TEXT,
+    minLength: 0,
+    allowEmpty: true,
+    blockSpecialChars: true,
+    trimWhitespace: true,
+  });
+}
 
 /**
  * General string validation with configurable options
@@ -140,5 +163,52 @@ export function sanitizeString(input: string, maxLength?: number): string {
   return result.sanitized || "";
 }
 
+/**
+ * Validates an array of strings
+ */
+export function validateStringArray(
+  inputs: string[],
+  options: StringValidationOptions = {}
+): ValidationResult {
+  if (!typeIs(inputs, "table")) {
+    return { isValid: false, error: "Input must be an array" };
+  }
 
+  const sanitizedArray: string[] = [];
+  
+  for (let i = 0; i < inputs.size(); i++) {
+    const result = validateString(inputs[i], options);
+    if (!result.isValid) {
+      return {
+        isValid: false,
+        error: `Item ${i + 1}: ${result.error}`,
+      };
+    }
+    sanitizedArray.push(result.sanitized || inputs[i]);
+  }
 
+  return {
+    isValid: true,
+    sanitized: sanitizedArray.join("|"), // Return as delimited string
+  };
+}
+
+/**
+ * Checks if a string contains injection patterns
+ */
+export function containsInjectionPattern(input: string): boolean {
+  return string.match(input, "[<>\"'&\\]")[0] !== undefined;
+}
+
+/**
+ * Escapes HTML/XML special characters
+ */
+export function escapeHtml(input: string): string {
+  let result = input;
+  result = string.gsub(result, "&", "&amp;")[0];
+  result = string.gsub(result, "<", "&lt;")[0];
+  result = string.gsub(result, ">", "&gt;")[0];
+  result = string.gsub(result, '"', "&quot;")[0];
+  result = string.gsub(result, "'", "&#x27;")[0];
+  return result;
+}
