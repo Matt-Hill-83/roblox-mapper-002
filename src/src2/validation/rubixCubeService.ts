@@ -68,6 +68,7 @@ export class RubixCubeService {
     const numBlocks = config.numBlocks;
     const blockSize = config.blockSize || { x: 10, y: 5, z: 10 };
     
+    
     const spacingX = blockSize.x * 1.1;
     const spacingY = blockSize.y * 1.1;
     const spacingZ = blockSize.z * 1.1;
@@ -79,10 +80,11 @@ export class RubixCubeService {
       for (let z = 0; z < numBlocks.z; z++) {
         cubeData[y][z] = [];
         for (let x = 0; x < numBlocks.x; x++) {
+          // Center the blocks around the origin
           const position = new Vector3(
-            origin.X + (x * spacingX - spacingX),
-            origin.Y + (y * spacingY - spacingY),
-            origin.Z + (z * spacingZ - spacingZ)
+            origin.X + (x - (numBlocks.x - 1) / 2) * spacingX,
+            origin.Y + (y - (numBlocks.y - 1) / 2) * spacingY,
+            origin.Z + (z - (numBlocks.z - 1) / 2) * spacingZ
           );
 
           const suffix = `x-${string.format("%02d", x + 1)}-y-${string.format(
