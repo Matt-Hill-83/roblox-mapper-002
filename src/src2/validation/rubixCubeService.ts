@@ -474,6 +474,111 @@ export class RubixCubeService {
   }
 
   /**
+   * Create shadow projections on ZY plane (left wall)
+   */
+  public createZYShadowProjections(parent: Instance, wallX: number): Model {
+    if (!this.cubeData || !this.config) {
+      error("Must call generateData before createZYShadowProjections");
+    }
+
+    print("=== Creating ZY shadow projections ===");
+    
+    // Create main container for ZY shadow lanes
+    const zyShadowLanesModel = new Instance("Model");
+    zyShadowLanesModel.Name = "ZYShadowLanes";
+    zyShadowLanesModel.Parent = parent;
+    
+    // Create container for Z-parallel shadows (horizontal on wall)
+    const zShadowModel = new Instance("Model");
+    zShadowModel.Name = "ZParallelShadowLanesInZY";
+    zShadowModel.Parent = zyShadowLanesModel;
+    
+    // Create container for Y-parallel shadows (vertical on wall)
+    const yShadowModel = new Instance("Model");
+    yShadowModel.Name = "YParallelShadowLanesInZY";
+    yShadowModel.Parent = zyShadowLanesModel;
+    
+    const numBlocks = this.config.numBlocks;
+    const blockSize = this.config.blockSize || { x: 10, y: 5, z: 10 };
+    
+    // Shadow depth on wall (how thick the shadow appears)
+    const shadowDepth = 0.5;
+    
+    // Create Z-parallel shadows on ZY wall (one per Y level)
+    for (let y = 0; y < numBlocks.y; y++) {
+      // Get the first and last blocks in this Y level across Z
+      const firstBlock = this.cubeData![y][0][0];
+      const lastBlock = this.cubeData![y][numBlocks.z - 1][0];
+      
+      if (!firstBlock.position || !lastBlock.position) {
+        error("Invalid cube data - missing position");
+      }
+      
+      // Calculate shadow dimensions
+      const shadowLength = lastBlock.position.Z + blockSize.z / 2 - (firstBlock.position.Z - blockSize.z / 2) + (SHADOW_CONSTANTS.BUFFER * 2);
+      const shadowHeight = blockSize.y;
+      
+      // Calculate shadow position
+      const shadowZ = (firstBlock.position.Z + lastBlock.position.Z) / 2;
+      const shadowY = firstBlock.position.Y;
+      
+      const shadowPosition = new Vector3(wallX + shadowDepth / 2, shadowY, shadowZ);
+      const shadowSize = new Vector3(shadowDepth, shadowHeight, shadowLength);
+      
+      // Create Z-parallel shadow block on wall
+      wireframeBlockMaker({
+        position: shadowPosition,
+        size: shadowSize,
+        parent: zShadowModel,
+        nameStub: "z-shadow-zy",
+        nameSuffix: `y-${string.format("%02d", y + 1)}`,
+        transparency: SHADOW_CONSTANTS.TRANSPARENCY,
+        color: new Color3(0.6, 0.3, 0.3), // Reddish tint for left wall shadows
+        edgeWidth: 0.1,
+        edgeBlockColor: new Color3(0.8, 0.4, 0.4), // Light red edges
+      });
+    }
+    
+    // Create Y-parallel shadows on ZY wall (one per Z row)
+    for (let z = 0; z < numBlocks.z; z++) {
+      // Get the first and last blocks in this Z row across all Y levels
+      const firstBlock = this.cubeData![0][z][0];
+      const lastBlock = this.cubeData![numBlocks.y - 1][z][0];
+      
+      if (!firstBlock.position || !lastBlock.position) {
+        error("Invalid cube data - missing position");
+      }
+      
+      // Calculate shadow dimensions
+      const shadowWidth = blockSize.z;
+      const shadowHeight = lastBlock.position.Y + blockSize.y / 2 - (firstBlock.position.Y - blockSize.y / 2) + (SHADOW_CONSTANTS.BUFFER * 2);
+      
+      // Calculate shadow position
+      const shadowZ = firstBlock.position.Z;
+      const shadowY = (firstBlock.position.Y + lastBlock.position.Y) / 2;
+      
+      const shadowPosition = new Vector3(wallX + shadowDepth / 2, shadowY, shadowZ);
+      const shadowSize = new Vector3(shadowDepth, shadowHeight, shadowWidth);
+      
+      // Create Y-parallel shadow block on wall
+      wireframeBlockMaker({
+        position: shadowPosition,
+        size: shadowSize,
+        parent: yShadowModel,
+        nameStub: "y-shadow-zy",
+        nameSuffix: `z-${string.format("%02d", z + 1)}`,
+        transparency: SHADOW_CONSTANTS.TRANSPARENCY,
+        color: new Color3(0.6, 0.3, 0.3), // Reddish tint for left wall shadows
+        edgeWidth: 0.1,
+        edgeBlockColor: new Color3(0.8, 0.4, 0.4), // Light red edges
+      });
+    }
+    
+    print(`Created ${numBlocks.y} Z-parallel and ${numBlocks.z} Y-parallel shadow blocks on ZY wall`);
+    return zyShadowLanesModel;
+  }
+
+  /**
    * Clear all data and reset the service
    */
   public clear(): void {

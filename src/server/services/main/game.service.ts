@@ -142,7 +142,7 @@ export class GameService extends BaseService {
     // Call graphBlasterLayoutMaker
     print("=== About to call graphBlasterLayoutMaker ===");
     const { rubixCubeService } = graphBlasterLayoutMaker({
-      origin: new Vector3(ORIGIN.x - 50, ORIGIN.y + 0, ORIGIN.z - 40),
+      origin: new Vector3(ORIGIN.x - 50, ORIGIN.y - 4, ORIGIN.z - 40),
       rubixCubeProps: {
         blockSize: {
           x: 10,
