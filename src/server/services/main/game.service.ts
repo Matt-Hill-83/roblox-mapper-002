@@ -120,7 +120,16 @@ export class GameService extends BaseService {
     const initCube = {
       origin: new Vector3(ORIGIN.x - 50, ORIGIN.y + 10, ORIGIN.z - 50),
     };
-    rubixCubeMaker(this.myStuffFolder, initCube);
+    
+    const rubixConfig = {
+      numBlocks: {
+        x: 3,
+        y: 5,
+        z: 3,
+      }
+    };
+    
+    rubixCubeMaker(this.myStuffFolder, initCube, rubixConfig);
     print("=== rubixCubeMaker completed ===");
 
     // Add a wireframe block next to the rubix cube

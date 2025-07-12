@@ -5,6 +5,14 @@ export interface InitCube {
   origin: Vector3;
 }
 
+export interface RubixConfig {
+  numBlocks: {
+    x: number;
+    y: number;
+    z: number;
+  };
+}
+
 interface CubeData extends Omit<IBlockMakerConfig, "parent"> {
   x: number;
   y: number;
@@ -17,16 +25,17 @@ function generateCubeData(
   origin: Vector3,
   cubeSize: number,
   cubeHeight: number,
-  spacing: number
+  spacing: number,
+  numBlocks: { x: number; y: number; z: number }
 ): CubeDataArray {
   const cubeData: CubeDataArray = [];
   const ySpacing = cubeHeight * 1.1; // Y spacing based on height
 
-  for (let y = 0; y < 3; y++) {
+  for (let y = 0; y < numBlocks.y; y++) {
     cubeData[y] = [];
-    for (let z = 0; z < 3; z++) {
+    for (let z = 0; z < numBlocks.z; z++) {
       cubeData[y][z] = [];
-      for (let x = 0; x < 3; x++) {
+      for (let x = 0; x < numBlocks.x; x++) {
         const position = new Vector3(
           origin.X + (x * spacing - spacing),
           origin.Y + (y * ySpacing - ySpacing),
@@ -78,12 +87,12 @@ const labelProps = {
 };
 
 function renderBlocks(cubeData: CubeDataArray, parent: Instance): void {
-  for (let y = 0; y < 3; y++) {
+  for (let y = 0; y < cubeData.size(); y++) {
     const layer = new Instance("Model");
     layer.Name = `Layer-y-${string.format("%02d", y + 1)}`;
     layer.Parent = parent;
 
-    for (let z = 0; z < 3; z++) {
+    for (let z = 0; z < cubeData[y].size(); z++) {
       const row = new Instance("Model");
       row.Name = `Row-y-${string.format("%02d", y + 1)}-z-${string.format(
         "%02d",
@@ -91,7 +100,7 @@ function renderBlocks(cubeData: CubeDataArray, parent: Instance): void {
       )}`;
       row.Parent = layer;
 
-      for (let x = 0; x < 3; x++) {
+      for (let x = 0; x < cubeData[y][z].size(); x++) {
         const data = cubeData[y][z][x];
         wireframeBlockMaker({
           ...data,
@@ -106,7 +115,7 @@ function renderBlocks(cubeData: CubeDataArray, parent: Instance): void {
   }
 }
 
-export function rubixCubeMaker(parent: Instance, initCube?: InitCube): Model {
+export function rubixCubeMaker(parent: Instance, initCube?: InitCube, config?: RubixConfig): Model {
   print("=== rubixCubeMaker called ===");
   print(`Time: ${os.time()}`);
   print(`Parent: ${parent.GetFullName()}`);
@@ -116,13 +125,16 @@ export function rubixCubeMaker(parent: Instance, initCube?: InitCube): Model {
   rubixCube.Name = "RubixCube";
   rubixCube.Parent = parent;
 
+  // Use config values or defaults
+  const numBlocks = config?.numBlocks || { x: 3, y: 3, z: 3 };
+  
   const origin = initCube?.origin || new Vector3(0, 0, 0);
   const cubeSize = 10;
   const cubeHeight = 5; // 50% of cubeSize
   const spacing = cubeSize * 1.1;
 
   // Generate cube data
-  const cubeData = generateCubeData(origin, cubeSize, cubeHeight, spacing);
+  const cubeData = generateCubeData(origin, cubeSize, cubeHeight, spacing, numBlocks);
 
   // Render blocks from data
   renderBlocks(cubeData, rubixCube);
