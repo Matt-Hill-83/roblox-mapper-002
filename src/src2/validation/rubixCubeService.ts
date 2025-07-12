@@ -262,15 +262,20 @@ export class RubixCubeService {
 
     print("=== Creating shadow grid ===");
     
+    // Create main container for XZ shadow lanes
+    const xzShadowLanesModel = new Instance("Model");
+    xzShadowLanesModel.Name = "XZShadowLanes";
+    xzShadowLanesModel.Parent = shadowParent;
+    
     // Create container for X-parallel shadows
     const xShadowModel = new Instance("Model");
-    xShadowModel.Name = "XParallelShadowLanes";
-    xShadowModel.Parent = shadowParent;
+    xShadowModel.Name = "XParallelShadowLanesInXZ";
+    xShadowModel.Parent = xzShadowLanesModel;
     
     // Create container for Z-parallel shadows
     const zShadowModel = new Instance("Model");
-    zShadowModel.Name = "ZParallelShadowLanes";
-    zShadowModel.Parent = shadowParent;
+    zShadowModel.Name = "ZParallelShadowLanesInXZ";
+    zShadowModel.Parent = xzShadowLanesModel;
     
     const numBlocks = this.config.numBlocks;
     const blockSize = this.config.blockSize || { x: 10, y: 5, z: 10 };
@@ -359,8 +364,113 @@ export class RubixCubeService {
       });
     }
     
-    print(`Created ${numBlocks.z} X-parallel and ${numBlocks.x} Z-parallel shadow blocks`);
-    return xShadowModel.Parent as Model;
+    print(`Created ${numBlocks.z} X-parallel and ${numBlocks.x} Z-parallel shadow blocks in XZ plane`);
+    return xzShadowLanesModel;
+  }
+
+  /**
+   * Create shadow projections on XY plane (wall)
+   */
+  public createXYShadowProjections(parent: Instance, wallZ: number): Model {
+    if (!this.cubeData || !this.config) {
+      error("Must call generateData before createXYShadowProjections");
+    }
+
+    print("=== Creating XY shadow projections ===");
+    
+    // Create main container for XY shadow lanes
+    const xyShadowLanesModel = new Instance("Model");
+    xyShadowLanesModel.Name = "XYShadowLanes";
+    xyShadowLanesModel.Parent = parent;
+    
+    // Create container for X-parallel shadows (horizontal on wall)
+    const xShadowModel = new Instance("Model");
+    xShadowModel.Name = "XParallelShadowLanesInXY";
+    xShadowModel.Parent = xyShadowLanesModel;
+    
+    // Create container for Y-parallel shadows (vertical on wall)
+    const yShadowModel = new Instance("Model");
+    yShadowModel.Name = "YParallelShadowLanesInXY";
+    yShadowModel.Parent = xyShadowLanesModel;
+    
+    const numBlocks = this.config.numBlocks;
+    const blockSize = this.config.blockSize || { x: 10, y: 5, z: 10 };
+    
+    // Shadow depth on wall (how thick the shadow appears)
+    const shadowDepth = 0.5;
+    
+    // Create X-parallel shadows on XY wall (one per Y level)
+    for (let y = 0; y < numBlocks.y; y++) {
+      // Get the first and last blocks in this Y level
+      const firstBlock = this.cubeData![y][0][0];
+      const lastBlock = this.cubeData![y][0][numBlocks.x - 1];
+      
+      if (!firstBlock.position || !lastBlock.position) {
+        error("Invalid cube data - missing position");
+      }
+      
+      // Calculate shadow dimensions
+      const shadowLength = lastBlock.position.X + blockSize.x / 2 - (firstBlock.position.X - blockSize.x / 2) + (SHADOW_CONSTANTS.BUFFER * 2);
+      const shadowHeight = blockSize.y;
+      
+      // Calculate shadow position
+      const shadowX = (firstBlock.position.X + lastBlock.position.X) / 2;
+      const shadowY = firstBlock.position.Y;
+      
+      const shadowPosition = new Vector3(shadowX, shadowY, wallZ + shadowDepth / 2);
+      const shadowSize = new Vector3(shadowLength, shadowHeight, shadowDepth);
+      
+      // Create X-parallel shadow block on wall
+      wireframeBlockMaker({
+        position: shadowPosition,
+        size: shadowSize,
+        parent: xShadowModel,
+        nameStub: "x-shadow-xy",
+        nameSuffix: `y-${string.format("%02d", y + 1)}`,
+        transparency: SHADOW_CONSTANTS.TRANSPARENCY,
+        color: new Color3(0.3, 0.3, 0.6), // Blueish tint for wall shadows
+        edgeWidth: 0.1,
+        edgeBlockColor: new Color3(0.4, 0.4, 0.8), // Light blue edges
+      });
+    }
+    
+    // Create Y-parallel shadows on XY wall (one per X column)
+    for (let x = 0; x < numBlocks.x; x++) {
+      // Get the first and last blocks in this X column across all Y levels
+      const firstBlock = this.cubeData![0][0][x];
+      const lastBlock = this.cubeData![numBlocks.y - 1][0][x];
+      
+      if (!firstBlock.position || !lastBlock.position) {
+        error("Invalid cube data - missing position");
+      }
+      
+      // Calculate shadow dimensions
+      const shadowWidth = blockSize.x;
+      const shadowHeight = lastBlock.position.Y + blockSize.y / 2 - (firstBlock.position.Y - blockSize.y / 2) + (SHADOW_CONSTANTS.BUFFER * 2);
+      
+      // Calculate shadow position
+      const shadowX = firstBlock.position.X;
+      const shadowY = (firstBlock.position.Y + lastBlock.position.Y) / 2;
+      
+      const shadowPosition = new Vector3(shadowX, shadowY, wallZ + shadowDepth / 2);
+      const shadowSize = new Vector3(shadowWidth, shadowHeight, shadowDepth);
+      
+      // Create Y-parallel shadow block on wall
+      wireframeBlockMaker({
+        position: shadowPosition,
+        size: shadowSize,
+        parent: yShadowModel,
+        nameStub: "y-shadow-xy",
+        nameSuffix: `x-${string.format("%02d", x + 1)}`,
+        transparency: SHADOW_CONSTANTS.TRANSPARENCY,
+        color: new Color3(0.3, 0.3, 0.6), // Blueish tint for wall shadows
+        edgeWidth: 0.1,
+        edgeBlockColor: new Color3(0.4, 0.4, 0.8), // Light blue edges
+      });
+    }
+    
+    print(`Created ${numBlocks.y} X-parallel and ${numBlocks.x} Y-parallel shadow blocks on XY wall`);
+    return xyShadowLanesModel;
   }
 
   /**

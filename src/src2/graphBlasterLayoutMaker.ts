@@ -145,6 +145,60 @@ export function graphBlasterLayoutMaker(config: GraphBlasterLayoutConfig): {
     if (mainBlock) {
       mainBlock.CanCollide = true;
     }
+    
+    // Create vertical walls at edges of XZWall
+    const wallHeight = 50; // Reasonable height for walls
+    const wallThickness = 1; // 1 unit thick as specified
+    
+    // XYWall - runs along X axis, parallel to Y axis (at negative Z edge)
+    const xyWallModel = wireframeBlockMaker({
+      position: new Vector3(
+        origin.X, 
+        platformY + wallHeight / 2, 
+        origin.Z - (shadowDimensions.depth + 20) / 2
+      ),
+      size: new Vector3(shadowDimensions.width + 20, wallHeight, wallThickness),
+      parent: layoutModel,
+      nameStub: "XYWall",
+      nameSuffix: "back",
+      transparency: 0, // Fully opaque
+      color: new Color3(0.4, 0.4, 0.4), // Medium gray
+      edgeWidth: 0.2,
+      edgeBlockColor: new Color3(0.7, 0.7, 0.7), // Light gray edges
+    });
+    
+    // Set CanCollide to true on XYWall main block
+    const xyWallMainBlock = xyWallModel.FindFirstChild("XYWall-main") as Part;
+    if (xyWallMainBlock) {
+      xyWallMainBlock.CanCollide = true;
+    }
+    
+    // ZYWall - runs along Z axis, parallel to Y axis (at negative X edge)
+    const zyWallModel = wireframeBlockMaker({
+      position: new Vector3(
+        origin.X - (shadowDimensions.width + 20) / 2,
+        platformY + wallHeight / 2,
+        origin.Z
+      ),
+      size: new Vector3(wallThickness, wallHeight, shadowDimensions.depth + 20),
+      parent: layoutModel,
+      nameStub: "ZYWall",
+      nameSuffix: "left",
+      transparency: 0, // Fully opaque
+      color: new Color3(0.4, 0.4, 0.4), // Medium gray
+      edgeWidth: 0.2,
+      edgeBlockColor: new Color3(0.7, 0.7, 0.7), // Light gray edges
+    });
+    
+    // Set CanCollide to true on ZYWall main block
+    const zyWallMainBlock = zyWallModel.FindFirstChild("ZYWall-main") as Part;
+    if (zyWallMainBlock) {
+      zyWallMainBlock.CanCollide = true;
+    }
+    
+    // Create shadow projections on the XY wall
+    const xyWallZ = origin.Z - (shadowDimensions.depth + 20) / 2 + wallThickness / 2;
+    rubixCubeService.createXYShadowProjections(layoutModel, xyWallZ);
   }
 
   return { layoutModel, rubixCubeService };
