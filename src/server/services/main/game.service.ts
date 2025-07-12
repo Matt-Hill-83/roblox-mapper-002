@@ -7,6 +7,8 @@ import { makeOriginBlock } from "../../../shared/modules/makeOriginBlock";
 import { wireframeBlockMaker } from "../../../src2/validation/wireframeBlockMaker";
 import { graphBlasterLayoutMaker } from "../../../src2/graphBlasterLayoutMaker";
 import { DataGeneratorService } from "../../../src2/services/dataGeneration/dataGenerator.service";
+import { GraphBlasterDataMapperService } from "../../../src2/services/graphBlaster/graphBlasterDataMapper.service";
+import { GraphBlasterVisualizerService } from "../../../src2/services/graphBlaster/graphBlasterVisualizer.service";
 
 // Origin configuration for 3D positioning
 const ORIGIN = {
@@ -236,6 +238,25 @@ export class GameService extends BaseService {
       });
 
       print("Created wireframe block with vertical wall panels only");
+    }
+
+    // Test GraphBlaster visualization (T18)
+    if (true) {
+      print("=== Testing GraphBlaster Visualization ===");
+      
+      // Create service instances
+      const dataMapper = new GraphBlasterDataMapperService();
+      const visualizer = new GraphBlasterVisualizerService(dataMapper);
+      
+      // Use the generated data
+      const dataGenerator = new DataGeneratorService();
+      const data = dataGenerator.generateSampleData();
+      
+      // Create visualization at a different location
+      const graphBlasterOrigin = new Vector3(ORIGIN.x + 150, ORIGIN.y + 30, ORIGIN.z);
+      visualizer.visualize(data.persons, this.myStuffFolder, graphBlasterOrigin);
+      
+      print("GraphBlaster visualization created with " + data.persons.size() + " persons");
     }
   }
 
