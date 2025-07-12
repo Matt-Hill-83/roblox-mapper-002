@@ -122,17 +122,17 @@ export class GameService extends BaseService {
     };
     rubixCubeMaker(this.myStuffFolder, initCube);
     print("=== rubixCubeMaker completed ===");
-    
+
     // Add a wireframe block next to the rubix cube
     wireframeBlockMaker({
       position: new Vector3(ORIGIN.x + 50, ORIGIN.y + 20, ORIGIN.z - 50),
       size: new Vector3(40, 40, 40),
       parent: this.myStuffFolder,
       nameStub: "demo-wireframe",
-      edgeThicknessRatio: 0.2,
+      // edgeThicknessRatio: 0.1,
       transparency: 0.7,
       color: new Color3(0.3, 0.5, 0.8),
-      edgeBlockColor: new Color3(0.38, 0.25, 0.32), // Eggplant color
+      edgeBlockColor: new Color3(1, 1, 1),
     });
     print("=== wireframeBlockMaker completed ===");
   }

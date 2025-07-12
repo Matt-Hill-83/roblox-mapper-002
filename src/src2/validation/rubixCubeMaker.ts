@@ -13,9 +13,15 @@ interface CubeData extends Omit<IBlockMakerConfig, "parent"> {
 
 type CubeDataArray = CubeData[][][];
 
-function generateCubeData(origin: Vector3, cubeSize: number, spacing: number): CubeDataArray {
+function generateCubeData(
+  origin: Vector3,
+  cubeSize: number,
+  cubeHeight: number,
+  spacing: number
+): CubeDataArray {
   const cubeData: CubeDataArray = [];
-  
+  const ySpacing = cubeHeight * 1.1; // Y spacing based on height
+
   for (let y = 0; y < 3; y++) {
     cubeData[y] = [];
     for (let z = 0; z < 3; z++) {
@@ -23,19 +29,22 @@ function generateCubeData(origin: Vector3, cubeSize: number, spacing: number): C
       for (let x = 0; x < 3; x++) {
         const position = new Vector3(
           origin.X + (x * spacing - spacing),
-          origin.Y + (y * spacing - spacing),
+          origin.Y + (y * ySpacing - ySpacing),
           origin.Z + (z * spacing - spacing)
         );
-        
-        const suffix = `x-${string.format("%02d", x + 1)}-y-${string.format("%02d", y + 1)}-z-${string.format("%02d", z + 1)}`;
+
+        const suffix = `x-${string.format("%02d", x + 1)}-y-${string.format(
+          "%02d",
+          y + 1
+        )}-z-${string.format("%02d", z + 1)}`;
         const multiLineLabel = `x: ${x + 1}\ny: ${y + 1}\nz: ${z + 1}`;
-        
+
         cubeData[y][z][x] = {
           x,
           y,
           z,
           position,
-          size: new Vector3(cubeSize, cubeSize, cubeSize),
+          size: new Vector3(cubeSize, cubeHeight, cubeSize),
           color: new Color3(math.random(), math.random(), math.random()),
           nameSuffix: suffix,
           labels: {
@@ -52,40 +61,45 @@ function generateCubeData(origin: Vector3, cubeSize: number, spacing: number): C
       }
     }
   }
-  
+
   return cubeData;
 }
+
+const labelProps = {
+  TextColor3: new Color3(0, 0, 0), // Black text
+  TextScaled: false,
+  TextSize: 24,
+  AnchorPoint: new Vector2(1, 0), // Right, Top anchor
+  Position: new UDim2(1, -5, 0, 5), // Upper right with 5px padding
+  Size: new UDim2(0.2, 0, 0.2, 0), // 20% of face size (50% of 40%)
+  BackgroundColor3: new Color3(1, 1, 1), // White background
+  BackgroundTransparency: 0, // Fully opaque
+  BorderSizePixel: 5, // 50% of default 10
+};
 
 function renderBlocks(cubeData: CubeDataArray, parent: Instance): void {
   for (let y = 0; y < 3; y++) {
     const layer = new Instance("Model");
     layer.Name = `Layer-y-${string.format("%02d", y + 1)}`;
     layer.Parent = parent;
-    
+
     for (let z = 0; z < 3; z++) {
       const row = new Instance("Model");
-      row.Name = `Row-y-${string.format("%02d", y + 1)}-z-${string.format("%02d", z + 1)}`;
+      row.Name = `Row-y-${string.format("%02d", y + 1)}-z-${string.format(
+        "%02d",
+        z + 1
+      )}`;
       row.Parent = layer;
-      
+
       for (let x = 0; x < 3; x++) {
         const data = cubeData[y][z][x];
         wireframeBlockMaker({
           ...data,
           parent: row,
-          transparency: 0.8,
-          edgeWidth: 0.5,
+          transparency: 1, // Fully transparent
+          edgeWidth: 0.1,
           edgeBlockColor: new Color3(0, 0, 0), // Black
-          labelProps: {
-            TextColor3: new Color3(0, 0, 0), // Black text
-            TextScaled: false,
-            TextSize: 24,
-            AnchorPoint: new Vector2(1, 0), // Right, Top anchor
-            Position: new UDim2(1, -5, 0, 5), // Upper right with 5px padding
-            Size: new UDim2(0.2, 0, 0.2, 0), // 20% of face size (50% of 40%)
-            BackgroundColor3: new Color3(1, 1, 1), // White background
-            BackgroundTransparency: 0, // Fully opaque
-            BorderSizePixel: 5, // 50% of default 10
-          },
+          labelProps,
         });
       }
     }
@@ -104,11 +118,12 @@ export function rubixCubeMaker(parent: Instance, initCube?: InitCube): Model {
 
   const origin = initCube?.origin || new Vector3(0, 0, 0);
   const cubeSize = 10;
+  const cubeHeight = 5; // 50% of cubeSize
   const spacing = cubeSize * 1.1;
 
   // Generate cube data
-  const cubeData = generateCubeData(origin, cubeSize, spacing);
-  
+  const cubeData = generateCubeData(origin, cubeSize, cubeHeight, spacing);
+
   // Render blocks from data
   renderBlocks(cubeData, rubixCube);
 
