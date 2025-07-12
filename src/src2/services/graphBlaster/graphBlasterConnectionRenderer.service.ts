@@ -105,7 +105,7 @@ export class GraphBlasterConnectionRendererService {
         // Multiple persons - calculate grid position
         const personIndex = group.indexOf(person);
         const gridSize = math.ceil(math.sqrt(personCount));
-        const standardNodeSize = 1; // 1x1x1 as requested
+        const standardNodeSize = 0.5; // 50% smaller (was 1x1x1)
         const floorY = baseWorldPos.Y - blockSize.y / 2 + standardNodeSize / 2 + 0.1;
         
         // Calculate grid spacing and position

@@ -106,7 +106,7 @@ export class GraphBlasterNodePlacerService {
       nodeModel.Parent = rubixCubeModel;
 
       // Standard node size for all nodes
-      const standardNodeSize = 1; // 1x1x1 as requested
+      const standardNodeSize = 0.5; // 50% smaller (was 1x1x1)
       
       if (personCount === 1) {
         // Single person - place in center

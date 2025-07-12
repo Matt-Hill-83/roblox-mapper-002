@@ -6,10 +6,8 @@ import { initializeDev2Features } from "./dev2features";
 import { makeOriginBlock } from "../../../shared/modules/makeOriginBlock";
 import { wireframeBlockMaker } from "../../../src2/validation/wireframeBlockMaker";
 import { graphBlasterLayoutMaker } from "../../../src2/graphBlasterLayoutMaker";
+import { GraphBlasterManagerService } from "../../../src2/services/graphBlaster/graphBlasterManager.service";
 import { DataGeneratorService } from "../../../src2/services/dataGeneration/dataGenerator.service";
-import { GraphBlasterDataMapperService } from "../../../src2/services/graphBlaster/graphBlasterDataMapper.service";
-import { GraphBlasterNodePlacerService } from "../../../src2/services/graphBlaster/graphBlasterNodePlacer.service";
-import { GraphBlasterConnectionRendererService } from "../../../src2/services/graphBlaster/graphBlasterConnectionRenderer.service";
 
 // Origin configuration for 3D positioning
 const ORIGIN = {
@@ -241,53 +239,21 @@ export class GameService extends BaseService {
       print("Created wireframe block with vertical wall panels only");
     }
 
-    // Test GraphBlaster visualization (T18)
+    // Test GraphBlaster visualization with GUI (T18)
     if (true) {
-      print("=== Testing GraphBlaster Visualization ===");
+      print("=== Testing GraphBlaster Visualization with GUI ===");
       
-      // Create service instances
-      const dataMapper = new GraphBlasterDataMapperService();
-      const nodePlacer = new GraphBlasterNodePlacerService(dataMapper);
-      const connectionRenderer = new GraphBlasterConnectionRendererService(dataMapper);
-      
-      // Use the generated data
-      const dataGenerator = new DataGeneratorService();
-      const data = dataGenerator.generateSampleData();
-      
-      // Analyze the data to get unique counts
-      const config = dataMapper.analyzeData(data.persons);
-      
-      // Create GraphBlaster layout with dynamic sizing based on data
-      const gbLayout = graphBlasterLayoutMaker({
-        origin: new Vector3(ORIGIN.x + 150, ORIGIN.y, ORIGIN.z),
-        rubixCubeProps: {
-          numBlocks: {
-            x: config.uniqueCounts.x,
-            y: config.uniqueCounts.y,
-            z: config.uniqueCounts.z,
-          },
-          blockSize: {
-            x: 10,
-            y: 4,
-            z: 10,
-          },
-        },
-        parent: this.myStuffFolder,
-      });
-      
-      print("Created GraphBlaster layout with dimensions: " + 
-        config.uniqueCounts.x + "x" + config.uniqueCounts.y + "x" + config.uniqueCounts.z);
-        
-      // Place person nodes within the rubix cube
-      nodePlacer.placeNodes(data.persons, gbLayout.rubixCubeService, gbLayout.layoutModel);
-      
-      // Render connections between related persons
-      connectionRenderer.renderConnections(
-        data.persons, 
-        data.relationships, 
-        gbLayout.rubixCubeService, 
-        gbLayout.layoutModel
+      // Create GraphBlaster manager with integrated GUI
+      const graphBlasterManager = new GraphBlasterManagerService(
+        this.myStuffFolder,
+        new Vector3(ORIGIN.x + 150, ORIGIN.y, ORIGIN.z)
       );
+      
+      // Initialize GraphBlaster (creates visualization and GUI)
+      graphBlasterManager.initialize();
+      
+      // Store manager reference for potential cleanup
+      // Note: GraphBlasterManager handles its own cleanup
     }
   }
 

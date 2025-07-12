@@ -19,52 +19,78 @@ export interface GraphBlasterConfig {
 
 export class GraphBlasterDataMapperService {
   private config?: GraphBlasterConfig;
+  private xProperty = "petType";
+  private yProperty = "countryLivesIn";
+  private zProperty = "country";
+  private personsData?: Person[];
+
+  /**
+   * Set property mapping for axes
+   */
+  public setPropertyMapping(xProp: string, yProp: string, zProp: string): void {
+    this.xProperty = xProp;
+    this.yProperty = yProp;
+    this.zProperty = zProp;
+    
+    // Re-analyze data with new properties if we have persons data
+    if (this.personsData) {
+      this.analyzeData(this.personsData);
+    }
+  }
 
   /**
    * Analyzes person data to find the top 5 most common values for each property
    */
   public analyzeData(persons: Person[]): GraphBlasterConfig {
-    // Count occurrences of each property value
-    const petTypeCounts = new Map<string, number>();
-    const countryLivesInCounts = new Map<string, number>();
-    const countryCounts = new Map<string, number>();
+    // Store persons data for re-analysis
+    this.personsData = persons;
+    
+    // Count occurrences of each property value based on current axis mapping
+    const xCounts = new Map<string, number>();
+    const yCounts = new Map<string, number>();
+    const zCounts = new Map<string, number>();
 
     persons.forEach((person) => {
-      // Count pet types
-      const petCount = petTypeCounts.get(person.petType) || 0;
-      petTypeCounts.set(person.petType, petCount + 1);
+      // Get values based on current property mapping
+      const xValue = this.getPropertyValue(person, this.xProperty);
+      const yValue = this.getPropertyValue(person, this.yProperty);
+      const zValue = this.getPropertyValue(person, this.zProperty);
 
-      // Count countries lived in
-      const livesCount = countryLivesInCounts.get(person.countryLivesIn) || 0;
-      countryLivesInCounts.set(person.countryLivesIn, livesCount + 1);
+      // Count X axis property
+      const xCount = xCounts.get(xValue) || 0;
+      xCounts.set(xValue, xCount + 1);
 
-      // Count countries
-      const countryCount = countryCounts.get(person.country) || 0;
-      countryCounts.set(person.country, countryCount + 1);
+      // Count Y axis property
+      const yCount = yCounts.get(yValue) || 0;
+      yCounts.set(yValue, yCount + 1);
+
+      // Count Z axis property
+      const zCount = zCounts.get(zValue) || 0;
+      zCounts.set(zValue, zCount + 1);
     });
 
     // Get all unique values (not just top 5)
-    const allPetTypes = this.getAllValues(petTypeCounts);
-    const allCountriesLivesIn = this.getAllValues(countryLivesInCounts);
-    const allCountries = this.getAllValues(countryCounts);
+    const allXValues = this.getAllValues(xCounts);
+    const allYValues = this.getAllValues(yCounts);
+    const allZValues = this.getAllValues(zCounts);
 
     // Create mappings with all values
     this.config = {
-      xAxis: this.createPropertyMapping("petType", allPetTypes),
-      yAxis: this.createPropertyMapping("countryLivesIn", allCountriesLivesIn),
-      zAxis: this.createPropertyMapping("country", allCountries),
+      xAxis: this.createPropertyMapping(this.xProperty, allXValues),
+      yAxis: this.createPropertyMapping(this.yProperty, allYValues),
+      zAxis: this.createPropertyMapping(this.zProperty, allZValues),
       uniqueCounts: {
-        x: allPetTypes.size(),
-        y: allCountriesLivesIn.size(),
-        z: allCountries.size(),
+        x: allXValues.size(),
+        y: allYValues.size(),
+        z: allZValues.size(),
       },
     };
 
     // Print analysis results
     print("=== GraphBlaster Data Analysis ===");
-    print(`Unique Pet Types: ${allPetTypes.size()} - ${allPetTypes.join(", ")}`);
-    print(`Unique Countries (Lives In): ${allCountriesLivesIn.size()} - ${allCountriesLivesIn.join(", ")}`);
-    print(`Unique Countries: ${allCountries.size()} - ${allCountries.join(", ")}`);
+    print(`X Axis (${this.xProperty}): ${allXValues.size()} unique values`);
+    print(`Y Axis (${this.yProperty}): ${allYValues.size()} unique values`);
+    print(`Z Axis (${this.zProperty}): ${allZValues.size()} unique values`);
 
     return this.config;
   }
@@ -110,6 +136,51 @@ export class GraphBlasterDataMapperService {
   }
 
   /**
+   * Gets property value from person based on property name
+   */
+  private getPropertyValue(person: Person, property: string): string {
+    // Handle known properties explicitly
+    let value: unknown;
+    
+    switch (property) {
+      case "petType":
+        value = person.petType;
+        break;
+      case "countryLivesIn":
+        value = person.countryLivesIn;
+        break;
+      case "country":
+        value = person.country;
+        break;
+      case "firstName":
+        value = person.firstName;
+        break;
+      case "lastName":
+        value = person.lastName;
+        break;
+      case "guid":
+        value = person.guid;
+        break;
+      case "countryBornIn":
+        value = person.countryBornIn;
+        break;
+      case "countryWorksIn":
+        value = person.countryWorksIn;
+        break;
+      default:
+        warn(`Unknown property "${property}" requested`);
+        return "Unknown";
+    }
+    
+    if (value === undefined) {
+      warn(`Property "${property}" is undefined on person object`);
+      return "Unknown";
+    }
+    
+    return tostring(value);
+  }
+
+  /**
    * Maps a person to their 3D grid position
    */
   public getPersonPosition(person: Person): Vector3 {
@@ -117,9 +188,13 @@ export class GraphBlasterDataMapperService {
       error("GraphBlasterDataMapperService not initialized. Call analyzeData first.");
     }
 
-    const x = this.getAxisIndex(person.petType, this.config.xAxis);
-    const y = this.getAxisIndex(person.countryLivesIn, this.config.yAxis);
-    const z = this.getAxisIndex(person.country, this.config.zAxis);
+    const xValue = this.getPropertyValue(person, this.xProperty);
+    const yValue = this.getPropertyValue(person, this.yProperty);
+    const zValue = this.getPropertyValue(person, this.zProperty);
+
+    const x = this.getAxisIndex(xValue, this.config.xAxis);
+    const y = this.getAxisIndex(yValue, this.config.yAxis);
+    const z = this.getAxisIndex(zValue, this.config.zAxis);
 
     return new Vector3(x, y, z);
   }

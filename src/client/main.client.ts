@@ -12,6 +12,7 @@
  */
 
 import { ConfigGUIController } from "./controllers/configGUI.controller";
+import "./controllers/graphBlasterGui.controller"; // Self-initializing controller
 // import { AnimationTestGUIController } from "./controllers/animationTestGUI.controller";
 // import { ColorPickerController } from "./controllers/_orphaned/colorPicker.controller";
 import { Players, ReplicatedStorage } from "@rbxts/services";
