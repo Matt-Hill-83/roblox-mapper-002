@@ -5,10 +5,9 @@
 import { IBlockMakerConfig } from "./standardizedInterfaces";
 import {
   generateAttachmentName,
-  generateBlockName,
   makeAttachment,
 } from "./utilities";
-// import { createTextLabel } from "../TextLabelMaker";
+import { createTextLabel } from "../../shared/modules/TextLabelMaker";
 
 /**
  * Default values for block properties
@@ -21,7 +20,7 @@ const BLOCK_DEFAULTS = {
   anchored: true,
   topSurface: Enum.SurfaceType.Smooth,
   bottomSurface: Enum.SurfaceType.Smooth,
-  rotation: new Vector3(0, -30, 0),
+  rotation: new Vector3(0, 0, 0),
 };
 
 /**
@@ -50,15 +49,24 @@ export function makeBlock(config: IBlockMakerConfig): Part {
     // textColor,
     parent,
     castShadow = false,
+    nameSuffix,
+    nameStub = "rx",
+    labels,
   } = config;
 
   const blockLength = typeIs(size, "Vector3") ? size.Z : size[2];
   const frontFaceOffset = blockLength / 2;
   const backFaceOffset = -blockLength / 2;
 
-  const blockName = generateBlockName(stackIndex, hexIndex, blockIndex);
   const block = new Instance("Part");
-  block.Name = blockName;
+
+  // If nameSuffix is provided, use nameStub-suffix format
+  // Otherwise use the generated name
+  if (nameSuffix) {
+    block.Name = `${nameStub}-${nameSuffix}`;
+  } else {
+    block.Name = `${nameStub}`;
+  }
   block.Size = typeIs(size, "Vector3")
     ? size
     : new Vector3(size[0], size[1], size[2]);
@@ -90,15 +98,70 @@ export function makeBlock(config: IBlockMakerConfig): Part {
   frontAttachment.Parent = block;
   backAttachment.Parent = block;
 
-  // Labels commented out for now
-  // createTextLabel({
-  //   part: block,
-  //   face: Enum.NormalId.Front,
-  //   text: label,
-  //   backgroundColor: backgroundColor || (typeIs(color, "Color3") ? color : new Color3(color[0], color[1], color[2])),
-  //   borderColor: borderColor,
-  //   textColor: textColor || borderColor,
-  // });
+  // Create labels if provided
+  if (labels) {
+    const blockColor = typeIs(color, "Color3") ? color : new Color3(color[0], color[1], color[2]);
+    
+    if (labels.front) {
+      createTextLabel({
+        part: block,
+        face: Enum.NormalId.Front,
+        text: labels.front,
+        backgroundColor: blockColor,
+        textColor: new Color3(1, 1, 1),
+      });
+    }
+    
+    if (labels.back) {
+      createTextLabel({
+        part: block,
+        face: Enum.NormalId.Back,
+        text: labels.back,
+        backgroundColor: blockColor,
+        textColor: new Color3(1, 1, 1),
+      });
+    }
+    
+    if (labels.left) {
+      createTextLabel({
+        part: block,
+        face: Enum.NormalId.Left,
+        text: labels.left,
+        backgroundColor: blockColor,
+        textColor: new Color3(1, 1, 1),
+      });
+    }
+    
+    if (labels.right) {
+      createTextLabel({
+        part: block,
+        face: Enum.NormalId.Right,
+        text: labels.right,
+        backgroundColor: blockColor,
+        textColor: new Color3(1, 1, 1),
+      });
+    }
+    
+    if (labels.top) {
+      createTextLabel({
+        part: block,
+        face: Enum.NormalId.Top,
+        text: labels.top,
+        backgroundColor: blockColor,
+        textColor: new Color3(1, 1, 1),
+      });
+    }
+    
+    if (labels.bottom) {
+      createTextLabel({
+        part: block,
+        face: Enum.NormalId.Bottom,
+        text: labels.bottom,
+        backgroundColor: blockColor,
+        textColor: new Color3(1, 1, 1),
+      });
+    }
+  }
 
   // Set parent if provided
   if (parent) {

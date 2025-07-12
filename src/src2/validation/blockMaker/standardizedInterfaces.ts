@@ -50,5 +50,21 @@ export interface IBlockMakerConfig extends IVisualMakerConfig {
   /** Surface types */
   topSurface?: Enum.SurfaceType;
   bottomSurface?: Enum.SurfaceType;
+  
+  /** Optional suffix to append to the block name */
+  nameSuffix?: string;
+  
+  /** Optional name stub to use instead of generated name (defaults to "rx") */
+  nameStub?: string;
+  
+  /** Optional labels for each face of the block */
+  labels?: {
+    front?: string;
+    back?: string;
+    left?: string;
+    right?: string;
+    top?: string;
+    bottom?: string;
+  };
 }
 

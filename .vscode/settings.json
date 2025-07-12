@@ -8,5 +8,10 @@
   "search.exclude": {
     "asdf/**/*.{md,json,txt,dot}": true
   },
-  "markdown.extension.numberedList.marker": true
+  "markdown.extension.numberedList.marker": true,
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#253211",
+    "titleBar.activeBackground": "#344618",
+    "titleBar.activeForeground": "#F8FBF4"
+  }
 }
