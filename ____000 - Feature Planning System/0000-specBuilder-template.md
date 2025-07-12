@@ -1,23 +1,72 @@
-
 Just do a Code Audit?: false
 |----------------------------------------------------------------------|
 Summary:
-build a tic tac toe game
+DesignANewGeometricGraphLayout
+We will design a new geometric layout upon which we will overlay graph data feature nodes and links.
+The resulting structures will be rendered in roblox.
 
 |----------------------------------------------------------------------|
 Requirements:
-  - runs in node
-- use ts
-- different colors for x's, and o's
 
-
+1.  GUIs
+    1.  Data Generation Engine
+        1.  how many records to create
+        1.  how many unique values per property
+        1.  table showing 1 rows of generated data
+    1.  Structure Layout Engine
+        1. TBD 2. create a simple placeholder
+    1.  Data Linking
+        1. TBD
+    1.  Settings GUI
+        1.  asdf
+    1.  GUI tabbing system
+        1.  create a system where
+            1.  gui names are listed in a compact format on the lhs of the screen
+            2.  when you click a gui name, the previous one closes and the new one opens, with a title at the top
+            3.  default GUI will be Data Generation Engine
+2.  Services
+    1.  Data Generation Engine
+    1.  Create random json data and write it to an object in a ts file so that it can be read at runtime.
+    2.  Data Objects
+        1. Person (persons)
+           1. assign each a guid
+           2. properties (chosen randomly from 10 unique choices)
+              1. firstName
+              2. lastName
+              3. country
+              4. petType
+              5. countryLivesIn (Country)
+              6. countryBornIn (Country)
+              7. countryWorksIn (Country)
+        2. Country
+           1. name
+           2. isSunny
+           3. isWarm
+           4. happiness (1-10)
+           5. expensive (1-10)
+4.  Structure Layout Engine
+    1.  TBD
+        1. Will generate geometric structure within which nodes will be positioned
+5.  Code Structure
+    1.  contain all code in new folders that do not overlay with existing codebase
+        1. create a new folder structure with the name src2 for the root. This will later be moved into a clean repo
+        2. tbd
+    2.  look at existing codebase and use best practices
+        1.  create a folder system and file structure
+6.  Sample Code
+    1. in order to validate the folder structure, have the existing game.service do this:
+       1. call a function rubixCubeMaker
+          1. which calls cubeMaker
+             1. which calls blockMaker
+                1. make calls labelMaker
 
 |----------------------------------------------------------------------|
 
 1. Note to AI Agent:
+
    1. If Just do a Code Audit? === true, skip the rest of this doc and execute 000-111-CodeAuditPlan.md in the xxx folder.
-      1. "____000FeaturePlanningSystem/___internal docs/000-111 - Code Audit/Int-000-01-CodeQualityAudit"
-      2. place the results in a new folder.  skip the rest of these instructions
+      1. "\_**_000FeaturePlanningSystem/_**internal docs/000-111 - Code Audit/Int-000-01-CodeQualityAudit"
+      2. place the results in a new folder. skip the rest of these instructions
 
 2. This file is a set of instrctions that you will follow in order to help plan a feature.
 3. Following the instructions will create a final product that is a folder containing a set of documents that will be used one of more AI agents.
@@ -139,7 +188,7 @@ Step 3. - Commit code
       1. I have committed the changes for <task name>
       2. Shall I execute <task name>?
    2. After final commit:
-      1. All tasks are committed.  Shall I peform a Code Audit?
+      1. All tasks are committed. Shall I peform a Code Audit?
 
 |----------------------------------------------------------------------|
 Step 4. - Code Audit
@@ -149,16 +198,16 @@ Step 4. - Code Audit
    1. None
 
 2. Actions for AI Agent
+
    1. After all tasks are completed and commited, create a doc titled
       1. "F000-04-TicTacToe-CodeAudit-001.md", that contains the following sections
          1. Table of files involved in feature
-             1. file name
-             2. number of lines
-             3. is New
+            1. file name
+            2. number of lines
+            3. is New
          2. mermaid diagram showing relationships between all files
          3. Quality Audit that identifies any areas where the code can be improved
          4. Code Improvement Task List
-          
 
 3. Outputs
 

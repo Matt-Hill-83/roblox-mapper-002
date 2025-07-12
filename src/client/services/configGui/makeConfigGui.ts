@@ -73,7 +73,7 @@ export class ConfigGUIService {
       parent: gui,
       size: mainFrameSize,
       title: "Graph Configuration",
-      position: new UDim2(0, 10, 0, 10),
+      position: GUI_CONSTANTS.FRAME.POSITION,
     });
 
     // Store the main frame
@@ -85,7 +85,7 @@ export class ConfigGUIService {
       parent: gui,
       size: vizFrameSize,
       title: "Visualization Controls",
-      position: new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH + 20, 0, 10), // Position to the right
+      position: new UDim2(0, GUI_CONSTANTS.FRAME.ENHANCED_WIDTH + 20, 1, -210), // Bottom right corner
     });
 
     // Create unified UI in the content frames
