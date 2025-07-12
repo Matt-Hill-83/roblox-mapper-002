@@ -19,6 +19,7 @@ export function rubixCubeMaker(parent: Instance, initCube?: InitCube): Model {
   const spacing = cubeSize * 1.1;
 
   // Create 3x3x3 grid of cubes
+  let cubeIndex = 1;
   for (let x = 0; x < 3; x++) {
     for (let y = 0; y < 3; y++) {
       for (let z = 0; z < 3; z++) {
@@ -27,7 +28,9 @@ export function rubixCubeMaker(parent: Instance, initCube?: InitCube): Model {
           origin.Y + (y * spacing - spacing),
           origin.Z + (z * spacing - spacing)
         );
-        cubeMaker(cubeSize, position, rubixCube);
+        const cube = cubeMaker(cubeSize, position, cubeIndex, rubixCube);
+        cube.Name = `rx-cube-${string.format("%03d", cubeIndex)}`;
+        cubeIndex++;
       }
     }
   }

@@ -43,7 +43,7 @@ export class GameService extends BaseService {
     print("=== startGame() called ===");
     print(`Time: ${os.time()}`);
     print(`gameStarted flag: ${this.gameStarted}`);
-    
+
     if (this.gameStarted) {
       print("Game already started, returning");
       return;
@@ -101,18 +101,23 @@ export class GameService extends BaseService {
     }
 
     // Clean up any existing RubixCube before creating a new one
-    const existingCubes = this.myStuffFolder.GetChildren().filter(child => 
-      child.Name === "RubixCube" || child.Name.sub(1, 10) === "RubixCube_"
-    );
+    const existingCubes = this.myStuffFolder
+      .GetChildren()
+      .filter(
+        (child) =>
+          child.Name === "RubixCube" || child.Name.sub(1, 10) === "RubixCube_"
+      );
     if (existingCubes.size() > 0) {
-      print(`Found ${existingCubes.size()} existing RubixCube(s), removing them`);
-      existingCubes.forEach(cube => cube.Destroy());
+      print(
+        `Found ${existingCubes.size()} existing RubixCube(s), removing them`
+      );
+      existingCubes.forEach((cube) => cube.Destroy());
     }
-    
+
     // Call rubixCubeMaker with initCube parameter
     print("=== About to call rubixCubeMaker ===");
     const initCube = {
-      origin: new Vector3(ORIGIN.x - 50, ORIGIN.y + 0, ORIGIN.z - 50),
+      origin: new Vector3(ORIGIN.x - 50, ORIGIN.y + 20, ORIGIN.z - 50),
     };
     rubixCubeMaker(this.myStuffFolder, initCube);
     print("=== rubixCubeMaker completed ===");
