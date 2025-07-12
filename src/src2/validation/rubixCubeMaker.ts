@@ -11,6 +11,11 @@ export interface RubixConfig {
     y: number;
     z: number;
   };
+  blockSize?: {
+    x: number;
+    y: number;
+    z: number;
+  };
 }
 
 interface CubeData extends Omit<IBlockMakerConfig, "parent"> {
@@ -23,13 +28,11 @@ type CubeDataArray = CubeData[][][];
 
 function generateCubeData(
   origin: Vector3,
-  cubeSize: number,
-  cubeHeight: number,
-  spacing: number,
+  blockSize: { x: number; y: number; z: number },
+  spacing: { x: number; y: number; z: number },
   numBlocks: { x: number; y: number; z: number }
 ): CubeDataArray {
   const cubeData: CubeDataArray = [];
-  const ySpacing = cubeHeight * 1.1; // Y spacing based on height
 
   for (let y = 0; y < numBlocks.y; y++) {
     cubeData[y] = [];
@@ -37,9 +40,9 @@ function generateCubeData(
       cubeData[y][z] = [];
       for (let x = 0; x < numBlocks.x; x++) {
         const position = new Vector3(
-          origin.X + (x * spacing - spacing),
-          origin.Y + (y * ySpacing - ySpacing),
-          origin.Z + (z * spacing - spacing)
+          origin.X + (x * spacing.x - spacing.x),
+          origin.Y + (y * spacing.y - spacing.y),
+          origin.Z + (z * spacing.z - spacing.z)
         );
 
         const suffix = `x-${string.format("%02d", x + 1)}-y-${string.format(
@@ -53,7 +56,7 @@ function generateCubeData(
           y,
           z,
           position,
-          size: new Vector3(cubeSize, cubeHeight, cubeSize),
+          size: new Vector3(blockSize.x, blockSize.y, blockSize.z),
           color: new Color3(math.random(), math.random(), math.random()),
           nameSuffix: suffix,
           labels: {
@@ -127,14 +130,23 @@ export function rubixCubeMaker(parent: Instance, initCube?: InitCube, config?: R
 
   // Use config values or defaults
   const numBlocks = config?.numBlocks || { x: 3, y: 3, z: 3 };
+  const blockSize = config?.blockSize || { x: 10, y: 5, z: 10 };
   
   const origin = initCube?.origin || new Vector3(0, 0, 0);
-  const cubeSize = 10;
-  const cubeHeight = 5; // 50% of cubeSize
-  const spacing = cubeSize * 1.1;
+  const cubeSize = blockSize.x; // Width
+  const cubeHeight = blockSize.y; // Height
+  const cubeDepth = blockSize.z; // Depth
+  const spacingX = cubeSize * 1.1;
+  const spacingY = cubeHeight * 1.1;
+  const spacingZ = cubeDepth * 1.1;
 
   // Generate cube data
-  const cubeData = generateCubeData(origin, cubeSize, cubeHeight, spacing, numBlocks);
+  const cubeData = generateCubeData(
+    origin, 
+    blockSize,
+    { x: spacingX, y: spacingY, z: spacingZ },
+    numBlocks
+  );
 
   // Render blocks from data
   renderBlocks(cubeData, rubixCube);

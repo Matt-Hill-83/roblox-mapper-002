@@ -6,6 +6,7 @@ import { initializeDev2Features } from "./dev2features";
 import { makeOriginBlock } from "../../../shared/modules/makeOriginBlock";
 import { rubixCubeMaker } from "../../../src2/validation/rubixCubeMaker";
 import { wireframeBlockMaker } from "../../../src2/validation/wireframeBlockMaker";
+import { graphBlasterLayoutMaker } from "../../../src2/graphBlasterLayoutMaker";
 
 // Origin configuration for 3D positioning
 const ORIGIN = {
@@ -144,6 +145,26 @@ export class GameService extends BaseService {
       edgeBlockColor: new Color3(1, 1, 1),
     });
     print("=== wireframeBlockMaker completed ===");
+    
+    // Call graphBlasterLayoutMaker
+    print("=== About to call graphBlasterLayoutMaker ===");
+    graphBlasterLayoutMaker({
+      origin: new Vector3(ORIGIN.x, ORIGIN.y + 50, ORIGIN.z),
+      rubixCubeProps: {
+        blockSize: {
+          x: 3,
+          y: 5,
+          z: 4
+        },
+        numBlocks: {
+          x: 3,
+          y: 5,
+          z: 6
+        }
+      },
+      parent: this.myStuffFolder
+    });
+    print("=== graphBlasterLayoutMaker completed ===");
   }
 
   /**
