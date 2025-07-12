@@ -152,19 +152,35 @@ export class GraphBlasterConnectionRendererService {
     const midpoint = pos1.add(pos2).div(2);
     const direction = pos2.sub(pos1);
     const length = direction.Magnitude;
-    const lookAt = pos2;
+    const directionUnit = direction.Unit;
 
-    // Create rod
+    // Create cylinder rod
     const rod = new Instance("Part");
     rod.Name = `Connection_${index}_${relationship.type}`;
-    rod.Size = new Vector3(0.2, 0.2, length); // Thin rod
-    rod.Position = midpoint;
-    rod.CFrame = CFrame.lookAt(midpoint, lookAt, new Vector3(0, 1, 0));
+    rod.Shape = Enum.PartType.Cylinder;
     rod.Material = Enum.Material.Concrete;
+    rod.TopSurface = Enum.SurfaceType.Smooth;
+    rod.BottomSurface = Enum.SurfaceType.Smooth;
+    rod.CastShadow = false;
+    
+    // Set size - for cylinders, first dimension is length
+    const diameter = 0.2;
+    rod.Size = new Vector3(length, diameter, diameter);
+    
+    // Set color
     rod.Color = this.getConnectionColor(relationship.type);
-    rod.Transparency = 0.3;
-    rod.Anchored = true;
+    rod.Transparency = 0; // No transparency
+    
+    // Position and orient the cylinder
+    rod.CFrame = CFrame.lookAt(midpoint, midpoint.add(directionUnit))
+      .mul(CFrame.Angles(0, math.rad(90), 0));
+    
+    // Make it non-collidable
     rod.CanCollide = false;
+    rod.CanQuery = false;
+    rod.CanTouch = false;
+    rod.Anchored = true;
+    
     rod.Parent = parent;
 
     // Store connection
