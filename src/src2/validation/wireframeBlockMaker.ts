@@ -72,104 +72,58 @@ export function wireframeBlockMaker(config: WireframeBlockConfig): Model {
     });
   }
 
-  // Define the 12 edges of a cube
-  // Bottom face edges (4) - X-aligned (shortened by edgeThickness on each end)
-  createEdgeBlock(
-    position.add(new Vector3(0, -halfY + halfThickness, -halfZ + halfThickness)),
-    new Vector3(size.X - edgeThickness * 2 + Z_FIGHTING_OFFSET, edgeThickness + Z_FIGHTING_OFFSET, edgeThickness + Z_FIGHTING_OFFSET),
-    1
-  );
-  createEdgeBlock(
-    position.add(new Vector3(0, -halfY + halfThickness, halfZ - halfThickness)),
-    new Vector3(size.X - edgeThickness * 2 + Z_FIGHTING_OFFSET, edgeThickness + Z_FIGHTING_OFFSET, edgeThickness + Z_FIGHTING_OFFSET),
-    2
-  );
-  
-  // Bottom face edges (4) - Z-aligned (shortened by edgeThickness on each end)
-  createEdgeBlock(
-    position.add(new Vector3(-halfX + halfThickness, -halfY + halfThickness, 0)),
-    new Vector3(edgeThickness + Z_FIGHTING_OFFSET, edgeThickness + Z_FIGHTING_OFFSET, size.Z - edgeThickness * 2 + Z_FIGHTING_OFFSET),
-    3
-  );
-  createEdgeBlock(
-    position.add(new Vector3(halfX - halfThickness, -halfY + halfThickness, 0)),
-    new Vector3(edgeThickness + Z_FIGHTING_OFFSET, edgeThickness + Z_FIGHTING_OFFSET, size.Z - edgeThickness * 2 + Z_FIGHTING_OFFSET),
-    4
-  );
+  // Pre-calculate common values
+  const edgeWithOffset = edgeThickness + Z_FIGHTING_OFFSET;
+  const xLength = size.X - edgeThickness * 2 + Z_FIGHTING_OFFSET;
+  const yLength = size.Y - edgeThickness * 2 + Z_FIGHTING_OFFSET;
+  const zLength = size.Z - edgeThickness * 2 + Z_FIGHTING_OFFSET;
 
-  // Top face edges (4) - X-aligned (shortened by edgeThickness on each end)
-  createEdgeBlock(
-    position.add(new Vector3(0, halfY - halfThickness, -halfZ + halfThickness)),
-    new Vector3(size.X - edgeThickness * 2 + Z_FIGHTING_OFFSET, edgeThickness + Z_FIGHTING_OFFSET, edgeThickness + Z_FIGHTING_OFFSET),
-    5
-  );
-  createEdgeBlock(
-    position.add(new Vector3(0, halfY - halfThickness, halfZ - halfThickness)),
-    new Vector3(size.X - edgeThickness * 2 + Z_FIGHTING_OFFSET, edgeThickness + Z_FIGHTING_OFFSET, edgeThickness + Z_FIGHTING_OFFSET),
-    6
-  );
-  
-  // Top face edges (4) - Z-aligned (shortened by edgeThickness on each end)
-  createEdgeBlock(
-    position.add(new Vector3(-halfX + halfThickness, halfY - halfThickness, 0)),
-    new Vector3(edgeThickness + Z_FIGHTING_OFFSET, edgeThickness + Z_FIGHTING_OFFSET, size.Z - edgeThickness * 2 + Z_FIGHTING_OFFSET),
-    7
-  );
-  createEdgeBlock(
-    position.add(new Vector3(halfX - halfThickness, halfY - halfThickness, 0)),
-    new Vector3(edgeThickness + Z_FIGHTING_OFFSET, edgeThickness + Z_FIGHTING_OFFSET, size.Z - edgeThickness * 2 + Z_FIGHTING_OFFSET),
-    8
-  );
-
-  // Vertical edges (4) - Y-aligned (shortened by edgeThickness on each end)
-  createEdgeBlock(
-    position.add(new Vector3(-halfX + halfThickness, 0, -halfZ + halfThickness)),
-    new Vector3(edgeThickness + Z_FIGHTING_OFFSET, size.Y - edgeThickness * 2 + Z_FIGHTING_OFFSET, edgeThickness + Z_FIGHTING_OFFSET),
-    9
-  );
-  createEdgeBlock(
-    position.add(new Vector3(halfX - halfThickness, 0, -halfZ + halfThickness)),
-    new Vector3(edgeThickness + Z_FIGHTING_OFFSET, size.Y - edgeThickness * 2 + Z_FIGHTING_OFFSET, edgeThickness + Z_FIGHTING_OFFSET),
-    10
-  );
-  createEdgeBlock(
-    position.add(new Vector3(halfX - halfThickness, 0, halfZ - halfThickness)),
-    new Vector3(edgeThickness + Z_FIGHTING_OFFSET, size.Y - edgeThickness * 2 + Z_FIGHTING_OFFSET, edgeThickness + Z_FIGHTING_OFFSET),
-    11
-  );
-  createEdgeBlock(
-    position.add(new Vector3(-halfX + halfThickness, 0, halfZ - halfThickness)),
-    new Vector3(edgeThickness + Z_FIGHTING_OFFSET, size.Y - edgeThickness * 2 + Z_FIGHTING_OFFSET, edgeThickness + Z_FIGHTING_OFFSET),
-    12
-  );
-
-  // Create corner cubes (8 corners)
-  const cornerSize = new Vector3(
-    edgeThickness + Z_FIGHTING_OFFSET, 
-    edgeThickness + Z_FIGHTING_OFFSET, 
-    edgeThickness + Z_FIGHTING_OFFSET
-  );
-  const corners = [
-    // Bottom corners
-    new Vector3(-halfX + halfThickness, -halfY + halfThickness, -halfZ + halfThickness), // Bottom-left-back
-    new Vector3(halfX - halfThickness, -halfY + halfThickness, -halfZ + halfThickness),  // Bottom-right-back
-    new Vector3(halfX - halfThickness, -halfY + halfThickness, halfZ - halfThickness),   // Bottom-right-front
-    new Vector3(-halfX + halfThickness, -halfY + halfThickness, halfZ - halfThickness),  // Bottom-left-front
-    // Top corners
-    new Vector3(-halfX + halfThickness, halfY - halfThickness, -halfZ + halfThickness),  // Top-left-back
-    new Vector3(halfX - halfThickness, halfY - halfThickness, -halfZ + halfThickness),   // Top-right-back
-    new Vector3(halfX - halfThickness, halfY - halfThickness, halfZ - halfThickness),    // Top-right-front
-    new Vector3(-halfX + halfThickness, halfY - halfThickness, halfZ - halfThickness),   // Top-left-front
+  // Edge definitions [position offset, size, index]
+  const edgeDefinitions: [Vector3, Vector3, number][] = [
+    // Bottom face - X-aligned
+    [new Vector3(0, -halfY + halfThickness, -halfZ + halfThickness), new Vector3(xLength, edgeWithOffset, edgeWithOffset), 1],
+    [new Vector3(0, -halfY + halfThickness, halfZ - halfThickness), new Vector3(xLength, edgeWithOffset, edgeWithOffset), 2],
+    // Bottom face - Z-aligned
+    [new Vector3(-halfX + halfThickness, -halfY + halfThickness, 0), new Vector3(edgeWithOffset, edgeWithOffset, zLength), 3],
+    [new Vector3(halfX - halfThickness, -halfY + halfThickness, 0), new Vector3(edgeWithOffset, edgeWithOffset, zLength), 4],
+    // Top face - X-aligned
+    [new Vector3(0, halfY - halfThickness, -halfZ + halfThickness), new Vector3(xLength, edgeWithOffset, edgeWithOffset), 5],
+    [new Vector3(0, halfY - halfThickness, halfZ - halfThickness), new Vector3(xLength, edgeWithOffset, edgeWithOffset), 6],
+    // Top face - Z-aligned
+    [new Vector3(-halfX + halfThickness, halfY - halfThickness, 0), new Vector3(edgeWithOffset, edgeWithOffset, zLength), 7],
+    [new Vector3(halfX - halfThickness, halfY - halfThickness, 0), new Vector3(edgeWithOffset, edgeWithOffset, zLength), 8],
+    // Vertical - Y-aligned
+    [new Vector3(-halfX + halfThickness, 0, -halfZ + halfThickness), new Vector3(edgeWithOffset, yLength, edgeWithOffset), 9],
+    [new Vector3(halfX - halfThickness, 0, -halfZ + halfThickness), new Vector3(edgeWithOffset, yLength, edgeWithOffset), 10],
+    [new Vector3(halfX - halfThickness, 0, halfZ - halfThickness), new Vector3(edgeWithOffset, yLength, edgeWithOffset), 11],
+    [new Vector3(-halfX + halfThickness, 0, halfZ - halfThickness), new Vector3(edgeWithOffset, yLength, edgeWithOffset), 12],
   ];
 
-  corners.forEach((cornerPos, index) => {
-    makeBlock({
-      position: position.add(cornerPos),
-      size: cornerSize,
-      parent: cornerCubesModel,
-      color: edgeBlockColor,
-      nameStub: nameStub,
-      nameSuffix: `corner-${string.format("%02d", index + 1)}`,
+  // Create all edges
+  edgeDefinitions.forEach(([offset, edgeSize, index]) => {
+    createEdgeBlock(position.add(offset), edgeSize, index);
+  });
+
+  // Create corner cubes (8 corners)
+  const cornerSize = new Vector3(edgeWithOffset, edgeWithOffset, edgeWithOffset);
+  const xPositions = [-halfX + halfThickness, halfX - halfThickness];
+  const yPositions = [-halfY + halfThickness, halfY - halfThickness];
+  const zPositions = [-halfZ + halfThickness, halfZ - halfThickness];
+
+  let cornerIndex = 1;
+  yPositions.forEach((y) => {
+    zPositions.forEach((z) => {
+      xPositions.forEach((x) => {
+        makeBlock({
+          position: position.add(new Vector3(x, y, z)),
+          size: cornerSize,
+          parent: cornerCubesModel,
+          color: edgeBlockColor,
+          nameStub: nameStub,
+          nameSuffix: `corner-${string.format("%02d", cornerIndex)}`,
+        });
+        cornerIndex++;
+      });
     });
   });
 
