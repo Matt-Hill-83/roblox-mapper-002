@@ -2,14 +2,17 @@ import { Person } from "./types/person.interface";
 import { Country } from "./types/country.interface";
 import { PersonGenerator } from "./generators/personGenerator";
 import { CountryGenerator } from "./generators/countryGenerator";
+import { FileWriter } from "./utils/fileWriter";
 
 export class DataGeneratorService {
   private personGenerator: PersonGenerator;
   private countryGenerator: CountryGenerator;
+  private fileWriter: FileWriter;
   
   constructor() {
     this.personGenerator = new PersonGenerator();
     this.countryGenerator = new CountryGenerator();
+    this.fileWriter = new FileWriter();
   }
   
   generateData(personCount: number, countryCount: number): { persons: Person[], countries: Country[] } {
@@ -57,11 +60,19 @@ export class DataGeneratorService {
     return relationships;
   }
 
-  writeDataFile(data: { persons: Person[], countries: Country[] }): void {
-    // This will be implemented in T2.3
-    print("Writing data to file...");
-    print(`- ${data.persons.size()} persons`);
-    print(`- ${data.countries.size()} countries`);
+  writeDataFile(
+    data: { persons: Person[], countries: Country[] }, 
+    parent?: Instance
+  ): Folder {
+    const targetParent = parent || game.Workspace;
+    const exportName = `DataExport_${os.date("%Y%m%d_%H%M%S")}`;
+    
+    // Add relationships if we have persons
+    const fullData = data.persons.size() > 0 
+      ? { ...data, relationships: this.generateRelationships(data.persons) }
+      : data;
+    
+    return this.fileWriter.createDataExport(targetParent, exportName, fullData);
   }
   
   // Generate sample data with relationships
@@ -77,5 +88,11 @@ export class DataGeneratorService {
       ...data,
       relationships
     };
+  }
+  
+  // Generate and save sample data
+  generateAndSaveSampleData(parent?: Instance): Folder {
+    const data = this.generateSampleData();
+    return this.writeDataFile(data, parent);
   }
 }

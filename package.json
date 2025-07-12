@@ -7,7 +7,8 @@
     "build": "rbxtsc",
     "watch": "rbxtsc -w",
     "generate-exports": "node scripts/generate-data-exports.js",
-    "dev": "cd _webapp && npm run dev"
+    "dev": "cd _webapp && npm run dev",
+    "generate-data": "node scripts/generate-sample-data.js"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +16,9 @@
   "devDependencies": {
     "@rbxts/services": "^1.5.5",
     "@rbxts/types": "^1.0.860",
-    "roblox-ts": "^3.0.0"
+    "@types/node": "^24.0.13",
+    "roblox-ts": "^3.0.0",
+    "ts-node": "^10.9.2"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

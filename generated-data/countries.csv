@@ -1,0 +1,31 @@
+guid,name,isSunny,isWarm,happiness,expensive
+f81ec2cd-3eb9-49b5-8c21-d6966cd696ca,Colombia,true,true,8,7
+22d6c6b2-9657-4a93-bce5-d90a3445f93e,Australia,true,false,7,6
+0f3810aa-8fee-4146-9212-12567943d301,Malaysia,true,true,9,4
+46c9fe7b-e676-4c38-bde7-c18e6b71f9ef,United Kingdom,true,false,7,8
+edece7c4-18cd-448f-8fe6-d78de44d2164,Romania,true,false,6,8
+3af16bd5-56bb-49f8-a058-922ccddba9a0,Switzerland,true,false,6,5
+fa215df7-b0da-453c-95d5-29f0ec7b7fa4,Sweden,false,false,10,7
+31c6dd61-a25b-437d-b0a6-641f5e96d442,Mexico,true,false,7,6
+c91afac6-0553-4648-a89a-791cb242760e,Israel,true,true,5,5
+c8252fc3-8465-4a0c-9aab-2bf8223a7f3b,Greece,true,true,9,5
+424c163c-2d78-42b8-af0e-28a10038eb55,Peru,true,false,8,8
+b56218c9-a4a2-4a6d-8ef1-ce8a6325852d,Ecuador,true,true,6,5
+59b1af22-402e-4ee7-8ad1-ddee71ddb118,Vietnam,true,false,8,5
+c32fe18a-27da-4571-9170-05440320b0da,Morocco,true,true,8,5
+aa3487bf-0587-47a5-9c76-1250814cd274,Brazil,true,true,8,3
+7d530de8-50cc-4a4d-b510-63dac79596ed,Norway,false,false,9,7
+f15e2e38-904d-4c9d-ba60-1a821ec9da1f,Argentina,true,false,8,8
+ffe3dd09-5532-49c7-9a00-41c6dbca38eb,Bulgaria,true,false,6,8
+bc307007-0fbb-4f58-93ca-d89c030e18a6,United Arab Emirates,true,true,6,8
+a1bfaa1d-b71a-4acf-8a6c-c12e9033b085,Poland,true,false,8,6
+db50b593-caa9-4c9b-b60a-9ad1f329d041,Croatia,true,true,7,6
+15068a58-9450-4356-a5a9-1937632a67ea,Belgium,true,false,7,7
+ae475e7c-f114-4ffa-a22e-5667cf2f8b6d,Panama,true,false,6,5
+8d702572-5ce4-4e21-a8dc-7c5323644e04,Portugal,true,true,7,6
+2d0cdf0a-e446-4e63-b42c-d1803d110884,Uruguay,true,false,6,8
+d038e7b6-79a0-4198-9e45-32058dae98a4,Thailand,true,true,9,4
+9b30c237-b50b-4b75-ab4d-5350187c34a6,Italy,true,true,9,7
+88885063-3651-4612-810a-446843bc70e2,Philippines,true,true,7,5
+48d86bee-35a7-4f41-b90d-1b86e438e731,Latvia,true,false,7,5
+61d00b0c-b2ac-4a97-b477-1a8d9261812e,Serbia,true,false,7,5

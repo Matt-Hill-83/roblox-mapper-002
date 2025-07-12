@@ -1,0 +1,18 @@
+Data Generation Summary
+======================
+Generated at: 2025-07-12T07:27:52.739Z
+Persons: 100
+Countries: 30
+Relationships: 150
+
+Sample Person:
+- Name: Jack Cooper
+- Country: Portugal
+- Pet: Ant Farm
+
+Sample Country:
+- Name: Colombia
+- Sunny: true
+- Warm: true
+- Happiness: 8/10
+- Expensive: 7/10

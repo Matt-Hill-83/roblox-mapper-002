@@ -6,6 +6,7 @@ import { initializeDev2Features } from "./dev2features";
 import { makeOriginBlock } from "../../../shared/modules/makeOriginBlock";
 import { wireframeBlockMaker } from "../../../src2/validation/wireframeBlockMaker";
 import { graphBlasterLayoutMaker } from "../../../src2/graphBlasterLayoutMaker";
+import { DataGeneratorService } from "../../../src2/services/dataGeneration/dataGenerator.service";
 
 // Origin configuration for 3D positioning
 const ORIGIN = {
@@ -163,6 +164,78 @@ export class GameService extends BaseService {
     const cubeData = rubixCubeService.getData();
     if (cubeData) {
       print(`Generated cube data with ${cubeData.size()} layers`);
+    }
+    
+    // Test data generation (T2.4)
+    if (true) {
+      print("=== Testing Data Generation ===");
+      const dataGenerator = new DataGeneratorService();
+      
+      // Create a folder for generated data
+      const dataFolder = new Instance("Folder");
+      dataFolder.Name = "GeneratedData";
+      dataFolder.Parent = this.myStuffFolder;
+      
+      // Generate and save sample data
+      const exportFolder = dataGenerator.generateAndSaveSampleData(dataFolder);
+      print(`Data exported to: ${exportFolder.GetFullName()}`);
+    }
+    
+    // Test wireframe panels (T17)
+    if (true) {
+      print("=== Testing Wireframe Panels ===");
+      
+      // Create a wireframe block with panels
+      wireframeBlockMaker({
+        position: new Vector3(ORIGIN.x + 70, ORIGIN.y + 10, ORIGIN.z),
+        size: new Vector3(20, 20, 20),
+        parent: this.myStuffFolder,
+        nameStub: "panel-test",
+        edgeWidth: 0.5,
+        edgeBlockColor: new Color3(1, 1, 1), // White edges
+        transparency: 0.9, // Very transparent main block
+        panels: {
+          front: true,
+          back: true,
+          left: true,
+          right: false, // Skip right panel for visibility
+          top: true,
+          bottom: true,
+        },
+        panelProps: {
+          transparency: 0,
+          color: new Color3(0.3, 0.6, 0.9), // Light blue panels
+          thickness: 0.5,
+        },
+      });
+      
+      print("Created wireframe block with panels");
+      
+      // Create another wireframe block with only vertical wall panels
+      wireframeBlockMaker({
+        position: new Vector3(ORIGIN.x + 100, ORIGIN.y + 10, ORIGIN.z),
+        size: new Vector3(20, 20, 20),
+        parent: this.myStuffFolder,
+        nameStub: "vertical-panels",
+        edgeWidth: 0.5,
+        edgeBlockColor: new Color3(0.2, 0.2, 0.2), // Dark gray edges
+        transparency: 0.9, // Very transparent main block
+        panels: {
+          front: true,   // Vertical wall
+          back: true,    // Vertical wall
+          left: true,    // Vertical wall
+          right: true,   // Vertical wall
+          top: false,    // Not a vertical wall
+          bottom: false, // Not a vertical wall
+        },
+        panelProps: {
+          transparency: 0,
+          color: new Color3(0.9, 0.3, 0.3), // Reddish panels
+          thickness: 0.3,
+        },
+      });
+      
+      print("Created wireframe block with vertical wall panels only");
     }
   }
 

@@ -1,0 +1,101 @@
+guid,firstName,lastName,country,petType,countryLivesIn,countryBornIn,countryWorksIn
+e80aa773-a8c2-4c21-8752-3f34660b33f5,Jack,Cooper,Portugal,Ant Farm,Vietnam,Australia,Australia
+1b5ba2e6-de56-47c5-bc41-5d539a31c988,Natalie,White,Norway,Python,Morocco,Colombia,Brazil
+69248247-db82-4666-97b3-048934408c2a,Madison,Patel,Uruguay,Goat,Philippines,Croatia,Mexico
+0ba586e2-2986-498c-9cf6-5eb6f0a11357,Olivia,Evans,Panama,Butterfly,Morocco,Greece,Philippines
+49d60348-b8ad-400f-a328-5b434854d9c4,Samuel,Mitchell,Thailand,Hermit Crab,Norway,Mexico,United Arab Emirates
+9d3183c6-6359-4487-b7fe-e6355cf297ae,Jackson,Baker,Ecuador,Mouse,Ecuador,Mexico,Vietnam
+61d2e93d-b622-4fc4-959d-e046f6d3c580,Grayson,Peterson,Uruguay,Gerbil,United Kingdom,United Arab Emirates,Philippines
+a25ccd2b-d7d3-493c-bcac-499db98fd92c,Mason,Scott,Romania,Lizard,Romania,Vietnam,Croatia
+cecd47d9-43fb-42f0-896d-b5a46c55336f,Hunter,Hernandez,Belgium,Gecko,Colombia,Italy,Portugal
+8fb604ca-309b-46ec-a704-bb070833d05a,Layla,Allen,Switzerland,Parakeet,Mexico,Croatia,Peru
+b8d9dad1-42b2-4596-84a6-fe56f515fd24,William,Hall,Malaysia,Frog,Belgium,Brazil,Norway
+9455f398-fd71-452f-96fb-62098d09c7ba,Elizabeth,Lee,Latvia,Bird,Croatia,Mexico,Panama
+af133de1-442b-4fac-929d-4582358a97bc,Bella,Walker,Argentina,Goose,Uruguay,Portugal,Colombia
+409476da-bfd9-4bb4-9dd9-e91b6092e5fc,Sofia,Anderson,Philippines,Cockatoo,Croatia,Italy,Portugal
+3e40e650-ca42-445c-9c88-bb10b51a9aee,Aria,Bennett,Portugal,Praying Mantis,Croatia,Italy,Portugal
+1f5d2aa5-9747-4a78-8e3d-0dc35316c1ab,Matthew,Adams,Ecuador,Sheep,Thailand,Greece,Italy
+f6caf502-a9b1-4644-9170-400d68765299,Matthew,Turner,Bulgaria,Parakeet,United Arab Emirates,Morocco,United Arab Emirates
+d83ef62c-85c9-4c48-8948-e3140833cc3c,Mason,Garcia,Bulgaria,Hermit Crab,Israel,United Kingdom,Colombia
+3db64d10-8451-421a-8e1e-33507321046d,William,Hernandez,Latvia,Hamster,Bulgaria,Vietnam,Uruguay
+96aba69a-5d5d-499e-883a-bed26494d50d,David,Cox,Sweden,Chinchilla,Belgium,Uruguay,Italy
+017bfa40-3c3b-43b2-a64e-2ccc8a71e2e2,Charles,Morales,Australia,Hamster,Croatia,Switzerland,Vietnam
+1e80ebf7-38b4-4563-9b03-a0dde3014bfb,Savannah,Clark,Malaysia,Macaw,Morocco,Switzerland,Serbia
+1ee997b2-8e09-4fa9-9268-c06d5ae11edb,Emily,Myers,Colombia,Turtle,Switzerland,Sweden,Vietnam
+5daf3ac0-87c9-4fd2-a619-75dc8e7b4537,Lincoln,Wright,Argentina,Newt,Poland,Philippines,Italy
+0103da58-5df9-47c0-bfcc-a3b1b73c389e,Riley,Stewart,Peru,Newt,Belgium,Greece,Serbia
+e7118d2c-8df9-48fe-b257-12e9f62b2b6a,Evelyn,James,Peru,Parrot,Sweden,Romania,Morocco
+c08d6bf5-8823-43dd-a21d-1229da422c24,Noah,Long,Australia,Frog,Mexico,Italy,Sweden
+d00f4f4e-ff6a-4968-b654-b889c653c58c,Carter,Turner,Bulgaria,Budgie,Norway,Croatia,Latvia
+96334130-2922-4a35-9ce1-22f8c3fad1ea,Lucy,Wood,Mexico,Canary,Argentina,Sweden,Thailand
+f698d6b5-6a16-4df0-a925-4db8496256f3,Michael,Bailey,United Kingdom,Duck,Thailand,Thailand,Bulgaria
+fb8d1676-351d-494e-b84b-ffa2d53c91f3,Matthew,Davis,Portugal,Goat,Poland,Vietnam,Italy
+8b5238fa-01c6-4133-9075-469e3f187669,Bella,Cooper,Croatia,Dog,Malaysia,Bulgaria,Norway
+4539cd5c-1ccd-4557-ab37-d053ba144e83,Sophia,King,Serbia,Bird,Malaysia,Italy,Ecuador
+bb849bc6-4ea2-4ba9-9220-a44bdb991eb0,Nathan,Jenkins,Brazil,Cockatiel,Thailand,Romania,Greece
+45f0ffee-f54d-4d59-9fe1-ef9387b7254a,John,Bailey,Sweden,Bearded Dragon,Greece,Poland,Croatia
+b2c0c6bf-4c14-42e1-b1d7-1e6601df6ac2,Claire,Wright,Philippines,Goose,United Arab Emirates,Poland,Morocco
+9ba7152c-6343-4ce1-bdc2-7fbc25d94595,Skylar,Gomez,United Kingdom,Conure,Greece,Italy,Australia
+01bb16c4-8de9-42e8-a5ec-b6d7445a4b26,Carter,Torres,Norway,Cockatoo,Croatia,Greece,Philippines
+174e2b64-326b-4678-ba8c-8dc6050ee231,Ryan,Scott,Greece,Iguana,Poland,Belgium,Peru
+57618825-02f7-494b-8a92-0c8f78f58697,Jack,Ortiz,Norway,Duck,Bulgaria,Philippines,Malaysia
+1c81211e-9bea-4978-bbd6-602f0e7d7099,Scarlett,Hernandez,Brazil,Sheep,Ecuador,Malaysia,Norway
+e92d0247-d101-4386-a6d5-8e0a4158d22d,Charles,Richardson,Switzerland,Cockatoo,Switzerland,Thailand,Thailand
+32bf0d78-c894-4f58-9c27-1529c1e7567c,Olivia,Stewart,Peru,Snake,Philippines,Peru,Bulgaria
+2ac2f92f-20af-4e1d-a0be-aa0862cda988,Amelia,Mendoza,United Kingdom,Turtle,Sweden,Bulgaria,Mexico
+e655370f-2aec-476b-957b-1db0f7669cce,Sophia,Turner,Italy,Turtle,Australia,Sweden,Greece
+01d0f48a-321b-4221-ae03-0c3b8a4389f0,Mason,Cox,Uruguay,Rabbit,United Kingdom,Italy,Malaysia
+1c0e57c7-4ccf-456b-a734-59485ceb0e8f,Ava,Bennett,Philippines,Lovebird,Italy,Peru,Poland
+02988169-79a3-47ac-9ac0-6eaf8bb2449f,Avery,Richardson,Poland,Goose,Australia,Portugal,Italy
+145be765-67c5-4237-aaa7-5e4f9ad25ed1,Isabella,Castillo,Argentina,Sheep,Uruguay,United Arab Emirates,United Kingdom
+a6b5f0f4-337a-48fc-b932-ce5b81defb72,Lucy,Flores,Sweden,Rabbit,United Arab Emirates,Australia,Italy
+3cd2afa2-e48b-42e6-bab8-fe799a047991,Carter,Cox,United Kingdom,Horse,Thailand,Poland,Australia
+0593e5e7-780e-40fa-a336-d94ff619ff19,Owen,Taylor,Ecuador,Salamander,Poland,Ecuador,United Kingdom
+2d164ee4-98b0-4b8f-9346-09561af69ff4,Owen,Evans,Thailand,Newt,Philippines,Israel,Israel
+f624f5c4-34ec-4a50-a5f7-8037781bb4c0,Nora,Peterson,Colombia,Gerbil,Belgium,Thailand,Switzerland
+e2bf66bf-21d8-4f24-a5cc-37d660526097,Ella,Hughes,Brazil,Goat,Ecuador,Philippines,Morocco
+ee8f55c2-9dab-4d3f-a9d6-d8db8f6ac9e4,Madison,Jackson,Brazil,Guinea Pig,Croatia,Australia,Greece
+43245d73-2009-4972-8358-4b6c72cb774b,Evelyn,Ortiz,United Arab Emirates,Rat,Argentina,Philippines,Peru
+e300c3c3-30c9-47ad-851f-5e429c585a69,Hunter,Patel,Argentina,Parakeet,Romania,Panama,Israel
+e0cf633f-a89f-4947-a2f3-a7ccfac99c1e,Lucy,Jimenez,United Arab Emirates,Horse,United Kingdom,Greece,Australia
+2d4028d6-40df-424b-82f8-f4ac44e990f8,Samuel,Mitchell,Italy,Lovebird,Vietnam,Colombia,Panama
+f2017d13-4772-4ca2-9c81-7888a931b4f5,Samuel,Hall,Ecuador,Chinchilla,Australia,Australia,Bulgaria
+11c48336-0189-47c0-99bf-f69eda8436b0,Ava,Sanders,Norway,Bird,Israel,Norway,Ecuador
+52d83892-c714-4dde-b00b-0b43501bb063,Amelia,Wright,Vietnam,Rat,Mexico,Greece,Vietnam
+232369b6-3ca5-4d58-a7da-77f9d2a2de6c,Bella,James,Morocco,Butterfly,Bulgaria,Serbia,Colombia
+7a919d29-13bc-4917-b48c-badfb63d26f8,Grayson,Perry,Australia,Canary,Croatia,United Kingdom,Portugal
+c1fe0881-e60a-4e2f-ba32-2c87b1808c97,Savannah,Kelly,Bulgaria,Macaw,Brazil,Greece,Latvia
+82216878-83a0-43bb-b9cf-c6f734a3855f,Samuel,Morgan,Norway,Frog,Brazil,Mexico,Italy
+ac80a186-f87a-47a1-bcb2-f2e0dedfa09f,Madison,Diaz,Serbia,Goose,Serbia,Italy,Bulgaria
+8abb0292-723a-498b-aff3-ebf19f3f9098,James,Jackson,Philippines,Snake,Norway,United Kingdom,Mexico
+7251e5c8-87a6-43c5-bb52-2c424d17881b,Nora,Evans,Greece,Cat,Peru,Croatia,Peru
+bd2b441d-3a57-470e-9954-eb9ae40c3f51,Charlotte,Richardson,Serbia,Chicken,Switzerland,Australia,Croatia
+d89b5949-2103-4a51-bb88-f20c919e47ef,Daniel,Stewart,Ecuador,Finch,Poland,Switzerland,Switzerland
+a5315849-7751-46f4-a973-c509c016ba1d,Ava,Price,Latvia,Goose,Vietnam,Poland,Norway
+f1a7942c-2d7a-402f-943c-3b676c87c6ed,Elizabeth,Nelson,Croatia,Cow,Uruguay,Romania,Bulgaria
+7e7c67ee-b875-48d5-b884-596ead4bc1ee,Julian,Perez,Brazil,Sugar Glider,Uruguay,Bulgaria,Vietnam
+04045ca1-a391-4ab3-9d58-7f180e91cf44,Ellie,Richardson,Mexico,Salamander,Italy,Brazil,Romania
+adf8fc10-98c9-40af-ada4-95f43c1dcddc,Dylan,Flores,Argentina,Turtle,Argentina,Colombia,Croatia
+caf98ee8-c09c-4f04-b88f-155a64c15cbe,Isaac,Ramirez,Serbia,Bird,Ecuador,Thailand,Ecuador
+997f5266-79be-4dab-8383-ffafafef972d,Julian,Mendoza,Latvia,Parrot,Romania,Vietnam,Sweden
+8320e126-6ca6-464b-9511-284cd58a1d96,Carter,Mitchell,Malaysia,Lizard,Norway,Romania,Switzerland
+5a7cc70b-5a58-4109-890f-173edcff6cce,Liam,Anderson,United Arab Emirates,Praying Mantis,Morocco,Peru,Panama
+95db2932-21f6-413a-9a0c-bc4aa7092915,Joseph,Diaz,Sweden,Rabbit,Australia,Portugal,Uruguay
+c3872ffe-00ba-4ebf-9531-c0786d0ec8b7,Noah,Hall,Malaysia,Dog,Morocco,Colombia,United Arab Emirates
+c7fbc791-0258-46a0-b32c-3d2d774e2a26,Charlotte,Roberts,Croatia,Hamster,Poland,Norway,United Kingdom
+e7c5026b-c73a-41af-a350-9b867d264f36,Eli,Lopez,Brazil,Canary,United Arab Emirates,Norway,Greece
+95a08914-da2b-4bc0-8121-a3d4847d2779,Charlotte,Ramos,Croatia,Cockatoo,Uruguay,Colombia,Uruguay
+4a84e2df-bc09-450f-a9a7-f5f85cfc75da,Anna,Gomez,Greece,Ferret,Ecuador,Norway,Portugal
+0f6e5839-d36e-4c65-aa29-b4264f013775,Layla,Myers,Brazil,None,Uruguay,Thailand,Croatia
+85b161d0-9468-4409-bc79-a0b59e365f8e,Isaac,Morris,Morocco,Tarantula,Belgium,Morocco,Vietnam
+b2e96e96-647e-4bba-9dcf-2322979dec5b,Avery,Alvarez,Thailand,Canary,Israel,Colombia,United Arab Emirates
+5594897d-868e-4414-9d9d-699b3d4ccedf,Nova,Phillips,Vietnam,Butterfly,Latvia,Argentina,Uruguay
+a64a9b48-764d-447a-a483-9405418fd239,Joseph,Foster,Italy,Budgie,Thailand,Latvia,Uruguay
+d08742f3-e987-40df-b2c6-35e33fc9e0c3,Isaiah,Allen,Uruguay,Sugar Glider,Norway,Portugal,Croatia
+37f65c24-1b71-414b-85fc-7de9de812702,Gabriel,Chavez,Croatia,Turtle,Vietnam,Philippines,Panama
+72db562a-9df9-4f28-a526-c454d2d50c5b,Luke,Wood,Greece,Chicken,Australia,Brazil,Argentina
+eb1ff957-1a5a-40d8-a08a-032e246b4368,Riley,Ross,Argentina,Macaw,Sweden,Uruguay,Switzerland
+88aa17f0-fccb-4c62-a37a-327dd7d6cee5,Claire,Clark,Italy,Canary,Italy,Vietnam,Peru
+7d384f51-a0db-40fa-84ee-33053238f731,Amelia,Price,Brazil,Rabbit,Uruguay,Panama,Thailand
+7bf05c15-5827-4385-98b8-a9ddd6e677eb,Joseph,Parker,United Arab Emirates,Mouse,Sweden,Brazil,Romania
+460637dd-cb1a-4489-b3f8-0982b0521044,Sophia,Morris,Uruguay,Lovebird,Australia,Uruguay,Brazil

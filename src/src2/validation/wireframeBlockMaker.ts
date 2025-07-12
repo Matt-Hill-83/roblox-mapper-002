@@ -16,6 +16,20 @@ export interface WireframeBlockConfig extends IBlockMakerConfig {
       [key: string]: any;
     };
   };
+  panels?: {
+    front?: boolean;
+    back?: boolean;
+    left?: boolean;
+    right?: boolean;
+    top?: boolean;
+    bottom?: boolean;
+  };
+  panelProps?: {
+    transparency?: number;
+    color?: Color3;
+    thickness?: number;
+    [key: string]: any;
+  };
 }
 
 export function wireframeBlockMaker(config: WireframeBlockConfig): Model {
@@ -30,6 +44,8 @@ export function wireframeBlockMaker(config: WireframeBlockConfig): Model {
     transparency = 0.5,
     labelProps,
     overrideProps,
+    panels,
+    panelProps = {},
   } = config;
 
   // Z-fighting prevention offset
@@ -248,6 +264,97 @@ export function wireframeBlockMaker(config: WireframeBlockConfig): Model {
       });
     });
   });
+
+  // Create panels if specified
+  if (panels) {
+    const panelsModel = new Instance("Model");
+    panelsModel.Name = "Panels";
+    panelsModel.Parent = mainBlock;
+    
+    const panelThickness = panelProps.thickness || 1;
+    const panelColor = panelProps.color || new Color3(0.5, 0.5, 0.5);
+    const panelTransparency = panelProps.transparency ?? 0.8;
+    
+    // Calculate panel sizes accounting for edge thickness
+    const innerX = sizeVec.X - (edgeThickness * 2);
+    const innerY = sizeVec.Y - (edgeThickness * 2);
+    const innerZ = sizeVec.Z - (edgeThickness * 2);
+    
+    // Helper function to create a panel
+    function createPanel(
+      panelPos: Vector3,
+      panelSize: Vector3,
+      panelName: string
+    ): void {
+      const panel = makeBlock({
+        position: panelPos,
+        size: panelSize,
+        parent: panelsModel,
+        color: panelColor,
+        nameStub: nameStub,
+        nameSuffix: `panel-${panelName}`,
+        transparency: panelTransparency,
+      });
+      
+      // Apply any additional panel overrides
+      if (panelProps && panel) {
+        for (const [key, value] of pairs(panelProps)) {
+          if (key !== "transparency" && key !== "color" && key !== "thickness" && key in panel) {
+            (panel as any)[key] = value;
+          }
+        }
+      }
+    }
+    
+    // Create panels based on configuration
+    if (panels.front) {
+      createPanel(
+        position.add(new Vector3(0, 0, halfZ - panelThickness / 2 - edgeThickness)),
+        new Vector3(innerX, innerY, panelThickness),
+        "front"
+      );
+    }
+    
+    if (panels.back) {
+      createPanel(
+        position.add(new Vector3(0, 0, -halfZ + panelThickness / 2 + edgeThickness)),
+        new Vector3(innerX, innerY, panelThickness),
+        "back"
+      );
+    }
+    
+    if (panels.left) {
+      createPanel(
+        position.add(new Vector3(-halfX + panelThickness / 2 + edgeThickness, 0, 0)),
+        new Vector3(panelThickness, innerY, innerZ),
+        "left"
+      );
+    }
+    
+    if (panels.right) {
+      createPanel(
+        position.add(new Vector3(halfX - panelThickness / 2 - edgeThickness, 0, 0)),
+        new Vector3(panelThickness, innerY, innerZ),
+        "right"
+      );
+    }
+    
+    if (panels.top) {
+      createPanel(
+        position.add(new Vector3(0, halfY - panelThickness / 2 - edgeThickness, 0)),
+        new Vector3(innerX, panelThickness, innerZ),
+        "top"
+      );
+    }
+    
+    if (panels.bottom) {
+      createPanel(
+        position.add(new Vector3(0, -halfY + panelThickness / 2 + edgeThickness, 0)),
+        new Vector3(innerX, panelThickness, innerZ),
+        "bottom"
+      );
+    }
+  }
 
   // Set parent if provided
   if (parent) {

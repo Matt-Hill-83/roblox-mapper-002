@@ -1,0 +1,2004 @@
+{
+  "metadata": {
+    "generatedAt": "2025-07-12T07:27:52.739Z",
+    "personCount": 100,
+    "countryCount": 30,
+    "relationshipCount": 150
+  },
+  "persons": [
+    {
+      "guid": "e80aa773-a8c2-4c21-8752-3f34660b33f5",
+      "firstName": "Jack",
+      "lastName": "Cooper",
+      "country": "Portugal",
+      "petType": "Ant Farm",
+      "countryLivesIn": "Vietnam",
+      "countryBornIn": "Australia",
+      "countryWorksIn": "Australia"
+    },
+    {
+      "guid": "1b5ba2e6-de56-47c5-bc41-5d539a31c988",
+      "firstName": "Natalie",
+      "lastName": "White",
+      "country": "Norway",
+      "petType": "Python",
+      "countryLivesIn": "Morocco",
+      "countryBornIn": "Colombia",
+      "countryWorksIn": "Brazil"
+    },
+    {
+      "guid": "69248247-db82-4666-97b3-048934408c2a",
+      "firstName": "Madison",
+      "lastName": "Patel",
+      "country": "Uruguay",
+      "petType": "Goat",
+      "countryLivesIn": "Philippines",
+      "countryBornIn": "Croatia",
+      "countryWorksIn": "Mexico"
+    },
+    {
+      "guid": "0ba586e2-2986-498c-9cf6-5eb6f0a11357",
+      "firstName": "Olivia",
+      "lastName": "Evans",
+      "country": "Panama",
+      "petType": "Butterfly",
+      "countryLivesIn": "Morocco",
+      "countryBornIn": "Greece",
+      "countryWorksIn": "Philippines"
+    },
+    {
+      "guid": "49d60348-b8ad-400f-a328-5b434854d9c4",
+      "firstName": "Samuel",
+      "lastName": "Mitchell",
+      "country": "Thailand",
+      "petType": "Hermit Crab",
+      "countryLivesIn": "Norway",
+      "countryBornIn": "Mexico",
+      "countryWorksIn": "United Arab Emirates"
+    },
+    {
+      "guid": "9d3183c6-6359-4487-b7fe-e6355cf297ae",
+      "firstName": "Jackson",
+      "lastName": "Baker",
+      "country": "Ecuador",
+      "petType": "Mouse",
+      "countryLivesIn": "Ecuador",
+      "countryBornIn": "Mexico",
+      "countryWorksIn": "Vietnam"
+    },
+    {
+      "guid": "61d2e93d-b622-4fc4-959d-e046f6d3c580",
+      "firstName": "Grayson",
+      "lastName": "Peterson",
+      "country": "Uruguay",
+      "petType": "Gerbil",
+      "countryLivesIn": "United Kingdom",
+      "countryBornIn": "United Arab Emirates",
+      "countryWorksIn": "Philippines"
+    },
+    {
+      "guid": "a25ccd2b-d7d3-493c-bcac-499db98fd92c",
+      "firstName": "Mason",
+      "lastName": "Scott",
+      "country": "Romania",
+      "petType": "Lizard",
+      "countryLivesIn": "Romania",
+      "countryBornIn": "Vietnam",
+      "countryWorksIn": "Croatia"
+    },
+    {
+      "guid": "cecd47d9-43fb-42f0-896d-b5a46c55336f",
+      "firstName": "Hunter",
+      "lastName": "Hernandez",
+      "country": "Belgium",
+      "petType": "Gecko",
+      "countryLivesIn": "Colombia",
+      "countryBornIn": "Italy",
+      "countryWorksIn": "Portugal"
+    },
+    {
+      "guid": "8fb604ca-309b-46ec-a704-bb070833d05a",
+      "firstName": "Layla",
+      "lastName": "Allen",
+      "country": "Switzerland",
+      "petType": "Parakeet",
+      "countryLivesIn": "Mexico",
+      "countryBornIn": "Croatia",
+      "countryWorksIn": "Peru"
+    },
+    {
+      "guid": "b8d9dad1-42b2-4596-84a6-fe56f515fd24",
+      "firstName": "William",
+      "lastName": "Hall",
+      "country": "Malaysia",
+      "petType": "Frog",
+      "countryLivesIn": "Belgium",
+      "countryBornIn": "Brazil",
+      "countryWorksIn": "Norway"
+    },
+    {
+      "guid": "9455f398-fd71-452f-96fb-62098d09c7ba",
+      "firstName": "Elizabeth",
+      "lastName": "Lee",
+      "country": "Latvia",
+      "petType": "Bird",
+      "countryLivesIn": "Croatia",
+      "countryBornIn": "Mexico",
+      "countryWorksIn": "Panama"
+    },
+    {
+      "guid": "af133de1-442b-4fac-929d-4582358a97bc",
+      "firstName": "Bella",
+      "lastName": "Walker",
+      "country": "Argentina",
+      "petType": "Goose",
+      "countryLivesIn": "Uruguay",
+      "countryBornIn": "Portugal",
+      "countryWorksIn": "Colombia"
+    },
+    {
+      "guid": "409476da-bfd9-4bb4-9dd9-e91b6092e5fc",
+      "firstName": "Sofia",
+      "lastName": "Anderson",
+      "country": "Philippines",
+      "petType": "Cockatoo",
+      "countryLivesIn": "Croatia",
+      "countryBornIn": "Italy",
+      "countryWorksIn": "Portugal"
+    },
+    {
+      "guid": "3e40e650-ca42-445c-9c88-bb10b51a9aee",
+      "firstName": "Aria",
+      "lastName": "Bennett",
+      "country": "Portugal",
+      "petType": "Praying Mantis",
+      "countryLivesIn": "Croatia",
+      "countryBornIn": "Italy",
+      "countryWorksIn": "Portugal"
+    },
+    {
+      "guid": "1f5d2aa5-9747-4a78-8e3d-0dc35316c1ab",
+      "firstName": "Matthew",
+      "lastName": "Adams",
+      "country": "Ecuador",
+      "petType": "Sheep",
+      "countryLivesIn": "Thailand",
+      "countryBornIn": "Greece",
+      "countryWorksIn": "Italy"
+    },
+    {
+      "guid": "f6caf502-a9b1-4644-9170-400d68765299",
+      "firstName": "Matthew",
+      "lastName": "Turner",
+      "country": "Bulgaria",
+      "petType": "Parakeet",
+      "countryLivesIn": "United Arab Emirates",
+      "countryBornIn": "Morocco",
+      "countryWorksIn": "United Arab Emirates"
+    },
+    {
+      "guid": "d83ef62c-85c9-4c48-8948-e3140833cc3c",
+      "firstName": "Mason",
+      "lastName": "Garcia",
+      "country": "Bulgaria",
+      "petType": "Hermit Crab",
+      "countryLivesIn": "Israel",
+      "countryBornIn": "United Kingdom",
+      "countryWorksIn": "Colombia"
+    },
+    {
+      "guid": "3db64d10-8451-421a-8e1e-33507321046d",
+      "firstName": "William",
+      "lastName": "Hernandez",
+      "country": "Latvia",
+      "petType": "Hamster",
+      "countryLivesIn": "Bulgaria",
+      "countryBornIn": "Vietnam",
+      "countryWorksIn": "Uruguay"
+    },
+    {
+      "guid": "96aba69a-5d5d-499e-883a-bed26494d50d",
+      "firstName": "David",
+      "lastName": "Cox",
+      "country": "Sweden",
+      "petType": "Chinchilla",
+      "countryLivesIn": "Belgium",
+      "countryBornIn": "Uruguay",
+      "countryWorksIn": "Italy"
+    },
+    {
+      "guid": "017bfa40-3c3b-43b2-a64e-2ccc8a71e2e2",
+      "firstName": "Charles",
+      "lastName": "Morales",
+      "country": "Australia",
+      "petType": "Hamster",
+      "countryLivesIn": "Croatia",
+      "countryBornIn": "Switzerland",
+      "countryWorksIn": "Vietnam"
+    },
+    {
+      "guid": "1e80ebf7-38b4-4563-9b03-a0dde3014bfb",
+      "firstName": "Savannah",
+      "lastName": "Clark",
+      "country": "Malaysia",
+      "petType": "Macaw",
+      "countryLivesIn": "Morocco",
+      "countryBornIn": "Switzerland",
+      "countryWorksIn": "Serbia"
+    },
+    {
+      "guid": "1ee997b2-8e09-4fa9-9268-c06d5ae11edb",
+      "firstName": "Emily",
+      "lastName": "Myers",
+      "country": "Colombia",
+      "petType": "Turtle",
+      "countryLivesIn": "Switzerland",
+      "countryBornIn": "Sweden",
+      "countryWorksIn": "Vietnam"
+    },
+    {
+      "guid": "5daf3ac0-87c9-4fd2-a619-75dc8e7b4537",
+      "firstName": "Lincoln",
+      "lastName": "Wright",
+      "country": "Argentina",
+      "petType": "Newt",
+      "countryLivesIn": "Poland",
+      "countryBornIn": "Philippines",
+      "countryWorksIn": "Italy"
+    },
+    {
+      "guid": "0103da58-5df9-47c0-bfcc-a3b1b73c389e",
+      "firstName": "Riley",
+      "lastName": "Stewart",
+      "country": "Peru",
+      "petType": "Newt",
+      "countryLivesIn": "Belgium",
+      "countryBornIn": "Greece",
+      "countryWorksIn": "Serbia"
+    },
+    {
+      "guid": "e7118d2c-8df9-48fe-b257-12e9f62b2b6a",
+      "firstName": "Evelyn",
+      "lastName": "James",
+      "country": "Peru",
+      "petType": "Parrot",
+      "countryLivesIn": "Sweden",
+      "countryBornIn": "Romania",
+      "countryWorksIn": "Morocco"
+    },
+    {
+      "guid": "c08d6bf5-8823-43dd-a21d-1229da422c24",
+      "firstName": "Noah",
+      "lastName": "Long",
+      "country": "Australia",
+      "petType": "Frog",
+      "countryLivesIn": "Mexico",
+      "countryBornIn": "Italy",
+      "countryWorksIn": "Sweden"
+    },
+    {
+      "guid": "d00f4f4e-ff6a-4968-b654-b889c653c58c",
+      "firstName": "Carter",
+      "lastName": "Turner",
+      "country": "Bulgaria",
+      "petType": "Budgie",
+      "countryLivesIn": "Norway",
+      "countryBornIn": "Croatia",
+      "countryWorksIn": "Latvia"
+    },
+    {
+      "guid": "96334130-2922-4a35-9ce1-22f8c3fad1ea",
+      "firstName": "Lucy",
+      "lastName": "Wood",
+      "country": "Mexico",
+      "petType": "Canary",
+      "countryLivesIn": "Argentina",
+      "countryBornIn": "Sweden",
+      "countryWorksIn": "Thailand"
+    },
+    {
+      "guid": "f698d6b5-6a16-4df0-a925-4db8496256f3",
+      "firstName": "Michael",
+      "lastName": "Bailey",
+      "country": "United Kingdom",
+      "petType": "Duck",
+      "countryLivesIn": "Thailand",
+      "countryBornIn": "Thailand",
+      "countryWorksIn": "Bulgaria"
+    },
+    {
+      "guid": "fb8d1676-351d-494e-b84b-ffa2d53c91f3",
+      "firstName": "Matthew",
+      "lastName": "Davis",
+      "country": "Portugal",
+      "petType": "Goat",
+      "countryLivesIn": "Poland",
+      "countryBornIn": "Vietnam",
+      "countryWorksIn": "Italy"
+    },
+    {
+      "guid": "8b5238fa-01c6-4133-9075-469e3f187669",
+      "firstName": "Bella",
+      "lastName": "Cooper",
+      "country": "Croatia",
+      "petType": "Dog",
+      "countryLivesIn": "Malaysia",
+      "countryBornIn": "Bulgaria",
+      "countryWorksIn": "Norway"
+    },
+    {
+      "guid": "4539cd5c-1ccd-4557-ab37-d053ba144e83",
+      "firstName": "Sophia",
+      "lastName": "King",
+      "country": "Serbia",
+      "petType": "Bird",
+      "countryLivesIn": "Malaysia",
+      "countryBornIn": "Italy",
+      "countryWorksIn": "Ecuador"
+    },
+    {
+      "guid": "bb849bc6-4ea2-4ba9-9220-a44bdb991eb0",
+      "firstName": "Nathan",
+      "lastName": "Jenkins",
+      "country": "Brazil",
+      "petType": "Cockatiel",
+      "countryLivesIn": "Thailand",
+      "countryBornIn": "Romania",
+      "countryWorksIn": "Greece"
+    },
+    {
+      "guid": "45f0ffee-f54d-4d59-9fe1-ef9387b7254a",
+      "firstName": "John",
+      "lastName": "Bailey",
+      "country": "Sweden",
+      "petType": "Bearded Dragon",
+      "countryLivesIn": "Greece",
+      "countryBornIn": "Poland",
+      "countryWorksIn": "Croatia"
+    },
+    {
+      "guid": "b2c0c6bf-4c14-42e1-b1d7-1e6601df6ac2",
+      "firstName": "Claire",
+      "lastName": "Wright",
+      "country": "Philippines",
+      "petType": "Goose",
+      "countryLivesIn": "United Arab Emirates",
+      "countryBornIn": "Poland",
+      "countryWorksIn": "Morocco"
+    },
+    {
+      "guid": "9ba7152c-6343-4ce1-bdc2-7fbc25d94595",
+      "firstName": "Skylar",
+      "lastName": "Gomez",
+      "country": "United Kingdom",
+      "petType": "Conure",
+      "countryLivesIn": "Greece",
+      "countryBornIn": "Italy",
+      "countryWorksIn": "Australia"
+    },
+    {
+      "guid": "01bb16c4-8de9-42e8-a5ec-b6d7445a4b26",
+      "firstName": "Carter",
+      "lastName": "Torres",
+      "country": "Norway",
+      "petType": "Cockatoo",
+      "countryLivesIn": "Croatia",
+      "countryBornIn": "Greece",
+      "countryWorksIn": "Philippines"
+    },
+    {
+      "guid": "174e2b64-326b-4678-ba8c-8dc6050ee231",
+      "firstName": "Ryan",
+      "lastName": "Scott",
+      "country": "Greece",
+      "petType": "Iguana",
+      "countryLivesIn": "Poland",
+      "countryBornIn": "Belgium",
+      "countryWorksIn": "Peru"
+    },
+    {
+      "guid": "57618825-02f7-494b-8a92-0c8f78f58697",
+      "firstName": "Jack",
+      "lastName": "Ortiz",
+      "country": "Norway",
+      "petType": "Duck",
+      "countryLivesIn": "Bulgaria",
+      "countryBornIn": "Philippines",
+      "countryWorksIn": "Malaysia"
+    },
+    {
+      "guid": "1c81211e-9bea-4978-bbd6-602f0e7d7099",
+      "firstName": "Scarlett",
+      "lastName": "Hernandez",
+      "country": "Brazil",
+      "petType": "Sheep",
+      "countryLivesIn": "Ecuador",
+      "countryBornIn": "Malaysia",
+      "countryWorksIn": "Norway"
+    },
+    {
+      "guid": "e92d0247-d101-4386-a6d5-8e0a4158d22d",
+      "firstName": "Charles",
+      "lastName": "Richardson",
+      "country": "Switzerland",
+      "petType": "Cockatoo",
+      "countryLivesIn": "Switzerland",
+      "countryBornIn": "Thailand",
+      "countryWorksIn": "Thailand"
+    },
+    {
+      "guid": "32bf0d78-c894-4f58-9c27-1529c1e7567c",
+      "firstName": "Olivia",
+      "lastName": "Stewart",
+      "country": "Peru",
+      "petType": "Snake",
+      "countryLivesIn": "Philippines",
+      "countryBornIn": "Peru",
+      "countryWorksIn": "Bulgaria"
+    },
+    {
+      "guid": "2ac2f92f-20af-4e1d-a0be-aa0862cda988",
+      "firstName": "Amelia",
+      "lastName": "Mendoza",
+      "country": "United Kingdom",
+      "petType": "Turtle",
+      "countryLivesIn": "Sweden",
+      "countryBornIn": "Bulgaria",
+      "countryWorksIn": "Mexico"
+    },
+    {
+      "guid": "e655370f-2aec-476b-957b-1db0f7669cce",
+      "firstName": "Sophia",
+      "lastName": "Turner",
+      "country": "Italy",
+      "petType": "Turtle",
+      "countryLivesIn": "Australia",
+      "countryBornIn": "Sweden",
+      "countryWorksIn": "Greece"
+    },
+    {
+      "guid": "01d0f48a-321b-4221-ae03-0c3b8a4389f0",
+      "firstName": "Mason",
+      "lastName": "Cox",
+      "country": "Uruguay",
+      "petType": "Rabbit",
+      "countryLivesIn": "United Kingdom",
+      "countryBornIn": "Italy",
+      "countryWorksIn": "Malaysia"
+    },
+    {
+      "guid": "1c0e57c7-4ccf-456b-a734-59485ceb0e8f",
+      "firstName": "Ava",
+      "lastName": "Bennett",
+      "country": "Philippines",
+      "petType": "Lovebird",
+      "countryLivesIn": "Italy",
+      "countryBornIn": "Peru",
+      "countryWorksIn": "Poland"
+    },
+    {
+      "guid": "02988169-79a3-47ac-9ac0-6eaf8bb2449f",
+      "firstName": "Avery",
+      "lastName": "Richardson",
+      "country": "Poland",
+      "petType": "Goose",
+      "countryLivesIn": "Australia",
+      "countryBornIn": "Portugal",
+      "countryWorksIn": "Italy"
+    },
+    {
+      "guid": "145be765-67c5-4237-aaa7-5e4f9ad25ed1",
+      "firstName": "Isabella",
+      "lastName": "Castillo",
+      "country": "Argentina",
+      "petType": "Sheep",
+      "countryLivesIn": "Uruguay",
+      "countryBornIn": "United Arab Emirates",
+      "countryWorksIn": "United Kingdom"
+    },
+    {
+      "guid": "a6b5f0f4-337a-48fc-b932-ce5b81defb72",
+      "firstName": "Lucy",
+      "lastName": "Flores",
+      "country": "Sweden",
+      "petType": "Rabbit",
+      "countryLivesIn": "United Arab Emirates",
+      "countryBornIn": "Australia",
+      "countryWorksIn": "Italy"
+    },
+    {
+      "guid": "3cd2afa2-e48b-42e6-bab8-fe799a047991",
+      "firstName": "Carter",
+      "lastName": "Cox",
+      "country": "United Kingdom",
+      "petType": "Horse",
+      "countryLivesIn": "Thailand",
+      "countryBornIn": "Poland",
+      "countryWorksIn": "Australia"
+    },
+    {
+      "guid": "0593e5e7-780e-40fa-a336-d94ff619ff19",
+      "firstName": "Owen",
+      "lastName": "Taylor",
+      "country": "Ecuador",
+      "petType": "Salamander",
+      "countryLivesIn": "Poland",
+      "countryBornIn": "Ecuador",
+      "countryWorksIn": "United Kingdom"
+    },
+    {
+      "guid": "2d164ee4-98b0-4b8f-9346-09561af69ff4",
+      "firstName": "Owen",
+      "lastName": "Evans",
+      "country": "Thailand",
+      "petType": "Newt",
+      "countryLivesIn": "Philippines",
+      "countryBornIn": "Israel",
+      "countryWorksIn": "Israel"
+    },
+    {
+      "guid": "f624f5c4-34ec-4a50-a5f7-8037781bb4c0",
+      "firstName": "Nora",
+      "lastName": "Peterson",
+      "country": "Colombia",
+      "petType": "Gerbil",
+      "countryLivesIn": "Belgium",
+      "countryBornIn": "Thailand",
+      "countryWorksIn": "Switzerland"
+    },
+    {
+      "guid": "e2bf66bf-21d8-4f24-a5cc-37d660526097",
+      "firstName": "Ella",
+      "lastName": "Hughes",
+      "country": "Brazil",
+      "petType": "Goat",
+      "countryLivesIn": "Ecuador",
+      "countryBornIn": "Philippines",
+      "countryWorksIn": "Morocco"
+    },
+    {
+      "guid": "ee8f55c2-9dab-4d3f-a9d6-d8db8f6ac9e4",
+      "firstName": "Madison",
+      "lastName": "Jackson",
+      "country": "Brazil",
+      "petType": "Guinea Pig",
+      "countryLivesIn": "Croatia",
+      "countryBornIn": "Australia",
+      "countryWorksIn": "Greece"
+    },
+    {
+      "guid": "43245d73-2009-4972-8358-4b6c72cb774b",
+      "firstName": "Evelyn",
+      "lastName": "Ortiz",
+      "country": "United Arab Emirates",
+      "petType": "Rat",
+      "countryLivesIn": "Argentina",
+      "countryBornIn": "Philippines",
+      "countryWorksIn": "Peru"
+    },
+    {
+      "guid": "e300c3c3-30c9-47ad-851f-5e429c585a69",
+      "firstName": "Hunter",
+      "lastName": "Patel",
+      "country": "Argentina",
+      "petType": "Parakeet",
+      "countryLivesIn": "Romania",
+      "countryBornIn": "Panama",
+      "countryWorksIn": "Israel"
+    },
+    {
+      "guid": "e0cf633f-a89f-4947-a2f3-a7ccfac99c1e",
+      "firstName": "Lucy",
+      "lastName": "Jimenez",
+      "country": "United Arab Emirates",
+      "petType": "Horse",
+      "countryLivesIn": "United Kingdom",
+      "countryBornIn": "Greece",
+      "countryWorksIn": "Australia"
+    },
+    {
+      "guid": "2d4028d6-40df-424b-82f8-f4ac44e990f8",
+      "firstName": "Samuel",
+      "lastName": "Mitchell",
+      "country": "Italy",
+      "petType": "Lovebird",
+      "countryLivesIn": "Vietnam",
+      "countryBornIn": "Colombia",
+      "countryWorksIn": "Panama"
+    },
+    {
+      "guid": "f2017d13-4772-4ca2-9c81-7888a931b4f5",
+      "firstName": "Samuel",
+      "lastName": "Hall",
+      "country": "Ecuador",
+      "petType": "Chinchilla",
+      "countryLivesIn": "Australia",
+      "countryBornIn": "Australia",
+      "countryWorksIn": "Bulgaria"
+    },
+    {
+      "guid": "11c48336-0189-47c0-99bf-f69eda8436b0",
+      "firstName": "Ava",
+      "lastName": "Sanders",
+      "country": "Norway",
+      "petType": "Bird",
+      "countryLivesIn": "Israel",
+      "countryBornIn": "Norway",
+      "countryWorksIn": "Ecuador"
+    },
+    {
+      "guid": "52d83892-c714-4dde-b00b-0b43501bb063",
+      "firstName": "Amelia",
+      "lastName": "Wright",
+      "country": "Vietnam",
+      "petType": "Rat",
+      "countryLivesIn": "Mexico",
+      "countryBornIn": "Greece",
+      "countryWorksIn": "Vietnam"
+    },
+    {
+      "guid": "232369b6-3ca5-4d58-a7da-77f9d2a2de6c",
+      "firstName": "Bella",
+      "lastName": "James",
+      "country": "Morocco",
+      "petType": "Butterfly",
+      "countryLivesIn": "Bulgaria",
+      "countryBornIn": "Serbia",
+      "countryWorksIn": "Colombia"
+    },
+    {
+      "guid": "7a919d29-13bc-4917-b48c-badfb63d26f8",
+      "firstName": "Grayson",
+      "lastName": "Perry",
+      "country": "Australia",
+      "petType": "Canary",
+      "countryLivesIn": "Croatia",
+      "countryBornIn": "United Kingdom",
+      "countryWorksIn": "Portugal"
+    },
+    {
+      "guid": "c1fe0881-e60a-4e2f-ba32-2c87b1808c97",
+      "firstName": "Savannah",
+      "lastName": "Kelly",
+      "country": "Bulgaria",
+      "petType": "Macaw",
+      "countryLivesIn": "Brazil",
+      "countryBornIn": "Greece",
+      "countryWorksIn": "Latvia"
+    },
+    {
+      "guid": "82216878-83a0-43bb-b9cf-c6f734a3855f",
+      "firstName": "Samuel",
+      "lastName": "Morgan",
+      "country": "Norway",
+      "petType": "Frog",
+      "countryLivesIn": "Brazil",
+      "countryBornIn": "Mexico",
+      "countryWorksIn": "Italy"
+    },
+    {
+      "guid": "ac80a186-f87a-47a1-bcb2-f2e0dedfa09f",
+      "firstName": "Madison",
+      "lastName": "Diaz",
+      "country": "Serbia",
+      "petType": "Goose",
+      "countryLivesIn": "Serbia",
+      "countryBornIn": "Italy",
+      "countryWorksIn": "Bulgaria"
+    },
+    {
+      "guid": "8abb0292-723a-498b-aff3-ebf19f3f9098",
+      "firstName": "James",
+      "lastName": "Jackson",
+      "country": "Philippines",
+      "petType": "Snake",
+      "countryLivesIn": "Norway",
+      "countryBornIn": "United Kingdom",
+      "countryWorksIn": "Mexico"
+    },
+    {
+      "guid": "7251e5c8-87a6-43c5-bb52-2c424d17881b",
+      "firstName": "Nora",
+      "lastName": "Evans",
+      "country": "Greece",
+      "petType": "Cat",
+      "countryLivesIn": "Peru",
+      "countryBornIn": "Croatia",
+      "countryWorksIn": "Peru"
+    },
+    {
+      "guid": "bd2b441d-3a57-470e-9954-eb9ae40c3f51",
+      "firstName": "Charlotte",
+      "lastName": "Richardson",
+      "country": "Serbia",
+      "petType": "Chicken",
+      "countryLivesIn": "Switzerland",
+      "countryBornIn": "Australia",
+      "countryWorksIn": "Croatia"
+    },
+    {
+      "guid": "d89b5949-2103-4a51-bb88-f20c919e47ef",
+      "firstName": "Daniel",
+      "lastName": "Stewart",
+      "country": "Ecuador",
+      "petType": "Finch",
+      "countryLivesIn": "Poland",
+      "countryBornIn": "Switzerland",
+      "countryWorksIn": "Switzerland"
+    },
+    {
+      "guid": "a5315849-7751-46f4-a973-c509c016ba1d",
+      "firstName": "Ava",
+      "lastName": "Price",
+      "country": "Latvia",
+      "petType": "Goose",
+      "countryLivesIn": "Vietnam",
+      "countryBornIn": "Poland",
+      "countryWorksIn": "Norway"
+    },
+    {
+      "guid": "f1a7942c-2d7a-402f-943c-3b676c87c6ed",
+      "firstName": "Elizabeth",
+      "lastName": "Nelson",
+      "country": "Croatia",
+      "petType": "Cow",
+      "countryLivesIn": "Uruguay",
+      "countryBornIn": "Romania",
+      "countryWorksIn": "Bulgaria"
+    },
+    {
+      "guid": "7e7c67ee-b875-48d5-b884-596ead4bc1ee",
+      "firstName": "Julian",
+      "lastName": "Perez",
+      "country": "Brazil",
+      "petType": "Sugar Glider",
+      "countryLivesIn": "Uruguay",
+      "countryBornIn": "Bulgaria",
+      "countryWorksIn": "Vietnam"
+    },
+    {
+      "guid": "04045ca1-a391-4ab3-9d58-7f180e91cf44",
+      "firstName": "Ellie",
+      "lastName": "Richardson",
+      "country": "Mexico",
+      "petType": "Salamander",
+      "countryLivesIn": "Italy",
+      "countryBornIn": "Brazil",
+      "countryWorksIn": "Romania"
+    },
+    {
+      "guid": "adf8fc10-98c9-40af-ada4-95f43c1dcddc",
+      "firstName": "Dylan",
+      "lastName": "Flores",
+      "country": "Argentina",
+      "petType": "Turtle",
+      "countryLivesIn": "Argentina",
+      "countryBornIn": "Colombia",
+      "countryWorksIn": "Croatia"
+    },
+    {
+      "guid": "caf98ee8-c09c-4f04-b88f-155a64c15cbe",
+      "firstName": "Isaac",
+      "lastName": "Ramirez",
+      "country": "Serbia",
+      "petType": "Bird",
+      "countryLivesIn": "Ecuador",
+      "countryBornIn": "Thailand",
+      "countryWorksIn": "Ecuador"
+    },
+    {
+      "guid": "997f5266-79be-4dab-8383-ffafafef972d",
+      "firstName": "Julian",
+      "lastName": "Mendoza",
+      "country": "Latvia",
+      "petType": "Parrot",
+      "countryLivesIn": "Romania",
+      "countryBornIn": "Vietnam",
+      "countryWorksIn": "Sweden"
+    },
+    {
+      "guid": "8320e126-6ca6-464b-9511-284cd58a1d96",
+      "firstName": "Carter",
+      "lastName": "Mitchell",
+      "country": "Malaysia",
+      "petType": "Lizard",
+      "countryLivesIn": "Norway",
+      "countryBornIn": "Romania",
+      "countryWorksIn": "Switzerland"
+    },
+    {
+      "guid": "5a7cc70b-5a58-4109-890f-173edcff6cce",
+      "firstName": "Liam",
+      "lastName": "Anderson",
+      "country": "United Arab Emirates",
+      "petType": "Praying Mantis",
+      "countryLivesIn": "Morocco",
+      "countryBornIn": "Peru",
+      "countryWorksIn": "Panama"
+    },
+    {
+      "guid": "95db2932-21f6-413a-9a0c-bc4aa7092915",
+      "firstName": "Joseph",
+      "lastName": "Diaz",
+      "country": "Sweden",
+      "petType": "Rabbit",
+      "countryLivesIn": "Australia",
+      "countryBornIn": "Portugal",
+      "countryWorksIn": "Uruguay"
+    },
+    {
+      "guid": "c3872ffe-00ba-4ebf-9531-c0786d0ec8b7",
+      "firstName": "Noah",
+      "lastName": "Hall",
+      "country": "Malaysia",
+      "petType": "Dog",
+      "countryLivesIn": "Morocco",
+      "countryBornIn": "Colombia",
+      "countryWorksIn": "United Arab Emirates"
+    },
+    {
+      "guid": "c7fbc791-0258-46a0-b32c-3d2d774e2a26",
+      "firstName": "Charlotte",
+      "lastName": "Roberts",
+      "country": "Croatia",
+      "petType": "Hamster",
+      "countryLivesIn": "Poland",
+      "countryBornIn": "Norway",
+      "countryWorksIn": "United Kingdom"
+    },
+    {
+      "guid": "e7c5026b-c73a-41af-a350-9b867d264f36",
+      "firstName": "Eli",
+      "lastName": "Lopez",
+      "country": "Brazil",
+      "petType": "Canary",
+      "countryLivesIn": "United Arab Emirates",
+      "countryBornIn": "Norway",
+      "countryWorksIn": "Greece"
+    },
+    {
+      "guid": "95a08914-da2b-4bc0-8121-a3d4847d2779",
+      "firstName": "Charlotte",
+      "lastName": "Ramos",
+      "country": "Croatia",
+      "petType": "Cockatoo",
+      "countryLivesIn": "Uruguay",
+      "countryBornIn": "Colombia",
+      "countryWorksIn": "Uruguay"
+    },
+    {
+      "guid": "4a84e2df-bc09-450f-a9a7-f5f85cfc75da",
+      "firstName": "Anna",
+      "lastName": "Gomez",
+      "country": "Greece",
+      "petType": "Ferret",
+      "countryLivesIn": "Ecuador",
+      "countryBornIn": "Norway",
+      "countryWorksIn": "Portugal"
+    },
+    {
+      "guid": "0f6e5839-d36e-4c65-aa29-b4264f013775",
+      "firstName": "Layla",
+      "lastName": "Myers",
+      "country": "Brazil",
+      "petType": "None",
+      "countryLivesIn": "Uruguay",
+      "countryBornIn": "Thailand",
+      "countryWorksIn": "Croatia"
+    },
+    {
+      "guid": "85b161d0-9468-4409-bc79-a0b59e365f8e",
+      "firstName": "Isaac",
+      "lastName": "Morris",
+      "country": "Morocco",
+      "petType": "Tarantula",
+      "countryLivesIn": "Belgium",
+      "countryBornIn": "Morocco",
+      "countryWorksIn": "Vietnam"
+    },
+    {
+      "guid": "b2e96e96-647e-4bba-9dcf-2322979dec5b",
+      "firstName": "Avery",
+      "lastName": "Alvarez",
+      "country": "Thailand",
+      "petType": "Canary",
+      "countryLivesIn": "Israel",
+      "countryBornIn": "Colombia",
+      "countryWorksIn": "United Arab Emirates"
+    },
+    {
+      "guid": "5594897d-868e-4414-9d9d-699b3d4ccedf",
+      "firstName": "Nova",
+      "lastName": "Phillips",
+      "country": "Vietnam",
+      "petType": "Butterfly",
+      "countryLivesIn": "Latvia",
+      "countryBornIn": "Argentina",
+      "countryWorksIn": "Uruguay"
+    },
+    {
+      "guid": "a64a9b48-764d-447a-a483-9405418fd239",
+      "firstName": "Joseph",
+      "lastName": "Foster",
+      "country": "Italy",
+      "petType": "Budgie",
+      "countryLivesIn": "Thailand",
+      "countryBornIn": "Latvia",
+      "countryWorksIn": "Uruguay"
+    },
+    {
+      "guid": "d08742f3-e987-40df-b2c6-35e33fc9e0c3",
+      "firstName": "Isaiah",
+      "lastName": "Allen",
+      "country": "Uruguay",
+      "petType": "Sugar Glider",
+      "countryLivesIn": "Norway",
+      "countryBornIn": "Portugal",
+      "countryWorksIn": "Croatia"
+    },
+    {
+      "guid": "37f65c24-1b71-414b-85fc-7de9de812702",
+      "firstName": "Gabriel",
+      "lastName": "Chavez",
+      "country": "Croatia",
+      "petType": "Turtle",
+      "countryLivesIn": "Vietnam",
+      "countryBornIn": "Philippines",
+      "countryWorksIn": "Panama"
+    },
+    {
+      "guid": "72db562a-9df9-4f28-a526-c454d2d50c5b",
+      "firstName": "Luke",
+      "lastName": "Wood",
+      "country": "Greece",
+      "petType": "Chicken",
+      "countryLivesIn": "Australia",
+      "countryBornIn": "Brazil",
+      "countryWorksIn": "Argentina"
+    },
+    {
+      "guid": "eb1ff957-1a5a-40d8-a08a-032e246b4368",
+      "firstName": "Riley",
+      "lastName": "Ross",
+      "country": "Argentina",
+      "petType": "Macaw",
+      "countryLivesIn": "Sweden",
+      "countryBornIn": "Uruguay",
+      "countryWorksIn": "Switzerland"
+    },
+    {
+      "guid": "88aa17f0-fccb-4c62-a37a-327dd7d6cee5",
+      "firstName": "Claire",
+      "lastName": "Clark",
+      "country": "Italy",
+      "petType": "Canary",
+      "countryLivesIn": "Italy",
+      "countryBornIn": "Vietnam",
+      "countryWorksIn": "Peru"
+    },
+    {
+      "guid": "7d384f51-a0db-40fa-84ee-33053238f731",
+      "firstName": "Amelia",
+      "lastName": "Price",
+      "country": "Brazil",
+      "petType": "Rabbit",
+      "countryLivesIn": "Uruguay",
+      "countryBornIn": "Panama",
+      "countryWorksIn": "Thailand"
+    },
+    {
+      "guid": "7bf05c15-5827-4385-98b8-a9ddd6e677eb",
+      "firstName": "Joseph",
+      "lastName": "Parker",
+      "country": "United Arab Emirates",
+      "petType": "Mouse",
+      "countryLivesIn": "Sweden",
+      "countryBornIn": "Brazil",
+      "countryWorksIn": "Romania"
+    },
+    {
+      "guid": "460637dd-cb1a-4489-b3f8-0982b0521044",
+      "firstName": "Sophia",
+      "lastName": "Morris",
+      "country": "Uruguay",
+      "petType": "Lovebird",
+      "countryLivesIn": "Australia",
+      "countryBornIn": "Uruguay",
+      "countryWorksIn": "Brazil"
+    }
+  ],
+  "countries": [
+    {
+      "guid": "f81ec2cd-3eb9-49b5-8c21-d6966cd696ca",
+      "name": "Colombia",
+      "isSunny": true,
+      "isWarm": true,
+      "happiness": 8,
+      "expensive": 7
+    },
+    {
+      "guid": "22d6c6b2-9657-4a93-bce5-d90a3445f93e",
+      "name": "Australia",
+      "isSunny": true,
+      "isWarm": false,
+      "happiness": 7,
+      "expensive": 6
+    },
+    {
+      "guid": "0f3810aa-8fee-4146-9212-12567943d301",
+      "name": "Malaysia",
+      "isSunny": true,
+      "isWarm": true,
+      "happiness": 9,
+      "expensive": 4
+    },
+    {
+      "guid": "46c9fe7b-e676-4c38-bde7-c18e6b71f9ef",
+      "name": "United Kingdom",
+      "isSunny": true,
+      "isWarm": false,
+      "happiness": 7,
+      "expensive": 8
+    },
+    {
+      "guid": "edece7c4-18cd-448f-8fe6-d78de44d2164",
+      "name": "Romania",
+      "isSunny": true,
+      "isWarm": false,
+      "happiness": 6,
+      "expensive": 8
+    },
+    {
+      "guid": "3af16bd5-56bb-49f8-a058-922ccddba9a0",
+      "name": "Switzerland",
+      "isSunny": true,
+      "isWarm": false,
+      "happiness": 6,
+      "expensive": 5
+    },
+    {
+      "guid": "fa215df7-b0da-453c-95d5-29f0ec7b7fa4",
+      "name": "Sweden",
+      "isSunny": false,
+      "isWarm": false,
+      "happiness": 10,
+      "expensive": 7
+    },
+    {
+      "guid": "31c6dd61-a25b-437d-b0a6-641f5e96d442",
+      "name": "Mexico",
+      "isSunny": true,
+      "isWarm": false,
+      "happiness": 7,
+      "expensive": 6
+    },
+    {
+      "guid": "c91afac6-0553-4648-a89a-791cb242760e",
+      "name": "Israel",
+      "isSunny": true,
+      "isWarm": true,
+      "happiness": 5,
+      "expensive": 5
+    },
+    {
+      "guid": "c8252fc3-8465-4a0c-9aab-2bf8223a7f3b",
+      "name": "Greece",
+      "isSunny": true,
+      "isWarm": true,
+      "happiness": 9,
+      "expensive": 5
+    },
+    {
+      "guid": "424c163c-2d78-42b8-af0e-28a10038eb55",
+      "name": "Peru",
+      "isSunny": true,
+      "isWarm": false,
+      "happiness": 8,
+      "expensive": 8
+    },
+    {
+      "guid": "b56218c9-a4a2-4a6d-8ef1-ce8a6325852d",
+      "name": "Ecuador",
+      "isSunny": true,
+      "isWarm": true,
+      "happiness": 6,
+      "expensive": 5
+    },
+    {
+      "guid": "59b1af22-402e-4ee7-8ad1-ddee71ddb118",
+      "name": "Vietnam",
+      "isSunny": true,
+      "isWarm": false,
+      "happiness": 8,
+      "expensive": 5
+    },
+    {
+      "guid": "c32fe18a-27da-4571-9170-05440320b0da",
+      "name": "Morocco",
+      "isSunny": true,
+      "isWarm": true,
+      "happiness": 8,
+      "expensive": 5
+    },
+    {
+      "guid": "aa3487bf-0587-47a5-9c76-1250814cd274",
+      "name": "Brazil",
+      "isSunny": true,
+      "isWarm": true,
+      "happiness": 8,
+      "expensive": 3
+    },
+    {
+      "guid": "7d530de8-50cc-4a4d-b510-63dac79596ed",
+      "name": "Norway",
+      "isSunny": false,
+      "isWarm": false,
+      "happiness": 9,
+      "expensive": 7
+    },
+    {
+      "guid": "f15e2e38-904d-4c9d-ba60-1a821ec9da1f",
+      "name": "Argentina",
+      "isSunny": true,
+      "isWarm": false,
+      "happiness": 8,
+      "expensive": 8
+    },
+    {
+      "guid": "ffe3dd09-5532-49c7-9a00-41c6dbca38eb",
+      "name": "Bulgaria",
+      "isSunny": true,
+      "isWarm": false,
+      "happiness": 6,
+      "expensive": 8
+    },
+    {
+      "guid": "bc307007-0fbb-4f58-93ca-d89c030e18a6",
+      "name": "United Arab Emirates",
+      "isSunny": true,
+      "isWarm": true,
+      "happiness": 6,
+      "expensive": 8
+    },
+    {
+      "guid": "a1bfaa1d-b71a-4acf-8a6c-c12e9033b085",
+      "name": "Poland",
+      "isSunny": true,
+      "isWarm": false,
+      "happiness": 8,
+      "expensive": 6
+    },
+    {
+      "guid": "db50b593-caa9-4c9b-b60a-9ad1f329d041",
+      "name": "Croatia",
+      "isSunny": true,
+      "isWarm": true,
+      "happiness": 7,
+      "expensive": 6
+    },
+    {
+      "guid": "15068a58-9450-4356-a5a9-1937632a67ea",
+      "name": "Belgium",
+      "isSunny": true,
+      "isWarm": false,
+      "happiness": 7,
+      "expensive": 7
+    },
+    {
+      "guid": "ae475e7c-f114-4ffa-a22e-5667cf2f8b6d",
+      "name": "Panama",
+      "isSunny": true,
+      "isWarm": false,
+      "happiness": 6,
+      "expensive": 5
+    },
+    {
+      "guid": "8d702572-5ce4-4e21-a8dc-7c5323644e04",
+      "name": "Portugal",
+      "isSunny": true,
+      "isWarm": true,
+      "happiness": 7,
+      "expensive": 6
+    },
+    {
+      "guid": "2d0cdf0a-e446-4e63-b42c-d1803d110884",
+      "name": "Uruguay",
+      "isSunny": true,
+      "isWarm": false,
+      "happiness": 6,
+      "expensive": 8
+    },
+    {
+      "guid": "d038e7b6-79a0-4198-9e45-32058dae98a4",
+      "name": "Thailand",
+      "isSunny": true,
+      "isWarm": true,
+      "happiness": 9,
+      "expensive": 4
+    },
+    {
+      "guid": "9b30c237-b50b-4b75-ab4d-5350187c34a6",
+      "name": "Italy",
+      "isSunny": true,
+      "isWarm": true,
+      "happiness": 9,
+      "expensive": 7
+    },
+    {
+      "guid": "88885063-3651-4612-810a-446843bc70e2",
+      "name": "Philippines",
+      "isSunny": true,
+      "isWarm": true,
+      "happiness": 7,
+      "expensive": 5
+    },
+    {
+      "guid": "48d86bee-35a7-4f41-b90d-1b86e438e731",
+      "name": "Latvia",
+      "isSunny": true,
+      "isWarm": false,
+      "happiness": 7,
+      "expensive": 5
+    },
+    {
+      "guid": "61d00b0c-b2ac-4a97-b477-1a8d9261812e",
+      "name": "Serbia",
+      "isSunny": true,
+      "isWarm": false,
+      "happiness": 7,
+      "expensive": 5
+    }
+  ],
+  "relationships": [
+    {
+      "person1": "997f5266-79be-4dab-8383-ffafafef972d",
+      "person2": "11c48336-0189-47c0-99bf-f69eda8436b0",
+      "type": "partner"
+    },
+    {
+      "person1": "9ba7152c-6343-4ce1-bdc2-7fbc25d94595",
+      "person2": "1c0e57c7-4ccf-456b-a734-59485ceb0e8f",
+      "type": "friend"
+    },
+    {
+      "person1": "d83ef62c-85c9-4c48-8948-e3140833cc3c",
+      "person2": "2d164ee4-98b0-4b8f-9346-09561af69ff4",
+      "type": "neighbor"
+    },
+    {
+      "person1": "bb849bc6-4ea2-4ba9-9220-a44bdb991eb0",
+      "person2": "f624f5c4-34ec-4a50-a5f7-8037781bb4c0",
+      "type": "neighbor"
+    },
+    {
+      "person1": "e2bf66bf-21d8-4f24-a5cc-37d660526097",
+      "person2": "a25ccd2b-d7d3-493c-bcac-499db98fd92c",
+      "type": "mentor"
+    },
+    {
+      "person1": "9d3183c6-6359-4487-b7fe-e6355cf297ae",
+      "person2": "997f5266-79be-4dab-8383-ffafafef972d",
+      "type": "colleague"
+    },
+    {
+      "person1": "e0cf633f-a89f-4947-a2f3-a7ccfac99c1e",
+      "person2": "0103da58-5df9-47c0-bfcc-a3b1b73c389e",
+      "type": "mentor"
+    },
+    {
+      "person1": "3e40e650-ca42-445c-9c88-bb10b51a9aee",
+      "person2": "7bf05c15-5827-4385-98b8-a9ddd6e677eb",
+      "type": "colleague"
+    },
+    {
+      "person1": "e300c3c3-30c9-47ad-851f-5e429c585a69",
+      "person2": "e80aa773-a8c2-4c21-8752-3f34660b33f5",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "72db562a-9df9-4f28-a526-c454d2d50c5b",
+      "person2": "8abb0292-723a-498b-aff3-ebf19f3f9098",
+      "type": "friend"
+    },
+    {
+      "person1": "85b161d0-9468-4409-bc79-a0b59e365f8e",
+      "person2": "409476da-bfd9-4bb4-9dd9-e91b6092e5fc",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "0ba586e2-2986-498c-9cf6-5eb6f0a11357",
+      "person2": "eb1ff957-1a5a-40d8-a08a-032e246b4368",
+      "type": "family"
+    },
+    {
+      "person1": "ee8f55c2-9dab-4d3f-a9d6-d8db8f6ac9e4",
+      "person2": "a64a9b48-764d-447a-a483-9405418fd239",
+      "type": "family"
+    },
+    {
+      "person1": "f6caf502-a9b1-4644-9170-400d68765299",
+      "person2": "45f0ffee-f54d-4d59-9fe1-ef9387b7254a",
+      "type": "neighbor"
+    },
+    {
+      "person1": "017bfa40-3c3b-43b2-a64e-2ccc8a71e2e2",
+      "person2": "2d164ee4-98b0-4b8f-9346-09561af69ff4",
+      "type": "partner"
+    },
+    {
+      "person1": "4539cd5c-1ccd-4557-ab37-d053ba144e83",
+      "person2": "7bf05c15-5827-4385-98b8-a9ddd6e677eb",
+      "type": "mentor"
+    },
+    {
+      "person1": "8abb0292-723a-498b-aff3-ebf19f3f9098",
+      "person2": "997f5266-79be-4dab-8383-ffafafef972d",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "caf98ee8-c09c-4f04-b88f-155a64c15cbe",
+      "person2": "49d60348-b8ad-400f-a328-5b434854d9c4",
+      "type": "mentor"
+    },
+    {
+      "person1": "174e2b64-326b-4678-ba8c-8dc6050ee231",
+      "person2": "e0cf633f-a89f-4947-a2f3-a7ccfac99c1e",
+      "type": "colleague"
+    },
+    {
+      "person1": "61d2e93d-b622-4fc4-959d-e046f6d3c580",
+      "person2": "3e40e650-ca42-445c-9c88-bb10b51a9aee",
+      "type": "partner"
+    },
+    {
+      "person1": "e2bf66bf-21d8-4f24-a5cc-37d660526097",
+      "person2": "5a7cc70b-5a58-4109-890f-173edcff6cce",
+      "type": "mentor"
+    },
+    {
+      "person1": "52d83892-c714-4dde-b00b-0b43501bb063",
+      "person2": "f6caf502-a9b1-4644-9170-400d68765299",
+      "type": "partner"
+    },
+    {
+      "person1": "3db64d10-8451-421a-8e1e-33507321046d",
+      "person2": "145be765-67c5-4237-aaa7-5e4f9ad25ed1",
+      "type": "neighbor"
+    },
+    {
+      "person1": "409476da-bfd9-4bb4-9dd9-e91b6092e5fc",
+      "person2": "61d2e93d-b622-4fc4-959d-e046f6d3c580",
+      "type": "mentor"
+    },
+    {
+      "person1": "1f5d2aa5-9747-4a78-8e3d-0dc35316c1ab",
+      "person2": "2d4028d6-40df-424b-82f8-f4ac44e990f8",
+      "type": "mentor"
+    },
+    {
+      "person1": "5594897d-868e-4414-9d9d-699b3d4ccedf",
+      "person2": "7bf05c15-5827-4385-98b8-a9ddd6e677eb",
+      "type": "friend"
+    },
+    {
+      "person1": "2ac2f92f-20af-4e1d-a0be-aa0862cda988",
+      "person2": "d00f4f4e-ff6a-4968-b654-b889c653c58c",
+      "type": "neighbor"
+    },
+    {
+      "person1": "bb849bc6-4ea2-4ba9-9220-a44bdb991eb0",
+      "person2": "7251e5c8-87a6-43c5-bb52-2c424d17881b",
+      "type": "friend"
+    },
+    {
+      "person1": "0593e5e7-780e-40fa-a336-d94ff619ff19",
+      "person2": "e7118d2c-8df9-48fe-b257-12e9f62b2b6a",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "eb1ff957-1a5a-40d8-a08a-032e246b4368",
+      "person2": "32bf0d78-c894-4f58-9c27-1529c1e7567c",
+      "type": "family"
+    },
+    {
+      "person1": "ac80a186-f87a-47a1-bcb2-f2e0dedfa09f",
+      "person2": "e80aa773-a8c2-4c21-8752-3f34660b33f5",
+      "type": "neighbor"
+    },
+    {
+      "person1": "0f6e5839-d36e-4c65-aa29-b4264f013775",
+      "person2": "bb849bc6-4ea2-4ba9-9220-a44bdb991eb0",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "a25ccd2b-d7d3-493c-bcac-499db98fd92c",
+      "person2": "e80aa773-a8c2-4c21-8752-3f34660b33f5",
+      "type": "family"
+    },
+    {
+      "person1": "1b5ba2e6-de56-47c5-bc41-5d539a31c988",
+      "person2": "2ac2f92f-20af-4e1d-a0be-aa0862cda988",
+      "type": "mentor"
+    },
+    {
+      "person1": "e0cf633f-a89f-4947-a2f3-a7ccfac99c1e",
+      "person2": "b2e96e96-647e-4bba-9dcf-2322979dec5b",
+      "type": "neighbor"
+    },
+    {
+      "person1": "8fb604ca-309b-46ec-a704-bb070833d05a",
+      "person2": "7bf05c15-5827-4385-98b8-a9ddd6e677eb",
+      "type": "mentor"
+    },
+    {
+      "person1": "017bfa40-3c3b-43b2-a64e-2ccc8a71e2e2",
+      "person2": "82216878-83a0-43bb-b9cf-c6f734a3855f",
+      "type": "partner"
+    },
+    {
+      "person1": "a5315849-7751-46f4-a973-c509c016ba1d",
+      "person2": "c7fbc791-0258-46a0-b32c-3d2d774e2a26",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "d89b5949-2103-4a51-bb88-f20c919e47ef",
+      "person2": "2ac2f92f-20af-4e1d-a0be-aa0862cda988",
+      "type": "mentor"
+    },
+    {
+      "person1": "c7fbc791-0258-46a0-b32c-3d2d774e2a26",
+      "person2": "a64a9b48-764d-447a-a483-9405418fd239",
+      "type": "colleague"
+    },
+    {
+      "person1": "0ba586e2-2986-498c-9cf6-5eb6f0a11357",
+      "person2": "3cd2afa2-e48b-42e6-bab8-fe799a047991",
+      "type": "friend"
+    },
+    {
+      "person1": "3e40e650-ca42-445c-9c88-bb10b51a9aee",
+      "person2": "57618825-02f7-494b-8a92-0c8f78f58697",
+      "type": "friend"
+    },
+    {
+      "person1": "c7fbc791-0258-46a0-b32c-3d2d774e2a26",
+      "person2": "49d60348-b8ad-400f-a328-5b434854d9c4",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "f2017d13-4772-4ca2-9c81-7888a931b4f5",
+      "person2": "04045ca1-a391-4ab3-9d58-7f180e91cf44",
+      "type": "family"
+    },
+    {
+      "person1": "174e2b64-326b-4678-ba8c-8dc6050ee231",
+      "person2": "017bfa40-3c3b-43b2-a64e-2ccc8a71e2e2",
+      "type": "partner"
+    },
+    {
+      "person1": "e80aa773-a8c2-4c21-8752-3f34660b33f5",
+      "person2": "3db64d10-8451-421a-8e1e-33507321046d",
+      "type": "family"
+    },
+    {
+      "person1": "c08d6bf5-8823-43dd-a21d-1229da422c24",
+      "person2": "8abb0292-723a-498b-aff3-ebf19f3f9098",
+      "type": "colleague"
+    },
+    {
+      "person1": "88aa17f0-fccb-4c62-a37a-327dd7d6cee5",
+      "person2": "3e40e650-ca42-445c-9c88-bb10b51a9aee",
+      "type": "family"
+    },
+    {
+      "person1": "a5315849-7751-46f4-a973-c509c016ba1d",
+      "person2": "017bfa40-3c3b-43b2-a64e-2ccc8a71e2e2",
+      "type": "friend"
+    },
+    {
+      "person1": "c08d6bf5-8823-43dd-a21d-1229da422c24",
+      "person2": "e300c3c3-30c9-47ad-851f-5e429c585a69",
+      "type": "partner"
+    },
+    {
+      "person1": "f1a7942c-2d7a-402f-943c-3b676c87c6ed",
+      "person2": "a6b5f0f4-337a-48fc-b932-ce5b81defb72",
+      "type": "friend"
+    },
+    {
+      "person1": "32bf0d78-c894-4f58-9c27-1529c1e7567c",
+      "person2": "02988169-79a3-47ac-9ac0-6eaf8bb2449f",
+      "type": "colleague"
+    },
+    {
+      "person1": "7bf05c15-5827-4385-98b8-a9ddd6e677eb",
+      "person2": "f624f5c4-34ec-4a50-a5f7-8037781bb4c0",
+      "type": "colleague"
+    },
+    {
+      "person1": "460637dd-cb1a-4489-b3f8-0982b0521044",
+      "person2": "7bf05c15-5827-4385-98b8-a9ddd6e677eb",
+      "type": "partner"
+    },
+    {
+      "person1": "7a919d29-13bc-4917-b48c-badfb63d26f8",
+      "person2": "49d60348-b8ad-400f-a328-5b434854d9c4",
+      "type": "family"
+    },
+    {
+      "person1": "232369b6-3ca5-4d58-a7da-77f9d2a2de6c",
+      "person2": "ee8f55c2-9dab-4d3f-a9d6-d8db8f6ac9e4",
+      "type": "neighbor"
+    },
+    {
+      "person1": "43245d73-2009-4972-8358-4b6c72cb774b",
+      "person2": "2ac2f92f-20af-4e1d-a0be-aa0862cda988",
+      "type": "partner"
+    },
+    {
+      "person1": "7a919d29-13bc-4917-b48c-badfb63d26f8",
+      "person2": "8abb0292-723a-498b-aff3-ebf19f3f9098",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "460637dd-cb1a-4489-b3f8-0982b0521044",
+      "person2": "82216878-83a0-43bb-b9cf-c6f734a3855f",
+      "type": "partner"
+    },
+    {
+      "person1": "57618825-02f7-494b-8a92-0c8f78f58697",
+      "person2": "8fb604ca-309b-46ec-a704-bb070833d05a",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "96aba69a-5d5d-499e-883a-bed26494d50d",
+      "person2": "adf8fc10-98c9-40af-ada4-95f43c1dcddc",
+      "type": "colleague"
+    },
+    {
+      "person1": "e7118d2c-8df9-48fe-b257-12e9f62b2b6a",
+      "person2": "f6caf502-a9b1-4644-9170-400d68765299",
+      "type": "friend"
+    },
+    {
+      "person1": "c08d6bf5-8823-43dd-a21d-1229da422c24",
+      "person2": "e80aa773-a8c2-4c21-8752-3f34660b33f5",
+      "type": "family"
+    },
+    {
+      "person1": "9ba7152c-6343-4ce1-bdc2-7fbc25d94595",
+      "person2": "af133de1-442b-4fac-929d-4582358a97bc",
+      "type": "family"
+    },
+    {
+      "person1": "cecd47d9-43fb-42f0-896d-b5a46c55336f",
+      "person2": "96334130-2922-4a35-9ce1-22f8c3fad1ea",
+      "type": "mentor"
+    },
+    {
+      "person1": "57618825-02f7-494b-8a92-0c8f78f58697",
+      "person2": "a5315849-7751-46f4-a973-c509c016ba1d",
+      "type": "partner"
+    },
+    {
+      "person1": "7bf05c15-5827-4385-98b8-a9ddd6e677eb",
+      "person2": "8abb0292-723a-498b-aff3-ebf19f3f9098",
+      "type": "neighbor"
+    },
+    {
+      "person1": "a6b5f0f4-337a-48fc-b932-ce5b81defb72",
+      "person2": "e655370f-2aec-476b-957b-1db0f7669cce",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "1ee997b2-8e09-4fa9-9268-c06d5ae11edb",
+      "person2": "d83ef62c-85c9-4c48-8948-e3140833cc3c",
+      "type": "partner"
+    },
+    {
+      "person1": "a6b5f0f4-337a-48fc-b932-ce5b81defb72",
+      "person2": "72db562a-9df9-4f28-a526-c454d2d50c5b",
+      "type": "friend"
+    },
+    {
+      "person1": "4a84e2df-bc09-450f-a9a7-f5f85cfc75da",
+      "person2": "e0cf633f-a89f-4947-a2f3-a7ccfac99c1e",
+      "type": "mentor"
+    },
+    {
+      "person1": "5a7cc70b-5a58-4109-890f-173edcff6cce",
+      "person2": "af133de1-442b-4fac-929d-4582358a97bc",
+      "type": "family"
+    },
+    {
+      "person1": "ee8f55c2-9dab-4d3f-a9d6-d8db8f6ac9e4",
+      "person2": "7bf05c15-5827-4385-98b8-a9ddd6e677eb",
+      "type": "partner"
+    },
+    {
+      "person1": "04045ca1-a391-4ab3-9d58-7f180e91cf44",
+      "person2": "3e40e650-ca42-445c-9c88-bb10b51a9aee",
+      "type": "friend"
+    },
+    {
+      "person1": "e92d0247-d101-4386-a6d5-8e0a4158d22d",
+      "person2": "f624f5c4-34ec-4a50-a5f7-8037781bb4c0",
+      "type": "partner"
+    },
+    {
+      "person1": "d00f4f4e-ff6a-4968-b654-b889c653c58c",
+      "person2": "04045ca1-a391-4ab3-9d58-7f180e91cf44",
+      "type": "neighbor"
+    },
+    {
+      "person1": "c08d6bf5-8823-43dd-a21d-1229da422c24",
+      "person2": "85b161d0-9468-4409-bc79-a0b59e365f8e",
+      "type": "colleague"
+    },
+    {
+      "person1": "e7c5026b-c73a-41af-a350-9b867d264f36",
+      "person2": "1ee997b2-8e09-4fa9-9268-c06d5ae11edb",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "eb1ff957-1a5a-40d8-a08a-032e246b4368",
+      "person2": "9455f398-fd71-452f-96fb-62098d09c7ba",
+      "type": "colleague"
+    },
+    {
+      "person1": "ac80a186-f87a-47a1-bcb2-f2e0dedfa09f",
+      "person2": "af133de1-442b-4fac-929d-4582358a97bc",
+      "type": "mentor"
+    },
+    {
+      "person1": "ac80a186-f87a-47a1-bcb2-f2e0dedfa09f",
+      "person2": "c08d6bf5-8823-43dd-a21d-1229da422c24",
+      "type": "family"
+    },
+    {
+      "person1": "0593e5e7-780e-40fa-a336-d94ff619ff19",
+      "person2": "409476da-bfd9-4bb4-9dd9-e91b6092e5fc",
+      "type": "family"
+    },
+    {
+      "person1": "9455f398-fd71-452f-96fb-62098d09c7ba",
+      "person2": "e80aa773-a8c2-4c21-8752-3f34660b33f5",
+      "type": "partner"
+    },
+    {
+      "person1": "69248247-db82-4666-97b3-048934408c2a",
+      "person2": "8320e126-6ca6-464b-9511-284cd58a1d96",
+      "type": "mentor"
+    },
+    {
+      "person1": "2d164ee4-98b0-4b8f-9346-09561af69ff4",
+      "person2": "96334130-2922-4a35-9ce1-22f8c3fad1ea",
+      "type": "partner"
+    },
+    {
+      "person1": "52d83892-c714-4dde-b00b-0b43501bb063",
+      "person2": "409476da-bfd9-4bb4-9dd9-e91b6092e5fc",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "49d60348-b8ad-400f-a328-5b434854d9c4",
+      "person2": "f1a7942c-2d7a-402f-943c-3b676c87c6ed",
+      "type": "neighbor"
+    },
+    {
+      "person1": "04045ca1-a391-4ab3-9d58-7f180e91cf44",
+      "person2": "2ac2f92f-20af-4e1d-a0be-aa0862cda988",
+      "type": "neighbor"
+    },
+    {
+      "person1": "fb8d1676-351d-494e-b84b-ffa2d53c91f3",
+      "person2": "88aa17f0-fccb-4c62-a37a-327dd7d6cee5",
+      "type": "colleague"
+    },
+    {
+      "person1": "72db562a-9df9-4f28-a526-c454d2d50c5b",
+      "person2": "0103da58-5df9-47c0-bfcc-a3b1b73c389e",
+      "type": "friend"
+    },
+    {
+      "person1": "7bf05c15-5827-4385-98b8-a9ddd6e677eb",
+      "person2": "e0cf633f-a89f-4947-a2f3-a7ccfac99c1e",
+      "type": "mentor"
+    },
+    {
+      "person1": "e300c3c3-30c9-47ad-851f-5e429c585a69",
+      "person2": "11c48336-0189-47c0-99bf-f69eda8436b0",
+      "type": "friend"
+    },
+    {
+      "person1": "5594897d-868e-4414-9d9d-699b3d4ccedf",
+      "person2": "017bfa40-3c3b-43b2-a64e-2ccc8a71e2e2",
+      "type": "partner"
+    },
+    {
+      "person1": "7e7c67ee-b875-48d5-b884-596ead4bc1ee",
+      "person2": "04045ca1-a391-4ab3-9d58-7f180e91cf44",
+      "type": "partner"
+    },
+    {
+      "person1": "88aa17f0-fccb-4c62-a37a-327dd7d6cee5",
+      "person2": "69248247-db82-4666-97b3-048934408c2a",
+      "type": "mentor"
+    },
+    {
+      "person1": "f6caf502-a9b1-4644-9170-400d68765299",
+      "person2": "4a84e2df-bc09-450f-a9a7-f5f85cfc75da",
+      "type": "friend"
+    },
+    {
+      "person1": "a6b5f0f4-337a-48fc-b932-ce5b81defb72",
+      "person2": "d89b5949-2103-4a51-bb88-f20c919e47ef",
+      "type": "colleague"
+    },
+    {
+      "person1": "7e7c67ee-b875-48d5-b884-596ead4bc1ee",
+      "person2": "7a919d29-13bc-4917-b48c-badfb63d26f8",
+      "type": "friend"
+    },
+    {
+      "person1": "61d2e93d-b622-4fc4-959d-e046f6d3c580",
+      "person2": "d83ef62c-85c9-4c48-8948-e3140833cc3c",
+      "type": "colleague"
+    },
+    {
+      "person1": "1e80ebf7-38b4-4563-9b03-a0dde3014bfb",
+      "person2": "bd2b441d-3a57-470e-9954-eb9ae40c3f51",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "88aa17f0-fccb-4c62-a37a-327dd7d6cee5",
+      "person2": "5daf3ac0-87c9-4fd2-a619-75dc8e7b4537",
+      "type": "friend"
+    },
+    {
+      "person1": "a25ccd2b-d7d3-493c-bcac-499db98fd92c",
+      "person2": "f1a7942c-2d7a-402f-943c-3b676c87c6ed",
+      "type": "friend"
+    },
+    {
+      "person1": "85b161d0-9468-4409-bc79-a0b59e365f8e",
+      "person2": "1ee997b2-8e09-4fa9-9268-c06d5ae11edb",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "52d83892-c714-4dde-b00b-0b43501bb063",
+      "person2": "a25ccd2b-d7d3-493c-bcac-499db98fd92c",
+      "type": "colleague"
+    },
+    {
+      "person1": "1c0e57c7-4ccf-456b-a734-59485ceb0e8f",
+      "person2": "e0cf633f-a89f-4947-a2f3-a7ccfac99c1e",
+      "type": "colleague"
+    },
+    {
+      "person1": "1b5ba2e6-de56-47c5-bc41-5d539a31c988",
+      "person2": "f1a7942c-2d7a-402f-943c-3b676c87c6ed",
+      "type": "mentor"
+    },
+    {
+      "person1": "c7fbc791-0258-46a0-b32c-3d2d774e2a26",
+      "person2": "f2017d13-4772-4ca2-9c81-7888a931b4f5",
+      "type": "mentor"
+    },
+    {
+      "person1": "7bf05c15-5827-4385-98b8-a9ddd6e677eb",
+      "person2": "9ba7152c-6343-4ce1-bdc2-7fbc25d94595",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "e7c5026b-c73a-41af-a350-9b867d264f36",
+      "person2": "f6caf502-a9b1-4644-9170-400d68765299",
+      "type": "partner"
+    },
+    {
+      "person1": "2d4028d6-40df-424b-82f8-f4ac44e990f8",
+      "person2": "d08742f3-e987-40df-b2c6-35e33fc9e0c3",
+      "type": "neighbor"
+    },
+    {
+      "person1": "57618825-02f7-494b-8a92-0c8f78f58697",
+      "person2": "4539cd5c-1ccd-4557-ab37-d053ba144e83",
+      "type": "colleague"
+    },
+    {
+      "person1": "9ba7152c-6343-4ce1-bdc2-7fbc25d94595",
+      "person2": "e655370f-2aec-476b-957b-1db0f7669cce",
+      "type": "family"
+    },
+    {
+      "person1": "4a84e2df-bc09-450f-a9a7-f5f85cfc75da",
+      "person2": "7d384f51-a0db-40fa-84ee-33053238f731",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "3e40e650-ca42-445c-9c88-bb10b51a9aee",
+      "person2": "fb8d1676-351d-494e-b84b-ffa2d53c91f3",
+      "type": "partner"
+    },
+    {
+      "person1": "32bf0d78-c894-4f58-9c27-1529c1e7567c",
+      "person2": "a5315849-7751-46f4-a973-c509c016ba1d",
+      "type": "colleague"
+    },
+    {
+      "person1": "d00f4f4e-ff6a-4968-b654-b889c653c58c",
+      "person2": "b2c0c6bf-4c14-42e1-b1d7-1e6601df6ac2",
+      "type": "friend"
+    },
+    {
+      "person1": "72db562a-9df9-4f28-a526-c454d2d50c5b",
+      "person2": "43245d73-2009-4972-8358-4b6c72cb774b",
+      "type": "partner"
+    },
+    {
+      "person1": "bb849bc6-4ea2-4ba9-9220-a44bdb991eb0",
+      "person2": "a64a9b48-764d-447a-a483-9405418fd239",
+      "type": "friend"
+    },
+    {
+      "person1": "997f5266-79be-4dab-8383-ffafafef972d",
+      "person2": "a64a9b48-764d-447a-a483-9405418fd239",
+      "type": "partner"
+    },
+    {
+      "person1": "e0cf633f-a89f-4947-a2f3-a7ccfac99c1e",
+      "person2": "0103da58-5df9-47c0-bfcc-a3b1b73c389e",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "d08742f3-e987-40df-b2c6-35e33fc9e0c3",
+      "person2": "f1a7942c-2d7a-402f-943c-3b676c87c6ed",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "57618825-02f7-494b-8a92-0c8f78f58697",
+      "person2": "d83ef62c-85c9-4c48-8948-e3140833cc3c",
+      "type": "partner"
+    },
+    {
+      "person1": "cecd47d9-43fb-42f0-896d-b5a46c55336f",
+      "person2": "57618825-02f7-494b-8a92-0c8f78f58697",
+      "type": "neighbor"
+    },
+    {
+      "person1": "232369b6-3ca5-4d58-a7da-77f9d2a2de6c",
+      "person2": "7d384f51-a0db-40fa-84ee-33053238f731",
+      "type": "mentor"
+    },
+    {
+      "person1": "409476da-bfd9-4bb4-9dd9-e91b6092e5fc",
+      "person2": "5daf3ac0-87c9-4fd2-a619-75dc8e7b4537",
+      "type": "neighbor"
+    },
+    {
+      "person1": "a5315849-7751-46f4-a973-c509c016ba1d",
+      "person2": "32bf0d78-c894-4f58-9c27-1529c1e7567c",
+      "type": "neighbor"
+    },
+    {
+      "person1": "01d0f48a-321b-4221-ae03-0c3b8a4389f0",
+      "person2": "c3872ffe-00ba-4ebf-9531-c0786d0ec8b7",
+      "type": "friend"
+    },
+    {
+      "person1": "c1fe0881-e60a-4e2f-ba32-2c87b1808c97",
+      "person2": "a5315849-7751-46f4-a973-c509c016ba1d",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "01bb16c4-8de9-42e8-a5ec-b6d7445a4b26",
+      "person2": "b2c0c6bf-4c14-42e1-b1d7-1e6601df6ac2",
+      "type": "mentor"
+    },
+    {
+      "person1": "8b5238fa-01c6-4133-9075-469e3f187669",
+      "person2": "1f5d2aa5-9747-4a78-8e3d-0dc35316c1ab",
+      "type": "partner"
+    },
+    {
+      "person1": "11c48336-0189-47c0-99bf-f69eda8436b0",
+      "person2": "5daf3ac0-87c9-4fd2-a619-75dc8e7b4537",
+      "type": "colleague"
+    },
+    {
+      "person1": "017bfa40-3c3b-43b2-a64e-2ccc8a71e2e2",
+      "person2": "2d4028d6-40df-424b-82f8-f4ac44e990f8",
+      "type": "colleague"
+    },
+    {
+      "person1": "0593e5e7-780e-40fa-a336-d94ff619ff19",
+      "person2": "96aba69a-5d5d-499e-883a-bed26494d50d",
+      "type": "partner"
+    },
+    {
+      "person1": "04045ca1-a391-4ab3-9d58-7f180e91cf44",
+      "person2": "c08d6bf5-8823-43dd-a21d-1229da422c24",
+      "type": "friend"
+    },
+    {
+      "person1": "7a919d29-13bc-4917-b48c-badfb63d26f8",
+      "person2": "eb1ff957-1a5a-40d8-a08a-032e246b4368",
+      "type": "neighbor"
+    },
+    {
+      "person1": "52d83892-c714-4dde-b00b-0b43501bb063",
+      "person2": "af133de1-442b-4fac-929d-4582358a97bc",
+      "type": "family"
+    },
+    {
+      "person1": "4539cd5c-1ccd-4557-ab37-d053ba144e83",
+      "person2": "7bf05c15-5827-4385-98b8-a9ddd6e677eb",
+      "type": "family"
+    },
+    {
+      "person1": "69248247-db82-4666-97b3-048934408c2a",
+      "person2": "e0cf633f-a89f-4947-a2f3-a7ccfac99c1e",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "1b5ba2e6-de56-47c5-bc41-5d539a31c988",
+      "person2": "96aba69a-5d5d-499e-883a-bed26494d50d",
+      "type": "family"
+    },
+    {
+      "person1": "2d164ee4-98b0-4b8f-9346-09561af69ff4",
+      "person2": "fb8d1676-351d-494e-b84b-ffa2d53c91f3",
+      "type": "partner"
+    },
+    {
+      "person1": "7bf05c15-5827-4385-98b8-a9ddd6e677eb",
+      "person2": "a25ccd2b-d7d3-493c-bcac-499db98fd92c",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "95a08914-da2b-4bc0-8121-a3d4847d2779",
+      "person2": "04045ca1-a391-4ab3-9d58-7f180e91cf44",
+      "type": "colleague"
+    },
+    {
+      "person1": "145be765-67c5-4237-aaa7-5e4f9ad25ed1",
+      "person2": "1f5d2aa5-9747-4a78-8e3d-0dc35316c1ab",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "02988169-79a3-47ac-9ac0-6eaf8bb2449f",
+      "person2": "8fb604ca-309b-46ec-a704-bb070833d05a",
+      "type": "friend"
+    },
+    {
+      "person1": "2d164ee4-98b0-4b8f-9346-09561af69ff4",
+      "person2": "f698d6b5-6a16-4df0-a925-4db8496256f3",
+      "type": "partner"
+    },
+    {
+      "person1": "3e40e650-ca42-445c-9c88-bb10b51a9aee",
+      "person2": "c08d6bf5-8823-43dd-a21d-1229da422c24",
+      "type": "acquaintance"
+    },
+    {
+      "person1": "f624f5c4-34ec-4a50-a5f7-8037781bb4c0",
+      "person2": "017bfa40-3c3b-43b2-a64e-2ccc8a71e2e2",
+      "type": "colleague"
+    },
+    {
+      "person1": "e0cf633f-a89f-4947-a2f3-a7ccfac99c1e",
+      "person2": "c7fbc791-0258-46a0-b32c-3d2d774e2a26",
+      "type": "neighbor"
+    },
+    {
+      "person1": "4539cd5c-1ccd-4557-ab37-d053ba144e83",
+      "person2": "45f0ffee-f54d-4d59-9fe1-ef9387b7254a",
+      "type": "colleague"
+    },
+    {
+      "person1": "174e2b64-326b-4678-ba8c-8dc6050ee231",
+      "person2": "0103da58-5df9-47c0-bfcc-a3b1b73c389e",
+      "type": "family"
+    }
+  ]
+}
