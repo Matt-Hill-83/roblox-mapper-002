@@ -1,0 +1,120 @@
+<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="5.0" etag="graphblaster-v1" version="14.0.0" type="device">
+  <diagram id="graphblaster-main" name="GraphBlaster Architecture">
+    <mxGraphModel dx="1426" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- GUI Layer -->
+        <mxCell id="gui-layer" value="GUI Layer" style="swimlane;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="740" height="200" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="tab-system" value="Tab System" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="gui-layer">
+          <mxGeometry x="20" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="data-gen-gui" value="Data Generation GUI" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="gui-layer">
+          <mxGeometry x="180" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="structure-gui" value="Structure Layout GUI" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="gui-layer">
+          <mxGeometry x="340" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="linking-gui" value="Data Linking GUI" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="gui-layer">
+          <mxGeometry x="500" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Service Layer -->
+        <mxCell id="service-layer" value="Service Layer" style="swimlane;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="740" height="200" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="data-gen-service" value="Data Generation Service" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="service-layer">
+          <mxGeometry x="100" y="40" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="layout-service" value="Structure Layout Service" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="service-layer">
+          <mxGeometry x="300" y="40" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="game-service" value="game.service" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="service-layer">
+          <mxGeometry x="500" y="40" width="140" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Data Layer -->
+        <mxCell id="data-layer" value="Data Layer" style="swimlane;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="40" y="520" width="740" height="150" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="person-data" value="Person Data" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="data-layer">
+          <mxGeometry x="120" y="40" width="100" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="country-data" value="Country Data" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="data-layer">
+          <mxGeometry x="320" y="40" width="100" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="generated-files" value="Generated TS Files" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;" vertex="1" parent="data-layer">
+          <mxGeometry x="520" y="40" width="100" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Validation Flow -->
+        <mxCell id="validation-flow" value="Validation Flow" style="swimlane;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="40" y="710" width="740" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="rubix-cube" value="rubixCubeMaker" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="validation-flow">
+          <mxGeometry x="40" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="cube-maker" value="cubeMaker" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="validation-flow">
+          <mxGeometry x="220" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="block-maker" value="blockMaker" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="validation-flow">
+          <mxGeometry x="400" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="label-maker" value="labelMaker" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="validation-flow">
+          <mxGeometry x="580" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Connections -->
+        <mxCell id="edge1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tab-system" target="data-gen-gui">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="data-gen-gui" target="data-gen-service">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="data-gen-service" target="person-data">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="data-gen-service" target="country-data">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="game-service" target="rubix-cube">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="validation-flow" source="rubix-cube" target="cube-maker">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="validation-flow" source="cube-maker" target="block-maker">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edge8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="validation-flow" source="block-maker" target="label-maker">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

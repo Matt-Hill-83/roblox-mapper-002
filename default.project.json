@@ -12,6 +12,9 @@
         "@rbxts": {
           "$path": "node_modules/@rbxts"
         }
+      },
+      "src2": {
+        "$path": "out/src2"
       }
     },
     "ServerScriptService": {

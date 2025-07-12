@@ -7,7 +7,10 @@ const PET_TYPES = ["Dog", "Cat", "Bird", "Fish", "Hamster", "Rabbit", "Snake", "
 const COUNTRY_NAMES = ["USA", "Canada", "Mexico", "Brazil", "UK", "France", "Germany", "Japan", "Australia", "India"];
 
 function generateGuid(): string {
-  const s4 = () => math.floor((1 + math.random()) * 0x10000).toString(16).substring(1);
+  const s4 = () => {
+    const num = math.floor((1 + math.random()) * 0x10000);
+    return string.format("%04x", num);
+  };
   return `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`;
 }
 

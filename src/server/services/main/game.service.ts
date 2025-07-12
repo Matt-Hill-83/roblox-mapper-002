@@ -4,6 +4,7 @@ import { GraphInitializerService } from "../graphInitializer.service";
 import { LinkTypeCounterServerService } from "../linkTypeCounterServer.service";
 import { initializeDev2Features } from "./dev2features";
 import { makeOriginBlock } from "../../../shared/modules/makeOriginBlock";
+import { rubixCubeMaker } from "../../../src2/validation/rubixCubeMaker";
 
 // Origin configuration for 3D positioning
 const ORIGIN = {
@@ -32,16 +33,24 @@ export class GameService extends BaseService {
 
   constructor() {
     super("GameService");
+    print("=== GameService constructor ===");
+    print(`Time: ${os.time()}`);
     this.graphInitializer = new GraphInitializerService();
     this.linkTypeCounterServer = new LinkTypeCounterServerService();
   }
 
   public startGame(): void {
+    print("=== startGame() called ===");
+    print(`Time: ${os.time()}`);
+    print(`gameStarted flag: ${this.gameStarted}`);
+    
     if (this.gameStarted) {
+      print("Game already started, returning");
       return;
     }
 
     this.gameStarted = true;
+    print("Setting gameStarted = true");
 
     // Create or find the MyStuff folder at the start
     this.myStuffFolder = game.Workspace.FindFirstChild("MyStuff") as Folder;
@@ -90,6 +99,23 @@ export class GameService extends BaseService {
     if (false) {
       initializeDev2Features(this.myStuffFolder);
     }
+
+    // Clean up any existing RubixCube before creating a new one
+    const existingCubes = this.myStuffFolder.GetChildren().filter(child => 
+      child.Name === "RubixCube" || child.Name.sub(1, 10) === "RubixCube_"
+    );
+    if (existingCubes.size() > 0) {
+      print(`Found ${existingCubes.size()} existing RubixCube(s), removing them`);
+      existingCubes.forEach(cube => cube.Destroy());
+    }
+    
+    // Call rubixCubeMaker with initCube parameter
+    print("=== About to call rubixCubeMaker ===");
+    const initCube = {
+      origin: new Vector3(ORIGIN.x - 50, ORIGIN.y + 0, ORIGIN.z - 50),
+    };
+    rubixCubeMaker(this.myStuffFolder, initCube);
+    print("=== rubixCubeMaker completed ===");
   }
 
   /**

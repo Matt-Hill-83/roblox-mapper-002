@@ -19,46 +19,7 @@ Requirements:
         1. TBD
     1.  Settings GUI
         1.  asdf
-    1.  GUI tabbing system
-        1.  create a system where
-            1.  gui names are listed in a compact format on the lhs of the screen
-            2.  when you click a gui name, the previous one closes and the new one opens, with a title at the top
-            3.  default GUI will be Data Generation Engine
-2.  Services
-    1.  Data Generation Engine
-        1.  Create random json data and write it to an object in a ts file so that it can be read at runtime.
-            1.  Data Objects
-            1.  Person (persons)
-            1.  assign each a guid
-            1.  properties (chosen randomly from 10 unique choices)
-                1.  firstName
-                2.  lastName
-                3.  country
-                4.  petType
-                5.  countryLivesIn (Country)
-                6.  countryBornIn (Country)
-                7.  countryWorksIn (Country)
-            1.  Country
-            1.  name
-            1.  isSunny
-            1.  isWarm
-            1.  happiness (1-10)
-            1.  expensive (1-10)
-3.  Structure Layout Engine
-    1.  TBD
-        1. Will generate geometric structure within which nodes will be positioned
-4.  Code Structure
-    1.  contain all code in new folders that do not overlay with existing codebase
-        1. create a new folder structure with the name src2 for the root. This will later be moved into a clean repo
-        2. tbd
-    2.  look at existing codebase and use best practices
-        1.  create a folder system and file structure
-5.  Sample Code
-    1. in order to validate the folder structure, have the existing game.service do this:
-       1. call a function rubixCubeMaker
-          1. which calls cubeMaker
-             1. which calls blockMaker
-                1. make calls labelMaker
+
 
 |----------------------------------------------------------------------|
 
@@ -263,7 +224,7 @@ Organize the doc into these sections, in this order:
    2.4. read this doc and follow the conventions: 001-outline-conventions.md
 4. List of risks (if any)
 5. List of decision points (if any)
-6. ASCII representation of GUI
+6. drawio ASCII representation of GUI
 7. Text based file/function tree
 8. A mermaid flowchart
 

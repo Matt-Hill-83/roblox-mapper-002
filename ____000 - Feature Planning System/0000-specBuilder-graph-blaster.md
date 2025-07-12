@@ -1,5 +1,4 @@
 Just do a Code Audit?: false
-
 |----------------------------------------------------------------------|
 
 Summary:
@@ -18,18 +17,21 @@ Requirements:
     1. Data Generation Engine
         1. how many records to create
         2. how many unique values per property
-        3. table showing 1 rows of generated data
+        3. tab
+        2. showing 1 rows of generated data
     2. Structure Layout Engine
-        1. TBD 2. create a simple placeholder
+        1. TBD
+        2. create a simple placeholder
     3. Data Linking
         1. TBD
+        2. create a simple placeholder
     4. Settings GUI
-        1. asdf
+        1. TBD
+        2. create a simple placeholder
     5. GUI tabbing system
-        1. create a system where
-            1. gui names are listed in a compact format on the lhs of the screen
-            2. when you click a gui name, the previous one closes and the new one opens, with a title at the top
-            3. default GUI will be Data Generation Engine
+         1. gui names are listed in a compact format on the lhs of the screen
+         2. when you click a gui name, the previous one closes and the new one opens, with a title at the top
+         3. default GUI will be Data Generation Engine
 2. Services
     1. Data Generation Engine
         1. Create random json data and write it to an object in a ts file so that it can be read at runtime.

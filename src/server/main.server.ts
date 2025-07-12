@@ -15,7 +15,12 @@
 
 import { GameService } from "./services/main/game.service";
 
+print("=== main.server.ts executing ===");
+print(`Time: ${os.time()}`);
+print(`Script: ${script.GetFullName()}`);
 
 const gameService = new GameService();
+print("GameService instance created");
 
 gameService.startGame();
+print("startGame() called");

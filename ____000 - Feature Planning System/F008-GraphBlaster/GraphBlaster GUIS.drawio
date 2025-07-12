@@ -1,0 +1,168 @@
+<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="5.0" etag="graphblaster-guis-v1" version="14.0.0" type="device">
+  <diagram id="graphblaster-guis" name="GraphBlaster GUIs">
+    <mxGraphModel dx="1426" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Main Control Panel Container -->
+        <mxCell id="main-panel" value="GraphBlaster Control Panel" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="800" height="600" as="geometry" />
+        </mxCell>
+        
+        <!-- Tab List Panel -->
+        <mxCell id="tab-panel" value="TABS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="50" y="80" width="140" height="550" as="geometry" />
+        </mxCell>
+        
+        <!-- Tab Items -->
+        <mxCell id="tab-data-gen" value="▶ Data Gen" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="120" width="120" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="tab-structure" value="   Structure" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="160" width="120" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="tab-linking" value="   Linking" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="200" width="120" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="tab-settings" value="   Settings" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="240" width="120" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Data Generation Engine Panel -->
+        <mxCell id="data-gen-panel" value="[Data Generation Engine]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="200" y="80" width="630" height="550" as="geometry" />
+        </mxCell>
+        
+        <!-- Records Control -->
+        <mxCell id="records-label" value="Records to Create:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="220" y="120" width="120" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="records-input" value="50" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="350" y="125" width="80" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="records-dropdown" value="▼" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#cccccc;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="430" y="125" width="25" height="25" as="geometry" />
+        </mxCell>
+        
+        <!-- Unique Values Control -->
+        <mxCell id="unique-label" value="Unique Values:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="220" y="160" width="120" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="unique-input" value="10" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="350" y="165" width="80" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="unique-dropdown" value="▼" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#cccccc;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="430" y="165" width="25" height="25" as="geometry" />
+        </mxCell>
+        
+        <!-- Preview Section -->
+        <mxCell id="preview-label" value="Preview:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="210" width="120" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Preview Table -->
+        <mxCell id="preview-table" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="220" y="240" width="590" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Table Headers -->
+        <mxCell id="header-name" value="Name" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#000000;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="240" width="147" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="header-country" value="Country" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#000000;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="367" y="240" width="147" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="header-pet" value="Pet" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#000000;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="514" y="240" width="148" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="header-lives" value="Lives" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#000000;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="662" y="240" width="148" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Table Data Row -->
+        <mxCell id="data-name" value="John S." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="220" y="270" width="147" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="data-country" value="USA" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="367" y="270" width="147" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="data-pet" value="Dog" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="514" y="270" width="148" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="data-lives" value="Canada" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="662" y="270" width="148" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Generate Button -->
+        <mxCell id="generate-button" value="[Generate Data]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4CAF50;strokeColor=#2E7D32;fontColor=#ffffff;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="380" y="350" width="280" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Structure Layout Engine GUI (Hidden, for reference) -->
+        <mxCell id="structure-panel" value="[Structure Layout Engine]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;verticalAlign=top;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="880" y="80" width="250" height="200" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="structure-placeholder" value="Placeholder for&#xa;Layout Controls&#xa;&#xa;(TBD)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="900" y="140" width="210" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Data Linking GUI (Hidden, for reference) -->
+        <mxCell id="linking-panel" value="[Data Linking]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;verticalAlign=top;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="880" y="300" width="250" height="200" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="linking-placeholder" value="Placeholder for&#xa;Link Configuration&#xa;&#xa;(TBD)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="900" y="360" width="210" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Settings GUI (Hidden, for reference) -->
+        <mxCell id="settings-panel" value="[Settings]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;verticalAlign=top;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="880" y="520" width="250" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="settings-placeholder" value="General Settings&#xa;(TBD)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="900" y="560" width="210" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Annotations -->
+        <mxCell id="note1" value="Active Tab&#xa;(highlighted)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=2;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="10" y="110" width="80" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="arrow1" style="endArrow=classic;html=1;strokeWidth=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="note1" target="tab-data-gen">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="100" y="200" as="sourcePoint" />
+            <mxPoint x="150" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="note2" value="Other GUIs shown&#xa;for reference only&#xa;(would be hidden)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=2;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="30" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="arrow2" style="endArrow=classic;html=1;strokeWidth=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="note2" target="structure-panel">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1000" y="100" as="sourcePoint" />
+            <mxPoint x="1050" y="50" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
