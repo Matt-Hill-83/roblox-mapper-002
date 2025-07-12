@@ -4,7 +4,6 @@ import { GraphInitializerService } from "../graphInitializer.service";
 import { LinkTypeCounterServerService } from "../linkTypeCounterServer.service";
 import { initializeDev2Features } from "./dev2features";
 import { makeOriginBlock } from "../../../shared/modules/makeOriginBlock";
-import { rubixCubeMaker } from "../../../src2/validation/rubixCubeMaker";
 import { wireframeBlockMaker } from "../../../src2/validation/wireframeBlockMaker";
 import { graphBlasterLayoutMaker } from "../../../src2/graphBlasterLayoutMaker";
 
@@ -116,23 +115,9 @@ export class GameService extends BaseService {
       existingCubes.forEach((cube) => cube.Destroy());
     }
 
-    // Call rubixCubeMaker with initCube parameter
+    // Old rubixCubeMaker call disabled
     if (false) {
-      print("=== About to call rubixCubeMaker ===");
-      const initCube = {
-        origin: new Vector3(ORIGIN.x - 50, ORIGIN.y + 10, ORIGIN.z - 50),
-      };
-
-      const rubixConfig = {
-        numBlocks: {
-          x: 3,
-          y: 5,
-          z: 3,
-        },
-      };
-
-      rubixCubeMaker(this.myStuffFolder, initCube, rubixConfig);
-      print("=== rubixCubeMaker completed ===");
+      print("=== Old rubixCubeMaker disabled ===");
       // Add a wireframe block next to the rubix cube
       wireframeBlockMaker({
         position: new Vector3(ORIGIN.x + 50, ORIGIN.y + 10, ORIGIN.z - 50),
@@ -146,26 +131,39 @@ export class GameService extends BaseService {
       });
       print("=== wireframeBlockMaker completed ===");
     }
-
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
     // Call graphBlasterLayoutMaker
     print("=== About to call graphBlasterLayoutMaker ===");
-    graphBlasterLayoutMaker({
+    const { rubixCubeService } = graphBlasterLayoutMaker({
       origin: new Vector3(ORIGIN.x - 50, ORIGIN.y + 0, ORIGIN.z - 40),
       rubixCubeProps: {
         blockSize: {
           x: 3,
-          y: 5,
-          z: 4,
+          y: 2,
+          z: 5,
         },
         numBlocks: {
           x: 3,
-          y: 5,
-          z: 6,
+          y: 2,
+          z: 5,
         },
       },
       parent: this.myStuffFolder,
     });
     print("=== graphBlasterLayoutMaker completed ===");
+
+    // Example: Access the cube data from the service
+    const cubeData = rubixCubeService.getData();
+    if (cubeData) {
+      print(`Generated cube data with ${cubeData.size()} layers`);
+    }
   }
 
   /**

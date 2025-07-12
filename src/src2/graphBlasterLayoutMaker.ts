@@ -1,5 +1,5 @@
 import { makeBlock } from "./validation/blockMaker/index";
-import { rubixCubeMaker, RubixConfig, calculateRubixCubeSize } from "./validation/rubixCubeMaker";
+import { RubixCubeService, RubixConfig } from "./validation/rubixCubeService";
 
 const GRAPH_BLASTER_CONSTANTS = {
   BASEPLATE: {
@@ -34,7 +34,7 @@ export interface GraphBlasterLayoutConfig {
 
 export function graphBlasterLayoutMaker(
   config: GraphBlasterLayoutConfig
-): Model {
+): { layoutModel: Model; rubixCubeService: RubixCubeService } {
   const { origin, rubixCubeProps, parent } = config;
 
   // Create Graph Blaster folder
@@ -47,7 +47,20 @@ export function graphBlasterLayoutMaker(
   layoutModel.Name = "GraphBlasterLayout";
   layoutModel.Parent = graphBlasterFolder;
 
-  // Calculate total rubix cube dimensions
+  // Create rubix cube service
+  const rubixCubeService = new RubixCubeService();
+  
+  // Create rubix cube config
+  const rubixConfig: RubixConfig = {
+    numBlocks: rubixCubeProps.numBlocks,
+    blockSize: rubixCubeProps.blockSize,
+    edgeColor: GRAPH_BLASTER_CONSTANTS.RUBIX_CUBE.EDGE_COLOR,
+  };
+  
+  // Calculate rubix cube size to properly position it
+  const rubixCubeSize = rubixCubeService.calculateSize(rubixConfig);
+
+  // Calculate total rubix cube dimensions for baseplate
   const totalWidth = rubixCubeProps.blockSize.x * rubixCubeProps.numBlocks.x;
   const totalDepth = rubixCubeProps.blockSize.z * rubixCubeProps.numBlocks.z;
 
@@ -68,26 +81,17 @@ export function graphBlasterLayoutMaker(
     nameSuffix: "main",
     transparency: 0,
   });
-
-  // Create rubix cube config
-  const rubixConfig: RubixConfig = {
-    numBlocks: rubixCubeProps.numBlocks,
-    blockSize: rubixCubeProps.blockSize,
-    edgeColor: GRAPH_BLASTER_CONSTANTS.RUBIX_CUBE.EDGE_COLOR,
-  };
-  
-  // Calculate rubix cube size to properly position it
-  const rubixCubeSize = calculateRubixCubeSize(rubixConfig);
   
   // Calculate rubix cube position (bottom of cube is 1 unit above baseplate top)
-  const rubixCubeOriginNew = new Vector3(
+  const rubixCubeOrigin = new Vector3(
     origin.X,
     origin.Y + baseplateHeight / 2 + GRAPH_BLASTER_CONSTANTS.RUBIX_CUBE.Y_OFFSET_FROM_BASEPLATE_TOP + rubixCubeSize.height / 2,
     origin.Z
   );
 
-  // Create rubix cube
-  rubixCubeMaker(layoutModel, { origin: rubixCubeOriginNew }, rubixConfig);
+  // Generate data and render rubix cube
+  rubixCubeService.generateData(rubixCubeOrigin, rubixConfig);
+  rubixCubeService.render(layoutModel);
 
-  return layoutModel;
+  return { layoutModel, rubixCubeService };
 }
