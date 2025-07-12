@@ -1,4 +1,5 @@
 import { makeBlock } from "./validation/blockMaker/index";
+import { wireframeBlockMaker } from "./validation/wireframeBlockMaker";
 import { RubixCubeService, RubixConfig } from "./validation/rubixCubeService";
 
 const GRAPH_BLASTER_CONSTANTS = {
@@ -107,6 +108,44 @@ export function graphBlasterLayoutMaker(config: GraphBlasterLayoutConfig): {
   const shadowCenterY =
     shadowBottom + GRAPH_BLASTER_CONSTANTS.SHADOW.HEIGHT / 2;
   rubixCubeService.createShadowGrid(undefined, shadowCenterY);
+  
+  // Create platform wireframe block using shadow dimensions
+  const shadowDimensions = rubixCubeService.calcXZShadowDimensions();
+  if (shadowDimensions) {
+    const platformHeight = 0.5; // Thin platform
+    const platformY = baseplateTop; // Coincident with foundation top
+    
+    wireframeBlockMaker({
+      position: new Vector3(origin.X, platformY + platformHeight / 2, origin.Z),
+      size: new Vector3(shadowDimensions.width, platformHeight, shadowDimensions.depth),
+      parent: layoutModel,
+      nameStub: "platform",
+      nameSuffix: "shadow-footprint",
+      transparency: 0.5,
+      color: new Color3(1, 0.75, 0.8), // Pink
+      edgeWidth: 0.1,
+      edgeBlockColor: new Color3(0.8, 0.6, 0.65), // Darker pink for edges
+    });
+    
+    // Create XZWall wireframe block (platform size + 20 units) coincident with platform
+    const xzWallModel = wireframeBlockMaker({
+      position: new Vector3(origin.X, platformY + platformHeight / 2, origin.Z),
+      size: new Vector3(shadowDimensions.width + 20, 1, shadowDimensions.depth + 20),
+      parent: layoutModel,
+      nameStub: "XZWall",
+      nameSuffix: "floor",
+      transparency: 0, // Fully opaque
+      color: new Color3(0.3, 0.3, 0.3), // Dark gray
+      edgeWidth: 0.2,
+      edgeBlockColor: new Color3(0.6, 0.6, 0.6), // Light gray edges
+    });
+    
+    // Set CanCollide to true on the main block
+    const mainBlock = xzWallModel.FindFirstChild("XZWall-main") as Part;
+    if (mainBlock) {
+      mainBlock.CanCollide = true;
+    }
+  }
 
   return { layoutModel, rubixCubeService };
 }

@@ -215,6 +215,29 @@ export class RubixCubeService {
   public getModel(): Model | undefined {
     return this.model;
   }
+  
+  /**
+   * Calculate XZ shadow dimensions (the footprint of all shadows combined)
+   */
+  public calcXZShadowDimensions(): { width: number; depth: number } | undefined {
+    if (!this.cubeData || !this.config) {
+      warn("Must call generateData before calcXZShadowDimensions");
+      return undefined;
+    }
+    
+    // Get the bounds of the rubix cube
+    const cubeSize = this.calculateSize();
+    
+    // Both X and Z shadows have buffers, so the total area is larger
+    // X-parallel shadows extend in X direction, Z-parallel shadows extend in Z direction
+    const totalWidth = cubeSize.width + (SHADOW_CONSTANTS.BUFFER * 2);
+    const totalDepth = cubeSize.depth + (SHADOW_CONSTANTS.BUFFER * 2);
+    
+    return {
+      width: totalWidth,
+      depth: totalDepth
+    };
+  }
 
   /**
    * Create shadow grid beneath the rubix cube
