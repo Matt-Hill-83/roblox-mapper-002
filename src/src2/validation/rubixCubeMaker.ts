@@ -13,7 +13,10 @@ function makeRowOfBlocks(
   spacing: number
 ): Model {
   const row = new Instance("Model");
-  row.Name = `Row-y-${string.format("%02d", y + 1)}-z-${string.format("%02d", z + 1)}`;
+  row.Name = `Row-y-${string.format("%02d", y + 1)}-z-${string.format(
+    "%02d",
+    z + 1
+  )}`;
   row.Parent = parent;
 
   for (let x = 0; x < 3; x++) {
@@ -22,7 +25,10 @@ function makeRowOfBlocks(
       origin.Y + (y * spacing - spacing),
       origin.Z + (z * spacing - spacing)
     );
-    const suffix = `x-${string.format("%02d", x + 1)}-y-${string.format("%02d", y + 1)}-z-${string.format("%02d", z + 1)}`;
+    const suffix = `x-${string.format("%02d", x + 1)}-y-${string.format(
+      "%02d",
+      y + 1
+    )}-z-${string.format("%02d", z + 1)}`;
     const multiLineLabel = `x: ${x + 1}\ny: ${y + 1}\nz: ${z + 1}`;
     const labels = {
       front: multiLineLabel,
@@ -67,7 +73,7 @@ export function rubixCubeMaker(parent: Instance, initCube?: InitCube): Model {
   print("=== rubixCubeMaker called ===");
   print(`Time: ${os.time()}`);
   print(`Parent: ${parent.GetFullName()}`);
-  
+
   print("Creating new RubixCube");
   const rubixCube = new Instance("Model");
   rubixCube.Name = "RubixCube";
