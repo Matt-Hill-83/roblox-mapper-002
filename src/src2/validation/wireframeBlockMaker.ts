@@ -6,6 +6,16 @@ export interface WireframeBlockConfig extends IBlockMakerConfig {
   edgeWidth?: number; // Absolute edge width (overrides edgeThicknessRatio if provided)
   edgeBlockColor?: Color3;
   labelProps?: Partial<TextLabel>; // Label property overrides
+  overrideProps?: {
+    mainBlock?: {
+      transparency?: number;
+      [key: string]: any;
+    };
+    edges?: {
+      transparency?: number;
+      [key: string]: any;
+    };
+  };
 }
 
 export function wireframeBlockMaker(config: WireframeBlockConfig): Model {
@@ -19,6 +29,7 @@ export function wireframeBlockMaker(config: WireframeBlockConfig): Model {
     edgeBlockColor = new Color3(0.2, 0.2, 0.2),
     transparency = 0.5,
     labelProps,
+    overrideProps,
   } = config;
 
   // Z-fighting prevention offset
@@ -41,12 +52,15 @@ export function wireframeBlockMaker(config: WireframeBlockConfig): Model {
   const wireframeModel = new Instance("Model");
   wireframeModel.Name = `${nameStub}-block`;
 
+  // Determine main block transparency
+  const mainBlockTransparency = overrideProps?.mainBlock?.transparency ?? transparency;
+  
   // Create main transparent block with all passed-in props
   const mainBlock = makeBlock({
     position,
     size,
     parent: wireframeModel,
-    transparency,
+    transparency: mainBlockTransparency,
     nameStub: nameStub,
     nameSuffix: "main",
     color: config.color,
@@ -60,6 +74,15 @@ export function wireframeBlockMaker(config: WireframeBlockConfig): Model {
     labelBackgroundTransparency: config.labelBackgroundTransparency,
     labelProps: labelProps,
   });
+  
+  // Apply any additional mainBlock overrides
+  if (overrideProps?.mainBlock && mainBlock) {
+    for (const [key, value] of pairs(overrideProps.mainBlock)) {
+      if (key !== "transparency" && key in mainBlock) {
+        (mainBlock as any)[key] = value;
+      }
+    }
+  }
 
   // Create sub-models for organization
   const edgeBlocksModel = new Instance("Model");
@@ -79,20 +102,33 @@ export function wireframeBlockMaker(config: WireframeBlockConfig): Model {
   const halfZ = sizeVec.Z / 2;
   const halfThickness = edgeThickness / 2;
 
+  // Determine edge transparency
+  const edgeTransparency = overrideProps?.edges?.transparency ?? 0;
+  
   // Helper function to create a single edge block
   function createEdgeBlock(
     centerPos: Vector3,
     edgeSize: Vector3,
     edgeIndex: number
   ): void {
-    makeBlock({
+    const edgeBlock = makeBlock({
       position: centerPos,
       size: edgeSize,
       parent: edgeBlocksModel,
       color: edgeBlockColor,
       nameStub: nameStub,
       nameSuffix: `edge-${string.format("%02d", edgeIndex)}`,
+      transparency: edgeTransparency,
     });
+    
+    // Apply any additional edge overrides
+    if (overrideProps?.edges && edgeBlock) {
+      for (const [key, value] of pairs(overrideProps.edges)) {
+        if (key !== "transparency" && key in edgeBlock) {
+          (edgeBlock as any)[key] = value;
+        }
+      }
+    }
   }
 
   // Pre-calculate common values
@@ -189,14 +225,25 @@ export function wireframeBlockMaker(config: WireframeBlockConfig): Model {
   yPositions.forEach((y) => {
     zPositions.forEach((z) => {
       xPositions.forEach((x) => {
-        makeBlock({
+        const cornerBlock = makeBlock({
           position: position.add(new Vector3(x, y, z)),
           size: cornerSize,
           parent: cornerCubesModel,
           color: edgeBlockColor,
           nameStub: nameStub,
           nameSuffix: `corner-${string.format("%02d", cornerIndex)}`,
+          transparency: edgeTransparency,
         });
+        
+        // Apply any additional edge overrides to corner cubes
+        if (overrideProps?.edges && cornerBlock) {
+          for (const [key, value] of pairs(overrideProps.edges)) {
+            if (key !== "transparency" && key in cornerBlock) {
+              (cornerBlock as any)[key] = value;
+            }
+          }
+        }
+        
         cornerIndex++;
       });
     });

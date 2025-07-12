@@ -145,9 +145,9 @@ export class GameService extends BaseService {
       origin: new Vector3(ORIGIN.x - 50, ORIGIN.y + 0, ORIGIN.z - 40),
       rubixCubeProps: {
         blockSize: {
-          x: 3,
-          y: 2,
-          z: 5,
+          x: 10,
+          y: 5,
+          z: 8,
         },
         numBlocks: {
           x: 3,

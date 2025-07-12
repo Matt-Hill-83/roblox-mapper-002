@@ -201,6 +201,14 @@ export class RubixCubeService {
             edgeWidth: 0.1,
             edgeBlockColor: edgeColor,
             labelProps,
+            overrideProps: {
+              mainBlock: {
+                transparency: 0.5, // 50% transparent
+              },
+              edges: {
+                transparency: 0.9, // 90% transparent
+              },
+            },
           });
         }
       }
