@@ -105,31 +105,79 @@ export class GraphBlasterNodePlacerService {
       nodeModel.Name = `Node_${key}_Count${personCount}`;
       nodeModel.Parent = rubixCubeModel;
 
-      // Create smaller node inside the rubix cube block
-      const nodeSize = math.min(0.5 + personCount * 0.1, blockSize.x * 0.8); // Smaller than block
-      const nodeBlock = makeBlock({
-        position: worldPos,
-        size: new Vector3(nodeSize, nodeSize, nodeSize),
-        parent: nodeModel,
-        nameStub: "PersonNode",
-        color: this.getNodeColor(personCount),
-        transparency: 0,
-        material: Enum.Material.Concrete,
-        labels: {
-          front: tostring(personCount),
-        },
-      });
+      // Standard node size for all nodes
+      const standardNodeSize = 1; // 1x1x1 as requested
+      
+      if (personCount === 1) {
+        // Single person - place in center
+        const nodeBlock = makeBlock({
+          position: worldPos,
+          size: new Vector3(standardNodeSize, standardNodeSize, standardNodeSize),
+          parent: nodeModel,
+          nameStub: "PersonNode",
+          color: this.getNodeColor(personCount),
+          transparency: 0,
+          material: Enum.Material.Concrete,
+          labels: {
+            front: tostring(personCount),
+          },
+        });
 
-      // Store node data as attributes for interaction
-      nodeBlock.SetAttribute("personCount", personCount);
-      nodeBlock.SetAttribute("gridPosition", key);
+        // Store node data as attributes for interaction
+        nodeBlock.SetAttribute("personCount", personCount);
+        nodeBlock.SetAttribute("gridPosition", key);
 
-      // Store first person's data for display
-      const firstPerson = nodeData.persons[0];
-      nodeBlock.SetAttribute("samplePerson", `${firstPerson.firstName} ${firstPerson.lastName}`);
-      nodeBlock.SetAttribute("petType", firstPerson.petType);
-      nodeBlock.SetAttribute("countryLivesIn", firstPerson.countryLivesIn);
-      nodeBlock.SetAttribute("country", firstPerson.country);
+        // Store person's data for display
+        const person = nodeData.persons[0];
+        nodeBlock.SetAttribute("personName", `${person.firstName} ${person.lastName}`);
+        nodeBlock.SetAttribute("petType", person.petType);
+        nodeBlock.SetAttribute("countryLivesIn", person.countryLivesIn);
+        nodeBlock.SetAttribute("country", person.country);
+      } else {
+        // Multiple persons - place in grid pattern on floor
+        const gridSize = math.ceil(math.sqrt(personCount));
+        const floorY = worldPos.Y - blockSize.y / 2 + standardNodeSize / 2 + 0.1; // Place on floor with small offset
+        
+        // Calculate grid spacing
+        const gridSpacing = blockSize.x / (gridSize + 1);
+        const startX = worldPos.X - (gridSize - 1) * gridSpacing / 2;
+        const startZ = worldPos.Z - (gridSize - 1) * gridSpacing / 2;
+        
+        // Create individual nodes in grid pattern
+        nodeData.persons.forEach((person, index) => {
+          const row = math.floor(index / gridSize);
+          const col = index % gridSize;
+          
+          // Skip if we've exceeded our grid (shouldn't happen with ceil(sqrt))
+          if (row >= gridSize) return;
+          
+          const nodePos = new Vector3(
+            startX + col * gridSpacing,
+            floorY,
+            startZ + row * gridSpacing
+          );
+          
+          const personNode = makeBlock({
+            position: nodePos,
+            size: new Vector3(standardNodeSize, standardNodeSize, standardNodeSize),
+            parent: nodeModel,
+            nameStub: `PersonNode_${index}`,
+            color: this.getNodeColor(1), // Use single person color
+            transparency: 0,
+            material: Enum.Material.Concrete,
+            labels: {
+              front: person.firstName.sub(1, 3), // First 3 letters of name
+            },
+          });
+          
+          // Store individual person data
+          personNode.SetAttribute("personName", `${person.firstName} ${person.lastName}`);
+          personNode.SetAttribute("petType", person.petType);
+          personNode.SetAttribute("countryLivesIn", person.countryLivesIn);
+          personNode.SetAttribute("country", person.country);
+          personNode.SetAttribute("gridPosition", key);
+        });
+      }
 
       this.nodeModels.set(key, nodeModel);
     });

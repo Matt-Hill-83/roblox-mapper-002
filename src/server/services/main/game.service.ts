@@ -9,6 +9,7 @@ import { graphBlasterLayoutMaker } from "../../../src2/graphBlasterLayoutMaker";
 import { DataGeneratorService } from "../../../src2/services/dataGeneration/dataGenerator.service";
 import { GraphBlasterDataMapperService } from "../../../src2/services/graphBlaster/graphBlasterDataMapper.service";
 import { GraphBlasterNodePlacerService } from "../../../src2/services/graphBlaster/graphBlasterNodePlacer.service";
+import { GraphBlasterConnectionRendererService } from "../../../src2/services/graphBlaster/graphBlasterConnectionRenderer.service";
 
 // Origin configuration for 3D positioning
 const ORIGIN = {
@@ -247,6 +248,7 @@ export class GameService extends BaseService {
       // Create service instances
       const dataMapper = new GraphBlasterDataMapperService();
       const nodePlacer = new GraphBlasterNodePlacerService(dataMapper);
+      const connectionRenderer = new GraphBlasterConnectionRendererService(dataMapper);
       
       // Use the generated data
       const dataGenerator = new DataGeneratorService();
@@ -278,6 +280,14 @@ export class GameService extends BaseService {
         
       // Place person nodes within the rubix cube
       nodePlacer.placeNodes(data.persons, gbLayout.rubixCubeService, gbLayout.layoutModel);
+      
+      // Render connections between related persons
+      connectionRenderer.renderConnections(
+        data.persons, 
+        data.relationships, 
+        gbLayout.rubixCubeService, 
+        gbLayout.layoutModel
+      );
     }
   }
 
