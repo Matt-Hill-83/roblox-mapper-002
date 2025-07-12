@@ -118,15 +118,15 @@ export class GameService extends BaseService {
     // Call rubixCubeMaker with initCube parameter
     print("=== About to call rubixCubeMaker ===");
     const initCube = {
-      origin: new Vector3(ORIGIN.x - 50, ORIGIN.y + 20, ORIGIN.z - 50),
+      origin: new Vector3(ORIGIN.x - 50, ORIGIN.y + 10, ORIGIN.z - 50),
     };
     rubixCubeMaker(this.myStuffFolder, initCube);
     print("=== rubixCubeMaker completed ===");
 
     // Add a wireframe block next to the rubix cube
     wireframeBlockMaker({
-      position: new Vector3(ORIGIN.x + 50, ORIGIN.y + 20, ORIGIN.z - 50),
-      size: new Vector3(40, 40, 40),
+      position: new Vector3(ORIGIN.x + 50, ORIGIN.y + 10, ORIGIN.z - 50),
+      size: new Vector3(10, 10, 10),
       parent: this.myStuffFolder,
       nameStub: "demo-wireframe",
       // edgeThicknessRatio: 0.1,
