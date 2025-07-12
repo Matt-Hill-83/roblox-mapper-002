@@ -229,10 +229,15 @@ export class RubixCubeService {
 
     print("=== Creating shadow grid ===");
     
-    // Create container for shadows
-    const shadowGridModel = new Instance("Model");
-    shadowGridModel.Name = "ShadowGrid";
-    shadowGridModel.Parent = shadowParent;
+    // Create container for X-parallel shadows
+    const xShadowModel = new Instance("Model");
+    xShadowModel.Name = "XParallelShadowLanes";
+    xShadowModel.Parent = shadowParent;
+    
+    // Create container for Z-parallel shadows
+    const zShadowModel = new Instance("Model");
+    zShadowModel.Name = "ZParallelShadowLanes";
+    zShadowModel.Parent = shadowParent;
     
     const numBlocks = this.config.numBlocks;
     const blockSize = this.config.blockSize || { x: 10, y: 5, z: 10 };
@@ -251,9 +256,9 @@ export class RubixCubeService {
       shadowYPosition = cubeBottomY - SHADOW_CONSTANTS.Y_OFFSET;
     }
     
-    // Create one shadow block per Z row
+    // Create X-parallel shadows (one per Z row)
     for (let z = 0; z < numBlocks.z; z++) {
-      // Get the first block in this Z row to determine position
+      // Get the first and last blocks in this Z row
       const firstBlock = this.cubeData![0][z][0];
       const lastBlock = this.cubeData![0][z][numBlocks.x - 1];
       
@@ -272,22 +277,57 @@ export class RubixCubeService {
       const shadowPosition = new Vector3(shadowX, shadowYPosition, shadowZ);
       const shadowSize = new Vector3(shadowLength, SHADOW_CONSTANTS.HEIGHT, shadowWidth);
       
-      // Create shadow block
+      // Create X-parallel shadow block
       wireframeBlockMaker({
         position: shadowPosition,
         size: shadowSize,
-        parent: shadowGridModel,
-        nameStub: "shadow",
+        parent: xShadowModel,
+        nameStub: "x-shadow",
         nameSuffix: `z-${string.format("%02d", z + 1)}`,
         transparency: SHADOW_CONSTANTS.TRANSPARENCY,
         color: SHADOW_CONSTANTS.COLOR,
-        edgeWidth: 0.1, // Same as rubix cube blocks
+        edgeWidth: 0.1,
         edgeBlockColor: SHADOW_CONSTANTS.EDGE_COLOR,
       });
     }
     
-    print(`Created ${numBlocks.z} shadow blocks`);
-    return shadowGridModel;
+    // Create Z-parallel shadows (one per X column)
+    for (let x = 0; x < numBlocks.x; x++) {
+      // Get the first and last blocks in this X column
+      const firstBlock = this.cubeData![0][0][x];
+      const lastBlock = this.cubeData![0][numBlocks.z - 1][x];
+      
+      if (!firstBlock.position || !lastBlock.position) {
+        error("Invalid cube data - missing position");
+      }
+      
+      // Calculate shadow dimensions with buffer (only in Z direction)
+      const shadowWidth = blockSize.x;
+      const shadowLength = lastBlock.position.Z + blockSize.z / 2 - (firstBlock.position.Z - blockSize.z / 2) + (SHADOW_CONSTANTS.BUFFER * 2);
+      
+      // Calculate shadow position (centered on the column)
+      const shadowX = firstBlock.position.X;
+      const shadowZ = (firstBlock.position.Z + lastBlock.position.Z) / 2;
+      
+      const shadowPosition = new Vector3(shadowX, shadowYPosition, shadowZ);
+      const shadowSize = new Vector3(shadowWidth, SHADOW_CONSTANTS.HEIGHT, shadowLength);
+      
+      // Create Z-parallel shadow block
+      wireframeBlockMaker({
+        position: shadowPosition,
+        size: shadowSize,
+        parent: zShadowModel,
+        nameStub: "z-shadow",
+        nameSuffix: `x-${string.format("%02d", x + 1)}`,
+        transparency: SHADOW_CONSTANTS.TRANSPARENCY,
+        color: SHADOW_CONSTANTS.COLOR,
+        edgeWidth: 0.1,
+        edgeBlockColor: SHADOW_CONSTANTS.EDGE_COLOR,
+      });
+    }
+    
+    print(`Created ${numBlocks.z} X-parallel and ${numBlocks.x} Z-parallel shadow blocks`);
+    return xShadowModel.Parent as Model;
   }
 
   /**

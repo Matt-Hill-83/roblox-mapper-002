@@ -4,7 +4,7 @@ import { RubixCubeService, RubixConfig } from "./validation/rubixCubeService";
 const GRAPH_BLASTER_CONSTANTS = {
   BASEPLATE: {
     HEIGHT: 4,
-    SIZE_MULTIPLIER: 1.5,
+    SIZE_MULTIPLIER: 1,
     COLOR: new Color3(0.5, 0.7, 1), // Light blue
     TRANSPARENCY: 0.5, // 50% transparent
   },
@@ -37,9 +37,10 @@ export interface GraphBlasterLayoutConfig {
   parent: Instance;
 }
 
-export function graphBlasterLayoutMaker(
-  config: GraphBlasterLayoutConfig
-): { layoutModel: Model; rubixCubeService: RubixCubeService } {
+export function graphBlasterLayoutMaker(config: GraphBlasterLayoutConfig): {
+  layoutModel: Model;
+  rubixCubeService: RubixCubeService;
+} {
   const { origin, rubixCubeProps, parent } = config;
 
   // Create Graph Blaster folder
@@ -54,14 +55,14 @@ export function graphBlasterLayoutMaker(
 
   // Create rubix cube service
   const rubixCubeService = new RubixCubeService();
-  
+
   // Create rubix cube config
   const rubixConfig: RubixConfig = {
     numBlocks: rubixCubeProps.numBlocks,
     blockSize: rubixCubeProps.blockSize,
     edgeColor: GRAPH_BLASTER_CONSTANTS.RUBIX_CUBE.EDGE_COLOR,
   };
-  
+
   // Calculate rubix cube size to properly position it
   const rubixCubeSize = rubixCubeService.calculateSize(rubixConfig);
 
@@ -82,13 +83,15 @@ export function graphBlasterLayoutMaker(
     nameSuffix: "main",
     transparency: GRAPH_BLASTER_CONSTANTS.BASEPLATE.TRANSPARENCY,
   });
-  
+
   // Calculate positions based on new order
   const baseplateTop = origin.Y + baseplateHeight / 2;
-  const shadowBottom = baseplateTop + GRAPH_BLASTER_CONSTANTS.SHADOW.Y_OFFSET_FROM_BASEPLATE_TOP;
+  const shadowBottom =
+    baseplateTop + GRAPH_BLASTER_CONSTANTS.SHADOW.Y_OFFSET_FROM_BASEPLATE_TOP;
   const shadowTop = shadowBottom + GRAPH_BLASTER_CONSTANTS.SHADOW.HEIGHT;
-  const rubixCubeBottom = shadowTop + GRAPH_BLASTER_CONSTANTS.RUBIX_CUBE.Y_OFFSET_FROM_SHADOW_TOP;
-  
+  const rubixCubeBottom =
+    shadowTop + GRAPH_BLASTER_CONSTANTS.RUBIX_CUBE.Y_OFFSET_FROM_SHADOW_TOP;
+
   // Calculate rubix cube position (centered at proper height)
   const rubixCubeOrigin = new Vector3(
     origin.X,
@@ -99,9 +102,10 @@ export function graphBlasterLayoutMaker(
   // Generate data and render rubix cube
   rubixCubeService.generateData(rubixCubeOrigin, rubixConfig);
   rubixCubeService.render(layoutModel);
-  
+
   // Create shadow grid at the correct position (shadowBottom + half height for center)
-  const shadowCenterY = shadowBottom + GRAPH_BLASTER_CONSTANTS.SHADOW.HEIGHT / 2;
+  const shadowCenterY =
+    shadowBottom + GRAPH_BLASTER_CONSTANTS.SHADOW.HEIGHT / 2;
   rubixCubeService.createShadowGrid(undefined, shadowCenterY);
 
   return { layoutModel, rubixCubeService };
