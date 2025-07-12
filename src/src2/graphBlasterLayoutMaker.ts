@@ -65,24 +65,20 @@ export function graphBlasterLayoutMaker(
   // Calculate rubix cube size to properly position it
   const rubixCubeSize = rubixCubeService.calculateSize(rubixConfig);
 
-  // Calculate total rubix cube dimensions for baseplate
-  const totalWidth = rubixCubeProps.blockSize.x * rubixCubeProps.numBlocks.x;
-  const totalDepth = rubixCubeProps.blockSize.z * rubixCubeProps.numBlocks.z;
-
-  // Calculate baseplate dimensions (rubixCube total size * 1.1)
+  // Calculate baseplate dimensions based on actual rubix cube size (including spacing)
   const baseplateWidth =
-    totalWidth * GRAPH_BLASTER_CONSTANTS.BASEPLATE.SIZE_MULTIPLIER;
+    rubixCubeSize.width * GRAPH_BLASTER_CONSTANTS.BASEPLATE.SIZE_MULTIPLIER;
   const baseplateHeight = GRAPH_BLASTER_CONSTANTS.BASEPLATE.HEIGHT;
   const baseplateDepth =
-    totalDepth * GRAPH_BLASTER_CONSTANTS.BASEPLATE.SIZE_MULTIPLIER;
+    rubixCubeSize.depth * GRAPH_BLASTER_CONSTANTS.BASEPLATE.SIZE_MULTIPLIER;
 
-  // Create baseplate
+  // Create foundation
   makeBlock({
     position: origin,
     size: new Vector3(baseplateWidth, baseplateHeight, baseplateDepth),
     parent: layoutModel,
     color: GRAPH_BLASTER_CONSTANTS.BASEPLATE.COLOR,
-    nameStub: "baseplate",
+    nameStub: "foundation",
     nameSuffix: "main",
     transparency: GRAPH_BLASTER_CONSTANTS.BASEPLATE.TRANSPARENCY,
   });
