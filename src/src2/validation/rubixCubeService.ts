@@ -33,17 +33,6 @@ interface CubeData extends Omit<IBlockMakerConfig, "parent"> {
 
 type CubeDataArray = CubeData[][][];
 
-const labelProps = {
-  TextColor3: new Color3(0, 0, 0), // Black text
-  TextScaled: false,
-  TextSize: 24,
-  AnchorPoint: new Vector2(1, 0), // Right, Top anchor
-  Position: new UDim2(1, -5, 0, 5), // Upper right with 5px padding
-  Size: new UDim2(0.2, 0, 0.2, 0), // 20% of face size (50% of 40%)
-  BackgroundColor3: new Color3(1, 1, 1), // White background
-  BackgroundTransparency: 0, // Fully opaque
-  BorderSizePixel: 5, // 50% of default 10
-};
 
 const SHADOW_CONSTANTS = {
   Y_OFFSET: 5, // 5 units beneath rubix cube bottom
@@ -58,12 +47,14 @@ export class RubixCubeService {
   private cubeData?: CubeDataArray;
   private config?: RubixConfig;
   private model?: Model;
+  private origin?: Vector3;
 
   /**
    * Generate cube data based on configuration
    */
   public generateData(origin: Vector3, config: RubixConfig): CubeDataArray {
     this.config = config;
+    this.origin = origin;
     
     const numBlocks = config.numBlocks;
     const blockSize = config.blockSize || { x: 10, y: 5, z: 10 };
@@ -127,12 +118,6 @@ export class RubixCubeService {
     return this.cubeData;
   }
 
-  /**
-   * Get current configuration
-   */
-  public getConfig(): RubixConfig | undefined {
-    return this.config;
-  }
 
   /**
    * Calculate the total size of the rubix cube
@@ -176,43 +161,8 @@ export class RubixCubeService {
     rubixCube.Parent = parent;
     this.model = rubixCube;
 
-    const edgeColor = this.config.edgeColor || new Color3(0, 0, 0);
-    
-    // Render blocks from data
-    for (let y = 0; y < this.cubeData.size(); y++) {
-      const layer = new Instance("Model");
-      layer.Name = `Layer-y-${string.format("%02d", y + 1)}`;
-      layer.Parent = rubixCube;
-
-      for (let z = 0; z < this.cubeData[y].size(); z++) {
-        const row = new Instance("Model");
-        row.Name = `Row-y-${string.format("%02d", y + 1)}-z-${string.format(
-          "%02d",
-          z + 1
-        )}`;
-        row.Parent = layer;
-
-        for (let x = 0; x < this.cubeData[y][z].size(); x++) {
-          const data = this.cubeData[y][z][x];
-          wireframeBlockMaker({
-            ...data,
-            parent: row,
-            transparency: 1, // Fully transparent
-            edgeWidth: 0.1,
-            edgeBlockColor: edgeColor,
-            labelProps,
-            overrideProps: {
-              mainBlock: {
-                transparency: 0.5, // 50% transparent
-              },
-              edges: {
-                transparency: 0.9, // 90% transparent
-              },
-            },
-          });
-        }
-      }
-    }
+    // Skip rendering the actual cube blocks - we only need the data for positioning
+    // The rubixCube model will just be an empty container for the person nodes
 
     return rubixCube;
   }
@@ -315,7 +265,7 @@ export class RubixCubeService {
       const shadowPosition = new Vector3(shadowX, shadowYPosition, shadowZ);
       const shadowSize = new Vector3(shadowLength, SHADOW_CONSTANTS.HEIGHT, shadowWidth);
       
-      // Create X-parallel shadow block
+      // Create X-parallel shadow block with side panels
       wireframeBlockMaker({
         position: shadowPosition,
         size: shadowSize,
@@ -326,6 +276,19 @@ export class RubixCubeService {
         color: SHADOW_CONSTANTS.COLOR,
         edgeWidth: 0.1,
         edgeBlockColor: SHADOW_CONSTANTS.EDGE_COLOR,
+        panels: {
+          front: true,  // Z+ side
+          back: true,   // Z- side
+          left: true,   // X- side
+          right: true,  // X+ side
+          top: false,   // No top panel
+          bottom: false // No bottom panel
+        },
+        panelProps: {
+          transparency: 0,
+          color: SHADOW_CONSTANTS.EDGE_COLOR, // Match edge color
+          thickness: 0.1, // Same as edgeWidth
+        },
       });
     }
     
@@ -350,7 +313,7 @@ export class RubixCubeService {
       const shadowPosition = new Vector3(shadowX, shadowYPosition, shadowZ);
       const shadowSize = new Vector3(shadowWidth, SHADOW_CONSTANTS.HEIGHT, shadowLength);
       
-      // Create Z-parallel shadow block
+      // Create Z-parallel shadow block with side panels
       wireframeBlockMaker({
         position: shadowPosition,
         size: shadowSize,
@@ -361,6 +324,19 @@ export class RubixCubeService {
         color: SHADOW_CONSTANTS.COLOR,
         edgeWidth: 0.1,
         edgeBlockColor: SHADOW_CONSTANTS.EDGE_COLOR,
+        panels: {
+          front: true,  // Z+ side
+          back: true,   // Z- side
+          left: true,   // X- side
+          right: true,  // X+ side
+          top: false,   // No top panel
+          bottom: false // No bottom panel
+        },
+        panelProps: {
+          transparency: 0,
+          color: SHADOW_CONSTANTS.EDGE_COLOR, // Match edge color
+          thickness: 0.1, // Same as edgeWidth
+        },
       });
     }
     
@@ -584,10 +560,26 @@ export class RubixCubeService {
   public clear(): void {
     this.cubeData = undefined;
     this.config = undefined;
+    this.origin = undefined;
     if (this.model) {
       this.model.Destroy();
       this.model = undefined;
     }
+  }
+
+
+  /**
+   * Get the current configuration
+   */
+  public getConfig(): RubixConfig | undefined {
+    return this.config;
+  }
+
+  /**
+   * Get the origin position
+   */
+  public getOrigin(): Vector3 | undefined {
+    return this.origin;
   }
 }
 

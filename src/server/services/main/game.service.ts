@@ -8,7 +8,7 @@ import { wireframeBlockMaker } from "../../../src2/validation/wireframeBlockMake
 import { graphBlasterLayoutMaker } from "../../../src2/graphBlasterLayoutMaker";
 import { DataGeneratorService } from "../../../src2/services/dataGeneration/dataGenerator.service";
 import { GraphBlasterDataMapperService } from "../../../src2/services/graphBlaster/graphBlasterDataMapper.service";
-import { GraphBlasterVisualizerService } from "../../../src2/services/graphBlaster/graphBlasterVisualizer.service";
+import { GraphBlasterNodePlacerService } from "../../../src2/services/graphBlaster/graphBlasterNodePlacer.service";
 
 // Origin configuration for 3D positioning
 const ORIGIN = {
@@ -246,17 +246,38 @@ export class GameService extends BaseService {
       
       // Create service instances
       const dataMapper = new GraphBlasterDataMapperService();
-      const visualizer = new GraphBlasterVisualizerService(dataMapper);
+      const nodePlacer = new GraphBlasterNodePlacerService(dataMapper);
       
       // Use the generated data
       const dataGenerator = new DataGeneratorService();
       const data = dataGenerator.generateSampleData();
       
-      // Create visualization at a different location
-      const graphBlasterOrigin = new Vector3(ORIGIN.x + 150, ORIGIN.y + 30, ORIGIN.z);
-      visualizer.visualize(data.persons, this.myStuffFolder, graphBlasterOrigin);
+      // Analyze the data to get unique counts
+      const config = dataMapper.analyzeData(data.persons);
       
-      print("GraphBlaster visualization created with " + data.persons.size() + " persons");
+      // Create GraphBlaster layout with dynamic sizing based on data
+      const gbLayout = graphBlasterLayoutMaker({
+        origin: new Vector3(ORIGIN.x + 150, ORIGIN.y, ORIGIN.z),
+        rubixCubeProps: {
+          numBlocks: {
+            x: config.uniqueCounts.x,
+            y: config.uniqueCounts.y,
+            z: config.uniqueCounts.z,
+          },
+          blockSize: {
+            x: 10,
+            y: 4,
+            z: 10,
+          },
+        },
+        parent: this.myStuffFolder,
+      });
+      
+      print("Created GraphBlaster layout with dimensions: " + 
+        config.uniqueCounts.x + "x" + config.uniqueCounts.y + "x" + config.uniqueCounts.z);
+        
+      // Place person nodes within the rubix cube
+      nodePlacer.placeNodes(data.persons, gbLayout.rubixCubeService, gbLayout.layoutModel);
     }
   }
 

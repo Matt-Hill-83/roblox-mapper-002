@@ -32,25 +32,11 @@ export const DATA_POOLS = {
   ],
   
   COUNTRIES: [
-    "United States", "United Kingdom", "Canada", "Australia", "Germany", "France",
-    "Spain", "Italy", "Netherlands", "Sweden", "Norway", "Denmark", "Finland",
-    "Switzerland", "Belgium", "Austria", "Ireland", "Portugal", "Greece", "Poland",
-    "Czech Republic", "Romania", "Hungary", "Bulgaria", "Croatia", "Serbia", "Slovenia",
-    "Slovakia", "Estonia", "Latvia", "Lithuania", "Japan", "South Korea", "China",
-    "India", "Singapore", "Malaysia", "Thailand", "Indonesia", "Philippines", "Vietnam",
-    "Brazil", "Argentina", "Chile", "Colombia", "Peru", "Ecuador", "Uruguay",
-    "Mexico", "Costa Rica", "Panama", "New Zealand", "South Africa", "Israel",
-    "United Arab Emirates", "Saudi Arabia", "Egypt", "Morocco", "Kenya", "Nigeria"
+    "United States", "Brazil", "Japan", "Germany"
   ],
   
   PET_TYPES: [
-    "Dog", "Cat", "Fish", "Bird", "Hamster", "Rabbit", "Guinea Pig", "Turtle",
-    "Lizard", "Snake", "Ferret", "Parrot", "Canary", "Goldfish", "Horse",
-    "Chicken", "Duck", "Goose", "Pig", "Sheep", "Goat", "Cow", "Mouse",
-    "Rat", "Gerbil", "Chinchilla", "Hedgehog", "Sugar Glider", "Tarantula", "Gecko",
-    "Iguana", "Bearded Dragon", "Python", "Cockatiel", "Budgie", "Lovebird", "Finch",
-    "Parakeet", "Cockatoo", "Macaw", "Conure", "African Grey", "Axolotl", "Frog",
-    "Salamander", "Newt", "Hermit Crab", "Ant Farm", "Butterfly", "Praying Mantis"
+    "Dog", "Cat", "Fish", "Bird"
   ],
   
   CITIES: [

@@ -81,7 +81,7 @@ export class DataGeneratorService {
     countries: Country[]; 
     relationships: { person1: string; person2: string; type: string }[] 
   } {
-    const data = this.generateData(50, 20); // 50 people, 20 countries
+    const data = this.generateData(100, 20); // 100 people, 20 countries
     const relationships = this.generateRelationships(data.persons);
     
     return {

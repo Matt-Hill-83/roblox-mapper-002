@@ -10,6 +10,11 @@ export interface GraphBlasterConfig {
   xAxis: PropertyMapping;
   yAxis: PropertyMapping;
   zAxis: PropertyMapping;
+  uniqueCounts: {
+    x: number;
+    y: number;
+    z: number;
+  };
 }
 
 export class GraphBlasterDataMapperService {
@@ -38,31 +43,36 @@ export class GraphBlasterDataMapperService {
       countryCounts.set(person.country, countryCount + 1);
     });
 
-    // Get top 5 for each property
-    const topPetTypes = this.getTopValues(petTypeCounts, 5);
-    const topCountriesLivesIn = this.getTopValues(countryLivesInCounts, 5);
-    const topCountries = this.getTopValues(countryCounts, 5);
+    // Get all unique values (not just top 5)
+    const allPetTypes = this.getAllValues(petTypeCounts);
+    const allCountriesLivesIn = this.getAllValues(countryLivesInCounts);
+    const allCountries = this.getAllValues(countryCounts);
 
-    // Create mappings
+    // Create mappings with all values
     this.config = {
-      xAxis: this.createPropertyMapping("petType", topPetTypes),
-      yAxis: this.createPropertyMapping("countryLivesIn", topCountriesLivesIn),
-      zAxis: this.createPropertyMapping("country", topCountries),
+      xAxis: this.createPropertyMapping("petType", allPetTypes),
+      yAxis: this.createPropertyMapping("countryLivesIn", allCountriesLivesIn),
+      zAxis: this.createPropertyMapping("country", allCountries),
+      uniqueCounts: {
+        x: allPetTypes.size(),
+        y: allCountriesLivesIn.size(),
+        z: allCountries.size(),
+      },
     };
 
     // Print analysis results
     print("=== GraphBlaster Data Analysis ===");
-    print(`Top 5 Pet Types: ${topPetTypes.join(", ")}`);
-    print(`Top 5 Countries (Lives In): ${topCountriesLivesIn.join(", ")}`);
-    print(`Top 5 Countries: ${topCountries.join(", ")}`);
+    print(`Unique Pet Types: ${allPetTypes.size()} - ${allPetTypes.join(", ")}`);
+    print(`Unique Countries (Lives In): ${allCountriesLivesIn.size()} - ${allCountriesLivesIn.join(", ")}`);
+    print(`Unique Countries: ${allCountries.size()} - ${allCountries.join(", ")}`);
 
     return this.config;
   }
 
   /**
-   * Gets the top N values from a count map
+   * Gets all unique values from a count map, sorted by frequency
    */
-  private getTopValues(counts: Map<string, number>, topN: number): string[] {
+  private getAllValues(counts: Map<string, number>): string[] {
     const entries: [string, number][] = [];
     counts.forEach((count, value) => {
       entries.push([value, count]);
@@ -71,30 +81,30 @@ export class GraphBlasterDataMapperService {
     // Sort by count descending
     table.sort(entries, (a, b) => b[1] > a[1]);
 
-    // Get top N values
-    const topValues: string[] = [];
-    for (let i = 0; i < math.min(topN, entries.size()); i++) {
-      topValues.push(entries[i][0]);
-    }
+    // Return all values
+    const allValues: string[] = [];
+    entries.forEach(entry => {
+      allValues.push(entry[0]);
+    });
 
-    return topValues;
+    return allValues;
   }
+
 
   /**
    * Creates a property mapping with value-to-index lookup
    */
-  private createPropertyMapping(property: string, topValues: string[]): PropertyMapping {
+  private createPropertyMapping(property: string, allValues: string[]): PropertyMapping {
     const valueToIndex = new Map<string, number>();
-    const values = [...topValues, "Other"];
 
-    // Map top values to indices 0-4
-    topValues.forEach((value, index) => {
+    // Map all values to indices
+    allValues.forEach((value, index) => {
       valueToIndex.set(value, index);
     });
 
     return {
       property,
-      values,
+      values: allValues,
       valueToIndex,
     };
   }
@@ -122,8 +132,8 @@ export class GraphBlasterDataMapperService {
     if (index !== undefined) {
       return index;
     }
-    // If not in top 5, return index for "Other" (last position)
-    return axis.values.size() - 1;
+    // This shouldn't happen since we're mapping all values now
+    error(`Value "${value}" not found in axis mapping`);
   }
 
   /**

@@ -167,10 +167,10 @@ export function graphBlasterLayoutMaker(config: GraphBlasterLayoutConfig): {
       edgeBlockColor: new Color3(0.7, 0.85, 1), // Lighter blue edges
     });
     
-    // Set CanCollide to true on XYWall main block
+    // Set CanCollide to false on XYWall main block
     const xyWallMainBlock = xyWallModel.FindFirstChild("XYWall-main") as Part;
     if (xyWallMainBlock) {
-      xyWallMainBlock.CanCollide = true;
+      xyWallMainBlock.CanCollide = false;
     }
     
     // ZYWall - runs along Z axis, parallel to Y axis (at negative X edge)
@@ -190,10 +190,10 @@ export function graphBlasterLayoutMaker(config: GraphBlasterLayoutConfig): {
       edgeBlockColor: new Color3(0.7, 0.85, 1), // Lighter blue edges
     });
     
-    // Set CanCollide to true on ZYWall main block
+    // Set CanCollide to false on ZYWall main block
     const zyWallMainBlock = zyWallModel.FindFirstChild("ZYWall-main") as Part;
     if (zyWallMainBlock) {
-      zyWallMainBlock.CanCollide = true;
+      zyWallMainBlock.CanCollide = false;
     }
     
     // Create shadow projections on the XY wall (back wall)
