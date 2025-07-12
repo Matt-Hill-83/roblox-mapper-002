@@ -146,9 +146,9 @@ export class GameService extends BaseService {
       origin: new Vector3(ORIGIN.x - 50, ORIGIN.y - 4, ORIGIN.z - 40),
       rubixCubeProps: {
         blockSize: {
-          x: 10,
+          x: 24,
           y: 5,
-          z: 8,
+          z: 32,
         },
         numBlocks: {
           x: 3,
@@ -165,26 +165,26 @@ export class GameService extends BaseService {
     if (cubeData) {
       print(`Generated cube data with ${cubeData.size()} layers`);
     }
-    
+
     // Test data generation (T2.4)
     if (true) {
       print("=== Testing Data Generation ===");
       const dataGenerator = new DataGeneratorService();
-      
+
       // Create a folder for generated data
       const dataFolder = new Instance("Folder");
       dataFolder.Name = "GeneratedData";
       dataFolder.Parent = this.myStuffFolder;
-      
+
       // Generate and save sample data
       const exportFolder = dataGenerator.generateAndSaveSampleData(dataFolder);
       print(`Data exported to: ${exportFolder.GetFullName()}`);
     }
-    
+
     // Test wireframe panels (T17)
     if (true) {
       print("=== Testing Wireframe Panels ===");
-      
+
       // Create a wireframe block with panels
       wireframeBlockMaker({
         position: new Vector3(ORIGIN.x + 70, ORIGIN.y + 10, ORIGIN.z),
@@ -208,9 +208,9 @@ export class GameService extends BaseService {
           thickness: 0.5,
         },
       });
-      
+
       print("Created wireframe block with panels");
-      
+
       // Create another wireframe block with only vertical wall panels
       wireframeBlockMaker({
         position: new Vector3(ORIGIN.x + 100, ORIGIN.y + 10, ORIGIN.z),
@@ -221,11 +221,11 @@ export class GameService extends BaseService {
         edgeBlockColor: new Color3(0.2, 0.2, 0.2), // Dark gray edges
         transparency: 0.9, // Very transparent main block
         panels: {
-          front: true,   // Vertical wall
-          back: true,    // Vertical wall
-          left: true,    // Vertical wall
-          right: true,   // Vertical wall
-          top: false,    // Not a vertical wall
+          front: true, // Vertical wall
+          back: true, // Vertical wall
+          left: true, // Vertical wall
+          right: true, // Vertical wall
+          top: false, // Not a vertical wall
           bottom: false, // Not a vertical wall
         },
         panelProps: {
@@ -234,7 +234,7 @@ export class GameService extends BaseService {
           thickness: 0.3,
         },
       });
-      
+
       print("Created wireframe block with vertical wall panels only");
     }
   }

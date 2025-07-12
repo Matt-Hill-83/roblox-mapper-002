@@ -4,7 +4,7 @@
 
 1. ⬛ Data Generation Engine GUI
     1. ⬛ Number of records control
-    2. ⬛ Unique values per property control
+    2. ⬛ Number of Unique values per property control
     3. ⬛ Live data preview table (1 row)
 2. ⬛ Structure Layout Engine GUI
     1. ⬛ Placeholder interface for future layout controls

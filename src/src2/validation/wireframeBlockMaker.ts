@@ -271,14 +271,24 @@ export function wireframeBlockMaker(config: WireframeBlockConfig): Model {
     panelsModel.Name = "Panels";
     panelsModel.Parent = mainBlock;
     
-    const panelThickness = panelProps.thickness || 1;
+    const panelThickness = (panelProps.thickness || 1) + Z_FIGHTING_OFFSET;
     const panelColor = panelProps.color || new Color3(0.5, 0.5, 0.5);
     const panelTransparency = panelProps.transparency ?? 0.8;
     
-    // Calculate panel sizes accounting for edge thickness
-    const innerX = sizeVec.X - (edgeThickness * 2);
-    const innerY = sizeVec.Y - (edgeThickness * 2);
-    const innerZ = sizeVec.Z - (edgeThickness * 2);
+    // Calculate panel sizes - panels should fit inside the edges
+    // The edges are positioned at halfSize - halfThickness, so the inner face is at halfSize - edgeThickness
+    // Panels need to fit within this inner space
+    const panelSizeX = sizeVec.X - (edgeThickness * 2);
+    const panelSizeY = sizeVec.Y - (edgeThickness * 2);
+    const panelSizeZ = sizeVec.Z - (edgeThickness * 2);
+    
+    // Debug print statements
+    print("=== PANEL DEBUG ===");
+    print(`Block size: X=${sizeVec.X}, Y=${sizeVec.Y}, Z=${sizeVec.Z}`);
+    print(`Edge thickness: ${edgeThickness}`);
+    print(`Panel thickness: ${panelThickness}`);
+    print(`Panel sizes: X=${panelSizeX}, Y=${panelSizeY}, Z=${panelSizeZ}`);
+    print(`Half dimensions: halfX=${halfX}, halfY=${halfY}, halfZ=${halfZ}`);
     
     // Helper function to create a panel
     function createPanel(
@@ -286,6 +296,7 @@ export function wireframeBlockMaker(config: WireframeBlockConfig): Model {
       panelSize: Vector3,
       panelName: string
     ): void {
+      print(`Creating ${panelName} panel at: ${panelPos}, size: ${panelSize}`);
       const panel = makeBlock({
         position: panelPos,
         size: panelSize,
@@ -307,50 +318,64 @@ export function wireframeBlockMaker(config: WireframeBlockConfig): Model {
     }
     
     // Create panels based on configuration
+    // Panels should be positioned so their inner face is flush with the inner edge of the wireframe
+    // The panel needs to be pushed outward so it aligns with the frame
     if (panels.front) {
+      const zPos = halfZ - panelThickness / 2;
+      print(`Front panel Z position: ${zPos} (halfZ=${halfZ}, edgeThickness=${edgeThickness})`);
       createPanel(
-        position.add(new Vector3(0, 0, halfZ - panelThickness / 2 - edgeThickness)),
-        new Vector3(innerX, innerY, panelThickness),
+        position.add(new Vector3(0, 0, zPos)),
+        new Vector3(panelSizeX, panelSizeY, panelThickness),
         "front"
       );
     }
     
     if (panels.back) {
+      const zPos = -halfZ + panelThickness / 2;
+      print(`Back panel Z position: ${zPos} (halfZ=${halfZ}, edgeThickness=${edgeThickness})`);
       createPanel(
-        position.add(new Vector3(0, 0, -halfZ + panelThickness / 2 + edgeThickness)),
-        new Vector3(innerX, innerY, panelThickness),
+        position.add(new Vector3(0, 0, zPos)),
+        new Vector3(panelSizeX, panelSizeY, panelThickness),
         "back"
       );
     }
     
     if (panels.left) {
+      const xPos = -halfX + panelThickness / 2;
+      print(`Left panel X position: ${xPos} (halfX=${halfX}, edgeThickness=${edgeThickness})`);
       createPanel(
-        position.add(new Vector3(-halfX + panelThickness / 2 + edgeThickness, 0, 0)),
-        new Vector3(panelThickness, innerY, innerZ),
+        position.add(new Vector3(xPos, 0, 0)),
+        new Vector3(panelThickness, panelSizeY, panelSizeZ),
         "left"
       );
     }
     
     if (panels.right) {
+      const xPos = halfX - panelThickness / 2;
+      print(`Right panel X position: ${xPos} (halfX=${halfX}, edgeThickness=${edgeThickness})`);
       createPanel(
-        position.add(new Vector3(halfX - panelThickness / 2 - edgeThickness, 0, 0)),
-        new Vector3(panelThickness, innerY, innerZ),
+        position.add(new Vector3(xPos, 0, 0)),
+        new Vector3(panelThickness, panelSizeY, panelSizeZ),
         "right"
       );
     }
     
     if (panels.top) {
+      const yPos = halfY - panelThickness / 2;
+      print(`Top panel Y position: ${yPos} (halfY=${halfY}, edgeThickness=${edgeThickness})`);
       createPanel(
-        position.add(new Vector3(0, halfY - panelThickness / 2 - edgeThickness, 0)),
-        new Vector3(innerX, panelThickness, innerZ),
+        position.add(new Vector3(0, yPos, 0)),
+        new Vector3(panelSizeX, panelThickness, panelSizeZ),
         "top"
       );
     }
     
     if (panels.bottom) {
+      const yPos = -halfY + panelThickness / 2;
+      print(`Bottom panel Y position: ${yPos} (halfY=${halfY}, edgeThickness=${edgeThickness})`);
       createPanel(
-        position.add(new Vector3(0, -halfY + panelThickness / 2 + edgeThickness, 0)),
-        new Vector3(innerX, panelThickness, innerZ),
+        position.add(new Vector3(0, yPos, 0)),
+        new Vector3(panelSizeX, panelThickness, panelSizeZ),
         "bottom"
       );
     }
