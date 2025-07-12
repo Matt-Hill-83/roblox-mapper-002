@@ -66,5 +66,11 @@ export interface IBlockMakerConfig extends IVisualMakerConfig {
     top?: string;
     bottom?: string;
   };
+  
+  /** Optional background transparency for labels */
+  labelBackgroundTransparency?: number;
+  
+  /** Optional label property overrides */
+  labelProps?: Partial<TextLabel>;
 }
 

@@ -1,4 +1,4 @@
-import { makeBlock } from "./blockMaker/index";
+import { wireframeBlockMaker } from "./wireframeBlockMaker";
 import { IBlockMakerConfig } from "./blockMaker/standardizedInterfaces";
 
 export interface InitCube {
@@ -46,6 +46,8 @@ function generateCubeData(origin: Vector3, cubeSize: number, spacing: number): C
             top: multiLineLabel,
             bottom: multiLineLabel,
           },
+          labelBackgroundTransparency: 0, // Fully opaque background for labels
+          backgroundColor: new Color3(1, 1, 1), // White background
         };
       }
     }
@@ -67,9 +69,23 @@ function renderBlocks(cubeData: CubeDataArray, parent: Instance): void {
       
       for (let x = 0; x < 3; x++) {
         const data = cubeData[y][z][x];
-        makeBlock({
+        wireframeBlockMaker({
           ...data,
           parent: row,
+          transparency: 0.8,
+          edgeWidth: 0.5,
+          edgeBlockColor: new Color3(0, 0, 0), // Black
+          labelProps: {
+            TextColor3: new Color3(0, 0, 0), // Black text
+            TextScaled: false,
+            TextSize: 24,
+            AnchorPoint: new Vector2(1, 0), // Right, Top anchor
+            Position: new UDim2(1, -5, 0, 5), // Upper right with 5px padding
+            Size: new UDim2(0.2, 0, 0.2, 0), // 20% of face size (50% of 40%)
+            BackgroundColor3: new Color3(1, 1, 1), // White background
+            BackgroundTransparency: 0, // Fully opaque
+            BorderSizePixel: 5, // 50% of default 10
+          },
         });
       }
     }

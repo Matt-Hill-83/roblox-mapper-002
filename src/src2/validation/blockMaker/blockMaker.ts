@@ -52,6 +52,8 @@ export function makeBlock(config: IBlockMakerConfig): Part {
     nameSuffix,
     nameStub = "rx",
     labels,
+    labelBackgroundTransparency,
+    labelProps,
   } = config;
 
   const blockLength = typeIs(size, "Vector3") ? size.Z : size[2];
@@ -102,65 +104,25 @@ export function makeBlock(config: IBlockMakerConfig): Part {
   if (labels) {
     const blockColor = typeIs(color, "Color3") ? color : new Color3(color[0], color[1], color[2]);
     
-    if (labels.front) {
+    // Helper to create label with common properties
+    const createLabel = (face: Enum.NormalId, text: string) => {
       createTextLabel({
         part: block,
-        face: Enum.NormalId.Front,
-        text: labels.front,
+        face: face,
+        text: text,
         backgroundColor: blockColor,
         textColor: new Color3(1, 1, 1),
+        backgroundTransparency: labelBackgroundTransparency,
+        labelProps: labelProps,
       });
-    }
+    };
     
-    if (labels.back) {
-      createTextLabel({
-        part: block,
-        face: Enum.NormalId.Back,
-        text: labels.back,
-        backgroundColor: blockColor,
-        textColor: new Color3(1, 1, 1),
-      });
-    }
-    
-    if (labels.left) {
-      createTextLabel({
-        part: block,
-        face: Enum.NormalId.Left,
-        text: labels.left,
-        backgroundColor: blockColor,
-        textColor: new Color3(1, 1, 1),
-      });
-    }
-    
-    if (labels.right) {
-      createTextLabel({
-        part: block,
-        face: Enum.NormalId.Right,
-        text: labels.right,
-        backgroundColor: blockColor,
-        textColor: new Color3(1, 1, 1),
-      });
-    }
-    
-    if (labels.top) {
-      createTextLabel({
-        part: block,
-        face: Enum.NormalId.Top,
-        text: labels.top,
-        backgroundColor: blockColor,
-        textColor: new Color3(1, 1, 1),
-      });
-    }
-    
-    if (labels.bottom) {
-      createTextLabel({
-        part: block,
-        face: Enum.NormalId.Bottom,
-        text: labels.bottom,
-        backgroundColor: blockColor,
-        textColor: new Color3(1, 1, 1),
-      });
-    }
+    if (labels.front) createLabel(Enum.NormalId.Front, labels.front);
+    if (labels.back) createLabel(Enum.NormalId.Back, labels.back);
+    if (labels.left) createLabel(Enum.NormalId.Left, labels.left);
+    if (labels.right) createLabel(Enum.NormalId.Right, labels.right);
+    if (labels.top) createLabel(Enum.NormalId.Top, labels.top);
+    if (labels.bottom) createLabel(Enum.NormalId.Bottom, labels.bottom);
   }
 
   // Set parent if provided

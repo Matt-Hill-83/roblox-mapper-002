@@ -6,6 +6,8 @@ interface TextLabelConfig {
   backgroundColor?: Color3;
   borderColor?: Color3;
   textColor?: Color3;
+  backgroundTransparency?: number;
+  labelProps?: Partial<TextLabel>; // Arbitrary prop overrides
 }
 
 export function createTextLabel({
@@ -16,6 +18,8 @@ export function createTextLabel({
   backgroundColor,
   borderColor,
   textColor,
+  backgroundTransparency,
+  labelProps,
 }: TextLabelConfig): TextLabel {
   // Create the SurfaceGui
   const surfaceGui = new Instance("SurfaceGui");
@@ -36,11 +40,20 @@ export function createTextLabel({
   textLabel.Font = Enum.Font.SourceSans;
   textLabel.Size = new UDim2(1, 0, 1, 0);
   textLabel.BackgroundColor3 = bgColor;
+  textLabel.BackgroundTransparency = backgroundTransparency !== undefined ? backgroundTransparency : 0;
   textLabel.TextColor3 = textColor || new Color3(0, 0, 0);
   textLabel.BorderSizePixel = 10; // No border on hex labels
   textLabel.BorderColor3 = borderColor || new Color3(0, 0, 0);
   textLabel.BorderMode = Enum.BorderMode.Inset; // Keep border inside the TextLabel bounds
   textLabel.TextWrapped = true; // Allow wrapping in addition to scaling
+  
+  // Apply any custom label property overrides
+  if (labelProps) {
+    for (const [key, value] of pairs(labelProps)) {
+      (textLabel as any)[key] = value;
+    }
+  }
+  
   textLabel.Parent = surfaceGui;
 
   return textLabel;
