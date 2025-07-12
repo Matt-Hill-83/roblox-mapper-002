@@ -1,0 +1,328 @@
+= Graph Blaster Feature Planning Template
+:toc:
+:numbered:
+:sectnums:
+
+[%hardbreaks]
+Just do a Code Audit?: false
+|----------------------------------------------------------------------
+Summary:
+DesignANewGeometricGraphLayout
+We will design a new geometric layout upon which we will overlay graph data feature nodes and links.
+The resulting structures will be rendered in roblox.
+
+|----------------------------------------------------------------------
+Requirements:
+
+. GUIs
+.. Data Generation Engine
+... how many records to create
+... how many unique values per property
+... table showing 1 rows of generated data
+.. Structure Layout Engine
+... TBD 2. create a simple placeholder
+.. Data Linking
+... TBD
+.. Settings GUI
+... asdf
+.. GUI tabbing system
+... create a system where
+.... gui names are listed in a compact format on the lhs of the screen
+.... when you click a gui name, the previous one closes and the new one opens, with a title at the top
+.... default GUI will be Data Generation Engine
+
+. Services
+.. Data Generation Engine
+... Create random json data and write it to an object in a ts file so that it can be read at runtime.
+.... Data Objects
+.... Person (persons)
+.... assign each a guid
+.... properties (chosen randomly from 10 unique choices)
+..... firstName
+..... lastName
+..... country
+..... petType
+..... countryLivesIn (Country)
+..... countryBornIn (Country)
+..... countryWorksIn (Country)
+.... Country
+.... name
+.... isSunny
+.... isWarm
+.... happiness (1-10)
+.... expensive (1-10)
+
+. Structure Layout Engine
+.. TBD
+... Will generate geometric structure within which nodes will be positioned
+
+. Code Structure
+.. contain all code in new folders that do not overlay with existing codebase
+... create a new folder structure with the name src2 for the root. This will later be moved into a clean repo
+... tbd
+.. look at existing codebase and use best practices
+... create a folder system and file structure
+
+. Sample Code
+.. in order to validate the folder structure, have the existing game.service do this:
+... call a function rubixCubeMaker
+.... which calls cubeMaker
+..... which calls blockMaker
+...... make calls labelMaker
+
+|----------------------------------------------------------------------
+
+== Instructions for AI Agent
+
+=== Note to AI Agent
+
+. If Just do a Code Audit? === true, skip the rest of this doc and execute 000-111-CodeAuditPlan.md in the xxx folder.
+.. "____000FeaturePlanningSystem/___internal docs/000-111 - Code Audit/Int-000-01-CodeQualityAudit"
+.. place the results in a new folder. skip the rest of these instructions
+
+. This file is a set of instructions that you will follow in order to help plan a feature.
+. Following the instructions will create a final product that is a folder containing a set of documents that will be used one of more AI agents.
+. Follow each Step.
+.. After you complete the Step, ask the user the User Question provided for that task.
+.. The user will possibly make some edits, and direct you to do the next Step.
+.. Do not perform any Step unless told to.
+.. When told to run this file, assume the Summary and Features above have been updated to reflect current needs.
+.. Output
+... A sample of the final output folder can be found here.
+.... Sample Output:
+.... ./F000-TicTacToe (example)
+.. User Message
+... Hyperlink all file and folder names when outputting the User Message
+... Do not add your own extemporaneous commentary or fluff
+
+|----------------------------------------------------------------------
+
+=== Step 1 - Create Single Spec Document
+
+==== Inputs
+. Summary and Requirements provided above
+
+==== Actions for AI Agent
+. Read Inputs
+. Use the "Spec Building Instructions" below to create output
+. The outputs should be concise and without meaningless filler content
+
+==== Outputs
+. folder that follows the naming conventions in Sample Output
+. files that follow this naming convention
+.. 000-00a-TicTacToe-InitialSpec-001.md
+.. 000-00b-TicTacToe-InitialSpec-001.drawio
+
+==== User Question
+. I have finished Step 1: <step name>
+. I used these Inputs:
+. <Inputs names>
+. to create these Outputs:
+. <output names>
+. Make any changes, ask me to update it, and tell me when you are ready for
+. Step 2 <step name>
+. (or just type "Yes".)
+
+|----------------------------------------------------------------------
+
+=== Step 2 - Break Spec into Smaller Files
+
+==== Inputs
+. Output docs from Step 1. Example: "F000-00-TicTacToe-InitialSpec-001"
+
+==== Actions for AI Agent
+. Read the Inputs and Create the Outputs
+
+==== Outputs
+. Create a folder called: "Revised Spec"
+. Divide the information in the Input doc into the following 3 docs and place them in the new folder
+.. 000-01-Summary.md
+... include ascii representation of gui here
+.. 000--02-Requirements.md
+.. 000-03-Tasks.md
+. (The purpose is to isolate the tasks and make them easier to review and execute)
+. The outputs should be concise and without meaningless filler content
+
+==== User Question
+. I have finished Step 2: <step name>
+. I used these Inputs:
+. <Inputs names>
+. to create these Outputs:
+. <output names>
+. Make any changes, ask me to update it, and tell me when you are ready for
+. Step 3 <step name> (yes)
+
+|----------------------------------------------------------------------
+
+=== Step 3 - Execution
+
+==== Inputs
+. Output docs from previous step.
+
+==== Actions for AI Agent
+. Read the Task List
+. Execute the first task and its sub-tasks
+. If a task fails or cannot be completed, stop and ask the user for next steps.
+. When all subtasks are complete, mark them completed in the Task doc and ask the User Question
+
+==== Outputs
+. Any files created by doing the task
+
+==== User Question
+. I have finished Step 3: <step name>
+. I completed these tasks:
+. <task list>
+. The following files were created:
+. <files list>
+. Shall I commit the changes?
+
+|----------------------------------------------------------------------
+
+=== Step 3 - Commit code
+
+==== Inputs
+. Files Changed by executing tasks
+
+==== Actions for AI Agent
+. Create a commit
+.. Include Feature name and task number in title
+.. Describe changes in body
+.. Do not state that an AI Agent made the commit
+
+==== Outputs
+. none
+
+==== User Question
+. After each commit:
+.. I have committed the changes for <task name>
+.. Shall I execute <task name>?
+. After final commit:
+.. All tasks are committed. Shall I perform a Code Audit?
+
+|----------------------------------------------------------------------
+
+=== Step 4 - Code Audit
+
+==== Inputs
+. None
+
+==== Actions for AI Agent
+. After all tasks are completed and committed, create a doc titled
+.. "F000-04-TicTacToe-CodeAudit-001.md", that contains the following sections
+... Table of files involved in feature
+.... file name
+.... number of lines
+.... is New
+... mermaid diagram showing relationships between all files
+... Quality Audit that identifies any areas where the code can be improved
+... Code Improvement Task List
+
+==== Outputs
+. none
+
+==== User Question
+. I have committed the changes for <task name>
+. Shall I execute <task name>? (yes)
+
+|----------------------------------------------------------------------
+
+== Spec Building Instructions
+
+Use these outline conventions when creating the doc
+
+[source]
+----
+1. ⬛ Cat Breeds
+
+   1. ✅ Long-haired Cats
+      1. ⬛ Persian
+      2. ⬛ Maine Coon
+      3. ⬛ Ragdoll
+   2. ⬛ Short-haired Cats
+      1. ⬛ Siamese
+      2. ⬛ Russian Blue
+      3. ⬛ British Shorthair
+
+2. ⬛ Cat Behavior
+----
+
+== Core Principles
+
+. The design should:
+.. Be as simple as possible
+.. Include only the features necessary to prove the concept
+.. No mock data
+.. Minimal error handling
+.. No tests
+
+== Required Elements
+
+Organize the doc into these sections, in this order:
+
+. Summary
+. Requirements
+.. Each should have a unique number (R1, R2, etc.)
+.. Include References section if needed
+. Task List. Each task described with:
+.. Line item
+.. Unique number
+.. Unchecked checkbox icon
+.. read this doc and follow the conventions: 001-outline-conventions.md
+. List of risks (if any)
+. List of decision points (if any)
+. ASCII representation of GUI
+. Text based file/function tree
+. A mermaid flowchart
+
+== Example Format
+
+=== Feature Name Specification
+
+==== Requirements
+
+. ⬛ Requirements
+.. ⬛ The feature should accomplish X
+.. ⬛ The feature should integrate with Y
+.. ⬛ The feature should respond within Z milliseconds
+
+==== Risks
+
+* Risk 1: Description of potential risk and mitigation strategy
+* Risk 2: Description of another potential risk
+
+==== Decision Points
+
+* Decision 1: Choice made between X and Y approaches because of Z
+* Decision 2: Selected technology A over B because of C requirements
+
+==== ASCII representation of GUI
+
+==== File and Function Structure (ascii)
+
+[source]
+----
+src/
+├── featureName/
+│ ├── featureName.js
+│ │ └── function1()
+│ │ └── function2()
+│ ├── helperModule.js
+│ │ └── helperFunction1()
+│ │ └── helperFunction2()
+----
+
+==== Flowchart
+
+[source,mermaid]
+----
+graph TD
+    %% Main Components
+    MainModule["MainModule.js"]
+    HelperService["HelperService"]
+    DataStore["DataStore"]
+
+    %% Main Flow
+    MainModule -->|initializes| HelperService
+    MainModule -->|creates| DataStore
+    HelperService -->|processes via| DataStore
+----

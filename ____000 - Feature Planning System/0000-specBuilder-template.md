@@ -26,34 +26,34 @@ Requirements:
             3.  default GUI will be Data Generation Engine
 2.  Services
     1.  Data Generation Engine
-    1.  Create random json data and write it to an object in a ts file so that it can be read at runtime.
-    2.  Data Objects
-        1. Person (persons)
-           1. assign each a guid
-           2. properties (chosen randomly from 10 unique choices)
-              1. firstName
-              2. lastName
-              3. country
-              4. petType
-              5. countryLivesIn (Country)
-              6. countryBornIn (Country)
-              7. countryWorksIn (Country)
-        2. Country
-           1. name
-           2. isSunny
-           3. isWarm
-           4. happiness (1-10)
-           5. expensive (1-10)
-4.  Structure Layout Engine
+        1.  Create random json data and write it to an object in a ts file so that it can be read at runtime.
+            1.  Data Objects
+            1.  Person (persons)
+            1.  assign each a guid
+            1.  properties (chosen randomly from 10 unique choices)
+                1.  firstName
+                2.  lastName
+                3.  country
+                4.  petType
+                5.  countryLivesIn (Country)
+                6.  countryBornIn (Country)
+                7.  countryWorksIn (Country)
+            1.  Country
+            1.  name
+            1.  isSunny
+            1.  isWarm
+            1.  happiness (1-10)
+            1.  expensive (1-10)
+3.  Structure Layout Engine
     1.  TBD
         1. Will generate geometric structure within which nodes will be positioned
-5.  Code Structure
+4.  Code Structure
     1.  contain all code in new folders that do not overlay with existing codebase
         1. create a new folder structure with the name src2 for the root. This will later be moved into a clean repo
         2. tbd
     2.  look at existing codebase and use best practices
         1.  create a folder system and file structure
-6.  Sample Code
+5.  Sample Code
     1. in order to validate the folder structure, have the existing game.service do this:
        1. call a function rubixCubeMaker
           1. which calls cubeMaker
