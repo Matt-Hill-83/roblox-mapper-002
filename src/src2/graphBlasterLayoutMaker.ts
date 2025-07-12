@@ -6,9 +6,14 @@ const GRAPH_BLASTER_CONSTANTS = {
     HEIGHT: 4,
     SIZE_MULTIPLIER: 1.5,
     COLOR: new Color3(0.5, 0.7, 1), // Light blue
+    TRANSPARENCY: 0.5, // 50% transparent
+  },
+  SHADOW: {
+    Y_OFFSET_FROM_BASEPLATE_TOP: 0.1, // 0.1 above baseplate top
+    HEIGHT: 1,
   },
   RUBIX_CUBE: {
-    Y_OFFSET_FROM_BASEPLATE_TOP: 1, // 1 unit above baseplate top
+    Y_OFFSET_FROM_SHADOW_TOP: 2, // 2 units above shadow top
     EDGE_COLOR: new Color3(0.68, 0.85, 0.9), // Baby blue
   },
 };
@@ -79,19 +84,29 @@ export function graphBlasterLayoutMaker(
     color: GRAPH_BLASTER_CONSTANTS.BASEPLATE.COLOR,
     nameStub: "baseplate",
     nameSuffix: "main",
-    transparency: 0,
+    transparency: GRAPH_BLASTER_CONSTANTS.BASEPLATE.TRANSPARENCY,
   });
   
-  // Calculate rubix cube position (bottom of cube is 1 unit above baseplate top)
+  // Calculate positions based on new order
+  const baseplateTop = origin.Y + baseplateHeight / 2;
+  const shadowBottom = baseplateTop + GRAPH_BLASTER_CONSTANTS.SHADOW.Y_OFFSET_FROM_BASEPLATE_TOP;
+  const shadowTop = shadowBottom + GRAPH_BLASTER_CONSTANTS.SHADOW.HEIGHT;
+  const rubixCubeBottom = shadowTop + GRAPH_BLASTER_CONSTANTS.RUBIX_CUBE.Y_OFFSET_FROM_SHADOW_TOP;
+  
+  // Calculate rubix cube position (centered at proper height)
   const rubixCubeOrigin = new Vector3(
     origin.X,
-    origin.Y + baseplateHeight / 2 + GRAPH_BLASTER_CONSTANTS.RUBIX_CUBE.Y_OFFSET_FROM_BASEPLATE_TOP + rubixCubeSize.height / 2,
+    rubixCubeBottom + rubixCubeSize.height / 2,
     origin.Z
   );
 
   // Generate data and render rubix cube
   rubixCubeService.generateData(rubixCubeOrigin, rubixConfig);
   rubixCubeService.render(layoutModel);
+  
+  // Create shadow grid at the correct position (shadowBottom + half height for center)
+  const shadowCenterY = shadowBottom + GRAPH_BLASTER_CONSTANTS.SHADOW.HEIGHT / 2;
+  rubixCubeService.createShadowGrid(undefined, shadowCenterY);
 
   return { layoutModel, rubixCubeService };
 }

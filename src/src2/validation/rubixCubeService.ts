@@ -45,6 +45,15 @@ const labelProps = {
   BorderSizePixel: 5, // 50% of default 10
 };
 
+const SHADOW_CONSTANTS = {
+  Y_OFFSET: 5, // 5 units beneath rubix cube bottom
+  HEIGHT: 1,
+  COLOR: new Color3(0, 0, 0), // Black
+  TRANSPARENCY: 0.8, // 80% transparent
+  EDGE_COLOR: new Color3(0.2, 0.5, 0.2), // Dark green edges
+  BUFFER: 4, // 4 units wider on each side
+};
+
 export class RubixCubeService {
   private cubeData?: CubeDataArray;
   private config?: RubixConfig;
@@ -203,6 +212,82 @@ export class RubixCubeService {
    */
   public getModel(): Model | undefined {
     return this.model;
+  }
+
+  /**
+   * Create shadow grid beneath the rubix cube
+   */
+  public createShadowGrid(parent?: Instance, shadowY?: number): Model {
+    if (!this.cubeData || !this.config) {
+      error("Must call generateData before createShadowGrid");
+    }
+
+    const shadowParent = parent || this.model;
+    if (!shadowParent) {
+      error("No parent specified and no model exists");
+    }
+
+    print("=== Creating shadow grid ===");
+    
+    // Create container for shadows
+    const shadowGridModel = new Instance("Model");
+    shadowGridModel.Name = "ShadowGrid";
+    shadowGridModel.Parent = shadowParent;
+    
+    const numBlocks = this.config.numBlocks;
+    const blockSize = this.config.blockSize || { x: 10, y: 5, z: 10 };
+    
+    // Use provided shadowY or calculate from cube position
+    let shadowYPosition: number;
+    if (shadowY !== undefined) {
+      shadowYPosition = shadowY;
+    } else {
+      // Fallback to old calculation if shadowY not provided
+      const firstCubeBlock = this.cubeData![0][0][0];
+      if (!firstCubeBlock.position) {
+        error("Invalid cube data - missing position");
+      }
+      const cubeBottomY = firstCubeBlock.position.Y - blockSize.y / 2;
+      shadowYPosition = cubeBottomY - SHADOW_CONSTANTS.Y_OFFSET;
+    }
+    
+    // Create one shadow block per Z row
+    for (let z = 0; z < numBlocks.z; z++) {
+      // Get the first block in this Z row to determine position
+      const firstBlock = this.cubeData![0][z][0];
+      const lastBlock = this.cubeData![0][z][numBlocks.x - 1];
+      
+      if (!firstBlock.position || !lastBlock.position) {
+        error("Invalid cube data - missing position");
+      }
+      
+      // Calculate shadow dimensions with buffer (only in X direction)
+      const shadowLength = lastBlock.position.X + blockSize.x / 2 - (firstBlock.position.X - blockSize.x / 2) + (SHADOW_CONSTANTS.BUFFER * 2);
+      const shadowWidth = blockSize.z;
+      
+      // Calculate shadow position (centered on the row)
+      const shadowX = (firstBlock.position.X + lastBlock.position.X) / 2;
+      const shadowZ = firstBlock.position.Z;
+      
+      const shadowPosition = new Vector3(shadowX, shadowYPosition, shadowZ);
+      const shadowSize = new Vector3(shadowLength, SHADOW_CONSTANTS.HEIGHT, shadowWidth);
+      
+      // Create shadow block
+      wireframeBlockMaker({
+        position: shadowPosition,
+        size: shadowSize,
+        parent: shadowGridModel,
+        nameStub: "shadow",
+        nameSuffix: `z-${string.format("%02d", z + 1)}`,
+        transparency: SHADOW_CONSTANTS.TRANSPARENCY,
+        color: SHADOW_CONSTANTS.COLOR,
+        edgeWidth: 0.1, // Same as rubix cube blocks
+        edgeBlockColor: SHADOW_CONSTANTS.EDGE_COLOR,
+      });
+    }
+    
+    print(`Created ${numBlocks.z} shadow blocks`);
+    return shadowGridModel;
   }
 
   /**
