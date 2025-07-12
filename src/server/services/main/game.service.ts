@@ -117,52 +117,53 @@ export class GameService extends BaseService {
     }
 
     // Call rubixCubeMaker with initCube parameter
-    print("=== About to call rubixCubeMaker ===");
-    const initCube = {
-      origin: new Vector3(ORIGIN.x - 50, ORIGIN.y + 10, ORIGIN.z - 50),
-    };
-    
-    const rubixConfig = {
-      numBlocks: {
-        x: 3,
-        y: 5,
-        z: 3,
-      }
-    };
-    
-    rubixCubeMaker(this.myStuffFolder, initCube, rubixConfig);
-    print("=== rubixCubeMaker completed ===");
+    if (false) {
+      print("=== About to call rubixCubeMaker ===");
+      const initCube = {
+        origin: new Vector3(ORIGIN.x - 50, ORIGIN.y + 10, ORIGIN.z - 50),
+      };
 
-    // Add a wireframe block next to the rubix cube
-    wireframeBlockMaker({
-      position: new Vector3(ORIGIN.x + 50, ORIGIN.y + 10, ORIGIN.z - 50),
-      size: new Vector3(10, 10, 10),
-      parent: this.myStuffFolder,
-      nameStub: "demo-wireframe",
-      // edgeThicknessRatio: 0.1,
-      transparency: 0.7,
-      color: new Color3(0.3, 0.5, 0.8),
-      edgeBlockColor: new Color3(1, 1, 1),
-    });
-    print("=== wireframeBlockMaker completed ===");
-    
+      const rubixConfig = {
+        numBlocks: {
+          x: 3,
+          y: 5,
+          z: 3,
+        },
+      };
+
+      rubixCubeMaker(this.myStuffFolder, initCube, rubixConfig);
+      print("=== rubixCubeMaker completed ===");
+      // Add a wireframe block next to the rubix cube
+      wireframeBlockMaker({
+        position: new Vector3(ORIGIN.x + 50, ORIGIN.y + 10, ORIGIN.z - 50),
+        size: new Vector3(10, 10, 10),
+        parent: this.myStuffFolder,
+        nameStub: "demo-wireframe",
+        // edgeThicknessRatio: 0.1,
+        transparency: 0.7,
+        color: new Color3(0.3, 0.5, 0.8),
+        edgeBlockColor: new Color3(1, 1, 1),
+      });
+      print("=== wireframeBlockMaker completed ===");
+    }
+
     // Call graphBlasterLayoutMaker
     print("=== About to call graphBlasterLayoutMaker ===");
     graphBlasterLayoutMaker({
-      origin: new Vector3(ORIGIN.x, ORIGIN.y + 50, ORIGIN.z),
+      origin: new Vector3(ORIGIN.x - 50, ORIGIN.y + 0, ORIGIN.z - 40),
       rubixCubeProps: {
         blockSize: {
           x: 3,
           y: 5,
-          z: 4
+          z: 4,
         },
         numBlocks: {
           x: 3,
           y: 5,
-          z: 6
-        }
+          z: 6,
+        },
       },
-      parent: this.myStuffFolder
+      parent: this.myStuffFolder,
     });
     print("=== graphBlasterLayoutMaker completed ===");
   }

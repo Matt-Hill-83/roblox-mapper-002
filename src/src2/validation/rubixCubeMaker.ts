@@ -16,6 +16,13 @@ export interface RubixConfig {
     y: number;
     z: number;
   };
+  edgeColor?: Color3;
+}
+
+export interface RubixCubeSize {
+  width: number;
+  height: number;
+  depth: number;
 }
 
 interface CubeData extends Omit<IBlockMakerConfig, "parent"> {
@@ -89,7 +96,7 @@ const labelProps = {
   BorderSizePixel: 5, // 50% of default 10
 };
 
-function renderBlocks(cubeData: CubeDataArray, parent: Instance): void {
+function renderBlocks(cubeData: CubeDataArray, parent: Instance, edgeColor: Color3): void {
   for (let y = 0; y < cubeData.size(); y++) {
     const layer = new Instance("Model");
     layer.Name = `Layer-y-${string.format("%02d", y + 1)}`;
@@ -110,12 +117,29 @@ function renderBlocks(cubeData: CubeDataArray, parent: Instance): void {
           parent: row,
           transparency: 1, // Fully transparent
           edgeWidth: 0.1,
-          edgeBlockColor: new Color3(0, 0, 0), // Black
+          edgeBlockColor: edgeColor,
           labelProps,
         });
       }
     }
   }
+}
+
+export function calculateRubixCubeSize(config?: RubixConfig): RubixCubeSize {
+  const numBlocks = config?.numBlocks || { x: 3, y: 3, z: 3 };
+  const blockSize = config?.blockSize || { x: 10, y: 5, z: 10 };
+  
+  const spacingX = blockSize.x * 1.1;
+  const spacingY = blockSize.y * 1.1;
+  const spacingZ = blockSize.z * 1.1;
+  
+  // Total size is (numBlocks - 1) * spacing + blockSize
+  // This accounts for the spacing between blocks
+  return {
+    width: (numBlocks.x - 1) * spacingX + blockSize.x,
+    height: (numBlocks.y - 1) * spacingY + blockSize.y,
+    depth: (numBlocks.z - 1) * spacingZ + blockSize.z,
+  };
 }
 
 export function rubixCubeMaker(parent: Instance, initCube?: InitCube, config?: RubixConfig): Model {
@@ -131,6 +155,7 @@ export function rubixCubeMaker(parent: Instance, initCube?: InitCube, config?: R
   // Use config values or defaults
   const numBlocks = config?.numBlocks || { x: 3, y: 3, z: 3 };
   const blockSize = config?.blockSize || { x: 10, y: 5, z: 10 };
+  const edgeColor = config?.edgeColor || new Color3(0, 0, 0); // Default to black
   
   const origin = initCube?.origin || new Vector3(0, 0, 0);
   const cubeSize = blockSize.x; // Width
@@ -149,7 +174,7 @@ export function rubixCubeMaker(parent: Instance, initCube?: InitCube, config?: R
   );
 
   // Render blocks from data
-  renderBlocks(cubeData, rubixCube);
+  renderBlocks(cubeData, rubixCube, edgeColor);
 
   return rubixCube;
 }
