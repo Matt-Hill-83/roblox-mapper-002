@@ -2,7 +2,7 @@ import { ReplicatedStorage } from "@rbxts/services";
 import { GraphBlasterDataMapperService } from "./graphBlasterDataMapper.service";
 import { GraphBlasterNodePlacerService } from "./graphBlasterNodePlacer.service";
 import { GraphBlasterConnectionRendererService } from "./graphBlasterConnectionRenderer.service";
-import { DataGeneratorService } from "../dataGeneration/dataGenerator.service";
+import { GraphBlasterDataSourceService, DataSourceType } from "./graphBlasterDataSource.service";
 import { graphBlasterLayoutMaker } from "../../graphBlasterLayoutMaker";
 import { Person } from "../dataGeneration/types/person.interface";
 
@@ -25,7 +25,7 @@ export class GraphBlasterManagerService {
   private dataMapper: GraphBlasterDataMapperService;
   private nodePlacer: GraphBlasterNodePlacerService;
   private connectionRenderer: GraphBlasterConnectionRendererService;
-  private dataGenerator: DataGeneratorService;
+  private dataSourceService: GraphBlasterDataSourceService;
   private remoteEvent: RemoteEvent;
   
   private currentLayout?: {
@@ -46,7 +46,7 @@ export class GraphBlasterManagerService {
     this.origin = origin;
     
     // Initialize services
-    this.dataGenerator = new DataGeneratorService();
+    this.dataSourceService = new GraphBlasterDataSourceService();
     this.dataMapper = new GraphBlasterDataMapperService();
     this.nodePlacer = new GraphBlasterNodePlacerService(this.dataMapper);
     this.connectionRenderer = new GraphBlasterConnectionRendererService(this.dataMapper);
@@ -71,6 +71,9 @@ export class GraphBlasterManagerService {
       if (command === "UpdateAxisMapping" && typeIs(data, "table")) {
         const mapping = data as AxisMapping;
         this.onMappingChanged(mapping);
+      } else if (command === "ChangeDataSource" && typeIs(data, "string")) {
+        const source = data as DataSourceType;
+        this.changeDataSource(source);
       }
     });
   }
@@ -79,8 +82,8 @@ export class GraphBlasterManagerService {
    * Initialize GraphBlaster with data and GUI
    */
   public initialize(): void {
-    // Generate initial data
-    this.currentData = this.dataGenerator.generateSampleData();
+    // Get initial data from data source service
+    this.currentData = this.dataSourceService.getData();
     
     // Analyze data and create initial visualization
     this.createVisualization();
@@ -163,6 +166,25 @@ export class GraphBlasterManagerService {
     
     // Recreate the visualization
     this.createVisualization();
+  }
+
+  /**
+   * Change data source and recreate visualization
+   */
+  private changeDataSource(source: DataSourceType): void {
+    print(`Changing GraphBlaster data source to: ${source}`);
+    
+    // Update data source
+    this.dataSourceService.setDataSource(source);
+    
+    // Get new data
+    this.currentData = this.dataSourceService.getData();
+    
+    // Recreate visualization with new data
+    this.createVisualization();
+    
+    // Notify clients about data source change
+    this.remoteEvent.FireAllClients("DataSourceChanged", source);
   }
 
   /**

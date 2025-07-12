@@ -25,11 +25,15 @@ export class GraphBlasterGuiController {
   private setupRemoteEventListener(): void {
     if (!this.remoteEvent) return;
     
-    this.remoteEvent.OnClientEvent.Connect((command: string) => {
+    this.remoteEvent.OnClientEvent.Connect((command: string, ...args: unknown[]) => {
       if (command === "CreateGui") {
         this.createGui();
       } else if (command === "DestroyGui") {
         this.destroyGui();
+      } else if (command === "DataSourceChanged") {
+        // Handle data source change notification if needed
+        const source = args[0] as string;
+        print(`[GraphBlasterGuiController] Data source changed to: ${source}`);
       }
     });
   }

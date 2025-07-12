@@ -6,6 +6,8 @@ export interface AxisMapping {
   zAxis: string;
 }
 
+export type DataSourceType = "fake" | "harness";
+
 /**
  * Client-side GUI service for GraphBlaster axis selection
  */
@@ -18,6 +20,7 @@ export class GraphBlasterGuiClientService {
     yAxis: "countryLivesIn",
     zAxis: "country"
   };
+  private currentDataSource: DataSourceType = "fake";
   
   private remoteEvent?: RemoteEvent;
 
@@ -47,7 +50,7 @@ export class GraphBlasterGuiClientService {
     // Create main frame
     this.frame = new Instance("Frame");
     this.frame.Name = "AxisMappingFrame";
-    this.frame.Size = new UDim2(0, 300, 0, 250);
+    this.frame.Size = new UDim2(0, 300, 0, 330); // Increased height for data source toggle
     this.frame.Position = new UDim2(1, -320, 0, 20);
     this.frame.BackgroundColor3 = new Color3(0.2, 0.2, 0.2);
     this.frame.BorderSizePixel = 0;
@@ -70,17 +73,23 @@ export class GraphBlasterGuiClientService {
     title.Font = Enum.Font.SourceSansBold;
     title.Parent = this.frame;
 
+    // Create data source toggle
+    this.createDataSourceToggle(60);
+    
+    // Create data source info label
+    this.createDataSourceInfo(90);
+    
     // Create axis controls
-    this.createAxisControl("X Axis", 60, "xAxis");
-    this.createAxisControl("Y Axis", 110, "yAxis");
-    this.createAxisControl("Z Axis", 160, "zAxis");
+    this.createAxisControl("X Axis", 130, "xAxis");
+    this.createAxisControl("Y Axis", 180, "yAxis");
+    this.createAxisControl("Z Axis", 230, "zAxis");
 
     // Create apply button
     const applyButton = new Instance("TextButton");
     applyButton.Name = "ApplyButton";
     applyButton.Text = "Apply";
     applyButton.Size = new UDim2(0.8, 0, 0, 30);
-    applyButton.Position = new UDim2(0.1, 0, 0, 210);
+    applyButton.Position = new UDim2(0.1, 0, 0, 290);
     applyButton.BackgroundColor3 = new Color3(0.3, 0.6, 0.9);
     applyButton.TextColor3 = new Color3(1, 1, 1);
     applyButton.TextScaled = true;
@@ -95,6 +104,133 @@ export class GraphBlasterGuiClientService {
     applyButton.MouseButton1Click.Connect(() => {
       this.applyMapping();
     });
+  }
+
+  /**
+   * Create data source toggle
+   */
+  private createDataSourceToggle(yPosition: number): void {
+    // Create label
+    const label = new Instance("TextLabel");
+    label.Name = "DataSourceLabel";
+    label.Text = "Data Source";
+    label.Size = new UDim2(0.3, 0, 0, 30);
+    label.Position = new UDim2(0.05, 0, 0, yPosition);
+    label.BackgroundTransparency = 1;
+    label.TextColor3 = new Color3(1, 1, 1);
+    label.TextScaled = true;
+    label.Font = Enum.Font.SourceSans;
+    label.TextXAlignment = Enum.TextXAlignment.Left;
+    label.Parent = this.frame!;
+
+    // Create toggle buttons container
+    const toggleContainer = new Instance("Frame");
+    toggleContainer.Name = "DataSourceToggle";
+    toggleContainer.Size = new UDim2(0.6, 0, 0, 30);
+    toggleContainer.Position = new UDim2(0.35, 0, 0, yPosition);
+    toggleContainer.BackgroundTransparency = 1;
+    toggleContainer.Parent = this.frame!;
+
+    // Create fake data button
+    const fakeButton = new Instance("TextButton");
+    fakeButton.Name = "FakeDataButton";
+    fakeButton.Text = "Fake Data";
+    fakeButton.Size = new UDim2(0.48, 0, 1, 0);
+    fakeButton.Position = new UDim2(0, 0, 0, 0);
+    fakeButton.BackgroundColor3 = new Color3(0.3, 0.6, 0.9); // Active color
+    fakeButton.TextColor3 = new Color3(1, 1, 1);
+    fakeButton.TextScaled = true;
+    fakeButton.Font = Enum.Font.SourceSans;
+    fakeButton.Parent = toggleContainer;
+
+    const fakeCorner = new Instance("UICorner");
+    fakeCorner.CornerRadius = new UDim(0, 4);
+    fakeCorner.Parent = fakeButton;
+
+    // Create harness data button
+    const harnessButton = new Instance("TextButton");
+    harnessButton.Name = "HarnessDataButton";
+    harnessButton.Text = "Harness Data";
+    harnessButton.Size = new UDim2(0.48, 0, 1, 0);
+    harnessButton.Position = new UDim2(0.52, 0, 0, 0);
+    harnessButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3); // Inactive color
+    harnessButton.TextColor3 = new Color3(1, 1, 1);
+    harnessButton.TextScaled = true;
+    harnessButton.Font = Enum.Font.SourceSans;
+    harnessButton.Parent = toggleContainer;
+
+    const harnessCorner = new Instance("UICorner");
+    harnessCorner.CornerRadius = new UDim(0, 4);
+    harnessCorner.Parent = harnessButton;
+
+    // Toggle functionality
+    fakeButton.MouseButton1Click.Connect(() => {
+      if (this.currentDataSource !== "fake") {
+        this.currentDataSource = "fake";
+        fakeButton.BackgroundColor3 = new Color3(0.3, 0.6, 0.9);
+        harnessButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
+        this.changeDataSource("fake");
+      }
+    });
+
+    harnessButton.MouseButton1Click.Connect(() => {
+      if (this.currentDataSource !== "harness") {
+        this.currentDataSource = "harness";
+        harnessButton.BackgroundColor3 = new Color3(0.3, 0.6, 0.9);
+        fakeButton.BackgroundColor3 = new Color3(0.3, 0.3, 0.3);
+        this.changeDataSource("harness");
+      }
+    });
+  }
+
+  /**
+   * Create data source info label
+   */
+  private createDataSourceInfo(yPosition: number): void {
+    const infoLabel = new Instance("TextLabel");
+    infoLabel.Name = "DataSourceInfo";
+    infoLabel.Size = new UDim2(0.9, 0, 0, 20);
+    infoLabel.Position = new UDim2(0.05, 0, 0, yPosition);
+    infoLabel.BackgroundTransparency = 1;
+    infoLabel.TextColor3 = new Color3(0.7, 0.7, 0.7);
+    infoLabel.Font = Enum.Font.SourceSans;
+    infoLabel.TextSize = 12;
+    infoLabel.TextXAlignment = Enum.TextXAlignment.Center;
+    infoLabel.Parent = this.frame!;
+    
+    this.updateDataSourceInfo(infoLabel);
+    
+    // Store reference for updates
+    this.dataSourceInfoLabel = infoLabel;
+  }
+  
+  private dataSourceInfoLabel?: TextLabel;
+  
+  /**
+   * Update data source info text
+   */
+  private updateDataSourceInfo(label: TextLabel): void {
+    if (this.currentDataSource === "fake") {
+      label.Text = "Using generated person data";
+    } else {
+      label.Text = "Using Harness repository data (file properties)";
+    }
+  }
+
+  /**
+   * Change data source
+   */
+  private changeDataSource(source: DataSourceType): void {
+    if (this.remoteEvent) {
+      this.remoteEvent.FireServer("ChangeDataSource", source);
+    }
+    
+    // Update info label
+    if (this.dataSourceInfoLabel) {
+      this.updateDataSourceInfo(this.dataSourceInfoLabel);
+    }
+    
+    print(`Data source changed to: ${source}`);
   }
 
   /**
